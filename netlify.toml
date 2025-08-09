@@ -1,0 +1,10 @@
+# Netlify configuration
+# No build step: we're serving static files from root
+[build]
+  publish = "/"
+
+# Cache static assets aggressively if you add an assets/ folder later
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
