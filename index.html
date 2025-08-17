@@ -4,102 +4,141 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <title>Vancouver Island Credit | Auto Approvals Online — Work with Blake</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Fast, confidential auto approvals across Vancouver Island & BC. New & used options. Delivery to your door. Work 1 on 1 with Blake Stolth — no call centres." />
+  <link rel="canonical" href="https://vancouverislandcredit.ca/"/>
+  <meta property="og:title" content="Vancouver Island Credit — Auto Approvals Online"/>
+  <meta property="og:description" content="Get pre-approved online. New & used inventory across Vancouver Island & BC. Delivery to your door. Work directly with Blake."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://vancouverislandcredit.ca/"/>
+  <meta property="og:image" content="https://vancouverislandcredit.ca/0041B99D-D49A-4024-AA7A-2786A4605342.jpg"/>
+  <meta name="theme-color" content="#0ea5e9"/>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Vancouver Island Credit — Auto Approvals Online"/>
+  <meta name="twitter:description" content="Fast, confidential approvals. Delivery across Vancouver Island & BC. Work directly with Blake, not a call centre."/>
+  <meta name="twitter:image" content="https://vancouverislandcredit.ca/0041B99D-D49A-4024-AA7A-2786A4605342.jpg"/>
+
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: #E5E7EB;
-      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
-      display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; position:relative;
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#E5E7EB;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;position:relative}
+    body::before{content:'';position:fixed;inset:0;background-image:url('https://i.imgur.com/k3OKj1C.png');background-size:cover;background-position:center center;filter:grayscale(90%) brightness(1.2);opacity:.45;z-index:-1}
+    .card{background-color:rgba(255,255,255,.6);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border-radius:24px;box-shadow:0 10px 30px -10px rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.4)}
+    .form-input,.form-select{background-color:rgba(239,242,245,.9);border:2px solid transparent;transition:.2s ease;font-size:16px;width:100%;padding:.85rem 1rem;border-radius:.75rem}
+    .form-input:focus,.form-select:focus{background:#fff;border-color:#007AFF;outline:none}
+    .cta-button{background:#007AFF;transition:.2s ease}
+    .cta-button:hover{transform:scale(1.02);background:#0056b3}
+    .cta-button:active{transform:scale(.98)}
+    .progress-bar-track{background-color:rgba(229,231,235,.7)}
+    .progress-bar-fill{background:linear-gradient(90deg,#3B82F6 0%,#007AFF 100%);transition:width .5s cubic-bezier(.25,1,.5,1)}
+    .hidden-section{display:none;}
+    .hidden-section.show{display:block;margin-top:1rem;}
+    .success-screen{position:fixed;inset:0;background-color:rgba(255,255,255,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:fadeInScale .5s ease-out forwards}
+    @keyframes fadeInScale{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+    .benefit-list li{padding-left:1.75rem;position:relative}
+    .benefit-list li::before{content:'';position:absolute;left:0;top:5px;width:1rem;height:1rem;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2322c55e'%3E%3Cpath fill-rule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z' clip-rule='evenodd'/%3E%3C/svg%3E");background-size:contain;background-repeat:no-repeat}
+    .seg{border:1px solid rgba(0,0,0,.1);background:rgba(0,0,0,.05);border-radius:12px;padding:.5rem;display:flex;gap:.25rem}
+    .seg-btn{flex:1;border-radius:9px;padding:.5rem;font-size:.875rem;font-weight:600;color:#4b5563;transition:background .2s ease,color .2s ease}
+    .seg-btn[aria-pressed="true"]{background:#fff;color:#111827;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+    .err{border-color:#ef4444!important}
+    .float-cta{animation:bounce 2s infinite}
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+      40% {transform: translateY(-8px);}
+      60% {transform: translateY(-4px);}
     }
-    body::before{
-      content:''; position:fixed; inset:0;
-      background-image:url('https://i.imgur.com/k3OKj1C.png');
-      background-size:cover; background-position:center center;
-      filter:grayscale(90%) brightness(1.2);
-      opacity:.45; z-index:-1;
-    }
-    .card{
-      background-color:rgba(255,255,255,.6);
-      backdrop-filter:blur(32px); -webkit-backdrop-filter:blur(32px);
-      border-radius:24px; box-shadow:0 10px 30px -10px rgba(0,0,0,.2);
-      border:1px solid rgba(255,255,255,.4);
-    }
-    .form-input,.form-select{background-color:rgba(239,242,245,.9); border:2px solid transparent; transition:.2s ease; font-size:16px; width:100%; padding:.85rem 1rem; border-radius:.75rem;}
-    .form-input:focus,.form-select:focus{background-color:#fff; border-color:#007AFF; outline:none;}
-    .cta-button{background-color:#007AFF; transition:.2s ease;}
-    .cta-button:hover{transform:scale(1.02); background-color:#0056b3;}
-    .cta-button:active{transform:scale(.98);}
-    .progress-bar-track{background-color:rgba(229,231,235,.7);}
-    .progress-bar-fill{background:linear-gradient(90deg,#3B82F6 0%,#007AFF 100%); transition:width .5s cubic-bezier(.25,1,.5,1);}
-    .trade-in-details{max-height:0; overflow:hidden; transition:max-height .5s ease-in-out, margin-top .5s ease-in-out;}
-    .success-screen{position:fixed; inset:0; background-color:rgba(255,255,255,.8); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); z-index:50; display:flex; flex-direction:column; align-items:center; justify-content:center; animation:fadeInScale .5s ease-out forwards;}
-    @keyframes fadeInScale{from{opacity:0; transform:scale(.95);} to{opacity:1; transform:scale(1);} }
-    .benefit-list li{padding-left:1.75rem; position:relative;}
-    .benefit-list li::before{content:''; position:absolute; left:0; top:5px; width:1rem; height:1rem; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2322c55e'%3E%3Cpath fill-rule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z' clip-rule='evenodd' /%3E%3C/svg%3E"); background-size:contain; background-repeat:no-repeat;}
   </style>
+
+  <!-- Business Schema -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"AutoDealer",
+    "name":"Vancouver Island Credit",
+    "areaServed":"British Columbia, Canada",
+    "image":"https://vancouverislandcredit.ca/0041B99D-D49A-4024-AA7A-2786A4605342.jpg",
+    "url":"https://vancouverislandcredit.ca",
+    "slogan":"Get approved online. Delivery across BC. Work directly with Blake.",
+    "founder": {"@type":"Person","name":"Blake Stolth"},
+    "makesOffer": [{"@type":"Offer","itemOffered":{"@type":"Service","name":"Auto Financing (New & Used)"}}],
+    "sameAs":[]
+  }
+  </script>
 </head>
-<body class="p-4">
+<body class="px-6 sm:px-8 py-8">
 
-  <main class="w-full max-w-md space-y-5">
+  <main class="w-full max-w-lg space-y-6">
 
-    <!-- Profile Header Card -->
-    <div class="card p-4 text-center">
+    <!-- Header -->
+    <div class="card p-6 sm:p-8 text-center">
       <div class="flex flex-col items-center">
-        <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-white/80 shadow-lg flex-shrink-0 mb-3">
-          <img src="https://i.imgur.com/p1NKGMp.png" alt="Blake Stolth" class="w-full h-full object-cover" />
+        <div class="flex justify-center items-center gap-3">
+            <h1 class="font-extrabold text-2xl text-gray-900 tracking-tight">Vancouver Island Credit</h1>
+            <svg class="w-9 h-9" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="11.5" fill="black" stroke="#007AFF" stroke-width="1"/>
+                <path d="M4 13C6.5 10.5 9.5 10.5 12 13C14.5 15.5 17.5 15.5 20 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M4 10C6.5 7.5 9.5 7.5 12 10C14.5 12.5 17.5 12.5 20 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
         </div>
-        <div>
-          <h1 class="font-extrabold text-2xl text-gray-900">Vancouver Island Credit</h1>
-          <p class="text-sm font-semibold text-blue-600 flex items-center justify-center mt-1">
-            <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /></svg>
-            Get approved online — work directly with Blake (no call centres).
-          </p>
+        <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-white/80 shadow-lg flex-shrink-0 my-3">
+          <img src="/0041B99D-D49A-4024-AA7A-2786A4605342.jpg" alt="Blake Stolth" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/96x96/e0e0e0/000000?text=Image';"/>
         </div>
-      </div>
-      <div class="mt-4 pt-4 border-t border-gray-900/10">
-        <p class="text-sm text-gray-800"><span class="font-bold text-green-600">Local & Hassle-Free:</span> One person from start to finish. New & used options. Island-wide delivery.</p>
+        <div class="bg-green-100 text-green-800 text-sm font-bold px-4 py-2 rounded-full mb-2 inline-block">
+            98% Approval Rate Guaranteed
+        </div>
+        <p class="text-sm font-semibold text-blue-600">Get Fast Approval Online — work 1 on 1 with Blake Stolth</p>
+        <p class="text-xs text-gray-600 mt-1">Based out of Victoria BC</p>
       </div>
     </div>
 
-    <!-- Value Proposition Card -->
-    <div class="card p-5">
-      <div class="flex items-center space-x-3 mb-4">
+    <!-- Value Proposition -->
+    <div class="card p-6">
+      <div class="flex items-center space-x-3 mb-5">
         <div class="bg-blue-100 p-2 rounded-full">
-          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
         </div>
-        <h2 class="text-xl font-extrabold text-gray-900">Lower Your Payments</h2>
+        <h2 class="text-xl font-extrabold text-gray-900">A Simpler Process</h2>
       </div>
-      <p class="text-gray-700 text-[15px] leading-relaxed mb-4">
-        Fast, confidential approvals with Island delivery. Work directly with Blake.
-      </p>
-      <ul class="space-y-2 text-gray-800 text-[15px] benefit-list">
-        <li><span class="font-bold">Consolidate your debt</span> into one low payment.</li>
-        <li>Get the <span class="font-bold">best available rates</span> O.A.C.</li>
-        <li>Lower monthly costs & <span class="font-bold">upgrade your ride.</span></li>
-        <li>Choose from <span class="font-bold">new & used vehicles</span> across the Island.</li>
+      <ul class="space-y-3 sm:space-y-4 text-gray-800 text-[15px] benefit-list leading-relaxed">
+        <li><span class="font-bold">Avoid calls from multiple dealerships</span> and deal with one real person.</li>
+        <li><span class="font-bold">Consolidate debt</span> into one manageable payment.</li>
+        <li>Access the <span class="font-bold">best available rates</span> O.A.C.</li>
+        <li><span class="font-bold">Island & BC-wide selection</span> of new and used vehicles.</li>
       </ul>
       <div class="mt-4 pt-4 border-t border-gray-900/10 text-center">
-        <p class="text-sm text-yellow-700 bg-yellow-50 p-3 rounded-lg"><span class="font-bold">Island Priority:</span> Quick approvals and delivery anywhere on Vancouver Island.</p>
+        <p class="text-sm text-yellow-700 bg-yellow-50 p-3 rounded-lg leading-relaxed"><span class="font-bold">BC-Wide Delivery:</span> Available — Comox, Courtney, Port Alberni, Parksville, Nanaimo, Duncan, Victoria, plus Mainland BC.</p>
       </div>
     </div>
 
-    <!-- Action & Form Card -->
-    <div id="form-section" class="card p-5">
+    <!-- Form -->
+    <div id="form-section" class="card p-6">
       <div id="form-wrapper">
-        <h3 class="font-bold text-center text-gray-900 text-lg mb-4">Instant Pre-Approval Assessment</h3>
+        <h3 class="font-bold text-center text-gray-900 text-lg mb-1">Get Fast Approval Online</h3>
+        <p class="text-center text-xs text-gray-600 mb-4">Secure form. No obligation. Blake will reach out with options.</p>
 
-        <!-- Approval Gauge -->
+        <!-- Segmented Toggle -->
+        <div class="seg mb-5" role="tablist" aria-label="Application type">
+          <button id="tab-pre" class="seg-btn" role="tab" aria-selected="true" aria-pressed="true">Pre-Approval</button>
+          <button id="tab-credit" class="seg-btn" role="tab" aria-selected="false" aria-pressed="false">Credit Inquiry</button>
+        </div>
+
+        <!-- Meter -->
         <div class="mb-5">
           <div class="flex justify-between items-center mb-1">
             <span class="text-xs font-semibold text-gray-600">Approval Profile Strength</span>
             <span id="meter-text" class="text-xs font-bold" aria-live="polite"></span>
           </div>
           <div class="w-full progress-bar-track rounded-full h-2.5" aria-hidden="true">
-            <div id="progress-bar" class="progress-bar-fill h-2.5 rounded-full" style="width: 5%;"></div>
+            <div id="progress-bar" class="progress-bar-fill h-2.5 rounded-full" style="width:5%"></div>
           </div>
         </div>
 
@@ -111,274 +150,290 @@
           data-netlify="true"
           data-netlify-honeypot="bot-field"
           action="/thank-you.html"
-          class="space-y-4"
+          class="space-y-5 sm:space-y-6"
           novalidate
         >
-          <!-- Required hidden fields for Netlify -->
-          <input type="hidden" name="form-name" value="lead-form" />
-          <p class="hidden" aria-hidden="true">
-            <label>Don’t fill this out: <input name="bot-field" /></label>
-          </p>
+          <input type="hidden" name="form-name" value="lead-form"/>
+          <input type="hidden" name="app_type" id="app_type" value="Pre-Approval" />
+          <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
 
-          <!-- Situation Section -->
+          <!-- BASIC FIELDS -->
           <div>
-            <label for="incomeSource" class="block text-sm font-medium text-gray-800 mb-1">Primary source of income?</label>
-            <select id="incomeSource" name="incomeSource" class="form-select" autocomplete="employment-status">
-              <option value="0">Please select...</option>
-              <option value="20">Full-Time Employment</option>
-              <option value="15">Self-Employed / Business Owner</option>
-              <option value="10">Part-Time Employment</option>
-              <option value="5">Other</option>
+            <label for="fullName" class="block text-sm font-medium text-gray-800 mb-1.5">Full Name <span class="text-red-500">*</span></label>
+            <input type="text" id="fullName" name="fullName" required placeholder="Your Full Name" class="form-input" autocomplete="name"/>
+          </div>
+          <div>
+            <label for="phone" class="block text-sm font-medium text-gray-800 mb-1.5">Phone Number <span class="text-red-500">*</span></label>
+            <input type="tel" id="phone" name="phone" required placeholder="(236) 969-2424" class="form-input" autocomplete="tel" inputmode="tel" pattern="^[0-9()\-\s+.]{10,}$"/>
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-800 mb-1.5">Email Address <span class="text-red-500">*</span></label>
+            <input type="email" id="email" name="email" required placeholder="you@example.com" class="form-input" autocomplete="email"/>
+          </div>
+          <div>
+            <label for="incomeSource" class="block text-sm font-medium text-gray-800 mb-1.5">Primary source of income?</label>
+            <select id="incomeSource" name="incomeSource" class="form-select">
+              <option value="">Please select...</option>
+              <option>Full-Time Employment</option>
+              <option>Self-Employed / Business Owner</option>
+              <option>Part-Time Employment</option>
+              <option>Disability</option>
+              <option>Other</option>
             </select>
           </div>
-
           <div>
-            <label for="monthlyIncome" class="block text-sm font-medium text-gray-800 mb-1">Estimated Monthly Income (before tax)</label>
-            <input
-              type="text"
-              id="monthlyIncome"
-              name="monthlyIncome"
-              class="form-input"
-              placeholder="e.g., $3,500"
-              inputmode="decimal"
-              autocomplete="off"
-            />
-            <p id="incomeHelp" class="mt-1 text-xs text-gray-500">Numbers only are fine; we’ll format it.</p>
+            <label for="monthlyIncome" class="block text-sm font-medium text-gray-800 mb-1.5">Estimated Monthly Income (before tax)</label>
+            <input type="text" id="monthlyIncome" name="monthlyIncome" class="form-input" placeholder="e.g., $3,500" inputmode="decimal" autocomplete="off"/>
           </div>
-
           <div>
-            <label for="downPayment" class="block text-sm font-medium text-gray-800 mb-1">Estimated down payment?</label>
+            <label for="downPayment" class="block text-sm font-medium text-gray-800 mb-1.5">Estimated down payment?</label>
             <select id="downPayment" name="downPayment" class="form-select">
-              <option value="0">Please select...</option>
-              <option value="20">$3,000+</option>
-              <option value="10">$1,000 – $3,000</option>
-              <option value="5">$0 – $1,000</option>
+              <option value="">Please select...</option>
+              <option>$3,000+</option>
+              <option>$1,000 – $3,000</option>
+              <option>$0 – $1,000</option>
             </select>
           </div>
-
-          <!-- Trade-In Section -->
           <div>
-            <label for="hasTradeIn" class="block text-sm font-medium text-gray-800 mb-1">Do you have a vehicle to trade in?</label>
+            <label for="hasTradeIn" class="block text-sm font-medium text-gray-800 mb-1.5">Do you have a vehicle to trade in?</label>
             <select id="hasTradeIn" name="hasTradeIn" class="form-select">
-              <option value="0">No</option>
-              <option value="5">Yes</option>
+              <option>No</option>
+              <option>Yes</option>
             </select>
           </div>
-
-          <div id="tradeInDetails" class="trade-in-details space-y-4" aria-hidden="true">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Vehicle Details (Year, Make, Model, KM)</label>
-              <div class="grid grid-cols-1 sm:grid-cols-4 gap-2">
-                <input type="number" id="tradeInYear" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" min="1980" max="2026" />
-                <input type="text" id="tradeInMake" name="tradeInMake" placeholder="Make" class="form-input" />
-                <input type="text" id="tradeInModel" name="tradeInModel" placeholder="Model" class="form-input" />
-                <input type="number" id="tradeInKms" name="tradeInKms" placeholder="KM" class="form-input" inputmode="numeric" min="0" step="1" />
+          
+          <!-- Conditional Sections Wrapper -->
+          <div>
+              <div id="tradeInDetails" class="hidden-section" hidden>
+                <div class="grid grid-cols-1 sm:grid-cols-4 gap-2">
+                  <input type="number" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" />
+                  <input type="text" name="tradeInMake" placeholder="Make" class="form-input"/>
+                  <input type="text" name="tradeInModel" placeholder="Model" class="form-input"/>
+                  <input type="number" name="tradeInKms" placeholder="KM" class="form-input" inputmode="numeric"/>
+                </div>
+                <input type="text" name="tradeInOwed" placeholder="Money owed? e.g., $5,000 or None" class="form-input mt-3"/>
               </div>
-            </div>
-            <div>
-              <label for="tradeInOwed" class="block text-sm font-medium text-gray-700 mb-1">Money owed on trade-in?</label>
-              <input type="text" id="tradeInOwed" name="tradeInOwed" placeholder="e.g., $5,000 or 'None'" class="form-input" />
-            </div>
+
+              <div id="creditSection" class="hidden-section" hidden>
+                <div class="border-t border-gray-900/10 pt-4 space-y-4">
+                  <p class="text-sm text-gray-700 font-medium">Credit Inquiry — add the info needed to pull credit securely.</p>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-800 mb-1.5" for="dob">Date of birth <span class="text-red-500">*</span></label>
+                    <input id="dob" name="dob" class="form-input" type="date" />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-800 mb-1.5" for="address">Current address <span class="text-red-500">*</span></label>
+                    <input id="address" name="address" class="form-input" type="text" placeholder="Street address" />
+                  </div>
+                  <div class="grid sm:grid-cols-3 gap-2">
+                    <input id="city" name="city" class="form-input" type="text" placeholder="City" />
+                    <input id="province" name="province" class="form-input" type="text" placeholder="Province" />
+                    <input id="postal" name="postal" class="form-input" type="text" placeholder="Postal code" />
+                  </div>
+                  <div id="consent-container" class="flex items-start gap-2 text-xs text-gray-600 bg-gray-100 p-3 rounded-lg transition-all">
+                    <input id="creditConsent" name="creditConsent" type="checkbox" class="mt-1 h-4 w-4 rounded border-gray-300"/>
+                    <label for="creditConsent" id="consentLabel">I consent to a credit inquiry by Blake Stolth / Vancouver Island Credit to assess financing options and confirm the information provided is accurate. <span class="text-red-500 font-bold">*</span></label>
+                  </div>
+                </div>
+              </div>
           </div>
-
-          <!-- Contact Section -->
-          <div class="border-t border-gray-900/10 my-4"></div>
-
-          <div>
-            <label for="fullName" class="block text-sm font-medium text-gray-800 mb-1">Full Name <span class="text-red-500">*</span></label>
-            <input type="text" id="fullName" name="fullName" required placeholder="Your Full Name" class="form-input" autocomplete="name" />
-            <p class="mt-1 text-xs text-red-600 hidden" id="err-name">Please enter your name.</p>
-          </div>
-
-          <div>
-            <label for="phone" class="block text-sm font-medium text-gray-800 mb-1">Phone Number <span class="text-red-500">*</span></label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              required
-              placeholder="(236) 969-2424"
-              class="form-input"
-              autocomplete="tel"
-              inputmode="tel"
-              pattern="^[0-9()\-\s+.]{10,}$"
-            />
-            <p class="mt-1 text-xs text-red-600 hidden" id="err-phone">Please enter a valid phone number (10+ digits).</p>
-          </div>
-
-          <div>
-            <label for="email" class="block text-sm font-medium text-gray-800 mb-1">Email Address <span class="text-red-500">*</span></label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              placeholder="you@example.com"
-              class="form-input"
-              autocomplete="email"
-            />
-            <p class="mt-1 text-xs text-red-600 hidden" id="err-email">Please enter a valid email.</p>
-          </div>
-
+          
           <div class="pt-2">
-            <button type="submit" id="submitBtn" class="w-full cta-button hover:animate-none py-3.5 px-4 rounded-xl text-lg font-bold text-white">
-              See My Options Now
+            <button type="submit" id="submitBtn" class="w-full cta-button py-3.5 px-4 rounded-xl text-lg font-bold text-white">
+              Submit and See Options
             </button>
-            <p id="form-status" class="mt-2 text-xs text-gray-600" aria-live="polite"></p>
+            <p id="form-status" class="mt-2 text-xs text-center text-red-600" aria-live="polite"></p>
           </div>
         </form>
       </div>
     </div>
-  </main>
 
-  <!-- Floating Action Button -->
-  <a href="#form-section" id="floating-cta" class="fixed bottom-5 right-5 bg-blue-600 text-white font-bold px-5 py-3 rounded-full shadow-2xl z-40 flex items-center space-x-2 animate-bounce hover:animate-none transition-transform hover:scale-105">
-    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+    <!-- Footer -->
+    <footer class="text-center text-xs text-gray-600 mt-6 sm:mt-8">
+      <p class="mt-2">Serving Vancouver Island & British Columbia • Delivery available province-wide</p>
+      <p class="mt-1">© <span id="year"></span> Vancouver Island Credit • All rights reserved</p>
+    </footer>
+  </main>
+  
+  <!-- Floating CTA -->
+  <a href="#form-section" class="fixed bottom-5 right-5 bg-blue-600 text-white font-bold px-5 py-3 rounded-full shadow-2xl z-40 flex items-center space-x-2 float-cta hover:animate-none transition-transform hover:scale-105">
     <span>Apply Now</span>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
   </a>
 
-  <!-- Full-Screen Success Message -->
-  <div id="success-message" class="hidden success-screen p-8 text-center" role="dialog" aria-labelledby="success-title" aria-modal="true">
-    <div class="mx-auto bg-green-100 w-24 h-24 rounded-full flex items-center justify-center">
-      <svg class="w-16 h-16 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+  <!-- Success Overlay -->
+  <div id="success-message" class="hidden success-screen p-8 text-center" role="dialog" aria-modal="true">
+    <div class="mx-auto bg-green-100 w-24 h-24 rounded-full flex items-center justify-center space-y-4 sm:space-y-6">
+      <svg class="w-16 h-16 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
     </div>
-    <h2 id="success-title" class="mt-6 text-3xl font-extrabold text-gray-900">Congratulations!</h2>
-    <h3 class="mt-2 text-2xl font-bold text-gray-800">You have been pre-approved.</h3>
-    <p class="mt-4 text-lg text-gray-600">I’ll be in touch shortly with your options.</p>
+    <h2 id="success-title" class="mt-6 text-3xl font-extrabold text-gray-900">Congratulations, you are pre-approved!</h2>
+    <h3 class="mt-2 text-2xl font-bold text-gray-800">I'll be in touch shortly to go over your pre-approval and options!</h3>
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // Elements
       const mainContent = document.querySelector('main');
       const successMessage = document.getElementById('success-message');
       const leadForm = document.getElementById('lead-form');
-      const floatingCta = document.getElementById('floating-cta');
-
+      const yearEl = document.getElementById('year');
       const progressBar = document.getElementById('progress-bar');
       const meterText = document.getElementById('meter-text');
-      const hasTradeInSelect = document.getElementById('hasTradeIn');
-      const tradeInDetailsDiv = document.getElementById('tradeInDetails');
-
-      const errName = document.getElementById('err-name');
-      const errPhone = document.getElementById('err-phone');
-      const errEmail = document.getElementById('err-email');
       const statusEl = document.getElementById('form-status');
       const submitBtn = document.getElementById('submitBtn');
 
-      const scoreInputs = [
-        document.getElementById('incomeSource'),
-        document.getElementById('monthlyIncome'),
-        document.getElementById('downPayment'),
-        document.getElementById('hasTradeIn'),
-        document.getElementById('fullName'),
-        document.getElementById('phone'),
-        document.getElementById('email')
-      ];
+      const tabPre = document.getElementById('tab-pre');
+      const tabCredit = document.getElementById('tab-credit');
+      const appType = document.getElementById('app_type');
+      const creditSection = document.getElementById('creditSection');
+      const hasTradeInSelect = document.getElementById('hasTradeIn');
+      const tradeInDetailsDiv = document.getElementById('tradeInDetails');
+      const creditConsent = document.getElementById('creditConsent');
+      const consentContainer = document.getElementById('consent-container');
+      
+      yearEl.textContent = new Date().getFullYear();
 
+      // Toggle application type
+      function setMode(mode) {
+        const isCredit = mode === 'Credit Inquiry';
+        appType.value = mode;
+
+        tabPre.setAttribute('aria-pressed', !isCredit);
+        tabCredit.setAttribute('aria-pressed', isCredit);
+
+        creditSection.classList.toggle('show', isCredit);
+        creditSection.toggleAttribute('hidden', !isCredit);
+        consentContainer.style.display = isCredit ? 'flex' : 'none';
+        
+        const creditFields = ['dob', 'address', 'city', 'province', 'postal', 'creditConsent'];
+        creditFields.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.required = isCredit;
+        });
+        
+        submitBtn.textContent = 'Submit and See Options';
+        updateApprovalScore();
+      }
+
+      tabPre.addEventListener('click', () => setMode('Pre-Approval'));
+      tabCredit.addEventListener('click', () => setMode('Credit Inquiry'));
+      
+      // Toggle trade-in details
+      hasTradeInSelect.addEventListener('change', (e) => {
+        const show = e.target.value.toLowerCase() === 'yes';
+        tradeInDetailsDiv.classList.toggle('show', show);
+        tradeInDetailsDiv.toggleAttribute('hidden', !show);
+      });
+      
+      // Update progress meter
       function updateApprovalScore() {
         let score = 5;
-        score += parseInt(document.getElementById('incomeSource').value || '0', 10);
-        score += parseInt(document.getElementById('downPayment').value || '0', 10);
-        score += parseInt(document.getElementById('hasTradeIn').value || '0', 10);
+        const fields = {
+          fullName: { value: 15, condition: (el) => el.value.trim().length > 1 },
+          phone: { value: 15, condition: (el) => el.value.replace(/\D/g, '').length >= 10 },
+          email: { value: 15, condition: (el) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()) },
+          monthlyIncome: { value: 20, condition: (el) => parseFloat(el.value.replace(/[^0-9.]/g, '')) > 1500 },
+          downPayment: { value: 10, condition: (el) => el.value && el.value.includes('$') },
+          incomeSource: { value: 10, condition: (el) => el.value !== '' },
+        };
 
-        const monthlyIncomeRaw = (document.getElementById('monthlyIncome').value || '').replace(/[^0-9.]/g, '');
-        const monthlyIncome = parseFloat(monthlyIncomeRaw);
-        if (!isNaN(monthlyIncome) && monthlyIncome > 1000) score += 15;
-
-        if ((document.getElementById('fullName').value || '').trim().length > 1) score += 10;
-        if ((document.getElementById('phone').value || '').replace(/\D/g, '').length >= 10) score += 10;
-        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((document.getElementById('email').value || '').trim())) score += 10;
+        for (const id in fields) {
+          const el = document.getElementById(id);
+          if (el && fields[id].condition(el)) {
+            score += fields[id].value;
+          }
+        }
+        
+        if (appType.value === 'Credit Inquiry') {
+            const creditFields = ['dob', 'address', 'city'];
+            const filledCount = creditFields.filter(id => document.getElementById(id).value.trim() !== '').length;
+            score += Math.min(15, filledCount * 5);
+        }
 
         const percentage = Math.min(score, 100);
         progressBar.style.width = percentage + '%';
 
-        if (percentage < 35) {
-          meterText.innerHTML = '<span class="text-gray-500">Assessing Profile...</span>';
-        } else if (percentage < 65) {
-          meterText.innerHTML = '<span class="text-yellow-600">Building Strength...</span>';
-        } else if (percentage < 85) {
-          meterText.innerHTML = '<span class="text-blue-500">Strong Candidate</span>';
-        } else {
-          meterText.innerHTML = '<span class="text-green-500">Excellent Profile!</span>';
-        }
+        if (percentage < 35) meterText.textContent = 'Assessing...';
+        else if (percentage < 65) meterText.textContent = 'Building...';
+        else if (percentage < 85) meterText.textContent = 'Strong';
+        else meterText.textContent = 'Excellent!';
       }
 
-      scoreInputs.forEach(input => {
-        input.addEventListener('input', updateApprovalScore);
-        input.addEventListener('change', updateApprovalScore);
-      });
+      leadForm.addEventListener('input', updateApprovalScore);
+      leadForm.addEventListener('change', updateApprovalScore);
 
-      hasTradeInSelect.addEventListener('change', (e) => {
-        const expanded = e.target.value !== '0';
-        tradeInDetailsDiv.style.maxHeight = expanded ? tradeInDetailsDiv.scrollHeight + 'px' : '0';
-        tradeInDetailsDiv.style.marginTop = expanded ? '1rem' : '0';
-        tradeInDetailsDiv.setAttribute('aria-hidden', expanded ? 'false' : 'true');
-      });
-
-      function showError(el, msgEl, condition) {
-        if (condition) {
-          msgEl.classList.add('hidden');
-          el.classList.remove('ring-2', 'ring-red-500');
-        } else {
-          msgEl.classList.remove('hidden');
-          el.classList.add('ring-2', 'ring-red-500');
-        }
+      // Form validation and submission
+      function markField(id, isValid) {
+          const el = document.getElementById(id);
+          if (!el) return;
+          
+          if (el.type === 'checkbox') {
+              const container = el.parentElement;
+              if (container) {
+                  container.classList.toggle('ring-2', !isValid);
+                  container.classList.toggle('ring-red-500', !isValid);
+              }
+          } else {
+              el.classList.toggle('err', !isValid);
+          }
       }
 
       function validateForm() {
-        const nameOk = (document.getElementById('fullName').value || '').trim().length > 1;
-        const phoneDigits = (document.getElementById('phone').value || '').replace(/\D/g, '');
-        const phoneOk = phoneDigits.length >= 10;
-        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((document.getElementById('email').value || '').trim());
-
-        showError(document.getElementById('fullName'), errName, nameOk);
-        showError(document.getElementById('phone'), errPhone, phoneOk);
-        showError(document.getElementById('email'), errEmail, emailOk);
-
-        return nameOk && phoneOk && emailOk;
-      }
-
-      // Progressive enhancement: JS submit via fetch; fallback to normal POST if fail/no JS.
-      leadForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
+        let isValid = true;
         statusEl.textContent = '';
-
-        if (!validateForm()) {
-          statusEl.textContent = 'Please fix the fields highlighted in red.';
-          return;
+        
+        const requiredFields = ['fullName', 'phone', 'email'];
+        
+        if (appType.value === 'Credit Inquiry') {
+            requiredFields.push('dob', 'address', 'city', 'province', 'postal', 'creditConsent');
         }
 
-        // Prepare form data for Netlify
+        requiredFields.forEach(id => {
+          const el = document.getElementById(id);
+          let fieldIsValid = false;
+          if (!el) return; // Skip if element doesn't exist
+          if (el.type === 'checkbox') {
+            fieldIsValid = el.checked;
+          } else {
+            fieldIsValid = el.value.trim() !== '';
+          }
+          markField(id, fieldIsValid);
+          if (!fieldIsValid) isValid = false;
+        });
+
+        if (!isValid) {
+            statusEl.textContent = 'Please complete all required fields.';
+        }
+        return isValid;
+      }
+
+      leadForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!validateForm()) return;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+
         const formData = new FormData(leadForm);
-        if (!formData.get('form-name')) formData.append('form-name', 'lead-form');
-
-        // Add normalized helpers (not visible to users)
-        const phoneDigits = (formData.get('phone') || '').toString().replace(/\D/g, '');
-        formData.append('phone_normalized', phoneDigits);
-
         try {
-          submitBtn.disabled = true;
-          submitBtn.textContent = 'Submitting...';
           await fetch('/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams([...formData]).toString()
           });
-
-          // Show overlay success; keep fallback thank-you if JS disabled
           mainContent.style.display = 'none';
-          floatingCta.style.display = 'none';
           successMessage.classList.remove('hidden');
         } catch (err) {
-          // Fallback: do a traditional POST to thank-you
-          leadForm.removeEventListener('submit', arguments.callee);
+          console.error("Fetch failed, falling back to form.submit()", err);
           leadForm.submit();
-        } finally {
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'See My Options Now';
         }
       });
 
+      // Initial state
+      setMode('Pre-Approval');
+      const showInitial = hasTradeInSelect.value.toLowerCase() === 'yes';
+      tradeInDetailsDiv.classList.toggle('show', showInitial);
+      tradeInDetailsDiv.toggleAttribute('hidden', !showInitial);
       updateApprovalScore();
     });
   </script>
