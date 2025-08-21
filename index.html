@@ -1,670 +1,707 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>Vancouver Island Credit | Auto Approvals Online — Work with Blake</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>Vancouver Island Credit | Auto Approvals Online — Work with Blake</title>
 
-  <!-- SEO -->
-  <meta name="description" content="Fast, confidential auto approvals across Vancouver Island & BC. New & used options. Delivery to your door. Work 1 on 1 with Blake Stolth — no call centres." />
-  <link rel="canonical" href="https://vancouverislandcredit.ca/"/>
-  <meta property="og:title" content="Vancouver Island Credit — Auto Approvals Online"/>
-  <meta property="og:description" content="Get pre-approved online. New & used inventory across Vancouver Island & BC. Delivery to your door. Work directly with Blake."/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://vancouverislandcredit.ca/"/>
-  <meta property="og:image" content="https://vancouverislandcredit.ca/0041B99D-D49A-4024-AA7A-2786A4605342.jpg"/>
-  <meta name="theme-color" content="#27272a"/>
+    <meta name="description" content="Fast, confidential auto approvals across Vancouver Island & BC. New & used options. Delivery to your door. Work 1 on 1 with Blake Stolth — no call centres." />
+    <link rel="canonical" href="https://vancouverislandcredit.ca/"/>
+    <meta property="og:title" content="Vancouver Island Credit — Auto Approvals Online"/>
+    <meta property="og:description" content="Get pre-approved online. New & used inventory across Vancouver Island & BC. Delivery to your door. Work directly with Blake."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://vancouverislandcredit.ca/"/>
+    <meta property="og:image" content="https://vancouverislandcredit.ca/0041B99D-D49A-4024-AA7A-2786A4605342.jpg"/>
+    <meta name="theme-color" content="#27272a"/>
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Vancouver Island Credit — Auto Approvals Online"/>
-  <meta name="twitter:description" content="Fast, confidential approvals. Delivery across Vancouver Island & BC. Work directly with Blake, not a call centre."/>
-  <meta name="twitter:image" content="https://vancouverislandcredit.ca/0041B99D-D49A-4024-AA7A-2786A4605342.jpg"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="Vancouver Island Credit — Auto Approvals Online"/>
+    <meta name="twitter:description" content="Fast, confidential approvals. Delivery across Vancouver Island & BC. Work directly with Blake, not a call centre."/>
+    <meta name="twitter:image" content="https://vancouverislandcredit.ca/0041B99D-D49A-4024-AA7A-2786A4605342.jpg"/>
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-  
-  <style>
-    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#9CA3AF;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;position:relative}
-    body::before{content:'';position:fixed;inset:0;background-image:url('https://i.imgur.com/k3OKj1C.png');background-size:cover;background-position:center center;filter:grayscale(90%) brightness(0.6);opacity:0.3;z-index:-1}
-    .card{background-color:rgba(39, 39, 42, 0.75);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:24px;box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 20px 50px -10px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1)}
-    .form-input,.form-select{background-color:#52525b;color:#f4f4f5;border:2px solid transparent;transition:.2s ease;font-size:16px;width:100%;padding:.85rem 1rem;border-radius:.75rem}
-    .form-input::placeholder{color:#a1a1aa}
-    .form-input:focus,.form-select:focus{background:#52525b;border-color:#007AFF;outline:none;color:#fafafa;}
-    .cta-button{background:#007AFF;transition:.2s ease}
-    .cta-button:hover{transform:scale(1.02);background:#0056b3}
-    .cta-button:active{transform:scale(.98)}
-    .progress-bar-track{background-color:rgba(63, 63, 70, .7)}
-    .progress-bar-fill{background:linear-gradient(90deg,#3B82F6 0%,#007AFF 100%);transition:width .5s cubic-bezier(.25,1,.5,1)}
-    .hidden-section{display:none;}
-    .hidden-section.show{display:block;margin-top:1rem;}
-    .success-screen{position:fixed;inset:0;background-color:rgba(24, 24, 27, .9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:fadeInScale .5s ease-out forwards}
-    @keyframes fadeInScale{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-    .benefit-list li{padding-left:1.75rem;position:relative}
-    .benefit-list li::before{content:'';position:absolute;left:0;top:5px;width:1rem;height:1rem;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2322c55e'%3E%3Cpath fill-rule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z' clip-rule='evenodd'/%3E%3C/svg%3E");background-size:contain;background-repeat:no-repeat}
-    .seg{border:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.2);border-radius:12px;padding:.5rem;display:flex;gap:.25rem}
-    .seg-btn{flex:1;border-radius:9px;padding:.5rem;font-size:.875rem;font-weight:600;color:#a1a1aa;transition:background .2s ease,color .2s ease}
-    .seg-btn[aria-pressed="true"]{background:#3f3f46;color:#fafafa;box-shadow:0 1px 3px rgba(0,0,0,.2)}
-    .err{border-color:#ef4444!important}
-    .float-cta{animation:bounce 2s infinite}
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-      40% {transform: translateY(-8px);}
-      60% {transform: translateY(-4px);}
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    
+    <style>
+        body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#9CA3AF;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;position:relative}
+        body::before{content:'';position:fixed;inset:0;background-image:url('https://i.imgur.com/k3OKj1C.png');background-size:cover;background-position:center center;filter:grayscale(90%) brightness(0.6);opacity:0.3;z-index:-1}
+        .card{background-color:rgba(39, 39, 42, 0.75);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:24px;box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 20px 50px -10px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1)}
+        .form-input,.form-select{background-color:#52525b;color:#f4f4f5;border:2px solid transparent;transition:.2s ease;font-size:16px;width:100%;padding:.85rem 1rem;border-radius:.75rem}
+        .form-input::placeholder{color:#a1a1aa}
+        .form-input:focus,.form-select:focus{background:#52525b;border-color:#007AFF;outline:none;color:#fafafa;}
+        .cta-button{background:#007AFF;transition:.2s ease}
+        .cta-button:hover{transform:scale(1.02);background:#0056b3}
+        .cta-button:active{transform:scale(.98)}
+        .progress-bar-track{background-color:rgba(63, 63, 70, .7)}
+        .progress-bar-fill{background:linear-gradient(90deg,#3B82F6 0%,#007AFF 100%);transition:width .5s cubic-bezier(.25,1,.5,1)}
+        .hidden-section{display:none;}
+        .hidden-section.show{display:block;margin-top:1rem;}
+        .success-screen{position:fixed;inset:0;background-color:rgba(24, 24, 27, .9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:fadeInScale .5s ease-out forwards}
+        @keyframes fadeInScale{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+        .benefit-list li{padding-left:1.75rem;position:relative}
+        .benefit-list li::before{content:'';position:absolute;left:0;top:5px;width:1rem;height:1rem;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2322c55e'%3E%3Cpath fill-rule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z' clip-rule='evenodd'/%3E%3C/svg%3E");background-size:contain;background-repeat:no-repeat}
+        .seg{border:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.2);border-radius:12px;padding:.5rem;display:flex;gap:.25rem}
+        .seg-btn{flex:1;border-radius:9px;padding:.5rem;font-size:.875rem;font-weight:600;color:#a1a1aa;transition:background .2s ease,color .2s ease}
+        .seg-btn[aria-pressed="true"]{background:#3f3f46;color:#fafafa;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+        .err{border-color:#ef4444!important}
+        .float-cta{animation:bounce 2s infinite}
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-8px);}
+            60% {transform: translateY(-4px);}
+        }
+        .switch-field{display:flex;overflow:hidden;border-radius:.75rem;background-color:#3f3f46;padding:.25rem}
+        .switch-field input{position:absolute!important;clip:rect(0,0,0,0);height:1px;width:1px;border:0;overflow:hidden}
+        .switch-field label{flex:1;text-align:center;padding:.5rem;font-size:.875rem;font-weight:600;color:#a1a1aa;transition:.2s ease;border-radius:.5rem;cursor:pointer}
+        .switch-field input:checked+label{background-color:#52525b;color:#fafafa;box-shadow:0 1px 2px rgba(0,0,0,.1)}
+    </style>
+
+    <script type="application/ld+json">
+    {
+        "@context":"https://schema.org",
+        "@type":"AutoDealer",
+        "name":"Vancouver Island Credit",
+        "areaServed":"British Columbia, Canada",
+        "image":"https://vancouverislandcredit.ca/0041B99D-D49A-4024-AA7A-2786A4605342.jpg",
+        "url":"https://vancouverislandcredit.ca",
+        "slogan":"Get approved online. Delivery across BC. Work directly with Blake.",
+        "founder": {"@type":"Person","name":"Blake Stolth"},
+        "makesOffer": [{"@type":"Offer","itemOffered":{"@type":"Service","name":"Auto Financing (New & Used)"}}],
+        "sameAs":[]
     }
-    /* Switch Styles */
-    .switch-field{display:flex;overflow:hidden;border-radius:.75rem;background-color:#3f3f46;padding:.25rem}
-    .switch-field input{position:absolute!important;clip:rect(0,0,0,0);height:1px;width:1px;border:0;overflow:hidden}
-    .switch-field label{flex:1;text-align:center;padding:.5rem;font-size:.875rem;font-weight:600;color:#a1a1aa;transition:.2s ease;border-radius:.5rem;cursor:pointer}
-    .switch-field input:checked+label{background-color:#52525b;color:#fafafa;box-shadow:0 1px 2px rgba(0,0,0,.1)}
-  </style>
-
-  <!-- Business Schema -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"AutoDealer",
-    "name":"Vancouver Island Credit",
-    "areaServed":"British Columbia, Canada",
-    "image":"https://vancouverislandcredit.ca/0041B99D-D49A-4024-AA7A-2786A4605342.jpg",
-    "url":"https://vancouverislandcredit.ca",
-    "slogan":"Get approved online. Delivery across BC. Work directly with Blake.",
-    "founder": {"@type":"Person","name":"Blake Stolth"},
-    "makesOffer": [{"@type":"Offer","itemOffered":{"@type":"Service","name":"Auto Financing (New & Used)"}}],
-    "sameAs":[]
-  }
-  </script>
+    </script>
 </head>
 <body class="px-6 sm:px-8 py-8">
 
-  <main class="w-full max-w-lg space-y-6">
+    <main class="w-full max-w-lg space-y-6">
 
-    <!-- Header -->
-    <div class="card p-6 sm:p-8 text-center">
-      <div class="flex flex-col items-center">
-        <div class="flex justify-center items-center gap-3">
-            <h1 class="font-extrabold text-2xl text-zinc-100 tracking-tight">Vancouver Island Credit</h1>
-            <svg class="w-9 h-9" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="11.5" fill="black" stroke="#007AFF" stroke-width="1"/>
-                <path d="M4 13C6.5 10.5 9.5 10.5 12 13C14.5 15.5 17.5 15.5 20 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M4 10C6.5 7.5 9.5 7.5 12 10C14.5 12.5 17.5 12.5 20 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-        </div>
-        <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-zinc-800/80 shadow-lg flex-shrink-0 my-3">
-          <img src="/0041B99D-D49A-4024-AA7A-2786A4605342.jpg" alt="Blake Stolth" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/96x96/e0e0e0/000000?text=Image';"/>
-        </div>
-        <div class="bg-green-500/20 text-green-300 text-sm font-bold px-4 py-2 rounded-full mb-2 inline-block">
-            98% Approval Rate Guaranteed
-        </div>
-        <p class="text-sm font-semibold text-blue-400">Get Fast Approval Online — work 1 on 1 with Blake Stolth</p>
-        <p class="text-xs text-zinc-400 mt-1">Based out of Victoria BC</p>
-      </div>
-    </div>
-
-    <!-- Value Proposition -->
-    <div class="card p-6">
-      <div class="flex items-center space-x-3 mb-5">
-        <div class="bg-blue-500/20 p-2 rounded-full">
-          <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-        </div>
-        <h2 class="text-xl font-extrabold text-zinc-100">A Simpler Process</h2>
-      </div>
-      <ul class="space-y-3 sm:space-y-4 text-zinc-300 text-[15px] benefit-list leading-relaxed">
-        <li><span class="font-bold text-zinc-100">Avoid calls from multiple dealerships</span> and deal with one real person.</li>
-        <li><span class="font-bold text-zinc-100">Consolidate debt</span> into one manageable payment.</li>
-        <li><span class="font-bold text-zinc-100">0% Interest rates are now available</span> O.A.C.</li>
-        <li><span class="font-bold text-zinc-100">Island & BC-wide selection</span> of new and used vehicles.</li>
-      </ul>
-      <div class="mt-4 pt-4 border-t border-white/10 text-center">
-        <p class="text-sm text-yellow-300 bg-yellow-500/20 p-3 rounded-lg leading-relaxed"><span class="font-bold text-yellow-200">Market Rate Alert:</span> Current rates are at a historic low. Lock in your financing now to maximize your savings before they change.</p>
-      </div>
-    </div>
-
-    <!-- Form -->
-    <div id="form-section" class="card p-6">
-      <div id="form-wrapper">
-        <h3 class="font-bold text-center text-zinc-100 text-lg mb-1">Get Fast Approval Online</h3>
-        <p class="text-center text-xs text-zinc-400 mb-4">Secure form. No obligation. Blake will reach out with options.</p>
-
-        <!-- Segmented Toggle -->
-        <div class="seg mb-5" role="tablist" aria-label="Application type">
-          <button id="tab-pre" class="seg-btn" role="tab" aria-selected="true" aria-pressed="true">Pre-Approval</button>
-          <button id="tab-credit" class="seg-btn" role="tab" aria-selected="false" aria-pressed="false">Credit Inquiry</button>
-          <button id="tab-full" class="seg-btn" role="tab" aria-selected="false" aria-pressed="false">Full Application</button>
-        </div>
-
-        <!-- Meter -->
-        <div class="mb-5">
-          <div class="flex justify-between items-center mb-1">
-            <span class="text-xs font-semibold text-zinc-400">Approval Profile Strength</span>
-            <span id="meter-text" class="text-xs font-bold text-zinc-300" aria-live="polite"></span>
-          </div>
-          <div class="w-full progress-bar-track rounded-full h-2.5" aria-hidden="true">
-            <div id="progress-bar" class="progress-bar-fill h-2.5 rounded-full" style="width:5%"></div>
-          </div>
-        </div>
-
-        <!-- Netlify-enabled form -->
-        <form
-          id="lead-form"
-          name="lead-form"
-          method="POST"
-          data-netlify="true"
-          data-netlify-honeypot="bot-field"
-          action="/thank-you.html"
-          class="space-y-5 sm:space-y-6"
-          novalidate
-        >
-          <input type="hidden" name="form-name" value="lead-form"/>
-          <input type="hidden" name="app_type" id="app_type" value="Pre-Approval" />
-          <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
-
-          <!-- BASIC FIELDS -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div>
-                  <label for="firstName" class="block text-sm font-medium text-zinc-300 mb-1.5">First Name <span class="text-red-400">*</span></label>
-                  <input type="text" id="firstName" name="firstName" required placeholder="First" class="form-input" autocomplete="given-name"/>
-              </div>
-              <div>
-                  <label for="middleName" class="block text-sm font-medium text-zinc-300 mb-1.5">Middle <span id="middleNameRequired" class="text-red-400 hidden">*</span><span id="middleNameOptional" class="text-zinc-400">(Optional)</span></label>
-                  <input type="text" id="middleName" name="middleName" placeholder="Middle" class="form-input" autocomplete="additional-name"/>
-              </div>
-              <div>
-                  <label for="lastName" class="block text-sm font-medium text-zinc-300 mb-1.5">Last Name <span class="text-red-400">*</span></label>
-                  <input type="text" id="lastName" name="lastName" required placeholder="Last" class="form-input" autocomplete="family-name"/>
-              </div>
-          </div>
-          <div>
-            <label for="phone" class="block text-sm font-medium text-zinc-300 mb-1.5">Phone Number <span class="text-red-400">*</span></label>
-            <input type="tel" id="phone" name="phone" required placeholder="(250) 123-4567" class="form-input" autocomplete="tel" inputmode="tel"/>
-          </div>
-          <div>
-            <label for="email" class="block text-sm font-medium text-zinc-300 mb-1.5">Email Address <span class="text-red-400">*</span></label>
-            <input type="email" id="email" name="email" required placeholder="you@example.com" class="form-input" autocomplete="email"/>
-          </div>
-          <div id="preApprovalIncomeSection">
-              <div>
-                <label for="monthlyIncome" class="block text-sm font-medium text-zinc-300 mb-1.5">Estimated Monthly Income (before tax)</label>
-                <input type="text" id="monthlyIncome" name="monthlyIncome" class="form-input" placeholder="$3,500" inputmode="numeric" autocomplete="off"/>
-              </div>
-          </div>
-          <div>
-            <label for="downPayment" class="block text-sm font-medium text-zinc-300 mb-1.5">Estimated down payment?</label>
-            <select id="downPayment" name="downPayment" class="form-select">
-              <option value="">Please select...</option>
-              <option>$3,000+</option>
-              <option>$1,000 – $3,000</option>
-              <option>$0 – $1,000</option>
-            </select>
-          </div>
-          <div>
-            <label for="hasTradeIn" class="block text-sm font-medium text-zinc-300 mb-1.5">Do you have a vehicle to trade in?</label>
-            <select id="hasTradeIn" name="hasTradeIn" class="form-select">
-              <option>No</option>
-              <option>Yes</option>
-            </select>
-          </div>
-          
-          <!-- Conditional Sections Wrapper -->
-          <div>
-              <div id="tradeInDetails" class="hidden-section" hidden>
-                <div class="grid grid-cols-1 sm:grid-cols-4 gap-2">
-                  <input type="number" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" />
-                  <input type="text" name="tradeInMake" placeholder="Make" class="form-input"/>
-                  <input type="text" name="tradeInModel" placeholder="Model" class="form-input"/>
-                  <input type="number" name="tradeInKms" placeholder="KM" class="form-input" inputmode="numeric"/>
+        <div class="card p-6 sm:p-8 text-center">
+            <div class="flex flex-col items-center">
+                <div class="flex justify-center items-center gap-3">
+                    <h1 class="font-extrabold text-2xl text-zinc-100 tracking-tight">Vancouver Island Credit</h1>
+                    <svg class="w-9 h-9" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="11.5" fill="black" stroke="#007AFF" stroke-width="1"/>
+                        <path d="M4 13C6.5 10.5 9.5 10.5 12 13C14.5 15.5 17.5 15.5 20 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M4 10C6.5 7.5 9.5 7.5 12 10C14.5 12.5 17.5 12.5 20 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
                 </div>
-                <input type="text" name="tradeInOwed" placeholder="Money owed? e.g., $5,000 or None" class="form-input mt-3"/>
-              </div>
-
-              <div id="creditSection" class="hidden-section space-y-4" hidden>
-                <div class="border-t border-white/10 pt-4 space-y-4">
-                  <p class="text-sm text-zinc-300 font-medium">Personal Information</p>
-                  <div>
-                    <label class="block text-sm font-medium text-zinc-300 mb-1.5" for="dob">Date of birth <span class="text-red-400">*</span></label>
-                    <input id="dob" name="dob" class="form-input" type="text" placeholder="YYYY-MM-DD" />
-                  </div>
-                  <div id="maritalStatusWrapper" class="hidden-section">
-                    <label class="block text-sm font-medium text-zinc-300 mb-1.5" for="maritalStatus">Marital Status <span class="text-red-400">*</span></label>
-                    <select id="maritalStatus" name="maritalStatus" class="form-select">
-                      <option value="">Please select...</option>
-                      <option>Single</option>
-                      <option>Married</option>
-                      <option>Common-Law</option>
-                      <option>Divorced</option>
-                      <option>Separated</option>
-                      <option>Widowed</option>
-                    </select>
-                  </div>
+                <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-zinc-800/80 shadow-lg flex-shrink-0 my-3">
+                    <img src="/0041B99D-D49A-4024-AA7A-2786A4605342.jpg" alt="Blake Stolth" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/96x96/e0e0e0/000000?text=Image';"/>
                 </div>
-              </div>
+                <div class="bg-green-500/20 text-green-300 text-sm font-bold px-4 py-2 rounded-full mb-2 inline-block">
+                    98% Approval Rate Guaranteed
+                </div>
+                <p class="text-sm font-semibold text-blue-400">Get Fast Approval Online — work 1 on 1 with Blake Stolth</p>
+                <p class="text-xs text-zinc-400 mt-1">Based out of Victoria BC</p>
+            </div>
+        </div>
 
-              <div id="incomeEmploymentSection" class="hidden-section space-y-4" hidden>
-                  <div class="border-t border-white/10 pt-4 space-y-4">
-                    <p class="text-sm text-zinc-300 font-medium">Income & Employment</p>
+        <div class="card p-6">
+            <div class="flex items-center space-x-3 mb-5">
+                <div class="bg-blue-500/20 p-2 rounded-full">
+                    <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                </div>
+                <h2 class="text-xl font-extrabold text-zinc-100">A Simpler Process</h2>
+            </div>
+            <ul class="space-y-3 sm:space-y-4 text-zinc-300 text-[15px] benefit-list leading-relaxed">
+                <li><span class="font-bold text-zinc-100">Avoid calls from multiple dealerships</span> and deal with one real person.</li>
+                <li><span class="font-bold text-zinc-100">Consolidate debt</span> into one manageable payment.</li>
+                <li><span class="font-bold text-zinc-100">0% Interest rates are now available</span> O.A.C.</li>
+                <li><span class="font-bold text-zinc-100">Island & BC-wide selection</span> of new and used vehicles.</li>
+            </ul>
+            <div class="mt-4 pt-4 border-t border-white/10 text-center">
+                <p class="text-sm text-yellow-300 bg-yellow-500/20 p-3 rounded-lg leading-relaxed"><span class="font-bold text-yellow-200">Market Rate Alert:</span> Current rates are at a historic low. Lock in your financing now to maximize your savings before they change.</p>
+            </div>
+        </div>
+
+        <div id="form-section" class="card p-6">
+            <div id="form-wrapper">
+                <h3 class="font-bold text-center text-zinc-100 text-lg mb-1">Get Fast Approval Online</h3>
+                <p class="text-center text-xs text-zinc-400 mb-4">Secure form. No obligation. Blake will reach out with options.</p>
+
+                <div class="seg mb-5" role="tablist" aria-label="Application type">
+                    <button id="tab-pre" class="seg-btn" role="tab" aria-selected="true" aria-pressed="true">Pre-Approval</button>
+                    <button id="tab-credit" class="seg-btn" role="tab" aria-selected="false" aria-pressed="false">Credit Inquiry</button>
+                    <button id="tab-full" class="seg-btn" role="tab" aria-selected="false" aria-pressed="false">Full Application</button>
+                </div>
+
+                <div class="mb-5">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs font-semibold text-zinc-400">Approval Profile Strength</span>
+                        <span id="meter-text" class="text-xs font-bold text-zinc-300" aria-live="polite"></span>
+                    </div>
+                    <div class="w-full progress-bar-track rounded-full h-2.5" aria-hidden="true">
+                        <div id="progress-bar" class="progress-bar-fill h-2.5 rounded-full" style="width:5%"></div>
+                    </div>
+                </div>
+
+                <form
+                    id="lead-form"
+                    name="lead-form"
+                    method="POST"
+                    data-netlify="true"
+                    data-netlify-honeypot="bot-field"
+                    action="/thank-you.html"
+                    class="space-y-5 sm:space-y-6"
+                    novalidate
+                >
+                    <input type="hidden" name="form-name" value="lead-form"/>
+                    <input type="hidden" name="app_type" id="app_type" value="Pre-Approval" />
+                    <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label for="firstName" class="block text-sm font-medium text-zinc-300 mb-1.5">First Name <span class="text-red-400">*</span></label>
+                            <input type="text" id="firstName" name="firstName" required placeholder="First" class="form-input" autocomplete="given-name"/>
+                        </div>
+                        <div>
+                            <label for="middleName" class="block text-sm font-medium text-zinc-300 mb-1.5">Middle <span id="middleNameRequired" class="text-red-400 hidden">*</span><span id="middleNameOptional" class="text-zinc-400">(Optional)</span></label>
+                            <input type="text" id="middleName" name="middleName" placeholder="Middle" class="form-input" autocomplete="additional-name"/>
+                        </div>
+                        <div>
+                            <label for="lastName" class="block text-sm font-medium text-zinc-300 mb-1.5">Last Name <span class="text-red-400">*</span></label>
+                            <input type="text" id="lastName" name="lastName" required placeholder="Last" class="form-input" autocomplete="family-name"/>
+                        </div>
+                    </div>
                     <div>
-                        <label for="incomeSource" class="block text-sm font-medium text-zinc-300 mb-1.5">Primary Source of Income? <span class="text-red-400">*</span></label>
-                        <select id="incomeSource" name="incomeSource" class="form-select">
-                          <option value="">Please select...</option>
-                          <option value="Full-Time">Full-Time Employment</option>
-                          <option value="Part-Time">Part-Time Employment</option>
-                          <option value="Self-Employed">Self-Employed / Business Owner</option>
-                          <option value="Disability">Disability</option>
-                          <option value="Other">Other</option>
+                        <label for="phone" class="block text-sm font-medium text-zinc-300 mb-1.5">Phone Number <span class="text-red-400">*</span></label>
+                        <input type="tel" id="phone" name="phone" required placeholder="(250) 123-4567" class="form-input" autocomplete="tel" inputmode="tel"/>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-zinc-300 mb-1.5">Email Address <span class="text-red-400">*</span></label>
+                        <input type="email" id="email" name="email" required placeholder="you@example.com" class="form-input" autocomplete="email"/>
+                    </div>
+                    <div id="preApprovalIncomeSection">
+                        <div>
+                            <label for="monthlyIncome" class="block text-sm font-medium text-zinc-300 mb-1.5">Estimated Monthly Income (before tax)</label>
+                            <input type="text" id="monthlyIncome" name="monthlyIncome" class="form-input" placeholder="$3,500" inputmode="numeric" autocomplete="off"/>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="downPayment" class="block text-sm font-medium text-zinc-300 mb-1.5">Estimated down payment?</label>
+                        <select id="downPayment" name="downPayment" class="form-select">
+                            <option value="">Please select...</option>
+                            <option>$3,000+</option>
+                            <option>$1,000 – $3,000</option>
+                            <option>$0 – $1,000</option>
                         </select>
                     </div>
-                    <div id="employmentDetails" class="hidden-section space-y-4" hidden>
-                        <div>
-                            <label for="currentEmployer" class="block text-sm font-medium text-zinc-300 mb-1.5">Employer <span class="text-red-400">*</span></label>
-                            <input type="text" id="currentEmployer" name="currentEmployer" placeholder="Company Name" class="form-input"/>
-                        </div>
-                        <div>
-                            <label for="jobTitle" class="block text-sm font-medium text-zinc-300 mb-1.5">Position / Job Title <span class="text-red-400">*</span></label>
-                            <input type="text" id="jobTitle" name="jobTitle" placeholder="Your Role" class="form-input"/>
-                        </div>
-                        <div class="switch-field">
-                            <input type="radio" id="payTypeHourly" name="payType" value="hourly" checked/>
-                            <label for="payTypeHourly">Hourly</label>
-                            <input type="radio" id="payTypeSalary" name="payType" value="salary"/>
-                            <label for="payTypeSalary">Salary</label>
-                        </div>
-                        <div id="hourlyRateSection" class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label for="hourlyRate" class="block text-sm font-medium text-zinc-300 mb-1.5">Hourly Rate (Gross) <span class="text-red-400">*</span></label>
-                                <input type="text" id="hourlyRate" name="hourlyRate" placeholder="$25.00" class="form-input" inputmode="decimal"/>
-                            </div>
-                            <div>
-                                <label for="hoursPerWeek" class="block text-sm font-medium text-zinc-300 mb-1.5">Hours / Week <span class="text-red-400">*</span></label>
-                                <input type="number" id="hoursPerWeek" name="hoursPerWeek" placeholder="40" class="form-input" inputmode="numeric"/>
-                            </div>
-                        </div>
-                        <div id="salarySection" class="hidden-section" hidden>
-                            <label for="annualSalary" class="block text-sm font-medium text-zinc-300 mb-1.5">Annual Salary (Gross) <span class="text-red-400">*</span></label>
-                            <input type="text" id="annualSalary" name="annualSalary" placeholder="$52,000" class="form-input" inputmode="numeric"/>
-                        </div>
-                    </div>
-                    <div id="selfEmployedDetails" class="hidden-section space-y-4" hidden>
-                        <label for="businessName" class="block text-sm font-medium text-zinc-300 mb-1.5">Business Name <span class="text-red-400">*</span></label>
-                        <input type="text" id="businessName" name="businessName" placeholder="Your Business Name" class="form-input"/>
-                        <label for="avgMonthlyIncome" class="block text-sm font-medium text-zinc-300 mb-1.5">Average Monthly Income (Gross) <span class="text-red-400">*</span></label>
-                        <input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" placeholder="$4,000" class="form-input" inputmode="numeric"/>
-                    </div>
-                    <div id="otherIncomeDetails" class="hidden-section space-y-4" hidden>
-                        <label for="otherIncomeAmount" class="block text-sm font-medium text-zinc-300 mb-1.5">Monthly Income Amount (Gross) <span class="text-red-400">*</span></label>
-                        <input type="text" id="otherIncomeAmount" name="otherIncomeAmount" placeholder="$2,000" class="form-input" inputmode="numeric"/>
-                        <label for="otherIncomeSource" class="block text-sm font-medium text-zinc-300 mb-1.5">Source Description <span class="text-red-400">*</span></label>
-                        <textarea id="otherIncomeSource" name="otherIncomeSource" placeholder="Describe the source of income" class="form-input" rows="2"></textarea>
-                    </div>
-                  </div>
-              </div>
-
-              <div id="fullApplicationSection" class="hidden-section space-y-4" hidden>
-                <div class="border-t border-white/10 pt-4 space-y-4">
-                    <p class="text-sm text-zinc-300 font-medium">Residential History</p>
                     <div>
-                        <label for="currentAddress" class="block text-sm font-medium text-zinc-300 mb-1.5">Current Address <span class="text-red-400">*</span></label>
-                        <input type="text" id="currentAddress" name="currentAddress" placeholder="Street Address, City, Province" class="form-input"/>
+                        <label for="hasTradeIn" class="block text-sm font-medium text-zinc-300 mb-1.5">Do you have a vehicle to trade in?</label>
+                        <select id="hasTradeIn" name="hasTradeIn" class="form-select">
+                            <option>No</option>
+                            <option>Yes</option>
+                        </select>
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label for="monthlyPayment" class="block text-sm font-medium text-zinc-300 mb-1.5">Monthly Payment <span class="text-red-400">*</span></label>
-                            <input type="text" id="monthlyPayment" name="monthlyPayment" placeholder="$1,500" class="form-input" inputmode="numeric"/>
+                    
+                    <div>
+                        <div id="tradeInDetails" class="hidden-section" hidden>
+                            <div class="grid grid-cols-1 sm:grid-cols-4 gap-2">
+                                <input type="number" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" />
+                                <input type="text" name="tradeInMake" placeholder="Make" class="form-input"/>
+                                <input type="text" name="tradeInModel" placeholder="Model" class="form-input"/>
+                                <input type="number" name="tradeInKms" placeholder="KM" class="form-input" inputmode="numeric"/>
+                            </div>
+                            <input type="text" name="tradeInOwed" placeholder="Money owed? e.g., $5,000 or None" class="form-input mt-3"/>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-zinc-300 mb-1.5">Time at Address <span class="text-red-400">*</span></label>
-                            <div class="grid grid-cols-2 gap-2">
-                                <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                                <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+
+                        <div id="creditSection" class="hidden-section space-y-4" hidden>
+                            <div class="border-t border-white/10 pt-4 space-y-4">
+                                <p class="text-sm text-zinc-300 font-medium">Personal Information</p>
+                                <div>
+                                    <label class="block text-sm font-medium text-zinc-300 mb-1.5" for="dob">Date of birth <span class="text-red-400">*</span></label>
+                                    <input id="dob" name="dob" class="form-input" type="text" placeholder="YYYY-MM-DD" />
+                                </div>
+                                <div id="maritalStatusWrapper" class="hidden-section">
+                                    <label class="block text-sm font-medium text-zinc-300 mb-1.5" for="maritalStatus">Marital Status <span class="text-red-400">*</span></label>
+                                    <select id="maritalStatus" name="maritalStatus" class="form-select">
+                                        <option value="">Please select...</option>
+                                        <option>Single</option>
+                                        <option>Married</option>
+                                        <option>Common-Law</option>
+                                        <option>Divorced</option>
+                                        <option>Separated</option>
+                                        <option>Widowed</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="incomeEmploymentSection" class="hidden-section space-y-4" hidden>
+                                <div class="border-t border-white/10 pt-4 space-y-4">
+                                    <p class="text-sm text-zinc-300 font-medium">Income & Employment</p>
+                                    <div>
+                                        <label for="incomeSource" class="block text-sm font-medium text-zinc-300 mb-1.5">Primary Source of Income? <span class="text-red-400">*</span></label>
+                                        <select id="incomeSource" name="incomeSource" class="form-select">
+                                            <option value="">Please select...</option>
+                                            <option value="Full-Time">Full-Time Employment</option>
+                                            <option value="Part-Time">Part-Time Employment</option>
+                                            <option value="Self-Employed">Self-Employed / Business Owner</option>
+                                            <option value="Disability">Disability</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div id="employmentDetails" class="hidden-section space-y-4" hidden>
+                                        <div>
+                                            <label for="currentEmployer" class="block text-sm font-medium text-zinc-300 mb-1.5">Employer <span class="text-red-400">*</span></label>
+                                            <input type="text" id="currentEmployer" name="currentEmployer" placeholder="Company Name" class="form-input"/>
+                                        </div>
+                                        <div>
+                                            <label for="jobTitle" class="block text-sm font-medium text-zinc-300 mb-1.5">Position / Job Title <span class="text-red-400">*</span></label>
+                                            <input type="text" id="jobTitle" name="jobTitle" placeholder="Your Role" class="form-input"/>
+                                        </div>
+                                        <div class="switch-field">
+                                            <input type="radio" id="payTypeHourly" name="payType" value="hourly" checked/>
+                                            <label for="payTypeHourly">Hourly</label>
+                                            <input type="radio" id="payTypeSalary" name="payType" value="salary"/>
+                                            <label for="payTypeSalary">Salary</label>
+                                        </div>
+                                        <div id="hourlyRateSection" class="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label for="hourlyRate" class="block text-sm font-medium text-zinc-300 mb-1.5">Hourly Rate (Gross) <span class="text-red-400">*</span></label>
+                                                <input type="text" id="hourlyRate" name="hourlyRate" placeholder="$25.00" class="form-input" inputmode="decimal"/>
+                                            </div>
+                                            <div>
+                                                <label for="hoursPerWeek" class="block text-sm font-medium text-zinc-300 mb-1.5">Hours / Week <span class="text-red-400">*</span></label>
+                                                <input type="number" id="hoursPerWeek" name="hoursPerWeek" placeholder="40" class="form-input" inputmode="numeric"/>
+                                            </div>
+                                        </div>
+                                        <div id="salarySection" class="hidden-section" hidden>
+                                            <label for="annualSalary" class="block text-sm font-medium text-zinc-300 mb-1.5">Annual Salary (Gross) <span class="text-red-400">*</span></label>
+                                            <input type="text" id="annualSalary" name="annualSalary" placeholder="$52,000" class="form-input" inputmode="numeric"/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-zinc-300 mb-1.5">Time with Employer <span class="text-red-400">*</span></label>
+                                            <div class="grid grid-cols-2 gap-2">
+                                                <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select>
+                                                <select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="selfEmployedDetails" class="hidden-section space-y-4" hidden>
+                                        <label for="businessName" class="block text-sm font-medium text-zinc-300 mb-1.5">Business Name <span class="text-red-400">*</span></label>
+                                        <input type="text" id="businessName" name="businessName" placeholder="Your Business Name" class="form-input"/>
+                                        <label for="avgMonthlyIncome" class="block text-sm font-medium text-zinc-300 mb-1.5">Average Monthly Income (Gross) <span class="text-red-400">*</span></label>
+                                        <input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" placeholder="$4,000" class="form-input" inputmode="numeric"/>
+                                    </div>
+                                    <div id="otherIncomeDetails" class="hidden-section space-y-4" hidden>
+                                        <label for="otherIncomeAmount" class="block text-sm font-medium text-zinc-300 mb-1.5">Monthly Income Amount (Gross) <span class="text-red-400">*</span></label>
+                                        <input type="text" id="otherIncomeAmount" name="otherIncomeAmount" placeholder="$2,000" class="form-input" inputmode="numeric"/>
+                                        <label for="otherIncomeSource" class="block text-sm font-medium text-zinc-300 mb-1.5">Source Description <span class="text-red-400">*</span></label>
+                                        <textarea id="otherIncomeSource" name="otherIncomeSource" placeholder="Describe the source of income" class="form-input" rows="2"></textarea>
+                                    </div>
+                                    <div id="previousEmployerDetails" class="hidden-section space-y-4" hidden>
+                                        <p class="text-xs text-zinc-400 pt-2">Please provide your previous employer (required for less than 2 years of history).</p>
+                                        <div>
+                                            <label for="previousEmployer" class="block text-sm font-medium text-zinc-300 mb-1.5">Previous Employer <span class="text-red-400">*</span></label>
+                                            <input type="text" id="previousEmployer" name="previousEmployer" placeholder="Previous Company Name" class="form-input"/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-zinc-300 mb-1.5">Time at Previous Employer <span class="text-red-400">*</span></label>
+                                            <div class="grid grid-cols-2 gap-2">
+                                                <select id="prevTimeWithEmployerYears" name="prevTimeWithEmployerYears" class="form-select"><option value="">Years</option></select>
+                                                <select id="prevTimeWithEmployerMonths" name="prevTimeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+
+                        <div id="fullApplicationSection" class="hidden-section space-y-4" hidden>
+                            <div class="border-t border-white/10 pt-4 space-y-4">
+                                <p class="text-sm text-zinc-300 font-medium">Residential History</p>
+                                <div>
+                                    <label for="currentAddress" class="block text-sm font-medium text-zinc-300 mb-1.5">Current Address <span class="text-red-400">*</span></label>
+                                    <input type="text" id="currentAddress" name="currentAddress" placeholder="Street Address, City, Province" class="form-input"/>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label for="monthlyPayment" class="block text-sm font-medium text-zinc-300 mb-1.5">Monthly Payment <span class="text-red-400">*</span></label>
+                                        <input type="text" id="monthlyPayment" name="monthlyPayment" placeholder="$1,500" class="form-input" inputmode="numeric"/>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-zinc-300 mb-1.5">Time at Address <span class="text-red-400">*</span></label>
+                                        <div class="grid grid-cols-2 gap-2">
+                                            <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
+                                            <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="previousAddressDetails" class="hidden-section space-y-4" hidden>
+                                    <p class="text-xs text-zinc-400 pt-2">Please provide your previous address (required for less than 2 years of history).</p>
+                                    <div>
+                                        <label for="previousAddress" class="block text-sm font-medium text-zinc-300 mb-1.5">Previous Address <span class="text-red-400">*</span></label>
+                                        <input type="text" id="previousAddress" name="previousAddress" placeholder="Street Address, City, Province" class="form-input"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="consent-container" class="hidden-section" hidden>
+                            <div class="flex items-start gap-2 text-xs text-zinc-400 bg-zinc-800/50 p-3 rounded-lg transition-all mt-4">
+                                <input id="creditConsent" name="creditConsent" type="checkbox" class="mt-1 h-4 w-4 rounded border-zinc-600"/>
+                                <label for="creditConsent" id="consentLabel">I consent to a credit inquiry by Blake Stolth / Vancouver Island Credit to assess financing options and confirm the information provided is accurate. <span class="text-red-400 font-bold">*</span></label>
                             </div>
                         </div>
                     </div>
-                    <div id="previousAddressDetails" class="hidden-section space-y-4" hidden>
-                        <p class="text-xs text-zinc-400 pt-2">Please provide your previous address (required for less than 2 years of history).</p>
-                        <div>
-                            <label for="previousAddress" class="block text-sm font-medium text-zinc-300 mb-1.5">Previous Address <span class="text-red-400">*</span></label>
-                            <input type="text" id="previousAddress" name="previousAddress" placeholder="Street Address, City, Province" class="form-input"/>
-                        </div>
+                    
+                    <div class="pt-2">
+                        <button type="submit" id="submitBtn" class="w-full cta-button py-3.5 px-4 rounded-xl text-lg font-bold text-white">
+                            Submit and See Options
+                        </button>
+                        <p id="form-status" class="mt-2 text-xs text-center text-red-500" aria-live="polite"></p>
                     </div>
-                </div>
-              </div>
+                </form>
+            </div>
+        </div>
 
-              <div id="consent-container" class="hidden-section" hidden>
-                <div class="flex items-start gap-2 text-xs text-zinc-400 bg-zinc-800/50 p-3 rounded-lg transition-all mt-4">
-                    <input id="creditConsent" name="creditConsent" type="checkbox" class="mt-1 h-4 w-4 rounded border-zinc-600"/>
-                    <label for="creditConsent" id="consentLabel">I consent to a credit inquiry by Blake Stolth / Vancouver Island Credit to assess financing options and confirm the information provided is accurate. <span class="text-red-400 font-bold">*</span></label>
-                </div>
-              </div>
-          </div>
-          
-          <div class="pt-2">
-            <button type="submit" id="submitBtn" class="w-full cta-button py-3.5 px-4 rounded-xl text-lg font-bold text-white">
-              Submit and See Options
-            </button>
-            <p id="form-status" class="mt-2 text-xs text-center text-red-500" aria-live="polite"></p>
-          </div>
-        </form>
-      </div>
+        <footer class="text-center text-xs text-zinc-800 mt-6 sm:mt-8 font-semibold" style="text-shadow: 0 1px 1px rgba(255,255,255,0.5);">
+            <p class="mt-2">Serving Vancouver Island & British Columbia • Delivery available province-wide</p>
+            <p class="mt-1">© <span id="year"></span> Vancouver Island Credit • All rights reserved</p>
+        </footer>
+    </main>
+    
+    <a href="#form-section" class="fixed bottom-5 right-5 bg-blue-600 text-white font-bold px-5 py-3 rounded-full shadow-2xl z-40 flex items-center space-x-2 float-cta hover:animate-none transition-transform hover:scale-105">
+        <span>Apply Now</span>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+    </a>
+
+    <div id="success-message" class="hidden success-screen p-8 text-center" role="dialog" aria-modal="true">
+        <div class="mx-auto bg-green-500/20 w-24 h-24 rounded-full flex items-center justify-center space-y-4 sm:space-y-6">
+            <svg class="w-16 h-16 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <h2 id="success-title" class="mt-6 text-3xl font-extrabold text-zinc-100">Application Submitted!</h2>
+        <h3 id="success-subtitle" class="mt-2 text-2xl font-bold text-zinc-200">I'll be in touch shortly to go over your options!</h3>
     </div>
 
-    <!-- Footer -->
-    <footer class="text-center text-xs text-zinc-800 mt-6 sm:mt-8 font-semibold" style="text-shadow: 0 1px 1px rgba(255,255,255,0.5);">
-      <p class="mt-2">Serving Vancouver Island & British Columbia • Delivery available province-wide</p>
-      <p class="mt-1">© <span id="year"></span> Vancouver Island Credit • All rights reserved</p>
-    </footer>
-  </main>
-  
-  <!-- Floating CTA -->
-  <a href="#form-section" class="fixed bottom-5 right-5 bg-blue-600 text-white font-bold px-5 py-3 rounded-full shadow-2xl z-40 flex items-center space-x-2 float-cta hover:animate-none transition-transform hover:scale-105">
-    <span>Apply Now</span>
-    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-  </a>
-
-  <!-- Success Overlay -->
-  <div id="success-message" class="hidden success-screen p-8 text-center" role="dialog" aria-modal="true">
-    <div class="mx-auto bg-green-500/20 w-24 h-24 rounded-full flex items-center justify-center space-y-4 sm:space-y-6">
-      <svg class="w-16 h-16 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-    </div>
-    <h2 id="success-title" class="mt-6 text-3xl font-extrabold text-zinc-100">Congratulations, you are pre-approved!</h2>
-    <h3 class="mt-2 text-2xl font-bold text-zinc-200">I'll be in touch shortly to go over your pre-approval and options!</h3>
-  </div>
-
-  <script>
+    <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // --- ELEMENTS ---
-      const mainContent = document.querySelector('main');
-      const successMessage = document.getElementById('success-message');
-      const leadForm = document.getElementById('lead-form');
-      const yearEl = document.getElementById('year');
-      const progressBar = document.getElementById('progress-bar');
-      const meterText = document.getElementById('meter-text');
-      const statusEl = document.getElementById('form-status');
-      const submitBtn = document.getElementById('submitBtn');
-      
-      const firstNameInput = document.getElementById('firstName');
-      const middleNameInput = document.getElementById('middleName');
-      const lastNameInput = document.getElementById('lastName');
-      const middleNameRequiredSpan = document.getElementById('middleNameRequired');
-      const middleNameOptionalSpan = document.getElementById('middleNameOptional');
-
-      const phoneInput = document.getElementById('phone');
-      const incomeInput = document.getElementById('monthlyIncome');
-      const monthlyPaymentInput = document.getElementById('monthlyPayment');
-
-      const tabPre = document.getElementById('tab-pre');
-      const tabCredit = document.getElementById('tab-credit');
-      const tabFull = document.getElementById('tab-full');
-      
-      const appType = document.getElementById('app_type');
-      const creditSection = document.getElementById('creditSection');
-      const fullApplicationSection = document.getElementById('fullApplicationSection');
-      const maritalStatusWrapper = document.getElementById('maritalStatusWrapper');
-      const hasTradeInSelect = document.getElementById('hasTradeIn');
-      const tradeInDetailsDiv = document.getElementById('tradeInDetails');
-      
-      const incomeEmploymentSection = document.getElementById('incomeEmploymentSection');
-      const preApprovalIncomeSection = document.getElementById('preApprovalIncomeSection');
-      const incomeSourceSelect = document.getElementById('incomeSource');
-      const employmentDetails = document.getElementById('employmentDetails');
-      const selfEmployedDetails = document.getElementById('selfEmployedDetails');
-      const otherIncomeDetails = document.getElementById('otherIncomeDetails');
-      const hourlyRateSection = document.getElementById('hourlyRateSection');
-      const salarySection = document.getElementById('salarySection');
-      
-      const timeWithEmployerYears = document.getElementById('timeWithEmployerYears');
-      const timeAtAddressYears = document.getElementById('timeAtAddressYears');
-      const previousEmployerDetailsDiv = document.getElementById('previousEmployerDetails');
-      const previousAddressDetailsDiv = document.getElementById('previousAddressDetails');
-      
-      const creditConsent = document.getElementById('creditConsent');
-      const consentContainer = document.getElementById('consent-container');
-      
-      yearEl.textContent = new Date().getFullYear();
-      
-      // --- POPULATE DROPDOWNS ---
-      function populateDropdown(selectElement, start, end, label, singularLabel) {
-          for (let i = start; i <= end; i++) {
-              const option = document.createElement('option');
-              option.value = i;
-              option.textContent = i + ' ' + (i !== 1 ? label : (singularLabel || label));
-              selectElement.appendChild(option);
-          }
-      }
-      populateDropdown(timeWithEmployerYears, 0, 30, 'Years', 'Year');
-      populateDropdown(document.getElementById('timeWithEmployerMonths'), 0, 11, 'Months', 'Month');
-      populateDropdown(document.getElementById('prevTimeWithEmployerYears'), 0, 30, 'Years', 'Year');
-      populateDropdown(document.getElementById('prevTimeWithEmployerMonths'), 0, 11, 'Months', 'Month');
-      populateDropdown(timeAtAddressYears, 0, 30, 'Years', 'Year');
-      populateDropdown(document.getElementById('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
-
-
-      // --- ENHANCEMENT: INPUT FORMATTING ---
-      const formatPhoneNumber = (e) => {
-        const input = e.target;
-        const digits = input.value.replace(/\D/g, '').substring(0, 10);
-        const areaCode = digits.substring(0, 3);
-        const middle = digits.substring(3, 6);
-        const last = digits.substring(6, 10);
-
-        if (digits.length > 6) input.value = `(${areaCode}) ${middle}-${last}`;
-        else if (digits.length > 3) input.value = `(${areaCode}) ${middle}`;
-        else if (digits.length > 0) input.value = `(${areaCode}`;
-      };
-
-      const formatCurrency = (e) => {
-          let value = e.target.value.replace(/\D/g, '');
-          e.target.value = value ? '$' + new Intl.NumberFormat('en-US').format(value) : '';
-      };
-
-      phoneInput.addEventListener('input', formatPhoneNumber);
-      incomeInput.addEventListener('input', formatCurrency);
-      monthlyPaymentInput.addEventListener('input', formatCurrency);
-      document.getElementById('hourlyRate').addEventListener('input', formatCurrency);
-      document.getElementById('annualSalary').addEventListener('input', formatCurrency);
-      document.getElementById('avgMonthlyIncome').addEventListener('input', formatCurrency);
-      document.getElementById('otherIncomeAmount').addEventListener('input', formatCurrency);
-
-
-      // --- CORE FORM LOGIC ---
-      function setMode(mode) {
-        const isPre = mode === 'Pre-Approval';
-        const isCredit = mode === 'Credit Inquiry';
-        const isFull = mode === 'Full Application';
-        appType.value = mode;
-
-        tabPre.setAttribute('aria-pressed', isPre);
-        tabCredit.setAttribute('aria-pressed', isCredit);
-        tabFull.setAttribute('aria-pressed', isFull);
-
-        preApprovalIncomeSection.classList.toggle('hidden', isCredit || isFull);
-        incomeEmploymentSection.classList.toggle('show', isCredit || isFull);
-        incomeEmploymentSection.toggleAttribute('hidden', isPre);
-
-        creditSection.classList.toggle('show', isCredit || isFull);
-        creditSection.toggleAttribute('hidden', isPre);
+        // --- ELEMENTS ---
+        const mainContent = document.querySelector('main');
+        const successMessage = document.getElementById('success-message');
+        const successTitle = document.getElementById('success-title');
+        const successSubtitle = document.getElementById('success-subtitle');
+        const leadForm = document.getElementById('lead-form');
+        const yearEl = document.getElementById('year');
+        const progressBar = document.getElementById('progress-bar');
+        const meterText = document.getElementById('meter-text');
+        const statusEl = document.getElementById('form-status');
+        const submitBtn = document.getElementById('submitBtn');
         
-        fullApplicationSection.classList.toggle('show', isFull);
-        fullApplicationSection.toggleAttribute('hidden', !isFull);
+        const middleNameInput = document.getElementById('middleName');
+        const middleNameRequiredSpan = document.getElementById('middleNameRequired');
+        const middleNameOptionalSpan = document.getElementById('middleNameOptional');
 
-        maritalStatusWrapper.classList.toggle('show', isFull);
-        maritalStatusWrapper.toggleAttribute('hidden', !isFull);
+        const phoneInput = document.getElementById('phone');
+        const dobInput = document.getElementById('dob');
+        const incomeInput = document.getElementById('monthlyIncome');
+        const monthlyPaymentInput = document.getElementById('monthlyPayment');
 
-        consentContainer.classList.toggle('show', isCredit || isFull);
-        consentContainer.toggleAttribute('hidden', isPre);
+        const tabPre = document.getElementById('tab-pre');
+        const tabCredit = document.getElementById('tab-credit');
+        const tabFull = document.getElementById('tab-full');
         
-        middleNameInput.required = isCredit || isFull;
-        middleNameRequiredSpan.classList.toggle('hidden', isPre);
-        middleNameOptionalSpan.classList.toggle('hidden', !isPre);
+        const appType = document.getElementById('app_type');
+        const creditSection = document.getElementById('creditSection');
+        const fullApplicationSection = document.getElementById('fullApplicationSection');
+        const maritalStatusWrapper = document.getElementById('maritalStatusWrapper');
+        const hasTradeInSelect = document.getElementById('hasTradeIn');
+        const tradeInDetailsDiv = document.getElementById('tradeInDetails');
+        
+        const incomeEmploymentSection = document.getElementById('incomeEmploymentSection');
+        const preApprovalIncomeSection = document.getElementById('preApprovalIncomeSection');
+        const incomeSourceSelect = document.getElementById('incomeSource');
+        const employmentDetails = document.getElementById('employmentDetails');
+        const selfEmployedDetails = document.getElementById('selfEmployedDetails');
+        const otherIncomeDetails = document.getElementById('otherIncomeDetails');
+        const hourlyRateSection = document.getElementById('hourlyRateSection');
+        const salarySection = document.getElementById('salarySection');
+        
+        const timeWithEmployerYears = document.getElementById('timeWithEmployerYears');
+        const timeAtAddressYears = document.getElementById('timeAtAddressYears');
+        const previousEmployerDetailsDiv = document.getElementById('previousEmployerDetails');
+        const previousAddressDetailsDiv = document.getElementById('previousAddressDetails');
+        
+        const creditConsent = document.getElementById('creditConsent');
+        const consentContainer = document.getElementById('consent-container');
+        
+        yearEl.textContent = new Date().getFullYear();
+        
+        // --- POPULATE DROPDOWNS ---
+        function populateDropdown(selectElement, start, end, label, singularLabel) {
+            if (!selectElement) return; // Guard clause
+            for (let i = start; i <= end; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i + ' ' + (i !== 1 ? label : (singularLabel || label));
+                selectElement.appendChild(option);
+            }
+        }
+        populateDropdown(timeWithEmployerYears, 0, 30, 'Years', 'Year');
+        populateDropdown(document.getElementById('timeWithEmployerMonths'), 0, 11, 'Months', 'Month');
+        populateDropdown(document.getElementById('prevTimeWithEmployerYears'), 0, 30, 'Years', 'Year');
+        populateDropdown(document.getElementById('prevTimeWithEmployerMonths'), 0, 11, 'Months', 'Month');
+        populateDropdown(timeAtAddressYears, 0, 30, 'Years', 'Year');
+        populateDropdown(document.getElementById('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
 
-        const requiredMap = {
-            dob: isCredit || isFull,
-            incomeSource: isCredit || isFull,
-            maritalStatus: isFull,
-            currentAddress: isFull,
-            monthlyPayment: isFull,
-            timeAtAddressYears: isFull,
-            timeAtAddressMonths: isFull,
-            creditConsent: isCredit || isFull
+
+        // --- ENHANCEMENT: INPUT FORMATTING ---
+        const formatPhoneNumber = (e) => {
+            const input = e.target;
+            const digits = input.value.replace(/\D/g, '').substring(0, 10);
+            const areaCode = digits.substring(0, 3);
+            const middle = digits.substring(3, 6);
+            const last = digits.substring(6, 10);
+
+            if (digits.length > 6) input.value = `(${areaCode}) ${middle}-${last}`;
+            else if (digits.length > 3) input.value = `(${areaCode}) ${middle}`;
+            else if (digits.length > 0) input.value = `(${areaCode}`;
         };
 
-        for (const [id, isRequired] of Object.entries(requiredMap)) {
-            const el = document.getElementById(id);
-            if (el) el.required = isRequired;
-        }
-        
-        updateApprovalScore();
-      }
+        const formatCurrency = (e) => {
+            let value = e.target.value.replace(/[$,]/g, '');
+            if (isNaN(value) || value === '') {
+                e.target.value = '';
+            } else {
+                e.target.value = '$' + new Intl.NumberFormat('en-US').format(value);
+            }
+        };
 
-      tabPre.addEventListener('click', () => setMode('Pre-Approval'));
-      tabCredit.addEventListener('click', () => setMode('Credit Inquiry'));
-      tabFull.addEventListener('click', () => setMode('Full Application'));
-      
-      hasTradeInSelect.addEventListener('change', (e) => {
-        const show = e.target.value.toLowerCase() === 'yes';
-        tradeInDetailsDiv.classList.toggle('show', show);
-        tradeInDetailsDiv.toggleAttribute('hidden', !show);
-      });
-      
-      incomeSourceSelect.addEventListener('change', (e) => {
-          const value = e.target.value;
-          const isEmployed = value === 'Full-Time' || value === 'Part-Time';
-          const isSelfEmployed = value === 'Self-Employed';
-          const isOther = value === 'Disability' || value === 'Other';
+        const formatDOB = (e) => {
+            let input = e.target.value.replace(/\D/g, '').substring(0, 8);
+            let year = input.substring(0, 4);
+            let month = input.substring(4, 6);
+            let day = input.substring(6, 8);
+            if (input.length > 6) e.target.value = `${year}-${month}-${day}`;
+            else if (input.length > 4) e.target.value = `${year}-${month}`;
+            else e.target.value = year;
+        };
 
-          employmentDetails.classList.toggle('show', isEmployed);
-          employmentDetails.toggleAttribute('hidden', !isEmployed);
-          selfEmployedDetails.classList.toggle('show', isSelfEmployed);
-          selfEmployedDetails.toggleAttribute('hidden', !isSelfEmployed);
-          otherIncomeDetails.classList.toggle('show', isOther);
-          otherIncomeDetails.toggleAttribute('hidden', !isOther);
-      });
+        phoneInput.addEventListener('input', formatPhoneNumber);
+        dobInput.addEventListener('input', formatDOB);
+        [incomeInput, monthlyPaymentInput, document.getElementById('hourlyRate'), document.getElementById('annualSalary'), document.getElementById('avgMonthlyIncome'), document.getElementById('otherIncomeAmount')]
+            .forEach(el => el.addEventListener('input', formatCurrency));
 
-      leadForm.querySelectorAll('input[name="payType"]').forEach(radio => {
-          radio.addEventListener('change', (e) => {
-              const isHourly = e.target.value === 'hourly';
-              hourlyRateSection.classList.toggle('hidden', !isHourly);
-              salarySection.classList.toggle('show', !isHourly);
-              salarySection.toggleAttribute('hidden', isHourly);
-          });
-      });
 
-      function checkTime(yearsEl, detailsDiv, requiredFields) {
-        const years = parseInt(yearsEl.value, 10);
-        const show = years < 2;
-        detailsDiv.classList.toggle('show', show);
-        detailsDiv.toggleAttribute('hidden', !show);
-        requiredFields.forEach(id => {
-            document.getElementById(id).required = show && appType.value === 'Full Application';
-        });
-      }
-
-      timeWithEmployerYears.addEventListener('change', () => checkTime(timeWithEmployerYears, previousEmployerDetailsDiv, ['previousEmployer', 'prevTimeWithEmployerYears', 'prevTimeWithEmployerMonths']));
-      timeAtAddressYears.addEventListener('change', () => checkTime(timeAtAddressYears, previousAddressDetailsDiv, ['previousAddress']));
-
-      function updateApprovalScore() {
-        // ... (Approval score logic can be further refined based on new fields)
-      }
-
-      leadForm.addEventListener('input', updateApprovalScore);
-      leadForm.addEventListener('change', updateApprovalScore);
-
-      // --- VALIDATION AND SUBMISSION ---
-      function validateForm() {
-        let isValid = true;
-        statusEl.textContent = '';
-        
-        document.querySelectorAll('#lead-form .err').forEach(el => el.classList.remove('err'));
-
-        let requiredFields = ['firstName', 'lastName', 'phone', 'email'];
-        
-        if (appType.value === 'Credit Inquiry' || appType.value === 'Full Application') {
-            requiredFields.push('dob', 'creditConsent', 'middleName', 'incomeSource');
-        }
-        if (appType.value === 'Full Application') {
-            requiredFields.push('maritalStatus', 'currentAddress', 'monthlyPayment', 'timeAtAddressYears', 'timeAtAddressMonths');
-            if (parseInt(timeAtAddressYears.value) < 2) {
-                requiredFields.push('previousAddress');
+        // --- NEW HELPER FUNCTION ---
+        function toggleSection(element, show) {
+            if (element) {
+                element.classList.toggle('show', show);
+                element.toggleAttribute('hidden', !show);
             }
         }
         
-        const incomeSource = incomeSourceSelect.value;
-        if (appType.value !== 'Pre-Approval') {
-            if (incomeSource === 'Full-Time' || incomeSource === 'Part-Time') {
-                requiredFields.push('currentEmployer', 'jobTitle');
-                if (document.getElementById('payTypeHourly').checked) {
-                    requiredFields.push('hourlyRate', 'hoursPerWeek');
-                } else {
-                    requiredFields.push('annualSalary');
+        // --- CORE FORM LOGIC ---
+        function setMode(mode) {
+            const isPre = mode === 'Pre-Approval';
+            const isCredit = mode === 'Credit Inquiry';
+            const isFull = mode === 'Full Application';
+            appType.value = mode;
+
+            tabPre.setAttribute('aria-pressed', isPre);
+            tabCredit.setAttribute('aria-pressed', isCredit);
+            tabFull.setAttribute('aria-pressed', isFull);
+            
+            toggleSection(preApprovalIncomeSection, isPre);
+            toggleSection(incomeEmploymentSection, isCredit || isFull);
+            toggleSection(creditSection, isCredit || isFull);
+            toggleSection(fullApplicationSection, isFull);
+            toggleSection(maritalStatusWrapper, isFull);
+            toggleSection(consentContainer, isCredit || isFull);
+
+            middleNameInput.required = isCredit || isFull;
+            middleNameRequiredSpan.classList.toggle('hidden', isPre);
+            middleNameOptionalSpan.classList.toggle('hidden', !isPre);
+
+            const requiredMap = {
+                dob: isCredit || isFull,
+                incomeSource: isCredit || isFull,
+                maritalStatus: isFull,
+                currentAddress: isFull,
+                monthlyPayment: isFull,
+                timeAtAddressYears: isFull,
+                timeAtAddressMonths: isFull,
+                creditConsent: isCredit || isFull
+            };
+
+            for (const [id, isRequired] of Object.entries(requiredMap)) {
+                const el = document.getElementById(id);
+                if (el) el.required = isRequired;
+            }
+            
+            updateApprovalScore();
+        }
+
+        tabPre.addEventListener('click', () => setMode('Pre-Approval'));
+        tabCredit.addEventListener('click', () => setMode('Credit Inquiry'));
+        tabFull.addEventListener('click', () => setMode('Full Application'));
+        
+        hasTradeInSelect.addEventListener('change', (e) => {
+            const show = e.target.value.toLowerCase() === 'yes';
+            toggleSection(tradeInDetailsDiv, show);
+        });
+        
+        incomeSourceSelect.addEventListener('change', (e) => {
+            const value = e.target.value;
+            const isEmployed = value === 'Full-Time' || value === 'Part-Time';
+            const isSelfEmployed = value === 'Self-Employed';
+            const isOther = value === 'Disability' || value === 'Other';
+            
+            toggleSection(employmentDetails, isEmployed);
+            toggleSection(selfEmployedDetails, isSelfEmployed);
+            toggleSection(otherIncomeDetails, isOther);
+        });
+
+        leadForm.querySelectorAll('input[name="payType"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                const isHourly = e.target.value === 'hourly';
+                toggleSection(hourlyRateSection, isHourly);
+                toggleSection(salarySection, !isHourly);
+            });
+        });
+
+        function checkTime(yearsEl, detailsDiv, requiredFields) {
+            const years = parseInt(yearsEl.value, 10);
+            const show = years < 2 && (appType.value === 'Full Application' || appType.value === 'Credit Inquiry');
+            toggleSection(detailsDiv, show);
+            requiredFields.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.required = show;
+            });
+        }
+
+        timeWithEmployerYears.addEventListener('change', () => checkTime(timeWithEmployerYears, previousEmployerDetailsDiv, ['previousEmployer', 'prevTimeWithEmployerYears', 'prevTimeWithEmployerMonths']));
+        timeAtAddressYears.addEventListener('change', () => checkTime(timeAtAddressYears, previousAddressDetailsDiv, ['previousAddress']));
+        
+        // --- UPDATED LOGIC: Approval Score Calculation ---
+        function updateApprovalScore() {
+            const fieldWeights = {
+                // Pre-Approval Fields (Total: 40)
+                firstName: 5, lastName: 5, phone: 5, email: 5,
+                monthlyIncome: 10, downPayment: 5, hasTradeIn: 5,
+                // Credit Inquiry Fields (Total: 30)
+                middleName: 5, dob: 10, incomeSource: 15,
+                // Full Application Fields (Total: 30)
+                maritalStatus: 5, currentAddress: 10, monthlyPayment: 5,
+                timeAtAddressYears: 5, timeAtAddressMonths: 5,
+            };
+            
+            let currentScore = 5; // Start with a base score
+            let maxScore = 5;
+
+            const mode = appType.value;
+            let fieldsToCheck = ['firstName', 'lastName', 'phone', 'email', 'downPayment', 'hasTradeIn'];
+            
+            if (mode === 'Pre-Approval') {
+                fieldsToCheck.push('monthlyIncome');
+                maxScore += 40;
+            } else if (mode === 'Credit Inquiry') {
+                 fieldsToCheck.push('middleName', 'dob', 'incomeSource');
+                 maxScore += 70; // 40 + 30
+            } else if (mode === 'Full Application') {
+                fieldsToCheck.push('middleName', 'dob', 'incomeSource', 'maritalStatus', 'currentAddress', 'monthlyPayment', 'timeAtAddressYears', 'timeAtAddressMonths');
+                maxScore += 100; // 40 + 30 + 30
+            }
+
+            fieldsToCheck.forEach(id => {
+                const el = document.getElementById(id);
+                if (el && el.value.trim() !== '') {
+                    currentScore += fieldWeights[id] || 0;
                 }
-            } else if (incomeSource === 'Self-Employed') {
-                requiredFields.push('businessName', 'avgMonthlyIncome');
-            } else if (incomeSource === 'Disability' || incomeSource === 'Other') {
-                requiredFields.push('otherIncomeAmount', 'otherIncomeSource');
-            }
+            });
+            
+            let percentage = Math.min(100, Math.round((currentScore / maxScore) * 100));
+            progressBar.style.width = `${percentage}%`;
+            
+            let meterLabel = "Basic Info";
+            if (percentage > 95) meterLabel = "Excellent";
+            else if (percentage > 75) meterLabel = "Strong";
+            else if (percentage > 50) meterLabel = "Good";
+            else if (percentage > 25) meterLabel = "Fair";
+            
+            meterText.textContent = `${meterLabel} (${percentage}%)`;
         }
 
+        leadForm.addEventListener('input', updateApprovalScore);
+        leadForm.addEventListener('change', updateApprovalScore);
 
-        requiredFields.forEach(id => {
-          const el = document.getElementById(id);
-          if (!el) return;
+        // --- VALIDATION AND SUBMISSION ---
+        function validateForm() {
+            let isValid = true;
+            statusEl.textContent = '';
+            
+            document.querySelectorAll('#lead-form .err').forEach(el => el.classList.remove('err'));
 
-          let fieldIsValid = (el.type === 'checkbox') ? el.checked : el.value.trim() !== '';
-          if (id === 'phone') fieldIsValid = el.value.replace(/\D/g, '').length >= 10;
-          
-          el.classList.toggle('err', !fieldIsValid);
-          if (!fieldIsValid) isValid = false;
+            let requiredFields = [...leadForm.querySelectorAll('[required]')].map(el => el.id);
+
+            requiredFields.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+
+                let fieldIsValid = (el.type === 'checkbox') ? el.checked : el.value.trim() !== '';
+                if (id === 'phone') fieldIsValid = el.value.replace(/\D/g, '').length >= 10;
+                
+                el.classList.toggle('err', !fieldIsValid);
+                if (!fieldIsValid) isValid = false;
+            });
+
+            if (!isValid) {
+                statusEl.textContent = 'Please complete all required fields.';
+                const firstErrorField = leadForm.querySelector('.err');
+                if (firstErrorField) firstErrorField.focus();
+            }
+            return isValid;
+        }
+
+        leadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!validateForm()) return;
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            // --- UPDATED LOGIC: Dynamic Success Message ---
+            if (appType.value === 'Pre-Approval') {
+                successTitle.textContent = "Congratulations!";
+                successSubtitle.textContent = "I'll be in touch shortly to go over your pre-approval!";
+            } else {
+                successTitle.textContent = "Application Submitted!";
+                successSubtitle.textContent = "Thank you. I'll review your details and get back to you soon.";
+            }
+
+            const formData = new FormData(leadForm);
+            try {
+                await fetch('/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams([...formData]).toString()
+                });
+                mainContent.style.display = 'none';
+                document.querySelector('.float-cta').style.display = 'none';
+                successMessage.classList.remove('hidden');
+                window.scrollTo(0, 0);
+            } catch (err) {
+                console.error("Fetch failed, falling back to form.submit()", err);
+                leadForm.submit();
+            }
         });
 
-        if (!isValid) {
-            statusEl.textContent = 'Please complete all required fields.';
-            const firstErrorField = leadForm.querySelector('.err');
-            if (firstErrorField) firstErrorField.focus();
-        }
-        return isValid;
-      }
-
-      leadForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        if (!validateForm()) return;
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Submitting...';
-
-        const formData = new FormData(leadForm);
-        try {
-          await fetch('/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams([...formData]).toString()
-          });
-          mainContent.style.display = 'none';
-          document.querySelector('.float-cta').style.display = 'none';
-          successMessage.classList.remove('hidden');
-          window.scrollTo(0, 0);
-        } catch (err) {
-          console.error("Fetch failed, falling back to form.submit()", err);
-          leadForm.submit();
-        }
-      });
-
-      // --- INITIAL STATE ---
-      setMode('Pre-Approval');
-      const showInitial = hasTradeInSelect.value.toLowerCase() === 'yes';
-      tradeInDetailsDiv.classList.toggle('show', showInitial);
-      tradeInDetailsDiv.toggleAttribute('hidden', !showInitial);
-      updateApprovalScore();
+        // --- INITIAL STATE ---
+        setMode('Pre-Approval');
+        const showInitial = hasTradeInSelect.value.toLowerCase() === 'yes';
+        toggleSection(tradeInDetailsDiv, showInitial);
+        updateApprovalScore();
     });
-  </script>
+    </script>
 
-  <noscript>
-    <style>#success-message{display:none!important}</style>
-    <div class="mt-6 text-center text-sm text-zinc-800">
-      JavaScript is disabled. The form will submit to the thank-you page.
-    </div>
-  </noscript>
+    <noscript>
+        <style>#success-message{display:none!important}</style>
+        <div class="mt-6 text-center text-sm text-zinc-800">
+            JavaScript is disabled. The form will submit to the thank-you page.
+        </div>
+    </noscript>
 </body>
-</ht
+</html>
