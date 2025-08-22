@@ -450,8 +450,6 @@
     </main>
     
     <script>
-    // All JavaScript logic from the previous version is preserved.
-    // The redesign is handled by the new CSS and HTML structure.
     document.addEventListener('DOMContentLoaded', () => {
         const mainContent = document.querySelector('main');
         const successMessage = document.getElementById('success-message');
@@ -685,16 +683,15 @@
             let isValid = true;
             statusEl.textContent = '';
             
-            document.querySelectorAll('#lead-form .err').forEach(el => el.classList.remove('err'));
-            document.querySelectorAll('#lead-form .err-label').forEach(el => el.classList.remove('err-label'));
+            document.querySelectorAll('#lead-form .err, #lead-form .err-label').forEach(el => el.classList.remove('err', 'err-label'));
 
-            const requiredFields = [...leadForm.querySelectorAll('[required]')].map(el => el.id);
+            const requiredFields = [...leadForm.querySelectorAll('[required]')];
 
-            requiredFields.forEach(id => {
-                const el = document.getElementById(id);
-                if (!el) return;
+            requiredFields.forEach(el => {
                 let fieldIsValid = (el.type === 'checkbox') ? el.checked : el.value.trim() !== '';
-                if (id === 'phone') fieldIsValid = el.value.replace(/\D/g, '').length >= 10;
+                if (el.id === 'phone') {
+                    fieldIsValid = el.value.replace(/\D/g, '').length >= 10;
+                }
                 
                 if (!fieldIsValid) {
                     isValid = false;
@@ -703,7 +700,7 @@
                     if (label) {
                         label.classList.add('err-label');
                     }
-                    if (['dobMonth', 'dobDay', 'dobYear'].includes(id)) {
+                    if (['dobMonth', 'dobDay', 'dobYear'].includes(el.id)) {
                         const mainDobLabel = document.querySelector(`label[for="dobMonth"]`);
                         if (mainDobLabel) mainDobLabel.classList.add('err-label');
                     }
