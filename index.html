@@ -537,7 +537,7 @@
             toggleSection(residentialHistorySection, isFull);
             toggleSection(consentContainer, isCredit || isFull);
 
-            // This is the logic that makes the middle name required
+            // This is the logic that makes the middle name required and manages the label
             middleNameInput.required = isCredit || isFull;
             middleNameRequiredSpan.classList.toggle('hidden', isPre);
             middleNameOptionalSpan.classList.toggle('hidden', !isPre);
@@ -613,7 +613,6 @@
         timeWithEmployerYears.addEventListener('change', () => checkTime(timeWithEmployerYears, previousEmployerDetailsDiv, ['previousEmployer', 'prevTimeWithEmployerYears', 'prevTimeWithEmployerMonths']));
         timeAtAddressYears.addEventListener('change', () => checkTime(timeAtAddressYears, previousAddressDetailsDiv, ['prevStreetAddress', 'prevCity', 'prevProvince', 'prevPostalCode', 'timeAtPrevAddressYears', 'timeAtPrevAddressMonths']));
         
-        // -- UPDATED: Rewritten validation function for clarity and robustness
         function validateForm() {
             let isValid = true;
             statusEl.textContent = '';
@@ -621,29 +620,11 @@
             document.querySelectorAll('#lead-form .err').forEach(el => el.classList.remove('err'));
             document.querySelectorAll('#lead-form .err-label').forEach(el => el.classList.remove('err-label'));
 
-            // This is a new, explicit check to guarantee the middle name logic works
-            const mode = appType.value;
-            if (mode === 'Credit Inquiry' || mode === 'Full Application') {
-                if (middleNameInput.value.trim() === '') {
-                    middleNameInput.classList.add('err');
-                    const label = document.querySelector(`label[for="middleName"]`);
-                    if (label) {
-                        label.classList.add('err-label');
-                    }
-                    isValid = false; // Immediately flag the form as invalid
-                }
-            }
-
-            // The rest of the validation runs for all other required fields
             const requiredFields = [...leadForm.querySelectorAll('[required]')].map(el => el.id);
 
             requiredFields.forEach(id => {
                 const el = document.getElementById(id);
                 if (!el) return;
-
-                // Skip middleName here since we already handled it explicitly
-                if (id === 'middleName') return;
-
                 let fieldIsValid = (el.type === 'checkbox') ? el.checked : el.value.trim() !== '';
                 if (id === 'phone') fieldIsValid = el.value.replace(/\D/g, '').length >= 10;
                 
