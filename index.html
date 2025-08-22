@@ -298,9 +298,15 @@
                             <div id="residentialHistorySection" class="hidden-section space-y-4" hidden>
                                 <div class="border-t border-white/10 pt-4 space-y-4">
                                     <p class="text-sm text-zinc-300 font-medium">Residential History</p>
-                                    <div>
-                                        <label for="currentAddress" class="block text-sm font-medium text-zinc-300 mb-1.5">Current Address <span class="text-red-400">*</span></label>
-                                        <input type="text" id="currentAddress" name="currentAddress" placeholder="Street Address, City, Province" class="form-input"/>
+                                    <div class="space-y-4">
+                                        <label class="block text-sm font-medium text-zinc-300">Current Address <span class="text-red-400">*</span></label>
+                                        <div class="grid grid-cols-6 gap-2">
+                                            <input type="text" id="currentStreetAddress" name="currentStreetAddress" placeholder="Street Address" class="form-input col-span-4" autocomplete="street-address"/>
+                                            <input type="text" id="currentUnit" name="currentUnit" placeholder="Unit #" class="form-input col-span-2" />
+                                            <input type="text" id="currentCity" name="currentCity" placeholder="City" class="form-input col-span-3" autocomplete="address-level2" />
+                                            <select id="currentProvince" name="currentProvince" class="form-select col-span-3"><option value="">Province</option></select>
+                                            <input type="text" id="currentPostalCode" name="currentPostalCode" placeholder="Postal Code" class="form-input col-span-6" autocomplete="postal-code" />
+                                        </div>
                                     </div>
                                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                         <div>
@@ -316,9 +322,22 @@
                                         </div>
                                     </div>
                                     <div id="previousAddressDetails" class="hidden-section space-y-4" hidden>
+                                        <div class="space-y-4">
+                                            <label class="block text-sm font-medium text-zinc-300">Previous Address <span class="text-red-400">*</span></label>
+                                            <div class="grid grid-cols-6 gap-2">
+                                                <input type="text" id="prevStreetAddress" name="prevStreetAddress" placeholder="Street Address" class="form-input col-span-4" />
+                                                <input type="text" id="prevUnit" name="prevUnit" placeholder="Unit #" class="form-input col-span-2" />
+                                                <input type="text" id="prevCity" name="prevCity" placeholder="City" class="form-input col-span-3" />
+                                                <select id="prevProvince" name="prevProvince" class="form-select col-span-3"><option value="">Province</option></select>
+                                                <input type="text" id="prevPostalCode" name="prevPostalCode" placeholder="Postal Code" class="form-input col-span-6" />
+                                            </div>
+                                        </div>
                                         <div>
-                                            <label for="previousAddress" class="block text-sm font-medium text-zinc-300 mb-1.5">Previous Address <span class="text-red-400">*</span></label>
-                                            <input type="text" id="previousAddress" name="previousAddress" placeholder="Street Address, City, Province" class="form-input"/>
+                                            <label class="block text-sm font-medium text-zinc-300 mb-1.5">Time at Previous Address <span class="text-red-400">*</span></label>
+                                            <div class="grid grid-cols-2 gap-2">
+                                                <select id="timeAtPrevAddressYears" name="timeAtPrevAddressYears" class="form-select"><option value="">Years</option></select>
+                                                <select id="timeAtPrevAddressMonths" name="timeAtPrevAddressMonths" class="form-select"><option value="">Months</option></select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -376,7 +395,6 @@
         const middleNameRequiredSpan = document.getElementById('middleNameRequired');
         const middleNameOptionalSpan = document.getElementById('middleNameOptional');
         const phoneInput = document.getElementById('phone');
-        // -- UPDATED: New DOB element variables
         const dobYearInput = document.getElementById('dobYear');
         const dobMonthSelect = document.getElementById('dobMonth');
         const dobDaySelect = document.getElementById('dobDay');
@@ -401,11 +419,12 @@
         const previousEmployerDetailsDiv = document.getElementById('previousEmployerDetails');
         const previousAddressDetailsDiv = document.getElementById('previousAddressDetails');
         const creditConsent = document.getElementById('creditConsent');
-        const consentContainer = document.getElementById('consent-container');
+        // -- UPDATED: New element variables
+        const currentProvinceSelect = document.getElementById('currentProvince');
+        const prevProvinceSelect = document.getElementById('prevProvince');
         
         yearEl.textContent = new Date().getFullYear();
-        
-        // -- UPDATED: Functions to populate and manage DOB dropdowns
+
         function populateMonths() {
             const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             months.forEach((month, index) => {
@@ -420,28 +439,38 @@
             const year = parseInt(dobYearInput.value, 10);
             const month = parseInt(dobMonthSelect.value, 10);
             const selectedDay = parseInt(dobDaySelect.value, 10);
-            
-            // Determine the number of days in the selected month/year
-            // If year or month isn't a valid number, default to 31
             const daysInMonth = (year && month) ? new Date(year, month, 0).getDate() : 31;
-            
-            dobDaySelect.innerHTML = '<option value="">Day</option>'; // Clear existing day options
-
+            dobDaySelect.innerHTML = '<option value="">Day</option>';
             for (let i = 1; i <= daysInMonth; i++) {
                 const option = document.createElement('option');
                 option.value = i;
                 option.textContent = i;
                 dobDaySelect.appendChild(option);
             }
-            
-            // If the previously selected day is still valid, restore it
             if (selectedDay && selectedDay <= daysInMonth) {
                 dobDaySelect.value = selectedDay;
             }
         }
+        
+        // -- UPDATED: New function to populate province dropdowns
+        function populateProvinces() {
+            const provinces = ["AB", "BC", "MB", "NB", "NL", "NS", "NT", "NU", "ON", "PE", "QC", "SK", "YT"];
+            provinces.forEach(p => {
+                const option1 = document.createElement('option');
+                option1.value = p;
+                option1.textContent = p;
+                currentProvinceSelect.appendChild(option1);
+
+                const option2 = document.createElement('option');
+                option2.value = p;
+                option2.textContent = p;
+                prevProvinceSelect.appendChild(option2);
+            });
+        }
 
         populateMonths();
-        updateDays(); // Initial population of days
+        updateDays();
+        populateProvinces(); // Call the new function
         dobYearInput.addEventListener('input', updateDays);
         dobMonthSelect.addEventListener('change', updateDays);
         
@@ -460,6 +489,9 @@
         populateDropdown(document.getElementById('prevTimeWithEmployerMonths'), 0, 11, 'Months', 'Month');
         populateDropdown(timeAtAddressYears, 0, 30, 'Years', 'Year');
         populateDropdown(document.getElementById('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
+        // -- UPDATED: Populate new previous address duration dropdowns
+        populateDropdown(document.getElementById('timeAtPrevAddressYears'), 0, 30, 'Years', 'Year');
+        populateDropdown(document.getElementById('timeAtPrevAddressMonths'), 0, 11, 'Months', 'Month');
 
         const formatPhoneNumber = (e) => {
             const input = e.target;
@@ -511,14 +543,17 @@
             middleNameRequiredSpan.classList.toggle('hidden', isPre);
             middleNameOptionalSpan.classList.toggle('hidden', !isPre);
 
-            // -- UPDATED: requiredMap with new DOB fields
+            // -- UPDATED: requiredMap with new address fields
             const requiredMap = {
                 incomeSource: true,
                 dobYear: isCredit || isFull,
                 dobMonth: isCredit || isFull,
                 dobDay: isCredit || isFull,
                 maritalStatus: isFull,
-                currentAddress: isFull,
+                currentStreetAddress: isFull,
+                currentCity: isFull,
+                currentProvince: isFull,
+                currentPostalCode: isFull,
                 monthlyPayment: isFull,
                 timeAtAddressYears: isFull,
                 timeAtAddressMonths: isFull,
@@ -578,7 +613,8 @@
         }
 
         timeWithEmployerYears.addEventListener('change', () => checkTime(timeWithEmployerYears, previousEmployerDetailsDiv, ['previousEmployer', 'prevTimeWithEmployerYears', 'prevTimeWithEmployerMonths']));
-        timeAtAddressYears.addEventListener('change', () => checkTime(timeAtAddressYears, previousAddressDetailsDiv, ['previousAddress']));
+        // -- UPDATED: Added required fields for previous address
+        timeAtAddressYears.addEventListener('change', () => checkTime(timeAtAddressYears, previousAddressDetailsDiv, ['prevStreetAddress', 'prevCity', 'prevProvince', 'prevPostalCode', 'timeAtPrevAddressYears', 'timeAtPrevAddressMonths']));
         
         function validateForm() {
             let isValid = true;
