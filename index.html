@@ -193,28 +193,6 @@
                             <input type="text" name="tradeInOwed" placeholder="Money owed? e.g., $5,000 or None" class="form-input mt-3"/>
                         </div>
 
-                        <div id="creditSection" class="hidden-section space-y-4" hidden>
-                            <div class="border-t border-white/10 pt-4 space-y-4">
-                                <p class="text-sm text-zinc-300 font-medium">Personal Information</p>
-                                <div>
-                                    <label class="block text-sm font-medium text-zinc-300 mb-1.5" for="dob">Date of birth <span class="text-red-400">*</span></label>
-                                    <input id="dob" name="dob" class="form-input" type="text" placeholder="YYYY-MM-DD" />
-                                </div>
-                                <div id="maritalStatusWrapper" class="hidden-section">
-                                    <label class="block text-sm font-medium text-zinc-300 mb-1.5" for="maritalStatus">Marital Status <span class="text-red-400">*</span></label>
-                                    <select id="maritalStatus" name="maritalStatus" class="form-select">
-                                        <option value="">Please select...</option>
-                                        <option>Single</option>
-                                        <option>Married</option>
-                                        <option>Common-Law</option>
-                                        <option>Divorced</option>
-                                        <option>Separated</option>
-                                        <option>Widowed</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
                         <div id="incomeEmploymentSection" class="hidden-section space-y-4" hidden>
                             <div class="border-t border-white/10 pt-4 space-y-4">
                                 <p class="text-sm text-zinc-300 font-medium">Income & Employment</p>
@@ -230,7 +208,20 @@
                                     </select>
                                 </div>
 
-                                <div id="employmentDetails" class="hidden-section space-y-4" hidden>
+                                <div id="simplifiedEmploymentDetails" class="hidden-section space-y-4" hidden>
+                                    <div>
+                                        <label for="simplifiedMonthlyIncome" class="block text-sm font-medium text-zinc-300 mb-1.5">Monthly Income (before tax) <span class="text-red-400">*</span></label>
+                                        <input type="text" id="simplifiedMonthlyIncome" name="simplifiedMonthlyIncome" placeholder="$3,500" class="form-input" inputmode="numeric"/>
+                                    </div>
+                                    <div class="switch-field">
+                                        <input type="radio" id="simplifiedPayTypeHourly" name="simplifiedPayType" value="hourly" checked/>
+                                        <label for="simplifiedPayTypeHourly">Hourly</label>
+                                        <input type="radio" id="simplifiedPayTypeSalary" name="simplifiedPayType" value="salary"/>
+                                        <label for="simplifiedPayTypeSalary">Salary</label>
+                                    </div>
+                                </div>
+                                
+                                <div id="fullEmploymentDetails" class="hidden-section space-y-4" hidden>
                                     <div>
                                         <label for="currentEmployer" class="block text-sm font-medium text-zinc-300 mb-1.5">Employer <span class="text-red-400">*</span></label>
                                         <input type="text" id="currentEmployer" name="currentEmployer" placeholder="Company Name" class="form-input"/>
@@ -238,16 +229,6 @@
                                     <div>
                                         <label for="jobTitle" class="block text-sm font-medium text-zinc-300 mb-1.5">Position / Job Title <span class="text-red-400">*</span></label>
                                         <input type="text" id="jobTitle" name="jobTitle" placeholder="Your Role" class="form-input"/>
-                                    </div>
-                                    <div>
-                                        <label for="employmentMonthlyIncome" class="block text-sm font-medium text-zinc-300 mb-1.5">Monthly Income (before tax) <span class="text-red-400">*</span></label>
-                                        <input type="text" id="employmentMonthlyIncome" name="employmentMonthlyIncome" placeholder="$3,500" class="form-input" inputmode="numeric"/>
-                                    </div>
-                                    <div class="switch-field">
-                                        <input type="radio" id="payTypeHourly" name="payType" value="hourly" checked/>
-                                        <label for="payTypeHourly">Hourly</label>
-                                        <input type="radio" id="payTypeSalary" name="payType" value="salary"/>
-                                        <label for="payTypeSalary">Salary</label>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-zinc-300 mb-1.5">Time with Employer <span class="text-red-400">*</span></label>
@@ -289,31 +270,53 @@
                             </div>
                         </div>
 
-                        <div id="fullApplicationSection" class="hidden-section space-y-4" hidden>
+                        <div id="detailedInfoSection" class="hidden-section space-y-4" hidden>
                             <div class="border-t border-white/10 pt-4 space-y-4">
-                                <p class="text-sm text-zinc-300 font-medium">Residential History</p>
+                                <p class="text-sm text-zinc-300 font-medium">Personal Information</p>
                                 <div>
-                                    <label for="currentAddress" class="block text-sm font-medium text-zinc-300 mb-1.5">Current Address <span class="text-red-400">*</span></label>
-                                    <input type="text" id="currentAddress" name="currentAddress" placeholder="Street Address, City, Province" class="form-input"/>
+                                    <label class="block text-sm font-medium text-zinc-300 mb-1.5" for="dob">Date of birth <span class="text-red-400">*</span></label>
+                                    <input id="dob" name="dob" class="form-input" type="text" placeholder="YYYY-MM-DD" />
                                 </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div id="maritalStatusWrapper" class="hidden-section">
+                                    <label class="block text-sm font-medium text-zinc-300 mb-1.5" for="maritalStatus">Marital Status <span class="text-red-400">*</span></label>
+                                    <select id="maritalStatus" name="maritalStatus" class="form-select">
+                                        <option value="">Please select...</option>
+                                        <option>Single</option>
+                                        <option>Married</option>
+                                        <option>Common-Law</option>
+                                        <option>Divorced</option>
+                                        <option>Separated</option>
+                                        <option>Widowed</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="residentialHistorySection" class="hidden-section space-y-4" hidden>
+                                <div class="border-t border-white/10 pt-4 space-y-4">
+                                    <p class="text-sm text-zinc-300 font-medium">Residential History</p>
                                     <div>
-                                        <label for="monthlyPayment" class="block text-sm font-medium text-zinc-300 mb-1.5">Monthly Payment <span class="text-red-400">*</span></label>
-                                        <input type="text" id="monthlyPayment" name="monthlyPayment" placeholder="$1,500" class="form-input" inputmode="numeric"/>
+                                        <label for="currentAddress" class="block text-sm font-medium text-zinc-300 mb-1.5">Current Address <span class="text-red-400">*</span></label>
+                                        <input type="text" id="currentAddress" name="currentAddress" placeholder="Street Address, City, Province" class="form-input"/>
                                     </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-zinc-300 mb-1.5">Time at Address <span class="text-red-400">*</span></label>
-                                        <div class="grid grid-cols-2 gap-2">
-                                            <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                                            <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div>
+                                            <label for="monthlyPayment" class="block text-sm font-medium text-zinc-300 mb-1.5">Monthly Payment <span class="text-red-400">*</span></label>
+                                            <input type="text" id="monthlyPayment" name="monthlyPayment" placeholder="$1,500" class="form-input" inputmode="numeric"/>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-zinc-300 mb-1.5">Time at Address <span class="text-red-400">*</span></label>
+                                            <div class="grid grid-cols-2 gap-2">
+                                                <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
+                                                <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div id="previousAddressDetails" class="hidden-section space-y-4" hidden>
-                                    <p class="text-xs text-zinc-400 pt-2">Please provide your previous address (required for less than 2 years of history).</p>
-                                    <div>
-                                        <label for="previousAddress" class="block text-sm font-medium text-zinc-300 mb-1.5">Previous Address <span class="text-red-400">*</span></label>
-                                        <input type="text" id="previousAddress" name="previousAddress" placeholder="Street Address, City, Province" class="form-input"/>
+                                    <div id="previousAddressDetails" class="hidden-section space-y-4" hidden>
+                                        <p class="text-xs text-zinc-400 pt-2">Please provide your previous address (required for less than 2 years of history).</p>
+                                        <div>
+                                            <label for="previousAddress" class="block text-sm font-medium text-zinc-300 mb-1.5">Previous Address <span class="text-red-400">*</span></label>
+                                            <input type="text" id="previousAddress" name="previousAddress" placeholder="Street Address, City, Province" class="form-input"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -358,13 +361,13 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
+        // -- UPDATED LOGIC: New and renamed element variables
         const mainContent = document.querySelector('main');
         const successMessage = document.getElementById('success-message');
         const successTitle = document.getElementById('success-title');
         const successSubtitle = document.getElementById('success-subtitle');
         const leadForm = document.getElementById('lead-form');
         const yearEl = document.getElementById('year');
-        const meterText = document.getElementById('meter-text');
         const statusEl = document.getElementById('form-status');
         const submitBtn = document.getElementById('submitBtn');
         const middleNameInput = document.getElementById('middleName');
@@ -377,14 +380,15 @@
         const tabCredit = document.getElementById('tab-credit');
         const tabFull = document.getElementById('tab-full');
         const appType = document.getElementById('app_type');
-        const creditSection = document.getElementById('creditSection');
-        const fullApplicationSection = document.getElementById('fullApplicationSection');
+        const detailedInfoSection = document.getElementById('detailedInfoSection'); // Renamed
+        const residentialHistorySection = document.getElementById('residentialHistorySection'); // New
         const maritalStatusWrapper = document.getElementById('maritalStatusWrapper');
         const hasTradeInSelect = document.getElementById('hasTradeIn');
         const tradeInDetailsDiv = document.getElementById('tradeInDetails');
         const incomeEmploymentSection = document.getElementById('incomeEmploymentSection');
         const incomeSourceSelect = document.getElementById('incomeSource');
-        const employmentDetails = document.getElementById('employmentDetails');
+        const simplifiedEmploymentDetails = document.getElementById('simplifiedEmploymentDetails'); // New
+        const fullEmploymentDetails = document.getElementById('fullEmploymentDetails'); // Renamed
         const selfEmployedDetails = document.getElementById('selfEmployedDetails');
         const otherIncomeDetails = document.getElementById('otherIncomeDetails');
         const timeWithEmployerYears = document.getElementById('timeWithEmployerYears');
@@ -444,7 +448,7 @@
 
         phoneInput.addEventListener('input', formatPhoneNumber);
         dobInput.addEventListener('input', formatDOB);
-        [monthlyPaymentInput, document.getElementById('avgMonthlyIncome'), document.getElementById('otherIncomeAmount'), document.getElementById('employmentMonthlyIncome')]
+        [monthlyPaymentInput, document.getElementById('avgMonthlyIncome'), document.getElementById('otherIncomeAmount'), document.getElementById('simplifiedMonthlyIncome')]
             .forEach(el => el.addEventListener('input', formatCurrency));
 
         function toggleSection(element, show) {
@@ -463,10 +467,11 @@
             tabCredit.setAttribute('aria-pressed', isCredit);
             tabFull.setAttribute('aria-pressed', isFull);
             
+            // -- UPDATED LOGIC: for reorganized sections
             toggleSection(incomeEmploymentSection, true);
-            toggleSection(creditSection, isCredit || isFull);
-            toggleSection(fullApplicationSection, isFull);
+            toggleSection(detailedInfoSection, isCredit || isFull);
             toggleSection(maritalStatusWrapper, isFull);
+            toggleSection(residentialHistorySection, isFull); // Only show residential for full app
             toggleSection(consentContainer, isCredit || isFull);
 
             middleNameInput.required = isCredit || isFull;
@@ -495,16 +500,13 @@
         tabFull.addEventListener('click', () => setMode('Full Application'));
         hasTradeInSelect.addEventListener('change', (e) => toggleSection(tradeInDetailsDiv, e.target.value.toLowerCase() === 'yes'));
         
-        // -- FIX: Simplified logic for showing income sections
+        // -- UPDATED LOGIC: To show simple vs full employment details
         incomeSourceSelect.addEventListener('change', (e) => {
             const mode = appType.value;
             const value = e.target.value;
 
-            // Hide all details first
-            [employmentDetails, selfEmployedDetails, otherIncomeDetails].forEach(el => toggleSection(el, false));
-            
-            // Set all potential income inputs to not required
-            ['currentEmployer', 'jobTitle', 'employmentMonthlyIncome', 'timeWithEmployerYears', 'timeWithEmployerMonths', 'businessName', 'avgMonthlyIncome', 'otherIncomeAmount', 'otherIncomeSource'].forEach(id => {
+            [simplifiedEmploymentDetails, fullEmploymentDetails, selfEmployedDetails, otherIncomeDetails].forEach(el => toggleSection(el, false));
+            ['simplifiedMonthlyIncome', 'currentEmployer', 'jobTitle', 'timeWithEmployerYears', 'timeWithEmployerMonths', 'businessName', 'avgMonthlyIncome', 'otherIncomeAmount', 'otherIncomeSource'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.required = false;
             });
@@ -512,14 +514,14 @@
             const isEmployed = value === 'Full-Time' || value === 'Part-Time';
             const isSelfEmployed = value === 'Self-Employed';
             const isOther = value === 'Disability' || value === 'Other';
-
+            
             if (isEmployed) {
-                toggleSection(employmentDetails, true);
-                // Pre-Approval and Credit Inquiry have fewer required fields
                 if (mode === 'Pre-Approval' || mode === 'Credit Inquiry') {
-                    document.getElementById('employmentMonthlyIncome').required = true;
-                } else { // Full application requires more
-                    ['currentEmployer', 'jobTitle', 'employmentMonthlyIncome', 'timeWithEmployerYears', 'timeWithEmployerMonths'].forEach(id => document.getElementById(id).required = true);
+                    toggleSection(simplifiedEmploymentDetails, true);
+                    document.getElementById('simplifiedMonthlyIncome').required = true;
+                } else { // Full application
+                    toggleSection(fullEmploymentDetails, true);
+                    ['currentEmployer', 'jobTitle', 'timeWithEmployerYears', 'timeWithEmployerMonths'].forEach(id => document.getElementById(id).required = true);
                 }
             } else if (isSelfEmployed) {
                 toggleSection(selfEmployedDetails, true);
