@@ -102,7 +102,7 @@
         <div class="card p-6">
             <div class="flex items-center space-x-3 mb-5">
                 <div class="bg-blue-500/20 p-2 rounded-full">
-                    <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 20 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                 </div>
                 <h2 class="text-xl font-extrabold text-zinc-100">A Simpler Process</h2>
             </div>
@@ -138,16 +138,7 @@
                     </div>
                 </div>
 
-                <form
-                    id="lead-form"
-                    name="lead-form"
-                    method="POST"
-                    data-netlify="true"
-                    data-netlify-honeypot="bot-field"
-                    action="/thank-you.html"
-                    class="space-y-5 sm:space-y-6"
-                    novalidate
-                >
+                <form id="lead-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" class="space-y-5 sm:space-y-6" novalidate>
                     <input type="hidden" name="form-name" value="lead-form"/>
                     <input type="hidden" name="app_type" id="app_type" value="Pre-Approval" />
                     <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
@@ -174,14 +165,6 @@
                         <label for="email" class="block text-sm font-medium text-zinc-300 mb-1.5">Email Address <span class="text-red-400">*</span></label>
                         <input type="email" id="email" name="email" required placeholder="you@example.com" class="form-input" autocomplete="email"/>
                     </div>
-
-                    <div id="preApprovalIncomeSection" hidden> 
-                        <div>
-                            <label for="monthlyIncome" class="block text-sm font-medium text-zinc-300 mb-1.5">Estimated Monthly Income (before tax)</label>
-                            <input type="text" id="monthlyIncome" name="monthlyIncome" class="form-input" placeholder="$3,500" inputmode="numeric" autocomplete="off"/>
-                        </div>
-                    </div>
-
                     <div>
                         <label for="downPayment" class="block text-sm font-medium text-zinc-300 mb-1.5">Estimated down payment?</label>
                         <select id="downPayment" name="downPayment" class="form-select">
@@ -247,19 +230,6 @@
                                     </select>
                                 </div>
 
-                                <div id="simplifiedIncomeFields" class="hidden-section space-y-4" hidden>
-                                    <div>
-                                        <label for="simplifiedIncomeAmount" class="block text-sm font-medium text-zinc-300 mb-1.5">Monthly Income (before tax) <span class="text-red-400">*</span></label>
-                                        <input type="text" id="simplifiedIncomeAmount" name="simplifiedIncomeAmount" placeholder="$3,500" class="form-input" inputmode="numeric"/>
-                                    </div>
-                                    <div class="switch-field">
-                                        <input type="radio" id="simplifiedPayIsHourly" name="simplifiedPayArrangement" value="hourly" checked/>
-                                        <label for="simplifiedPayIsHourly">Hourly</label>
-                                        <input type="radio" id="simplifiedPayIsSalary" name="simplifiedPayArrangement" value="salary"/>
-                                        <label for="simplifiedPayIsSalary">Salary</label>
-                                    </div>
-                                </div>
-                                
                                 <div id="employmentDetails" class="hidden-section space-y-4" hidden>
                                     <div>
                                         <label for="currentEmployer" class="block text-sm font-medium text-zinc-300 mb-1.5">Employer <span class="text-red-400">*</span></label>
@@ -269,25 +239,15 @@
                                         <label for="jobTitle" class="block text-sm font-medium text-zinc-300 mb-1.5">Position / Job Title <span class="text-red-400">*</span></label>
                                         <input type="text" id="jobTitle" name="jobTitle" placeholder="Your Role" class="form-input"/>
                                     </div>
+                                    <div>
+                                        <label for="employmentMonthlyIncome" class="block text-sm font-medium text-zinc-300 mb-1.5">Monthly Income (before tax) <span class="text-red-400">*</span></label>
+                                        <input type="text" id="employmentMonthlyIncome" name="employmentMonthlyIncome" placeholder="$3,500" class="form-input" inputmode="numeric"/>
+                                    </div>
                                     <div class="switch-field">
                                         <input type="radio" id="payTypeHourly" name="payType" value="hourly" checked/>
                                         <label for="payTypeHourly">Hourly</label>
                                         <input type="radio" id="payTypeSalary" name="payType" value="salary"/>
                                         <label for="payTypeSalary">Salary</label>
-                                    </div>
-                                    <div id="hourlyRateSection" class="grid grid-cols-2 gap-4">
-                                        <div>
-                                            <label for="hourlyRate" class="block text-sm font-medium text-zinc-300 mb-1.5">Hourly Rate (before tax) <span class="text-red-400">*</span></label>
-                                            <input type="text" id="hourlyRate" name="hourlyRate" placeholder="$25.00" class="form-input" inputmode="decimal"/>
-                                        </div>
-                                        <div>
-                                            <label for="hoursPerWeek" class="block text-sm font-medium text-zinc-300 mb-1.5">Hours / Week <span class="text-red-400">*</span></label>
-                                            <input type="number" id="hoursPerWeek" name="hoursPerWeek" placeholder="40" class="form-input" inputmode="numeric"/>
-                                        </div>
-                                    </div>
-                                    <div id="salarySection" class="hidden-section" hidden>
-                                        <label for="annualSalary" class="block text-sm font-medium text-zinc-300 mb-1.5">Annual Salary (before tax) <span class="text-red-400">*</span></label>
-                                        <input type="text" id="annualSalary" name="annualSalary" placeholder="$52,000" class="form-input" inputmode="numeric"/>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-zinc-300 mb-1.5">Time with Employer <span class="text-red-400">*</span></label>
@@ -297,18 +257,21 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div id="selfEmployedDetails" class="hidden-section space-y-4" hidden>
                                     <label for="businessName" class="block text-sm font-medium text-zinc-300 mb-1.5">Business Name <span class="text-red-400">*</span></label>
                                     <input type="text" id="businessName" name="businessName" placeholder="Your Business Name" class="form-input"/>
                                     <label for="avgMonthlyIncome" class="block text-sm font-medium text-zinc-300 mb-1.5">Average Monthly Income (before tax) <span class="text-red-400">*</span></label>
                                     <input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" placeholder="$4,000" class="form-input" inputmode="numeric"/>
                                 </div>
+
                                 <div id="otherIncomeDetails" class="hidden-section space-y-4" hidden>
                                     <label for="otherIncomeAmount" class="block text-sm font-medium text-zinc-300 mb-1.5">Monthly Income Amount (before tax) <span class="text-red-400">*</span></label>
                                     <input type="text" id="otherIncomeAmount" name="otherIncomeAmount" placeholder="$2,000" class="form-input" inputmode="numeric"/>
                                     <label for="otherIncomeSource" class="block text-sm font-medium text-zinc-300 mb-1.5">Source Description <span class="text-red-400">*</span></label>
                                     <textarea id="otherIncomeSource" name="otherIncomeSource" placeholder="Describe the source of income" class="form-input" rows="2"></textarea>
                                 </div>
+
                                 <div id="previousEmployerDetails" class="hidden-section space-y-4" hidden>
                                     <p class="text-xs text-zinc-400 pt-2">Please provide your previous employer (required for less than 2 years of history).</p>
                                     <div>
@@ -394,8 +357,6 @@
     </div>
 
     <script>
-    // No changes were needed in the JavaScript for this update.
-    // The previous logic was already set up to handle the new fields correctly.
     document.addEventListener('DOMContentLoaded', () => {
         const mainContent = document.querySelector('main');
         const successMessage = document.getElementById('success-message');
@@ -403,7 +364,6 @@
         const successSubtitle = document.getElementById('success-subtitle');
         const leadForm = document.getElementById('lead-form');
         const yearEl = document.getElementById('year');
-        const progressBar = document.getElementById('progress-bar');
         const meterText = document.getElementById('meter-text');
         const statusEl = document.getElementById('form-status');
         const submitBtn = document.getElementById('submitBtn');
@@ -422,15 +382,11 @@
         const maritalStatusWrapper = document.getElementById('maritalStatusWrapper');
         const hasTradeInSelect = document.getElementById('hasTradeIn');
         const tradeInDetailsDiv = document.getElementById('tradeInDetails');
-        const preApprovalIncomeSection = document.getElementById('preApprovalIncomeSection');
         const incomeEmploymentSection = document.getElementById('incomeEmploymentSection');
         const incomeSourceSelect = document.getElementById('incomeSource');
-        const simplifiedIncomeFields = document.getElementById('simplifiedIncomeFields');
         const employmentDetails = document.getElementById('employmentDetails');
         const selfEmployedDetails = document.getElementById('selfEmployedDetails');
         const otherIncomeDetails = document.getElementById('otherIncomeDetails');
-        const hourlyRateSection = document.getElementById('hourlyRateSection');
-        const salarySection = document.getElementById('salarySection');
         const timeWithEmployerYears = document.getElementById('timeWithEmployerYears');
         const timeAtAddressYears = document.getElementById('timeAtAddressYears');
         const previousEmployerDetailsDiv = document.getElementById('previousEmployerDetails');
@@ -488,7 +444,7 @@
 
         phoneInput.addEventListener('input', formatPhoneNumber);
         dobInput.addEventListener('input', formatDOB);
-        [monthlyPaymentInput, document.getElementById('hourlyRate'), document.getElementById('annualSalary'), document.getElementById('avgMonthlyIncome'), document.getElementById('otherIncomeAmount'), document.getElementById('simplifiedIncomeAmount')]
+        [monthlyPaymentInput, document.getElementById('avgMonthlyIncome'), document.getElementById('otherIncomeAmount'), document.getElementById('employmentMonthlyIncome')]
             .forEach(el => el.addEventListener('input', formatCurrency));
 
         function toggleSection(element, show) {
@@ -503,12 +459,10 @@
             const isCredit = mode === 'Credit Inquiry';
             const isFull = mode === 'Full Application';
             appType.value = mode;
-
             tabPre.setAttribute('aria-pressed', isPre);
             tabCredit.setAttribute('aria-pressed', isCredit);
             tabFull.setAttribute('aria-pressed', isFull);
             
-            toggleSection(preApprovalIncomeSection, false);
             toggleSection(incomeEmploymentSection, true);
             toggleSection(creditSection, isCredit || isFull);
             toggleSection(fullApplicationSection, isFull);
@@ -529,76 +483,51 @@
                 timeAtAddressMonths: isFull,
                 creditConsent: isCredit || isFull
             };
-
             for (const [id, isRequired] of Object.entries(requiredMap)) {
                 const el = document.getElementById(id);
                 if (el) el.required = isRequired;
             }
-            
             incomeSourceSelect.dispatchEvent(new Event('change'));
-            updateApprovalScore();
         }
 
         tabPre.addEventListener('click', () => setMode('Pre-Approval'));
         tabCredit.addEventListener('click', () => setMode('Credit Inquiry'));
         tabFull.addEventListener('click', () => setMode('Full Application'));
+        hasTradeInSelect.addEventListener('change', (e) => toggleSection(tradeInDetailsDiv, e.target.value.toLowerCase() === 'yes'));
         
-        hasTradeInSelect.addEventListener('change', (e) => {
-            toggleSection(tradeInDetailsDiv, e.target.value.toLowerCase() === 'yes');
-        });
-        
+        // -- FIX: Simplified logic for showing income sections
         incomeSourceSelect.addEventListener('change', (e) => {
             const mode = appType.value;
             const value = e.target.value;
 
-            [simplifiedIncomeFields, employmentDetails, selfEmployedDetails, otherIncomeDetails].forEach(el => toggleSection(el, false));
-            ['simplifiedIncomeAmount', 'currentEmployer', 'jobTitle', 'hourlyRate', 'hoursPerWeek', 'annualSalary', 'timeWithEmployerYears', 'timeWithEmployerMonths', 'businessName', 'avgMonthlyIncome', 'otherIncomeAmount', 'otherIncomeSource'].forEach(id => {
+            // Hide all details first
+            [employmentDetails, selfEmployedDetails, otherIncomeDetails].forEach(el => toggleSection(el, false));
+            
+            // Set all potential income inputs to not required
+            ['currentEmployer', 'jobTitle', 'employmentMonthlyIncome', 'timeWithEmployerYears', 'timeWithEmployerMonths', 'businessName', 'avgMonthlyIncome', 'otherIncomeAmount', 'otherIncomeSource'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.required = false;
             });
 
-            if (mode === 'Pre-Approval' || mode === 'Credit Inquiry') {
-                const isEmployed = ['Full-Time', 'Part-Time', 'Self-Employed'].includes(value);
-                const isOther = ['Disability', 'Other'].includes(value);
-                toggleSection(simplifiedIncomeFields, isEmployed);
-                document.getElementById('simplifiedIncomeAmount').required = isEmployed;
-                toggleSection(otherIncomeDetails, isOther);
-                document.getElementById('otherIncomeAmount').required = isOther;
-                document.getElementById('otherIncomeSource').required = isOther;
+            const isEmployed = value === 'Full-Time' || value === 'Part-Time';
+            const isSelfEmployed = value === 'Self-Employed';
+            const isOther = value === 'Disability' || value === 'Other';
 
-            } else if (mode === 'Full Application') {
-                const isEmployed = value === 'Full-Time' || value === 'Part-Time';
-                const isSelfEmployed = value === 'Self-Employed';
-                const isOther = value === 'Disability' || value === 'Other';
-                
-                toggleSection(employmentDetails, isEmployed);
-                ['currentEmployer', 'jobTitle', 'timeWithEmployerYears', 'timeWithEmployerMonths'].forEach(id => document.getElementById(id).required = isEmployed);
-                
-                const isHourly = document.getElementById('payTypeHourly').checked;
-                document.getElementById('hourlyRate').required = isEmployed && isHourly;
-                document.getElementById('hoursPerWeek').required = isEmployed && isHourly;
-                document.getElementById('annualSalary').required = isEmployed && !isHourly;
-
-                toggleSection(selfEmployedDetails, isSelfEmployed);
-                ['businessName', 'avgMonthlyIncome'].forEach(id => document.getElementById(id).required = isSelfEmployed);
-                
-                toggleSection(otherIncomeDetails, isOther);
-                ['otherIncomeAmount', 'otherIncomeSource'].forEach(id => document.getElementById(id).required = isOther);
-            }
-        });
-
-        leadForm.querySelectorAll('input[name="payType"]').forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                const isHourly = e.target.value === 'hourly';
-                toggleSection(hourlyRateSection, isHourly);
-                toggleSection(salarySection, !isHourly);
-
-                if (appType.value === 'Full Application' && (incomeSourceSelect.value === 'Full-Time' || incomeSourceSelect.value === 'Part-Time')) {
-                    document.getElementById('hourlyRate').required = isHourly;
-                    document.getElementById('hoursPerWeek').required = isHourly;
-                    document.getElementById('annualSalary').required = !isHourly;
+            if (isEmployed) {
+                toggleSection(employmentDetails, true);
+                // Pre-Approval and Credit Inquiry have fewer required fields
+                if (mode === 'Pre-Approval' || mode === 'Credit Inquiry') {
+                    document.getElementById('employmentMonthlyIncome').required = true;
+                } else { // Full application requires more
+                    ['currentEmployer', 'jobTitle', 'employmentMonthlyIncome', 'timeWithEmployerYears', 'timeWithEmployerMonths'].forEach(id => document.getElementById(id).required = true);
                 }
-            });
+            } else if (isSelfEmployed) {
+                toggleSection(selfEmployedDetails, true);
+                ['businessName', 'avgMonthlyIncome'].forEach(id => document.getElementById(id).required = true);
+            } else if (isOther) {
+                toggleSection(otherIncomeDetails, true);
+                ['otherIncomeAmount', 'otherIncomeSource'].forEach(id => document.getElementById(id).required = true);
+            }
         });
 
         function checkTime(yearsEl, detailsDiv, requiredFields) {
@@ -614,11 +543,6 @@
         timeWithEmployerYears.addEventListener('change', () => checkTime(timeWithEmployerYears, previousEmployerDetailsDiv, ['previousEmployer', 'prevTimeWithEmployerYears', 'prevTimeWithEmployerMonths']));
         timeAtAddressYears.addEventListener('change', () => checkTime(timeAtAddressYears, previousAddressDetailsDiv, ['previousAddress']));
         
-        function updateApprovalScore() { /* ... score logic ... */ }
-
-        leadForm.addEventListener('input', updateApprovalScore);
-        leadForm.addEventListener('change', updateApprovalScore);
-
         function validateForm() {
             let isValid = true;
             statusEl.textContent = '';
@@ -632,7 +556,6 @@
                 el.classList.toggle('err', !fieldIsValid);
                 if (!fieldIsValid) isValid = false;
             });
-
             if (!isValid) {
                 statusEl.textContent = 'Please complete all required fields.';
                 const firstErrorField = leadForm.querySelector('.err');
@@ -672,7 +595,6 @@
 
         setMode('Pre-Approval');
         toggleSection(tradeInDetailsDiv, hasTradeInSelect.value.toLowerCase() === 'yes');
-        updateApprovalScore();
     });
     </script>
 
