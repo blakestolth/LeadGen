@@ -57,6 +57,8 @@
         .switch-field input{position:absolute!important;clip:rect(0,0,0,0);height:1px;width:1px;border:0;overflow:hidden}
         .switch-field label{flex:1;text-align:center;padding:.5rem;font-size:.875rem;font-weight:600;color:#a1a1aa;transition:.2s ease;border-radius:.5rem;cursor:pointer}
         .switch-field input:checked+label{background-color:#52525b;color:#fafafa;box-shadow:0 1px 2px rgba(0,0,0,.1)}
+        /* -- UPDATED: New style for error labels -- */
+        .err-label { color: #f87171 !important; }
     </style>
 
     <script type="application/ld+json">
@@ -231,7 +233,7 @@
                                         <input type="text" id="jobTitle" name="jobTitle" placeholder="Your Role" class="form-input"/>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium text-zinc-300 mb-1.5">Time with Employer <span class="text-red-400">*</span></label>
+                                        <label for="timeWithEmployerYears" class="block text-sm font-medium text-zinc-300 mb-1.5">Time with Employer <span class="text-red-400">*</span></label>
                                         <div class="grid grid-cols-2 gap-2">
                                             <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select>
                                             <select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
@@ -274,7 +276,7 @@
                             <div class="border-t border-white/10 pt-4 space-y-4">
                                 <p class="text-sm text-zinc-300 font-medium">Personal Information</p>
                                 <div>
-                                    <label class="block text-sm font-medium text-zinc-300 mb-1.5" for="dobYear">Date of birth <span class="text-red-400">*</span></label>
+                                    <label for="dobMonth" class="block text-sm font-medium text-zinc-300 mb-1.5">Date of birth <span class="text-red-400">*</span></label>
                                     <div class="grid grid-cols-3 gap-2">
                                         <select id="dobMonth" name="dobMonth" class="form-select"><option value="">Month</option></select>
                                         <select id="dobDay" name="dobDay" class="form-select"><option value="">Day</option></select>
@@ -282,7 +284,7 @@
                                     </div>
                                 </div>
                                 <div id="maritalStatusWrapper" class="hidden-section">
-                                    <label class="block text-sm font-medium text-zinc-300 mb-1.5" for="maritalStatus">Marital Status <span class="text-red-400">*</span></label>
+                                    <label for="maritalStatus" class="block text-sm font-medium text-zinc-300 mb-1.5">Marital Status <span class="text-red-400">*</span></label>
                                     <select id="maritalStatus" name="maritalStatus" class="form-select">
                                         <option value="">Please select...</option>
                                         <option>Single</option>
@@ -299,7 +301,7 @@
                                 <div class="border-t border-white/10 pt-4 space-y-4">
                                     <p class="text-sm text-zinc-300 font-medium">Residential History</p>
                                     <div class="space-y-4">
-                                        <label class="block text-sm font-medium text-zinc-300">Current Address <span class="text-red-400">*</span></label>
+                                        <label for="currentStreetAddress" class="block text-sm font-medium text-zinc-300">Current Address <span class="text-red-400">*</span></label>
                                         <div class="grid grid-cols-6 gap-2">
                                             <input type="text" id="currentStreetAddress" name="currentStreetAddress" placeholder="Street Address" class="form-input col-span-4" autocomplete="street-address"/>
                                             <input type="text" id="currentUnit" name="currentUnit" placeholder="Unit #" class="form-input col-span-2" />
@@ -314,7 +316,7 @@
                                             <input type="text" id="monthlyPayment" name="monthlyPayment" placeholder="$1,500" class="form-input" inputmode="numeric"/>
                                         </div>
                                         <div>
-                                            <label class="block text-sm font-medium text-zinc-300 mb-1.5">Time at Address <span class="text-red-400">*</span></label>
+                                            <label for="timeAtAddressYears" class="block text-sm font-medium text-zinc-300 mb-1.5">Time at Address <span class="text-red-400">*</span></label>
                                             <div class="grid grid-cols-2 gap-2">
                                                 <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
                                                 <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
@@ -323,7 +325,7 @@
                                     </div>
                                     <div id="previousAddressDetails" class="hidden-section space-y-4" hidden>
                                         <div class="space-y-4">
-                                            <label class="block text-sm font-medium text-zinc-300">Previous Address <span class="text-red-400">*</span></label>
+                                            <label for="prevStreetAddress" class="block text-sm font-medium text-zinc-300">Previous Address <span class="text-red-400">*</span></label>
                                             <div class="grid grid-cols-6 gap-2">
                                                 <input type="text" id="prevStreetAddress" name="prevStreetAddress" placeholder="Street Address" class="form-input col-span-4" />
                                                 <input type="text" id="prevUnit" name="prevUnit" placeholder="Unit #" class="form-input col-span-2" />
@@ -333,7 +335,7 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <label class="block text-sm font-medium text-zinc-300 mb-1.5">Time at Previous Address <span class="text-red-400">*</span></label>
+                                            <label for="timeAtPrevAddressYears" class="block text-sm font-medium text-zinc-300 mb-1.5">Time at Previous Address <span class="text-red-400">*</span></label>
                                             <div class="grid grid-cols-2 gap-2">
                                                 <select id="timeAtPrevAddressYears" name="timeAtPrevAddressYears" class="form-select"><option value="">Years</option></select>
                                                 <select id="timeAtPrevAddressMonths" name="timeAtPrevAddressMonths" class="form-select"><option value="">Months</option></select>
@@ -419,7 +421,6 @@
         const previousEmployerDetailsDiv = document.getElementById('previousEmployerDetails');
         const previousAddressDetailsDiv = document.getElementById('previousAddressDetails');
         const creditConsent = document.getElementById('creditConsent');
-        // -- UPDATED: New element variables
         const currentProvinceSelect = document.getElementById('currentProvince');
         const prevProvinceSelect = document.getElementById('prevProvince');
         
@@ -452,7 +453,6 @@
             }
         }
         
-        // -- UPDATED: New function to populate province dropdowns
         function populateProvinces() {
             const provinces = ["AB", "BC", "MB", "NB", "NL", "NS", "NT", "NU", "ON", "PE", "QC", "SK", "YT"];
             provinces.forEach(p => {
@@ -460,7 +460,6 @@
                 option1.value = p;
                 option1.textContent = p;
                 currentProvinceSelect.appendChild(option1);
-
                 const option2 = document.createElement('option');
                 option2.value = p;
                 option2.textContent = p;
@@ -470,12 +469,13 @@
 
         populateMonths();
         updateDays();
-        populateProvinces(); // Call the new function
+        populateProvinces();
         dobYearInput.addEventListener('input', updateDays);
         dobMonthSelect.addEventListener('change', updateDays);
         
         function populateDropdown(selectElement, start, end, label, singularLabel) {
             if (!selectElement) return;
+            selectElement.innerHTML = `<option value="">${singularLabel || label}</option>`; // Clear and add placeholder
             for (let i = start; i <= end; i++) {
                 const option = document.createElement('option');
                 option.value = i;
@@ -489,7 +489,6 @@
         populateDropdown(document.getElementById('prevTimeWithEmployerMonths'), 0, 11, 'Months', 'Month');
         populateDropdown(timeAtAddressYears, 0, 30, 'Years', 'Year');
         populateDropdown(document.getElementById('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
-        // -- UPDATED: Populate new previous address duration dropdowns
         populateDropdown(document.getElementById('timeAtPrevAddressYears'), 0, 30, 'Years', 'Year');
         populateDropdown(document.getElementById('timeAtPrevAddressMonths'), 0, 11, 'Months', 'Month');
 
@@ -543,7 +542,6 @@
             middleNameRequiredSpan.classList.toggle('hidden', isPre);
             middleNameOptionalSpan.classList.toggle('hidden', !isPre);
 
-            // -- UPDATED: requiredMap with new address fields
             const requiredMap = {
                 incomeSource: true,
                 dobYear: isCredit || isFull,
@@ -613,22 +611,44 @@
         }
 
         timeWithEmployerYears.addEventListener('change', () => checkTime(timeWithEmployerYears, previousEmployerDetailsDiv, ['previousEmployer', 'prevTimeWithEmployerYears', 'prevTimeWithEmployerMonths']));
-        // -- UPDATED: Added required fields for previous address
         timeAtAddressYears.addEventListener('change', () => checkTime(timeAtAddressYears, previousAddressDetailsDiv, ['prevStreetAddress', 'prevCity', 'prevProvince', 'prevPostalCode', 'timeAtPrevAddressYears', 'timeAtPrevAddressMonths']));
         
+        // -- UPDATED: Validation function to highlight labels
         function validateForm() {
             let isValid = true;
             statusEl.textContent = '';
+            
+            // Clear previous errors from inputs and labels
             document.querySelectorAll('#lead-form .err').forEach(el => el.classList.remove('err'));
+            document.querySelectorAll('#lead-form .err-label').forEach(el => el.classList.remove('err-label'));
+
             let requiredFields = [...leadForm.querySelectorAll('[required]')].map(el => el.id);
+
             requiredFields.forEach(id => {
                 const el = document.getElementById(id);
                 if (!el) return;
+
                 let fieldIsValid = (el.type === 'checkbox') ? el.checked : el.value.trim() !== '';
                 if (id === 'phone') fieldIsValid = el.value.replace(/\D/g, '').length >= 10;
+                
+                // Toggle error class on the input/select itself
                 el.classList.toggle('err', !fieldIsValid);
+
+                // Find and toggle error class on the corresponding label
+                const label = document.querySelector(`label[for="${el.id}"]`);
+                if (label) {
+                    label.classList.toggle('err-label', !fieldIsValid);
+                }
+                
+                // For composite fields like DOB, highlight the main label if any part is invalid
+                if (['dobMonth', 'dobDay', 'dobYear'].includes(id) && !fieldIsValid) {
+                    const mainDobLabel = document.querySelector(`label[for="dobMonth"]`);
+                    if (mainDobLabel) mainDobLabel.classList.add('err-label');
+                }
+
                 if (!fieldIsValid) isValid = false;
             });
+
             if (!isValid) {
                 statusEl.textContent = 'Please complete all required fields.';
                 const firstErrorField = leadForm.querySelector('.err');
