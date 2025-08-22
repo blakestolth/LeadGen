@@ -57,7 +57,6 @@
         .switch-field input{position:absolute!important;clip:rect(0,0,0,0);height:1px;width:1px;border:0;overflow:hidden}
         .switch-field label{flex:1;text-align:center;padding:.5rem;font-size:.875rem;font-weight:600;color:#a1a1aa;transition:.2s ease;border-radius:.5rem;cursor:pointer}
         .switch-field input:checked+label{background-color:#52525b;color:#fafafa;box-shadow:0 1px 2px rgba(0,0,0,.1)}
-        /* -- UPDATED: New style for error labels -- */
         .err-label { color: #f87171 !important; }
     </style>
 
@@ -475,7 +474,7 @@
         
         function populateDropdown(selectElement, start, end, label, singularLabel) {
             if (!selectElement) return;
-            selectElement.innerHTML = `<option value="">${singularLabel || label}</option>`; // Clear and add placeholder
+            selectElement.innerHTML = `<option value="">${singularLabel || label}</option>`;
             for (let i = start; i <= end; i++) {
                 const option = document.createElement('option');
                 option.value = i;
@@ -613,12 +612,10 @@
         timeWithEmployerYears.addEventListener('change', () => checkTime(timeWithEmployerYears, previousEmployerDetailsDiv, ['previousEmployer', 'prevTimeWithEmployerYears', 'prevTimeWithEmployerMonths']));
         timeAtAddressYears.addEventListener('change', () => checkTime(timeAtAddressYears, previousAddressDetailsDiv, ['prevStreetAddress', 'prevCity', 'prevProvince', 'prevPostalCode', 'timeAtPrevAddressYears', 'timeAtPrevAddressMonths']));
         
-        // -- UPDATED: Validation function to highlight labels
         function validateForm() {
             let isValid = true;
             statusEl.textContent = '';
             
-            // Clear previous errors from inputs and labels
             document.querySelectorAll('#lead-form .err').forEach(el => el.classList.remove('err'));
             document.querySelectorAll('#lead-form .err-label').forEach(el => el.classList.remove('err-label'));
 
@@ -627,20 +624,16 @@
             requiredFields.forEach(id => {
                 const el = document.getElementById(id);
                 if (!el) return;
-
                 let fieldIsValid = (el.type === 'checkbox') ? el.checked : el.value.trim() !== '';
                 if (id === 'phone') fieldIsValid = el.value.replace(/\D/g, '').length >= 10;
                 
-                // Toggle error class on the input/select itself
                 el.classList.toggle('err', !fieldIsValid);
 
-                // Find and toggle error class on the corresponding label
                 const label = document.querySelector(`label[for="${el.id}"]`);
                 if (label) {
                     label.classList.toggle('err-label', !fieldIsValid);
                 }
                 
-                // For composite fields like DOB, highlight the main label if any part is invalid
                 if (['dobMonth', 'dobDay', 'dobYear'].includes(id) && !fieldIsValid) {
                     const mainDobLabel = document.querySelector(`label[for="dobMonth"]`);
                     if (mainDobLabel) mainDobLabel.classList.add('err-label');
