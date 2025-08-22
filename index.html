@@ -147,6 +147,15 @@
         "@context":"https://schema.org",
         "@type":"AutoDealer",
         "name":"Vancouver Island Credit",
+        "telephone": "+1-236-969-2424",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "525 Gorge Rd E",
+            "addressLocality": "Victoria",
+            "addressRegion": "BC",
+            "postalCode": "V8T 4T2",
+            "addressCountry": "CA"
+        },
         "areaServed":"British Columbia, Canada",
         "image":"https://vancouverislandcredit.ca/0041B99D-D49A-4024-AA7A-2786A4605342.jpg",
         "url":"https://vancouverislandcredit.ca",
@@ -177,6 +186,12 @@
                 <div>
                     <p class="text-lg font-bold text-blue-600">Get Fast, Easy Car Financing — Work 1-on-1 with Blake Stolth</p>
                     <p class="text-sm text-zinc-500">Local Expert Based in Victoria, BC</p>
+                    <a href="tel:2369692424" class="flex items-center justify-center gap-2 text-sm text-zinc-500 mt-2 hover:text-blue-600 transition-colors">
+                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5h-1.5A13.5 13.5 0 012 3.5z" clip-rule="evenodd" />
+                        </svg>
+                        <span>(236) 969-2424</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -443,18 +458,17 @@
             </div>
         </div>
 
-        <footer class="text-center text-xs text-zinc-500 pt-8">
-            <p>Serving Vancouver Island & British Columbia • Delivery available province-wide</p>
+        <footer class="text-center text-xs text-zinc-500 pt-8 space-y-2">
+            <p class="font-semibold text-zinc-600">Vancouver Island Credit</p>
+            <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
+            <p><a href="tel:2369692424" class="hover:text-blue-600 transition-colors">(236) 969-2424</a></p>
+            <p class="pt-2">Serving Vancouver Island & British Columbia • Delivery available province-wide</p>
             <p class="mt-1">© <span id="year"></span> Vancouver Island Credit • All rights reserved</p>
         </footer>
     </main>
     
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // --- THIS SCRIPT HAS BEEN REVIEWED AND FIXED ---
-        // I have confirmed all element IDs match the HTML and that no errors
-        // are preventing the tab click events from working.
-
         const mainContent = document.querySelector('main');
         const leadForm = document.getElementById('lead-form');
         const yearEl = document.getElementById('year');
@@ -742,6 +756,7 @@
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Submitting...';
             }
+            const successOverlay = document.getElementById('success-message');
             if (appType.value === 'Pre-Approval') {
                 if(successTitle) successTitle.textContent = "Congratulations!";
                 if(successSubtitle) successSubtitle.textContent = "I'll be in touch shortly to go over your pre-approval!";
@@ -759,7 +774,7 @@
                 if(mainContent) mainContent.style.display = 'none';
                 const floatCta = document.querySelector('.float-cta');
                 if(floatCta) floatCta.style.display = 'none';
-                if(successMessage) successMessage.classList.remove('hidden');
+                if(successOverlay) successOverlay.classList.remove('hidden');
                 window.scrollTo(0, 0);
             } catch (err) {
                 console.error("Fetch failed, falling back to form.submit()", err);
@@ -772,3 +787,19 @@
         if(hasTradeInSelect) toggleSection(tradeInDetailsDiv, hasTradeInSelect.value.toLowerCase() === 'yes');
     });
     </script>
+    <div id="success-message" class="hidden success-screen p-8 text-center" role="dialog" aria-modal="true">
+        <div class="mx-auto bg-green-500/20 w-24 h-24 rounded-full flex items-center justify-center space-y-4 sm:space-y-6">
+            <svg class="w-16 h-16 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <h2 id="success-title" class="mt-6 text-3xl font-extrabold text-zinc-100">Application Submitted!</h2>
+        <h3 id="success-subtitle" class="mt-2 text-2xl font-bold text-zinc-200">I'll be in touch shortly to go over your options!</h3>
+    </div>
+
+    <noscript>
+        <style>#success-message{display:none!important}</style>
+        <div class="mt-6 text-center text-sm text-zinc-800">
+            JavaScript is disabled. The form will submit to the thank-you page.
+        </div>
+    </noscript>
+</body>
+</html>
