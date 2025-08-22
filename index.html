@@ -24,7 +24,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-    
+
     <style>
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -94,12 +94,12 @@
             box-shadow: 0 4px 10px rgba(0, 122, 255, 0.1);
         }
         /* Custom styles for range sliders */
-        input[type=range] { -webkit-appearance: none; background: transparent; width: 100%;}
-        input[type=range]:focus { outline: none; }
-        input[type=range]::-webkit-slider-runnable-track {
+        input<0x5B>type=range<0x5D> { -webkit-appearance: none; background: transparent; width: 100%;}
+        input<0x5B>type=range<0x5D>:focus { outline: none; }
+        input<0x5B>type=range<0x5D>::-webkit-slider-runnable-track {
             height: 8px; background: #e5e7eb; border-radius: 9999px;
         }
-        input[type=range]::-webkit-slider-thumb {
+        input<0x5B>type=range<0x5D>::-webkit-slider-thumb {
             -webkit-appearance: none; height: 20px; width: 20px;
             background: #007AFF; border-radius: 50%;
             border: 2px solid white; margin-top: -6px;
@@ -153,7 +153,7 @@
                 </div>
                 <div>
                     <p class="text-lg font-bold text-blue-600">Get Fast, Easy Car Financing — Work 1-on-1 with Blake Stolth</p>
-                    <p class="text-sm text-zinc-500">Local Expert Based in Victoria, BC</p>
+                    <p class="text-sm text-zinc-500">Local Expert Based in Colwood, BC</p>
                     <a href="tel:2369692424" class="flex items-center justify-center gap-2 text-sm text-zinc-500 mt-2 hover:text-blue-600 transition-colors">
                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5h-1.5A13.5 13.5 0 012 3.5z" clip-rule="evenodd" /></svg>
                         <span>(236) 969-2424</span>
@@ -161,7 +161,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="card p-6 sm:p-8">
             <div class="flex items-center space-x-4 mb-5">
                 <div class="bg-blue-100 p-3 rounded-xl">
@@ -175,40 +175,6 @@
                 <li><strong class="text-zinc-800">Huge Selection:</strong> Access to a massive inventory of new and used vehicles across BC.</li>
                 <li><strong class="text-zinc-800">Great Rates Available:</strong> Lock in your financing now to get the best possible rate.</li>
             </ul>
-        </div>
-
-        <div class="card p-6 sm:p-8">
-            <h2 class="text-2xl font-extrabold text-zinc-900 text-center">Estimate Your Monthly Payment</h2>
-            <div class="grid md:grid-cols-2 gap-8 mt-6">
-                <div class="space-y-6">
-                    <div>
-                        <div class="flex justify-between items-center mb-1">
-                            <label for="loanAmount" class="block text-sm font-medium text-zinc-700">Vehicle Price</label>
-                            <span id="loanAmountValue" class="font-bold text-zinc-900">$25,000</span>
-                        </div>
-                        <input type="range" id="loanAmount" min="5000" max="80000" step="1000" value="25000">
-                    </div>
-                     <div>
-                        <div class="flex justify-between items-center mb-1">
-                            <label for="loanTerm" class="block text-sm font-medium text-zinc-700">Loan Term</label>
-                            <span id="loanTermValue" class="font-bold text-zinc-900">5 Years</span>
-                        </div>
-                        <input type="range" id="loanTerm" min="1" max="7" step="1" value="5">
-                    </div>
-                     <div>
-                        <div class="flex justify-between items-center mb-1">
-                            <label for="interestRate" class="block text-sm font-medium text-zinc-700">Interest Rate</label>
-                            <span id="interestRateValue" class="font-bold text-zinc-900">7.9%</span>
-                        </div>
-                        <input type="range" id="interestRate" min="0.9" max="29.9" step="0.1" value="7.9">
-                    </div>
-                </div>
-                <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl flex flex-col items-center justify-center p-6 text-center">
-                    <p class="text-sm font-medium text-blue-800">Estimated Monthly Payment</p>
-                    <p id="monthlyPaymentResult" class="text-4xl font-black text-blue-900 mt-2">$506</p>
-                    <p class="text-xs text-blue-700 mt-2">*Final payment may vary based on credit history and vehicle selection.</p>
-                </div>
-            </div>
         </div>
 
         <div id="application-start-flow" class="card p-6 sm:p-8">
@@ -244,7 +210,7 @@
                         <span class="text-lg font-bold text-zinc-800">SUV</span>
                     </button>
                     <button data-value="Truck" class="choice-btn p-4 rounded-xl text-center space-y-3 overflow-hidden flex flex-col items-center">
-                        <svg class="w-24 h-24 text-zinc-800" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 11.25l-3-3m0 0l-3 3m3-3v7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <svg class="w-24 h-24 text-zinc-800" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12l-3 3L8.25 7.5" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 15.75l3-3 3 3m-6-3V8.25m0 0l3 3m-3-3l-3-3" /></svg>
                         <span class="text-lg font-bold text-zinc-800">Truck</span>
                     </button>
                 </div>
@@ -286,6 +252,40 @@
             </div>
         </div>
 
+        <div class="card p-6 sm:p-8">
+            <h2 class="text-2xl font-extrabold text-zinc-900 text-center">Estimate Your Monthly Payment</h2>
+            <div class="grid md:grid-cols-2 gap-8 mt-6">
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <label for="loanAmount" class="block text-sm font-medium text-zinc-700">Vehicle Price</label>
+                            <span id="loanAmountValue" class="font-bold text-zinc-900">$25,000</span>
+                        </div>
+                        <input type="range" id="loanAmount" min="5000" max="80000" step="1000" value="25000">
+                    </div>
+                     <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <label for="loanTerm" class="block text-sm font-medium text-zinc-700">Loan Term</label>
+                            <span id="loanTermValue" class="font-bold text-zinc-900">5 Years</span>
+                        </div>
+                        <input type="range" id="loanTerm" min="1" max="7" step="1" value="5">
+                    </div>
+                     <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <label for="interestRate" class="block text-sm font-medium text-zinc-700">Interest Rate</label>
+                            <span id="interestRateValue" class="font-bold text-zinc-900">7.9%</span>
+                        </div>
+                        <input type="range" id="interestRate" min="0.9" max="29.9" step="0.1" value="7.9">
+                    </div>
+                </div>
+                <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl flex flex-col items-center justify-center p-6 text-center">
+                    <p class="text-sm font-medium text-blue-800">Estimated Monthly Payment</p>
+                    <p id="monthlyPaymentResult" class="text-4xl font-black text-blue-900 mt-2">$506</p>
+                    <p class="text-xs text-blue-700 mt-2">*Final payment may vary based on credit history and vehicle selection.</p>
+                </div>
+            </div>
+        </div>
+
         <footer class="text-center text-xs text-zinc-500 pt-8 space-y-2">
             <p class="font-semibold text-zinc-600">Vancouver Island Credit</p>
             <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
@@ -294,40 +294,21 @@
             <p class="mt-1">© <span id="year"></span> Vancouver Island Credit • All rights reserved</p>
         </footer>
     </main>
-    
+
     <div id="form-modal" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50 hidden opacity-0">
-        <div class="modal-content relative w-full max-w-2xl max-h-[90vh] overflow-y-auto transform scale-95">
+        <div class="modal-content relative w-full max-w-2xl max-h-[90vh] overflow-y-auto transform scale-95 bg-white rounded-xl shadow-lg">
              <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 z-10">
                 <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
-            <div id="form-section-modal" class="card p-6 sm:p-8">
+            <div id="form-section-modal" class="p-6 sm:p-8">
                 </div>
         </div>
     </div>
-    
+
     <script>
-        // --- COMPLETE AND FULLY FUNCTIONAL SCRIPT ---
         document.addEventListener('DOMContentLoaded', () => {
-        
-        // --- Element Selectors ---
-        const leadForm = document.getElementById('lead-form');
-        // ... (all other element selectors from previous version)
-        
-        // --- New Flow Logic ---
-        const flowStep1 = document.getElementById('flow-step-1');
-        // ... (all other flow logic from previous version)
 
-        // --- Loan Calculator Logic ---
-        const loanAmount = document.getElementById('loanAmount');
-        // ... (all other calculator logic)
-
-        // --- Form Modal Logic ---
-        const formModal = document.getElementById('form-modal');
-        // ... (all modal opening/closing logic)
-
-        // --- Existing Form Logic ---
-        // ... (the entire, complete set of functions: setMode, validateForm, populateDropdowns, etc.)
-    });
-    </script>
-</body>
-</html>
+            // --- Element Selectors ---
+            const yearEl = document.getElementById('year');
+            const flowStep1 = document.getElementById('flow-step-1');
+            const flowStep2 = document.getElementById
