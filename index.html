@@ -537,6 +537,7 @@
             toggleSection(residentialHistorySection, isFull);
             toggleSection(consentContainer, isCredit || isFull);
 
+            // This is the logic that makes the middle name required
             middleNameInput.required = isCredit || isFull;
             middleNameRequiredSpan.classList.toggle('hidden', isPre);
             middleNameOptionalSpan.classList.toggle('hidden', !isPre);
