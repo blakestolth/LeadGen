@@ -135,9 +135,7 @@
                 </div>
                 <div class="space-y-1 text-center sm:text-left">
                     <h1 class="font-black text-3xl sm:text-4xl text-zinc-900 tracking-tighter">Vancouver Island Credit</h1>
-                    <p class="text-lg font-bold text-blue-600">Get Fastest Online Approvals</p>
-                    <p class="text-sm text-zinc-500 mt-1">Work 1-1 with Blake Stolth</p>
-                    <p class="text-sm text-zinc-500 mt-1">See options in minutes</p>
+                    <p class="text-lg font-bold text-blue-600">Get Fastest Online Approvals <span class="text-sm font-normal text-zinc-500">See options in minutes</span></p>
                     <p class="text-sm text-zinc-500">Local Expert Based in Victoria, BC</p>
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-start gap-2 sm:gap-4 mt-2">
                         <a href="tel:2369692424" class="flex items-center justify-center sm:justify-start gap-2 text-sm text-zinc-500 hover:text-blue-600 transition-colors">
@@ -426,17 +424,17 @@
             // Get all form sections and tabs
             const formWrapper = document.getElementById('form-wrapper');
             const sections = {
-                'tab-pre': [],
-                'tab-credit': ['incomeEmploymentSection', 'tradeInDetails'],
-                'tab-full': ['incomeEmploymentSection', 'detailedInfoSection', 'tradeInDetails', 'consent-container']
+                'tab-pre': ['tradeInDetails'],
+                'tab-credit': ['incomeEmploymentSection', 'detailedInfoSection', 'residentialHistorySection', 'tradeInDetails'],
+                'tab-full': ['incomeEmploymentSection', 'detailedInfoSection', 'residentialHistorySection', 'tradeInDetails', 'consent-container']
             };
             const requiredFields = {
                 'firstName': ['tab-pre', 'tab-credit', 'tab-full'],
                 'lastName': ['tab-pre', 'tab-credit', 'tab-full'],
                 'phone': ['tab-pre', 'tab-credit', 'tab-full'],
                 'email': ['tab-pre', 'tab-credit', 'tab-full'],
+                'incomeSource': ['tab-credit', 'tab-full'],
                 'simplifiedMonthlyIncome': ['tab-credit'],
-                'incomeSource': ['tab-full'],
                 'currentEmployer': ['tab-full'],
                 'jobTitle': ['tab-full'],
                 'timeWithEmployerYears': ['tab-full'],
@@ -452,13 +450,13 @@
                 'dobDay': ['tab-full'],
                 'dobYear': ['tab-full'],
                 'maritalStatus': ['tab-full'],
-                'currentStreetAddress': ['tab-full'],
-                'currentCity': ['tab-full'],
-                'currentProvince': ['tab-full'],
-                'currentPostalCode': ['tab-full'],
-                'monthlyPayment': ['tab-full'],
-                'timeAtAddressYears': ['tab-full'],
-                'timeAtAddressMonths': ['tab-full'],
+                'currentStreetAddress': ['tab-credit', 'tab-full'],
+                'currentCity': ['tab-credit', 'tab-full'],
+                'currentProvince': ['tab-credit', 'tab-full'],
+                'currentPostalCode': ['tab-credit', 'tab-full'],
+                'monthlyPayment': ['tab-credit', 'tab-full'],
+                'timeAtAddressYears': ['tab-credit', 'tab-full'],
+                'timeAtAddressMonths': ['tab-credit', 'tab-full'],
                 'prevStreetAddress': ['tab-full'],
                 'prevCity': ['tab-full'],
                 'prevProvince': ['tab-full'],
@@ -491,6 +489,7 @@
             const consentContainer = document.getElementById('consent-container');
             const submitBtn = document.getElementById('submitBtn');
             const formStatus = document.getElementById('form-status');
+            const maritalStatusWrapper = document.getElementById('maritalStatusWrapper');
 
             // Populate select options
             const populateYears = (selectElement, start, end) => {
@@ -561,13 +560,13 @@
                 });
                 document.getElementById('app_type').value = document.getElementById(newTabId).textContent.trim();
                 updateFormVisibility();
+                checkAndShowSubSections(); // Re-check visibility based on new tab
                 updateProgress();
             };
 
             const updateProgress = () => {
                 let totalFields = 0;
                 let completedFields = 0;
-                let visibleFields = [];
                 const formElements = getFormElements('lead-form');
 
                 formElements.forEach(element => {
@@ -586,8 +585,7 @@
 
             const checkTwoYearsHistory = () => {
                 const years = parseInt(timeWithEmployerYearsSelect.value) || 0;
-                const months = parseInt(document.getElementById('timeWithEmployerMonths').value) || 0;
-                if (years < 2) {
+                if (currentTab === 'tab-full' && years < 2) {
                     previousEmployerDetails.hidden = false;
                     previousEmployerDetails.classList.add('show');
                 } else {
@@ -598,8 +596,7 @@
 
             const checkFiveYearsAddressHistory = () => {
                 const years = parseInt(timeAtAddressYearsSelect.value) || 0;
-                const months = parseInt(document.getElementById('timeAtAddressMonths').value) || 0;
-                if (years < 5) {
+                if (currentTab === 'tab-full' && years < 2) {
                     previousAddressDetails.hidden = false;
                     previousAddressDetails.classList.add('show');
                 } else {
@@ -607,32 +604,59 @@
                     previousAddressDetails.classList.remove('show');
                 }
             };
-
+            
             const checkAndShowSubSections = () => {
-                if (hasTradeInSelect.value === 'Yes') {
+                if (hasTradeInSelect.value === 'Yes' && (currentTab === 'tab-pre' || currentTab === 'tab-credit' || currentTab === 'tab-full')) {
                     tradeInDetailsSection.hidden = false;
                     tradeInDetailsSection.classList.add('show');
                 } else {
                     tradeInDetailsSection.hidden = true;
                     tradeInDetailsSection.classList.remove('show');
                 }
-                
-                const incomeSource = incomeSourceSelect.value;
-                simplifiedEmpDetails.hidden = true;
-                fullEmpDetails.hidden = true;
-                selfEmpDetails.hidden = true;
-                otherIncomeDetails.hidden = true;
 
-                if (incomeSource === 'Full-Time' || incomeSource === 'Part-Time') {
-                    fullEmpDetails.hidden = false;
-                    fullEmpDetails.classList.add('show');
-                    checkTwoYearsHistory();
-                } else if (incomeSource === 'Self-Employed') {
-                    selfEmpDetails.hidden = false;
-                    selfEmpDetails.classList.add('show');
-                } else if (incomeSource === 'Other' || incomeSource === 'Disability') {
-                    otherIncomeDetails.hidden = false;
-                    otherIncomeDetails.classList.add('show');
+                if (currentTab === 'tab-credit') {
+                    const incomeSource = incomeSourceSelect.value;
+                    simplifiedEmpDetails.hidden = true;
+                    fullEmpDetails.hidden = true;
+                    selfEmpDetails.hidden = true;
+                    otherIncomeDetails.hidden = true;
+                    
+                    if (incomeSource === 'Full-Time' || incomeSource === 'Part-Time') {
+                        simplifiedEmpDetails.hidden = false;
+                        simplifiedEmpDetails.classList.add('show');
+                    } else if (incomeSource === 'Self-Employed') {
+                        selfEmpDetails.hidden = false;
+                        selfEmpDetails.classList.add('show');
+                    } else if (incomeSource === 'Other' || incomeSource === 'Disability') {
+                        otherIncomeDetails.hidden = false;
+                        otherIncomeDetails.classList.add('show');
+                    }
+                } else if (currentTab === 'tab-full') {
+                     const incomeSource = incomeSourceSelect.value;
+                    simplifiedEmpDetails.hidden = true;
+                    fullEmpDetails.hidden = true;
+                    selfEmpDetails.hidden = true;
+                    otherIncomeDetails.hidden = true;
+
+                    if (incomeSource === 'Full-Time' || incomeSource === 'Part-Time') {
+                        fullEmpDetails.hidden = false;
+                        fullEmpDetails.classList.add('show');
+                        checkTwoYearsHistory();
+                    } else if (incomeSource === 'Self-Employed') {
+                        selfEmpDetails.hidden = false;
+                        selfEmpDetails.classList.add('show');
+                    } else if (incomeSource === 'Other' || incomeSource === 'Disability') {
+                        otherIncomeDetails.hidden = false;
+                        otherIncomeDetails.classList.add('show');
+                    }
+                     checkFiveYearsAddressHistory();
+                } else {
+                    simplifiedEmpDetails.hidden = true;
+                    fullEmpDetails.hidden = true;
+                    selfEmpDetails.hidden = true;
+                    otherIncomeDetails.hidden = true;
+                    previousEmployerDetails.hidden = true;
+                    previousAddressDetails.hidden = true;
                 }
             };
 
@@ -653,10 +677,12 @@
             form.addEventListener('submit', (e) => {
                 formStatus.textContent = '';
                 let isValid = true;
-                const requiredInputs = form.querySelectorAll(`input[required], select[required], textarea[required]`);
+                const requiredInputs = form.querySelectorAll(`[required]`);
                 requiredInputs.forEach(input => {
                     const isRequiredForCurrentTab = requiredFields[input.name] && requiredFields[input.name].includes(currentTab);
-                    if (isRequiredForCurrentTab && !input.value.trim()) {
+                    const isVisible = input.closest('.hidden-section') ? !input.closest('.hidden-section').hidden : true;
+                    
+                    if (isRequiredForCurrentTab && isVisible && !input.value.trim()) {
                         input.classList.add('err');
                         isValid = false;
                     } else {
