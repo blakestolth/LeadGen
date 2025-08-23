@@ -422,7 +422,7 @@
                                         <label for="timeAtPrevAddressYears" class="block text-sm font-medium text-zinc-700 mb-1.5">Time at Previous Address <span class="text-red-500">*</span></label>
                                         <div class="grid grid-cols-2 gap-2">
                                             <select id="timeAtPrevAddressYears" name="timeAtPrevAddressYears" class="form-select"><option value="">Years</option></select>
-                                            <select id="timeAtPrevAddressMonths" name="prevTimeAtPrevAddressMonths" class="form-select"><option value="">Months</option></select>
+                                            <select id="timeAtPrevAddressMonths" name="timeAtPrevAddressMonths" class="form-select"><option value="">Months</option></select>
                                         </div>
                                     </div>
                                 </div>
@@ -460,7 +460,7 @@
             const sections = {
                 'tab-pre': ['tradeInDetails'],
                 'tab-credit': ['incomeEmploymentSection', 'detailedInfoSection', 'residentialHistorySection'],
-                'tab-full': ['incomeEmploymentSection', 'detailedInfoSection', 'residentialHistorySection', 'tradeInDetails', 'consent-container', 'timeAtAddressDuration']
+                'tab-full': ['incomeEmploymentSection', 'detailedInfoSection', 'tradeInDetails', 'consent-container', 'residentialHistorySection']
             };
             const requiredFields = {
                 'firstName': ['tab-pre', 'tab-credit', 'tab-full'],
@@ -662,16 +662,19 @@
                     tradeInDetailsSection.hidden = true;
                     tradeInDetailsSection.classList.remove('show');
                 }
+                
+                // Hide all nested sections first
+                simplifiedEmpDetails.hidden = true;
+                fullEmpDetails.hidden = true;
+                selfEmpDetails.hidden = true;
+                otherIncomeDetails.hidden = true;
+                previousEmployerDetails.hidden = true;
+                previousAddressDetails.hidden = true;
+                timeAtAddressDuration.hidden = true;
 
-                if (currentTab === 'tab-pre') {
-                    // No extra sections for Pre-Approval, handled by initial visibility
-                } else if (currentTab === 'tab-credit') {
+
+                if (currentTab === 'tab-credit' || currentTab === 'tab-full') {
                     const incomeSource = incomeSourceSelect.value;
-                    simplifiedEmpDetails.hidden = true;
-                    fullEmpDetails.hidden = true;
-                    selfEmpDetails.hidden = true;
-                    otherIncomeDetails.hidden = true;
-                    
                     if (incomeSource === 'Full-Time' || incomeSource === 'Part-Time') {
                         simplifiedEmpDetails.hidden = false;
                         simplifiedEmpDetails.classList.add('show');
@@ -682,38 +685,18 @@
                         otherIncomeDetails.hidden = false;
                         otherIncomeDetails.classList.add('show');
                     }
-                    previousAddressDetails.hidden = true;
-                    previousEmployerDetails.hidden = true;
-                    timeAtAddressDuration.hidden = true;
-                } else if (currentTab === 'tab-full') {
-                     const incomeSource = incomeSourceSelect.value;
-                    simplifiedEmpDetails.hidden = true;
-                    fullEmpDetails.hidden = true;
-                    selfEmpDetails.hidden = true;
-                    otherIncomeDetails.hidden = true;
-
+                }
+                
+                if (currentTab === 'tab-full') {
+                    const incomeSource = incomeSourceSelect.value;
                     if (incomeSource === 'Full-Time' || incomeSource === 'Part-Time') {
                         fullEmpDetails.hidden = false;
                         fullEmpDetails.classList.add('show');
                         checkTwoYearsHistory();
-                    } else if (incomeSource === 'Self-Employed') {
-                        selfEmpDetails.hidden = false;
-                        selfEmpDetails.classList.add('show');
-                    } else if (incomeSource === 'Other' || incomeSource === 'Disability') {
-                        otherIncomeDetails.hidden = false;
-                        otherIncomeDetails.classList.add('show');
                     }
-                     checkTwoYearsAddressHistory();
-                     timeAtAddressDuration.hidden = false;
-                     timeAtAddressDuration.classList.add('show');
-                } else {
-                    simplifiedEmpDetails.hidden = true;
-                    fullEmpDetails.hidden = true;
-                    selfEmpDetails.hidden = true;
-                    otherIncomeDetails.hidden = true;
-                    previousEmployerDetails.hidden = true;
-                    previousAddressDetails.hidden = true;
-                    timeAtAddressDuration.hidden = true;
+                    timeAtAddressDuration.hidden = false;
+                    timeAtAddressDuration.classList.add('show');
+                    checkTwoYearsAddressHistory();
                 }
             };
 
