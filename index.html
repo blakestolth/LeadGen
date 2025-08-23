@@ -619,9 +619,14 @@
                 const formElements = getFormElements('lead-form');
 
                 formElements.forEach(element => {
-                    if (element.name && requiredFields[element.name] && requiredFields[element.name].includes(currentTab)) {
+                    const isRequiredForCurrentTab = requiredFields[element.name] && requiredFields[element.name].includes(currentTab);
+                    const isVisible = element.closest('.hidden-section') ? !element.closest('.hidden-section').hidden : true;
+                    
+                    if (isRequiredForCurrentTab && isVisible) {
                         totalFields++;
-                        if (element.value.trim() !== '' && element.checkValidity()) {
+                        if (element.type === 'checkbox' && element.checked) {
+                            completedFields++;
+                        } else if (element.value.trim() !== '') {
                             completedFields++;
                         }
                     }
@@ -645,7 +650,9 @@
 
             const checkTwoYearsAddressHistory = () => {
                 const years = parseInt(timeAtAddressYearsSelect.value) || 0;
-                if (currentTab === 'tab-full' && years < 2) {
+                const isFullApp = currentTab === 'tab-full';
+
+                if (isFullApp && years < 2) {
                     previousAddressDetails.hidden = false;
                     previousAddressDetails.classList.add('show');
                 } else {
@@ -655,15 +662,8 @@
             };
             
             const checkAndShowSubSections = () => {
-                if (hasTradeInSelect.value === 'Yes') {
-                    tradeInDetailsSection.hidden = false;
-                    tradeInDetailsSection.classList.add('show');
-                } else {
-                    tradeInDetailsSection.hidden = true;
-                    tradeInDetailsSection.classList.remove('show');
-                }
-                
                 // Hide all nested sections first
+                tradeInDetailsSection.hidden = true;
                 simplifiedEmpDetails.hidden = true;
                 fullEmpDetails.hidden = true;
                 selfEmpDetails.hidden = true;
@@ -672,6 +672,11 @@
                 previousAddressDetails.hidden = true;
                 timeAtAddressDuration.hidden = true;
 
+
+                if (hasTradeInSelect.value === 'Yes') {
+                    tradeInDetailsSection.hidden = false;
+                    tradeInDetailsSection.classList.add('show');
+                }
 
                 if (currentTab === 'tab-credit' || currentTab === 'tab-full') {
                     const incomeSource = incomeSourceSelect.value;
@@ -722,7 +727,7 @@
                     const isRequiredForCurrentTab = requiredFields[input.name] && requiredFields[input.name].includes(currentTab);
                     const isVisible = input.closest('.hidden-section') ? !input.closest('.hidden-section').hidden : true;
                     
-                    if (isRequiredForCurrentTab && isVisible && !input.value.trim()) {
+                    if (isRequiredForCurrentTab && isVisible && !input.value.trim() && input.type !== 'checkbox') {
                         input.classList.add('err');
                         isValid = false;
                     } else {
