@@ -29,7 +29,7 @@
     <style>
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f9fafb;
+            background-color: #ffffff;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -599,12 +599,12 @@
                 document.getElementById('app_type').value = document.getElementById(newTabId).textContent.trim();
 
                 if (currentTab === 'tab-credit' || currentTab === 'tab-full') {
-                    middleNameOptional.hidden = true;
-                    middleNameRequired.hidden = false;
+                    middleNameOptional.classList.add('hidden');
+                    middleNameRequired.classList.remove('hidden');
                     document.getElementById('middleName').setAttribute('required', 'required');
                 } else {
-                    middleNameOptional.hidden = false;
-                    middleNameRequired.hidden = true;
+                    middleNameOptional.classList.remove('hidden');
+                    middleNameRequired.classList.add('hidden');
                     document.getElementById('middleName').removeAttribute('required');
                 }
                 
@@ -684,6 +684,7 @@
                     }
                     previousAddressDetails.hidden = true;
                     previousEmployerDetails.hidden = true;
+                    timeAtAddressDuration.hidden = true;
                 } else if (currentTab === 'tab-full') {
                      const incomeSource = incomeSourceSelect.value;
                     simplifiedEmpDetails.hidden = true;
@@ -703,6 +704,8 @@
                         otherIncomeDetails.classList.add('show');
                     }
                      checkTwoYearsAddressHistory();
+                     timeAtAddressDuration.hidden = false;
+                     timeAtAddressDuration.classList.add('show');
                 } else {
                     simplifiedEmpDetails.hidden = true;
                     fullEmpDetails.hidden = true;
@@ -710,6 +713,7 @@
                     otherIncomeDetails.hidden = true;
                     previousEmployerDetails.hidden = true;
                     previousAddressDetails.hidden = true;
+                    timeAtAddressDuration.hidden = true;
                 }
             };
 
