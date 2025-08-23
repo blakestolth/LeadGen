@@ -123,12 +123,14 @@
             font-weight: 600;
         }
         .text-hero-phone {
-            font-size: 0.875rem;
-            line-height: 1.25rem;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            font-weight: 700;
         }
         .text-hero-address {
-            font-size: 0.875rem;
-            line-height: 1.25rem;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            font-weight: 700;
         }
         
     </style>
@@ -168,6 +170,7 @@
             <div class="space-y-1">
                 <h1 class="text-hero-title text-zinc-900">Vancouver Island Credit</h1>
                 <p class="text-hero-subtitle">Get Fastest Online Approvals <span class="text-base font-medium text-zinc-500">See options in minutes</span></p>
+                <p class="text-hero-info sm:text-left">Delivery Anywhere in Canada</p>
                 <p class="text-hero-info">Work 1-1 with Blake Stolth</p>
                 <p class="text-sm text-zinc-500">Local Expert Based in Victoria, BC</p>
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-start gap-2 sm:gap-4 mt-2">
@@ -179,7 +182,6 @@
                     </a>
                 </div>
                 <p class="text-hero-address text-zinc-500 sm:text-left">525 Gorge Rd E, Victoria, BC V8T 4T2</p>
-                <p class="text-hero-info sm:text-left">Delivery Anywhere in Canada</p>
             </div>
         </div>
 
@@ -397,7 +399,7 @@
                                         <label for="monthlyPayment" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly Payment <span class="text-red-500">*</span></label>
                                         <input type="text" id="monthlyPayment" name="monthlyPayment" required placeholder="$1,500" class="form-input" inputmode="numeric"/>
                                     </div>
-                                    <div>
+                                    <div id="timeAtAddressDuration" class="hidden-section" hidden>
                                         <label for="timeAtAddressYears" class="block text-sm font-medium text-zinc-700 mb-1.5">Time at Address <span class="text-red-500">*</span></label>
                                         <div class="grid grid-cols-2 gap-2">
                                             <select id="timeAtAddressYears" name="timeAtAddressYears" required class="form-select"><option value="">Years</option></select>
@@ -458,7 +460,7 @@
             const sections = {
                 'tab-pre': ['tradeInDetails'],
                 'tab-credit': ['incomeEmploymentSection', 'detailedInfoSection', 'residentialHistorySection'],
-                'tab-full': ['incomeEmploymentSection', 'detailedInfoSection', 'residentialHistorySection', 'tradeInDetails', 'consent-container']
+                'tab-full': ['incomeEmploymentSection', 'detailedInfoSection', 'residentialHistorySection', 'tradeInDetails', 'consent-container', 'timeAtAddressDuration']
             };
             const requiredFields = {
                 'firstName': ['tab-pre', 'tab-credit', 'tab-full'],
@@ -488,8 +490,8 @@
                 'currentProvince': ['tab-credit', 'tab-full'],
                 'currentPostalCode': ['tab-credit', 'tab-full'],
                 'monthlyPayment': ['tab-credit', 'tab-full'],
-                'timeAtAddressYears': ['tab-credit', 'tab-full'],
-                'timeAtAddressMonths': ['tab-credit', 'tab-full'],
+                'timeAtAddressYears': ['tab-full'],
+                'timeAtAddressMonths': ['tab-full'],
                 'prevStreetAddress': ['tab-full'],
                 'prevCity': ['tab-full'],
                 'prevProvince': ['tab-full'],
@@ -525,6 +527,7 @@
             const maritalStatusWrapper = document.getElementById('maritalStatusWrapper');
             const middleNameOptional = document.getElementById('middleNameOptional');
             const middleNameRequired = document.getElementById('middleNameRequired');
+            const timeAtAddressDuration = document.getElementById('timeAtAddressDuration');
 
             // Populate select options
             const populateYears = (selectElement, start, end) => {
