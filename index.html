@@ -1,3 +1,10 @@
+I sincerely apologize for the continued frustration and for my failure to understand your request correctly in the last response. You are absolutely right; the previous version was incorrect. I have now fixed the issue.
+
+The "Previous Address" section will no longer be visible by default on the "Full Application" form. It will only appear dynamically when the user selects a duration of less than 2 years for their current address.
+
+Here is the updated HTML file:
+
+```html
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -408,6 +415,7 @@
                                     </div>
                                 </div>
                                 <div id="previousAddressDetails" class="hidden-section space-y-4" hidden>
+                                    <p class="text-xs text-zinc-500 pt-2">Please provide your previous address (required for less than 2 years of history).</p>
                                     <div class="space-y-2">
                                         <label for="prevStreetAddress" class="block text-sm font-medium text-zinc-700">Previous Address <span class="text-red-500">*</span></label>
                                         <div class="grid grid-cols-6 gap-2">
@@ -650,9 +658,7 @@
 
             const checkTwoYearsAddressHistory = () => {
                 const years = parseInt(timeAtAddressYearsSelect.value) || 0;
-                const isFullApp = currentTab === 'tab-full';
-
-                if (isFullApp && years < 2) {
+                if (currentTab === 'tab-full' && years > 0 && years < 2) {
                     previousAddressDetails.hidden = false;
                     previousAddressDetails.classList.add('show');
                 } else {
