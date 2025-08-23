@@ -135,7 +135,8 @@
                 </div>
                 <div class="space-y-1 text-center sm:text-left">
                     <h1 class="font-black text-3xl sm:text-4xl text-zinc-900 tracking-tighter">Vancouver Island Credit</h1>
-                    <p class="text-lg font-bold text-blue-600">Get Fastest Online Approvals <span class="text-sm font-normal text-zinc-500">See options in minutes</span></p>
+                    <p class="text-lg font-extrabold text-blue-600">Get Fastest Online Approvals <span class="text-base font-medium text-zinc-500">See options in minutes</span></p>
+                    <p class="text-sm font-semibold text-zinc-600">Work 1-1 with Blake Stolth</p>
                     <p class="text-sm text-zinc-500">Local Expert Based in Victoria, BC</p>
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-start gap-2 sm:gap-4 mt-2">
                         <a href="tel:2369692424" class="flex items-center justify-center sm:justify-start gap-2 text-sm text-zinc-500 hover:text-blue-600 transition-colors">
@@ -353,23 +354,23 @@
                                 <div class="space-y-2">
                                     <label for="currentStreetAddress" class="block text-sm font-medium text-zinc-700">Current Address <span class="text-red-500">*</span></label>
                                     <div class="grid grid-cols-6 gap-2">
-                                        <input type="text" id="currentStreetAddress" name="currentStreetAddress" placeholder="Street Address" class="form-input col-span-4" autocomplete="street-address"/>
+                                        <input type="text" id="currentStreetAddress" name="currentStreetAddress" required placeholder="Street Address" class="form-input col-span-4" autocomplete="street-address"/>
                                         <input type="text" id="currentUnit" name="currentUnit" placeholder="Unit #" class="form-input col-span-2" />
-                                        <input type="text" id="currentCity" name="currentCity" placeholder="City" class="form-input col-span-3" autocomplete="address-level2" />
-                                        <select id="currentProvince" name="currentProvince" class="form-select col-span-3"><option value="">Province</option></select>
-                                        <input type="text" id="currentPostalCode" name="currentPostalCode" placeholder="Postal Code" class="form-input col-span-6" autocomplete="postal-code" />
+                                        <input type="text" id="currentCity" name="currentCity" required placeholder="City" class="form-input col-span-3" autocomplete="address-level2" />
+                                        <select id="currentProvince" name="currentProvince" required class="form-select col-span-3"><option value="">Province</option></select>
+                                        <input type="text" id="currentPostalCode" name="currentPostalCode" required placeholder="Postal Code" class="form-input col-span-6" autocomplete="postal-code" />
                                     </div>
                                 </div>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div>
                                         <label for="monthlyPayment" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly Payment <span class="text-red-500">*</span></label>
-                                        <input type="text" id="monthlyPayment" name="monthlyPayment" placeholder="$1,500" class="form-input" inputmode="numeric"/>
+                                        <input type="text" id="monthlyPayment" name="monthlyPayment" required placeholder="$1,500" class="form-input" inputmode="numeric"/>
                                     </div>
                                     <div>
                                         <label for="timeAtAddressYears" class="block text-sm font-medium text-zinc-700 mb-1.5">Time at Address <span class="text-red-500">*</span></label>
                                         <div class="grid grid-cols-2 gap-2">
-                                            <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                                            <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+                                            <select id="timeAtAddressYears" name="timeAtAddressYears" required class="form-select"><option value="">Years</option></select>
+                                            <select id="timeAtAddressMonths" name="timeAtAddressMonths" required class="form-select"><option value="">Months</option></select>
                                         </div>
                                     </div>
                                 </div>
@@ -395,7 +396,7 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div id="consent-container" class="hidden-section" hidden>
                         <div class="flex items-start gap-3 bg-gray-100 p-4 rounded-lg">
                             <input id="creditConsent" name="creditConsent" type="checkbox" class="h-5 w-5 rounded border-gray-300 mt-0.5"/>
@@ -425,7 +426,7 @@
             const formWrapper = document.getElementById('form-wrapper');
             const sections = {
                 'tab-pre': ['tradeInDetails'],
-                'tab-credit': ['incomeEmploymentSection', 'detailedInfoSection', 'residentialHistorySection', 'tradeInDetails'],
+                'tab-credit': ['incomeEmploymentSection', 'detailedInfoSection', 'residentialHistorySection'],
                 'tab-full': ['incomeEmploymentSection', 'detailedInfoSection', 'residentialHistorySection', 'tradeInDetails', 'consent-container']
             };
             const requiredFields = {
@@ -560,7 +561,7 @@
                 });
                 document.getElementById('app_type').value = document.getElementById(newTabId).textContent.trim();
                 updateFormVisibility();
-                checkAndShowSubSections(); // Re-check visibility based on new tab
+                checkAndShowSubSections();
                 updateProgress();
             };
 
@@ -594,7 +595,7 @@
                 }
             };
 
-            const checkFiveYearsAddressHistory = () => {
+            const checkTwoYearsAddressHistory = () => {
                 const years = parseInt(timeAtAddressYearsSelect.value) || 0;
                 if (currentTab === 'tab-full' && years < 2) {
                     previousAddressDetails.hidden = false;
@@ -606,7 +607,7 @@
             };
             
             const checkAndShowSubSections = () => {
-                if (hasTradeInSelect.value === 'Yes' && (currentTab === 'tab-pre' || currentTab === 'tab-credit' || currentTab === 'tab-full')) {
+                if (hasTradeInSelect.value === 'Yes') {
                     tradeInDetailsSection.hidden = false;
                     tradeInDetailsSection.classList.add('show');
                 } else {
@@ -614,7 +615,9 @@
                     tradeInDetailsSection.classList.remove('show');
                 }
 
-                if (currentTab === 'tab-credit') {
+                if (currentTab === 'tab-pre') {
+                    // No extra sections for Pre-Approval, handled by initial visibility
+                } else if (currentTab === 'tab-credit') {
                     const incomeSource = incomeSourceSelect.value;
                     simplifiedEmpDetails.hidden = true;
                     fullEmpDetails.hidden = true;
@@ -631,6 +634,8 @@
                         otherIncomeDetails.hidden = false;
                         otherIncomeDetails.classList.add('show');
                     }
+                    previousAddressDetails.hidden = true;
+                    previousEmployerDetails.hidden = true;
                 } else if (currentTab === 'tab-full') {
                      const incomeSource = incomeSourceSelect.value;
                     simplifiedEmpDetails.hidden = true;
@@ -649,7 +654,7 @@
                         otherIncomeDetails.hidden = false;
                         otherIncomeDetails.classList.add('show');
                     }
-                     checkFiveYearsAddressHistory();
+                     checkTwoYearsAddressHistory();
                 } else {
                     simplifiedEmpDetails.hidden = true;
                     fullEmpDetails.hidden = true;
@@ -672,13 +677,13 @@
             hasTradeInSelect.addEventListener('change', checkAndShowSubSections);
             incomeSourceSelect.addEventListener('change', checkAndShowSubSections);
             timeWithEmployerYearsSelect.addEventListener('change', checkTwoYearsHistory);
-            timeAtAddressYearsSelect.addEventListener('change', checkFiveYearsAddressHistory);
+            timeAtAddressYearsSelect.addEventListener('change', checkTwoYearsAddressHistory);
 
             form.addEventListener('submit', (e) => {
                 formStatus.textContent = '';
                 let isValid = true;
-                const requiredInputs = form.querySelectorAll(`[required]`);
-                requiredInputs.forEach(input => {
+                const formElements = getFormElements('lead-form');
+                formElements.forEach(input => {
                     const isRequiredForCurrentTab = requiredFields[input.name] && requiredFields[input.name].includes(currentTab);
                     const isVisible = input.closest('.hidden-section') ? !input.closest('.hidden-section').hidden : true;
                     
@@ -709,6 +714,7 @@
 
             // Initial setup
             updateFormVisibility();
+            checkAndShowSubSections();
             updateProgress();
         </script>
     </main>
