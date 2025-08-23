@@ -161,7 +161,7 @@
             </div>
             <ul class="space-y-4 text-zinc-600 text-base benefit-list">
                 <li><strong class="text-zinc-800">Avoid the Runaround:</strong> Deal with one real person and skip the calls from multiple dealerships.</li>
-                <li><strong class="text-zinc-800">All Credit Welcome:</strong> 99% approval rate. We work with all credit situations.</li>
+                <li><strong class="text-zinc-800">All Credit Welcome:</strong> 90% approval rate guaranteed. We work with all credit situations.</li>
                 <li><strong class="text-zinc-800">Huge Selection:</strong> Access to a massive inventory of new and used vehicles across BC.</li>
                 <li><strong class="text-zinc-800">Historical Low Rates:</strong> With up to 0% available O.A.C.</li>
             </ul>
@@ -431,6 +431,7 @@
             };
             const requiredFields = {
                 'firstName': ['tab-pre', 'tab-credit', 'tab-full'],
+                'middleName': ['tab-credit', 'tab-full'],
                 'lastName': ['tab-pre', 'tab-credit', 'tab-full'],
                 'phone': ['tab-pre', 'tab-credit', 'tab-full'],
                 'email': ['tab-pre', 'tab-credit', 'tab-full'],
@@ -491,6 +492,8 @@
             const submitBtn = document.getElementById('submitBtn');
             const formStatus = document.getElementById('form-status');
             const maritalStatusWrapper = document.getElementById('maritalStatusWrapper');
+            const middleNameOptional = document.getElementById('middleNameOptional');
+            const middleNameRequired = document.getElementById('middleNameRequired');
 
             // Populate select options
             const populateYears = (selectElement, start, end) => {
@@ -560,6 +563,17 @@
                     tab.setAttribute('aria-pressed', isSelected);
                 });
                 document.getElementById('app_type').value = document.getElementById(newTabId).textContent.trim();
+
+                if (currentTab === 'tab-credit' || currentTab === 'tab-full') {
+                    middleNameOptional.hidden = true;
+                    middleNameRequired.hidden = false;
+                    document.getElementById('middleName').setAttribute('required', 'required');
+                } else {
+                    middleNameOptional.hidden = false;
+                    middleNameRequired.hidden = true;
+                    document.getElementById('middleName').removeAttribute('required');
+                }
+                
                 updateFormVisibility();
                 checkAndShowSubSections();
                 updateProgress();
