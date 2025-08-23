@@ -107,12 +107,12 @@
             </div>
             <div>
               <h2 class="text-2xl font-extrabold text-zinc-900">Fastest Online Approval</h2>
-              <p class="text-zinc-600">Get approved and see options in minutes.</p>
+                            <p class="text-zinc-600">Ship anywhere in Canada • 90% Guaranteed Rate</p>
             </div>
           </div>
           <ul class="space-y-4 text-zinc-600 text-base benefit-list">
             <li><strong class="text-zinc-800">Avoid the Runaround:</strong> Deal with one real person and skip the calls from multiple dealerships.</li>
-            <li><strong class="text-zinc-800">All Credit Welcome:</strong> 99% approval rate. We work with all credit situations.</li>
+            <li><strong class="text-zinc-800">All Credit Welcome:</strong> 90% approval rate. We work with all credit situations.</li>
             <li><strong class="text-zinc-800">Huge Selection:</strong> Access to a massive inventory of new and used vehicles across BC.</li>
           </ul>
         </div>
@@ -199,32 +199,6 @@
     </div>
 
     <!-- Payment Estimator -->
-    <div class="card p-6 sm:p-8">
-      <h2 class="text-2xl font-extrabold text-zinc-900 text-center">Estimate Your Monthly Payment</h2>
-      <div class="grid md:grid-cols-2 gap-8 mt-6">
-        <div class="space-y-6">
-          <div>
-            <div class="flex justify-between items-center mb-1">
-              <label for="loanAmount" class="block text-sm font-medium text-zinc-700">Vehicle Price</label>
-              <span id="loanAmountValue" class="font-bold text-zinc-900">$25,000</span>
-            </div>
-            <input type="range" id="loanAmount" min="5000" max="80000" step="1000" value="25000">
-          </div>
-          <div>
-            <div class="flex justify-between items-center mb-1">
-              <label for="loanTerm" class="block text-sm font-medium text-zinc-700">Loan Term</label>
-              <span id="loanTermValue" class="font-bold text-zinc-900">5 Years</span>
-            </div>
-            <input type="range" id="loanTerm" min="1" max="7" step="1" value="5">
-          </div>
-          <div>
-            <div class="flex justify-between items-center mb-1">
-              <label for="interestRate" class="block text-sm font-medium text-zinc-700">Interest Rate</label>
-              <span id="interestRateValue" class="font-bold text-zinc-900">7.9%</span>
-            </div>
-            <input type="range" id="interestRate" min="0.9" max="29.9" step="0.1" value="7.9">
-          </div>
-        </div>
         <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl flex flex-col items-center justify-center p-6 text-center">
           <p class="text-sm font-medium text-blue-800">Estimated Monthly Payment</p>
           <p id="monthlyPaymentResult" class="text-4xl font-black text-blue-900 mt-2">$506</p>
@@ -464,15 +438,7 @@
             </div>
           </div>
 
-          <div id="residentialHistorySection" class="hidden-section space-y-4" hidden>
-            <div class="border-t border-gray-200 pt-4 space-y-4">
-              <p class="text-base font-semibold text-zinc-800">Residential History</p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label for="monthlyPayment" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly Payment <span class="text-red-500">*</span></label>
-                  <input type="text" id="monthlyPayment" name="monthlyPayment" placeholder="$1,500" class="form-input" inputmode="numeric"/>
-                </div>
-                <div>
+          <div>
                   <label for="timeAtAddressYears" class="block text-sm font-medium text-zinc-700 mb-1.5">Time at Address <span class="text-red-500">*</span></label>
                   <div class="grid grid-cols-2 gap-2">
                     <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
@@ -710,12 +676,17 @@
           if (selectedDay && selectedDay <= daysInMonth) dobDaySelect.value = selectedDay;
         }
         function populateProvinces() {
-          if (!currentProvinceSelect || !prevProvinceSelect) return;
-          const provinces = ["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"];
-          provinces.forEach(p => {
-            const option1 = document.createElement('option'); option1.value = p; option1.textContent = p; currentProvinceSelect.appendChild(option1);
-            const option2 = document.createElement('option'); option2.value = p; option2.textContent = p; prevProvinceSelect.appendChild(option2);
-          });
+            const currentProvinceSelect = document.getElementById('currentProvince');
+            if (!currentProvinceSelect) return;
+            const provinces = ["AB", "BC", "MB", "NB", "NL", "NS", "NT", "NU", "ON", "PE", "QC", "SK", "YT"];
+            currentProvinceSelect.innerHTML = '<option value="">Province</option>';
+            provinces.forEach(p => {
+                const option = document.createElement('option');
+                option.value = p;
+                option.textContent = p;
+                currentProvinceSelect.appendChild(option);
+            });
+        });
         }
         function populateDropdown(selectElement, start, end, label, singularLabel) {
           if (!selectElement) return;
@@ -788,29 +759,27 @@
           toggleSection(incomeEmploymentSection, true);
           toggleSection(detailedInfoSection, isCredit || isFull);
           toggleSection(maritalStatusWrapper, isFull);
+            toggleSection(document.getElementById('currentAddressSection'), isCredit || isFull);
           toggleSection(residentialHistorySection, isFull);
           toggleSection(currentAddressSection, isFull);
-          toggleSection(consentContainer, isCredit || isFull);
+          toggleSection(document.getElementById('consent-container'), isCredit || isFull);
 
           if (middleNameInput) middleNameInput.required = isCredit || isFull;
           if (middleNameRequiredSpan) middleNameRequiredSpan.classList.toggle('hidden', isPre);
           if (middleNameOptionalSpan) middleNameOptionalSpan.classList.toggle('hidden', !isPre);
 
           const requiredMap = {
-            incomeSource: true,
-            dobYear: isCredit || isFull,
-            dobMonth: isCredit || isFull,
-            dobDay: isCredit || isFull,
-            maritalStatus: isFull,
-            currentStreetAddress: isFull,
-            currentCity: isFull,
-            currentProvince: isFull,
-            currentPostalCode: isFull,
-            monthlyPayment: isFull,
-            timeAtAddressYears: isFull,
-            timeAtAddressMonths: isFull,
-            creditConsent: isCredit || isFull
-          };
+                incomeSource: true,
+                dobYear: isCredit || isFull,
+                dobMonth: isCredit || isFull,
+                dobDay: isCredit || isFull,
+                maritalStatus: isFull,
+                currentStreetAddress: isFull,
+                currentCity: isFull,
+                currentProvince: isCredit || isFull,
+                currentPostalCode: isFull,
+                creditConsent: isCredit || isFull
+            };
           Object.entries(requiredMap).forEach(([id, req]) => {
             const el = rootScope.querySelector('#' + id);
             if (el) el.required = !!req;
