@@ -326,111 +326,110 @@
                     </select>
                 </div>
                 
-                <div>
-                    <div id="tradeInDetails" class="hidden-section" hidden>
-                        <div class="grid grid-cols-1 sm:grid-cols-4 gap-2">
-                            <input type="number" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" />
-                            <input type="text" name="tradeInMake" placeholder="Make" class="form-input"/>
-                            <input type="text" name="tradeInModel" placeholder="Model" class="form-input"/>
-                            <input type="number" name="tradeInKms" placeholder="KM" class="form-input" inputmode="numeric"/>
-                        </div>
-                        <input type="text" name="tradeInOwed" placeholder="Money owed? e.g., $5,000 or None" class="form-input mt-3"/>
+                <div id="tradeInDetails" class="hidden-section" hidden>
+                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-2">
+                        <input type="number" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" />
+                        <input type="text" name="tradeInMake" placeholder="Make" class="form-input"/>
+                        <input type="text" name="tradeInModel" placeholder="Model" class="form-input"/>
+                        <input type="number" name="tradeInKms" placeholder="KM" class="form-input" inputmode="numeric"/>
                     </div>
+                    <input type="text" name="tradeInOwed" placeholder="Money owed? e.g., $5,000 or None" class="form-input mt-3"/>
+                </div>
 
-                    <div id="incomeEmploymentSection" class="hidden-section space-y-4" hidden>
-                        <div class="border-t border-gray-200 pt-4 space-y-4">
-                            <p class="text-base font-semibold text-zinc-800">Income & Employment</p>
+                <div id="incomeEmploymentSection" class="hidden-section space-y-4" hidden>
+                    <div class="border-t border-gray-200 pt-4 space-y-4">
+                        <p class="text-base font-semibold text-zinc-800">Income & Employment</p>
+                        <div>
+                            <label for="incomeSource" class="block text-sm font-medium text-zinc-700 mb-1.5">Primary Source of Income? <span class="text-red-500">*</span></label>
+                            <select id="incomeSource" name="incomeSource" class="form-select">
+                                <option value="">Please select...</option>
+                                <option value="Full-Time">Full-Time Employment</option>
+                                <option value="Part-Time">Part-Time Employment</option>
+                                <option value="Self-Employed">Self-Employed / Business Owner</option>
+                                <option value="Disability">Disability</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div id="simplifiedEmploymentDetails" class="hidden-section space-y-4" hidden>
                             <div>
-                                <label for="incomeSource" class="block text-sm font-medium text-zinc-700 mb-1.5">Primary Source of Income? <span class="text-red-500">*</span></label>
-                                <select id="incomeSource" name="incomeSource" class="form-select">
-                                    <option value="">Please select...</option>
-                                    <option value="Full-Time">Full-Time Employment</option>
-                                    <option value="Part-Time">Part-Time Employment</option>
-                                    <option value="Self-Employed">Self-Employed / Business Owner</option>
-                                    <option value="Disability">Disability</option>
-                                    <option value="Other">Other</option>
-                                </select>
+                                <label for="simplifiedMonthlyIncome" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly Income (before tax) <span class="text-red-500">*</span></label>
+                                <input type="text" id="simplifiedMonthlyIncome" name="simplifiedMonthlyIncome" placeholder="$3,500" class="form-input" inputmode="numeric"/>
                             </div>
+                            <div class="switch-field !bg-gray-200">
+                                <input type="radio" id="simplifiedPayTypeHourly" name="simplifiedPayType" value="hourly" checked/>
+                                <label for="simplifiedPayTypeHourly">Hourly</label>
+                                <input type="radio" id="simplifiedPayTypeSalary" name="simplifiedPayType" value="salary"/>
+                                <label for="simplifiedPayTypeSalary">Salary</label>
+                            </div>
+                        </div>
+                        
+                        <div id="fullEmploymentDetails" class="hidden-section space-y-4" hidden>
+                            <div>
+                                <label for="currentEmployer" class="block text-sm font-medium text-zinc-700 mb-1.5">Employer <span class="text-red-500">*</span></label>
+                                <input type="text" id="currentEmployer" name="currentEmployer" placeholder="Company Name" class="form-input"/>
+                            </div>
+                            <div>
+                                <label for="jobTitle" class="block text-sm font-medium text-zinc-700 mb-1.5">Position / Job Title <span class="text-red-500">*</span></label>
+                                <input type="text" id="jobTitle" name="jobTitle" placeholder="Your Role" class="form-input"/>
+                            </div>
+                            <div>
+                                <label for="timeWithEmployerYears" class="block text-sm font-medium text-zinc-700 mb-1.5">Time with Employer <span class="text-red-500">*</span></label>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select>
+                                    <select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
+                                </div>
+                            </div>
+                        </div>
 
-                            <div id="simplifiedEmploymentDetails" class="hidden-section space-y-4" hidden>
-                                <div>
-                                    <label for="simplifiedMonthlyIncome" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly Income (before tax) <span class="text-red-500">*</span></label>
-                                    <input type="text" id="simplifiedMonthlyIncome" name="simplifiedMonthlyIncome" placeholder="$3,500" class="form-input" inputmode="numeric"/>
-                                </div>
-                                <div class="switch-field !bg-gray-200">
-                                    <input type="radio" id="simplifiedPayTypeHourly" name="simplifiedPayType" value="hourly" checked/>
-                                    <label for="simplifiedPayTypeHourly">Hourly</label>
-                                    <input type="radio" id="simplifiedPayTypeSalary" name="simplifiedPayType" value="salary"/>
-                                    <label for="simplifiedPayTypeSalary">Salary</label>
-                                </div>
-                            </div>
-                            
-                            <div id="fullEmploymentDetails" class="hidden-section space-y-4" hidden>
-                                <div>
-                                    <label for="currentEmployer" class="block text-sm font-medium text-zinc-700 mb-1.5">Employer <span class="text-red-500">*</span></label>
-                                    <input type="text" id="currentEmployer" name="currentEmployer" placeholder="Company Name" class="form-input"/>
-                                </div>
-                                <div>
-                                    <label for="jobTitle" class="block text-sm font-medium text-zinc-700 mb-1.5">Position / Job Title <span class="text-red-500">*</span></label>
-                                    <input type="text" id="jobTitle" name="jobTitle" placeholder="Your Role" class="form-input"/>
-                                </div>
-                                <div>
-                                    <label for="timeWithEmployerYears" class="block text-sm font-medium text-zinc-700 mb-1.5">Time with Employer <span class="text-red-500">*</span></label>
-                                    <div class="grid grid-cols-2 gap-2">
-                                        <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select>
-                                        <select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
-                                    </div>
-                                </div>
-                            </div>
+                        <div id="selfEmployedDetails" class="hidden-section space-y-4" hidden>
+                            <label for="businessName" class="block text-sm font-medium text-zinc-700 mb-1.5">Business Name <span class="text-red-500">*</span></label>
+                            <input type="text" id="businessName" name="businessName" placeholder="Your Business Name" class="form-input"/>
+                            <label for="avgMonthlyIncome" class="block text-sm font-medium text-zinc-700 mb-1.5">Average Monthly Income (before tax) <span class="text-red-500">*</span></label>
+                            <input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" placeholder="$4,000" class="form-input" inputmode="numeric"/>
+                        </div>
 
-                            <div id="selfEmployedDetails" class="hidden-section space-y-4" hidden>
-                                <label for="businessName" class="block text-sm font-medium text-zinc-700 mb-1.5">Business Name <span class="text-red-500">*</span></label>
-                                <input type="text" id="businessName" name="businessName" placeholder="Your Business Name" class="form-input"/>
-                                <label for="avgMonthlyIncome" class="block text-sm font-medium text-zinc-700 mb-1.5">Average Monthly Income (before tax) <span class="text-red-500">*</span></label>
-                                <input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" placeholder="$4,000" class="form-input" inputmode="numeric"/>
-                            </div>
+                        <div id="otherIncomeDetails" class="hidden-section space-y-4" hidden>
+                            <label for="otherIncomeAmount" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly Income Amount (before tax) <span class="text-red-500">*</span></label>
+                            <input type="text" id="otherIncomeAmount" name="otherIncomeAmount" placeholder="$2,000" class="form-input" inputmode="numeric"/>
+                            <label for="otherIncomeSource" class="block text-sm font-medium text-zinc-700 mb-1.5">Source Description <span class="text-red-500">*</span></label>
+                            <textarea id="otherIncomeSource" name="otherIncomeSource" placeholder="Describe the source of income" class="form-input" rows="2"></textarea>
+                        </div>
 
-                            <div id="otherIncomeDetails" class="hidden-section space-y-4" hidden>
-                                <label for="otherIncomeAmount" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly Income Amount (before tax) <span class="text-red-500">*</span></label>
-                                <input type="text" id="otherIncomeAmount" name="otherIncomeAmount" placeholder="$2,000" class="form-input" inputmode="numeric"/>
-                                <label for="otherIncomeSource" class="block text-sm font-medium text-zinc-700 mb-1.5">Source Description <span class="text-red-500">*</span></label>
-                                <textarea id="otherIncomeSource" name="otherIncomeSource" placeholder="Describe the source of income" class="form-input" rows="2"></textarea>
+                        <div id="previousEmployerDetails" class="hidden-section space-y-4" hidden>
+                            <p class="text-xs text-zinc-500 pt-2">Please provide your previous employer (required for less than 2 years of history).</p>
+                            <div>
+                                <label for="previousEmployer" class="block text-sm font-medium text-zinc-700 mb-1.5">Previous Employer <span class="text-red-500">*</span></label>
+                                <input type="text" id="previousEmployer" name="previousEmployer" placeholder="Previous Company Name" class="form-input"/>
                             </div>
-
-                            <div id="previousEmployerDetails" class="hidden-section space-y-4" hidden>
-                                <p class="text-xs text-zinc-500 pt-2">Please provide your previous employer (required for less than 2 years of history).</p>
-                                <div>
-                                    <label for="previousEmployer" class="block text-sm font-medium text-zinc-700 mb-1.5">Previous Employer <span class="text-red-500">*</span></label>
-                                    <input type="text" id="previousEmployer" name="previousEmployer" placeholder="Previous Company Name" class="form-input"/>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at Previous Employer <span class="text-red-500">*</span></label>
-                                    <div class="grid grid-cols-2 gap-2">
-                                        <select id="prevTimeWithEmployerYears" name="prevTimeWithEmployerYears" class="form-select"><option value="">Years</option></select>
-                                        <select id="prevTimeWithEmployerMonths" name="prevTimeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="residenceSection" class="border-t border-gray-200 pt-4 space-y-4 hidden-section" hidden>
-                                <p class="text-base font-semibold text-zinc-800">Residence Details</p>
-                                <div>
-                                    <label for="streetAddress" class="block text-sm font-medium text-zinc-700 mb-1.5">Street Address <span class="text-red-500">*</span></label>
-                                    <input type="text" id="streetAddress" name="streetAddress" required placeholder="123 Main St" class="form-input" autocomplete="street-address"/>
-                                </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div>
-                                        <label for="city" class="block text-sm font-medium text-zinc-700 mb-1.5">City <span class="text-red-500">*</span></label>
-                                        <input type="text" id="city" name="city" required placeholder="City" class="form-input" autocomplete="address-level2"/>
-                                    </div>
-                                    <div>
-                                        <label for="postalCode" class="block text-sm font-medium text-zinc-700 mb-1.5">Postal Code <span class="text-red-500">*</span></label>
-                                        <input type="text" id="postalCode" name="postalCode" required placeholder="A1A 1A1" class="form-input" autocomplete="postal-code" pattern="[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d"/>
-                                    </div>
+                            <div>
+                                <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at Previous Employer <span class="text-red-500">*</span></label>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <select id="prevTimeWithEmployerYears" name="prevTimeWithEmployerYears" class="form-select"><option value="">Years</option></select>
+                                    <select id="prevTimeWithEmployerMonths" name="prevTimeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div id="residenceSection" class="hidden-section space-y-4" hidden>
+                        <p class="text-base font-semibold text-zinc-800">Residence Details</p>
+                        <div>
+                            <label for="streetAddress" class="block text-sm font-medium text-zinc-700 mb-1.5">Street Address <span class="text-red-500">*</span></label>
+                            <input type="text" id="streetAddress" name="streetAddress" required placeholder="123 Main St" class="form-input" autocomplete="street-address"/>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="city" class="block text-sm font-medium text-zinc-700 mb-1.5">City <span class="text-red-500">*</span></label>
+                                <input type="text" id="city" name="city" required placeholder="City" class="form-input" autocomplete="address-level2"/>
+                            </div>
+                            <div>
+                                <label for="postalCode" class="block text-sm font-medium text-zinc-700 mb-1.5">Postal Code <span class="text-red-500">*</span></label>
+                                <input type="text" id="postalCode" name="postalCode" required placeholder="A1A 1A1" class="form-input" autocomplete="postal-code" pattern="[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d"/>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <button type="submit" class="w-full cta-button mt-6">Submit Application</button>
                 </div>
             </form>
@@ -483,92 +482,86 @@
             updateCalculator();
 
             // Form Logic
-            const tradeInSelect = document.getElementById('hasTradeIn');
-            const tradeInDetails = document.getElementById('tradeInDetails');
+            const formModal = document.getElementById('form-modal');
+            const formModalContent = document.getElementById('form-section-modal-content');
+            const formTemplate = document.getElementById('form-template');
 
-            tradeInSelect.addEventListener('change', function() {
-                if (tradeInSelect.value === 'Yes') {
-                    tradeInDetails.classList.add('show');
-                    tradeInDetails.hidden = false;
-                } else {
-                    tradeInDetails.classList.remove('show');
-                    tradeInDetails.hidden = true;
-                }
-            });
-        
-            const incomeSourceSelect = document.getElementById('incomeSource');
-            const simplifiedEmploymentDetails = document.getElementById('simplifiedEmploymentDetails');
-            const fullEmploymentDetails = document.getElementById('fullEmploymentDetails');
-            const selfEmployedDetails = document.getElementById('selfEmployedDetails');
-            const otherIncomeDetails = document.getElementById('otherIncomeDetails');
-
-            function hideAllIncomeSections() {
-                simplifiedEmploymentDetails.hidden = true;
-                fullEmploymentDetails.hidden = true;
-                selfEmployedDetails.hidden = true;
-                otherIncomeDetails.hidden = true;
-            }
-
-            incomeSourceSelect.addEventListener('change', function() {
-                hideAllIncomeSections();
-                switch(incomeSourceSelect.value) {
-                    case 'Full-Time':
-                        fullEmploymentDetails.hidden = false;
-                        break;
-                    case 'Part-Time':
-                        simplifiedEmploymentDetails.hidden = false;
-                        break;
-                    case 'Self-Employed':
-                        selfEmployedDetails.hidden = false;
-                        break;
-                    case 'Other':
-                        otherIncomeDetails.hidden = false;
-                        break;
-                }
-            });
-        
-            const appTypeTabs = document.querySelectorAll('.seg-btn');
-            appTypeTabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    appTypeTabs.forEach(t => {
-                        t.setAttribute('aria-selected', 'false');
-                        t.setAttribute('aria-pressed', 'false');
+            function setupFormListeners() {
+                const tradeInSelect = document.getElementById('hasTradeIn');
+                const tradeInDetails = document.getElementById('tradeInDetails');
+                if (tradeInSelect && tradeInDetails) {
+                    tradeInSelect.addEventListener('change', function() {
+                        if (tradeInSelect.value === 'Yes') {
+                            tradeInDetails.hidden = false;
+                            tradeInDetails.classList.add('show');
+                        } else {
+                            tradeInDetails.classList.remove('show');
+                            setTimeout(() => tradeInDetails.hidden = true, 300);
+                        }
                     });
-                    this.setAttribute('aria-selected', 'true');
-                    this.setAttribute('aria-pressed', 'true');
-                    document.getElementById('app_type').value = this.textContent;
+                }
+
+                const incomeSourceSelect = document.getElementById('incomeSource');
+                const simplifiedEmploymentDetails = document.getElementById('simplifiedEmploymentDetails');
+                const fullEmploymentDetails = document.getElementById('fullEmploymentDetails');
+                const selfEmployedDetails = document.getElementById('selfEmployedDetails');
+                const otherIncomeDetails = document.getElementById('otherIncomeDetails');
+
+                function hideAllIncomeSections() {
+                    simplifiedEmploymentDetails.hidden = true;
+                    fullEmploymentDetails.hidden = true;
+                    selfEmployedDetails.hidden = true;
+                    otherIncomeDetails.hidden = true;
+                }
+                
+                if (incomeSourceSelect) {
+                    incomeSourceSelect.addEventListener('change', function() {
+                        hideAllIncomeSections();
+                        switch(incomeSourceSelect.value) {
+                            case 'Full-Time':
+                                fullEmploymentDetails.hidden = false;
+                                break;
+                            case 'Part-Time':
+                                simplifiedEmploymentDetails.hidden = false;
+                                break;
+                            case 'Self-Employed':
+                                selfEmployedDetails.hidden = false;
+                                break;
+                            case 'Other':
+                                otherIncomeDetails.hidden = false;
+                                break;
+                        }
+                    });
+                }
+
+                const appTypeTabs = document.querySelectorAll('.seg-btn');
+                appTypeTabs.forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        appTypeTabs.forEach(t => {
+                            t.setAttribute('aria-selected', 'false');
+                            t.setAttribute('aria-pressed', 'false');
+                        });
+                        this.setAttribute('aria-selected', 'true');
+                        this.setAttribute('aria-pressed', 'true');
+                        document.getElementById('app_type').value = this.textContent;
+                    });
                 });
-            });
+            }
 
             // New logic to handle the initial flow and open the modal
             const choiceButtons = document.querySelectorAll('.choice-btn');
-            const formModal = document.getElementById('form-modal');
-
             choiceButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     formModal.classList.remove('hidden');
                     setTimeout(() => formModal.classList.remove('opacity-0'), 10);
                     
                     const vehicleCondition = this.dataset.value;
-                    document.getElementById('vehicleCondition').value = vehicleCondition;
                     
-                    // Update the modal content with the selected vehicle type
-                    const formModalContent = document.getElementById('form-section-modal-content');
-                    formModalContent.innerHTML = document.getElementById('form-template').innerHTML;
+                    formModalContent.innerHTML = formTemplate.innerHTML;
+                    document.getElementById('vehicleCondition').value = vehicleCondition;
                     document.getElementById('app_type').value = "Pre-Approval";
                     
-                    // Re-attach event listeners to the new form elements
-                    const newTradeInSelect = document.getElementById('hasTradeIn');
-                    const newTradeInDetails = document.getElementById('tradeInDetails');
-                    newTradeInSelect.addEventListener('change', function() {
-                        if (newTradeInSelect.value === 'Yes') {
-                            newTradeInDetails.classList.add('show');
-                            newTradeInDetails.hidden = false;
-                        } else {
-                            newTradeInDetails.classList.remove('show');
-                            newTradeInDetails.hidden = true;
-                        }
-                    });
+                    setupFormListeners();
                 });
             });
 
