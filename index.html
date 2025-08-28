@@ -42,6 +42,10 @@
         .flow-step { transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; will-change: opacity, transform; }
         .choice-btn { border: 2px solid #e5e7eb; transition: all 0.2s ease-in-out; cursor: pointer; }
         .choice-btn:hover { border-color: #007AFF; background-color: #f0f6ff; transform: translateY(-4px); box-shadow: 0 4px 10px rgba(0, 122, 255, 0.1); }
+        input[type=range] { -webkit-appearance: none; background: transparent; width: 100%; }
+        input[type=range]:focus { outline: none; }
+        input[type=range]::-webkit-slider-runnable-track { height: 8px; background: #e5e7eb; border-radius: 9999px; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 20px; width: 20px; background: #007AFF; border-radius: 50%; border: 2px solid white; margin-top: -6px; box-shadow: 0 1px 3px rgba(0,0,0,0.2); cursor: pointer; }
         .modal { transition: opacity 0.3s ease-in-out; }
         .modal-content { transition: transform 0.3s ease-in-out; }
     </style>
@@ -76,34 +80,35 @@
         
         <div class="card p-6 sm:p-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-                <div class="space-y-4 text-center md:text-left">
+                <div class="space-y-6 text-center md:text-left">
                     <h1 class="font-black text-3xl sm:text-4xl text-zinc-900 tracking-tighter">Vancouver Island Credit</h1>
-                     <div class="flex flex-col items-center md:items-start space-y-3">
-                        <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-md flex-shrink-0">
-                            <img src="https://vancouverislandcredit.ca/0041B99D-D49A-4024-AA7A-2786A4605342.jpg" alt="Blake Stolth" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/96x96/e0e0e0/000000?text=Image';"/>
+                    <div class="flex flex-col sm:flex-row items-center text-center sm:text-left gap-4">
+                        <img src="https://vancouverislandcredit.ca/0041B99D-D49A-4024-AA7A-2786A4605342.jpg" alt="Blake Stolth" class="w-20 h-20 rounded-full border-4 border-white shadow-md flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/80x80/e0e0e0/000000?text=Image';"/>
+                        <div>
+                            <p class="text-lg font-bold text-blue-600">Work 1 on 1 with Blake</p>
+                            <div class="mt-1 space-y-1 text-sm text-zinc-600">
+                                 <a href="tel:2369692424" class="inline-flex items-center justify-center sm:justify-start gap-2 hover:text-blue-600 transition-colors">
+                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5h-1.5A13.5 13.5 0 012 3.5z" clip-rule="evenodd" /></svg>
+                                    <span>(236) 969-2424</span>
+                                </a>
+                                <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
+                            </div>
                         </div>
-                        <div class="bg-green-100 text-green-800 text-sm font-bold px-4 py-2 rounded-full inline-block">
-                            90% Approval Rate Guaranteed 
-                        </div>
-                        <p class="text-lg font-bold text-blue-600">See options in minutes — delivery anywhere in Canada</p>
                     </div>
                 </div>
                 <div class="md:border-l md:pl-12 border-gray-200">
                     <div class="flex items-center space-x-4 mb-5">
                         <div class="bg-blue-100 p-3 rounded-xl">
-                             <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                             <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                         </div>
-                        <h2 class="text-2xl font-extrabold text-zinc-900">A Simpler, Better Process</h2>
+                        <h2 class="text-2xl font-extrabold text-zinc-900">Fastest Online Approval</h2>
                     </div>
+                     <p class="text-zinc-600 mb-4">Get approved and see your vehicle options in minutes. Here's why our process is better:</p>
                     <ul class="space-y-4 text-zinc-600 text-base benefit-list">
-                        <li><strong class="text-zinc-800">Avoid calls from multiple dealerships</strong> and deal with one real person.</li>
-                        <li><strong class="text-zinc-800">Consolidate debt</strong> into one manageable payment.</li>
-                        <li><strong class="text-zinc-800">0% Interest rates are now available</strong> O.A.C.</li>
-                        <li><strong class="text-zinc-800">Island & BC-wide selection</strong> of new and used vehicles.</li>
+                        <li><strong class="text-zinc-800">Avoid the Runaround:</strong> Deal with one real person.</li>
+                        <li><strong class="text-zinc-800">All Credit Welcome:</strong> 99% approval rate.</li>
+                        <li><strong class="text-zinc-800">Huge Selection:</strong> New & used vehicles across BC.</li>
                     </ul>
-                     <div class="mt-4 pt-4 border-t border-gray-200 text-center">
-                        <p class="text-sm text-yellow-800 bg-yellow-100 p-3 rounded-lg leading-relaxed"><strong class="text-yellow-900">Market Rate Alert:</strong> Current rates are at a historic low. Lock in your financing now to maximize your savings.</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -365,9 +370,8 @@
                     
                     <div id="currentAddressSection" class="hidden-section space-y-4" hidden>
                         <div class="border-t border-gray-200 pt-4 space-y-4">
-                             <p class="text-base font-semibold text-zinc-800">Personal & Residential Information</p>
+                             <p class="text-base font-semibold text-zinc-800">Current Address</p>
                              <div class="space-y-2">
-                                <label for="currentStreetAddress" class="block text-sm font-medium text-zinc-700">Current Address <span class="text-red-500">*</span></label>
                                 <div class="grid grid-cols-6 gap-2">
                                     <input type="text" id="currentStreetAddress" name="currentStreetAddress" placeholder="Street Address" class="form-input col-span-6 sm:col-span-4" autocomplete="street-address"/>
                                     <input type="text" id="currentUnit" name="currentUnit" placeholder="Unit #" class="form-input col-span-6 sm:col-span-2" />
@@ -381,6 +385,7 @@
 
                     <div id="detailedInfoSection" class="hidden-section space-y-4" hidden>
                         <div class="border-t border-gray-200 pt-4 space-y-4">
+                            <p class="text-base font-semibold text-zinc-800">Personal & Residential Information</p>
                             <div id="dobSection">
                                 <label for="dobMonth" class="block text-sm font-medium text-zinc-700 mb-1.5">Date of birth <span class="text-red-500">*</span></label>
                                 <div class="grid grid-cols-3 gap-2">
@@ -469,51 +474,141 @@
             const flowStep1 = document.getElementById('flow-step-1');
             const flowStep2 = document.getElementById('flow-step-2');
             const flowStep3 = document.getElementById('flow-step-3');
-
-            function goToStep(currentStep, nextStep) { /* ... implementation ... */ }
-            if (flowStep1) { /* ... implementation ... */ }
-            if (flowStep2) { /* ... implementation ... */ }
-            if (flowStep3) { /* ... implementation ... */ }
-            
-            const loanAmount = document.getElementById('loanAmount');
-            const loanTerm = document.getElementById('loanTerm');
-            const interestRate = document.getElementById('interestRate');
-            function calculateLoan() { /* ... implementation ... */ }
-            if(loanAmount) loanAmount.addEventListener('input', calculateLoan);
-            if(loanTerm) loanTerm.addEventListener('input', calculateLoan);
-            if(interestRate) interestRate.addEventListener('input', calculateLoan);
-            calculateLoan();
-            
             const formModal = document.getElementById('form-modal');
             const modalContent = document.getElementById('modal-content');
             const formTemplate = document.getElementById('form-template');
             const formSectionModal = document.getElementById('form-section-modal-content');
+
+            function goToStep(currentStep, nextStep) {
+                if (currentStep && nextStep) {
+                    currentStep.style.opacity = '0';
+                    setTimeout(() => {
+                        currentStep.classList.add('hidden');
+                        nextStep.classList.remove('hidden');
+                        setTimeout(() => { nextStep.style.opacity = '1'; }, 20);
+                    }, 300);
+                }
+            }
             
-            function openModal(appTypeChoice) { /* ... implementation ... */ }
-            function closeModal() { /* ... implementation ... */ }
+            if (flowStep1) {
+                flowStep1.querySelectorAll('button').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        if(formTemplate.querySelector('#vehicleCondition')) formTemplate.querySelector('#vehicleCondition').value = btn.dataset.value;
+                        goToStep(flowStep1, flowStep2);
+                    });
+                });
+            }
+            if (flowStep2) {
+                flowStep2.querySelectorAll('button[data-value]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        if(formTemplate.querySelector('#vehicleType')) formTemplate.querySelector('#vehicleType').value = btn.dataset.value;
+                        goToStep(flowStep2, flowStep3);
+                    });
+                });
+                flowStep2.querySelector('.flow-back-btn')?.addEventListener('click', () => goToStep(flowStep2, flowStep1));
+            }
+            if (flowStep3) {
+                flowStep3.querySelectorAll('.choice-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        openModal(btn.dataset.appType);
+                    });
+                });
+                flowStep3.querySelector('.flow-back-btn')?.addEventListener('click', () => goToStep(flowStep3, flowStep2));
+            }
+            
+            function openModal(appTypeChoice) {
+                if (!formModal || !formTemplate || !formSectionModal) return;
+                if(formSectionModal.innerHTML.trim() === '') {
+                    const formContent = formTemplate.querySelector('#form-wrapper');
+                    if (formContent) formSectionModal.appendChild(formContent);
+                }
+                if (!isFormInitialized) {
+                    initializeForm();
+                    isFormInitialized = true;
+                }
+                setMode(appTypeChoice);
+                formModal.classList.remove('hidden');
+                setTimeout(() => {
+                    formModal.style.opacity = '1';
+                    modalContent.style.transform = 'scale(1)';
+                    document.getElementById('close-modal-btn')?.addEventListener('click', closeModal);
+                }, 20);
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                if (!formModal) return;
+                formModal.style.opacity = '0';
+                modalContent.style.transform = 'scale(0.95)';
+                setTimeout(() => { formModal.classList.add('hidden'); }, 300);
+                document.body.style.overflow = 'auto';
+            }
             if (formModal) formModal.addEventListener('click', (e) => { if (e.target === formModal) closeModal(); });
             window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !formModal.classList.contains('hidden')) closeModal(); });
             
             function initializeForm() {
-                formElements = { /* ... all element selectors ... */ };
+                formElements = {
+                    leadForm: document.getElementById('lead-form'), statusEl: document.getElementById('form-status'),
+                    submitBtn: document.getElementById('submitBtn'), middleNameInput: document.getElementById('middleName'),
+                    middleNameRequiredSpan: document.getElementById('middleNameRequired'), middleNameOptionalSpan: document.getElementById('middleNameOptional'),
+                    phoneInput: document.getElementById('phone'), dobYearInput: document.getElementById('dobYear'),
+                    dobMonthSelect: document.getElementById('dobMonth'), dobDaySelect: document.getElementById('dobDay'),
+                    monthlyPaymentInput: document.getElementById('monthlyPayment'), tabPre: document.getElementById('tab-pre'),
+                    tabCredit: document.getElementById('tab-credit'), tabFull: document.getElementById('tab-full'),
+                    appType: document.getElementById('app_type'), detailedInfoSection: document.getElementById('detailedInfoSection'),
+                    currentAddressSection: document.getElementById('currentAddressSection'), residentialHistorySection: document.getElementById('residentialHistorySection'), 
+                    maritalStatusWrapper: document.getElementById('maritalStatusWrapper'), hasTradeInSelect: document.getElementById('hasTradeIn'), 
+                    tradeInDetailsDiv: document.getElementById('tradeInDetails'), incomeEmploymentSection: document.getElementById('incomeEmploymentSection'), 
+                    incomeSourceSelect: document.getElementById('incomeSource'), simplifiedEmploymentDetails: document.getElementById('simplifiedEmploymentDetails'), 
+                    fullEmploymentDetails: document.getElementById('fullEmploymentDetails'), selfEmployedDetails: document.getElementById('selfEmployedDetails'), 
+                    otherIncomeDetails: document.getElementById('otherIncomeDetails'), timeWithEmployerYears: document.getElementById('timeWithEmployerYears'), 
+                    timeAtAddressYears: document.getElementById('timeAtAddressYears'), previousEmployerDetailsDiv: document.getElementById('previousEmployerDetails'), 
+                    previousAddressDetailsDiv: document.getElementById('previousAddressDetails'), creditConsent: document.getElementById('creditConsent'), 
+                    currentProvinceSelect: document.getElementById('currentProvince'), prevProvinceSelect: document.getElementById('prevProvince')
+                };
+                
                 populateMonths(formElements.dobMonthSelect);
                 updateDays();
                 populateProvinces(formElements.currentProvinceSelect, formElements.prevProvinceSelect);
-                // ... all other event listeners and setup calls
+
+                formElements.dobYearInput?.addEventListener('input', updateDays);
+                formElements.dobMonthSelect?.addEventListener('change', updateDays);
+                
+                populateDropdown(formElements.timeWithEmployerYears, 0, 30, 'Years', 'Year');
+                populateDropdown(document.getElementById('timeWithEmployerMonths'), 0, 11, 'Months', 'Month');
+                populateDropdown(document.getElementById('prevTimeWithEmployerYears'), 0, 30, 'Years', 'Year');
+                populateDropdown(document.getElementById('prevTimeWithEmployerMonths'), 0, 11, 'Months', 'Month');
+                populateDropdown(formElements.timeAtAddressYears, 0, 30, 'Years', 'Year');
+                populateDropdown(document.getElementById('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
+                populateDropdown(document.getElementById('timeAtPrevAddressYears'), 0, 30, 'Years', 'Year');
+                populateDropdown(document.getElementById('timeAtPrevAddressMonths'), 0, 11, 'Months', 'Month');
+
+                if (formElements.phoneInput) formElements.phoneInput.addEventListener('input', formatPhoneNumber);
+                [formElements.monthlyPaymentInput, document.getElementById('avgMonthlyIncome'), document.getElementById('otherIncomeAmount'), document.getElementById('simplifiedMonthlyIncome')]
+                .forEach(el => { if (el) el.addEventListener('input', formatCurrency); });
+                
+                formElements.tabPre?.addEventListener('click', () => setMode('Pre-Approval'));
+                formElements.tabCredit?.addEventListener('click', () => setMode('Credit Inquiry'));
+                formElements.tabFull?.addEventListener('click', () => setMode('Full Application'));
+                formElements.hasTradeInSelect?.addEventListener('change', (e) => toggleSection(formElements.tradeInDetailsDiv, e.target.value.toLowerCase() === 'yes'));
+                formElements.incomeSourceSelect?.addEventListener('change', handleIncomeSourceChange);
+                formElements.timeWithEmployerYears?.addEventListener('change', () => checkTime(formElements.timeWithEmployerYears, formElements.previousEmployerDetailsDiv, ['previousEmployer', 'prevTimeWithEmployerYears', 'prevTimeWithEmployerMonths']));
+                formElements.timeAtAddressYears?.addEventListener('change', () => checkTime(formElements.timeAtAddressYears, formElements.previousAddressDetailsDiv, ['prevStreetAddress', 'prevCity', 'prevProvince', 'prevPostalCode', 'timeAtPrevAddressYears', 'timeAtPrevAddressMonths']));
+                formElements.leadForm?.addEventListener('submit', handleFormSubmit);
             }
-            
-            function populateMonths(dobMonthSelect) { /* ... full function ... */ }
-            function updateDays() { /* ... full function ... */ }
-            function populateProvinces(currentProvinceSelect, prevProvinceSelect) { /* ... full function ... */ }
-            function populateDropdown(selectElement, start, end, label, singularLabel) { /* ... full function ... */ }
-            function formatPhoneNumber(e) { /* ... full function ... */ }
-            function formatCurrency(e) { /* ... full function ... */ }
-            function toggleSection(element, show) { /* ... full function ... */ }
-            function handleIncomeSourceChange() { /* ... full function ... */ }
-            function checkTime(yearsEl, detailsDiv, requiredFields) { /* ... full function ... */ }
-            function setMode(mode) { /* ... full function ... */ }
-            function validateForm() { /* ... full function ... */ }
-            async function handleFormSubmit(e) { /* ... full function ... */ }
+
+            function populateMonths(dobMonthSelect) { if (!dobMonthSelect) return; const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; months.forEach((month, index) => { const option = document.createElement('option'); option.value = index + 1; option.textContent = month; dobMonthSelect.appendChild(option); }); }
+            function updateDays() { const { dobYearInput, dobMonthSelect, dobDaySelect } = formElements; if (!dobYearInput || !dobMonthSelect || !dobDaySelect) return; const year = parseInt(dobYearInput.value, 10); const month = parseInt(dobMonthSelect.value, 10); const selectedDay = parseInt(dobDaySelect.value, 10); const daysInMonth = (year && month) ? new Date(year, month, 0).getDate() : 31; dobDaySelect.innerHTML = '<option value="">Day</option>'; for (let i = 1; i <= daysInMonth; i++) { const option = document.createElement('option'); option.value = i; option.textContent = i; dobDaySelect.appendChild(option); } if (selectedDay && selectedDay <= daysInMonth) { dobDaySelect.value = selectedDay; } }
+            function populateProvinces(currentProvinceSelect, prevProvinceSelect) { if (!currentProvinceSelect || !prevProvinceSelect) return; const provinces = ["AB", "BC", "MB", "NB", "NL", "NS", "NT", "NU", "ON", "PE", "QC", "SK", "YT"]; provinces.forEach(p => { const option1 = document.createElement('option'); option1.value = p; option1.textContent = p; currentProvinceSelect.appendChild(option1); const option2 = document.createElement('option'); option2.value = p; option2.textContent = p; prevProvinceSelect.appendChild(option2); }); }
+            function populateDropdown(selectElement, start, end, label, singularLabel) { if (!selectElement) return; selectElement.innerHTML = `<option value="">${singularLabel || label}</option>`; for (let i = start; i <= end; i++) { const option = document.createElement('option'); option.value = i; option.textContent = i + ' ' + (i !== 1 ? label : (singularLabel || label)); selectElement.appendChild(option); } }
+            function formatPhoneNumber(e) { const input = e.target; const digits = input.value.replace(/\D/g, '').substring(0, 10); if (digits.length > 6) input.value = `(${digits.substring(0,3)}) ${digits.substring(3,6)}-${digits.substring(6,10)}`; else if (digits.length > 3) input.value = `(${digits.substring(0,3)}) ${digits.substring(3,6)}`; else if (digits.length > 0) input.value = `(${digits.substring(0,3)}`; }
+            function formatCurrency(e) { let value = e.target.value.replace(/[$,]/g, ''); if (isNaN(value) || value === '') { e.target.value = ''; } else { e.target.value = '$' + new Intl.NumberFormat('en-US').format(value); } }
+            function toggleSection(element, show) { if (element) { element.classList.toggle('show', show); element.toggleAttribute('hidden', !show); } }
+            function handleIncomeSourceChange() { const { appType, incomeSourceSelect, simplifiedEmploymentDetails, fullEmploymentDetails, selfEmployedDetails, otherIncomeDetails } = formElements; const mode = appType.value; const value = incomeSourceSelect.value;[simplifiedEmploymentDetails, fullEmploymentDetails, selfEmployedDetails, otherIncomeDetails].forEach(el => toggleSection(el, false));['simplifiedMonthlyIncome', 'currentEmployer', 'jobTitle', 'timeWithEmployerYears', 'timeWithEmployerMonths', 'businessName', 'avgMonthlyIncome', 'otherIncomeAmount', 'otherIncomeSource'].forEach(id => { const el = document.getElementById(id); if (el) el.required = false; }); const isEmployed = value === 'Full-Time' || value === 'Part-Time'; const isSelfEmployed = value === 'Self-Employed'; const isOther = value === 'Disability' || value === 'Other'; if (isEmployed) { if (mode === 'Pre-Approval' || mode === 'Credit Inquiry') { toggleSection(simplifiedEmploymentDetails, true); document.getElementById('simplifiedMonthlyIncome').required = true; } else { toggleSection(fullEmploymentDetails, true);['currentEmployer', 'jobTitle', 'timeWithEmployerYears', 'timeWithEmployerMonths'].forEach(id => { document.getElementById(id).required = true; }); } } else if (isSelfEmployed) { toggleSection(selfEmployedDetails, true);['businessName', 'avgMonthlyIncome'].forEach(id => { document.getElementById(id).required = true; }); } else if (isOther) { toggleSection(otherIncomeDetails, true);['otherIncomeAmount', 'otherIncomeSource'].forEach(id => { document.getElementById(id).required = true; }); } }
+            function checkTime(yearsEl, detailsDiv, requiredFields) { const { appType } = formElements; if (!yearsEl || !detailsDiv) return; const years = parseInt(yearsEl.value, 10); const show = years < 2 && appType.value === 'Full Application'; toggleSection(detailsDiv, show); requiredFields.forEach(id => { const el = document.getElementById(id); if(el) el.required = show; }); }
+            function setMode(mode) { const { appType, tabPre, tabCredit, tabFull, detailedInfoSection, maritalStatusWrapper, residentialHistorySection, consentContainer, middleNameInput, middleNameRequiredSpan, middleNameOptionalSpan, incomeSourceSelect, currentAddressSection } = formElements; const isPre = mode === 'Pre-Approval'; const isCredit = mode === 'Credit Inquiry'; const isFull = mode === 'Full Application'; if (appType) appType.value = mode; if(tabPre) tabPre.setAttribute('aria-pressed', isPre); if(tabCredit) tabCredit.setAttribute('aria-pressed', isCredit); if(tabFull) tabFull.setAttribute('aria-pressed', isFull); toggleSection(incomeEmploymentSection, true); toggleSection(currentAddressSection, true); toggleSection(detailedInfoSection, isCredit || isFull); toggleSection(maritalStatusWrapper, isFull); toggleSection(residentialHistorySection, isFull); toggleSection(consentContainer, isCredit || isFull); if (middleNameInput) middleNameInput.required = isCredit || isFull; if (middleNameRequiredSpan) middleNameRequiredSpan.classList.toggle('hidden', isPre); if (middleNameOptionalSpan) middleNameOptionalSpan.classList.toggle('hidden', !isPre); const requiredMap = { incomeSource: true, currentStreetAddress: true, currentCity: true, currentProvince: true, currentPostalCode: true, dobYear: isCredit || isFull, dobMonth: isCredit || isFull, dobDay: isCredit || isFull, maritalStatus: isFull, monthlyPayment: isFull, timeAtAddressYears: isFull, timeAtAddressMonths: isFull, creditConsent: isCredit || isFull }; for (const [id, isRequired] of Object.entries(requiredMap)) { const el = document.getElementById(id); if (el) el.required = isRequired; } if(incomeSourceSelect) incomeSourceSelect.dispatchEvent(new Event('change')); }
+            function validateForm() { let isValid = true; const { leadForm, statusEl } = formElements; if(statusEl) statusEl.textContent = ''; document.querySelectorAll('#lead-form .err, #lead-form .err-label').forEach(el => el.classList.remove('err', 'err-label')); const requiredFields = [...leadForm.querySelectorAll('[required]')]; requiredFields.forEach(el => { let fieldIsValid = (el.type === 'checkbox') ? el.checked : el.value.trim() !== ''; if (el.id === 'phone') { fieldIsValid = el.value.replace(/\D/g, '').length >= 10; } if (!fieldIsValid) { isValid = false; el.classList.add('err'); const label = document.querySelector(`label[for="${el.id}"]`); if (label) label.classList.add('err-label'); if (['dobMonth', 'dobDay', 'dobYear'].includes(el.id)) { const mainDobLabel = document.querySelector(`label[for="dobMonth"]`); if (mainDobLabel) mainDobLabel.classList.add('err-label'); } } }); if (!isValid) { if(statusEl) statusEl.textContent = 'Please complete all required fields.'; const firstErrorField = leadForm.querySelector('.err'); if (firstErrorField) firstErrorField.focus(); } return isValid; }
+            async function handleFormSubmit(e) { const { leadForm, submitBtn } = formElements; e.preventDefault(); if (!validateForm()) return; if(submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting...'; } const formData = new FormData(leadForm); try { await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(formData).toString() }); window.location.href = '/thank-you.html'; } catch (err) { console.error("Fetch failed, falling back to form.submit()", err); leadForm.submit(); } }
         });
     </script>
 </body>
