@@ -42,19 +42,15 @@
     .flow-step { transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; will-change: opacity, transform; }
     .choice-btn { border: 2px solid #e5e7eb; transition: all 0.2s ease-in-out; cursor: pointer; }
     .choice-btn:hover { border-color: #007AFF; background-color: #f0f6ff; transform: translateY(-4px); box-shadow: 0 4px 10px rgba(0, 122, 255, 0.1); }
-    input[type=range] { -webkit-appearance: none; background: transparent; width: 100%; }
-    input[type=range]:focus { outline: none; }
-    input[type=range]::-webkit-slider-runnable-track { height: 8px; background: #e5e7eb; border-radius: 9999px; }
-    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 20px; width: 20px; background: #007AFF; border-radius: 50%; border: 2px solid white; margin-top: -6px; box-shadow: 0 1px 3px rgba(0,0,0,0.2); cursor: pointer; }
     .modal { transition: opacity 0.3s ease-in-out; }
     .modal-content { transition: transform 0.3s ease-in-out; }
 
-    /* Simple segmented control styles (used by .seg / .seg-btn) */
+    /* Segmented control */
     .seg { display: inline-flex; gap: .25rem; background: #f3f4f6; padding: .25rem; border-radius: .75rem; }
     .seg-btn { padding: .5rem .75rem; border-radius: .5rem; font-weight: 600; color: #374151; background: transparent; border: 2px solid transparent; }
     .seg-btn[aria-pressed="true"] { background: #e0ecff; color: #1d4ed8; border-color: #bfdbfe; }
 
-    /* Progress bar colors */
+    /* Progress bar */
     .progress-bar-track { background: #e5e7eb; }
     .progress-bar-fill { background: linear-gradient(90deg, #007AFF, #409CFF); transition: width .25s ease; }
   </style>
@@ -89,8 +85,8 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
         <div class="space-y-6 text-center md:text-left">
           <div class="flex items-center justify-center md:justify-start gap-3">
-            <!-- New logo next to title -->
-            <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit logo" class="h-10 w-auto rounded-md object-contain" onerror="this.style.display='none'"/>
+            <!-- Zoomed logo -->
+            <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit logo" class="h-16 sm:h-20 md:h-24 w-auto object-contain rounded-md" onerror="this.style.display='none'"/>
             <h1 class="font-black text-3xl sm:text-4xl text-zinc-900 tracking-tight">Vancouver Island Credit</h1>
           </div>
 
@@ -217,7 +213,7 @@
     </div>
   </div>
 
-  <!-- Template (moved/updated structure) -->
+  <!-- Template -->
   <div id="form-template" class="hidden" aria-hidden="true">
     <div id="form-wrapper" class="space-y-6">
       <div class="text-center relative">
@@ -385,23 +381,20 @@
             </div>
           </div>
 
-          <!-- Current Address (WITH duration + monthly payment directly under it) -->
+          <!-- Current + Previous Address (together) -->
           <div id="currentAddressSection" class="hidden-section space-y-4" hidden>
             <div class="border-t border-gray-200 pt-4 space-y-4">
               <p class="text-base font-semibold text-zinc-800">Current Address</p>
               <div class="space-y-2">
-                <!-- Use 12-column grid for better control -->
                 <div class="grid grid-cols-12 gap-2">
                   <input type="text" id="currentStreetAddress" name="currentStreetAddress" placeholder="Street Address" class="form-input col-span-12 sm:col-span-8" autocomplete="street-address"/>
                   <input type="text" id="currentUnit" name="currentUnit" placeholder="Unit #" class="form-input col-span-12 sm:col-span-4" />
                   <input type="text" id="currentCity" name="currentCity" placeholder="City" class="form-input col-span-12 sm:col-span-5" autocomplete="address-level2" />
                   <select id="currentProvince" name="currentProvince" class="form-select col-span-12 sm:col-span-3"><option value="">Province</option></select>
-                  <!-- Postal code narrower on desktop -->
                   <input type="text" id="currentPostalCode" name="currentPostalCode" placeholder="Postal Code" class="form-input col-span-12 sm:col-span-4" autocomplete="postal-code" />
                 </div>
               </div>
 
-              <!-- Time at address + monthly payment placed right below address -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label for="monthlyPayment" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly Housing Payment</label>
@@ -412,6 +405,28 @@
                   <div class="grid grid-cols-2 gap-2">
                     <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
                     <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Previous Address appears here when < 2 years -->
+              <div id="previousAddressDetails" class="hidden-section space-y-4" hidden>
+                <p class="text-sm text-zinc-600">Because you’ve been at your current address for less than 2 years, please add your previous address.</p>
+                <div class="space-y-2">
+                  <label for="prevStreetAddress" class="block text-sm font-medium text-zinc-700">Previous Address <span class="text-red-500">*</span></label>
+                  <div class="grid grid-cols-12 gap-2">
+                    <input type="text" id="prevStreetAddress" name="prevStreetAddress" placeholder="Street Address" class="form-input col-span-12 sm:col-span-8" />
+                    <input type="text" id="prevUnit" name="prevUnit" placeholder="Unit #" class="form-input col-span-12 sm:col-span-4" />
+                    <input type="text" id="prevCity" name="prevCity" placeholder="City" class="form-input col-span-12 sm:col-span-5" />
+                    <select id="prevProvince" name="prevProvince" class="form-select col-span-12 sm:col-span-3"><option value="">Province</option></select>
+                    <input type="text" id="prevPostalCode" name="prevPostalCode" placeholder="Postal Code" class="form-input col-span-12 sm:col-span-4" />
+                  </div>
+                </div>
+                <div>
+                  <label for="timeAtPrevAddressYears" class="block text-sm font-medium text-zinc-700 mb-1.5">Time at Previous Address <span class="text-red-500">*</span></label>
+                  <div class="grid grid-cols-2 gap-2">
+                    <select id="timeAtPrevAddressYears" name="timeAtPrevAddressYears" class="form-select"><option value="">Years</option></select>
+                    <select id="timeAtPrevAddressMonths" name="timeAtPrevAddressMonths" class="form-select"><option value="">Months</option></select>
                   </div>
                 </div>
               </div>
@@ -443,29 +458,6 @@
                 </select>
               </div>
             </div>
-
-            <!-- Previous Address only (shown if <2 years & Full App) -->
-            <div id="residentialHistorySection" class="hidden-section space-y-4">
-              <div id="previousAddressDetails" class="hidden-section space-y-4" hidden>
-                <div class="space-y-2">
-                  <label for="prevStreetAddress" class="block text-sm font-medium text-zinc-700">Previous Address <span class="text-red-500">*</span></label>
-                  <div class="grid grid-cols-12 gap-2">
-                    <input type="text" id="prevStreetAddress" name="prevStreetAddress" placeholder="Street Address" class="form-input col-span-12 sm:col-span-8" />
-                    <input type="text" id="prevUnit" name="prevUnit" placeholder="Unit #" class="form-input col-span-12 sm:col-span-4" />
-                    <input type="text" id="prevCity" name="prevCity" placeholder="City" class="form-input col-span-12 sm:col-span-5" />
-                    <select id="prevProvince" name="prevProvince" class="form-select col-span-12 sm:col-span-3"><option value="">Province</option></select>
-                    <input type="text" id="prevPostalCode" name="prevPostalCode" placeholder="Postal Code" class="form-input col-span-12 sm:col-span-4" />
-                  </div>
-                </div>
-                <div>
-                  <label for="timeAtPrevAddressYears" class="block text-sm font-medium text-zinc-700 mb-1.5">Time at Previous Address <span class="text-red-500">*</span></label>
-                  <div class="grid grid-cols-2 gap-2">
-                    <select id="timeAtPrevAddressYears" name="timeAtPrevAddressYears" class="form-select"><option value="">Years</option></select>
-                    <select id="timeAtPrevAddressMonths" name="timeAtPrevAddressMonths" class="form-select"><option value="">Months</option></select>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 
           <!-- Consent -->
@@ -488,11 +480,11 @@
   </div>
 
   <script>
-    // --- ENHANCED, ACCESSIBLE, AND CONSISTENT SCRIPT ---
+    // --- ENHANCED, ACCESSIBLE, CONSISTENT SCRIPT ---
     document.addEventListener('DOMContentLoaded', () => {
       let isFormInitialized = false;
       let formElements = {};
-      let lastTriggerButton = null; // For focus return
+      let lastTriggerButton = null;
 
       const yearEl = document.getElementById('year');
       if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -536,7 +528,7 @@
       if (flowStep3) {
         flowStep3.querySelectorAll('.choice-btn').forEach(btn => {
           btn.addEventListener('click', () => {
-            lastTriggerButton = btn; // save for focus return
+            lastTriggerButton = btn;
             openModal(btn.dataset.appType);
           });
         });
@@ -559,7 +551,6 @@
           formModal.style.opacity = '1';
           modalContent.style.transform = 'scale(1)';
           document.getElementById('close-modal-btn')?.addEventListener('click', closeModal);
-          // Focus first field for accessibility
           document.getElementById('firstName')?.focus();
         }, 20);
         formModal.setAttribute('aria-hidden', 'false');
@@ -573,7 +564,6 @@
         setTimeout(() => { formModal.classList.add('hidden'); }, 300);
         formModal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = 'auto';
-        // Return focus to the button that opened it
         lastTriggerButton?.focus();
       }
       if (formModal) formModal.addEventListener('click', (e) => { if (e.target === formModal) closeModal(); });
@@ -589,14 +579,16 @@
           monthlyPaymentInput: document.getElementById('monthlyPayment'), tabPre: document.getElementById('tab-pre'),
           tabCredit: document.getElementById('tab-credit'), tabFull: document.getElementById('tab-full'),
           appType: document.getElementById('app_type'), detailedInfoSection: document.getElementById('detailedInfoSection'),
-          currentAddressSection: document.getElementById('currentAddressSection'), residentialHistorySection: document.getElementById('residentialHistorySection'),
+          currentAddressSection: document.getElementById('currentAddressSection'),
           maritalStatusWrapper: document.getElementById('maritalStatusWrapper'), hasTradeInSelect: document.getElementById('hasTradeIn'),
           tradeInDetailsDiv: document.getElementById('tradeInDetails'), incomeEmploymentSection: document.getElementById('incomeEmploymentSection'),
           incomeSourceSelect: document.getElementById('incomeSource'), simplifiedEmploymentDetails: document.getElementById('simplifiedEmploymentDetails'),
           fullEmploymentDetails: document.getElementById('fullEmploymentDetails'), selfEmployedDetails: document.getElementById('selfEmployedDetails'),
           otherIncomeDetails: document.getElementById('otherIncomeDetails'), timeWithEmployerYears: document.getElementById('timeWithEmployerYears'),
-          timeAtAddressYears: document.getElementById('timeAtAddressYears'), previousEmployerDetailsDiv: document.getElementById('previousEmployerDetails'),
-          previousAddressDetailsDiv: document.getElementById('previousAddressDetails'), creditConsent: document.getElementById('creditConsent'),
+          timeAtAddressYears: document.getElementById('timeAtAddressYears'), timeAtAddressMonths: document.getElementById('timeAtAddressMonths'),
+          previousEmployerDetailsDiv: document.getElementById('previousEmployerDetails'),
+          previousAddressDetailsDiv: document.getElementById('previousAddressDetails'),
+          creditConsent: document.getElementById('creditConsent'),
           currentProvinceSelect: document.getElementById('currentProvince'), prevProvinceSelect: document.getElementById('prevProvince'),
           progressBar: document.getElementById('progress-bar'), meterText: document.getElementById('meter-text')
         };
@@ -608,13 +600,13 @@
         formElements.dobYearInput?.addEventListener('input', updateDays);
         formElements.dobMonthSelect?.addEventListener('change', updateDays);
 
-        // Populate dropdowns
+        // Dropdowns
         populateDropdown(formElements.timeWithEmployerYears, 0, 30, 'Years', 'Year');
         populateDropdown(document.getElementById('timeWithEmployerMonths'), 0, 11, 'Months', 'Month');
         populateDropdown(document.getElementById('prevTimeWithEmployerYears'), 0, 30, 'Years', 'Year');
         populateDropdown(document.getElementById('prevTimeWithEmployerMonths'), 0, 11, 'Months', 'Month');
         populateDropdown(formElements.timeAtAddressYears, 0, 30, 'Years', 'Year');
-        populateDropdown(document.getElementById('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
+        populateDropdown(formElements.timeAtAddressMonths, 0, 11, 'Months', 'Month');
         populateDropdown(document.getElementById('timeAtPrevAddressYears'), 0, 30, 'Years', 'Year');
         populateDropdown(document.getElementById('timeAtPrevAddressMonths'), 0, 11, 'Months', 'Month');
 
@@ -632,59 +624,50 @@
         formElements.hasTradeInSelect?.addEventListener('change', (e) => toggleSection(formElements.tradeInDetailsDiv, e.target.value.toLowerCase() === 'yes'));
         formElements.incomeSourceSelect?.addEventListener('change', handleIncomeSourceChange);
         formElements.timeWithEmployerYears?.addEventListener('change', () => checkTime(formElements.timeWithEmployerYears, formElements.previousEmployerDetailsDiv, ['previousEmployer', 'prevTimeWithEmployerYears', 'prevTimeWithEmployerMonths']));
-        formElements.timeAtAddressYears?.addEventListener('change', () => checkTimeAddressHistory()); // show prev address if needed
 
-        // Progress updates on any input/select/textarea change
+        // Address duration listeners (years + months)
+        formElements.timeAtAddressYears?.addEventListener('change', checkTimeAddressHistory);
+        formElements.timeAtAddressMonths?.addEventListener('change', checkTimeAddressHistory);
+
+        // Progress updates
         formElements.leadForm?.addEventListener('input', updateProgress);
         formElements.leadForm?.addEventListener('change', updateProgress);
 
         formElements.leadForm?.addEventListener('submit', handleFormSubmit);
       }
 
-      function populateMonths(dobMonthSelect) {
-        if (!dobMonthSelect) return;
+      function populateMonths(sel) {
+        if (!sel) return;
         const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-        months.forEach((month, index) => {
-          const option = document.createElement('option');
-          option.value = index + 1;
-          option.textContent = month;
-          dobMonthSelect.appendChild(option);
-        });
+        months.forEach((m, i) => { const o=document.createElement('option'); o.value=i+1; o.textContent=m; sel.appendChild(o); });
       }
       function updateDays() {
         const { dobYearInput, dobMonthSelect, dobDaySelect } = formElements;
         if (!dobYearInput || !dobMonthSelect || !dobDaySelect) return;
-        const year = parseInt(dobYearInput.value, 10);
-        const month = parseInt(dobMonthSelect.value, 10);
-        const selectedDay = parseInt(dobDaySelect.value, 10);
-        const daysInMonth = (year && month) ? new Date(year, month, 0).getDate() : 31;
+        const y = parseInt(dobYearInput.value, 10);
+        const m = parseInt(dobMonthSelect.value, 10);
+        const selected = parseInt(dobDaySelect.value, 10);
+        const days = (y && m) ? new Date(y, m, 0).getDate() : 31;
         dobDaySelect.innerHTML = '<option value="">Day</option>';
-        for (let i = 1; i <= daysInMonth; i++) {
-          const option = document.createElement('option');
-          option.value = i;
-          option.textContent = i;
-          dobDaySelect.appendChild(option);
-        }
-        if (selectedDay && selectedDay <= daysInMonth) {
-          dobDaySelect.value = selectedDay;
-        }
+        for (let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; dobDaySelect.appendChild(o); }
+        if (selected && selected <= days) dobDaySelect.value = selected;
       }
-      function populateProvinces(currentProvinceSelect, prevProvinceSelect) {
-        if (!currentProvinceSelect || !prevProvinceSelect) return;
+      function populateProvinces(cur, prev) {
+        if (!cur || !prev) return;
         const provinces = ["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"];
         provinces.forEach(p => {
-          const o1 = document.createElement('option'); o1.value = p; o1.textContent = p; currentProvinceSelect.appendChild(o1);
-          const o2 = document.createElement('option'); o2.value = p; o2.textContent = p; prevProvinceSelect.appendChild(o2);
+          const a=document.createElement('option'); a.value=p; a.textContent=p; cur.appendChild(a);
+          const b=document.createElement('option'); b.value=p; b.textContent=p; prev.appendChild(b);
         });
       }
-      function populateDropdown(selectElement, start, end, label, singularLabel) {
-        if (!selectElement) return;
-        selectElement.innerHTML = `<option value="">${singularLabel || label}</option>`;
-        for (let i = start; i <= end; i++) {
-          const option = document.createElement('option');
-          option.value = i;
-          option.textContent = i + ' ' + (i !== 1 ? label : (singularLabel || label));
-          selectElement.appendChild(option);
+      function populateDropdown(sel, start, end, label, singular) {
+        if (!sel) return;
+        sel.innerHTML = `<option value="">${singular || label}</option>`;
+        for (let i=start;i<=end;i++){
+          const o=document.createElement('option');
+          o.value=i;
+          o.textContent = i + ' ' + (i !== 1 ? label : (singular || label));
+          sel.appendChild(o);
         }
       }
       function formatPhoneNumber(e) {
@@ -695,15 +678,13 @@
         else if (digits.length > 0) input.value = `(${digits.substring(0,3)}`;
       }
       function formatCurrency(e) {
-        let value = e.target.value.replace(/[$,]/g, '');
-        if (isNaN(value) || value === '') { e.target.value = ''; }
-        else { e.target.value = '$' + new Intl.NumberFormat('en-US').format(value); }
+        let v = e.target.value.replace(/[$,]/g, '');
+        e.target.value = (!v || isNaN(v)) ? '' : ('$' + new Intl.NumberFormat('en-US').format(v));
       }
-      function toggleSection(element, show) {
-        if (element) {
-          element.classList.toggle('show', show);
-          element.toggleAttribute('hidden', !show);
-        }
+      function toggleSection(el, show) {
+        if (!el) return;
+        el.classList.toggle('show', show);
+        el.toggleAttribute('hidden', !show);
       }
 
       function handleIncomeSourceChange() {
@@ -713,28 +694,27 @@
 
         [simplifiedEmploymentDetails, fullEmploymentDetails, selfEmployedDetails, otherIncomeDetails].forEach(el => toggleSection(el, false));
         ['simplifiedMonthlyIncome','currentEmployer','jobTitle','timeWithEmployerYears','timeWithEmployerMonths','businessName','avgMonthlyIncome','otherIncomeAmount','otherIncomeSource'].forEach(id => {
-          const el = document.getElementById(id);
-          if (el) el.required = false;
+          const el = document.getElementById(id); if (el) el.required = false;
         });
 
-        const isEmployed = value === 'Full-Time' || value === 'Part-Time';
-        const isSelfEmployed = value === 'Self-Employed';
-        const isOther = value === 'Disability' || value === 'Other';
+        const employed = value === 'Full-Time' || value === 'Part-Time';
+        const selfEmp = value === 'Self-Employed';
+        const other = value === 'Disability' || value === 'Other';
 
-        if (isEmployed) {
+        if (employed) {
           if (mode === 'Pre-Approval' || mode === 'Credit Inquiry') {
             toggleSection(simplifiedEmploymentDetails, true);
             document.getElementById('simplifiedMonthlyIncome').required = true;
           } else {
             toggleSection(fullEmploymentDetails, true);
-            ['currentEmployer','jobTitle','timeWithEmployerYears','timeWithEmployerMonths'].forEach(id => { document.getElementById(id).required = true; });
+            ['currentEmployer','jobTitle','timeWithEmployerYears','timeWithEmployerMonths'].forEach(id => document.getElementById(id).required = true);
           }
-        } else if (isSelfEmployed) {
+        } else if (selfEmp) {
           toggleSection(selfEmployedDetails, true);
-          ['businessName','avgMonthlyIncome'].forEach(id => { document.getElementById(id).required = true; });
-        } else if (isOther) {
+          ['businessName','avgMonthlyIncome'].forEach(id => document.getElementById(id).required = true);
+        } else if (other) {
           toggleSection(otherIncomeDetails, true);
-          ['otherIncomeAmount','otherIncomeSource'].forEach(id => { document.getElementById(id).required = true; });
+          ['otherIncomeAmount','otherIncomeSource'].forEach(id => document.getElementById(id).required = true);
         }
         updateProgress();
       }
@@ -752,21 +732,28 @@
         updateProgress();
       }
 
+      function totalMonthsAtCurrent() {
+        const y = parseInt(formElements.timeAtAddressYears?.value || '0', 10) || 0;
+        const m = parseInt(formElements.timeAtAddressMonths?.value || '0', 10) || 0;
+        return (y * 12) + m;
+      }
+
       function checkTimeAddressHistory() {
-        // Previous address only needed if <2 years and Full Application
-        const yearsEl = formElements.timeAtAddressYears;
-        const years = parseInt(yearsEl?.value || '0', 10);
-        const needPrev = years < 2 && formElements.appType.value === 'Full Application';
+        // Show previous address when < 24 months, regardless of mode
+        const needPrev = totalMonthsAtCurrent() < 24;
         toggleSection(formElements.previousAddressDetailsDiv, needPrev);
+
+        // Requiredness: only mandatory for Full Application
+        const mustFill = needPrev && formElements.appType.value === 'Full Application';
         ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','timeAtPrevAddressYears','timeAtPrevAddressMonths'].forEach(id => {
           const el = document.getElementById(id);
-          if(el) el.required = needPrev;
+          if (el) el.required = mustFill;
         });
         updateProgress();
       }
 
       function setMode(mode) {
-        const { appType, tabPre, tabCredit, tabFull, detailedInfoSection, maritalStatusWrapper, residentialHistorySection, creditConsent, middleNameInput, middleNameRequiredSpan, middleNameOptionalSpan, incomeSourceSelect, currentAddressSection } = formElements;
+        const { appType, tabPre, tabCredit, tabFull, detailedInfoSection, maritalStatusWrapper, incomeEmploymentSection, currentAddressSection } = formElements;
         const isPre = mode === 'Pre-Approval';
         const isCredit = mode === 'Credit Inquiry';
         const isFull = mode === 'Full Application';
@@ -776,145 +763,128 @@
         if(tabCredit) { tabCredit.setAttribute('aria-pressed', isCredit); tabCredit.setAttribute('aria-selected', isCredit); }
         if(tabFull) { tabFull.setAttribute('aria-pressed', isFull); tabFull.setAttribute('aria-selected', isFull); }
 
-        // Always show Income & Current Address in all modes
+        // Always show Income & Current Address
         toggleSection(incomeEmploymentSection, true);
         toggleSection(currentAddressSection, true);
 
         // Show Personal/DOB in Credit & Full
         toggleSection(detailedInfoSection, isCredit || isFull);
-        // Marital + Residential history section toggles only in Full
+        // Marital only in Full
         toggleSection(maritalStatusWrapper, isFull);
-        toggleSection(residentialHistorySection, isFull);
         // Consent for Credit & Full
         toggleSection(document.getElementById('consent-container'), isCredit || isFull);
 
-        if (middleNameInput) middleNameInput.required = isCredit || isFull;
-        if (middleNameRequiredSpan) middleNameRequiredSpan.classList.toggle('hidden', isPre);
-        if (middleNameOptionalSpan) middleNameOptionalSpan.classList.toggle('hidden', !isPre);
+        // Middle name required for Credit & Full
+        document.getElementById('middleName')?.setAttribute('required', isCredit || isFull ? 'true' : '');
+        document.getElementById('middleNameRequired')?.classList.toggle('hidden', isPre);
+        document.getElementById('middleNameOptional')?.classList.toggle('hidden', !isPre);
 
-        // Required map (fields visible in Pre/Credit remain optional unless specified)
-        const requiredMap = {
+        // Required map
+        const req = {
           incomeSource: true,
           currentStreetAddress: true,
           currentCity: true,
           currentProvince: true,
           currentPostalCode: true,
-          // DOB required for Credit & Full
           dobYear: isCredit || isFull,
           dobMonth: isCredit || isFull,
           dobDay: isCredit || isFull,
-          // Full-only requirements
           maritalStatus: isFull,
-          monthlyPayment: isFull,                // visible always, required in Full
-          timeAtAddressYears: isFull,            // visible always, required in Full
+          monthlyPayment: isFull,
+          timeAtAddressYears: isFull,
           timeAtAddressMonths: isFull,
           creditConsent: isCredit || isFull
         };
-        for (const [id, isRequired] of Object.entries(requiredMap)) {
+        for (const [id, must] of Object.entries(req)) {
           const el = document.getElementById(id);
-          if (el) el.required = isRequired;
+          if (el) el.required = !!must;
         }
 
-        // Update income sections based on source
-        if(incomeSourceSelect) incomeSourceSelect.dispatchEvent(new Event('change'));
-        // Update prev address section based on time at address
+        // Income section cleanup
+        formElements.incomeSourceSelect?.dispatchEvent(new Event('change'));
+        // Previous address visibility/requiredness
         checkTimeAddressHistory();
-        // Progress
         updateProgress();
       }
 
       function visibleRequiredFields() {
         const all = Array.from(document.querySelectorAll('#lead-form [required]'));
         return all.filter(el => {
-          // visible if no [hidden] ancestor and element itself not hidden
-          const isHiddenAttr = el.hasAttribute('hidden') || el.closest('[hidden]') !== null;
-          const isDisplayNone = window.getComputedStyle(el).display === 'none';
-          return !(isHiddenAttr || isDisplayNone);
+          const hiddenAncestor = el.closest('[hidden]');
+          const styleNone = window.getComputedStyle(el).display === 'none';
+          return !(hiddenAncestor || styleNone);
         });
       }
-
       function countFilled(el) {
         if (el.type === 'checkbox') return el.checked;
         if (el.tagName.toLowerCase() === 'select') return el.value !== '';
         return el.value && el.value.trim() !== '';
       }
-
       function updateProgress() {
         const req = visibleRequiredFields();
         const total = req.length;
         const filled = req.reduce((acc, el) => acc + (countFilled(el) ? 1 : 0), 0);
         const pct = total ? Math.round((filled / total) * 100) : 0;
-        if (formElements.progressBar) formElements.progressBar.style.width = pct + '%';
-        if (formElements.meterText) formElements.meterText.textContent = pct + '%';
+        formElements.progressBar.style.width = pct + '%';
+        formElements.meterText.textContent = pct + '%';
       }
 
       function validateForm() {
-        let isValid = true;
-        const { leadForm, statusEl } = formElements;
+        let valid = true;
+        const { statusEl } = formElements;
         if(statusEl) statusEl.textContent = '';
         document.querySelectorAll('#lead-form .err, #lead-form .err-label').forEach(el => el.classList.remove('err', 'err-label'));
 
         const requiredFields = visibleRequiredFields();
         requiredFields.forEach(el => {
-          let fieldIsValid = (el.type === 'checkbox') ? el.checked : el.value.trim() !== '';
-          if (el.id === 'phone') {
-            fieldIsValid = el.value.replace(/\D/g, '').length >= 10;
-          }
+          let ok = (el.type === 'checkbox') ? el.checked : el.value.trim() !== '';
+          if (el.id === 'phone') ok = el.value.replace(/\D/g, '').length >= 10;
           if (el.type === 'email' || el.id === 'email') {
-            // light email validation
             const v = el.value.trim();
-            fieldIsValid = fieldIsValid && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+            ok = ok && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
           }
-          if (!fieldIsValid) {
-            isValid = false;
+          if (!ok) {
+            valid = false;
             el.classList.add('err');
             const label = document.querySelector(`label[for="${el.id}"]`);
             if (label) label.classList.add('err-label');
             if (['dobMonth','dobDay','dobYear'].includes(el.id)) {
-              const mainDobLabel = document.querySelector(`label[for="dobMonth"]`);
-              if (mainDobLabel) mainDobLabel.classList.add('err-label');
+              const mainDob = document.querySelector('label[for="dobMonth"]');
+              if (mainDob) mainDob.classList.add('err-label');
             }
           }
         });
 
-        if (!isValid) {
+        if (!valid) {
           if(statusEl) statusEl.textContent = 'Please complete all required fields.';
-          const firstErrorField = requiredFields.find(el => el.classList.contains('err'));
-          if (firstErrorField) firstErrorField.focus();
+          const firstError = requiredFields.find(el => el.classList.contains('err'));
+          firstError?.focus();
         }
-        return isValid;
+        return valid;
       }
 
       async function handleFormSubmit(e) {
-        const { leadForm, submitBtn } = formElements;
         e.preventDefault();
         if (!validateForm()) return;
-        if(submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting...'; }
-        const formData = new FormData(leadForm);
+        formElements.submitBtn.disabled = true;
+        formElements.submitBtn.textContent = 'Submitting...';
+        const formData = new FormData(formElements.leadForm);
         try {
-          await fetch('/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(formData).toString()
-          });
+          await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(formData).toString() });
           window.location.href = '/thank-you.html';
         } catch (err) {
           console.error("Fetch failed, falling back to form.submit()", err);
-          leadForm.submit();
+          formElements.leadForm.submit();
         }
       }
 
-      // --- INIT ---
-      // Open modal when selecting an app type
-      function attachAppTypeHandlers() {
-        document.querySelectorAll('[data-app-type]').forEach(card => {
-          card.addEventListener('click', () => {
-            lastTriggerButton = card;
-            openModal(card.dataset.appType);
-          });
+      // Attach app type handlers (safety)
+      document.querySelectorAll('[data-app-type]').forEach(card => {
+        card.addEventListener('click', () => {
+          lastTriggerButton = card;
+          openModal(card.dataset.appType);
         });
-      }
-      attachAppTypeHandlers();
+      });
     });
   </script>
 </body>
