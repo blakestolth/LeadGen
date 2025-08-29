@@ -371,6 +371,12 @@
                 <select id="prevProvince" name="prevProvince" class="form-select col-span-3"><option value="">Province</option></select>
                 <input type="text" id="prevPostalCode" name="prevPostalCode" class="form-input col-span-6" placeholder="Postal Code"/>
               </div>
+
+              <!-- NEW: previous address duration -->
+              <div class="grid grid-cols-2 gap-2 mt-2">
+                <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="form-select"><option value="">Years</option></select>
+                <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+              </div>
             </div>
 
             <!-- FULL only: duration controls -->
@@ -526,7 +532,7 @@
       $('middleReq').classList.toggle('hidden', isPre);
       $('middleOpt').classList.toggle('hidden', !isPre);
 
-      // DOB required for ALL paths per your BASIC/CREDIT rules
+      // DOB required for ALL paths
       ['dobMonth','dobDay','dobYear'].forEach(id => $(id).required = true);
 
       // Marital: Credit + Full
@@ -541,6 +547,7 @@
       ['currentStreetAddress','currentCity','currentProvince','currentPostalCode','currentPostalCode_basic',
        'timeAtAddressYears','timeAtAddressMonths',
        'prevStreetAddress','prevCity','prevProvince','prevPostalCode',
+       'prevTimeAtAddressYears','prevTimeAtAddressMonths',
        'previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths',
        'monthlyIncome','incomeSource','incomeSourceFull','currentEmployer','jobTitle']
         .forEach(id => { const n=$(id); if(n) n.required = false; });
@@ -610,23 +617,33 @@
       updateProgress();
     }
 
+    // FULL: previous employment if < 24 months (years+months)
     function checkPrevEmploymentNeed(){
       if (mode() !== 'Full Application') { bySel('#prev-employment').classList.add('hidden'); return; }
-      const years = parseInt(($('timeWithEmployerYears').value||'0'),10)||0;
-      const need = years < 2 && bySel('#full-employment') && !bySel('#full-employment').classList.contains('hidden');
+      const y = parseInt(($('timeWithEmployerYears').value||'0'),10)||0;
+      const m = parseInt(($('timeWithEmployerMonths').value||'0'),10)||0;
+      const months = (y*12)+m;
+      const employedBlockVisible = bySel('#full-employment') && !bySel('#full-employment').classList.contains('hidden');
+      const need = employedBlockVisible && months < 24;
       bySel('#prev-employment').classList.toggle('hidden', !need);
       ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id => { const n=$(id); if(n) n.required = need; });
     }
 
-    // FULL: previous address if < 24 months
+    // FULL: previous address if < 24 months (years+months)
     function onAddressDurationChange(){
       if (mode() !== 'Full Application') return;
       const y = parseInt(($('timeAtAddressYears').value||'0'),10)||0;
       const m = parseInt(($('timeAtAddressMonths').value||'0'),10)||0;
-      const months = (y*12)+m, has = ($('timeAtAddressYears').value!=='' || $('timeAtAddressMonths').value!=='');
-      const need = has && months < 24;
+      const hasAny = ($('timeAtAddressYears').value!=='' || $('timeAtAddressMonths').value!=='');
+      const months = (y*12)+m;
+      const need = hasAny && months < 24;
+
       bySel('#addr-previous').classList.toggle('hidden', !need);
-      ['prevStreetAddress','prevCity','prevProvince','prevPostalCode'].forEach(id => { const n=$(id); if(n) n.required = need; });
+      // previous address + its duration required only when need=true
+      ['prevStreetAddress','prevCity','prevProvince','prevPostalCode',
+       'prevTimeAtAddressYears','prevTimeAtAddressMonths']
+        .forEach(id => { const n=$(id); if(n) n.required = need; });
+
       updateProgress();
     }
 
@@ -707,7 +724,10 @@
     $('phone')?.addEventListener('input', phoneFmt);
     ['monthlyIncome','avgMonthlyIncome','otherIncomeAmount','housingPayment'].forEach(id=> $(id)?.addEventListener('input', currencyFmt));
     $('incomeSourceFull')?.addEventListener('change', onIncomeSourceFullChange);
+    // employment duration: check years AND months
     $('timeWithEmployerYears')?.addEventListener('change', ()=>{ checkPrevEmploymentNeed(); updateProgress(); });
+    $('timeWithEmployerMonths')?.addEventListener('change', ()=>{ checkPrevEmploymentNeed(); updateProgress(); });
+    // address duration: check years AND months
     $('timeAtAddressYears')?.addEventListener('change', onAddressDurationChange);
     $('timeAtAddressMonths')?.addEventListener('change', onAddressDurationChange);
 
@@ -749,6 +769,10 @@
       populateDropdown($('prevTimeWithEmployerMonths'), 0, 11, 'Months', 'Month');
       populateDropdown($('timeAtAddressYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
+
+      // NEW: previous address duration dropdowns
+      populateDropdown($('prevTimeAtAddressYears'), 0, 30, 'Years', 'Year');
+      populateDropdown($('prevTimeAtAddressMonths'), 0, 11, 'Months', 'Month');
 
       // Provinces
       function populateProvinces(cur, prev){ const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; [cur,prev].forEach(sel=>{ if(!sel) return; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }); }
