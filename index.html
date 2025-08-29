@@ -14,12 +14,6 @@
   <meta property="og:image" content="https://vancouverislandcredit.ca/0041B99D-D49A-4024-AA7A-2786A4605342.jpg"/>
   <meta name="theme-color" content="#ffffff"/>
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Vancouver Island Credit — Auto Approvals Online"/>
-  <meta name="twitter:description" content="Fast, confidential approvals. Delivery across Vancouver Island & BC. Work directly with Blake, not a call centre."/>
-  <meta name="twitter:image" content="https://vancouverislandcredit.ca/0041B99D-D49A-4024-AA7A-2786A4605342.jpg"/>
-
   <script src="https://cdn.tailwindcss.com"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -27,105 +21,80 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 
   <style>
-    body { font-family: 'Inter', sans-serif; background-color: #f9fafb; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-    .card { background-color: #ffffff; border-radius: 1.5rem; border: 1px solid #e5e7eb; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05); }
+    body { font-family: 'Inter', sans-serif; background-color: #f9fafb; }
+    .card { background-color: #ffffff; border-radius: 1rem; border: 1px solid #e5e7eb; box-shadow: 0 8px 12px -3px rgb(0 0 0 / 0.05); }
 
     /* Inputs */
     .form-input, .form-select, .form-textarea { background-color: #f3f4f6; color: #18181b; border: 2px solid transparent; font-size: 16px; width: 100%; padding: .85rem 1rem; border-radius: .75rem; transition: all .2s ease; }
-    .form-input::placeholder { color: #a1a1aa; }
     .form-input:focus, .form-select:focus, .form-textarea:focus { background-color: #fff; border-color: #007AFF; box-shadow: 0 0 0 3px rgba(0,122,255,0.2); outline: none; }
 
     /* CTA */
-    .cta-button { background-color: #007AFF; color: white; font-weight: 800; padding: 0.9rem 1rem; border-radius: .9rem; transition: all .2s ease; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
+    .cta-button { background-color: #007AFF; color: #fff; font-weight: 800; padding: 0.9rem 1rem; border-radius: .9rem; transition: all .2s ease; }
     .cta-button:hover { transform: translateY(-2px); background-color: #0a64d0; }
 
-    /* Benefit ticks like your sample */
-    .benefit-list li { padding-left: 1.75rem; position: relative; }
-    .benefit-list li::before { content:''; position: absolute; left: 0; top: 5px; width: 1rem; height: 1rem; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2322c55e'%3E%3Cpath fill-rule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z' clip-rule='evenodd'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; }
+    /* ===== Tight, consistent tile sizing (matches reference look) ===== */
+    /* Square tiles (vehicle type, budgets, etc.) */
+    .grid-squares { display:grid; gap:.8rem; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 520px; margin: 0 auto; }
+    @media (min-width:640px){ .grid-squares { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 720px; } }
+    .tile { display:flex; align-items:center; justify-content:center; text-align:center; font-weight:900; color:#111827; border-radius:.75rem; border:2px solid #e5e7eb; background:#fff; aspect-ratio: 1 / 1; max-width: 180px; width:100%; margin: 0 auto; }
+    .tile:hover { border-color:#2563eb; background:#f5f8ff; box-shadow: 0 10px 18px -8px rgba(37,99,235,.45); transform: translateY(-1px); transition: all .15s ease; }
+    .tile.selected { border-color:#2563eb; background:#eef4ff; box-shadow: inset 0 0 0 2px #2563eb; }
+
+    /* Rectangular choices (condition, application type, etc.) */
+    .grid-choices-2, .grid-choices-3 { max-width: 520px; margin: 0 auto; }
+    .grid-choices-2 { display:grid; gap:.8rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-choices-3 { display:grid; gap:.8rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .choice { border-radius:.75rem; border:2px solid #e5e7eb; background:#fff; padding:.95rem; font-weight:800; text-align:center; max-width: 220px; width:100%; margin: 0 auto; }
+    .choice:hover { border-color:#2563eb; background:#f5f8ff; }
+    .choice.selected { border-color:#2563eb; background:#eef4ff; box-shadow: inset 0 0 0 2px #2563eb; }
+
+    /* If you reuse .choice-btn from the modal version, keep it the same size too */
+    .choice-btn { border: 2px solid #e5e7eb; transition: all 0.2s ease-in-out; cursor: pointer; border-radius:.75rem; background:#fff; padding:.95rem; font-weight:800; text-align:center; max-width: 220px; width:100%; margin: 0 auto; }
+    .choice-btn:hover { border-color:#2563eb; background:#f5f8ff; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0, 122, 255, 0.1); }
+    .choice-btn img { height: 96px; width:auto; object-fit:contain; }
 
     /* Progress */
     .progress-track { height: 8px; background: #e5e7eb; border-radius: 9999px; overflow: hidden; }
-    .progress-fill { height: 8px; background: linear-gradient(90deg, #007AFF, #409CFF); border-radius: 9999px; width: 0%; transition: width .25s ease; }
+    .progress-fill { height: 8px; background: #007AFF; border-radius: 9999px; width: 0%; transition: width .25s ease; }
 
     /* Validation */
     .err { border-color: #ef4444 !important; }
     .err-label { color: #ef4444 !important; }
-
-    /* Smaller, centered tiles/cards (not super wide) */
-    .grid-squares,
-    .grid-choices-2,
-    .grid-choices-3 { display:grid; gap:.8rem; justify-items:center; }
-
-    /* auto-fit keeps them neat; minmax caps width so they don't stretch too wide */
-    .grid-squares { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
-    .grid-choices-2 { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
-    .grid-choices-3 { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
-
-    .tile { display:flex; align-items:center; justify-content:center; text-align:center; font-weight:900; color:#111827; border-radius:.75rem; border:2px solid #e5e7eb; background:#fff; aspect-ratio: 1 / 1; max-width: 180px; width:100%; }
-    .tile:hover { border-color:#2563eb; background:#f5f8ff; box-shadow: 0 10px 18px -8px rgba(37,99,235,.45); transform: translateY(-1px); transition: all .15s ease; }
-    .tile.selected { border-color:#2563eb; background:#eef4ff; box-shadow: inset 0 0 0 2px #2563eb; }
-
-    .choice { border-radius:.75rem; border:2px solid #e5e7eb; background:#fff; padding:.95rem; font-weight:800; text-align:center; max-width: 220px; width:100%; }
-    .choice:hover { border-color:#2563eb; background:#f5f8ff; }
-    .choice.selected { border-color:#2563eb; background:#eef4ff; box-shadow: inset 0 0 0 2px #2563eb; }
   </style>
-
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"AutoDealer",
-    "name":"Vancouver Island Credit",
-    "telephone":"+1-236-969-2424",
-    "address":{"@type":"PostalAddress","streetAddress":"525 Gorge Rd E","addressLocality":"Victoria","addressRegion":"BC","postalCode":"V8T 4T2","addressCountry":"CA"},
-    "areaServed":"British Columbia, Canada",
-    "image":"https://vancouverislandcredit.ca/0041B99D-D49A-4024-AA7A-2786A4605342.jpg",
-    "url":"https://vancouverislandcredit.ca",
-    "slogan":"Get approved online. Delivery across BC. Work directly with Blake.",
-    "founder":{"@type":"Person","name":"Blake Stolth"},
-    "makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Auto Financing (New & Used)"}}]
-  }
-  </script>
 </head>
-<body class="py-8 sm:py-12 px-4">
-  <main class="w-full max-w-5xl mx-auto space-y-8">
-    <!-- Top layout matching your example -->
-    <section class="card p-6 sm:p-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-        <div class="space-y-6 text-center md:text-left">
-          <div class="flex items-center justify-center md:justify-start gap-3">
-            <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit logo" class="h-16 sm:h-20 md:h-24 w-auto object-contain rounded-md" onerror="this.style.display='none'"/>
-            <h1 class="font-black text-3xl sm:text-4xl text-zinc-900 tracking-tight">Vancouver Island Credit</h1>
-          </div>
-          <div class="text-center md:text-left">
-            <p class="text-lg font-bold text-blue-600">Work 1 on 1 with Blake</p>
-            <div class="mt-2 space-y-1 text-sm text-zinc-600">
-              <a href="tel:2369692424" class="inline-flex items-center justify-center md:justify-start gap-2 hover:text-blue-600 transition-colors">
-                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5h-1.5A13.5 13.5 0 012 3.5z" clip-rule="evenodd" /></svg>
-                <span>(236) 969-2424</span>
-              </a>
-              <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
-            </div>
-          </div>
+<body class="py-6 sm:py-10 px-4">
+  <header class="w-full max-w-6xl mx-auto mb-6 sm:mb-10">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <img src="/Untitled_Artwork.PNG" alt="Vancouver Island Credit logo" class="h-16 sm:h-20 w-auto select-none"/>
+        <div class="leading-tight">
+          <p class="text-sm text-zinc-500">Vancouver Island Credit</p>
+          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900">Auto Approvals Online</h1>
         </div>
+      </div>
+      <a href="tel:2369692424" class="inline-flex items-center gap-2 text-blue-700 font-semibold">
+        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5h-1.5A13.5 13.5 0 012 3.5z" clip-rule="evenodd"/></svg>
+        (236) 969-2424
+      </a>
+    </div>
+  </header>
 
-        <div class="md:border-l md:pl-12 border-gray-200">
-          <div class="flex items-center space-x-4 mb-5">
-            <div class="bg-blue-100 p-3 rounded-xl">
-              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            </div>
-            <h2 class="text-2xl font-extrabold text-zinc-900">Fastest Online Approval</h2>
-          </div>
-          <p class="text-zinc-600 mb-4">Get approved and see your vehicle options in minutes. Here's why our process is better:</p>
-          <ul class="space-y-4 text-zinc-600 text-base benefit-list">
-            <li><strong class="text-zinc-800">Avoid the Runaround:</strong> Deal with one real person.</li>
-            <li><strong class="text-zinc-800">All Credit Welcome:</strong> 99% approval rate.</li>
-            <li><strong class="text-zinc-800">Huge Selection:</strong> New & used vehicles across BC.</li>
+  <main class="w-full max-w-6xl mx-auto space-y-8">
+    <!-- Trust / Benefits -->
+    <section class="card p-6 sm:p-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
+        <div class="space-y-4">
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900">Work 1‑on‑1 with Blake</h2>
+          <ul class="space-y-3 text-zinc-700">
+            <li class="flex items-start gap-3"><span class="w-3 h-3 rounded-full bg-green-500 mt-1.5"></span>We don’t sell your information.</li>
+            <li class="flex items-start gap-3"><span class="w-3 h-3 rounded-full bg-green-500 mt-1.5"></span>Avoid dealership runaround.</li>
+            <li class="flex items-start gap-3"><span class="w-3 h-3 rounded-full bg-green-500 mt-1.5"></span>Island & BC‑wide selection.</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- Inline Multi-Step Flow -->
+    <!-- Inline Multi‑Step Flow (no modal) -->
     <section class="card p-0 overflow-hidden">
       <div class="px-4 sm:px-6 pt-4 sticky top-0 bg-white border-b">
         <div class="flex items-center justify-between mb-2">
@@ -180,16 +149,16 @@
           <section class="form-step hidden" data-step="4">
             <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Choose your path</h3>
             <div class="mt-4 grid-choices-3" role="tablist" aria-label="Application type">
-              <button type="button" id="tab-pre" class="choice" role="tab" aria-pressed="true">Pre-Approval</button>
+              <button type="button" id="tab-pre" class="choice" role="tab" aria-pressed="true">Pre‑Approval</button>
               <button type="button" id="tab-credit" class="choice" role="tab" aria-pressed="false">Credit Inquiry</button>
               <button type="button" id="tab-full" class="choice" role="tab" aria-pressed="false">Full Application</button>
             </div>
             <p class="text-xs text-zinc-500 mt-2">We’ll only show what’s needed based on your choice.</p>
           </section>
 
-          <!-- STEP 5: Down payment + Trade-in -->
+          <!-- STEP 5: Down payment + Trade‑in -->
           <section class="form-step hidden" data-step="5">
-            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Down payment & trade-in</h3>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Down payment & trade‑in</h3>
             <div class="mt-4 grid gap-4">
               <div>
                 <label for="downPayment" class="block text-sm font-medium text-zinc-700 mb-1.5">Estimated down payment?</label>
@@ -225,9 +194,9 @@
             <label for="incomeSource" class="block text-sm font-medium text-zinc-700 mb-1.5">Primary source of income <span class="text-red-500">*</span></label>
             <select id="incomeSource" name="incomeSource" class="form-select" required>
               <option value="">Please select…</option>
-              <option value="Full-Time">Full-Time Employment</option>
-              <option value="Part-Time">Part-Time Employment</option>
-              <option value="Self-Employed">Self-Employed / Business Owner</option>
+              <option value="Full-Time">Full‑Time Employment</option>
+              <option value="Part-Time">Part‑Time Employment</option>
+              <option value="Self-Employed">Self‑Employed / Business Owner</option>
               <option value="Disability">Disability</option>
               <option value="Other">Other</option>
             </select>
@@ -435,26 +404,15 @@
           <div class="mx-auto w-14 h-14 rounded-full bg-green-100 flex items-center justify-center">
             <svg class="w-8 h-8 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-7.5 9.5a.75.75 0 01-1.127.05l-4-4.5a.75.75 0 111.112-1.006l3.42 3.847 6.987-8.853a.75.75 0 011.065-.09z" clip-rule="evenodd"/></svg>
           </div>
-          <h3 class="mt-4 text-2xl font-extrabold text-zinc-900">Thank you — you’re pre-approved!</h3>
+          <h3 class="mt-4 text-2xl font-extrabold text-zinc-900">Thank you — you’re pre‑approved!</h3>
           <p class="mt-2 text-zinc-600 max-w-md mx-auto">We’ve received your application. <span class="font-semibold">Blake Stolth</span> will reach out shortly with the <span class="font-semibold">options you’re actually qualified for</span>. No obligation.</p>
         </div>
       </div>
     </section>
-
-    <footer class="text-center text-xs text-zinc-500 pt-2 space-y-2">
-      <p class="font-semibold text-zinc-600">Vancouver Island Credit</p>
-      <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
-      <p><a href="tel:2369692424" class="hover:text-blue-600 transition-colors">(236) 969-2424</a></p>
-      <p class="pt-2">Serving Vancouver Island & British Columbia • Delivery available province-wide</p>
-      <p class="mt-1">© <span id="year"></span> Vancouver Island Credit • All rights reserved</p>
-    </footer>
   </main>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Year in footer
-      const yearEl = document.getElementById('year'); if (yearEl) yearEl.textContent = new Date().getFullYear();
-
       // Elements & state
       const form = document.getElementById('lead-form');
       const steps = Array.from(document.querySelectorAll('.form-step'));
@@ -463,6 +421,7 @@
       const progressFill = document.getElementById('progress-fill');
       const progressLabel = document.getElementById('progress-label');
       const progressEndcap = document.getElementById('progress-endcap');
+
       const el = (id) => document.getElementById(id);
 
       const appType = el('app_type');
@@ -499,7 +458,6 @@
 
       const progressCopyFinal = 'See options you’re actually qualified for';
       let current = 1; // step index (1..N)
-      let isSubmitting = false; // prevent double submit
 
       function showStep(n){
         steps.forEach(s => s.classList.add('hidden'));
@@ -543,12 +501,6 @@
         return ok;
       }
 
-      function validateAll(){
-        let ok = true;
-        for (let s=1; s<=steps.length; s++){ if(!validateStep(s)) ok = false; }
-        return ok;
-      }
-
       function next(delta){
         if (delta>0 && !validateStep(current)) return;
         let t = current + delta;
@@ -569,13 +521,11 @@
         el('vehicleType').value = btn.getAttribute('data-type');
         document.querySelectorAll('[data-type]').forEach(b=>b.classList.remove('selected'));
         btn.classList.add('selected');
-        maybeAutoSubmit();
       }));
       document.querySelectorAll('[data-cond]').forEach(btn=> btn.addEventListener('click', ()=>{
         el('vehicleCondition').value = btn.getAttribute('data-cond');
         document.querySelectorAll('[data-cond]').forEach(b=>b.classList.remove('selected'));
         btn.classList.add('selected');
-        maybeAutoSubmit();
       }));
 
       // App type selection
@@ -609,8 +559,6 @@
         checkPreviousAddressNeed();
         // Employment details per mode
         incomeSourceChanged();
-
-        maybeAutoSubmit();
       }
       tabPre?.addEventListener('click', ()=> setAppType('Pre-Approval'));
       tabCredit?.addEventListener('click', ()=> setAppType('Credit Inquiry'));
@@ -620,7 +568,6 @@
       hasTradeIn?.addEventListener('change', ()=>{
         if (!tradeInDetails) return;
         tradeInDetails.classList.toggle('hidden', hasTradeIn.value.toLowerCase()!=='yes');
-        maybeAutoSubmit();
       });
 
       // Income source change => show proper details
@@ -650,7 +597,6 @@
           setRequired(['otherIncomeAmount','otherIncomeSource'], true);
         }
         checkPreviousEmploymentNeed();
-        maybeAutoSubmit();
       }
       incomeSourceSelect?.addEventListener('change', incomeSourceChanged);
 
@@ -661,7 +607,7 @@
         const need = years < 2;
         setRequired(['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'], need);
       }
-      timeWithEmployerYears?.addEventListener('change', ()=>{ checkPreviousEmploymentNeed(); maybeAutoSubmit(); });
+      timeWithEmployerYears?.addEventListener('change', checkPreviousEmploymentNeed);
 
       function shouldShowPreviousEmployment(){
         if (appType.value !== 'Full Application') return false;
@@ -691,8 +637,8 @@
         previousAddressDetails?.classList.toggle('hidden', !need);
         setRequired(['prevStreetAddress','prevCity','prevProvince','prevPostalCode','timeAtPrevAddressYears','timeAtPrevAddressMonths'], need);
       }
-      timeAtAddressYears?.addEventListener('change', ()=>{ checkPreviousAddressNeed(); maybeAutoSubmit(); });
-      timeAtAddressMonths?.addEventListener('change', ()=>{ checkPreviousAddressNeed(); maybeAutoSubmit(); });
+      timeAtAddressYears?.addEventListener('change', checkPreviousAddressNeed);
+      timeAtAddressMonths?.addEventListener('change', checkPreviousAddressNeed);
 
       // Helpers
       function toggle(node, show){ if(!node) return; node.classList.toggle('hidden', !show); }
@@ -701,115 +647,4 @@
       // Populate dropdowns & DOB
       function populateDropdown(sel, start, end, label, singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i+' '+(i!==1?label:(singular||label)); sel.appendChild(o); } }
       function populateMonths(sel){ if(!sel) return; const months=["January","February","March","April","May","June","July","August","September","October","November","December"]; months.forEach((m,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=m; sel.appendChild(o); }); }
-      function updateDays(){ const y=parseInt(dobYear?.value||'',10); const m=parseInt(dobMonth?.value||'',10); const selected=parseInt(dobDay?.value||'',10); const days=(y&&m)?new Date(y,m,0).getDate():31; if(!dobDay) return; dobDay.innerHTML='<option value="">Day</option>'; for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; dobDay.appendChild(o); } if(selected && selected<=days) dobDay.value=selected; }
-
-      populateDropdown(el('timeWithEmployerYears'), 0, 30, 'Years','Year');
-      populateDropdown(el('timeWithEmployerMonths'), 0, 11, 'Months','Month');
-      populateDropdown(el('prevTimeWithEmployerYears'), 0, 30, 'Years','Year');
-      populateDropdown(el('prevTimeWithEmployerMonths'), 0, 11, 'Months','Month');
-      populateDropdown(el('timeAtAddressYears'), 0, 30, 'Years','Year');
-      populateDropdown(el('timeAtAddressMonths'), 0, 11, 'Months','Month');
-      populateDropdown(el('timeAtPrevAddressYears'), 0, 30, 'Years','Year');
-      populateDropdown(el('timeAtPrevAddressMonths'), 0, 11, 'Months','Month');
-      populateMonths(dobMonth); updateDays();
-      dobYear?.addEventListener('input', ()=>{ updateDays(); maybeAutoSubmit(); });
-      dobMonth?.addEventListener('change', ()=>{ updateDays(); maybeAutoSubmit(); });
-
-      // Phone mask & currency formatting
-      const phone = el('phone');
-      function formatPhone(e){
-        const input=e.target; const d=input.value.replace(/\D/g,'').substring(0,10);
-        if(d.length>6) input.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
-        else if(d.length>3) input.value=`(${d.slice(0,3)}) ${d.slice(3)}`;
-        else if(d.length>0) input.value=`(${d}`;
-      }
-      phone?.addEventListener('input', (e)=>{ formatPhone(e); maybeAutoSubmit(); });
-
-      function currencyListener(e){
-        let v=e.target.value.replace(/[$,]/g,'');
-        e.target.value = (!v||isNaN(v))? '' : ('$'+ new Intl.NumberFormat('en-US').format(v));
-        maybeAutoSubmit();
-      }
-      ['monthlyPayment','avgMonthlyIncome','otherIncomeAmount','simplifiedMonthlyIncome'].forEach(id=> el(id)?.addEventListener('input', currencyListener));
-
-      // AUTO-SUBMIT: when every required field (based on current logic) is valid
-      function allRequiredFieldsValid() {
-        const req = Array.from(document.querySelectorAll('#lead-form [required]'));
-        if (!req.length) return false;
-        for (const f of req) {
-          if (f.closest('.hidden')) return false; // if a required is hidden due to step, form isn't complete
-          let pass = (f.type==='checkbox') ? f.checked : (f.value && f.value.trim()!=='');
-          if (f.id==='phone') pass = f.value.replace(/\D/g,'').length>=10;
-          if (f.type==='email' || f.id==='email'){
-            const v=f.value.trim();
-            pass = pass && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-          }
-          if (!pass) return false;
-        }
-        return true;
-      }
-
-      async function submitForm(){
-        if (isSubmitting) return;
-        if (!validateAll()) return;
-        isSubmitting = true;
-        btnNext.disabled = true; btnBack.disabled = true;
-        btnNext.textContent = 'Submitting…';
-        try {
-          const fd = new FormData(form);
-          await fetch('/', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body: new URLSearchParams(fd).toString() });
-          window.location.href = '/thank-you.html';
-        } catch (err){
-          // Fallback if Netlify fetch fails: native submit (or inline thank-you)
-          try { form.submit(); }
-          catch (_e) {
-            document.getElementById('thankyou')?.classList.remove('hidden');
-            form?.classList.add('hidden');
-          }
-        }
-      }
-
-      function maybeAutoSubmit(){
-        // If user reaches last step and everything required is valid, submit automatically.
-        // We still keep Next/Back buttons for manual progression.
-        const onLastStep = (current === steps.length);
-        if (onLastStep && allRequiredFieldsValid()) {
-          submitForm();
-        }
-      }
-
-      function nextAndMaybeAutoSubmit(delta){
-        next(delta);
-        maybeAutoSubmit();
-      }
-
-      btnNext.removeEventListener('click', ()=> next(1)); // ensure no duplicate handlers
-      btnNext.addEventListener('click', ()=> nextAndMaybeAutoSubmit(1));
-      btnBack.addEventListener('click', ()=> nextAndMaybeAutoSubmit(-1));
-
-      // Also listen to any input/change to try auto-submit when on last step
-      form.addEventListener('input', maybeAutoSubmit);
-      form.addEventListener('change', maybeAutoSubmit);
-
-      // Previous employment need (Full + <2 yrs) helper
-      function shouldShowPreviousEmployment(){
-        if (appType.value !== 'Full Application') return false;
-        const years = parseInt(timeWithEmployerYears?.value||'0',10) || 0;
-        return years < 2;
-      }
-
-      // Helpers continued
-      function checkPreviousEmploymentNeed(){
-        if (appType.value !== 'Full Application') { setRequired(['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'], false); return; }
-        const years = parseInt(timeWithEmployerYears?.value||'0',10) || 0;
-        const need = years < 2;
-        setRequired(['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'], need);
-      }
-
-      // Init defaults
-      setAppType('Pre-Approval');
-      showStep(1);
-    });
-  </script>
-</body>
-</html>
+      function updateDays(){ const y=parseInt(dobYear?.value||'',10); const m=parseInt(dobMonth?.value||'',10); const selected=parseInt(dobDay?.value||'',10); const days=(y&&m)?new Date(y,m,0).getDate():31; if(!
