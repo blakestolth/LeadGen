@@ -25,28 +25,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
     
     <style>
-        body { font-family: 'Inter', sans-serif; background:#f9fafb; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-        .card { background:#fff; border-radius:1.5rem; border:1px solid #e5e7eb; box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05); }
-        .form-input, .form-select, .form-textarea { background:#f3f4f6; color:#18181b; border:2px solid transparent; font-size:16px; width:100%; padding:.85rem 1rem; border-radius:.75rem; transition:all .2s ease; }
-        .form-input::placeholder { color:#a1a1aa; }
-        .form-input:focus, .form-select:focus, .form-textarea:focus { background:#fff; border-color:#007AFF; box-shadow:0 0 0 3px rgba(0,122,255,.2); outline:none; }
-        .cta-button { background:#007AFF; color:#fff; font-weight:800; padding:.9rem 1rem; border-radius:.9rem; transition:all .2s ease; box-shadow:0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1); }
-        .cta-button:hover { transform:translateY(-2px); background:#0a64d0; }
-        .grid-sq { display:grid; gap:.8rem; grid-template-columns:repeat(2,minmax(120px,1fr)); }
-        .grid-2, .grid-3 { display:grid; gap:.8rem; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); }
-        .tile { display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; font-weight:900; color:#111827; border-radius:.75rem; border:2px solid #e5e7eb; background:#fff; aspect-ratio:1/1; max-width:180px; width:100%; transition:.15s; }
-        .tile:hover { border-color:#2563eb; background:#f5f8ff; box-shadow:0 10px 18px -8px rgba(37,99,235,.45); transform:translateY(-1px); }
-        .tile.selected { border-color:#2563eb; background:#eef4ff; box-shadow:inset 0 0 0 2px #2563eb; }
-        .choice { border-radius:.75rem; border:2px solid #e5e7eb; background:#fff; padding:.95rem; font-weight:800; text-align:center; max-width:220px; width:100%; transition:.15s; }
-        .choice:hover { border-color:#2563eb; background:#f5f8ff; }
-        .choice.selected { border-color:#2563eb; background:#eef4ff; box-shadow:inset 0 0 0 2px #2563eb; }
-        .track { height:8px; background:#e5e7eb; border-radius:9999px; overflow:hidden; }
-        .fill { height:8px; background:linear-gradient(90deg,#007AFF,#409CFF); border-radius:9999px; width:0%; transition:width .25s ease; }
-        .err { border-color:#ef4444 !important; }
-        .err-label { color:#ef4444 !important; }
-        .seg { display:inline-flex; gap:.25rem; background:#f3f4f6; padding:.25rem; border-radius:.75rem; }
-        .seg-btn { padding:.5rem .75rem; border-radius:.5rem; font-weight:600; color:#374151; background:transparent; border:2px solid transparent; }
-        .seg-btn[aria-pressed="true"] { background:#e0ecff; color:#1d4ed8; border-color:#bfdbfe; }
+        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        .card { background-color: #ffffff; border-radius: 1.5rem; border: 1px solid #e5e7eb; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05); }
+        .form-input, .form-select, .form-textarea { background-color: #f3f4f6; color: #18181b; border: 2px solid transparent; transition: all .2s ease; font-size: 16px; width: 100%; padding: .85rem 1rem; border-radius: .75rem; }
+        .form-input::placeholder { color: #a1a1aa; }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { background-color: #ffffff; border-color: #007AFF; box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2); outline: none; }
+        .cta-button { background-color: #007AFF; color: #fff; font-weight: 800; padding: .9rem 1rem; border-radius: .9rem; transition: all .2s ease; box-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1); }
+        .cta-button:hover { transform: translateY(-2px); background-color: #0a64d0; }
+        .grid-sq { display: grid; gap: .8rem; grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+        .grid-2, .grid-3 { display: grid; gap: .8rem; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+        .tile { display: flex; align-items: center; justify-content: center; text-align: center; font-weight: 900; color: #111827; border-radius: .75rem; border: 2px solid #e5e7eb; background: #fff; aspect-ratio: 1/1; max-width: 180px; width: 100%; transition: .15s; }
+        .tile:hover { border-color: #2563eb; background: #f5f8ff; box-shadow: 0 10px 18px -8px rgba(37, 99, 235, .45); transform: translateY(-1px); }
+        .tile.selected { border-color: #2563eb; background: #eef4ff; box-shadow: inset 0 0 0 2px #2563eb; }
+        .choice { border-radius: .75rem; border: 2px solid #e5e7eb; background: #fff; padding: .95rem; font-weight: 800; text-align: center; max-width: 220px; width: 100%; transition: .15s; }
+        .choice:hover { border-color: #2563eb; background: #f5f8ff; }
+        .choice.selected { border-color: #2563eb; background: #eef4ff; box-shadow: inset 0 0 0 2px #2563eb; }
+        .track { height: 8px; background: #e5e7eb; border-radius: 9999px; overflow: hidden; }
+        .fill { height: 8px; background: linear-gradient(90deg, #007AFF, #409CFF); border-radius: 9999px; width: 0%; transition: width .25s ease; }
+        .err { border-color: #ef4444 !important; }
+        .err-label { color: #ef4444 !important; }
+        .seg { display: inline-flex; gap: .25rem; background: #f3f4f6; padding: .25rem; border-radius: .75rem; }
+        .seg-btn { padding: .5rem .75rem; border-radius: .5rem; font-weight: 600; color: #374151; background: transparent; border: 2px solid transparent; }
+        .seg-btn[aria-pressed="true"] { background: #e0ecff; color: #1d4ed8; border-color: #bfdbfe; }
         .form-step { transition: opacity 0.25s ease-in-out; }
     </style>
 
@@ -302,25 +302,27 @@
 
                     <section class="form-step hidden" data-step="8" id="step-address">
                         <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Where do you live?</h3>
-                        <div id="addr-full-current" class="mt-2 space-y-2">
-                            <label class="block text-sm font-medium text-zinc-700">Current address <span class="text-red-500">*</span></label>
-                            <div class="grid grid-cols-6 gap-2">
-                                <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address" autocomplete="street-address"/>
-                                <input type="text" id="currentUnit" name="currentUnit" class="form-input col-span-6 sm:col-span-2" placeholder="Unit #"/>
-                                <input type="text" id="currentCity" name="currentCity" class="form-input col-span-3" placeholder="City" autocomplete="address-level2"/>
-                                <select id="currentProvince" name="currentProvince" class="form-select col-span-3"><option value="">Province</option></select>
-                                <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input col-span-6" placeholder="Postal Code" autocomplete="postal-code"/>
+                        <div id="addr-full-current" class="mt-2 space-y-3">
+                            <div class="space-y-2">
+                                <label class="block text-sm font-medium text-zinc-700">Current address <span class="text-red-500">*</span></label>
+                                <div class="grid grid-cols-6 gap-2">
+                                    <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address" autocomplete="street-address"/>
+                                    <input type="text" id="currentUnit" name="currentUnit" class="form-input col-span-6 sm:col-span-2" placeholder="Unit #"/>
+                                    <input type="text" id="currentCity" name="currentCity" class="form-input col-span-3" placeholder="City" autocomplete="address-level2"/>
+                                    <select id="currentProvince" name="currentProvince" class="form-select col-span-3"><option value="">Province</option></select>
+                                    <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input col-span-6" placeholder="Postal Code" autocomplete="postal-code"/>
+                                </div>
+                            </div>
+                            <div id="addr-duration" class="pt-1">
+                                <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at current address <span class="text-red-500">*</span></label>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
+                                    <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+                                </div>
                             </div>
                         </div>
-                        <div id="addr-duration" class="mt-3">
-                            <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at current address <span class="text-red-500">*</span></label>
-                            <div class="grid grid-cols-2 gap-2">
-                                <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                                <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
-                            </div>
-                        </div>
-                        <div id="addr-previous" class="hidden mt-3 space-y-2">
-                            <p class="text-xs text-zinc-500">Less than 2 years at current address? Add your previous address.</p>
+                        <div id="addr-previous" class="hidden mt-4 space-y-2">
+                            <p class="text-xs text-zinc-500">Please provide your previous address.</p>
                             <label class="block text-sm font-medium text-zinc-700">Previous address <span class="text-red-500">*</span></label>
                             <div class="grid grid-cols-6 gap-2">
                                 <input type="text" id="prevStreetAddress" name="prevStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address"/>
@@ -329,9 +331,12 @@
                                 <select id="prevProvince" name="prevProvince" class="form-select col-span-3"><option value="">Province</option></select>
                                 <input type="text" id="prevPostalCode" name="prevPostalCode" class="form-input col-span-6" placeholder="Postal Code"/>
                             </div>
-                            <div class="grid grid-cols-2 gap-2 mt-2">
-                                <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                                <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+                            <div class="pt-1">
+                                <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at previous address <span class="text-red-500">*</span></label>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="form-select"><option value="">Years</option></select>
+                                    <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+                                </div>
                             </div>
                         </div>
                         <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 items-end">
@@ -390,11 +395,9 @@
                                 </label>
                             </div>
                         </div>
-
                         <p id="consent-inline" class="hidden text-[0.72rem] leading-4 text-zinc-600 mt-1">
                             By submitting, you consent to Vancouver Island Credit collecting and using the information you provide to assess financing options and to contact you about your application.
                         </p>
-
                         <div class="pt-3">
                             <button type="submit" id="submitBtn" class="w-full cta-button">Submit and See Options</button>
                             <p id="form-status" class="mt-3 text-xs text-center text-red-600" aria-live="polite"></p>
