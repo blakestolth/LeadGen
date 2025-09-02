@@ -26,10 +26,10 @@
 
   <style>
     :root{
-      --blue-600:#2A5D9F;
-      --blue-700:#214B80;
-      --blue-100:#EAF1FB;
-      --blue-grad:#4C7CC0;
+      --blue-600:#2A5D9F;   /* primary */
+      --blue-700:#214B80;   /* hover/darker */
+      --blue-100:#EAF1FB;   /* subtle bg */
+      --blue-grad:#4C7CC0;  /* gradient end */
     }
     .text-blue-600{ color:var(--blue-600) !important; }
     .bg-blue-100{ background:var(--blue-100) !important; }
@@ -37,6 +37,7 @@
     body { font-family: 'Inter', sans-serif; background:#f9fafb; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
     .card { background:#fff; border-radius:1.5rem; border:1px solid #e5e7eb; box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05); }
 
+    /* Inputs */
     .form-input, .form-select, .form-textarea {
       background:#f3f4f6; color:#18181b; border:2px solid transparent; font-size:16px; width:100%;
       padding:.85rem 1rem; border-radius:.75rem; transition:all .2s ease;
@@ -44,9 +45,11 @@
     .form-input::placeholder { color:#a1a1aa; }
     .form-input:focus, .form-select:focus, .form-textarea:focus { background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.2); outline:none; }
 
+    /* CTA */
     .cta-button { background:var(--blue-600); color:#fff; font-weight:800; padding:.9rem 1rem; border-radius:.9rem; transition:all .2s ease; box-shadow:0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1); }
     .cta-button:hover { transform:translateY(-2px); background:var(--blue-700); }
 
+    /* Tiles */
     .grid-sq, .grid-2, .grid-3 { display:grid; gap:.8rem; justify-items:center; }
     .grid-sq { grid-template-columns:repeat(2,minmax(120px,1fr)); }
     .grid-2  { grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); }
@@ -62,15 +65,30 @@
     .choice:hover { border-color:var(--blue-600); background:#f5f8ff; }
     .choice.selected { border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
 
+    /* Progress */
     .track { height:8px; background:#e5e7eb; border-radius:9999px; overflow:hidden; }
     .fill { height:8px; background:linear-gradient(90deg, var(--blue-600), var(--blue-grad)); border-radius:9999px; width:0%; transition:width .25s ease; }
 
+    /* Validation */
     .err { border-color:#ef4444 !important; }
     .err-label { color:#ef4444 !important; }
 
+    /* Rent/Own segmented switch */
     .seg { display:inline-flex; gap:.25rem; background:#f3f4f6; padding:.25rem; border-radius:.75rem; }
     .seg-btn { padding:.5rem .75rem; border-radius:.5rem; font-weight:600; color:#374151; background:transparent; border:2px solid transparent; }
-    .seg-btn[aria-pressed="true"] { background:#e0ecff; color:var(--blue-700); border-color:#bfdbfe; }
+    .seg-btn[aria-pressed="true"] { background:#e0ecff; color:#214B80; border-color:#bfdbfe; }
+
+    /* Brand borders helper */
+    .brand-border { border:2px solid var(--blue-600); }
+
+    /* Body type cards */
+    .bodytype-card{
+      position:relative; overflow:hidden; border-radius:1rem; border:1px solid #e5e7eb; background:#fff;
+      transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .bodytype-card:hover{ transform:translateY(-2px); border-color:var(--blue-600); box-shadow:0 10px 18px -10px rgba(42,93,159,.35); }
+    .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:120px; }
+    @media (min-width:640px){ .bodytype-img{ height:140px; } }
   </style>
 
   <script type="application/ld+json">
@@ -136,8 +154,8 @@
           <div class="mt-6 pt-4 border-t border-gray-200">
             <div class="flex items-center gap-3">
               <span class="text-[13px] font-semibold text-zinc-700">Partnered with</span>
-              <!-- Increased size while preserving fit -->
-              <img src="Kotautogroup.png" alt="Kot Auto Group" class="h-14 sm:h-16 w-auto object-contain" loading="lazy">
+              <!-- Enlarged Kot logo (fits, scales well) -->
+              <img src="Kotautogroup.png" alt="Kot Auto Group" class="h-24 sm:h-28 w-auto object-contain" loading="lazy">
             </div>
           </div>
         </div>
@@ -147,7 +165,10 @@
           <div>
             <div class="flex items-center space-x-4 mb-5">
               <div class="bg-blue-100 p-3 rounded-xl">
-                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <!-- Back to normal sized bolt -->
+                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
               </div>
               <h2 class="text-2xl font-extrabold text-zinc-900">Fastest Online Approval</h2>
             </div>
@@ -161,14 +182,14 @@
 
           <!-- Reviews badge (bottom-right) -->
           <div class="mt-6 pt-4 border-t border-gray-200">
-            <div class="flex items-center gap-3 justify-start md:justify-start">
-              <!-- Use your provided image path -->
-              <img id="gr-img" src="5star.png" alt="5-star Google reviews" class="h-6 sm:h-7 w-auto object-contain">
-              <span class="text-[13px] font-semibold text-zinc-700">
+            <div class="flex items-center gap-3">
+              <!-- 5-star image with brand border (use your /5star.png) -->
+              <img id="gr-img" src="5star.png" alt="5-star Google reviews" class="h-16 sm:h-20 w-auto object-contain brand-border rounded-md bg-white p-1">
+              <span class="text-[13px] sm:text-sm font-semibold text-zinc-700">
                 Over <span class="font-extrabold">10,000</span> 5-star Google reviews
               </span>
             </div>
-            <!-- graceful fallback if image missing -->
+            <!-- fallback if image missing -->
             <div id="gr-fallback" class="hidden flex items-center gap-2 mt-2 text-amber-500">
               <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.802-2.036a1 1 0 00-1.175 0l-2.802 2.036c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.88 8.72c-.783-.57-.38-1.81.588-1.81H6.93a1 1 0 00.95-.69l1.17-3.292z"/></svg>
               <span class="text-[13px] font-semibold text-zinc-700">Over <span class="font-extrabold">10,000</span> 5-star Google reviews</span>
@@ -390,7 +411,7 @@
 
               <div id="full-self" class="hidden space-y-3">
                 <div>
-                  <label for="businessName" class="block text.sm font-medium text-zinc-700 mb-1.5">Business name <span class="text-red-500">*</span></label>
+                  <label for="businessName" class="block text-sm font-medium text-zinc-700 mb-1.5">Business name <span class="text-red-500">*</span></label>
                   <input type="text" id="businessName" name="businessName" class="form-input" placeholder="Your business"/>
                 </div>
                 <div>
@@ -401,7 +422,7 @@
 
               <div id="full-other" class="hidden space-y-3">
                 <div>
-                  <label for="otherIncomeAmount" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly income amount (before tax) <span class="text-red-500">*</span></label>
+                  <label for="otherIncomeAmount" class="block text sm font-medium text-zinc-700 mb-1.5">Monthly income amount (before tax) <span class="text-red-500">*</span></label>
                   <input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="$2,000" inputmode="numeric"/>
                 </div>
                 <div>
@@ -431,11 +452,13 @@
           <section class="form-step hidden" data-step="9" id="step-address">
             <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Where do you live?</h3>
 
+            <!-- BASIC: Postal code only -->
             <div id="addr-postal-only" class="mt-2 hidden">
               <label for="currentPostalCode_basic" class="block text-sm font-medium text-zinc-700 mb-1.5">Postal Code <span class="text-red-500">*</span></label>
               <input type="text" id="currentPostalCode_basic" name="currentPostalCode_basic" class="form-input" placeholder="V8T 4T2"/>
             </div>
 
+            <!-- CREDIT/FULL: Full current address -->
             <div id="addr-full-current" class="mt-2 hidden space-y-2">
               <label class="block text-sm font-medium text-zinc-700">Current address <span class="text-red-500">*</span></label>
               <div class="grid grid-cols-6 gap-2">
@@ -447,6 +470,7 @@
               </div>
             </div>
 
+            <!-- FULL only: duration controls -->
             <div id="addr-duration" class="hidden mt-3">
               <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at current address <span class="text-red-500">*</span></label>
               <div class="grid grid-cols-2 gap-2">
@@ -455,6 +479,7 @@
               </div>
             </div>
 
+            <!-- FULL only: previous address if <24 months -->
             <div id="addr-previous" class="hidden mt-3 space-y-2">
               <p class="text-xs text-zinc-500">Less than 2 years at current address? Add your previous address.</p>
               <label class="block text-sm font-medium text-zinc-700">Previous address <span class="text-red-500">*</span></label>
@@ -472,6 +497,7 @@
               </div>
             </div>
 
+            <!-- Housing payment + Rent/Own switch -->
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 items-end">
               <div>
                 <label id="housingLabel" for="housingPayment" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly Payment <span class="text-red-500">*</span></label>
@@ -509,6 +535,7 @@
             </div>
           </section>
 
+          <!-- NAV -->
           <div class="flex items-center justify-between pt-2">
             <button type="button" id="btnBack" class="text-sm font-semibold text-zinc-500 hover:text-zinc-800 px-2 py-2 disabled:opacity-30">Back</button>
             <button type="button" id="btnNext" class="cta-button">Next</button>
@@ -517,43 +544,55 @@
       </div>
     </section>
 
-    <!-- INVENTORY PREVIEW -->
+    <!-- INVENTORY PREVIEW (AutoTrader-style categories) -->
     <section id="inventory" class="card p-6 sm:p-8">
       <div class="flex items-center justify-between mb-4">
-        <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Browse Inventory</h3>
+        <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Browse by Body Type</h3>
         <a href="#lead-form" class="text-sm font-semibold text-blue-600 hover:underline js-view-inventory">View all</a>
       </div>
-      <p class="text-sm text-zinc-600 mb-5">Explore by category. You’ll see options you qualify for after the quick form.</p>
+      <p class="text-sm text-zinc-600 mb-5">Pick a category to see matching options after a quick approval.</p>
 
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="border rounded-xl overflow-hidden">
-          <div class="bg-zinc-200 h-24 sm:h-28"></div>
-          <div class="p-3">
-            <p class="font-semibold text-sm">Sedans</p>
-            <button class="mt-2 text-xs font-bold text-blue-600 hover:underline js-view-inventory">View Inventory</button>
-          </div>
-        </div>
-        <div class="border rounded-xl overflow-hidden">
-          <div class="bg-zinc-200 h-24 sm:h-28"></div>
-          <div class="p-3">
-            <p class="font-semibold text-sm">SUVs</p>
-            <button class="mt-2 text-xs font-bold text-blue-600 hover:underline js-view-inventory">View Inventory</button>
-          </div>
-        </div>
-        <div class="border rounded-xl overflow-hidden">
-          <div class="bg-zinc-200 h-24 sm:h-28"></div>
-          <div class="p-3">
-            <p class="font-semibold text-sm">Trucks</p>
-            <button class="mt-2 text-xs font-bold text-blue-600 hover:underline js-view-inventory">View Inventory</button>
-          </div>
-        </div>
-        <div class="border rounded-xl overflow-hidden">
-          <div class="bg-zinc-200 h-24 sm:h-28"></div>
-          <div class="p-3">
-            <p class="font-semibold text-sm">Vans</p>
-            <button class="mt-2 text-xs font-bold text-blue-600 hover:underline js-view-inventory">View Inventory</button>
-          </div>
-        </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <!-- Replace these URLs with your own assets -->
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('/img/bodytype-suv.jpg');"></div>
+          <div class="p-3"><p class="font-semibold text-sm">SUV / Crossover</p></div>
+        </a>
+
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('/img/bodytype-truck.jpg');"></div>
+          <div class="p-3"><p class="font-semibold text-sm">Truck</p></div>
+        </a>
+
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('/img/bodytype-sedan.jpg');"></div>
+          <div class="p-3"><p class="font-semibold text-sm">Sedan</p></div>
+        </a>
+
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('/img/bodytype-coupe.jpg');"></div>
+          <div class="p-3"><p class="font-semibold text-sm">Coupe</p></div>
+        </a>
+
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('/img/bodytype-minivan.jpg');"></div>
+          <div class="p-3"><p class="font-semibold text-sm">Minivan</p></div>
+        </a>
+
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('/img/bodytype-hatchback.jpg');"></div>
+          <div class="p-3"><p class="font-semibold text-sm">Hatchback</p></div>
+        </a>
+
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('/img/bodytype-convertible.jpg');"></div>
+          <div class="p-3"><p class="font-semibold text-sm">Convertible</p></div>
+        </a>
+
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('/img/bodytype-wagon.jpg');"></div>
+          <div class="p-3"><p class="font-semibold text-sm">Wagon</p></div>
+        </a>
       </div>
     </section>
 
@@ -572,10 +611,12 @@
   </main>
 
   <script>
+    // Helpers
     const $ = (id) => document.getElementById(id);
     const bySel = (s, root=document) => root.querySelector(s);
     const bySelAll = (s, root=document) => Array.from(root.querySelectorAll(s));
 
+    // Progress UI
     const steps = () => bySelAll('.form-step');
     function showStep(n){
       steps().forEach(s => s.classList.add('hidden'));
@@ -590,9 +631,11 @@
       window.__currentStep = n;
     }
 
+    // Formatters
     function currencyFmt(e){ let v=e.target.value.replace(/[$,]/g,''); e.target.value = (!v||isNaN(v))? '' : ('$'+ new Intl.NumberFormat('en-US').format(v)); }
     function phoneFmt(e){ const d=e.target.value.replace(/\D/g,'').slice(0,10); if(d.length>6)e.target.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`; else if(d.length>3)e.target.value=`(${d.slice(0,3)}) ${d.slice(3)}`; else if(d.length>0)e.target.value=`(${d}`; }
 
+    // Rent/Own switch
     function setHousing(type){
       $('housingType').value = type;
       $('btnRent').setAttribute('aria-pressed', type==='Rent');
@@ -602,11 +645,13 @@
     $('btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
     $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
 
-    const mode = () => $('app_type').value;
+    // Mode
+    const mode = () => $('app_type').value; // '', 'Pre-Approval' | 'Credit Inquiry' | 'Full Application'
 
     function setAppMode(nextMode){
       $('app_type').value = nextMode || '';
 
+      // Clear selected states
       bySelAll('[data-app]').forEach(b=> {
         b.classList.remove('selected');
         b.setAttribute('aria-pressed','false');
@@ -621,18 +666,23 @@
       const isCredit = nextMode === 'Credit Inquiry';
       const isFull = nextMode === 'Full Application';
 
+      // Middle name
       $('middleName').required = !!nextMode && !isPre;
       $('middleReq').classList.toggle('hidden', !(nextMode && !isPre));
       $('middleOpt').classList.toggle('hidden', !!(nextMode && !isPre));
 
+      // DOB required for ALL paths only after selection
       ['dobMonth','dobDay','dobYear'].forEach(id => $(id).required = !!nextMode);
 
+      // Marital: Credit + Full
       bySel('#marital-wrap').classList.toggle('hidden', !(isCredit || isFull));
       $('maritalStatus').required = (isCredit || isFull);
 
+      // Income visibility: simple for Basic/Credit; full for Full
       bySel('#income-simple').classList.toggle('hidden', !!isFull);
       bySel('#income-full').classList.toggle('hidden', !isFull);
 
+      // Reset address requireds
       ['currentStreetAddress','currentCity','currentProvince','currentPostalCode','currentPostalCode_basic',
        'timeAtAddressYears','timeAtAddressMonths',
        'prevStreetAddress','prevCity','prevProvince','prevPostalCode',
@@ -641,11 +691,13 @@
        'monthlyIncome','incomeSource','incomeSourceFull','currentEmployer','jobTitle']
         .forEach(id => { const n=$(id); if(n) n.required = false; });
 
+      // Hide consent by default until we know path
       bySel('#consent-inline').classList.add('hidden');
       bySel('#consent-checkbox').classList.add('hidden');
 
       if (!nextMode) { updateProgress(); return; }
 
+      // PRE-APPROVAL
       if (isPre) {
         bySel('#addr-postal-only').classList.remove('hidden');
         bySel('#addr-full-current').classList.add('hidden');
@@ -657,17 +709,19 @@
         bySel('#consent-inline').classList.remove('hidden');
       }
 
+      // CREDIT INQUIRY
       if (isCredit) {
         bySel('#addr-postal-only').classList.add('hidden');
         bySel('#addr-full-current').classList.remove('hidden');
-        bySel('#addr-duration').classList.add('hidden');
-        bySel('#addr-previous').classList.add('hidden');
+        bySel('#addr-duration').classList.add('hidden');  // no duration gating
+        bySel('#addr-previous').classList.add('hidden');  // explicitly never
         ['currentStreetAddress','currentCity','currentProvince','currentPostalCode'].forEach(id => $(id).required = true);
         $('monthlyIncome').required = true;
         $('housingPayment').required = true;
         bySel('#consent-inline').classList.remove('hidden');
       }
 
+      // FULL APPLICATION
       if (isFull) {
         bySel('#addr-postal-only').classList.add('hidden');
         bySel('#addr-full-current').classList.remove('hidden');
@@ -681,6 +735,7 @@
       updateProgress();
     }
 
+    // Income branching (FULL)
     function onIncomeSourceFullChange(){
       const v = $('incomeSourceFull').value;
       const employed = (v === 'Full-Time' || v === 'Part-Time');
@@ -704,6 +759,7 @@
       updateProgress();
     }
 
+    // FULL: previous employment if < 24 months
     function checkPrevEmploymentNeed(){
       if (mode() !== 'Full Application') { bySel('#prev-employment').classList.add('hidden'); return; }
       const yRaw = $('timeWithEmployerYears').value;
@@ -718,6 +774,7 @@
       ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id => { const n=$(id); if(n) n.required = need; });
     }
 
+    // FULL: previous address if < 24 months
     function onAddressDurationChange(){
       if (mode() !== 'Full Application') return;
       const yRaw = $('timeAtAddressYears').value;
@@ -735,6 +792,7 @@
       updateProgress();
     }
 
+    // Validation & progress
     function visibleRequired() {
       const req = bySelAll('#lead-form [required]');
       return req.filter(el => !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none');
@@ -775,6 +833,7 @@
       $('progress-fill').style.width = pct+'%';
     }
 
+    // Navigation
     function next(delta){
       const cur = window.__currentStep || 1;
       if (delta>0 && !validateStep(cur)) return;
@@ -788,6 +847,7 @@
     $('btnNext').addEventListener('click', ()=> next(1));
     $('btnBack').addEventListener('click', ()=> next(-1));
 
+    // Selections
     bySelAll('[data-type]').forEach(b=> b.addEventListener('click', ()=>{
       $('vehicleType').value = b.dataset.type;
       bySelAll('[data-type]').forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); next(1);
@@ -801,15 +861,18 @@
       r.parentElement.addEventListener('click', ()=>{ r.checked=true; next(1); });
     });
 
+    // Purchase step listeners
     $('hasTradeIn')?.addEventListener('change', (e)=>{
       bySel('#tradeInDetails').classList.toggle('hidden', e.target.value.toLowerCase()!=='yes');
     });
 
+    // App type
     bySelAll('[data-app]').forEach(b=> b.addEventListener('click', ()=>{
       setAppMode(b.dataset.app);
       next(1);
     }));
 
+    // Listeners
     $('phone')?.addEventListener('input', phoneFmt);
     ['monthlyIncome','avgMonthlyIncome','otherIncomeAmount','housingPayment'].forEach(id=> $(id)?.addEventListener('input', currencyFmt));
     $('incomeSourceFull')?.addEventListener('change', onIncomeSourceFullChange);
@@ -818,6 +881,7 @@
     $('timeAtAddressYears')?.addEventListener('change', onAddressDurationChange);
     $('timeAtAddressMonths')?.addEventListener('change', onAddressDurationChange);
 
+    // Inventory "View Inventory" -> jump to form + show notice
     function showFormNotice(){
       const n = $('form-notice');
       if(!n) return;
@@ -834,14 +898,7 @@
       });
     });
 
-    // 5-star image fallback
-    (function(){
-      const img = document.getElementById('gr-img');
-      const fb = document.getElementById('gr-fallback');
-      if (!img) return;
-      img.addEventListener('error', ()=>{ if(fb){ fb.classList.remove('hidden'); } img.style.display='none'; });
-    })();
-
+    // Submit
     async function submitForm(){
       if (!validateAll()) { $('form-status').textContent = 'Please complete all required fields.'; return; }
       $('submitBtn').disabled = true; $('submitBtn').textContent = 'Submitting…';
@@ -854,15 +911,19 @@
       }
     }
 
+    // Boot
     (function init(){
+      // footer year
       const y = new Date().getFullYear(); bySel('#year').textContent = y;
 
+      // DOB selects
       function populateMonths(sel){ if(!sel) return; const m=["January","February","March","April","May","June","July","August","September","October","November","December"]; m.forEach((mm,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=mm; sel.appendChild(o);}); }
       function updateDays(){ const y=parseInt($('dobYear').value||'',10); const m=parseInt($('dobMonth').value||'',10); const sel=parseInt($('dobDay').value||'',10); const days=(y&&m)?new Date(y,m,0).getDate():31; $('dobDay').innerHTML='<option value="">Day</option>'; for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; $('dobDay').appendChild(o);} if(sel&&sel<=days)$('dobDay').value=sel; }
       populateMonths($('dobMonth')); updateDays();
       $('dobMonth').addEventListener('change', updateDays);
       $('dobYear').addEventListener('input', updateDays);
 
+      // Dropdowns
       function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i+' '+(i!==1?label:(singular||label)); sel.appendChild(o);} }
       populateDropdown($('timeWithEmployerYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('timeWithEmployerMonths'), 0, 11, 'Months', 'Month');
@@ -871,14 +932,20 @@
       populateDropdown($('timeAtAddressYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
 
+      // previous address duration dropdowns
       populateDropdown($('prevTimeAtAddressYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('prevTimeAtAddressMonths'), 0, 11, 'Months', 'Month');
 
+      // Provinces
       function populateProvinces(cur, prev){ const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; [cur,prev].forEach(sel=>{ if(!sel) return; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }); }
       populateProvinces($('currentProvince'), $('prevProvince'));
 
+      // Default housing switch
       setHousing('Rent');
+
+      // Start on step 1
       showStep(1);
+      // IMPORTANT: do NOT preselect any application mode
       setAppMode('');
     })();
   </script>
