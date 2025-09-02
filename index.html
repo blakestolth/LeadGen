@@ -46,7 +46,9 @@
       padding:.85rem 1rem; border-radius:.75rem; transition:all .2s ease;
     }
     .form-input::placeholder { color:#a1a1aa; }
-    .form-input:focus, .form-select:focus, .form-textarea:focus { background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.2); outline:none; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.2); outline:none;
+    }
 
     /* CTA */
     .cta-button { background:var(--blue-600); color:#fff; font-weight:800; padding:.9rem 1rem; border-radius:.9rem; transition:all .2s ease; box-shadow:0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1); }
@@ -58,7 +60,7 @@
     .grid-2  { grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); }
     .grid-3  { grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); }
 
-    .tile { display:flex; align-items:center; justify-content:center; text-align:center; font-weight:800; color:#111827;
+    .tile { display:flex; align-items:center; justify-content:center; text-align:center; font-weight:900; color:#111827;
       border-radius:.75rem; border:2px solid #e5e7eb; background:#fff; aspect-ratio:1/1; max-width:180px; width:100%;
     }
     .tile:hover { border-color:var(--blue-600); background:#f5f8ff; box-shadow:0 10px 18px -8px rgba(37,99,235,.45); transform:translateY(-1px); transition:.15s; }
@@ -81,8 +83,8 @@
     .seg-btn { padding:.5rem .75rem; border-radius:.5rem; font-weight:600; color:#374151; background:transparent; border:2px solid transparent; }
     .seg-btn[aria-pressed="true"] { background:#e0ecff; color:var(--blue-700); border-color:#bfdbfe; }
 
-    /* Partner strip */
-    .partner-strip { background:#ffffff; border-bottom:1px solid #e5e7eb; }
+    /* Partner line style in hero */
+    .partner-line img { filter: saturate(1.05) contrast(1.02); }
   </style>
 
   <script type="application/ld+json">
@@ -107,16 +109,28 @@
     <!-- HERO -->
     <section class="card p-6 sm:p-8">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-        <div class="space-y-6 text-center md:text-left">
+        <!-- Left side -->
+        <div class="space-y-5 text-center md:text-left">
           <div class="flex items-center justify-center md:justify-start gap-3">
             <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit" class="h-16 sm:h-20 md:h-20 w-auto object-contain rounded-md" onerror="this.style.display='none'"/>
             <h1 class="font-black text-3xl sm:text-4xl text-zinc-900 tracking-tight">Vancouver Island Credit</h1>
           </div>
-          <div class="text-center md:text-left">
+
+          <div>
             <p class="text-lg font-bold text-blue-600">Fastest online approvals — see options in minutes</p>
-            <div class="mt-2 space-y-1 text-sm text-zinc-600">
+
+            <!-- Partnered line moved here -->
+            <div class="partner-line mt-2 flex items-center justify-center md:justify-start gap-2">
+              <span class="text-[13px] font-semibold text-zinc-700">Partnered with</span>
+              <img src="Kotautogroup.png" alt="Kot Auto Group" class="h-6 w-auto object-contain" loading="lazy">
+            </div>
+
+            <!-- Contact block now below partnered line -->
+            <div class="mt-3 space-y-1 text-sm text-zinc-600">
               <a href="tel:2369692424" class="inline-flex items-center justify-center md:justify-start gap-2 hover:text-blue-600 transition-colors">
-                <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5h-1.5A13.5 13.5 0 012 3.5z" clip-rule="evenodd"/></svg>
+                <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5h-1.5A13.5 13.5 0 012 3.5z" clip-rule="evenodd"/>
+                </svg>
                 <span>(236) 969-2424</span>
               </a>
               <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
@@ -124,10 +138,13 @@
           </div>
         </div>
 
+        <!-- Right side -->
         <div class="md:border-l md:pl-12 border-gray-200">
           <div class="flex items-center space-x-4 mb-5">
             <div class="bg-blue-100 p-3 rounded-xl">
-              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
             </div>
             <h2 class="text-2xl font-extrabold text-zinc-900">Fastest Online Approval</h2>
           </div>
@@ -135,23 +152,23 @@
             <li><strong class="text-zinc-800">Avoid the Runaround:</strong> Deal with one real person.</li>
             <li><strong class="text-zinc-800">All Credit Welcome:</strong> High approval rates.</li>
             <li><strong class="text-zinc-800">Huge Selection:</strong> New & used vehicles across BC.</li>
+            <!-- New point to fill space -->
+            <li><strong class="text-zinc-800">Canada-Wide Shipping:</strong> Get your car delivered to your doorstep.</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- BRAND BANNER (thinner) -->
+    <!-- BRAND BANNER (thinner + slightly lower opacity) -->
     <section class="card overflow-hidden">
-      <img src="Banner.png" alt="Kot Auto Group banner" class="w-full h-16 sm:h-20 object-cover">
+      <img src="Banner.png" alt="Kot Auto Group banner"
+           class="w-full h-20 sm:h-24 object-cover"
+           style="opacity:.85;">
     </section>
 
     <!-- FLOW + FORM -->
     <section class="card p-0 overflow-hidden">
-      <!-- Partnered strip -->
-      <div class="partner-strip px-4 sm:px-6 py-2 flex items-center justify-center gap-3">
-        <span class="text-[13px] font-semibold text-zinc-700">Partnered with</span>
-        <img src="Kotautogroup.png" alt="Kot Auto Group" class="h-6 w-auto object-contain" loading="lazy">
-      </div>
+      <!-- (Partner strip removed from here by request) -->
 
       <div class="px-4 sm:px-6 pt-4 sticky top-0 bg-white border-b">
         <div class="flex items-center justify-between mb-2">
@@ -169,7 +186,7 @@
           <input type="hidden" name="vehicleType" id="vehicleType" />
           <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
 
-          <!-- NEW ORDER: Vehicle → Condition → Budget → PURCHASE → APPLICATION TYPE → Contact → DOB → Income → Address/Housing → Consent -->
+          <!-- ORDER: Vehicle → Condition → Budget → PURCHASE → APPLICATION TYPE → Contact → DOB → Income → Address/Housing → Consent -->
 
           <!-- 1: Vehicle Type -->
           <section class="form-step" data-step="1">
@@ -302,7 +319,7 @@
             </div>
           </section>
 
-          <!-- 8: Income (simple for Basic/Credit; full for Full) -->
+          <!-- 8: Income -->
           <section class="form-step hidden" data-step="8" id="step-income">
             <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Income</h3>
 
@@ -359,7 +376,7 @@
 
               <div id="full-self" class="hidden space-y-3">
                 <div>
-                  <label for="businessName" class="block text-sm font-medium text-zinc-700 mb-1.5">Business name <span class="text-red-500">*</span></label>
+                  <label for="businessName" class="block text sm font-medium text-zinc-700 mb-1.5">Business name <span class="text-red-500">*</span></label>
                   <input type="text" id="businessName" name="businessName" class="form-input" placeholder="Your business"/>
                 </div>
                 <div>
@@ -379,6 +396,7 @@
                 </div>
               </div>
 
+              <!-- Previous employment (conditional < 24 months) -->
               <div id="prev-employment" class="hidden space-y-3">
                 <p class="text-xs text-zinc-500">Less than 2 years with current employer? Add your previous employer.</p>
                 <div>
@@ -407,7 +425,7 @@
             </div>
 
             <!-- CREDIT/FULL: Full current address -->
-            <div id="addr-full-current" class="mt-2 hidden space-y-2">
+            <div id="addr-full-current" class="mt-2 space-y-2 hidden">
               <label class="block text-sm font-medium text-zinc-700">Current address <span class="text-red-500">*</span></label>
               <div class="grid grid-cols-6 gap-2">
                 <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address" autocomplete="street-address"/>
@@ -418,12 +436,29 @@
               </div>
             </div>
 
-            <!-- FULL only: duration controls (BEFORE housing + previous) -->
+            <!-- FULL only: duration controls (before previous address) -->
             <div id="addr-duration" class="hidden mt-3">
               <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at current address <span class="text-red-500">*</span></label>
               <div class="grid grid-cols-2 gap-2">
                 <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
                 <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+              </div>
+            </div>
+
+            <!-- Previous address appears only if <24 months -->
+            <div id="addr-previous" class="hidden mt-3 space-y-2">
+              <p class="text-xs text-zinc-500">Less than 2 years at current address? Add your previous address.</p>
+              <label class="block text-sm font-medium text-zinc-700">Previous address <span class="text-red-500">*</span></label>
+              <div class="grid grid-cols-6 gap-2">
+                <input type="text" id="prevStreetAddress" name="prevStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address"/>
+                <input type="text" id="prevUnit" name="prevUnit" class="form-input col-span-6 sm:col-span-2" placeholder="Unit #"/>
+                <input type="text" id="prevCity" name="prevCity" class="form-input col-span-3" placeholder="City"/>
+                <select id="prevProvince" name="prevProvince" class="form-select col-span-3"><option value="">Province</option></select>
+                <input type="text" id="prevPostalCode" name="prevPostalCode" class="form-input col-span-6" placeholder="Postal Code"/>
+              </div>
+              <div class="grid grid-cols-2 gap-2 mt-2">
+                <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="form-select"><option value="">Years</option></select>
+                <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="form-select"><option value="">Months</option></select>
               </div>
             </div>
 
@@ -442,30 +477,10 @@
                 <input type="hidden" id="housingType" name="housingType" value="Rent" />
               </div>
             </div>
-
-            <!-- FULL only: previous address if <24 months (MOVED TO BOTTOM WHEN NEEDED) -->
-            <div id="addr-previous" class="hidden mt-3 space-y-2">
-              <p class="text-xs text-zinc-500">Less than 2 years at current address? Add your previous address.</p>
-              <label class="block text-sm font-medium text-zinc-700">Previous address <span class="text-red-500">*</span></label>
-              <div class="grid grid-cols-6 gap-2">
-                <input type="text" id="prevStreetAddress" name="prevStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address"/>
-                <input type="text" id="prevUnit" name="prevUnit" class="form-input col-span-6 sm:col-span-2" placeholder="Unit #"/>
-                <input type="text" id="prevCity" name="prevCity" class="form-input col-span-3" placeholder="City"/>
-                <select id="prevProvince" name="prevProvince" class="form-select col-span-3"><option value="">Province</option></select>
-                <input type="text" id="prevPostalCode" name="prevPostalCode" class="form-input col-span-6" placeholder="Postal Code"/>
-              </div>
-
-              <!-- previous address duration -->
-              <div class="grid grid-cols-2 gap-2 mt-2">
-                <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="form-select"><option value="">Months</option></select>
-              </div>
-            </div>
           </section>
 
           <!-- 10: Consent & Submit -->
           <section class="form-step hidden" data-step="10" id="step-consent">
-            <!-- Full: checkbox -->
             <div id="consent-checkbox" class="hidden">
               <div class="flex items-start gap-3 bg-gray-100 p-4 rounded-lg">
                 <input id="creditConsent" name="creditConsent" type="checkbox" class="h-5 w-5 rounded border-gray-300 mt-0.5"/>
@@ -475,7 +490,6 @@
               </div>
             </div>
 
-            <!-- Basic & Credit: implicit copy -->
             <p id="consent-inline" class="hidden text-[0.72rem] leading-4 text-zinc-600 mt-1">
               By submitting, you consent to Vancouver Island Credit collecting and using the information you provide to assess financing options and to contact you about your application.
             </p>
@@ -551,7 +565,7 @@
         b.setAttribute('aria-pressed','false');
       });
       if (nextMode) {
-        const btn = bySel(`[data-app="${nextMode}"]`);
+        const btn = bySel(\`[data-app="\${nextMode}"]\`);
         btn?.classList.add('selected');
         btn?.setAttribute('aria-pressed','true');
       }
@@ -679,17 +693,9 @@
       const months = (y*12)+m;
       const need = hasAny && months < 24;
 
-      // toggle prev section
       bySel('#addr-previous').classList.toggle('hidden', !need);
       ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths']
         .forEach(id => { const n=$(id); if(n) n.required = need; });
-
-      // move prev section to the very bottom of the address step when needed
-      if (need) {
-        const step = $('step-address');
-        const prev = $('addr-previous');
-        if (step && prev && step.lastElementChild !== prev) step.appendChild(prev);
-      }
 
       updateProgress();
     }
@@ -768,7 +774,7 @@
       bySel('#tradeInDetails').classList.toggle('hidden', e.target.value.toLowerCase()!=='yes');
     });
 
-    // App type
+    // App type (user must choose; not pre-selected)
     bySelAll('[data-app]').forEach(b=> b.addEventListener('click', ()=>{
       setAppMode(b.dataset.app);
       next(1);
@@ -778,8 +784,10 @@
     $('phone')?.addEventListener('input', phoneFmt);
     ['monthlyIncome','avgMonthlyIncome','otherIncomeAmount','housingPayment'].forEach(id=> $(id)?.addEventListener('input', currencyFmt));
     $('incomeSourceFull')?.addEventListener('change', onIncomeSourceFullChange);
+    // employment duration: only show prev when user has chosen something + <24m
     $('timeWithEmployerYears')?.addEventListener('change', ()=>{ checkPrevEmploymentNeed(); updateProgress(); });
     $('timeWithEmployerMonths')?.addEventListener('change', ()=>{ checkPrevEmploymentNeed(); updateProgress(); });
+    // address duration: only show prev when user has chosen something + <24m
     $('timeAtAddressYears')?.addEventListener('change', onAddressDurationChange);
     $('timeAtAddressMonths')?.addEventListener('change', onAddressDurationChange);
 
@@ -802,27 +810,52 @@
       const y = new Date().getFullYear(); bySel('#year').textContent = y;
 
       // DOB selects
-      function populateMonths(sel){ if(!sel) return; const m=["January","February","March","April","May","June","July","August","September","October","November","December"]; m.forEach((mm,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=mm; sel.appendChild(o);}); }
-      function updateDays(){ const y=parseInt($('dobYear').value||'',10); const m=parseInt($('dobMonth').value||'',10); const sel=parseInt($('dobDay').value||'',10); const days=(y&&m)?new Date(y,m,0).getDate():31; $('dobDay').innerHTML='<option value="">Day</option>'; for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; $('dobDay').appendChild(o);} if(sel&&sel<=days)$('dobDay').value=sel; }
+      function populateMonths(sel){
+        if(!sel) return;
+        const m=["January","February","March","April","May","June","July","August","September","October","November","December"];
+        m.forEach((mm,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=mm; sel.appendChild(o);});
+      }
+      function updateDays(){
+        const y=parseInt($('dobYear').value||'',10);
+        const m=parseInt($('dobMonth').value||'',10);
+        const sel=parseInt($('dobDay').value||'',10);
+        const days=(y&&m)?new Date(y,m,0).getDate():31;
+        $('dobDay').innerHTML='<option value="">Day</option>';
+        for(let i=1;i<=days;i++){
+          const o=document.createElement('option'); o.value=i; o.textContent=i; $('dobDay').appendChild(o);
+        }
+        if(sel&&sel<=days)$('dobDay').value=sel;
+      }
       populateMonths($('dobMonth')); updateDays();
       $('dobMonth').addEventListener('change', updateDays);
       $('dobYear').addEventListener('input', updateDays);
 
       // Dropdowns
-      function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i+' '+(i!==1?label:(singular||label)); sel.appendChild(o);} }
+      function populateDropdown(sel,start,end,label,singular){
+        if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>';
+        for(let i=start;i<=end;i++){
+          const o=document.createElement('option'); o.value=i; o.textContent=i+' '+(i!==1?label:(singular||label)); sel.appendChild(o);
+        }
+      }
       populateDropdown($('timeWithEmployerYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('timeWithEmployerMonths'), 0, 11, 'Months', 'Month');
       populateDropdown($('prevTimeWithEmployerYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('prevTimeWithEmployerMonths'), 0, 11, 'Months', 'Month');
       populateDropdown($('timeAtAddressYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
-
-      // previous address duration dropdowns
       populateDropdown($('prevTimeAtAddressYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('prevTimeAtAddressMonths'), 0, 11, 'Months', 'Month');
 
       // Provinces
-      function populateProvinces(cur, prev){ const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; [cur,prev].forEach(sel=>{ if(!sel) return; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }); }
+      function populateProvinces(cur, prev){
+        const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"];
+        [cur,prev].forEach(sel=>{
+          if(!sel) return;
+          prov.forEach(p=>{
+            const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o);
+          });
+        });
+      }
       populateProvinces($('currentProvince'), $('prevProvince'));
 
       // Default housing switch
@@ -830,7 +863,7 @@
 
       // Start on step 1
       showStep(1);
-      // IMPORTANT: do NOT preselect any application mode
+      // No preselected application mode
       setAppMode('');
     })();
   </script>
