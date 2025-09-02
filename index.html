@@ -26,24 +26,19 @@
 
   <style>
     :root{
-      /* Brand blues (matched to Kot Auto Group artwork) */
+      /* Brand blues */
       --blue-600:#2A5D9F;   /* primary */
       --blue-700:#214B80;   /* hover/darker */
-      --blue-100:#EAF1FB;  /* subtle bg */
-      --blue-grad:#4C7CC0; /* gradient end */
+      --blue-100:#EAF1FB;   /* subtle bg */
+      --blue-grad:#4C7CC0;  /* gradient end */
     }
 
-    /* Map Tailwind’s blue utility shades to brand blues (scoped overrides) */
+    /* Align Tailwind blue tokens to brand */
     .text-blue-600{ color:var(--blue-600) !important; }
     .bg-blue-100{ background:var(--blue-100) !important; }
 
-    body { font-family: 'Inter', sans-serif; background:#f9fafb; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; padding-top:56px; }
+    body { font-family: 'Inter', sans-serif; background:#f9fafb; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
     .card { background:#fff; border-radius:1.5rem; border:1px solid #e5e7eb; box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05); }
-
-    /* Top nav */
-    .topnav { position:fixed; top:0; left:0; right:0; height:56px; background:#fff; border-bottom:1px solid #e5e7eb; z-index:40; }
-    .topnav a { color:#374151; font-weight:500; }
-    .topnav a:hover { color:var(--blue-600); }
 
     /* Inputs */
     .form-input, .form-select, .form-textarea {
@@ -86,16 +81,9 @@
     .seg-btn { padding:.5rem .75rem; border-radius:.5rem; font-weight:600; color:#374151; background:transparent; border:2px solid transparent; }
     .seg-btn[aria-pressed="true"] { background:#e0ecff; color:var(--blue-700); border-color:#bfdbfe; }
 
-    /* Partner strip (kept for styles if reused) */
-    .partner-strip { background:#ffffff; border-bottom:1px solid #e5e7eb; }
-
-    /* Inventory cards */
-    .badge { font-size:.7rem; font-weight:800; padding:.25rem .5rem; border-radius:.5rem; background:var(--blue-100); color:var(--blue-700); display:inline-block; }
-
-    /* Thin headline feel */
-    h1,h2,h3 { letter-spacing:-0.01em; }
-    h1 { font-weight:800; }
-    .hero-sub { font-weight:500; }
+    /* Thin look for step text */
+    .step-title { font-weight:700; letter-spacing:-0.01em; }
+    .step-text  { font-weight:500; color:#374151; }
   </style>
 
   <script type="application/ld+json">
@@ -114,65 +102,72 @@
   }
   </script>
 </head>
-<body class="px-4">
-  <!-- TOP NAV -->
-  <nav class="topnav">
-    <div class="max-w-2xl mx-auto h-full px-3 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-2">
-        <img src="Kotautogroup.png" alt="Kot Auto Group" class="h-6 w-auto object-contain">
-        <span class="text-sm sm:text-base font-semibold text-zinc-800">Vancouver Island Credit</span>
-      </a>
-      <div class="hidden sm:flex items-center gap-4">
-        <a href="#inventory" class="text-sm">Inventory</a>
-        <a href="#about" class="text-sm">About</a>
-        <a href="#why" class="text-sm">Why Us</a>
-        <a href="#contact" class="text-sm">Contact</a>
-      </div>
-    </div>
-  </nav>
+<body class="py-6 sm:py-8 px-4">
+  <!-- MAX WIDTH WRAPPER -->
+  <main class="w-full max-w-2xl mx-auto space-y-6 sm:space-y-8">
 
-  <!-- EXACT WIDTH: max-w-2xl -->
-  <main class="w-full max-w-2xl mx-auto space-y-8 py-8 sm:py-12">
+    <!-- NAV BAR -->
+    <header class="card px-4 sm:px-6 py-3 sm:py-4">
+      <div class="flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit" class="h-8 sm:h-9 w-auto object-contain rounded-md" onerror="this.style.display='none'"/>
+          <span class="text-base sm:text-lg font-extrabold text-zinc-900">Vancouver Island Credit</span>
+        </div>
+        <nav class="hidden sm:flex items-center gap-4 text-sm font-medium text-zinc-600">
+          <a href="#inventory" class="hover:text-blue-600">Inventory</a>
+          <a href="#about" class="hover:text-blue-600">About</a>
+          <a href="#why" class="hover:text-blue-600">Why Us</a>
+          <a href="#contact" class="hover:text-blue-600">Contact</a>
+        </nav>
+      </div>
+    </header>
+
     <!-- HERO -->
     <section class="card p-6 sm:p-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-        <div class="space-y-5 text-center md:text-left">
-          <div class="flex items-center justify-center md:justify-start gap-3">
-            <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit" class="h-16 sm:h-20 md:h-20 w-auto object-contain rounded-md" onerror="this.style.display='none'"/>
-            <h1 class="font-black text-3xl sm:text-4xl text-zinc-900 tracking-tight">Vancouver Island Credit</h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
+        <!-- LEFT: Headline + Steps + Partner -->
+        <div class="space-y-5">
+          <p class="text-lg font-bold text-blue-600">Fastest online approvals — see options in minutes</p>
+
+          <!-- 3-Step Explainer -->
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <div class="shrink-0 w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-[13px] font-extrabold text-blue-600">1</div>
+              <div>
+                <div class="step-title">Share your info</div>
+                <p class="step-text text-sm">Takes ~2 minutes. No call centres — work 1:1 with Blake.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="shrink-0 w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-[13px] font-extrabold text-blue-600">2</div>
+              <div>
+                <div class="step-title">Get access to options in BC</div>
+                <p class="step-text text-sm">See vehicles you actually qualify for — no bait, no pressure.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="shrink-0 w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-[13px] font-extrabold text-blue-600">3</div>
+              <div>
+                <div class="step-title">Delivered to your doorstep</div>
+                <p class="step-text text-sm">Simple paperwork. Province-wide delivery available.</p>
+              </div>
+            </div>
           </div>
 
-          <div class="text-center md:text-left space-y-2">
-            <p class="text-lg font-bold text-blue-600">Fastest online approvals — see options in minutes</p>
-
-            <!-- Partnered line + larger logo (moved here) -->
-            <div class="flex items-center justify-center md:justify-start gap-3">
-              <span class="text-[13px] font-semibold text-zinc-700">Partnered with</span>
-              <img src="Kotautogroup.png" alt="Kot Auto Group" class="h-8 sm:h-9 w-auto object-contain" loading="lazy">
-            </div>
-
-            <!-- Subcopy -->
-            <p class="hero-sub text-sm text-zinc-600">
-              Complete your quick approval to instantly unlock inventory you’re actually qualified for.
-            </p>
-
-            <!-- Contact moved below partnered line -->
-            <div class="mt-2 space-y-1 text-sm text-zinc-600" id="contact">
-              <a href="tel:2369692424" class="inline-flex items-center justify-center md:justify-start gap-2 hover:text-blue-600 transition-colors">
-                <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5h-1.5A13.5 13.5 0 012 3.5z" clip-rule="evenodd"/></svg>
-                <span>(236) 969-2424</span>
-              </a>
-              <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
-            </div>
+          <!-- Partnered With -->
+          <div class="flex items-center gap-3 pt-1">
+            <span class="text-[13px] font-semibold text-zinc-700">Partnered with</span>
+            <img src="Kotautogroup.png" alt="Kot Auto Group" class="h-8 sm:h-10 w-auto object-contain" loading="lazy">
           </div>
         </div>
 
+        <!-- RIGHT: Value props -->
         <div class="md:border-l md:pl-12 border-gray-200">
           <div class="flex items-center space-x-4 mb-5">
             <div class="bg-blue-100 p-3 rounded-xl">
               <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
             </div>
-            <h2 class="text-2xl font-semibold text-zinc-900">Fastest Online Approval</h2>
+            <h2 class="text-2xl font-extrabold text-zinc-900">Fastest Online Approval</h2>
           </div>
           <ul class="space-y-3 text-zinc-600 text-sm">
             <li><strong class="text-zinc-800">Avoid the Runaround:</strong> Deal with one real person.</li>
@@ -186,7 +181,7 @@
 
     <!-- FLOW + FORM -->
     <section class="card p-0 overflow-hidden">
-      <div class="px-4 sm:px-6 pt-4 sticky top-[56px] bg-white border-b z-30">
+      <div class="px-4 sm:px-6 pt-4 sticky top-0 bg-white border-b">
         <div class="flex items-center justify-between mb-2">
           <div id="progress-label" class="text-xs font-semibold text-zinc-700">Step 1 of 10</div>
           <div id="progress-endcap" class="text-xs text-blue-700 font-semibold">Let’s get you approved</div>
@@ -206,7 +201,7 @@
 
           <!-- 1: Vehicle Type -->
           <section class="form-step" data-step="1">
-            <h3 class="text-xl sm:text-2xl font-semibold text-zinc-900">What type of vehicle?</h3>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">What type of vehicle?</h3>
             <div class="mt-4 grid-sq">
               <button type="button" class="tile" data-type="Car">Car</button>
               <button type="button" class="tile" data-type="SUV">SUV</button>
@@ -217,7 +212,7 @@
 
           <!-- 2: Condition -->
           <section class="form-step hidden" data-step="2">
-            <h3 class="text-xl sm:text-2xl font-semibold text-zinc-900">Used or new?</h3>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Used or new?</h3>
             <div class="mt-4 grid-2">
               <button type="button" class="choice" data-cond="Used">Used</button>
               <button type="button" class="choice" data-cond="New">New</button>
@@ -226,7 +221,7 @@
 
           <!-- 3: Budget -->
           <section class="form-step hidden" data-step="3">
-            <h3 class="text-xl sm:text-2xl font-semibold text-zinc-900">What’s your monthly budget?</h3>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">What’s your monthly budget?</h3>
             <div class="mt-4 grid-sq">
               <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$250 – $375" required><span>$250 – $375</span></label>
               <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$376 – $499" required><span>$376 – $499</span></label>
@@ -237,7 +232,7 @@
 
           <!-- 4: PURCHASE -->
           <section class="form-step hidden" data-step="4" id="step-purchase">
-            <h3 class="text-xl sm:text-2xl font-semibold text-zinc-900">Purchase details</h3>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Purchase details</h3>
             <div class="mt-2 grid gap-4">
               <div>
                 <label for="downPayment" class="block text-sm font-medium text-zinc-700 mb-1.5">Estimated down payment?</label>
@@ -269,7 +264,7 @@
 
           <!-- 5: APPLICATION TYPE -->
           <section class="form-step hidden" data-step="5">
-            <h3 class="text-xl sm:text-2xl font-semibold text-zinc-900">Choose your path</h3>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Choose your path</h3>
             <div class="mt-4 grid-3" role="tablist" aria-label="Application type">
               <button type="button" class="choice" data-app="Pre-Approval" aria-pressed="false">Pre-Approval</button>
               <button type="button" class="choice" data-app="Credit Inquiry" aria-pressed="false">Credit Inquiry</button>
@@ -280,7 +275,7 @@
 
           <!-- 6: CONTACT -->
           <section class="form-step hidden" data-step="6" id="step-contact">
-            <h3 class="text-xl sm:text-2xl font-semibold text-zinc-900">Your contact info</h3>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Your contact info</h3>
             <div class="mt-2 grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
                 <label for="firstName" class="block text-sm font-medium text-zinc-700 mb-1.5">First name <span class="text-red-500">*</span></label>
@@ -309,7 +304,7 @@
 
           <!-- 7: DOB (+ Marital for Credit/Full) -->
           <section class="form-step hidden" data-step="7" id="step-dob">
-            <h3 class="text-xl sm:text-2xl font-semibold text-zinc-900">About you</h3>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">About you</h3>
             <div class="grid grid-cols-1 gap-4 mt-2">
               <div>
                 <label for="dobMonth" class="block text-sm font-medium text-zinc-700 mb-1.5">Date of birth <span class="text-red-500">*</span></label>
@@ -337,7 +332,7 @@
 
           <!-- 8: Income -->
           <section class="form-step hidden" data-step="8" id="step-income">
-            <h3 class="text-xl sm:text-2xl font-semibold text-zinc-900">Income</h3>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Income</h3>
 
             <!-- SIMPLE -->
             <div id="income-simple" class="mt-2 space-y-3">
@@ -431,7 +426,7 @@
 
           <!-- 9: Address & Housing -->
           <section class="form-step hidden" data-step="9" id="step-address">
-            <h3 class="text-xl sm:text-2xl font-semibold text-zinc-900">Where do you live?</h3>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Where do you live?</h3>
 
             <!-- BASIC: Postal code only -->
             <div id="addr-postal-only" class="mt-2 hidden">
@@ -439,19 +434,7 @@
               <input type="text" id="currentPostalCode_basic" name="currentPostalCode_basic" class="form-input" placeholder="V8T 4T2"/>
             </div>
 
-            <!-- CREDIT/FULL: Full current address -->
-            <div id="addr-full-current" class="mt-2 space-y-2 hidden">
-              <label class="block text-sm font-medium text-zinc-700">Current address <span class="text-red-500">*</span></label>
-              <div class="grid grid-cols-6 gap-2">
-                <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address" autocomplete="street-address"/>
-                <input type="text" id="currentUnit" name="currentUnit" class="form-input col-span-6 sm:col-span-2" placeholder="Unit #"/>
-                <input type="text" id="currentCity" name="currentCity" class="form-input col-span-3" placeholder="City" autocomplete="address-level2"/>
-                <select id="currentProvince" name="currentProvince" class="form-select col-span-3"><option value="">Province</option></select>
-                <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input col-span-6" placeholder="Postal Code" autocomplete="postal-code"/>
-              </div>
-            </div>
-
-            <!-- FULL only: duration controls (always above previous address) -->
+            <!-- Duration first (Full only) -->
             <div id="addr-duration" class="hidden mt-3">
               <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at current address <span class="text-red-500">*</span></label>
               <div class="grid grid-cols-2 gap-2">
@@ -460,7 +443,7 @@
               </div>
             </div>
 
-            <!-- Housing payment + Rent/Own switch (ALL paths) — stays above previous address -->
+            <!-- Housing (always before prev-address gating) -->
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 items-end">
               <div>
                 <label id="housingLabel" for="housingPayment" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly Payment <span class="text-red-500">*</span></label>
@@ -476,7 +459,19 @@
               </div>
             </div>
 
-            <!-- FULL only: previous address if <24 months — now always last -->
+            <!-- CREDIT/FULL: Full current address -->
+            <div id="addr-full-current" class="mt-4 hidden space-y-2">
+              <label class="block text-sm font-medium text-zinc-700">Current address <span class="text-red-500">*</span></label>
+              <div class="grid grid-cols-6 gap-2">
+                <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address" autocomplete="street-address"/>
+                <input type="text" id="currentUnit" name="currentUnit" class="form-input col-span-6 sm:col-span-2" placeholder="Unit #"/>
+                <input type="text" id="currentCity" name="currentCity" class="form-input col-span-3" placeholder="City" autocomplete="address-level2"/>
+                <select id="currentProvince" name="currentProvince" class="form-select col-span-3"><option value="">Province</option></select>
+                <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input col-span-6" placeholder="Postal Code" autocomplete="postal-code"/>
+              </div>
+            </div>
+
+            <!-- FULL only: previous address if <24 months -->
             <div id="addr-previous" class="hidden mt-3 space-y-2">
               <p class="text-xs text-zinc-500">Less than 2 years at current address? Add your previous address.</p>
               <label class="block text-sm font-medium text-zinc-700">Previous address <span class="text-red-500">*</span></label>
@@ -488,6 +483,7 @@
                 <input type="text" id="prevPostalCode" name="prevPostalCode" class="form-input col-span-6" placeholder="Postal Code"/>
               </div>
 
+              <!-- previous address duration -->
               <div class="grid grid-cols-2 gap-2 mt-2">
                 <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="form-select"><option value="">Years</option></select>
                 <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="form-select"><option value="">Months</option></select>
@@ -525,135 +521,12 @@
       </div>
     </section>
 
-    <!-- BRAND BANNER (still below the form; slightly zoomed-out look via object positioning + opacity) -->
+    <!-- BRAND BANNER (below form, slightly thinner + zoomed out) -->
     <section class="card overflow-hidden">
-      <div class="relative w-full h-20 sm:h-24">
-        <img src="Banner.png" alt="Kot Auto Group banner" class="absolute inset-0 w-full h-full object-cover object-center opacity-90">
-      </div>
+      <img src="Banner.png" alt="Kot Auto Group banner" class="w-full h-20 sm:h-24 object-cover object-center" style="opacity:.92; transform:scale(1.02);">
     </section>
 
-    <!-- INVENTORY PREVIEW -->
-    <section id="inventory" class="card p-6 sm:p-8">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="text-xl sm:text-2xl font-semibold text-zinc-900">Available Inventory</h3>
-        <a href="#lead-form" class="text-sm font-semibold text-blue-600 hover:underline">Unlock your matches →</a>
-      </div>
-      <p class="text-sm text-zinc-600 mb-5">Finish the quick approval to view vehicles you’re actually qualified for. These are examples—final availability updates in real-time.</p>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <!-- Card 1 -->
-        <article class="card overflow-hidden">
-          <img src="assets/inventory-1.jpg" alt="SUV sample" class="w-full h-40 object-cover">
-          <div class="p-4 space-y-2">
-            <div class="flex items-center justify-between">
-              <h4 class="font-semibold text-zinc-900">Compact SUV — From $349/mo</h4>
-              <span class="badge">Available</span>
-            </div>
-            <div class="flex flex-wrap gap-2 text-xs">
-              <span class="px-2 py-1 rounded bg-gray-100 text-zinc-700">AWD</span>
-              <span class="px-2 py-1 rounded bg-gray-100 text-zinc-700">Low KM</span>
-              <span class="px-2 py-1 rounded bg-gray-100 text-zinc-700">Backup Cam</span>
-            </div>
-            <a href="#lead-form" class="inline-block mt-1 cta-button text-sm px-4 py-2">See if you qualify</a>
-          </div>
-        </article>
-
-        <!-- Card 2 -->
-        <article class="card overflow-hidden">
-          <img src="assets/inventory-2.jpg" alt="Truck sample" class="w-full h-40 object-cover">
-          <div class="p-4 space-y-2">
-            <div class="flex items-center justify-between">
-              <h4 class="font-semibold text-zinc-900">Pickup Truck — From $429/mo</h4>
-              <span class="badge">Available</span>
-            </div>
-            <div class="flex flex-wrap gap-2 text-xs">
-              <span class="px-2 py-1 rounded bg-gray-100 text-zinc-700">Tow Pkg</span>
-              <span class="px-2 py-1 rounded bg-gray-100 text-zinc-700">Crew Cab</span>
-              <span class="px-2 py-1 rounded bg-gray-100 text-zinc-700">4x4</span>
-            </div>
-            <a href="#lead-form" class="inline-block mt-1 cta-button text-sm px-4 py-2">See if you qualify</a>
-          </div>
-        </article>
-
-        <!-- Card 3 -->
-        <article class="card overflow-hidden">
-          <img src="assets/inventory-3.jpg" alt="Car sample" class="w-full h-40 object-cover">
-          <div class="p-4 space-y-2">
-            <div class="flex items-center justify-between">
-              <h4 class="font-semibold text-zinc-900">Economy Car — From $289/mo</h4>
-              <span class="badge">Available</span>
-            </div>
-            <div class="flex flex-wrap gap-2 text-xs">
-              <span class="px-2 py-1 rounded bg-gray-100 text-zinc-700">Great MPG</span>
-              <span class="px-2 py-1 rounded bg-gray-100 text-zinc-700">Bluetooth</span>
-              <span class="px-2 py-1 rounded bg-gray-100 text-zinc-700">Heated Seats</span>
-            </div>
-            <a href="#lead-form" class="inline-block mt-1 cta-button text-sm px-4 py-2">See if you qualify</a>
-          </div>
-        </article>
-
-        <!-- Card 4 -->
-        <article class="card overflow-hidden">
-          <img src="assets/inventory-4.jpg" alt="Van sample" class="w-full h-40 object-cover">
-          <div class="p-4 space-y-2">
-            <div class="flex items-center justify-between">
-              <h4 class="font-semibold text-zinc-900">Family Van — From $369/mo</h4>
-              <span class="badge">Available</span>
-            </div>
-            <div class="flex flex-wrap gap-2 text-xs">
-              <span class="px-2 py-1 rounded bg-gray-100 text-zinc-700">7 Seats</span>
-              <span class="px-2 py-1 rounded bg-gray-100 text-zinc-700">Dual Sliding</span>
-              <span class="px-2 py-1 rounded bg-gray-100 text-zinc-700">CarPlay</span>
-            </div>
-            <a href="#lead-form" class="inline-block mt-1 cta-button text-sm px-4 py-2">See if you qualify</a>
-          </div>
-        </article>
-
-        <!-- Card 5 -->
-        <article class="card overflow-hidden">
-          <img src="assets/inventory-5.jpg" alt="Crossover sample" class="w-full h-40 object-cover">
-          <div class="p-4 space-y-2">
-            <div class="flex items-center justify-between">
-              <h4 class="font-semibold text-zinc-900">Crossover — From $319/mo</h4>
-              <span class="badge">Available</span>
-            </div>
-            <div class="flex flex-wrap gap-2 text-xs">
-              <span class="px-2 py-1 rounded bg-gray-100 text-zinc-700">Remote Start</span>
-              <span class="px-2 py-1 rounded bg-gray-100 text-zinc-700">Lane Assist</span>
-              <span class="px-2 py-1 rounded bg-gray-100 text-zinc-700">AWD</span>
-            </div>
-            <a href="#lead-form" class="inline-block mt-1 cta-button text-sm px-4 py-2">See if you qualify</a>
-          </div>
-        </article>
-
-        <!-- Card 6 -->
-        <article class="card overflow-hidden">
-          <img src="assets/inventory-6.jpg" alt="Sedan sample" class="w-full h-40 object-cover">
-          <div class="p-4 space-y-2">
-            <div class="flex items-center justify-between">
-              <h4 class="font-semibold text-zinc-900">Midsize Sedan — From $309/mo</h4>
-              <span class="badge">Available</span>
-            </div>
-            <div class="flex flex-wrap gap-2 text-xs">
-              <span class="px-2 py-1 rounded bg-gray-100 text-zinc-700">Apple CarPlay</span>
-              <span class="px-2 py-1 rounded bg-gray-100 text-zinc-700">Blind Spot</span>
-              <span class="px-2 py-1 rounded bg-gray-100 text-zinc-700">Low KM</span>
-            </div>
-            <a href="#lead-form" class="inline-block mt-1 cta-button text-sm px-4 py-2">See if you qualify</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section id="about" class="text-center text-xs text-zinc-500">
-      <p>Vancouver Island Credit works directly with local dealerships and lenders to match you with real approvals and real vehicles.</p>
-    </section>
-
-    <section id="why" class="text-center text-xs text-zinc-500">
-      <p>Why Us: One real point of contact, transparent approvals, fast delivery across BC.</p>
-    </section>
-
-    <footer class="text-center text-xs text-zinc-500 pt-2 space-y-2">
+    <footer id="contact" class="text-center text-xs text-zinc-500 pt-2 space-y-2">
       <p class="font-semibold text-zinc-600">Vancouver Island Credit</p>
       <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
       <p><a href="tel:2369692424" class="hover:text-blue-600 transition-colors">(236) 969-2424</a></p>
@@ -928,10 +801,8 @@
     $('phone')?.addEventListener('input', phoneFmt);
     ['monthlyIncome','avgMonthlyIncome','otherIncomeAmount','housingPayment'].forEach(id=> $(id)?.addEventListener('input', currencyFmt));
     $('incomeSourceFull')?.addEventListener('change', onIncomeSourceFullChange);
-    // employment duration visibility
     $('timeWithEmployerYears')?.addEventListener('change', ()=>{ checkPrevEmploymentNeed(); updateProgress(); });
     $('timeWithEmployerMonths')?.addEventListener('change', ()=>{ checkPrevEmploymentNeed(); updateProgress(); });
-    // address duration visibility
     $('timeAtAddressYears')?.addEventListener('change', onAddressDurationChange);
     $('timeAtAddressMonths')?.addEventListener('change', onAddressDurationChange);
 
@@ -961,7 +832,7 @@
       $('dobYear').addEventListener('input', updateDays);
 
       // Dropdowns
-      function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i+' '+(i!==1?label:(singular||label)); sel.appendChild(o);} }
+      function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">' +(singular||label)+ '</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i+' '+(i!==1?label:(singular||label)); sel.appendChild(o);} }
       populateDropdown($('timeWithEmployerYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('timeWithEmployerMonths'), 0, 11, 'Months', 'Month');
       populateDropdown($('prevTimeWithEmployerYears'), 0, 30, 'Years', 'Year');
@@ -982,7 +853,7 @@
 
       // Start on step 1
       showStep(1);
-      // IMPORTANT: do NOT preselect any application mode
+      // Do NOT preselect any application mode
       setAppMode('');
     })();
   </script>
