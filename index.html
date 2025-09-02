@@ -78,16 +78,20 @@
     .seg-btn { padding:.5rem .75rem; border-radius:.5rem; font-weight:600; color:#374151; background:transparent; border:2px solid transparent; }
     .seg-btn[aria-pressed="true"] { background:#e0ecff; color:#214B80; border-color:#bfdbfe; }
 
-    /* Standout partner/reviews badges (same size, responsive, branded) */
-    .badge-img{
-      height:clamp(88px, 14vw, 160px);
-      width:auto;
-      object-fit:contain;
-      background:#fff;
-      border-radius:1rem;
-      border:3px solid var(--blue-600);
-      box-shadow:0 12px 30px -14px rgba(42,93,159,.55);
-      padding:.5rem .75rem;
+    /* Partner & reviews badges – bigger images, captions inside, thinner borders */
+    .badge{
+      display:inline-flex; flex-direction:column; align-items:center; gap:.4rem;
+      background:#fff; border:2px solid var(--blue-600); border-radius:1rem;
+      padding:.6rem .9rem .75rem; box-shadow:0 12px 30px -14px rgba(42,93,159,.45);
+    }
+    .badge img{
+      height:clamp(120px, 18vw, 220px);
+      width:auto; object-fit:contain;
+      display:block;
+    }
+    .badge-caption{
+      font-weight:800; font-size:.85rem; line-height:1.2; color:#0f172a; text-align:center;
+      letter-spacing:.1px;
     }
 
     /* Body type cards */
@@ -163,8 +167,11 @@
           <div class="mt-6 pt-4 border-t border-gray-200">
             <div class="flex items-center gap-3">
               <span class="text-[13px] font-semibold text-zinc-700">Partnered with</span>
-              <!-- BIG Kot logo with matched style -->
-              <img src="Kotautogroup.png" alt="Kot Auto Group" class="badge-img" loading="lazy">
+              <!-- Badge box with bigger image + caption inside -->
+              <figure class="badge">
+                <img src="Kotautogroup.png" alt="Kot Auto Group" loading="lazy">
+                <figcaption class="badge-caption">Kot Auto Group</figcaption>
+              </figure>
             </div>
           </div>
         </div>
@@ -191,12 +198,13 @@
           <!-- Reviews badge (bottom-right) -->
           <div class="mt-6 pt-4 border-t border-gray-200">
             <div class="flex items-center gap-3">
-              <!-- New larger 5-star image; same size treatment as Kot -->
-              <img id="gr-img" src="5star.png" alt="5-star Google reviews" class="badge-img">
-              <span class="text-[13px] sm:text-sm font-semibold text-zinc-700">
-                Over <span class="font-extrabold">10,000</span> 5-star Google reviews
-              </span>
+              <!-- Badge box with bigger image + caption inside -->
+              <figure class="badge">
+                <img id="gr-img" src="5star.png" alt="5-star Google reviews">
+                <figcaption class="badge-caption">Over 10,000 5-star Google reviews</figcaption>
+              </figure>
             </div>
+            <!-- Fallback if image fails -->
             <div id="gr-fallback" class="hidden flex items-center gap-2 mt-2 text-amber-500">
               <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.802-2.036a1 1 0 00-1.175 0l-2.802 2.036c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.88 8.72c-.783-.57-.38-1.81.588-1.81H6.93a1 1 0 00.95-.69l1.17-3.292z"/></svg>
               <span class="text-[13px] font-semibold text-zinc-700">Over <span class="font-extrabold">10,000</span> 5-star Google reviews</span>
