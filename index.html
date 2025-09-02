@@ -138,12 +138,12 @@
       <div class="px-4 sm:px-6 py-6">
         <form id="lead-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" class="space-y-6" novalidate>
           <input type="hidden" name="form-name" value="lead-form"/>
-          <input type="hidden" name="app_type" id="app_type" value="Pre-Approval" />
+          <input type="hidden" name="app_type" id="app_type" value="" />
           <input type="hidden" name="vehicleCondition" id="vehicleCondition" />
           <input type="hidden" name="vehicleType" id="vehicleType" />
           <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
 
-          <!-- ORDER: Vehicle Type → Condition → Budget → App Type → CONTACT → DOB/Marital → Income → Address/Housing → Purchase → Consent/Submit -->
+          <!-- NEW ORDER: Vehicle → Condition → Budget → PURCHASE → APPLICATION TYPE → Contact → DOB → Income → Address/Housing → Consent -->
 
           <!-- 1: Vehicle Type -->
           <section class="form-step" data-step="1">
@@ -176,19 +176,51 @@
             </div>
           </section>
 
-          <!-- 4: Application Type -->
-          <section class="form-step hidden" data-step="4">
+          <!-- 4: PURCHASE (moved up) -->
+          <section class="form-step hidden" data-step="4" id="step-purchase">
+            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Purchase details</h3>
+            <div class="mt-2 grid gap-4">
+              <div>
+                <label for="downPayment" class="block text-sm font-medium text-zinc-700 mb-1.5">Estimated down payment?</label>
+                <select id="downPayment" name="downPayment" class="form-select">
+                  <option value="">Please select…</option>
+                  <option>$3,000+</option>
+                  <option>$1,000 – $3,000</option>
+                  <option>$0 – $1,000</option>
+                </select>
+              </div>
+              <div>
+                <label for="hasTradeIn" class="block text-sm font-medium text-zinc-700 mb-1.5">Do you have a vehicle to trade in?</label>
+                <select id="hasTradeIn" name="hasTradeIn" class="form-select">
+                  <option>No</option>
+                  <option>Yes</option>
+                </select>
+              </div>
+              <div id="tradeInDetails" class="hidden">
+                <div class="grid grid-cols-1 sm:grid-cols-4 gap-2">
+                  <input type="number" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" />
+                  <input type="text" name="tradeInMake" placeholder="Make" class="form-input"/>
+                  <input type="text" name="tradeInModel" placeholder="Model" class="form-input"/>
+                  <input type="number" name="tradeInKms" placeholder="KM" class="form-input" inputmode="numeric"/>
+                </div>
+                <input type="text" name="tradeInOwed" placeholder="Money owed? e.g., $5,000 or None" class="form-input mt-3"/>
+              </div>
+            </div>
+          </section>
+
+          <!-- 5: APPLICATION TYPE (no preselect, no auto-skip) -->
+          <section class="form-step hidden" data-step="5">
             <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Choose your path</h3>
             <div class="mt-4 grid-3" role="tablist" aria-label="Application type">
-              <button type="button" class="choice" data-app="Pre-Approval" aria-pressed="true">Pre-Approval</button>
+              <button type="button" class="choice" data-app="Pre-Approval" aria-pressed="false">Pre-Approval</button>
               <button type="button" class="choice" data-app="Credit Inquiry" aria-pressed="false">Credit Inquiry</button>
               <button type="button" class="choice" data-app="Full Application" aria-pressed="false">Full Application</button>
             </div>
             <p class="text-xs text-zinc-500 mt-2">We’ll only show what’s needed based on your choice.</p>
           </section>
 
-          <!-- 5: CONTACT -->
-          <section class="form-step hidden" data-step="5" id="step-contact">
+          <!-- 6: CONTACT -->
+          <section class="form-step hidden" data-step="6" id="step-contact">
             <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Your contact info</h3>
             <div class="mt-2 grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
@@ -216,8 +248,8 @@
             </div>
           </section>
 
-          <!-- 6: DOB (+ Marital for Credit/Full) -->
-          <section class="form-step hidden" data-step="6" id="step-dob">
+          <!-- 7: DOB (+ Marital for Credit/Full) -->
+          <section class="form-step hidden" data-step="7" id="step-dob">
             <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">About you</h3>
             <div class="grid grid-cols-1 gap-4 mt-2">
               <div>
@@ -244,8 +276,8 @@
             </div>
           </section>
 
-          <!-- 7: Income (simple for Basic/Credit; full for Full) -->
-          <section class="form-step hidden" data-step="7" id="step-income">
+          <!-- 8: Income (simple for Basic/Credit; full for Full) -->
+          <section class="form-step hidden" data-step="8" id="step-income">
             <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Income</h3>
 
             <!-- SIMPLE -->
@@ -338,8 +370,8 @@
             </div>
           </section>
 
-          <!-- 8: Address & Housing -->
-          <section class="form-step hidden" data-step="8" id="step-address">
+          <!-- 9: Address & Housing -->
+          <section class="form-step hidden" data-step="9" id="step-address">
             <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Where do you live?</h3>
 
             <!-- BASIC: Postal code only -->
@@ -401,38 +433,6 @@
                   <button type="button" class="seg-btn" id="btnOwn" aria-pressed="false">Own</button>
                 </div>
                 <input type="hidden" id="housingType" name="housingType" value="Rent" />
-              </div>
-            </div>
-          </section>
-
-          <!-- 9: Purchase -->
-          <section class="form-step hidden" data-step="9" id="step-purchase">
-            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Purchase details</h3>
-            <div class="mt-2 grid gap-4">
-              <div>
-                <label for="downPayment" class="block text-sm font-medium text-zinc-700 mb-1.5">Estimated down payment?</label>
-                <select id="downPayment" name="downPayment" class="form-select">
-                  <option value="">Please select…</option>
-                  <option>$3,000+</option>
-                  <option>$1,000 – $3,000</option>
-                  <option>$0 – $1,000</option>
-                </select>
-              </div>
-              <div>
-                <label for="hasTradeIn" class="block text-sm font-medium text-zinc-700 mb-1.5">Do you have a vehicle to trade in?</label>
-                <select id="hasTradeIn" name="hasTradeIn" class="form-select">
-                  <option>No</option>
-                  <option>Yes</option>
-                </select>
-              </div>
-              <div id="tradeInDetails" class="hidden">
-                <div class="grid grid-cols-1 sm:grid-cols-4 gap-2">
-                  <input type="number" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" />
-                  <input type="text" name="tradeInMake" placeholder="Make" class="form-input"/>
-                  <input type="text" name="tradeInModel" placeholder="Model" class="form-input"/>
-                  <input type="number" name="tradeInKms" placeholder="KM" class="form-input" inputmode="numeric"/>
-                </div>
-                <input type="text" name="tradeInOwed" placeholder="Money owed? e.g., $5,000 or None" class="form-input mt-3"/>
               </div>
             </div>
           </section>
@@ -514,36 +514,43 @@
     $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
 
     // Mode
-    const mode = () => $('app_type').value; // 'Pre-Approval' | 'Credit Inquiry' | 'Full Application'
+    const mode = () => $('app_type').value; // '', 'Pre-Approval' | 'Credit Inquiry' | 'Full Application'
 
     function setAppMode(nextMode){
-      $('app_type').value = nextMode;
+      $('app_type').value = nextMode || '';
 
-      // Mark selection
-      bySelAll('[data-app]').forEach(b=> b.classList.remove('selected'));
-      bySelAll('[data-app]').forEach(b=>{ if(b.dataset.app===nextMode) b.classList.add('selected'); });
+      // Clear selected states
+      bySelAll('[data-app]').forEach(b=> {
+        b.classList.remove('selected');
+        b.setAttribute('aria-pressed','false');
+      });
+      if (nextMode) {
+        const btn = bySel(`[data-app="${nextMode}"]`);
+        btn?.classList.add('selected');
+        btn?.setAttribute('aria-pressed','true');
+      }
 
       const isPre = nextMode === 'Pre-Approval';
       const isCredit = nextMode === 'Credit Inquiry';
       const isFull = nextMode === 'Full Application';
 
       // Middle name
-      $('middleName').required = !isPre;
-      $('middleReq').classList.toggle('hidden', isPre);
-      $('middleOpt').classList.toggle('hidden', !isPre);
+      $('middleName').required = !!nextMode && !isPre;
+      $('middleReq').classList.toggle('hidden', !(nextMode && !isPre));
+      $('middleOpt').classList.toggle('hidden', !!(nextMode && !isPre));
 
-      // DOB required for ALL paths
-      ['dobMonth','dobDay','dobYear'].forEach(id => $(id).required = true);
+      // DOB required for ALL paths only after selection
+      ['dobMonth','dobDay','dobYear'].forEach(id => $(id).required = !!nextMode);
 
       // Marital: Credit + Full
       bySel('#marital-wrap').classList.toggle('hidden', !(isCredit || isFull));
       $('maritalStatus').required = (isCredit || isFull);
 
       // Income visibility: simple for Basic/Credit; full for Full
-      bySel('#income-simple').classList.toggle('hidden', isFull);
+      bySel('#income-simple').classList.toggle('hidden', !!isFull);
       bySel('#income-full').classList.toggle('hidden', !isFull);
 
-      // Reset requireds
+      // Reset address requireds
       ['currentStreetAddress','currentCity','currentProvince','currentPostalCode','currentPostalCode_basic',
        'timeAtAddressYears','timeAtAddressMonths',
        'prevStreetAddress','prevCity','prevProvince','prevPostalCode',
@@ -552,7 +559,13 @@
        'monthlyIncome','incomeSource','incomeSourceFull','currentEmployer','jobTitle']
         .forEach(id => { const n=$(id); if(n) n.required = false; });
 
-      // BASIC: postal only; monthly income; no previous address; implicit consent
+      // Hide consent by default until we know path
+      bySel('#consent-inline').classList.add('hidden');
+      bySel('#consent-checkbox').classList.add('hidden');
+
+      if (!nextMode) { updateProgress(); return; }
+
+      // PRE-APPROVAL
       if (isPre) {
         bySel('#addr-postal-only').classList.remove('hidden');
         bySel('#addr-full-current').classList.add('hidden');
@@ -562,23 +575,21 @@
         $('monthlyIncome').required = true;
         $('housingPayment').required = true;
         bySel('#consent-inline').classList.remove('hidden');
-        bySel('#consent-checkbox').classList.add('hidden');
       }
 
-      // CREDIT: full current address only; NO previous addr even if <2y; implicit consent
+      // CREDIT INQUIRY
       if (isCredit) {
         bySel('#addr-postal-only').classList.add('hidden');
         bySel('#addr-full-current').classList.remove('hidden');
-        bySel('#addr-duration').classList.add('hidden');
-        bySel('#addr-previous').classList.add('hidden');
+        bySel('#addr-duration').classList.add('hidden');  // no duration gating
+        bySel('#addr-previous').classList.add('hidden');  // explicitly never
         ['currentStreetAddress','currentCity','currentProvince','currentPostalCode'].forEach(id => $(id).required = true);
         $('monthlyIncome').required = true;
         $('housingPayment').required = true;
         bySel('#consent-inline').classList.remove('hidden');
-        bySel('#consent-checkbox').classList.add('hidden');
       }
 
-      // FULL: full current + duration (prev if <24m); full employment; consent checkbox
+      // FULL APPLICATION
       if (isFull) {
         bySel('#addr-postal-only').classList.add('hidden');
         bySel('#addr-full-current').classList.remove('hidden');
@@ -586,7 +597,6 @@
         ['currentStreetAddress','currentCity','currentProvince','currentPostalCode','timeAtAddressYears','timeAtAddressMonths'].forEach(id => $(id).required = true);
         $('incomeSourceFull').required = true;
         $('housingPayment').required = true;
-        bySel('#consent-inline').classList.add('hidden');
         bySel('#consent-checkbox').classList.remove('hidden');
       }
 
@@ -617,31 +627,34 @@
       updateProgress();
     }
 
-    // FULL: previous employment if < 24 months (years+months)
+    // FULL: previous employment if < 24 months (requires user to choose something)
     function checkPrevEmploymentNeed(){
       if (mode() !== 'Full Application') { bySel('#prev-employment').classList.add('hidden'); return; }
-      const y = parseInt(($('timeWithEmployerYears').value||'0'),10)||0;
-      const m = parseInt(($('timeWithEmployerMonths').value||'0'),10)||0;
+      const yRaw = $('timeWithEmployerYears').value;
+      const mRaw = $('timeWithEmployerMonths').value;
+      const hasAny = (yRaw !== '' || mRaw !== '');
+      const y = parseInt(yRaw || '0',10);
+      const m = parseInt(mRaw || '0',10);
       const months = (y*12)+m;
       const employedBlockVisible = bySel('#full-employment') && !bySel('#full-employment').classList.contains('hidden');
-      const need = employedBlockVisible && months < 24;
+      const need = employedBlockVisible && hasAny && months < 24;
       bySel('#prev-employment').classList.toggle('hidden', !need);
       ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id => { const n=$(id); if(n) n.required = need; });
     }
 
-    // FULL: previous address if < 24 months (years+months)
+    // FULL: previous address if < 24 months (requires user to choose something)
     function onAddressDurationChange(){
       if (mode() !== 'Full Application') return;
-      const y = parseInt(($('timeAtAddressYears').value||'0'),10)||0;
-      const m = parseInt(($('timeAtAddressMonths').value||'0'),10)||0;
-      const hasAny = ($('timeAtAddressYears').value!=='' || $('timeAtAddressMonths').value!=='');
+      const yRaw = $('timeAtAddressYears').value;
+      const mRaw = $('timeAtAddressMonths').value;
+      const hasAny = (yRaw !== '' || mRaw !== '');
+      const y = parseInt(yRaw || '0',10);
+      const m = parseInt(mRaw || '0',10);
       const months = (y*12)+m;
       const need = hasAny && months < 24;
 
       bySel('#addr-previous').classList.toggle('hidden', !need);
-      // previous address + its duration required only when need=true
-      ['prevStreetAddress','prevCity','prevProvince','prevPostalCode',
-       'prevTimeAtAddressYears','prevTimeAtAddressMonths']
+      ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths']
         .forEach(id => { const n=$(id); if(n) n.required = need; });
 
       updateProgress();
@@ -715,8 +728,14 @@
       r.addEventListener('change', ()=> next(1));
       r.parentElement.addEventListener('click', ()=>{ r.checked=true; next(1); });
     });
+
+    // Purchase step listeners
+    $('hasTradeIn')?.addEventListener('change', (e)=>{
+      bySel('#tradeInDetails').classList.toggle('hidden', e.target.value.toLowerCase()!=='yes');
+    });
+
+    // App type: DO NOT auto-advance on load; only when user clicks
     bySelAll('[data-app]').forEach(b=> b.addEventListener('click', ()=>{
-      bySelAll('[data-app]').forEach(x=>x.classList.remove('selected')); b.classList.add('selected');
       setAppMode(b.dataset.app);
       next(1);
     }));
@@ -725,17 +744,12 @@
     $('phone')?.addEventListener('input', phoneFmt);
     ['monthlyIncome','avgMonthlyIncome','otherIncomeAmount','housingPayment'].forEach(id=> $(id)?.addEventListener('input', currencyFmt));
     $('incomeSourceFull')?.addEventListener('change', onIncomeSourceFullChange);
-    // employment duration: check years AND months
+    // employment duration: only show prev when user has chosen something + <24m
     $('timeWithEmployerYears')?.addEventListener('change', ()=>{ checkPrevEmploymentNeed(); updateProgress(); });
     $('timeWithEmployerMonths')?.addEventListener('change', ()=>{ checkPrevEmploymentNeed(); updateProgress(); });
-    // address duration: check years AND months
+    // address duration: only show prev when user has chosen something + <24m
     $('timeAtAddressYears')?.addEventListener('change', onAddressDurationChange);
     $('timeAtAddressMonths')?.addEventListener('change', onAddressDurationChange);
-
-    // Trade-in toggle
-    $('hasTradeIn')?.addEventListener('change', (e)=>{
-      bySel('#tradeInDetails').classList.toggle('hidden', e.target.value.toLowerCase()!=='yes');
-    });
 
     // Submit
     async function submitForm(){
@@ -784,8 +798,8 @@
 
       // Start on step 1
       showStep(1);
-      // Default mode
-      setAppMode('Pre-Approval');
+      // IMPORTANT: do NOT preselect any application mode
+      setAppMode('');
     })();
   </script>
 </body>
