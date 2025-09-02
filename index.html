@@ -98,7 +98,7 @@
             <h1 class="font-black text-3xl sm:text-4xl text-zinc-900 tracking-tight">Vancouver Island Credit</h1>
           </div>
           <div class="text-center md:text-left">
-            <p class="text-lg font-bold text-blue-600">Fastest online approvels - see options in minutes</p>
+            <p class="text-lg font-bold text-blue-600">Fastest online approvals — see options in minutes</p>
             <div class="mt-2 space-y-1 text-sm text-zinc-600">
               <a href="tel:2369692424" class="inline-flex items-center justify-center md:justify-start gap-2 hover:text-blue-600 transition-colors">
                 <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5h-1.5A13.5 13.5 0 012 3.5z" clip-rule="evenodd"/></svg>
@@ -244,11 +244,11 @@
             </div>
           </section>
 
-          <!-- 7: Income -->
+          <!-- 7: Income (simple for Basic/Credit; full for Full) -->
           <section class="form-step hidden" data-step="7" id="step-income">
             <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Income</h3>
 
-            <!-- SIMPLE (Pre/Credit) -->
+            <!-- SIMPLE -->
             <div id="income-simple" class="mt-2 space-y-3">
               <div>
                 <label for="incomeSource" class="block text-sm font-medium text-zinc-700 mb-1.5">Primary income source</label>
@@ -372,7 +372,7 @@
                 <input type="text" id="prevPostalCode" name="prevPostalCode" class="form-input col-span-6" placeholder="Postal Code"/>
               </div>
 
-              <!-- Previous address duration -->
+              <!-- previous address duration -->
               <div class="grid grid-cols-2 gap-2 mt-2">
                 <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="form-select"><option value="">Years</option></select>
                 <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="form-select"><option value="">Months</option></select>
@@ -449,7 +449,7 @@
               </div>
             </div>
 
-            <!-- Basic & Credit: implicit -->
+            <!-- Basic & Credit: implicit copy -->
             <p id="consent-inline" class="hidden text-[0.72rem] leading-4 text-zinc-600 mt-1">
               By submitting, you consent to Vancouver Island Credit collecting and using the information you provide to assess financing options and to contact you about your application.
             </p>
@@ -501,7 +501,7 @@
 
     // Formatters
     function currencyFmt(e){ let v=e.target.value.replace(/[$,]/g,''); e.target.value = (!v||isNaN(v))? '' : ('$'+ new Intl.NumberFormat('en-US').format(v)); }
-    function phoneFmt(e){ const d=e.target.value.replace(/\D/g,'').slice(0,10); if(d.length>6)e.target.value=\`(\${d.slice(0,3)}) \${d.slice(3,6)}-\${d.slice(6)}\`; else if(d.length>3)e.target.value=\`(\${d.slice(0,3)}) \${d.slice(3)}\`; else if(d.length>0)e.target.value=\`(\${d}\`; }
+    function phoneFmt(e){ const d=e.target.value.replace(/\D/g,'').slice(0,10); if(d.length>6)e.target.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`; else if(d.length>3)e.target.value=`(${d.slice(0,3)}) ${d.slice(3)}`; else if(d.length>0)e.target.value=`(${d}`; }
 
     // Rent/Own switch
     function setHousing(type){
@@ -539,21 +539,20 @@
       bySel('#marital-wrap').classList.toggle('hidden', !(isCredit || isFull));
       $('maritalStatus').required = (isCredit || isFull);
 
-      // Income visibility
+      // Income visibility: simple for Basic/Credit; full for Full
       bySel('#income-simple').classList.toggle('hidden', isFull);
       bySel('#income-full').classList.toggle('hidden', !isFull);
 
-      // Reset required flags
+      // Reset requireds
       ['currentStreetAddress','currentCity','currentProvince','currentPostalCode','currentPostalCode_basic',
        'timeAtAddressYears','timeAtAddressMonths',
        'prevStreetAddress','prevCity','prevProvince','prevPostalCode',
        'prevTimeAtAddressYears','prevTimeAtAddressMonths',
        'previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths',
-       'monthlyIncome','incomeSource','incomeSourceFull','currentEmployer','jobTitle',
-       'timeWithEmployerYears','timeWithEmployerMonths'
-      ].forEach(id => { const n=$(id); if(n) n.required = false; });
+       'monthlyIncome','incomeSource','incomeSourceFull','currentEmployer','jobTitle']
+        .forEach(id => { const n=$(id); if(n) n.required = false; });
 
-      // BASIC
+      // BASIC: postal only; monthly income; no previous address; implicit consent
       if (isPre) {
         bySel('#addr-postal-only').classList.remove('hidden');
         bySel('#addr-full-current').classList.add('hidden');
@@ -566,12 +565,12 @@
         bySel('#consent-checkbox').classList.add('hidden');
       }
 
-      // CREDIT
+      // CREDIT: full current address only; NO previous addr even if <2y; implicit consent
       if (isCredit) {
         bySel('#addr-postal-only').classList.add('hidden');
         bySel('#addr-full-current').classList.remove('hidden');
-        bySel('#addr-duration').classList.add('hidden');  // no duration gating
-        bySel('#addr-previous').classList.add('hidden');  // explicitly never
+        bySel('#addr-duration').classList.add('hidden');
+        bySel('#addr-previous').classList.add('hidden');
         ['currentStreetAddress','currentCity','currentProvince','currentPostalCode'].forEach(id => $(id).required = true);
         $('monthlyIncome').required = true;
         $('housingPayment').required = true;
@@ -579,7 +578,7 @@
         bySel('#consent-checkbox').classList.add('hidden');
       }
 
-      // FULL
+      // FULL: full current + duration (prev if <24m); full employment; consent checkbox
       if (isFull) {
         bySel('#addr-postal-only').classList.add('hidden');
         bySel('#addr-full-current').classList.remove('hidden');
@@ -589,14 +588,6 @@
         $('housingPayment').required = true;
         bySel('#consent-inline').classList.add('hidden');
         bySel('#consent-checkbox').classList.remove('hidden');
-
-        // re-evaluate prev address/employment visibility on mode switch
-        onAddressDurationChange();
-        checkPrevEmploymentNeed();
-      } else {
-        // hide prev sections outside of Full mode
-        bySel('#addr-previous').classList.add('hidden');
-        bySel('#prev-employment').classList.add('hidden');
       }
 
       updateProgress();
@@ -648,7 +639,9 @@
       const need = hasAny && months < 24;
 
       bySel('#addr-previous').classList.toggle('hidden', !need);
-      ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths']
+      // previous address + its duration required only when need=true
+      ['prevStreetAddress','prevCity','prevProvince','prevPostalCode',
+       'prevTimeAtAddressYears','prevTimeAtAddressMonths']
         .forEach(id => { const n=$(id); if(n) n.required = need; });
 
       updateProgress();
@@ -703,8 +696,7 @@
       if (t < 1) t = 1;
       if (t > steps().length) { submitForm(); return; }
       showStep(t);
-      updateProgress();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({top:0, behavior:'smooth'});
     }
 
     $('btnNext').addEventListener('click', ()=> next(1));
@@ -779,7 +771,7 @@
       populateDropdown($('timeAtAddressYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
 
-      // Previous address duration dropdowns
+      // previous address duration dropdowns
       populateDropdown($('prevTimeAtAddressYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('prevTimeAtAddressMonths'), 0, 11, 'Months', 'Month');
 
