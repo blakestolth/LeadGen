@@ -33,7 +33,7 @@
       --blue-grad:#4C7CC0;  /* gradient end */
     }
 
-    /* Map Tailwind blue utility to our brand blues where needed */
+    /* Nudge Tailwind’s .text-blue-600/.bg-blue-100 to our brand blues */
     .text-blue-600{ color:var(--blue-600) !important; }
     .bg-blue-100{ background:var(--blue-100) !important; }
 
@@ -80,6 +80,95 @@
     .seg { display:inline-flex; gap:.25rem; background:#f3f4f6; padding:.25rem; border-radius:.75rem; }
     .seg-btn { padding:.5rem .75rem; border-radius:.5rem; font-weight:600; color:#374151; background:transparent; border:2px solid transparent; }
     .seg-btn[aria-pressed="true"] { background:#e0ecff; color:var(--blue-700); border-color:#bfdbfe; }
+
+    /* Partner strip */
+    .partner-strip { background:#ffffff; border-bottom:1px solid #e5e7eb; }
+
+    /* ====== VISUAL ENHANCEMENT PATCH ====== */
+
+    /* a) Slightly wider canvas on large screens */
+    @media (min-width: 1280px) {
+      main.max-w-2xl { max-width: 44rem; }
+    }
+
+    /* b) Section padding & vertical rhythm (cards) */
+    .card { --pad-y: 1.75rem; --pad-x: 1.5rem; }
+    @media (min-width: 640px){ .card { --pad-y: 2rem; --pad-x: 2rem; } }
+    .card.p-6, .card.p-0, .card.p-8 {
+      padding-left: var(--pad-x) !important;
+      padding-right: var(--pad-x) !important;
+      padding-top: var(--pad-y) !important;
+      padding-bottom: var(--pad-y) !important;
+    }
+    .card.p-0 { padding: 0 !important; }
+
+    /* c) Typography scale & readability */
+    :root { --heading-tight: 1.15; --body-lh: 1.65; }
+    body { font-size: 16.5px; line-height: var(--body-lh); }
+    h1, h2, h3 { line-height: var(--heading-tight); letter-spacing: -0.01em; }
+    h1 { font-size: clamp(1.875rem, 2vw + 1.25rem, 2.5rem); }
+    h2 { font-size: clamp(1.375rem, 1.2vw + 1rem, 1.875rem); }
+    h3 { font-size: clamp(1.125rem, 0.8vw + 0.9rem, 1.5rem); }
+
+    /* d) Consistent CTA + link polish */
+    .cta-button {
+      border-radius: 0.85rem;
+      transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+      box-shadow: 0 6px 16px -8px rgba(0,0,0,.25);
+    }
+    .cta-button:hover { transform: translateY(-2px); }
+    a { transition: color .15s ease, opacity .15s ease, text-decoration-color .15s ease; }
+    a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 2px; }
+
+    /* e) Inputs & focus states */
+    .form-input, .form-select, .form-textarea {
+      transition: background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      box-shadow: 0 0 0 3px rgba(42,93,159,.22);
+    }
+    :focus-visible {
+      outline: 2px solid rgba(42,93,159, .9);
+      outline-offset: 2px;
+      border-radius: .5rem;
+    }
+
+    /* f) Cards, shadows, dividers */
+    .card {
+      box-shadow:
+        0 8px 18px -12px rgba(0,0,0,.25),
+        0 2px 8px -6px rgba(0,0,0,.12);
+    }
+    hr, .border-gray-200 { border-color: #eaecef !important; }
+
+    /* g) Inventory card hover (subtle) */
+    .inventory-card {
+      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+      border: 1px solid #e5e7eb;
+    }
+    .inventory-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 18px -12px rgba(0,0,0,.25);
+      border-color: #d9dde3;
+    }
+
+    /* h) Nav polish */
+    nav a { position: relative; }
+    nav a:hover::after, nav a[aria-current="page"]::after {
+      content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px;
+      background: linear-gradient(90deg, var(--blue-600), var(--blue-grad));
+    }
+
+    /* i) Gentle section separators for long pages */
+    .section-muted {
+      background: linear-gradient(180deg, #fff 0%, #fbfbfc 100%);
+      border: 1px solid #eef1f5;
+    }
+
+    /* j) Reduced motion respect */
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
   </style>
 
   <script type="application/ld+json">
@@ -98,91 +187,57 @@
   }
   </script>
 </head>
-<body class="py-6 sm:py-10 px-4">
-  <!-- NAV (restored) -->
-  <header class="w-full max-w-5xl mx-auto mb-6 sm:mb-8">
-    <nav class="bg-white/90 backdrop-blur card px-4 sm:px-6 py-3 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3">
-        <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit" class="h-10 sm:h-12 w-auto object-contain rounded-md" onerror="this.style.display='none'"/>
-        <span class="hidden sm:inline font-extrabold tracking-tight text-zinc-900">Vancouver Island Credit</span>
-      </a>
-      <div class="hidden sm:flex items-center gap-6 text-sm font-semibold text-zinc-700">
-        <a href="#inventory" class="hover:text-blue-600">Inventory</a>
-        <a href="#about" class="hover:text-blue-600">About</a>
-        <a href="#contact" class="hover:text-blue-600">Contact</a>
-        <a href="#lead-form" class="cta-button text-white !py-2">Apply Now</a>
-      </div>
-    </nav>
-  </header>
-
+<body class="py-8 sm:py-12 px-4">
   <!-- EXACT WIDTH: max-w-2xl -->
   <main class="w-full max-w-2xl mx-auto space-y-8">
     <!-- HERO -->
-    <section id="about" class="card p-6 sm:p-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-        <!-- Left column: Steps + Partnered -->
-        <div class="flex flex-col justify-between">
-          <div class="space-y-5">
-            <h1 class="font-black text-3xl sm:text-4xl text-zinc-900 tracking-tight">Get driving in 3 easy steps</h1>
-
-            <ol class="space-y-3">
-              <li class="flex items-start gap-3">
-                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-extrabold">1</span>
-                <p class="text-zinc-800"><span class="font-semibold">Enter your info</span> — 2–3 minutes, no pressure.</p>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-extrabold">2</span>
-                <p class="text-zinc-800"><span class="font-semibold">Get online access</span> to the options you actually qualify for in BC.</p>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-extrabold">3</span>
-                <p class="text-zinc-800"><span class="font-semibold">We deliver</span> to your doorstep—fast & stress-free.</p>
-              </li>
-            </ol>
+    <section class="card p-6 sm:p-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+        <div class="space-y-6 text-center md:text-left">
+          <div class="flex items-center justify-center md:justify-start gap-3">
+            <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit" class="h-16 sm:h-20 md:h-20 w-auto object-contain rounded-md" onerror="this.style.display='none'"/>
+            <h1 class="font-black text-3xl sm:text-4xl text-zinc-900 tracking-tight">Vancouver Island Credit</h1>
           </div>
-
-          <!-- Partnered w/ Kot (bottom-left) -->
-          <div class="mt-6 pt-4 border-t border-gray-200">
-            <div class="flex items-center gap-3">
-              <span class="text-[13px] font-semibold text-zinc-700">Partnered with</span>
-              <img src="Kotautogroup.png" alt="Kot Auto Group" class="h-10 sm:h-12 w-auto object-contain" loading="lazy">
+          <div class="text-center md:text-left">
+            <p class="text-lg font-bold text-blue-600">Fastest online approvals — see options in minutes</p>
+            <div class="mt-2 space-y-1 text-sm text-zinc-600">
+              <a href="tel:2369692424" class="inline-flex items-center justify-center md:justify-start gap-2 hover:text-blue-600 transition-colors">
+                <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5h-1.5A13.5 13.5 0 012 3.5z" clip-rule="evenodd"/></svg>
+                <span>(236) 969-2424</span>
+              </a>
+              <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
             </div>
           </div>
         </div>
 
-        <!-- Right column: Reasons + Reviews badge (bottom) -->
-        <div class="flex flex-col justify-between md:border-l md:pl-12 border-gray-200">
-          <div>
-            <div class="flex items-center space-x-4 mb-5">
-              <div class="bg-blue-100 p-3 rounded-xl">
-                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-              </div>
-              <h2 class="text-2xl font-extrabold text-zinc-900">Fastest Online Approval</h2>
+        <div class="md:border-l md:pl-12 border-gray-200">
+          <div class="flex items-center space-x-4 mb-5">
+            <div class="bg-blue-100 p-3 rounded-xl">
+              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
             </div>
-            <ul class="space-y-3 text-zinc-700 text-sm">
-              <li><strong class="text-zinc-900">Avoid the Runaround:</strong> Deal with one real person.</li>
-              <li><strong class="text-zinc-900">All Credit Welcome:</strong> High approval rates.</li>
-              <li><strong class="text-zinc-900">Huge Selection:</strong> New & used vehicles across BC.</li>
-              <li><strong class="text-zinc-900">Canada-wide delivery:</strong> To your door—easy.</li>
-            </ul>
+            <h2 class="text-2xl font-extrabold text-zinc-900">Fastest Online Approval</h2>
           </div>
-
-          <!-- Reviews badge (bottom-right) -->
-          <div class="mt-6 pt-4 border-t border-gray-200">
-            <div class="flex items-center gap-3 justify-start md:justify-start">
-              <img src="google-reviews.png" alt="Google reviews" class="h-10 sm:h-12 w-auto object-contain" onerror="this.style.display='none'">
-              <span class="text-[13px] font-semibold text-zinc-700">Over <span class="font-extrabold">10,000</span> 5-star reviews</span>
-            </div>
-          </div>
+          <ul class="space-y-3 text-zinc-600 text-sm">
+            <li><strong class="text-zinc-800">Avoid the Runaround:</strong> Deal with one real person.</li>
+            <li><strong class="text-zinc-800">All Credit Welcome:</strong> High approval rates.</li>
+            <li><strong class="text-zinc-800">Huge Selection:</strong> New & used vehicles across BC.</li>
+            <li><strong class="text-zinc-800">Canada-Wide Shipping:</strong> Get your car delivered to your doorstep.</li>
+          </ul>
         </div>
       </div>
     </section>
 
+    <!-- BRAND BANNER -->
+    <section class="card overflow-hidden">
+      <img src="Banner.png" alt="Kot Auto Group banner" class="w-full h-24 sm:h-28 object-cover">
+    </section>
+
     <!-- FLOW + FORM -->
-    <section class="card p-0 overflow-hidden relative">
-      <!-- form notice (appears when clicking View Inventory) -->
-      <div id="form-notice" class="hidden absolute top-3 right-3 bg-blue-100 text-blue-600 text-xs font-semibold px-3 py-2 rounded-md shadow">
-        To view matching inventory, please complete the quick form.
+    <section class="card p-0 overflow-hidden">
+      <!-- Partnered strip -->
+      <div class="partner-strip px-4 sm:px-6 py-2 flex items-center justify-center gap-3">
+        <span class="text-[13px] font-semibold text-zinc-700">Partnered with</span>
+        <img src="Kotautogroup.png" alt="Kot Auto Group" class="h-6 w-auto object-contain" loading="lazy">
       </div>
 
       <div class="px-4 sm:px-6 pt-4 sticky top-0 bg-white border-b">
@@ -200,8 +255,6 @@
           <input type="hidden" name="vehicleCondition" id="vehicleCondition" />
           <input type="hidden" name="vehicleType" id="vehicleType" />
           <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
-
-          <!-- ORDER: Vehicle → Condition → Budget → PURCHASE → APPLICATION TYPE → Contact → DOB → Income → Address/Housing → Consent -->
 
           <!-- 1: Vehicle Type -->
           <section class="form-step" data-step="1">
@@ -450,16 +503,7 @@
               </div>
             </div>
 
-            <!-- FULL only: duration controls -->
-            <div id="addr-duration" class="hidden mt-3">
-              <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at current address <span class="text-red-500">*</span></label>
-              <div class="grid grid-cols-2 gap-2">
-                <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
-              </div>
-            </div>
-
-            <!-- FULL only: previous address if <24 months (appears AFTER duration + rent/own) -->
+            <!-- FULL only: previous address if <24 months -->
             <div id="addr-previous" class="hidden mt-3 space-y-2">
               <p class="text-xs text-zinc-500">Less than 2 years at current address? Add your previous address.</p>
               <label class="block text-sm font-medium text-zinc-700">Previous address <span class="text-red-500">*</span></label>
@@ -475,6 +519,15 @@
               <div class="grid grid-cols-2 gap-2 mt-2">
                 <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="form-select"><option value="">Years</option></select>
                 <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+              </div>
+            </div>
+
+            <!-- FULL only: duration controls -->
+            <div id="addr-duration" class="hidden mt-3">
+              <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at current address <span class="text-red-500">*</span></label>
+              <div class="grid grid-cols-2 gap-2">
+                <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
+                <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
               </div>
             </div>
 
@@ -525,53 +578,50 @@
       </div>
     </section>
 
-    <!-- INVENTORY PREVIEW (generic, below form) -->
-    <section id="inventory" class="card p-6 sm:p-8">
+    <!-- INVENTORY TEASER (generic, below form) -->
+    <section class="card section-muted">
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Browse Inventory</h3>
-        <a href="#lead-form" class="text-sm font-semibold text-blue-600 hover:underline js-view-inventory">View all</a>
+        <span class="text-xs text-zinc-500">Sign in after applying to view options you qualify for</span>
       </div>
-      <p class="text-sm text-zinc-600 mb-5">Explore by category. You’ll see options you qualify for after the quick form.</p>
 
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <!-- simple “look real” cards -->
-        <div class="border rounded-xl overflow-hidden">
+        <!-- Tile 1 -->
+        <div class="inventory-card rounded-xl overflow-hidden">
           <div class="bg-zinc-200 h-24 sm:h-28"></div>
           <div class="p-3">
             <p class="font-semibold text-sm">Sedans</p>
-            <button class="mt-2 text-xs font-bold text-blue-600 hover:underline js-view-inventory">View Inventory</button>
+            <button class="mt-2 text-xs font-bold text-blue-600 hover:underline js-view-inventory" onclick="document.getElementById('lead-form').scrollIntoView({behavior:'smooth'});">View Inventory</button>
           </div>
         </div>
-        <div class="border rounded-xl overflow-hidden">
+        <!-- Tile 2 -->
+        <div class="inventory-card rounded-xl overflow-hidden">
           <div class="bg-zinc-200 h-24 sm:h-28"></div>
           <div class="p-3">
             <p class="font-semibold text-sm">SUVs</p>
-            <button class="mt-2 text-xs font-bold text-blue-600 hover:underline js-view-inventory">View Inventory</button>
+            <button class="mt-2 text-xs font-bold text-blue-600 hover:underline js-view-inventory" onclick="document.getElementById('lead-form').scrollIntoView({behavior:'smooth'});">View Inventory</button>
           </div>
         </div>
-        <div class="border rounded-xl overflow-hidden">
+        <!-- Tile 3 -->
+        <div class="inventory-card rounded-xl overflow-hidden">
           <div class="bg-zinc-200 h-24 sm:h-28"></div>
           <div class="p-3">
             <p class="font-semibold text-sm">Trucks</p>
-            <button class="mt-2 text-xs font-bold text-blue-600 hover:underline js-view-inventory">View Inventory</button>
+            <button class="mt-2 text-xs font-bold text-blue-600 hover:underline js-view-inventory" onclick="document.getElementById('lead-form').scrollIntoView({behavior:'smooth'});">View Inventory</button>
           </div>
         </div>
-        <div class="border rounded-xl overflow-hidden">
+        <!-- Tile 4 -->
+        <div class="inventory-card rounded-xl overflow-hidden">
           <div class="bg-zinc-200 h-24 sm:h-28"></div>
           <div class="p-3">
-            <p class="font-semibold text-sm">Vans</p>
-            <button class="mt-2 text-xs font-bold text-blue-600 hover:underline js-view-inventory">View Inventory</button>
+            <p class="font-semibold text-sm">EV / Hybrid</p>
+            <button class="mt-2 text-xs font-bold text-blue-600 hover:underline js-view-inventory" onclick="document.getElementById('lead-form').scrollIntoView({behavior:'smooth'});">View Inventory</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- BRAND BANNER (thin, below inventory) -->
-    <section class="card overflow-hidden">
-      <img src="Banner.png" alt="Kot Auto Group banner" class="w-full h-16 sm:h-20 object-cover opacity-90">
-    </section>
-
-    <footer id="contact" class="text-center text-xs text-zinc-500 pt-2 space-y-2">
+    <footer class="text-center text-xs text-zinc-500 pt-2 space-y-2">
       <p class="font-semibold text-zinc-600">Vancouver Island Credit</p>
       <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
       <p><a href="tel:2369692424" class="hover:text-blue-600 transition-colors">(236) 969-2424</a></p>
@@ -851,23 +901,6 @@
     $('timeAtAddressYears')?.addEventListener('change', onAddressDurationChange);
     $('timeAtAddressMonths')?.addEventListener('change', onAddressDurationChange);
 
-    // Inventory "View Inventory" -> jump to form + show notice
-    function showFormNotice(){
-      const n = $('form-notice');
-      if(!n) return;
-      n.classList.remove('hidden');
-      setTimeout(()=> n.classList.add('hidden'), 4000);
-      const endcap = $('progress-endcap');
-      if (endcap) endcap.textContent = 'To view matching inventory, complete the quick form';
-    }
-    bySelAll('.js-view-inventory').forEach(el=>{
-      el.addEventListener('click', (e)=>{
-        e.preventDefault();
-        document.getElementById('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
-        showFormNotice();
-      });
-    });
-
     // Submit
     async function submitForm(){
       if (!validateAll()) { $('form-status').textContent = 'Please complete all required fields.'; return; }
@@ -918,6 +951,21 @@
       // IMPORTANT: do NOT preselect any application mode
       setAppMode('');
     })();
+  </script>
+
+  <!-- Optional micro-interaction for nav highlights (safe, non-intrusive) -->
+  <script>
+    document.querySelectorAll('nav a[href^="#"]').forEach(a=>{
+      if (a.getAttribute('href') === location.hash) a.setAttribute('aria-current', 'page');
+      a.addEventListener('click', () => {
+        document.querySelectorAll('nav a[aria-current="page"]').forEach(n => n.removeAttribute('aria-current'));
+        a.setAttribute('aria-current', 'page');
+      });
+    });
+    let usingKB = false;
+    window.addEventListener('keydown', e => { if (e.key === 'Tab') usingKB = true; });
+    window.addEventListener('mousedown', () => usingKB = false);
+    document.addEventListener('focusin', e => { if (!usingKB) return; e.target.classList?.add('outline-none'); });
   </script>
 </body>
 </html>
