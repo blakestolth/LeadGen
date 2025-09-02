@@ -58,7 +58,7 @@
     .grid-2  { grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); }
     .grid-3  { grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); }
 
-    .tile { display:flex; align-items:center; justify-content:center; text-align:center; font-weight:900; color:#111827;
+    .tile { display:flex; align-items:center; justify-content:center; text-align:center; font-weight:800; color:#111827;
       border-radius:.75rem; border:2px solid #e5e7eb; background:#fff; aspect-ratio:1/1; max-width:180px; width:100%;
     }
     .tile:hover { border-color:var(--blue-600); background:#f5f8ff; box-shadow:0 10px 18px -8px rgba(37,99,235,.45); transform:translateY(-1px); transition:.15s; }
@@ -140,14 +140,14 @@
       </div>
     </section>
 
-    <!-- BRAND BANNER (new) -->
+    <!-- BRAND BANNER (thinner) -->
     <section class="card overflow-hidden">
-      <img src="Banner.png" alt="Kot Auto Group banner" class="w-full h-24 sm:h-28 object-cover">
+      <img src="Banner.png" alt="Kot Auto Group banner" class="w-full h-16 sm:h-20 object-cover">
     </section>
 
     <!-- FLOW + FORM -->
     <section class="card p-0 overflow-hidden">
-      <!-- Partnered strip (new) -->
+      <!-- Partnered strip -->
       <div class="partner-strip px-4 sm:px-6 py-2 flex items-center justify-center gap-3">
         <span class="text-[13px] font-semibold text-zinc-700">Partnered with</span>
         <img src="Kotautogroup.png" alt="Kot Auto Group" class="h-6 w-auto object-contain" loading="lazy">
@@ -302,7 +302,7 @@
             </div>
           </section>
 
-          <!-- 8: Income -->
+          <!-- 8: Income (simple for Basic/Credit; full for Full) -->
           <section class="form-step hidden" data-step="8" id="step-income">
             <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Income</h3>
 
@@ -418,26 +418,7 @@
               </div>
             </div>
 
-            <!-- FULL only: previous address if <24 months -->
-            <div id="addr-previous" class="hidden mt-3 space-y-2">
-              <p class="text-xs text-zinc-500">Less than 2 years at current address? Add your previous address.</p>
-              <label class="block text-sm font-medium text-zinc-700">Previous address <span class="text-red-500">*</span></label>
-              <div class="grid grid-cols-6 gap-2">
-                <input type="text" id="prevStreetAddress" name="prevStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address"/>
-                <input type="text" id="prevUnit" name="prevUnit" class="form-input col-span-6 sm:col-span-2" placeholder="Unit #"/>
-                <input type="text" id="prevCity" name="prevCity" class="form-input col-span-3" placeholder="City"/>
-                <select id="prevProvince" name="prevProvince" class="form-select col-span-3"><option value="">Province</option></select>
-                <input type="text" id="prevPostalCode" name="prevPostalCode" class="form-input col-span-6" placeholder="Postal Code"/>
-              </div>
-
-              <!-- previous address duration -->
-              <div class="grid grid-cols-2 gap-2 mt-2">
-                <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="form-select"><option value="">Months</option></select>
-              </div>
-            </div>
-
-            <!-- FULL only: duration controls -->
+            <!-- FULL only: duration controls (BEFORE housing + previous) -->
             <div id="addr-duration" class="hidden mt-3">
               <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at current address <span class="text-red-500">*</span></label>
               <div class="grid grid-cols-2 gap-2">
@@ -461,10 +442,30 @@
                 <input type="hidden" id="housingType" name="housingType" value="Rent" />
               </div>
             </div>
+
+            <!-- FULL only: previous address if <24 months (MOVED TO BOTTOM WHEN NEEDED) -->
+            <div id="addr-previous" class="hidden mt-3 space-y-2">
+              <p class="text-xs text-zinc-500">Less than 2 years at current address? Add your previous address.</p>
+              <label class="block text-sm font-medium text-zinc-700">Previous address <span class="text-red-500">*</span></label>
+              <div class="grid grid-cols-6 gap-2">
+                <input type="text" id="prevStreetAddress" name="prevStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address"/>
+                <input type="text" id="prevUnit" name="prevUnit" class="form-input col-span-6 sm:col-span-2" placeholder="Unit #"/>
+                <input type="text" id="prevCity" name="prevCity" class="form-input col-span-3" placeholder="City"/>
+                <select id="prevProvince" name="prevProvince" class="form-select col-span-3"><option value="">Province</option></select>
+                <input type="text" id="prevPostalCode" name="prevPostalCode" class="form-input col-span-6" placeholder="Postal Code"/>
+              </div>
+
+              <!-- previous address duration -->
+              <div class="grid grid-cols-2 gap-2 mt-2">
+                <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="form-select"><option value="">Years</option></select>
+                <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+              </div>
+            </div>
           </section>
 
           <!-- 10: Consent & Submit -->
           <section class="form-step hidden" data-step="10" id="step-consent">
+            <!-- Full: checkbox -->
             <div id="consent-checkbox" class="hidden">
               <div class="flex items-start gap-3 bg-gray-100 p-4 rounded-lg">
                 <input id="creditConsent" name="creditConsent" type="checkbox" class="h-5 w-5 rounded border-gray-300 mt-0.5"/>
@@ -474,6 +475,7 @@
               </div>
             </div>
 
+            <!-- Basic & Credit: implicit copy -->
             <p id="consent-inline" class="hidden text-[0.72rem] leading-4 text-zinc-600 mt-1">
               By submitting, you consent to Vancouver Island Credit collecting and using the information you provide to assess financing options and to contact you about your application.
             </p>
@@ -605,8 +607,8 @@
       if (isCredit) {
         bySel('#addr-postal-only').classList.add('hidden');
         bySel('#addr-full-current').classList.remove('hidden');
-        bySel('#addr-duration').classList.add('hidden');
-        bySel('#addr-previous').classList.add('hidden');
+        bySel('#addr-duration').classList.add('hidden');  // no duration gating
+        bySel('#addr-previous').classList.add('hidden');  // explicitly never
         ['currentStreetAddress','currentCity','currentProvince','currentPostalCode'].forEach(id => $(id).required = true);
         $('monthlyIncome').required = true;
         $('housingPayment').required = true;
@@ -651,7 +653,7 @@
       updateProgress();
     }
 
-    // FULL: previous employment if < 24 months
+    // FULL: previous employment if < 24 months (requires user to choose something)
     function checkPrevEmploymentNeed(){
       if (mode() !== 'Full Application') { bySel('#prev-employment').classList.add('hidden'); return; }
       const yRaw = $('timeWithEmployerYears').value;
@@ -666,7 +668,7 @@
       ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id => { const n=$(id); if(n) n.required = need; });
     }
 
-    // FULL: previous address if < 24 months
+    // FULL: previous address if < 24 months (requires user to choose something)
     function onAddressDurationChange(){
       if (mode() !== 'Full Application') return;
       const yRaw = $('timeAtAddressYears').value;
@@ -677,9 +679,17 @@
       const months = (y*12)+m;
       const need = hasAny && months < 24;
 
+      // toggle prev section
       bySel('#addr-previous').classList.toggle('hidden', !need);
       ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths']
         .forEach(id => { const n=$(id); if(n) n.required = need; });
+
+      // move prev section to the very bottom of the address step when needed
+      if (need) {
+        const step = $('step-address');
+        const prev = $('addr-previous');
+        if (step && prev && step.lastElementChild !== prev) step.appendChild(prev);
+      }
 
       updateProgress();
     }
