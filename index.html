@@ -33,7 +33,7 @@
       --blue-grad:#4C7CC0;  /* gradient end */
     }
 
-    /* Map Tailwind’s blue utility to brand blue */
+    /* Map Tailwind blue utility to our brand blues where needed */
     .text-blue-600{ color:var(--blue-600) !important; }
     .bg-blue-100{ background:var(--blue-100) !important; }
 
@@ -76,24 +76,10 @@
     .err { border-color:#ef4444 !important; }
     .err-label { color:#ef4444 !important; }
 
-    /* Segment switch */
+    /* Rent/Own segmented switch */
     .seg { display:inline-flex; gap:.25rem; background:#f3f4f6; padding:.25rem; border-radius:.75rem; }
     .seg-btn { padding:.5rem .75rem; border-radius:.5rem; font-weight:600; color:#374151; background:transparent; border:2px solid transparent; }
     .seg-btn[aria-pressed="true"] { background:#e0ecff; color:var(--blue-700); border-color:#bfdbfe; }
-
-    /* Inventory (3× larger visuals) */
-    .inv-card{ border:1px solid #e5e7eb; border-radius:1rem; overflow:hidden; background:#fff; width:100%; }
-    .inv-media{ width:100%; height: 15rem; object-fit:cover; } /* ~3x up from small thumbnails */
-    @media (min-width:640px){ .inv-media{ height: 16rem; } }
-    .inv-title{ font-weight:800; }
-
-    /* Form notice bubble */
-    .notice{ position:absolute; top:.75rem; right:.75rem; background:rgba(42,93,159,.08); border:1px solid rgba(42,93,159,.25); color:#1f2937; padding:.5rem .75rem; font-size:.78rem; border-radius:.6rem; display:none; }
-    .notice.show{ display:flex; align-items:center; gap:.4rem; }
-
-    /* Banner (under form), a bit thinner + slight zoom-out + lower opacity */
-    .brand-banner{ width:100%; height: 5.5rem; object-fit:cover; object-position:center; opacity:.88; transform:scale(1.02); }
-    @media (min-width:640px){ .brand-banner{ height: 6rem; } }
   </style>
 
   <script type="application/ld+json">
@@ -112,123 +98,91 @@
   }
   </script>
 </head>
-<body class="py-8 sm:py-12 px-4">
+<body class="py-6 sm:py-10 px-4">
+  <!-- NAV (restored) -->
+  <header class="w-full max-w-5xl mx-auto mb-6 sm:mb-8">
+    <nav class="bg-white/90 backdrop-blur card px-4 sm:px-6 py-3 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit" class="h-10 sm:h-12 w-auto object-contain rounded-md" onerror="this.style.display='none'"/>
+        <span class="hidden sm:inline font-extrabold tracking-tight text-zinc-900">Vancouver Island Credit</span>
+      </a>
+      <div class="hidden sm:flex items-center gap-6 text-sm font-semibold text-zinc-700">
+        <a href="#inventory" class="hover:text-blue-600">Inventory</a>
+        <a href="#about" class="hover:text-blue-600">About</a>
+        <a href="#contact" class="hover:text-blue-600">Contact</a>
+        <a href="#lead-form" class="cta-button text-white !py-2">Apply Now</a>
+      </div>
+    </nav>
+  </header>
+
   <!-- EXACT WIDTH: max-w-2xl -->
   <main class="w-full max-w-2xl mx-auto space-y-8">
     <!-- HERO -->
-    <section class="card p-6 sm:p-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-        <div class="space-y-6 text-center md:text-left">
-          <!-- Replace headline block with the 3 steps list (per earlier change) -->
-          <div class="text-left space-y-3">
-            <p class="text-lg font-bold text-blue-600">Fastest online approvals — see options in minutes</p>
+    <section id="about" class="card p-6 sm:p-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+        <!-- Left column: Steps + Partnered -->
+        <div class="flex flex-col justify-between">
+          <div class="space-y-5">
+            <h1 class="font-black text-3xl sm:text-4xl text-zinc-900 tracking-tight">Get driving in 3 easy steps</h1>
 
-            <!-- Partnered with (moved here, as requested earlier) -->
-            <div class="flex items-center gap-3">
-              <span class="text-xs font-semibold text-zinc-700">Partnered with</span>
-              <img src="Kotautogroup.png" alt="Kot Auto Group" class="h-10 sm:h-12 w-auto object-contain" loading="lazy">
-            </div>
-
-            <!-- Contact details under that -->
-            <div class="mt-1 space-y-1 text-sm text-zinc-600">
-              <a href="tel:2369692424" class="inline-flex items-center justify-start gap-2 hover:text-blue-600 transition-colors">
-                <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5h-1.5A13.5 13.5 0 012 3.5z" clip-rule="evenodd"/></svg>
-                <span>(236) 969-2424</span>
-              </a>
-              <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
-            </div>
-
-            <!-- 3-step trust list -->
-            <ol class="mt-2 space-y-2 text-left">
-              <li class="flex items-start gap-2"><span class="inline-flex mt-1 w-5 h-5 rounded-full bg-blue-100 items-center justify-center text-[11px] font-black text-blue-600">1</span><span class="text-sm sm:text-[15px] font-semibold text-zinc-800">Enter a few details</span></li>
-              <li class="flex items-start gap-2"><span class="inline-flex mt-1 w-5 h-5 rounded-full bg-blue-100 items-center justify-center text-[11px] font-black text-blue-600">2</span><span class="text-sm sm:text-[15px] font-semibold text-zinc-800">Get online access to options you’re qualified for in BC</span></li>
-              <li class="flex items-start gap-2"><span class="inline-flex mt-1 w-5 h-5 rounded-full bg-blue-100 items-center justify-center text-[11px] font-black text-blue-600">3</span><span class="text-sm sm:text-[15px] font-semibold text-zinc-800">We deliver to your door</span></li>
+            <ol class="space-y-3">
+              <li class="flex items-start gap-3">
+                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-extrabold">1</span>
+                <p class="text-zinc-800"><span class="font-semibold">Enter your info</span> — 2–3 minutes, no pressure.</p>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-extrabold">2</span>
+                <p class="text-zinc-800"><span class="font-semibold">Get online access</span> to the options you actually qualify for in BC.</p>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-extrabold">3</span>
+                <p class="text-zinc-800"><span class="font-semibold">We deliver</span> to your doorstep—fast & stress-free.</p>
+              </li>
             </ol>
           </div>
+
+          <!-- Partnered w/ Kot (bottom-left) -->
+          <div class="mt-6 pt-4 border-t border-gray-200">
+            <div class="flex items-center gap-3">
+              <span class="text-[13px] font-semibold text-zinc-700">Partnered with</span>
+              <img src="Kotautogroup.png" alt="Kot Auto Group" class="h-10 sm:h-12 w-auto object-contain" loading="lazy">
+            </div>
+          </div>
         </div>
 
-        <div class="md:border-l md:pl-12 border-gray-200">
-          <div class="flex items-center space-x-4 mb-5">
-            <div class="bg-blue-100 p-3 rounded-xl">
-              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        <!-- Right column: Reasons + Reviews badge (bottom) -->
+        <div class="flex flex-col justify-between md:border-l md:pl-12 border-gray-200">
+          <div>
+            <div class="flex items-center space-x-4 mb-5">
+              <div class="bg-blue-100 p-3 rounded-xl">
+                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <h2 class="text-2xl font-extrabold text-zinc-900">Fastest Online Approval</h2>
             </div>
-            <h2 class="text-2xl font-extrabold text-zinc-900">Fastest Online Approval</h2>
+            <ul class="space-y-3 text-zinc-700 text-sm">
+              <li><strong class="text-zinc-900">Avoid the Runaround:</strong> Deal with one real person.</li>
+              <li><strong class="text-zinc-900">All Credit Welcome:</strong> High approval rates.</li>
+              <li><strong class="text-zinc-900">Huge Selection:</strong> New & used vehicles across BC.</li>
+              <li><strong class="text-zinc-900">Canada-wide delivery:</strong> To your door—easy.</li>
+            </ul>
           </div>
-          <ul class="space-y-3 text-zinc-600 text-sm">
-            <li><strong class="text-zinc-800">Avoid the Runaround:</strong> Deal with one real person.</li>
-            <li><strong class="text-zinc-800">All Credit Welcome:</strong> High approval rates.</li>
-            <li><strong class="text-zinc-800">Huge Selection:</strong> New & used vehicles across BC.</li>
-            <li><strong class="text-zinc-800">Canada-Wide Shipping:</strong> Get your vehicle to your doorstep.</li>
-          </ul>
+
+          <!-- Reviews badge (bottom-right) -->
+          <div class="mt-6 pt-4 border-t border-gray-200">
+            <div class="flex items-center gap-3 justify-start md:justify-start">
+              <img src="google-reviews.png" alt="Google reviews" class="h-10 sm:h-12 w-auto object-contain" onerror="this.style.display='none'">
+              <span class="text-[13px] font-semibold text-zinc-700">Over <span class="font-extrabold">10,000</span> 5-star reviews</span>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
-
-    <!-- INVENTORY BY TYPE (3× larger visuals) -->
-    <section class="card p-5 sm:p-6">
-      <div class="flex items-center justify-between">
-        <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">View inventory by type</h3>
-        <p class="hidden sm:block text-xs text-zinc-500">Click a type to unlock matching options</p>
-      </div>
-      <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <!-- Car -->
-        <article class="inv-card">
-          <img src="inv-car.jpg" alt="Cars" class="inv-media" onerror="this.src='https://via.placeholder.com/960x600?text=Car+Inventory';">
-          <div class="p-4 flex items-center justify-between">
-            <div>
-              <div class="inv-title text-zinc-900">Cars</div>
-              <div class="text-xs text-zinc-500">Sedans • Hatchbacks • Coupes</div>
-            </div>
-            <button class="cta-button text-xs px-3 py-2" onclick="goToFormFromInventory('Car')">View inventory</button>
-          </div>
-        </article>
-
-        <!-- SUV -->
-        <article class="inv-card">
-          <img src="inv-suv.jpg" alt="SUVs" class="inv-media" onerror="this.src='https://via.placeholder.com/960x600?text=SUV+Inventory';">
-          <div class="p-4 flex items-center justify-between">
-            <div>
-              <div class="inv-title text-zinc-900">SUVs</div>
-              <div class="text-xs text-zinc-500">Compact • Mid-size • 3-Row</div>
-            </div>
-            <button class="cta-button text-xs px-3 py-2" onclick="goToFormFromInventory('SUV')">View inventory</button>
-          </div>
-        </article>
-
-        <!-- Truck -->
-        <article class="inv-card">
-          <img src="inv-truck.jpg" alt="Trucks" class="inv-media" onerror="this.src='https://via.placeholder.com/960x600?text=Truck+Inventory';">
-          <div class="p-4 flex items-center justify-between">
-            <div>
-              <div class="inv-title text-zinc-900">Trucks</div>
-              <div class="text-xs text-zinc-500">1/2-Ton • HD • Gas & Diesel</div>
-            </div>
-            <button class="cta-button text-xs px-3 py-2" onclick="goToFormFromInventory('Truck')">View inventory</button>
-          </div>
-        </article>
-
-        <!-- Van -->
-        <article class="inv-card">
-          <img src="inv-van.jpg" alt="Vans" class="inv-media" onerror="this.src='https://via.placeholder.com/960x600?text=Van+Inventory';">
-          <div class="p-4 flex items-center justify-between">
-            <div>
-              <div class="inv-title text-zinc-900">Vans</div>
-              <div class="text-xs text-zinc-500">Family • Work • Passenger</div>
-            </div>
-            <button class="cta-button text-xs px-3 py-2" onclick="goToFormFromInventory('Van')">View inventory</button>
-          </div>
-        </article>
-      </div>
-      <p class="mt-3 sm:hidden text-xs text-zinc-500">Tap a type to unlock matching options</p>
     </section>
 
     <!-- FLOW + FORM -->
-    <section id="apply" class="card p-0 overflow-hidden relative">
-      <!-- Small notice bubble (appears when user comes from inventory) -->
-      <div id="formNotice" class="notice">
-        <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20" class="text-blue-600"><path fill-rule="evenodd" d="M18 10A8 8 0 11.001 10 8 8 0 0118 10zM9 8a1 1 0 102 0 1 1 0 00-2 0zm2 2H9v4h2v-4z" clip-rule="evenodd"/></svg>
-        Please fill out this quick form to see results tailored to you.
-        <button type="button" aria-label="Dismiss" onclick="hideNotice()" class="ml-2 text-zinc-500 hover:text-zinc-700">✕</button>
+    <section class="card p-0 overflow-hidden relative">
+      <!-- form notice (appears when clicking View Inventory) -->
+      <div id="form-notice" class="hidden absolute top-3 right-3 bg-blue-100 text-blue-600 text-xs font-semibold px-3 py-2 rounded-md shadow">
+        To view matching inventory, please complete the quick form.
       </div>
 
       <div class="px-4 sm:px-6 pt-4 sticky top-0 bg-white border-b">
@@ -419,15 +373,15 @@
 
               <div id="full-employment" class="hidden space-y-3">
                 <div>
-                  <label for="currentEmployer" class="block text sm font-medium text-zinc-700 mb-1.5">Employer <span class="text-red-500">*</span></label>
+                  <label for="currentEmployer" class="block text-sm font-medium text-zinc-700 mb-1.5">Employer <span class="text-red-500">*</span></label>
                   <input type="text" id="currentEmployer" name="currentEmployer" class="form-input" placeholder="Company name"/>
                 </div>
                 <div>
-                  <label for="jobTitle" class="block text sm font-medium text-zinc-700 mb-1.5">Position / Job Title <span class="text-red-500">*</span></label>
+                  <label for="jobTitle" class="block text-sm font-medium text-zinc-700 mb-1.5">Position / Job Title <span class="text-red-500">*</span></label>
                   <input type="text" id="jobTitle" name="jobTitle" class="form-input" placeholder="Your role"/>
                 </div>
                 <div>
-                  <label for="timeWithEmployerYears" class="block text sm font-medium text-zinc-700 mb-1.5">Time with employer <span class="text-red-500">*</span></label>
+                  <label for="timeWithEmployerYears" class="block text-sm font-medium text-zinc-700 mb-1.5">Time with employer <span class="text-red-500">*</span></label>
                   <div class="grid grid-cols-2 gap-2">
                     <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select>
                     <select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
@@ -437,22 +391,22 @@
 
               <div id="full-self" class="hidden space-y-3">
                 <div>
-                  <label for="businessName" class="block text sm font-medium text-zinc-700 mb-1.5">Business name <span class="text-red-500">*</span></label>
+                  <label for="businessName" class="block text-sm font-medium text-zinc-700 mb-1.5">Business name <span class="text-red-500">*</span></label>
                   <input type="text" id="businessName" name="businessName" class="form-input" placeholder="Your business"/>
                 </div>
                 <div>
-                  <label for="avgMonthlyIncome" class="block text sm font-medium text-zinc-700 mb-1.5">Average monthly income (before tax) <span class="text-red-500">*</span></label>
+                  <label for="avgMonthlyIncome" class="block text-sm font-medium text-zinc-700 mb-1.5">Average monthly income (before tax) <span class="text-red-500">*</span></label>
                   <input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric"/>
                 </div>
               </div>
 
               <div id="full-other" class="hidden space-y-3">
                 <div>
-                  <label for="otherIncomeAmount" class="block text sm font-medium text-zinc-700 mb-1.5">Monthly income amount (before tax) <span class="text-red-500">*</span></label>
+                  <label for="otherIncomeAmount" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly income amount (before tax) <span class="text-red-500">*</span></label>
                   <input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="$2,000" inputmode="numeric"/>
                 </div>
                 <div>
-                  <label for="otherIncomeSource" class="block text sm font-medium text-zinc-700 mb-1.5">Source description <span class="text-red-500">*</span></label>
+                  <label for="otherIncomeSource" class="block text-sm font-medium text-zinc-700 mb-1.5">Source description <span class="text-red-500">*</span></label>
                   <textarea id="otherIncomeSource" name="otherIncomeSource" class="form-textarea form-input" rows="2" placeholder="Describe the source"></textarea>
                 </div>
               </div>
@@ -460,11 +414,11 @@
               <div id="prev-employment" class="hidden space-y-3">
                 <p class="text-xs text-zinc-500">Less than 2 years with current employer? Add your previous employer.</p>
                 <div>
-                  <label for="previousEmployer" class="block text sm font-medium text-zinc-700 mb-1.5">Previous employer <span class="text-red-500">*</span></label>
+                  <label for="previousEmployer" class="block text-sm font-medium text-zinc-700 mb-1.5">Previous employer <span class="text-red-500">*</span></label>
                   <input type="text" id="previousEmployer" name="previousEmployer" class="form-input" placeholder="Previous company"/>
                 </div>
                 <div>
-                  <label class="block text sm font-medium text-zinc-700 mb-1.5">Time at previous employer <span class="text-red-500">*</span></label>
+                  <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at previous employer <span class="text-red-500">*</span></label>
                   <div class="grid grid-cols-2 gap-2">
                     <select id="prevTimeWithEmployerYears" name="prevTimeWithEmployerYears" class="form-select"><option value="">Years</option></select>
                     <select id="prevTimeWithEmployerMonths" name="prevTimeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
@@ -485,7 +439,7 @@
             </div>
 
             <!-- CREDIT/FULL: Full current address -->
-            <div id="addr-full-current" class="mt-2 space-y-2 hidden">
+            <div id="addr-full-current" class="mt-2 hidden space-y-2">
               <label class="block text-sm font-medium text-zinc-700">Current address <span class="text-red-500">*</span></label>
               <div class="grid grid-cols-6 gap-2">
                 <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address" autocomplete="street-address"/>
@@ -494,35 +448,19 @@
                 <select id="currentProvince" name="currentProvince" class="form-select col-span-3"><option value="">Province</option></select>
                 <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input col-span-6" placeholder="Postal Code" autocomplete="postal-code"/>
               </div>
+            </div>
 
-              <!-- FULL only: duration controls (above previous address, as requested) -->
-              <div id="addr-duration" class="mt-3 hidden">
-                <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at current address <span class="text-red-500">*</span></label>
-                <div class="grid grid-cols-2 gap-2">
-                  <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                  <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
-                </div>
-              </div>
-
-              <!-- Housing switch stays above previous address -->
-              <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 items-end">
-                <div>
-                  <label id="housingLabel" for="housingPayment" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly Payment <span class="text-red-500">*</span></label>
-                  <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1,500" inputmode="numeric"/>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-zinc-700 mb-1.5">Rent or Own? <span class="text-red-500">*</span></label>
-                  <div class="seg">
-                    <button type="button" class="seg-btn" id="btnRent" aria-pressed="true">Rent</button>
-                    <button type="button" class="seg-btn" id="btnOwn" aria-pressed="false">Own</button>
-                  </div>
-                  <input type="hidden" id="housingType" name="housingType" value="Rent" />
-                </div>
+            <!-- FULL only: duration controls -->
+            <div id="addr-duration" class="hidden mt-3">
+              <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at current address <span class="text-red-500">*</span></label>
+              <div class="grid grid-cols-2 gap-2">
+                <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
+                <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
               </div>
             </div>
 
-            <!-- FULL only: previous address if <24 months (kept at the very bottom) -->
-            <div id="addr-previous" class="hidden mt-4 space-y-2">
+            <!-- FULL only: previous address if <24 months (appears AFTER duration + rent/own) -->
+            <div id="addr-previous" class="hidden mt-3 space-y-2">
               <p class="text-xs text-zinc-500">Less than 2 years at current address? Add your previous address.</p>
               <label class="block text-sm font-medium text-zinc-700">Previous address <span class="text-red-500">*</span></label>
               <div class="grid grid-cols-6 gap-2">
@@ -532,10 +470,27 @@
                 <select id="prevProvince" name="prevProvince" class="form-select col-span-3"><option value="">Province</option></select>
                 <input type="text" id="prevPostalCode" name="prevPostalCode" class="form-input col-span-6" placeholder="Postal Code"/>
               </div>
+
               <!-- previous address duration -->
               <div class="grid grid-cols-2 gap-2 mt-2">
                 <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="form-select"><option value="">Years</option></select>
                 <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+              </div>
+            </div>
+
+            <!-- Housing payment + Rent/Own switch (ALL paths) -->
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 items-end">
+              <div>
+                <label id="housingLabel" for="housingPayment" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly Payment <span class="text-red-500">*</span></label>
+                <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1,500" inputmode="numeric"/>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-zinc-700 mb-1.5">Rent or Own? <span class="text-red-500">*</span></label>
+                <div class="seg">
+                  <button type="button" class="seg-btn" id="btnRent" aria-pressed="true">Rent</button>
+                  <button type="button" class="seg-btn" id="btnOwn" aria-pressed="false">Own</button>
+                </div>
+                <input type="hidden" id="housingType" name="housingType" value="Rent" />
               </div>
             </div>
           </section>
@@ -570,12 +525,53 @@
       </div>
     </section>
 
-    <!-- BRAND BANNER (moved below form, slightly zoomed out + lower opacity) -->
-    <section class="card overflow-hidden">
-      <img src="Banner.png" alt="Kot Auto Group banner" class="brand-banner">
+    <!-- INVENTORY PREVIEW (generic, below form) -->
+    <section id="inventory" class="card p-6 sm:p-8">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Browse Inventory</h3>
+        <a href="#lead-form" class="text-sm font-semibold text-blue-600 hover:underline js-view-inventory">View all</a>
+      </div>
+      <p class="text-sm text-zinc-600 mb-5">Explore by category. You’ll see options you qualify for after the quick form.</p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <!-- simple “look real” cards -->
+        <div class="border rounded-xl overflow-hidden">
+          <div class="bg-zinc-200 h-24 sm:h-28"></div>
+          <div class="p-3">
+            <p class="font-semibold text-sm">Sedans</p>
+            <button class="mt-2 text-xs font-bold text-blue-600 hover:underline js-view-inventory">View Inventory</button>
+          </div>
+        </div>
+        <div class="border rounded-xl overflow-hidden">
+          <div class="bg-zinc-200 h-24 sm:h-28"></div>
+          <div class="p-3">
+            <p class="font-semibold text-sm">SUVs</p>
+            <button class="mt-2 text-xs font-bold text-blue-600 hover:underline js-view-inventory">View Inventory</button>
+          </div>
+        </div>
+        <div class="border rounded-xl overflow-hidden">
+          <div class="bg-zinc-200 h-24 sm:h-28"></div>
+          <div class="p-3">
+            <p class="font-semibold text-sm">Trucks</p>
+            <button class="mt-2 text-xs font-bold text-blue-600 hover:underline js-view-inventory">View Inventory</button>
+          </div>
+        </div>
+        <div class="border rounded-xl overflow-hidden">
+          <div class="bg-zinc-200 h-24 sm:h-28"></div>
+          <div class="p-3">
+            <p class="font-semibold text-sm">Vans</p>
+            <button class="mt-2 text-xs font-bold text-blue-600 hover:underline js-view-inventory">View Inventory</button>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <footer class="text-center text-xs text-zinc-500 pt-2 space-y-2">
+    <!-- BRAND BANNER (thin, below inventory) -->
+    <section class="card overflow-hidden">
+      <img src="Banner.png" alt="Kot Auto Group banner" class="w-full h-16 sm:h-20 object-cover opacity-90">
+    </section>
+
+    <footer id="contact" class="text-center text-xs text-zinc-500 pt-2 space-y-2">
       <p class="font-semibold text-zinc-600">Vancouver Island Credit</p>
       <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
       <p><a href="tel:2369692424" class="hover:text-blue-600 transition-colors">(236) 969-2424</a></p>
@@ -733,7 +729,7 @@
       updateProgress();
     }
 
-    // FULL: previous employment if < 24 months
+    // FULL: previous employment if < 24 months (requires user to choose something)
     function checkPrevEmploymentNeed(){
       if (mode() !== 'Full Application') { bySel('#prev-employment').classList.add('hidden'); return; }
       const yRaw = $('timeWithEmployerYears').value;
@@ -748,7 +744,7 @@
       ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id => { const n=$(id); if(n) n.required = need; });
     }
 
-    // FULL: previous address if < 24 months (keep prev address at bottom)
+    // FULL: previous address if < 24 months (requires user to choose something)
     function onAddressDurationChange(){
       if (mode() !== 'Full Application') return;
       const yRaw = $('timeAtAddressYears').value;
@@ -759,7 +755,6 @@
       const months = (y*12)+m;
       const need = hasAny && months < 24;
 
-      // Show/hide previous section (which is after housing section)
       bySel('#addr-previous').classList.toggle('hidden', !need);
       ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths']
         .forEach(id => { const n=$(id); if(n) n.required = need; });
@@ -847,7 +842,7 @@
       next(1);
     }));
 
-    // Inputs formatting listeners
+    // Listeners
     $('phone')?.addEventListener('input', phoneFmt);
     ['monthlyIncome','avgMonthlyIncome','otherIncomeAmount','housingPayment'].forEach(id=> $(id)?.addEventListener('input', currencyFmt));
     $('incomeSourceFull')?.addEventListener('change', onIncomeSourceFullChange);
@@ -855,6 +850,23 @@
     $('timeWithEmployerMonths')?.addEventListener('change', ()=>{ checkPrevEmploymentNeed(); updateProgress(); });
     $('timeAtAddressYears')?.addEventListener('change', onAddressDurationChange);
     $('timeAtAddressMonths')?.addEventListener('change', onAddressDurationChange);
+
+    // Inventory "View Inventory" -> jump to form + show notice
+    function showFormNotice(){
+      const n = $('form-notice');
+      if(!n) return;
+      n.classList.remove('hidden');
+      setTimeout(()=> n.classList.add('hidden'), 4000);
+      const endcap = $('progress-endcap');
+      if (endcap) endcap.textContent = 'To view matching inventory, complete the quick form';
+    }
+    bySelAll('.js-view-inventory').forEach(el=>{
+      el.addEventListener('click', (e)=>{
+        e.preventDefault();
+        document.getElementById('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
+        showFormNotice();
+      });
+    });
 
     // Submit
     async function submitForm(){
@@ -867,26 +879,6 @@
       } catch (e) {
         $('lead-form').submit();
       }
-    }
-
-    // Inventory → Form bridge
-    function goToFormFromInventory(type){
-      if (type){ $('vehicleType').value = type; }
-      // surface the notice and jump to the form
-      showNotice();
-      document.getElementById('apply').scrollIntoView({behavior:'smooth', block:'start'});
-      // start at step 1 (vehicle type) and visually select if available
-      showStep(1);
-    }
-    window.goToFormFromInventory = goToFormFromInventory;
-
-    function showNotice(){ $('formNotice')?.classList.add('show'); }
-    function hideNotice(){ $('formNotice')?.classList.remove('show'); }
-    window.hideNotice = hideNotice;
-
-    // If URL already has #apply or #inventory, show the notice
-    if (location.hash && (location.hash.toLowerCase()==='#apply' || location.hash.toLowerCase()==='#inventory')){
-      window.addEventListener('load', ()=> { showNotice(); showStep(1); });
     }
 
     // Boot
@@ -923,7 +915,7 @@
 
       // Start on step 1
       showStep(1);
-      // do NOT preselect any application mode
+      // IMPORTANT: do NOT preselect any application mode
       setAppMode('');
     })();
   </script>
