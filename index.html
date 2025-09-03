@@ -27,15 +27,32 @@
       --blue-100:#EAF1FB;
       --blue-grad:#4C7CC0;
 
-      --badge-w: 300px; --badge-h: 200px; /* kept, though badges removed */
-      --nav-h: 60px;
+      --ink-900:#0f172a;
+      --ink-700:#334155;
+
+      --nav-h:64px;
+      --container-w:1100px;
+
+      /* Badges (equal size) */
+      --badge-w: 320px;
+      --badge-h: 200px;
     }
+
+    /* Tailwind color mapping for a few custom vars */
     .text-blue-600{ color:var(--blue-600) !important; }
     .bg-blue-100{ background:var(--blue-100) !important; }
-    body { font-family: 'Inter', sans-serif; background:#f6f7fb; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-    .card { background:#fff; border-radius:1.25rem; border:1px solid #e5e7eb; box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05); }
-    .shadow-soft{ box-shadow:0 12px 30px -15px rgba(16,24,40,.25); }
 
+    body{
+      font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:linear-gradient(180deg,#f6f7fb 0%,#ffffff 100%);
+      color:var(--ink-900);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+
+    .container{ width:100%; max-width:var(--container-w); margin-inline:auto; }
+    .card { background:#fff; border-radius:1.25rem; border:1px solid #e5e7eb; box-shadow:0 12px 26px -18px rgba(16,24,40,.28); }
+
+    /* Inputs */
     .form-input, .form-select, .form-textarea {
       background:#f3f4f6; color:#18181b; border:2px solid transparent; font-size:16px; width:100%;
       padding:.85rem 1rem; border-radius:.75rem; transition:all .2s ease;
@@ -43,9 +60,16 @@
     .form-input::placeholder { color:#a1a1aa; }
     .form-input:focus, .form-select:focus, .form-textarea:focus { background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.2); outline:none; }
 
-    .cta-button { background:var(--blue-600); color:#fff; font-weight:800; padding:.9rem 1rem; border-radius:.9rem; transition:all .2s ease; box-shadow:0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1); }
-    .cta-button:hover { transform:translateY(-1px); background:var(--blue-700); }
+    /* CTA */
+    .cta-button {
+      background:linear-gradient(90deg,var(--blue-600),var(--blue-grad));
+      color:#fff; font-weight:800; padding:.9rem 1rem; border-radius:.9rem;
+      transition:transform .15s ease, box-shadow .2s ease;
+      box-shadow:0 10px 20px -12px rgba(42,93,159,.45);
+    }
+    .cta-button:hover { transform:translateY(-1px); box-shadow:0 12px 24px -12px rgba(42,93,159,.55); }
 
+    /* Tiles & Choices */
     .grid-sq, .grid-2, .grid-3 { display:grid; gap:.8rem; justify-items:center; }
     .grid-sq { grid-template-columns:repeat(2,minmax(120px,1fr)); }
     .grid-2  { grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); }
@@ -54,32 +78,38 @@
     .tile { display:flex; align-items:center; justify-content:center; text-align:center; font-weight:900; color:#111827;
       border-radius:.75rem; border:2px solid #e5e7eb; background:#fff; aspect-ratio:1/1; max-width:180px; width:100%; transition:.15s;
     }
-    .tile:hover { border-color:var(--blue-600); background:#f5f8ff; box-shadow:0 10px 18px -8px rgba(37,99,235,.45); transform:translateY(-1px); }
+    .tile:hover { border-color:var(--blue-600); background:#f5f8ff; box-shadow:0 10px 18px -8px rgba(37,99,235,.35); transform:translateY(-1px); }
     .tile.selected { border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
 
     .choice { border-radius:.75rem; border:2px solid #e5e7eb; background:#fff; padding:.95rem; font-weight:800; text-align:center; max-width:240px; width:100%; transition:.15s; }
     .choice:hover { border-color:var(--blue-600); background:#f5f8ff; }
     .choice.selected { border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
 
+    /* Progress */
     .track { height:8px; background:#e5e7eb; border-radius:9999px; overflow:hidden; }
     .fill { height:8px; background:linear-gradient(90deg, var(--blue-600), var(--blue-grad)); border-radius:9999px; width:0%; transition:width .25s ease; }
 
+    /* Validation */
     .err { border-color:#ef4444 !important; }
     .err-label { color:#ef4444 !important; }
 
+    /* Rent/Own segmented switch */
     .seg { display:inline-flex; gap:.25rem; background:#f3f4f6; padding:.25rem; border-radius:.75rem; }
     .seg-btn { padding:.5rem .75rem; border-radius:.5rem; font-weight:600; color:#374151; background:transparent; border:2px solid transparent; }
     .seg-btn[aria-pressed="true"] { background:#e0ecff; color:#214B80; border-color:#bfdbfe; }
 
-    /* Compact trust cards (FIRST BOX LAYOUT) */
-    .trust-card{
-      display:flex; align-items:center; gap:.75rem;
-      padding:.6rem .8rem; border:1px solid #dbe4f5; border-radius:.9rem; background:#fff;
+    /* Equal badges */
+    .badge{
+      width:var(--badge-w); min-height:var(--badge-h);
+      border:1px solid var(--blue-600); border-radius:1rem; background:#fff;
+      box-shadow:0 10px 26px -16px rgba(42,93,159,.35);
+      padding:.55rem .7rem .65rem;
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.4rem; text-align:center;
     }
-    .trust-card img{ display:block; height:48px; width:auto; object-fit:contain; }
-    .trust-caption{ font-size:.85rem; font-weight:800; color:#0f172a; line-height:1.2; }
-    @media (min-width:640px){ .trust-card img{ height:54px; } }
+    .badge img{ display:block; width:auto; max-width:100%; max-height:calc(var(--badge-h) - 2.8rem); object-fit:contain; }
+    .badge .badge-caption{ font-weight:800; font-size:.84rem; line-height:1.2; color:var(--ink-900); }
 
+    /* Inventory cards */
     .bodytype-card{
       position:relative; overflow:hidden; border-radius:1rem; border:1px solid #e5e7eb; background:#fff;
       transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
@@ -88,28 +118,32 @@
     .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:120px; }
     @media (min-width:640px){ .bodytype-img{ height:140px; } }
 
+    /* FORM SHELL — fixed size with internal scroll (keeps progress visible & form centered) */
     .form-shell{
       position:relative;
       height:clamp(560px, 72vh, 720px);
       overflow:auto;
       overscroll-behavior:contain;
     }
-    .form-shell .sticky{ position: sticky; top: 0; z-index: 10; }
+    .form-shell .sticky{ position: sticky; top: 0; z-index: 10; background:#fff; }
 
+    /* Section anchors don’t hide under nav */
     section, header, footer { scroll-margin-top: calc(var(--nav-h) + 12px); }
 
-    @media (max-width: 360px){
-      .force-1col { grid-template-columns: 1fr !important; }
+    /* Smarter input widths on desktop for address rows */
+    @media (min-width:640px){
+      .addr-grid{ grid-template-columns: repeat(6,minmax(0,1fr)); }
+      /* City (3) – Province (2) – Postal (1) */
+      #currentCity{ grid-column: span 3 / span 3; }
+      #currentProvince{ grid-column: span 2 / span 2; }
+      #currentPostalCode{ grid-column: span 1 / span 1; }
+      #prevCity{ grid-column: span 3 / span 3; }
+      #prevProvince{ grid-column: span 2 / span 2; }
+      #prevPostalCode{ grid-column: span 1 / span 1; }
     }
 
-    .container { width:100%; max-width: 880px; margin-inline:auto; }
-    .max-form { width:100%; max-width: 720px; margin-inline:auto; }
-
-    .hero-media{
-      border-radius:1rem; overflow:hidden; border:1px solid #e5e7eb;
-      background:linear-gradient(180deg, rgba(16,24,40,.08), rgba(16,24,40,.0));
-    }
-    .hero-media img{ display:block; width:100%; height:auto; }
+    /* Mobile header spacer */
+    #mobileMenu a{ color:#334155; }
   </style>
 
   <script type="application/ld+json">
@@ -150,7 +184,7 @@
     </nav>
     <!-- Mobile menu sheet -->
     <div id="mobileMenu" class="hidden sm:hidden mt-2 card px-4 py-3">
-      <div class="flex flex-col gap-2 text-sm font-semibold text-zinc-700">
+      <div class="flex flex-col gap-2 text-sm font-semibold">
         <a href="#inventory" class="py-2 px-2 rounded hover:bg-blue-100">Inventory</a>
         <a href="#about" class="py-2 px-2 rounded hover:bg-blue-100">About</a>
         <a href="#contact" class="py-2 px-2 rounded hover:bg-blue-100">Contact</a>
@@ -161,7 +195,7 @@
 
   <!-- STICKY MOBILE CTA -->
   <div class="fixed bottom-0 left-0 right-0 z-40 sm:hidden">
-    <div class="mx-3 mb-3 rounded-xl shadow-soft bg-[var(--blue-600)]">
+    <div class="mx-3 mb-3 rounded-xl bg-[var(--blue-600)] shadow-lg">
       <a href="#lead-form" class="block text-center py-3 text-white font-extrabold">Start in ~2 minutes</a>
     </div>
   </div>
@@ -171,7 +205,7 @@
     <!-- HERO -->
     <section id="about" class="card p-6 sm:p-8">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-        <!-- Left: steps + TRUST CARDS (first box layout) -->
+        <!-- Left: steps + Kot badge -->
         <div class="flex flex-col justify-between">
           <div class="space-y-5">
             <h1 class="font-black text-3xl sm:text-4xl text-zinc-900 tracking-tight">Get driving in 3 easy steps</h1>
@@ -192,25 +226,18 @@
             </ol>
           </div>
 
-          <!-- TRUST CARDS row (compact) -->
+          <!-- Kot badge -->
           <div class="mt-6 pt-4 border-t border-gray-200">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div class="trust-card">
-                <img src="Kotautogroup.png" alt="Kot Auto Group" loading="lazy" width="120" height="54">
-                <span class="trust-caption">Partnered with Kot Auto Group</span>
-              </div>
-              <div class="trust-card">
-                <picture>
-                  <source srcset="5star.webp" type="image/webp">
-                  <img src="5star.png" alt="5-star Google reviews" loading="lazy" width="120" height="54">
-                </picture>
-                <span class="trust-caption">Over 10,000 5-star Google reviews</span>
-              </div>
+            <div class="flex items-center gap-3">
+              <figure class="badge">
+                <img src="Kotautogroup.png" alt="Kot Auto Group" loading="lazy" width="500" height="180">
+                <figcaption class="badge-caption">Partnered with Kot Auto Group</figcaption>
+              </figure>
             </div>
           </div>
         </div>
 
-        <!-- Right: reasons + hero image -->
+        <!-- Right: reasons + 5-star badge + hero media -->
         <div class="flex flex-col justify-between md:border-l md:pl-12 border-gray-200">
           <div>
             <div class="flex items-center space-x-4 mb-5">
@@ -220,10 +247,10 @@
               <h2 class="text-2xl font-extrabold text-zinc-900">Fastest Online Approval</h2>
             </div>
 
-            <div class="hero-media mb-5">
+            <div class="rounded-xl overflow-hidden border border-zinc-200 mb-5">
               <picture>
                 <source srcset="/img/hero-vi.webp" type="image/webp">
-                <img src="/img/hero-vi.jpg" alt="Vancouver Island driving — new & used options" width="960" height="540" loading="lazy">
+                <img src="/img/hero-vi.jpg" alt="Vancouver Island driving — new & used options" width="960" height="540" loading="lazy" class="w-full h-auto">
               </picture>
             </div>
 
@@ -234,12 +261,25 @@
               <li><strong class="text-zinc-900">Canada-wide delivery:</strong> To your door—easy.</li>
             </ul>
           </div>
+
+          <!-- 5-star badge (equal size with Kot) -->
+          <div class="mt-6 pt-4 border-t border-gray-200">
+            <div class="flex items-center gap-3">
+              <figure class="badge">
+                <picture>
+                  <source srcset="5star.webp" type="image/webp">
+                  <img src="5star.png" alt="5-star Google reviews" width="500" height="180">
+                </picture>
+                <figcaption class="badge-caption">Over 10,000 5-star Google reviews</figcaption>
+              </figure>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- FORM (fixed-height shell with internal scroll) -->
-    <section class="card p-0 overflow-hidden relative max-form" id="lead-form">
+    <section class="card p-0 overflow-hidden max-w-[720px] mx-auto" id="lead-form">
       <div class="form-shell" id="form-shell">
         <!-- notice -->
         <div id="form-notice" class="hidden absolute top-3 right-3 bg-blue-100 text-blue-600 text-xs font-semibold px-3 py-2 rounded-md shadow">
@@ -247,7 +287,7 @@
         </div>
 
         <!-- sticky progress -->
-        <div class="px-4 sm:px-6 pt-4 sticky bg-white border-b">
+        <div class="px-4 sm:px-6 pt-4 sticky border-b">
           <div class="flex items-center justify-between mb-2">
             <div id="progress-label" class="text-xs font-semibold text-zinc-700">Step 1 of 10</div>
             <div id="progress-endcap" class="text-xs text-blue-700 font-semibold">Let’s get you approved</div>
@@ -368,7 +408,7 @@
               </div>
             </section>
 
-            <!-- 7: DOB (+ marital for Credit/Full) -->
+            <!-- 7: About you -->
             <section class="form-step hidden" data-step="7" id="step-dob">
               <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">About you</h3>
               <div class="grid grid-cols-1 gap-4 mt-2">
@@ -400,6 +440,7 @@
             <section class="form-step hidden" data-step="8" id="step-income">
               <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Income</h3>
 
+              <!-- SIMPLE -->
               <div id="income-simple" class="mt-2 space-y-3">
                 <div>
                   <label for="incomeSource" class="block text-sm font-medium text-zinc-700 mb-1.5">Primary income source</label>
@@ -418,6 +459,7 @@
                 </div>
               </div>
 
+              <!-- FULL -->
               <div id="income-full" class="hidden mt-2 space-y-4">
                 <div>
                   <label for="incomeSourceFull" class="block text-sm font-medium text-zinc-700 mb-1.5">Primary income source <span class="text-red-500">*</span></label>
@@ -492,23 +534,19 @@
             <section class="form-step hidden" data-step="9" id="step-address">
               <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Where do you live?</h3>
 
-              <div id="addr-postal-only" class="mt-2 hidden">
-                <label for="currentPostalCode_basic" class="block text-sm font-medium text-zinc-700 mb-1.5">Postal Code <span class="text-red-500">*</span></label>
-                <input type="text" id="currentPostalCode_basic" name="currentPostalCode_basic" class="form-input" placeholder="V8T 4T2"/>
-              </div>
-
+              <!-- FULL: Current address -->
               <div id="addr-full-current" class="mt-2 space-y-2">
                 <label class="block text-sm font-medium text-zinc-700">Current address <span class="text-red-500">*</span></label>
-                <div class="grid grid-cols-6 gap-2 force-1col sm:force-1col-undo">
+                <div class="grid gap-2 addr-grid">
                   <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address" autocomplete="street-address" required/>
                   <input type="text" id="currentUnit" name="currentUnit" class="form-input col-span-6 sm:col-span-2" placeholder="Unit #"/>
-                  <input type="text" id="currentCity" name="currentCity" class="form-input col-span-6 sm:col-span-3" placeholder="City" autocomplete="address-level2" required/>
-                  <select id="currentProvince" name="currentProvince" class="form-select col-span-6 sm:col-span-2" required><option value="">Province</option></select>
-                  <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input col-span-6 sm:col-span-1" placeholder="Postal" autocomplete="postal-code" />
+                  <input type="text" id="currentCity" name="currentCity" class="form-input col-span-6" placeholder="City" autocomplete="address-level2" required/>
+                  <select id="currentProvince" name="currentProvince" class="form-select col-span-6" required><option value="">Province</option></select>
+                  <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input col-span-6" placeholder="Postal" autocomplete="postal-code" required/>
                 </div>
               </div>
 
-              <!-- Housing always below current address -->
+              <!-- HOUSING (always below current address; always above previous address) -->
               <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3 items-end" id="housing-row">
                 <div>
                   <label id="housingLabel" for="housingPayment" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly Payment <span class="text-red-500">*</span></label>
@@ -524,6 +562,7 @@
                 </div>
               </div>
 
+              <!-- Duration (Full only) -->
               <div id="addr-duration" class="mt-3">
                 <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at current address <span class="text-red-500">*</span></label>
                 <div class="grid grid-cols-2 gap-2">
@@ -532,15 +571,16 @@
                 </div>
               </div>
 
+              <!-- Previous address (if < 24 months) -->
               <div id="addr-previous" class="hidden mt-3 space-y-2">
                 <p class="text-xs text-zinc-500">Less than 2 years at current address? Add your previous address.</p>
                 <label class="block text-sm font-medium text-zinc-700">Previous address <span class="text-red-500">*</span></label>
-                <div class="grid grid-cols-6 gap-2">
+                <div class="grid gap-2 addr-grid">
                   <input type="text" id="prevStreetAddress" name="prevStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address"/>
                   <input type="text" id="prevUnit" name="prevUnit" class="form-input col-span-6 sm:col-span-2" placeholder="Unit #"/>
-                  <input type="text" id="prevCity" name="prevCity" class="form-input col-span-6 sm:col-span-3" placeholder="City"/>
-                  <select id="prevProvince" name="prevProvince" class="form-select col-span-6 sm:col-span-2"><option value="">Province</option></select>
-                  <input type="text" id="prevPostalCode" name="prevPostalCode" class="form-input col-span-6 sm:col-span-1" placeholder="Postal"/>
+                  <input type="text" id="prevCity" name="prevCity" class="form-input col-span-6" placeholder="City"/>
+                  <select id="prevProvince" name="prevProvince" class="form-select col-span-6"><option value="">Province</option></select>
+                  <input type="text" id="prevPostalCode" name="prevPostalCode" class="form-input col-span-6" placeholder="Postal"/>
                 </div>
                 <div class="grid grid-cols-2 gap-2 mt-2">
                   <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="form-select"><option value="">Years</option></select>
@@ -570,6 +610,7 @@
               </div>
             </section>
 
+            <!-- NAV -->
             <div class="flex items-center justify-between pt-2">
               <button type="button" id="btnBack" class="text-sm font-semibold text-zinc-500 hover:text-zinc-800 px-2 py-2 disabled:opacity-30">Back</button>
               <button type="button" id="btnNext" class="cta-button">Next</button>
@@ -623,8 +664,6 @@
       </div>
     </section>
 
-    <!-- (Kot banner removed as requested) -->
-
     <footer id="contact" class="text-center text-xs text-zinc-500 pt-2 space-y-2">
       <p class="font-semibold text-zinc-600">Vancouver Island Credit</p>
       <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
@@ -635,12 +674,15 @@
   </main>
 
   <script>
+    // Shortcuts
     const $ = (id) => document.getElementById(id);
     const bySel = (s, root=document) => root.querySelector(s);
     const bySelAll = (s, root=document) => Array.from(root.querySelectorAll(s));
 
+    // Mobile menu
     $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
 
+    // Smooth anchor scroll
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click', (e)=>{
         const href = a.getAttribute('href');
@@ -652,6 +694,7 @@
       });
     });
 
+    // Steps
     const steps = () => bySelAll('.form-step');
     function showStep(n){
       steps().forEach(s => s.classList.add('hidden'));
@@ -668,13 +711,16 @@
 
       window.__currentStep = n;
 
+      // Scroll only the form shell, not the page — keeps progress visible
       const shell = $('form-shell');
       if (shell) shell.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // Formatters
     function currencyFmt(e){ let v=e.target.value.replace(/[$,]/g,''); e.target.value = (!v||isNaN(v))? '' : ('$'+ new Intl.NumberFormat('en-US').format(v)); }
     function phoneFmt(e){ const d=e.target.value.replace(/\D/g,'').slice(0,10); if(d.length>6)e.target.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`; else if(d.length>3)e.target.value=`(${d.slice(0,3)}) ${d.slice(3)}`; else if(d.length>0)e.target.value=`(${d}`; }
 
+    // Rent/Own switch
     function setHousing(type){
       $('housingType').value = type;
       $('btnRent').setAttribute('aria-pressed', type==='Rent');
@@ -684,6 +730,7 @@
     $('btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
     $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
 
+    // Mode
     const mode = () => $('app_type').value;
 
     function setAppMode(nextMode){
@@ -694,19 +741,24 @@
       const isCredit = nextMode === 'Credit Inquiry';
       const isFull = nextMode === 'Full Application';
 
+      // Middle name optional for Credit; required for Full
       $('middleName').required = !!isFull;
       $('middleReq').classList.toggle('hidden', !isFull);
       $('middleOpt').classList.toggle('hidden', !!isFull);
 
+      // DOB required after selection
       ['dobMonth','dobDay','dobYear'].forEach(id => $(id).required = !!nextMode);
 
+      // Marital: Credit + Full
       bySel('#marital-wrap').classList.toggle('hidden', !(isCredit || isFull));
       $('maritalStatus').required = (isCredit || isFull);
 
+      // Income visibility
       bySel('#income-simple').classList.toggle('hidden', !!isFull);
       bySel('#income-full').classList.toggle('hidden', !isFull);
 
-      ['currentStreetAddress','currentCity','currentProvince','currentPostalCode','currentPostalCode_basic',
+      // Reset required flags first
+      ['currentStreetAddress','currentCity','currentProvince','currentPostalCode',
        'timeAtAddressYears','timeAtAddressMonths',
        'prevStreetAddress','prevCity','prevProvince','prevPostalCode',
        'prevTimeAtAddressYears','prevTimeAtAddressMonths',
@@ -714,13 +766,14 @@
        'monthlyIncome','incomeSource','incomeSourceFull','currentEmployer','jobTitle']
         .forEach(id => { const n=$(id); if(n) n.required = false; });
 
+      // Consent copy variants
       bySel('#consent-inline').classList.add('hidden');
       bySel('#consent-checkbox').classList.add('hidden');
 
       if (!nextMode) { updateProgress(); return; }
 
       if (isCredit) {
-        bySel('#addr-postal-only').classList.add('hidden');
+        // Show current address only
         bySel('#addr-full-current').classList.remove('hidden');
         bySel('#addr-duration').classList.add('hidden');
         bySel('#addr-previous').classList.add('hidden');
@@ -733,7 +786,6 @@
       }
 
       if (isFull) {
-        bySel('#addr-postal-only').classList.add('hidden');
         bySel('#addr-full-current').classList.remove('hidden');
         bySel('#addr-duration').classList.remove('hidden');
 
@@ -747,6 +799,7 @@
       updateProgress();
     }
 
+    // Income branching (FULL)
     function onIncomeSourceFullChange(){
       const v = $('incomeSourceFull').value;
       const employed = (v === 'Full-Time' || v === 'Part-Time');
@@ -770,6 +823,7 @@
       updateProgress();
     }
 
+    // FULL: previous employment if < 24 months
     function checkPrevEmploymentNeed(){
       if (mode() !== 'Full Application') { bySel('#prev-employment').classList.add('hidden'); return; }
       const yRaw = $('timeWithEmployerYears').value;
@@ -784,6 +838,7 @@
       ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id => { const n=$(id); if(n) n.required = need; });
     }
 
+    // FULL: previous address if < 24 months (housing row stays in the middle)
     function onAddressDurationChange(){
       if (mode() !== 'Full Application') return;
       const yRaw = $('timeAtAddressYears').value;
@@ -802,6 +857,7 @@
       updateProgress();
     }
 
+    // Validation & progress
     function visibleRequired() {
       const req = bySelAll('#the-form [required]');
       return req.filter(el => !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none');
@@ -842,6 +898,7 @@
       $('progress-fill').style.width = pct+'%';
     }
 
+    // Navigation
     function next(delta){
       const cur = window.__currentStep || 1;
       if (delta>0 && !validateStep(cur)) return;
@@ -854,6 +911,7 @@
     $('btnNext').addEventListener('click', ()=> next(1));
     $('btnBack').addEventListener('click', ()=> next(-1));
 
+    // Selections
     bySelAll('[data-type]').forEach(b=> b.addEventListener('click', ()=>{
       $('vehicleType').value = b.dataset.type;
       bySelAll('[data-type]').forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); next(1);
@@ -876,6 +934,7 @@
       next(1);
     }));
 
+    // Formatters
     $('phone')?.addEventListener('input', phoneFmt);
     ['monthlyIncome','avgMonthlyIncome','otherIncomeAmount','housingPayment'].forEach(id=> $(id)?.addEventListener('input', currencyFmt));
     $('incomeSourceFull')?.addEventListener('change', onIncomeSourceFullChange);
@@ -884,6 +943,7 @@
     $('timeAtAddressYears')?.addEventListener('change', onAddressDurationChange);
     $('timeAtAddressMonths')?.addEventListener('change', onAddressDurationChange);
 
+    // Inventory "View Inventory" -> jump to form + show notice
     function showFormNotice(){
       const n = $('form-notice');
       if(!n) return;
@@ -900,6 +960,7 @@
       });
     });
 
+    // Submit
     async function submitForm(){
       if (!validateAll()) { $('form-status').textContent = 'Please complete all required fields.'; return; }
       $('submitBtn').disabled = true; $('submitBtn').textContent = 'Submitting…';
@@ -912,15 +973,19 @@
       }
     }
 
+    // Boot
     (function init(){
+      // footer year
       const y = new Date().getFullYear(); bySel('#year').textContent = y;
 
+      // DOB selects
       function populateMonths(sel){ if(!sel) return; const m=["January","February","March","April","May","June","July","August","September","October","November","December"]; m.forEach((mm,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=mm; sel.appendChild(o);}); }
       function updateDays(){ const y=parseInt($('dobYear').value||'',10); const m=parseInt($('dobMonth').value||'',10); const sel=parseInt($('dobDay').value||'',10); const days=(y&&m)?new Date(y,m,0).getDate():31; $('dobDay').innerHTML='<option value="">Day</option>'; for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; $('dobDay').appendChild(o);} if(sel&&sel<=days)$('dobDay').value=sel; }
       populateMonths($('dobMonth')); updateDays();
       $('dobMonth').addEventListener('change', updateDays);
       $('dobYear').addEventListener('input', updateDays);
 
+      // Dropdowns
       function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i+' '+(i!==1?label:(singular||label)); sel.appendChild(o);} }
       populateDropdown($('timeWithEmployerYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('timeWithEmployerMonths'), 0, 11, 'Months', 'Month');
@@ -928,16 +993,19 @@
       populateDropdown($('prevTimeWithEmployerMonths'), 0, 11, 'Months', 'Month');
       populateDropdown($('timeAtAddressYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
-
       populateDropdown($('prevTimeAtAddressYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('prevTimeAtAddressMonths'), 0, 11, 'Months', 'Month');
 
+      // Provinces
       function populateProvinces(cur, prev){ const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; [cur,prev].forEach(sel=>{ if(!sel) return; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }); }
       populateProvinces($('currentProvince'), $('prevProvince'));
 
+      // Default housing switch text + value
       setHousing('Rent');
+
+      // Start
       showStep(1);
-      setAppMode('');
+      setAppMode(''); // user chooses Credit Inquiry or Full
     })();
   </script>
 </body>
