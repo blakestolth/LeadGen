@@ -26,10 +26,13 @@
 
   <style>
     :root{
-      --blue-600:#2A5D9F;   /* primary */
-      --blue-700:#214B80;   /* hover/darker */
-      --blue-100:#EAF1FB;   /* subtle bg */
-      --blue-grad:#4C7CC0;  /* gradient end */
+      --blue-600:#2A5D9F;
+      --blue-700:#214B80;
+      --blue-100:#EAF1FB;
+      --blue-grad:#4C7CC0;
+      /* Shared badge size (compact but roomy enough for headings + image + caption) */
+      --badge-w: 280px;
+      --badge-h: 220px;
     }
     .text-blue-600{ color:var(--blue-600) !important; }
     .bg-blue-100{ background:var(--blue-100) !important; }
@@ -37,7 +40,6 @@
     body { font-family: 'Inter', sans-serif; background:#f9fafb; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
     .card { background:#fff; border-radius:1.5rem; border:1px solid #e5e7eb; box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05); }
 
-    /* Inputs */
     .form-input, .form-select, .form-textarea {
       background:#f3f4f6; color:#18181b; border:2px solid transparent; font-size:16px; width:100%;
       padding:.85rem 1rem; border-radius:.75rem; transition:all .2s ease;
@@ -45,11 +47,9 @@
     .form-input::placeholder { color:#a1a1aa; }
     .form-input:focus, .form-select:focus, .form-textarea:focus { background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.2); outline:none; }
 
-    /* CTA */
     .cta-button { background:var(--blue-600); color:#fff; font-weight:800; padding:.9rem 1rem; border-radius:.9rem; transition:all .2s ease; box-shadow:0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1); }
     .cta-button:hover { transform:translateY(-2px); background:var(--blue-700); }
 
-    /* Tiles */
     .grid-sq, .grid-2, .grid-3 { display:grid; gap:.8rem; justify-items:center; }
     .grid-sq { grid-template-columns:repeat(2,minmax(120px,1fr)); }
     .grid-2  { grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); }
@@ -65,36 +65,40 @@
     .choice:hover { border-color:var(--blue-600); background:#f5f8ff; }
     .choice.selected { border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
 
-    /* Progress */
     .track { height:8px; background:#e5e7eb; border-radius:9999px; overflow:hidden; }
     .fill { height:8px; background:linear-gradient(90deg, var(--blue-600), var(--blue-grad)); border-radius:9999px; width:0%; transition:width .25s ease; }
 
-    /* Validation */
     .err { border-color:#ef4444 !important; }
     .err-label { color:#ef4444 !important; }
 
-    /* Rent/Own segmented switch */
     .seg { display:inline-flex; gap:.25rem; background:#f3f4f6; padding:.25rem; border-radius:.75rem; }
     .seg-btn { padding:.5rem .75rem; border-radius:.5rem; font-weight:600; color:#374151; background:transparent; border:2px solid transparent; }
     .seg-btn[aria-pressed="true"] { background:#e0ecff; color:#214B80; border-color:#bfdbfe; }
 
-    /* Partner & reviews badges – bigger images, captions inside, thinner borders */
+    /* BADGES — compact, equal-sized boxes */
     .badge{
-      display:inline-flex; flex-direction:column; align-items:center; gap:.4rem;
-      background:#fff; border:2px solid var(--blue-600); border-radius:1rem;
-      padding:.6rem .9rem .75rem; box-shadow:0 12px 30px -14px rgba(42,93,159,.45);
+      width:var(--badge-w);
+      min-height:var(--badge-h);
+      border:1px solid var(--blue-600);          /* thinner line */
+      border-radius:1rem;
+      background:#fff;
+      box-shadow:0 10px 26px -16px rgba(42,93,159,.45);
+      padding:.6rem .8rem .7rem;
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.4rem;
+      text-align:center;
+    }
+    .badge .badge-kicker{
+      font-size:.72rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:#1f2937;
     }
     .badge img{
-      height:clamp(120px, 18vw, 220px);
-      width:auto; object-fit:contain;
-      display:block;
+      display:block; width:auto; max-width:100%;
+      max-height:calc(var(--badge-h) - 3.4rem); /* leave room for kicker + caption */
+      object-fit:contain;
     }
-    .badge-caption{
-      font-weight:800; font-size:.85rem; line-height:1.2; color:#0f172a; text-align:center;
-      letter-spacing:.1px;
+    .badge .badge-caption{
+      font-weight:800; font-size:.85rem; line-height:1.2; color:#0f172a;
     }
 
-    /* Body type cards */
     .bodytype-card{
       position:relative; overflow:hidden; border-radius:1rem; border:1px solid #e5e7eb; background:#fff;
       transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
@@ -121,7 +125,7 @@
   </script>
 </head>
 <body class="py-6 sm:py-10 px-4">
-  <!-- NAV (aligned to main width) -->
+  <!-- NAV -->
   <header class="w-full max-w-2xl mx-auto mb-6 sm:mb-8">
     <nav class="bg-white/90 backdrop-blur card px-4 sm:px-6 py-3 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
@@ -137,16 +141,15 @@
     </nav>
   </header>
 
-  <!-- EXACT WIDTH: max-w-2xl -->
+  <!-- MAIN -->
   <main class="w-full max-w-2xl mx-auto space-y-8">
     <!-- HERO -->
     <section id="about" class="card p-6 sm:p-8">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-        <!-- Left column: Steps + Partnered -->
+        <!-- Left: steps + partnered badge -->
         <div class="flex flex-col justify-between">
           <div class="space-y-5">
             <h1 class="font-black text-3xl sm:text-4xl text-zinc-900 tracking-tight">Get driving in 3 easy steps</h1>
-
             <ol class="space-y-3">
               <li class="flex items-start gap-3">
                 <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-extrabold">1</span>
@@ -163,12 +166,11 @@
             </ol>
           </div>
 
-          <!-- Partnered w/ Kot (bottom-left) -->
+          <!-- Partnered badge IN THE SQUARE with kicker -->
           <div class="mt-6 pt-4 border-t border-gray-200">
             <div class="flex items-center gap-3">
-              <span class="text-[13px] font-semibold text-zinc-700">Partnered with</span>
-              <!-- Badge box with bigger image + caption inside -->
               <figure class="badge">
+                <div class="badge-kicker">Partnered with</div>
                 <img src="Kotautogroup.png" alt="Kot Auto Group" loading="lazy">
                 <figcaption class="badge-caption">Kot Auto Group</figcaption>
               </figure>
@@ -176,14 +178,12 @@
           </div>
         </div>
 
-        <!-- Right column: Reasons + Reviews badge (bottom) -->
+        <!-- Right: reasons + reviews badge -->
         <div class="flex flex-col justify-between md:border-l md:pl-12 border-gray-200">
           <div>
             <div class="flex items-center space-x-4 mb-5">
               <div class="bg-blue-100 p-3 rounded-xl">
-                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                </svg>
+                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
               <h2 class="text-2xl font-extrabold text-zinc-900">Fastest Online Approval</h2>
             </div>
@@ -195,16 +195,14 @@
             </ul>
           </div>
 
-          <!-- Reviews badge (bottom-right) -->
+          <!-- Reviews badge IN THE SQUARE, same size as Kot badge -->
           <div class="mt-6 pt-4 border-t border-gray-200">
             <div class="flex items-center gap-3">
-              <!-- Badge box with bigger image + caption inside -->
               <figure class="badge">
                 <img id="gr-img" src="5star.png" alt="5-star Google reviews">
                 <figcaption class="badge-caption">Over 10,000 5-star Google reviews</figcaption>
               </figure>
             </div>
-            <!-- Fallback if image fails -->
             <div id="gr-fallback" class="hidden flex items-center gap-2 mt-2 text-amber-500">
               <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.802-2.036a1 1 0 00-1.175 0l-2.802 2.036c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.88 8.72c-.783-.57-.38-1.81.588-1.81H6.93a1 1 0 00.95-.69l1.17-3.292z"/></svg>
               <span class="text-[13px] font-semibold text-zinc-700">Over <span class="font-extrabold">10,000</span> 5-star Google reviews</span>
@@ -214,7 +212,7 @@
       </div>
     </section>
 
-    <!-- FLOW + FORM -->
+    <!-- FORM -->
     <section class="card p-0 overflow-hidden relative">
       <div id="form-notice" class="hidden absolute top-3 right-3 bg-blue-100 text-blue-600 text-xs font-semibold px-3 py-2 rounded-md shadow">
         To view matching inventory, please complete the quick form.
@@ -235,8 +233,6 @@
           <input type="hidden" name="vehicleCondition" id="vehicleCondition" />
           <input type="hidden" name="vehicleType" id="vehicleType" />
           <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
-
-          <!-- ORDER: Vehicle → Condition → Budget → PURCHASE → APPLICATION TYPE → Contact → DOB → Income → Address/Housing → Consent -->
 
           <!-- 1: Vehicle Type -->
           <section class="form-step" data-step="1">
@@ -269,7 +265,7 @@
             </div>
           </section>
 
-          <!-- 4: PURCHASE -->
+          <!-- 4: Purchase -->
           <section class="form-step hidden" data-step="4" id="step-purchase">
             <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Purchase details</h3>
             <div class="mt-2 grid gap-4">
@@ -283,7 +279,7 @@
                 </select>
               </div>
               <div>
-                <label for="hasTradeIn" class="block text sm font-medium text-zinc-700 mb-1.5">Do you have a vehicle to trade in?</label>
+                <label for="hasTradeIn" class="block text-sm font-medium text-zinc-700 mb-1.5">Do you have a vehicle to trade in?</label>
                 <select id="hasTradeIn" name="hasTradeIn" class="form-select">
                   <option>No</option>
                   <option>Yes</option>
@@ -301,7 +297,7 @@
             </div>
           </section>
 
-          <!-- 5: APPLICATION TYPE -->
+          <!-- 5: App type -->
           <section class="form-step hidden" data-step="5">
             <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Choose your path</h3>
             <div class="mt-4 grid-3" role="tablist" aria-label="Application type">
@@ -312,7 +308,7 @@
             <p class="text-xs text-zinc-500 mt-2">We’ll only show what’s needed based on your choice.</p>
           </section>
 
-          <!-- 6: CONTACT -->
+          <!-- 6: Contact -->
           <section class="form-step hidden" data-step="6" id="step-contact">
             <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Your contact info</h3>
             <div class="mt-2 grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -341,7 +337,7 @@
             </div>
           </section>
 
-          <!-- 7: DOB (+ Marital for Credit/Full) -->
+          <!-- 7: DOB (+ marital for Credit/Full) -->
           <section class="form-step hidden" data-step="7" id="step-dob">
             <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">About you</h3>
             <div class="grid grid-cols-1 gap-4 mt-2">
@@ -373,7 +369,6 @@
           <section class="form-step hidden" data-step="8" id="step-income">
             <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Income</h3>
 
-            <!-- SIMPLE -->
             <div id="income-simple" class="mt-2 space-y-3">
               <div>
                 <label for="incomeSource" class="block text-sm font-medium text-zinc-700 mb-1.5">Primary income source</label>
@@ -392,7 +387,6 @@
               </div>
             </div>
 
-            <!-- FULL -->
             <div id="income-full" class="hidden mt-2 space-y-4">
               <div>
                 <label for="incomeSourceFull" class="block text-sm font-medium text-zinc-700 mb-1.5">Primary income source <span class="text-red-500">*</span></label>
@@ -437,7 +431,7 @@
 
               <div id="full-other" class="hidden space-y-3">
                 <div>
-                  <label for="otherIncomeAmount" class="block text sm font-medium text-zinc-700 mb-1.5">Monthly income amount (before tax) <span class="text-red-500">*</span></label>
+                  <label for="otherIncomeAmount" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly income amount (before tax) <span class="text-red-500">*</span></label>
                   <input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="$2,000" inputmode="numeric"/>
                 </div>
                 <div>
@@ -467,13 +461,11 @@
           <section class="form-step hidden" data-step="9" id="step-address">
             <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Where do you live?</h3>
 
-            <!-- BASIC: Postal code only -->
             <div id="addr-postal-only" class="mt-2 hidden">
               <label for="currentPostalCode_basic" class="block text-sm font-medium text-zinc-700 mb-1.5">Postal Code <span class="text-red-500">*</span></label>
               <input type="text" id="currentPostalCode_basic" name="currentPostalCode_basic" class="form-input" placeholder="V8T 4T2"/>
             </div>
 
-            <!-- CREDIT/FULL: Full current address -->
             <div id="addr-full-current" class="mt-2 hidden space-y-2">
               <label class="block text-sm font-medium text-zinc-700">Current address <span class="text-red-500">*</span></label>
               <div class="grid grid-cols-6 gap-2">
@@ -485,7 +477,6 @@
               </div>
             </div>
 
-            <!-- FULL only: duration controls -->
             <div id="addr-duration" class="hidden mt-3">
               <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at current address <span class="text-red-500">*</span></label>
               <div class="grid grid-cols-2 gap-2">
@@ -494,7 +485,6 @@
               </div>
             </div>
 
-            <!-- FULL only: previous address if <24 months -->
             <div id="addr-previous" class="hidden mt-3 space-y-2">
               <p class="text-xs text-zinc-500">Less than 2 years at current address? Add your previous address.</p>
               <label class="block text-sm font-medium text-zinc-700">Previous address <span class="text-red-500">*</span></label>
@@ -505,14 +495,12 @@
                 <select id="prevProvince" name="prevProvince" class="form-select col-span-3"><option value="">Province</option></select>
                 <input type="text" id="prevPostalCode" name="prevPostalCode" class="form-input col-span-6" placeholder="Postal Code"/>
               </div>
-
               <div class="grid grid-cols-2 gap-2 mt-2">
                 <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="form-select"><option value="">Years</option></select>
                 <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="form-select"><option value="">Months</option></select>
               </div>
             </div>
 
-            <!-- Housing payment + Rent/Own switch -->
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 items-end">
               <div>
                 <label id="housingLabel" for="housingPayment" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly Payment <span class="text-red-500">*</span></label>
@@ -550,7 +538,6 @@
             </div>
           </section>
 
-          <!-- NAV -->
           <div class="flex items-center justify-between pt-2">
             <button type="button" id="btnBack" class="text-sm font-semibold text-zinc-500 hover:text-zinc-800 px-2 py-2 disabled:opacity-30">Back</button>
             <button type="button" id="btnNext" class="cta-button">Next</button>
@@ -559,7 +546,7 @@
       </div>
     </section>
 
-    <!-- INVENTORY PREVIEW -->
+    <!-- INVENTORY -->
     <section id="inventory" class="card p-6 sm:p-8">
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Browse by Body Type</h3>
@@ -603,7 +590,7 @@
       </div>
     </section>
 
-    <!-- BRAND BANNER -->
+    <!-- BANNER -->
     <section class="card overflow-hidden">
       <img src="Banner.png" alt="Kot Auto Group banner" class="w-full h-16 sm:h-20 object-cover opacity-90">
     </section>
@@ -618,12 +605,10 @@
   </main>
 
   <script>
-    // Helpers
     const $ = (id) => document.getElementById(id);
     const bySel = (s, root=document) => root.querySelector(s);
     const bySelAll = (s, root=document) => Array.from(root.querySelectorAll(s));
 
-    // Progress UI
     const steps = () => bySelAll('.form-step');
     function showStep(n){
       steps().forEach(s => s.classList.add('hidden'));
@@ -638,11 +623,9 @@
       window.__currentStep = n;
     }
 
-    // Formatters
     function currencyFmt(e){ let v=e.target.value.replace(/[$,]/g,''); e.target.value = (!v||isNaN(v))? '' : ('$'+ new Intl.NumberFormat('en-US').format(v)); }
     function phoneFmt(e){ const d=e.target.value.replace(/\D/g,'').slice(0,10); if(d.length>6)e.target.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`; else if(d.length>3)e.target.value=`(${d.slice(0,3)}) ${d.slice(3)}`; else if(d.length>0)e.target.value=`(${d}`; }
 
-    // Rent/Own switch
     function setHousing(type){
       $('housingType').value = type;
       $('btnRent').setAttribute('aria-pressed', type==='Rent');
@@ -652,44 +635,29 @@
     $('btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
     $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
 
-    // Mode
-    const mode = () => $('app_type').value; // '', 'Pre-Approval' | 'Credit Inquiry' | 'Full Application'
+    const mode = () => $('app_type').value;
 
     function setAppMode(nextMode){
       $('app_type').value = nextMode || '';
-
-      // Clear selected states
-      bySelAll('[data-app]').forEach(b=> {
-        b.classList.remove('selected');
-        b.setAttribute('aria-pressed','false');
-      });
-      if (nextMode) {
-        const btn = bySel(`[data-app="${nextMode}"]`);
-        btn?.classList.add('selected');
-        btn?.setAttribute('aria-pressed','true');
-      }
+      bySelAll('[data-app]').forEach(b=> { b.classList.remove('selected'); b.setAttribute('aria-pressed','false'); });
+      if (nextMode) { const btn = bySel(`[data-app="${nextMode}"]`); btn?.classList.add('selected'); btn?.setAttribute('aria-pressed','true'); }
 
       const isPre = nextMode === 'Pre-Approval';
       const isCredit = nextMode === 'Credit Inquiry';
       const isFull = nextMode === 'Full Application';
 
-      // Middle name
       $('middleName').required = !!nextMode && !isPre;
       $('middleReq').classList.toggle('hidden', !(nextMode && !isPre));
       $('middleOpt').classList.toggle('hidden', !!(nextMode && !isPre));
 
-      // DOB required for ALL paths only after selection
       ['dobMonth','dobDay','dobYear'].forEach(id => $(id).required = !!nextMode);
 
-      // Marital: Credit + Full
       bySel('#marital-wrap').classList.toggle('hidden', !(isCredit || isFull));
       $('maritalStatus').required = (isCredit || isFull);
 
-      // Income visibility: simple for Basic/Credit; full for Full
       bySel('#income-simple').classList.toggle('hidden', !!isFull);
       bySel('#income-full').classList.toggle('hidden', !isFull);
 
-      // Reset address requireds
       ['currentStreetAddress','currentCity','currentProvince','currentPostalCode','currentPostalCode_basic',
        'timeAtAddressYears','timeAtAddressMonths',
        'prevStreetAddress','prevCity','prevProvince','prevPostalCode',
@@ -698,13 +666,11 @@
        'monthlyIncome','incomeSource','incomeSourceFull','currentEmployer','jobTitle']
         .forEach(id => { const n=$(id); if(n) n.required = false; });
 
-      // Hide consent by default until we know path
       bySel('#consent-inline').classList.add('hidden');
       bySel('#consent-checkbox').classList.add('hidden');
 
       if (!nextMode) { updateProgress(); return; }
 
-      // PRE-APPROVAL
       if (isPre) {
         bySel('#addr-postal-only').classList.remove('hidden');
         bySel('#addr-full-current').classList.add('hidden');
@@ -716,7 +682,6 @@
         bySel('#consent-inline').classList.remove('hidden');
       }
 
-      // CREDIT INQUIRY
       if (isCredit) {
         bySel('#addr-postal-only').classList.add('hidden');
         bySel('#addr-full-current').classList.remove('hidden');
@@ -728,7 +693,6 @@
         bySel('#consent-inline').classList.remove('hidden');
       }
 
-      // FULL APPLICATION
       if (isFull) {
         bySel('#addr-postal-only').classList.add('hidden');
         bySel('#addr-full-current').classList.remove('hidden');
@@ -742,7 +706,6 @@
       updateProgress();
     }
 
-    // Income branching (FULL)
     function onIncomeSourceFullChange(){
       const v = $('incomeSourceFull').value;
       const employed = (v === 'Full-Time' || v === 'Part-Time');
@@ -766,7 +729,6 @@
       updateProgress();
     }
 
-    // FULL: previous employment if < 24 months
     function checkPrevEmploymentNeed(){
       if (mode() !== 'Full Application') { bySel('#prev-employment').classList.add('hidden'); return; }
       const yRaw = $('timeWithEmployerYears').value;
@@ -781,7 +743,6 @@
       ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id => { const n=$(id); if(n) n.required = need; });
     }
 
-    // FULL: previous address if < 24 months
     function onAddressDurationChange(){
       if (mode() !== 'Full Application') return;
       const yRaw = $('timeAtAddressYears').value;
@@ -799,7 +760,6 @@
       updateProgress();
     }
 
-    // Validation & progress
     function visibleRequired() {
       const req = bySelAll('#lead-form [required]');
       return req.filter(el => !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none');
@@ -840,7 +800,6 @@
       $('progress-fill').style.width = pct+'%';
     }
 
-    // Navigation
     function next(delta){
       const cur = window.__currentStep || 1;
       if (delta>0 && !validateStep(cur)) return;
@@ -854,7 +813,6 @@
     $('btnNext').addEventListener('click', ()=> next(1));
     $('btnBack').addEventListener('click', ()=> next(-1));
 
-    // Selections
     bySelAll('[data-type]').forEach(b=> b.addEventListener('click', ()=>{
       $('vehicleType').value = b.dataset.type;
       bySelAll('[data-type]').forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); next(1);
@@ -868,18 +826,15 @@
       r.parentElement.addEventListener('click', ()=>{ r.checked=true; next(1); });
     });
 
-    // Purchase step listeners
     $('hasTradeIn')?.addEventListener('change', (e)=>{
       bySel('#tradeInDetails').classList.toggle('hidden', e.target.value.toLowerCase()!=='yes');
     });
 
-    // App type
     bySelAll('[data-app]').forEach(b=> b.addEventListener('click', ()=>{
       setAppMode(b.dataset.app);
       next(1);
     }));
 
-    // Listeners
     $('phone')?.addEventListener('input', phoneFmt);
     ['monthlyIncome','avgMonthlyIncome','otherIncomeAmount','housingPayment'].forEach(id=> $(id)?.addEventListener('input', currencyFmt));
     $('incomeSourceFull')?.addEventListener('change', onIncomeSourceFullChange);
@@ -888,7 +843,6 @@
     $('timeAtAddressYears')?.addEventListener('change', onAddressDurationChange);
     $('timeAtAddressMonths')?.addEventListener('change', onAddressDurationChange);
 
-    // Inventory "View Inventory" -> jump to form + show notice
     function showFormNotice(){
       const n = $('form-notice');
       if(!n) return;
@@ -905,7 +859,6 @@
       });
     });
 
-    // Submit
     async function submitForm(){
       if (!validateAll()) { $('form-status').textContent = 'Please complete all required fields.'; return; }
       $('submitBtn').disabled = true; $('submitBtn').textContent = 'Submitting…';
@@ -918,7 +871,6 @@
       }
     }
 
-    // Boot
     (function init(){
       const y = new Date().getFullYear(); bySel('#year').textContent = y;
 
