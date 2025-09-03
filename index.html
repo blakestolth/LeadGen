@@ -26,9 +26,9 @@
       --blue-700:#214B80;
       --blue-100:#EAF1FB;
       --blue-grad:#4C7CC0;
-
       --nav-h: 60px;
     }
+
     body { font-family: 'Inter', sans-serif; background:#f6f7fb; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
     .card { background:#fff; border-radius:1.25rem; border:1px solid #e5e7eb; box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05); }
     .shadow-soft{ box-shadow:0 12px 30px -15px rgba(16,24,40,.25); }
@@ -272,53 +272,55 @@
               </p>
             </section>
 
-            <!-- STEP CONTACT -->
-            <section class="form-step hidden" data-step-key="contact">
-              <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Your contact info</h3>
-              <div class="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div class="grid grid-cols-2 gap-3">
-                  <div>
-                    <label for="firstName" class="block text-sm font-medium text-zinc-700 mb-1.5">First name <span class="text-red-500">*</span></label>
-                    <input type="text" id="firstName" name="firstName" class="form-input" autocomplete="given-name" required/>
-                  </div>
-                  <div>
-                    <label for="lastName" class="block text-sm font-medium text-zinc-700 mb-1.5">Last name <span class="text-red-500">*</span></label>
-                    <input type="text" id="lastName" name="lastName" class="form-input" autocomplete="family-name" required/>
-                  </div>
+            <!-- STEP YOUR INFORMATION (merged contact + about) -->
+            <section class="form-step hidden" data-step-key="yourinfo">
+              <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Your information</h3>
+
+              <!-- Row 1: First / Middle / Last -->
+              <div class="mt-2 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label for="firstName" class="block text-sm font-medium text-zinc-700 mb-1.5">First name <span class="text-red-500">*</span></label>
+                  <input type="text" id="firstName" name="firstName" class="form-input" autocomplete="given-name" required/>
                 </div>
-                <div class="grid grid-cols-2 gap-3">
-                  <div>
-                    <label for="middleName" class="block text-sm font-medium text-zinc-700 mb-1.5">Middle <span id="middleReq" class="text-red-500 hidden">*</span><span id="middleOpt" class="text-zinc-500"> (Optional)</span></label>
-                    <input type="text" id="middleName" name="middleName" class="form-input" autocomplete="additional-name"/>
-                  </div>
-                  <div>
-                    <label for="phone" class="block text-sm font-medium text-zinc-700 mb-1.5">Phone <span class="text-red-500">*</span></label>
-                    <input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" required/>
-                  </div>
+                <div>
+                  <label for="middleName" class="block text-sm font-medium text-zinc-700 mb-1.5">Middle name <span class="text-red-500">*</span></label>
+                  <input type="text" id="middleName" name="middleName" class="form-input" autocomplete="additional-name" required/>
                 </div>
-                <div class="sm:col-span-2">
+                <div>
+                  <label for="lastName" class="block text-sm font-medium text-zinc-700 mb-1.5">Last name <span class="text-red-500">*</span></label>
+                  <input type="text" id="lastName" name="lastName" class="form-input" autocomplete="family-name" required/>
+                </div>
+              </div>
+
+              <!-- Row 2: Phone / Email -->
+              <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label for="phone" class="block text-sm font-medium text-zinc-700 mb-1.5">Phone <span class="text-red-500">*</span></label>
+                  <input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" required/>
+                </div>
+                <div>
                   <label for="email" class="block text-sm font-medium text-zinc-700 mb-1.5">Email <span class="text-red-500">*</span></label>
                   <input type="email" id="email" name="email" class="form-input" autocomplete="email" required/>
                 </div>
               </div>
-            </section>
 
-            <!-- STEP DOB (+ marital for Credit/Full) -->
-            <section class="form-step hidden" data-step-key="about">
-              <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">About you</h3>
-              <div class="grid grid-cols-1 gap-4 mt-2">
+              <!-- Row 3: DOB (Month/Day/Year) + Marital status -->
+              <div class="mt-3 grid grid-cols-1 sm:grid-cols-4 gap-3">
                 <div>
-                  <label class="block text-sm font-medium text-zinc-700 mb-1.5">Date of birth <span class="text-red-500">*</span></label>
-                  <div class="grid grid-cols-3 gap-2">
-                    <select id="dobMonth" name="dobMonth" class="form-select" required><option value="">Month</option></select>
-                    <select id="dobDay" name="dobDay" class="form-select" required><option value="">Day</option></select>
-                    <input type="number" id="dobYear" name="dobYear" placeholder="Year" class="form-input" inputmode="numeric" required/>
-                  </div>
+                  <label for="dobMonth" class="block text-sm font-medium text-zinc-700 mb-1.5">Month <span class="text-red-500">*</span></label>
+                  <select id="dobMonth" name="dobMonth" class="form-select" required><option value="">Month</option></select>
                 </div>
-
-                <div id="marital-wrap" class="hidden">
+                <div>
+                  <label for="dobDay" class="block text-sm font-medium text-zinc-700 mb-1.5">Day <span class="text-red-500">*</span></label>
+                  <select id="dobDay" name="dobDay" class="form-select" required><option value="">Day</option></select>
+                </div>
+                <div>
+                  <label for="dobYear" class="block text-sm font-medium text-zinc-700 mb-1.5">Year <span class="text-red-500">*</span></label>
+                  <input type="number" id="dobYear" name="dobYear" placeholder="1992" class="form-input" inputmode="numeric" required/>
+                </div>
+                <div>
                   <label for="maritalStatus" class="block text-sm font-medium text-zinc-700 mb-1.5">Marital status <span class="text-red-500">*</span></label>
-                  <select id="maritalStatus" name="maritalStatus" class="form-select">
+                  <select id="maritalStatus" name="maritalStatus" class="form-select" required>
                     <option value="">Please select…</option>
                     <option>Single</option>
                     <option>Married</option>
@@ -493,82 +495,35 @@
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <!-- Replace src with your 800x450 (and 1600x900) images -->
         <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-media">
-            <picture>
-              <source srcset="/img/type-suv-800.webp 1x, /img/type-suv-1600.webp 2x" type="image/webp">
-              <img src="/img/type-suv-800.jpg" srcset="/img/type-suv-1600.jpg 2x" alt="SUV / Crossover">
-            </picture>
-          </div>
+          <div class="bodytype-media"><img src="/img/type-suv-800.jpg" alt="SUV / Crossover"></div>
           <div class="p-3"><p class="font-semibold text-sm">SUV / Crossover</p></div>
         </a>
-
         <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-media">
-            <picture>
-              <source srcset="/img/type-truck-800.webp 1x, /img/type-truck-1600.webp 2x" type="image/webp">
-              <img src="/img/type-truck-800.jpg" srcset="/img/type-truck-1600.jpg 2x" alt="Truck">
-            </picture>
-          </div>
+          <div class="bodytype-media"><img src="/img/type-truck-800.jpg" alt="Truck"></div>
           <div class="p-3"><p class="font-semibold text-sm">Truck</p></div>
         </a>
-
         <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-media">
-            <picture>
-              <source srcset="/img/type-sedan-800.webp 1x, /img/type-sedan-1600.webp 2x" type="image/webp">
-              <img src="/img/type-sedan-800.jpg" srcset="/img/type-sedan-1600.jpg 2x" alt="Sedan">
-            </picture>
-          </div>
+          <div class="bodytype-media"><img src="/img/type-sedan-800.jpg" alt="Sedan"></div>
           <div class="p-3"><p class="font-semibold text-sm">Sedan</p></div>
         </a>
-
         <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-media">
-            <picture>
-              <source srcset="/img/type-coupe-800.webp 1x, /img/type-coupe-1600.webp 2x" type="image/webp">
-              <img src="/img/type-coupe-800.jpg" srcset="/img/type-coupe-1600.jpg 2x" alt="Coupe">
-            </picture>
-          </div>
+          <div class="bodytype-media"><img src="/img/type-coupe-800.jpg" alt="Coupe"></div>
           <div class="p-3"><p class="font-semibold text-sm">Coupe</p></div>
         </a>
-
         <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-media">
-            <picture>
-              <source srcset="/img/type-minivan-800.webp 1x, /img/type-minivan-1600.webp 2x" type="image/webp">
-              <img src="/img/type-minivan-800.jpg" srcset="/img/type-minivan-1600.jpg 2x" alt="Minivan">
-            </picture>
-          </div>
+          <div class="bodytype-media"><img src="/img/type-minivan-800.jpg" alt="Minivan"></div>
           <div class="p-3"><p class="font-semibold text-sm">Minivan</p></div>
         </a>
-
         <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-media">
-            <picture>
-              <source srcset="/img/type-hatchback-800.webp 1x, /img/type-hatchback-1600.webp 2x" type="image/webp">
-              <img src="/img/type-hatchback-800.jpg" srcset="/img/type-hatchback-1600.jpg 2x" alt="Hatchback">
-            </picture>
-          </div>
+          <div class="bodytype-media"><img src="/img/type-hatchback-800.jpg" alt="Hatchback"></div>
           <div class="p-3"><p class="font-semibold text-sm">Hatchback</p></div>
         </a>
-
         <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-media">
-            <picture>
-              <source srcset="/img/type-convertible-800.webp 1x, /img/type-convertible-1600.webp 2x" type="image/webp">
-              <img src="/img/type-convertible-800.jpg" srcset="/img/type-convertible-1600.jpg 2x" alt="Convertible">
-            </picture>
-          </div>
+          <div class="bodytype-media"><img src="/img/type-convertible-800.jpg" alt="Convertible"></div>
           <div class="p-3"><p class="font-semibold text-sm">Convertible</p></div>
         </a>
-
         <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-media">
-            <picture>
-              <source srcset="/img/type-wagon-800.webp 1x, /img/type-wagon-1600.webp 2x" type="image/webp">
-              <img src="/img/type-wagon-800.jpg" srcset="/img/type-wagon-1600.jpg 2x" alt="Wagon">
-            </picture>
-          </div>
+          <div class="bodytype-media"><img src="/img/type-wagon-800.jpg" alt="Wagon"></div>
           <div class="p-3"><p class="font-semibold text-sm">Wagon</p></div>
         </a>
       </div>
@@ -593,21 +548,21 @@
     $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
 
     // ----- Dynamic Steps Engine -----
-    // Define base order (keys map to sections via [data-step-key])
+    // NEW base order: merged "yourinfo" (contact+about). Removed "about".
     const BASE_ORDER = [
-      'vehicle','condition','budget','purchase','apptype','contact','about','income','address','consent'
+      'vehicle','condition','budget','purchase','apptype','yourinfo','income','address','consent'
     ];
-    // We'll conditionally inject 'prev-employment' right after 'income'
-    // and 'prev-address' right after 'address' when needed.
+    // Conditional inserts:
+    // - 'prev-employment' goes after 'income'
+    // - 'prev-address' goes after 'address'
     let dynamicOrder = [...BASE_ORDER];
 
     function getStepEl(key){ return bySel(`.form-step[data-step-key="${key}"]`); }
+    function allStepEls(){ return dynamicOrder.map(getStepEl).filter(Boolean); }
 
     function ensureInOrder(key, afterKey){
       const exists = dynamicOrder.includes(key);
-      // remove if present (we might re-insert to move position)
       if (exists) dynamicOrder = dynamicOrder.filter(k => k !== key);
-      // insert after afterKey
       const idx = dynamicOrder.indexOf(afterKey);
       if (idx >= 0) dynamicOrder.splice(idx+1, 0, key);
     }
@@ -615,15 +570,12 @@
       dynamicOrder = dynamicOrder.filter(k => k !== key);
     }
 
-    // Render step visibility by current index
-    function allStepEls(){ return dynamicOrder.map(getStepEl).filter(Boolean); }
     function showStepByIndex(idx){
       const els = allStepEls();
       els.forEach(el => el.classList.add('hidden'));
       const cur = els[idx];
       if (cur) cur.classList.remove('hidden');
 
-      // Buttons + progress
       $('btnBack').disabled = (idx === 0);
       $('btnNext').textContent = (idx === els.length-1) ? 'See My Options' : 'Next';
 
@@ -637,8 +589,7 @@
     }
 
     function rebuildAndStay(){
-      // Preserve current key if possible
-      const idx = window.__currentIndex || 0;
+      const idx = window.__currentIndex ?? 0;
       const els = allStepEls();
       const curEl = els[idx];
       const curKey = curEl?.dataset.stepKey;
@@ -649,7 +600,6 @@
     }
 
     // ----- Form logic & branching -----
-    // App type affects which sub-blocks are visible/required.
     function setAppMode(nextMode){
       $('app_type').value = nextMode || '';
       bySelAll('[data-app]').forEach(b=> { b.classList.remove('selected'); b.setAttribute('aria-pressed','false'); });
@@ -658,23 +608,17 @@
       const isCredit = nextMode === 'Credit Inquiry';
       const isFull = nextMode === 'Full Application';
 
-      // Middle name optional for Credit; required for Full
-      $('middleName').required = !!isFull;
-      $('middleReq')?.classList.toggle('hidden', !isFull);
-      $('middleOpt')?.classList.toggle('hidden', !!isFull);
+      // Middle name ALWAYS required now
+      $('middleName').required = true;
 
-      // DOB required after selection
-      ['dobMonth','dobDay','dobYear'].forEach(id => $(id).required = !!nextMode);
+      // DOB + Marital ALWAYS visible/required in merged step
+      ['dobMonth','dobDay','dobYear','maritalStatus'].forEach(id => $(id).required = true);
 
-      // Marital: Credit + Full
-      bySel('#marital-wrap')?.classList.toggle('hidden', !(isCredit || isFull));
-      $('maritalStatus').required = (isCredit || isFull);
-
-      // Income visibility
+      // Show simple vs full income blocks
       bySel('#income-simple')?.classList.toggle('hidden', !!isFull);
       bySel('#income-full')?.classList.toggle('hidden', !isFull);
 
-      // Reset required flags first
+      // Reset required flags baseline
       ['currentStreetAddress','currentCity','currentProvince','currentPostalCode',
        'timeAtAddressYears','timeAtAddressMonths',
        'previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths',
@@ -687,7 +631,6 @@
         ['currentStreetAddress','currentCity','currentProvince','currentPostalCode'].forEach(id => $(id).required = true);
         $('monthlyIncome').required = true;
         $('housingPayment').required = true;
-        // Credit path keeps duration visible but we won't add prev-address automatically unless <24 months entered.
       }
 
       if (isFull) {
@@ -695,13 +638,17 @@
         $('incomeSourceFull').required = true;
         $('housingPayment').required = true;
       }
-
-      updateProgress();
     }
 
     // Income branching (FULL)
+    function monthsValue(yRaw, mRaw){
+      const y = parseInt(yRaw || '0',10);
+      const m = parseInt(mRaw || '0',10);
+      return (y*12)+m;
+    }
+
     function onIncomeSourceFullChange(){
-      const v = $('incomeSourceFull').value;
+      const v = $('incomeSourceFull')?.value || '';
       const employed = (v === 'Full-Time' || v === 'Part-Time');
       const selfEmp = (v === 'Self-Employed');
       const other = (v === 'Disability' || v === 'Other');
@@ -721,13 +668,6 @@
       }
 
       maybeInsertPrevEmploymentStep();
-      updateProgress();
-    }
-
-    function monthsValue(yRaw, mRaw){
-      const y = parseInt(yRaw || '0',10);
-      const m = parseInt(mRaw || '0',10);
-      return (y*12)+m;
     }
 
     // Conditionally insert "prev-employment" right after "income"
@@ -742,11 +682,9 @@
       const key = 'prev-employment';
       if (need){
         ensureInOrder(key, 'income');
-        // Make required
         ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id => { const n=$(id); if(n) n.required = true; });
         getStepEl(key)?.classList.remove('hidden');
       } else {
-        // Not needed -> remove, clear required
         ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id => { const n=$(id); if(n) n.required = false; });
         removeFromOrder(key);
         getStepEl(key)?.classList.add('hidden');
@@ -764,30 +702,16 @@
       const key = 'prev-address';
       if (need){
         ensureInOrder(key, 'address');
-        // Make required
         ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths']
           .forEach(id => { const n=$(id); if(n) n.required = true; });
         getStepEl(key)?.classList.remove('hidden');
       } else {
-        // Not needed -> remove, clear required
         ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths']
           .forEach(id => { const n=$(id); if(n) n.required = false; });
         removeFromOrder(key);
         getStepEl(key)?.classList.add('hidden');
       }
       rebuildAndStay();
-    }
-
-    // Visible required fields helper
-    function visibleRequired() {
-      // Only consider fields inside non-hidden steps in dynamic order
-      const els = allStepEls();
-      const req = [];
-      els.forEach(step => {
-        const fields = Array.from(step.querySelectorAll('[required]'));
-        fields.forEach(f => req.push(f));
-      });
-      return req;
     }
 
     // Validation
@@ -812,18 +736,12 @@
       return ok;
     }
 
-    function updateProgress(){
-      // Simple fill based on current index already handled in showStepByIndex
-      // This exists to be called after required toggles; we keep it for future metrics if needed.
-    }
-
     // Navigation
     function next(delta){
       const cur = window.__currentIndex || 0;
       if (delta>0 && !validateStepIndex(cur)) return;
       let t = cur + delta;
       t = Math.max(0, Math.min(t, allStepEls().length - 1));
-      // If we are on last step and go next -> submit
       if (delta>0 && t === cur && cur === allStepEls().length - 1) { submitForm(); return; }
       showStepByIndex(t);
     }
@@ -928,11 +846,11 @@
       function populateProvinces(cur, prev){ const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; [cur,prev].forEach(sel=>{ if(!sel) return; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }); }
       populateProvinces($('currentProvince'), $('prevProvince'));
 
-      // Default housing value
+      // Default housing
       $('housingType').value = 'Rent';
 
-      // Initial dynamic order & first step
-      dynamicOrder = [...BASE_ORDER]; // (prev steps auto-insert when needed)
+      // Start
+      dynamicOrder = [...BASE_ORDER];
       showStepByIndex(0);
     })();
   </script>
