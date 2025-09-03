@@ -28,45 +28,45 @@
       --blue-grad:#4C7CC0;
       --nav-h: 60px;
 
-      /* Compact rhythm */
-      --pad-card: 1.0rem;      /* card inner padding */
-      --pad-form: .75rem;      /* form field padding */
-      --gap-tight: .5rem;      /* tight gaps */
+      /* Universal compact scale */
+      --fs-label: 13px;
+      --fs-body: 14.5px;
+      --fs-cta: 15px;
+      --input-pad-y: 10px;     /* ~.625rem */
+      --input-pad-x: 12px;     /* .75rem */
+      --radius: 10px;
+
+      /* Grid gaps */
+      --gap-tight: .5rem;
       --gap-med: .65rem;
     }
 
     body { font-family: 'Inter', sans-serif; background:#f6f7fb; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
     .card { background:#fff; border-radius:1rem; border:1px solid #e5e7eb; box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05); }
-    .shadow-soft{ box-shadow:0 12px 30px -15px rgba(16,24,40,.25); }
 
-    /* Inputs — smaller, denser */
+    /* Inputs — universal/compact */
     .form-input, .form-select, .form-textarea {
-      background:#f3f4f6; color:#18181b; border:2px solid transparent; font-size:15px; width:100%;
-      padding:var(--pad-form) .9rem; border-radius:.65rem; transition:all .2s ease;
+      background:#f3f4f6; color:#18181b; border:2px solid transparent; font-size:var(--fs-body); width:100%;
+      padding:var(--input-pad-y) var(--input-pad-x); border-radius:var(--radius); transition:all .2s ease;
     }
-    .form-textarea{ padding: calc(var(--pad-form) + 2px) .9rem; }
     .form-input::placeholder { color:#a1a1aa; }
     .form-input:focus, .form-select:focus, .form-textarea:focus { background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.18); outline:none; }
 
+    /* Labels */
+    .label { font-size:var(--fs-label); color:#3f3f46; font-weight:600; }
+
     /* CTA */
-    .cta-button { background:var(--blue-600); color:#fff; font-weight:800; padding:.7rem .9rem; border-radius:.7rem; transition:all .2s ease; box-shadow:0 4px 6px -1px rgb(0 0 0 / .08), 0 2px 4px -2px rgb(0 0 0 / .08); font-size:15px;}
+    .cta-button { background:var(--blue-600); color:#fff; font-weight:800; padding:.7rem .9rem; border-radius:.7rem; transition:all .2s ease; box-shadow:0 4px 6px -1px rgb(0 0 0 / .08), 0 2px 4px -2px rgb(0 0 0 / .08); font-size:var(--fs-cta);}
     .cta-button:hover { transform:translateY(-1px); background:var(--blue-700); }
 
-    /* Selection tiles — compact & aligned */
-    .grid-sq, .grid-2, .grid-3 { display:grid; gap:var(--gap-tight); justify-items:center; }
-    .grid-sq { grid-template-columns:repeat(2,minmax(110px,1fr)); }
-    .grid-2  { grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); }
-    .grid-3  { grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); }
-
-    .tile { display:flex; align-items:center; justify-content:center; text-align:center; font-weight:800; color:#111827;
-      border-radius:.6rem; border:1.5px solid #e5e7eb; background:#fff; aspect-ratio:1/1; max-width:160px; width:100%; transition:.15s; font-size:14px;
+    /* Selection tiles — universal sizing */
+    .tile, .choice {
+      border-radius:10px; border:1.5px solid #e5e7eb; background:#fff; transition:.15s; font-weight:800; color:#111827; font-size:14px;
     }
-    .tile:hover { border-color:var(--blue-600); background:#f5f8ff; box-shadow:0 10px 18px -10px rgba(37,99,235,.35); transform:translateY(-1px); }
-    .tile.selected { border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
-
-    .choice { border-radius:.6rem; border:1.5px solid #e5e7eb; background:#fff; padding:.7rem; font-weight:800; text-align:center; max-width:220px; width:100%; transition:.15s; font-size:14px; }
-    .choice:hover { border-color:var(--blue-600); background:#f5f8ff; }
-    .choice.selected { border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
+    .tile { display:flex; align-items:center; justify-content:center; text-align:center; aspect-ratio:4/3; width:100%; }
+    .choice { padding:.7rem; text-align:center; width:100%; }
+    .tile:hover, .choice:hover { border-color:var(--blue-600); background:#f5f8ff; }
+    .tile.selected, .choice.selected { border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
 
     /* Progress */
     .track { height:7px; background:#e5e7eb; border-radius:9999px; overflow:hidden; }
@@ -76,25 +76,24 @@
     .err { border-color:#ef4444 !important; }
     .err-label { color:#ef4444 !important; }
 
-    /* Rent/Own segmented switch — compact */
+    /* Rent/Own segmented switch */
     .seg { display:inline-flex; gap:.25rem; background:#f3f4f6; padding:.2rem; border-radius:.6rem; }
     .seg-btn { padding:.4rem .6rem; border-radius:.5rem; font-weight:600; color:#374151; background:transparent; border:2px solid transparent; font-size:14px; }
     .seg-btn[aria-pressed="true"] { background:#e0ecff; color:#214B80; border-color:#bfdbfe; }
 
-    /* FORM SHELL — fixed size, smaller paddings so bottom hugs content */
+    /* FORM SHELL — auto height to tallest step (no extra air) */
     .form-shell{
       position:relative;
-      height:clamp(520px, 68vh, 680px);
-      overflow:auto;
-      overscroll-behavior:contain;
+      height:auto;             /* we’ll set exact px via JS */
+      overflow:hidden;         /* no internal scroll now that we fit tallest */
     }
     .form-shell .sticky{ position: sticky; top: 0; z-index: 10; }
 
-    /* Reduce vertical rhythm inside the form */
-    .form-tight > * + *{ margin-top: .85rem !important; } /* global fallback */
+    /* Tight rhythm inside the form */
+    .form-tight > * + *{ margin-top: .85rem !important; }
     .step-tight > * + *{ margin-top: .6rem !important; }
 
-    /* Inventory cards — 16:9, consistent heights, tight grid */
+    /* Inventory cards — universal 16:9 media and paddings */
     .bodytype-card{
       position:relative; overflow:hidden; border-radius:.8rem; border:1px solid #e5e7eb; background:#fff;
       transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
@@ -108,9 +107,6 @@
     /* Utility containers */
     .container { width:100%; max-width: 980px; margin-inline:auto; }
     .max-form { width:100%; max-width: 720px; margin-inline:auto; }
-
-    /* Tiny tweaks */
-    .label { font-size:13px; color:#3f3f46; font-weight:600; }
   </style>
 </head>
 <body class="min-h-screen">
@@ -141,13 +137,6 @@
     </div>
   </header>
 
-  <!-- STICKY MOBILE CTA -->
-  <div class="fixed bottom-0 left-0 right-0 z-40 sm:hidden">
-    <div class="mx-3 mb-3 rounded-xl shadow-soft bg-[var(--blue-600)]">
-      <a href="#lead-form" class="block text-center py-3 text-white font-extrabold">Start in ~2 minutes</a>
-    </div>
-  </div>
-
   <!-- MAIN -->
   <main class="container px-4 sm:px-6 py-5 sm:py-8 space-y-6">
     <!-- HERO -->
@@ -155,18 +144,18 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="space-y-3">
           <h1 class="font-black text-2xl sm:text-3xl text-zinc-900 tracking-tight">Get driving in 3 easy steps</h1>
-          <ol class="space-y-2">
+          <ol class="space-y-2 text-[var(--fs-body)]">
             <li class="flex items-start gap-2">
               <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-extrabold text-sm">1</span>
-              <p class="text-zinc-800 text-[15px]"><span class="font-semibold">Enter your info</span> — 2–3 minutes, no pressure.</p>
+              <p><span class="font-semibold">Enter your info</span> — 2–3 minutes, no pressure.</p>
             </li>
             <li class="flex items-start gap-2">
               <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-extrabold text-sm">2</span>
-              <p class="text-zinc-800 text-[15px]"><span class="font-semibold">Get online access</span> to the options you actually qualify for in BC.</p>
+              <p><span class="font-semibold">Get online access</span> to the options you actually qualify for in BC.</p>
             </li>
             <li class="flex items-start gap-2">
               <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-extrabold text-sm">3</span>
-              <p class="text-zinc-800 text-[15px]"><span class="font-semibold">We deliver</span> to your doorstep—fast & stress-free.</p>
+              <p><span class="font-semibold">We deliver</span> to your doorstep—fast & stress-free.</p>
             </li>
           </ol>
         </div>
@@ -178,7 +167,7 @@
             </div>
             <h2 class="text-xl font-extrabold text-zinc-900">Fastest Online Approval</h2>
           </div>
-          <ul class="space-y-1.5 text-zinc-700 text-[14.5px]">
+          <ul class="space-y-1.5 text-zinc-700 text-[var(--fs-body)]">
             <li><strong class="text-zinc-900">Avoid the Runaround:</strong> Deal with one real person.</li>
             <li><strong class="text-zinc-900">All Credit Welcome:</strong> High approval rates.</li>
             <li><strong class="text-zinc-900">Huge Selection:</strong> New & used vehicles across BC.</li>
@@ -188,11 +177,11 @@
       </div>
     </section>
 
-    <!-- FORM (fixed-height shell with internal scroll; compact paddings) -->
+    <!-- FORM (auto height → tallest step; universal sizing) -->
     <section class="card p-0 overflow-hidden relative max-form" id="lead-form">
       <div class="form-shell" id="form-shell">
         <!-- sticky progress -->
-        <div class="px-4 sm:px-5 pt-3 pb-2 sticky bg-white border-b">
+        <div id="progressBar" class="px-4 sm:px-5 pt-3 pb-2 sticky bg-white border-b">
           <div class="flex items-center justify-between mb-2">
             <div id="progress-label" class="text-[12px] font-semibold text-zinc-700">Step 1 of 8</div>
             <div id="progress-endcap" class="text-[12px] text-blue-700 font-semibold">Let’s get you approved</div>
@@ -200,7 +189,7 @@
           <div class="track mb-1.5"><div id="progress-fill" class="fill" style="width:0%"></div></div>
         </div>
 
-        <!-- form body (tight paddings, minimal gaps) -->
+        <!-- form body -->
         <div class="px-4 sm:px-5 py-4">
           <form id="the-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" class="form-tight" novalidate>
             <input type="hidden" name="form-name" value="lead-form"/>
@@ -209,18 +198,17 @@
             <input type="hidden" name="vehicleType" id="vehicleType" />
             <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
 
-            <!-- STEP VEHICLE TYPE -->
+            <!-- Steps (same structure & logic as before) -->
             <section class="form-step step-tight" data-step-key="vehicle">
               <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900">What type of vehicle?</h3>
               <div class="mt-2 grid grid-cols-4 gap-2">
-                <button type="button" class="tile !max-w-full !aspect-[4/3]" data-type="Car">Car</button>
-                <button type="button" class="tile !max-w-full !aspect-[4/3]" data-type="SUV">SUV</button>
-                <button type="button" class="tile !max-w-full !aspect-[4/3]" data-type="Van">Van</button>
-                <button type="button" class="tile !max-w-full !aspect-[4/3]" data-type="Truck">Truck</button>
+                <button type="button" class="tile" data-type="Car">Car</button>
+                <button type="button" class="tile" data-type="SUV">SUV</button>
+                <button type="button" class="tile" data-type="Van">Van</button>
+                <button type="button" class="tile" data-type="Truck">Truck</button>
               </div>
             </section>
 
-            <!-- STEP CONDITION -->
             <section class="form-step step-tight hidden" data-step-key="condition">
               <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900">Used or new?</h3>
               <div class="mt-2 grid grid-cols-2 gap-2">
@@ -229,18 +217,16 @@
               </div>
             </section>
 
-            <!-- STEP BUDGET -->
             <section class="form-step step-tight hidden" data-step-key="budget">
               <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900">Monthly budget?</h3>
               <div class="mt-2 grid grid-cols-2 gap-2">
-                <label class="tile cursor-pointer !max-w-full !aspect-[4/3]"><input type="radio" class="sr-only" name="budgetRange" value="$250 – $375" required><span>$250 – $375</span></label>
-                <label class="tile cursor-pointer !max-w-full !aspect-[4/3]"><input type="radio" class="sr-only" name="budgetRange" value="$376 – $499" required><span>$376 – $499</span></label>
-                <label class="tile cursor-pointer !max-w-full !aspect-[4/3]"><input type="radio" class="sr-only" name="budgetRange" value="$500 – $750" required><span>$500 – $750</span></label>
-                <label class="tile cursor-pointer !max-w-full !aspect-[4/3]"><input type="radio" class="sr-only" name="budgetRange" value="$750+" required><span>$750+</span></label>
+                <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$250 – $375" required><span>$250 – $375</span></label>
+                <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$376 – $499" required><span>$376 – $499</span></label>
+                <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$500 – $750" required><span>$500 – $750</span></label>
+                <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$750+" required><span>$750+</span></label>
               </div>
             </section>
 
-            <!-- STEP PURCHASE -->
             <section class="form-step step-tight hidden" data-step-key="purchase">
               <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900">Purchase details</h3>
               <div class="mt-2 grid gap-2">
@@ -272,7 +258,6 @@
               </div>
             </section>
 
-            <!-- STEP APPLICATION TYPE -->
             <section class="form-step step-tight hidden" data-step-key="apptype">
               <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900">Choose your path</h3>
               <div class="mt-2 grid grid-cols-2 gap-2" role="tablist" aria-label="Application type">
@@ -284,11 +269,8 @@
               </p>
             </section>
 
-            <!-- STEP YOUR INFORMATION (merged) -->
             <section class="form-step step-tight hidden" data-step-key="yourinfo">
               <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900">Your information</h3>
-
-              <!-- Row 1: First / Middle / Last -->
               <div class="mt-2 grid grid-cols-1 sm:grid-cols-3 gap-2">
                 <div>
                   <label for="firstName" class="label mb-1">First name <span class="text-red-500">*</span></label>
@@ -303,8 +285,6 @@
                   <input type="text" id="lastName" name="lastName" class="form-input" autocomplete="family-name" required/>
                 </div>
               </div>
-
-              <!-- Row 2: Phone / Email -->
               <div class="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <div>
                   <label for="phone" class="label mb-1">Phone <span class="text-red-500">*</span></label>
@@ -315,8 +295,6 @@
                   <input type="email" id="email" name="email" class="form-input" autocomplete="email" required/>
                 </div>
               </div>
-
-              <!-- Row 3: DOB (M/D/Y) + Marital -->
               <div class="mt-2 grid grid-cols-1 sm:grid-cols-4 gap-2">
                 <div>
                   <label for="dobMonth" class="label mb-1">Month <span class="text-red-500">*</span></label>
@@ -345,11 +323,9 @@
               </div>
             </section>
 
-            <!-- STEP INCOME -->
             <section class="form-step step-tight hidden" data-step-key="income">
               <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900">Income</h3>
 
-              <!-- SIMPLE -->
               <div id="income-simple" class="mt-1 space-y-2">
                 <div>
                   <label for="incomeSource" class="label mb-1">Primary income source</label>
@@ -368,7 +344,6 @@
                 </div>
               </div>
 
-              <!-- FULL -->
               <div id="income-full" class="hidden mt-1 space-y-2">
                 <div>
                   <label for="incomeSourceFull" class="label mb-1">Primary income source <span class="text-red-500">*</span></label>
@@ -424,7 +399,6 @@
               </div>
             </section>
 
-            <!-- STEP: PREVIOUS EMPLOYMENT (conditional) -->
             <section class="form-step step-tight hidden" data-step-key="prev-employment">
               <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900">Previous employment</h3>
               <p class="text-[12px] text-zinc-500 mb-1">Less than 2 years with current employer.</p>
@@ -440,7 +414,6 @@
               </div>
             </section>
 
-            <!-- STEP ADDRESS -->
             <section class="form-step step-tight hidden" data-step-key="address">
               <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900">Where do you live?</h3>
               <div class="mt-1 space-y-2">
@@ -478,7 +451,6 @@
               </div>
             </section>
 
-            <!-- STEP: PREVIOUS ADDRESS (conditional) -->
             <section class="form-step step-tight hidden" data-step-key="prev-address">
               <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900">Previous address</h3>
               <p class="text-[12px] text-zinc-500 mb-1">Less than 2 years at current address.</p>
@@ -497,7 +469,6 @@
               </div>
             </section>
 
-            <!-- STEP CONSENT & SUBMIT -->
             <section class="form-step step-tight hidden" data-step-key="consent">
               <p id="consent-inline" class="text-[11.5px] leading-4 text-zinc-600">
                 By submitting, you consent to Vancouver Island Credit collecting and using the information you provide to assess financing options and to contact you about your application.
@@ -509,7 +480,7 @@
             </section>
 
             <!-- NAV -->
-            <div class="flex items-center justify-between pt-1">
+            <div id="formNav" class="flex items-center justify-between pt-1">
               <button type="button" id="btnBack" class="text-[13px] font-semibold text-zinc-500 hover:text-zinc-800 px-2 py-2 disabled:opacity-30">Back</button>
               <button type="button" id="btnNext" class="cta-button">Next</button>
             </div>
@@ -518,7 +489,7 @@
       </div>
     </section>
 
-    <!-- INVENTORY (8 boxes, tight & aligned) -->
+    <!-- INVENTORY (8 boxes) -->
     <section id="inventory" class="card p-4 sm:p-6">
       <div class="flex items-center justify-between mb-2">
         <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900">Browse by Vehicle Type</h3>
@@ -572,7 +543,7 @@
   </main>
 
   <script>
-    // Shortcuts
+    // Helpers
     const $ = (id) => document.getElementById(id);
     const bySel = (s, root=document) => root.querySelector(s);
     const bySelAll = (s, root=document) => Array.from(root.querySelectorAll(s));
@@ -614,7 +585,51 @@
       $('progress-endcap').textContent = (idx === els.length-1) ? 'See options you’re actually qualified for' : 'Let’s get you approved';
 
       window.__currentIndex = idx;
-      $('form-shell')?.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Recompute auto height to fit tallest step whenever we change step
+      setShellHeightToTallest();
+    }
+
+    // Auto height: compute tallest total and set once so the bottom hugs the longest step
+    function setShellHeightToTallest(){
+      const shell = $('form-shell');
+      const progress = $('progressBar');
+      const form = $('the-form');
+      if(!shell || !form || !progress) return;
+
+      // measure paddings/margins to get an accurate total
+      const shellStyles = window.getComputedStyle(shell);
+      const shellVert = parseFloat(shellStyles.borderTopWidth) + parseFloat(shellStyles.borderBottomWidth);
+
+      const progressH = progress.offsetHeight;
+      const navH = $('formNav')?.offsetHeight || 0;
+
+      // Temporarily reveal all steps to measure their heights
+      const steps = bySelAll('.form-step', form);
+      const prevStates = steps.map(el => el.classList.contains('hidden'));
+      steps.forEach(el => el.classList.remove('hidden'));
+
+      // Measure tallest step content box (margin included by offsetHeight)
+      let tallest = 0;
+      steps.forEach(el => {
+        const h = el.offsetHeight;
+        if (h > tallest) tallest = h;
+      });
+
+      // Restore visibility states
+      steps.forEach((el,i)=> prevStates[i] && el.classList.add('hidden'));
+
+      // Padding around the form inner wrapper (px-4/py-4 etc.)
+      const wrapper = form.closest('.px-4, .px-5')?.parentElement || form.parentElement;
+      const wrapStyles = window.getComputedStyle(form.parentElement);
+      const wrapPad = parseFloat(wrapStyles.paddingTop) + parseFloat(wrapStyles.paddingBottom);
+
+      // Add a tiny buffer so the button shadow never clips
+      const BUFFER = 6;
+
+      const total = progressH + tallest + navH + wrapPad + shellVert + BUFFER;
+      shell.style.height = Math.ceil(total) + 'px';
+      shell.style.overflow = 'hidden'; // keeps it crisp
     }
 
     function rebuildAndStay(){
@@ -637,9 +652,8 @@
       const isCredit = nextMode === 'Credit Inquiry';
       const isFull = nextMode === 'Full Application';
 
-      // Middle name required; DOB+Marital required
-      ['middleName','dobYear'].forEach(id => $(id).required = true);
-      ['dobMonth','dobDay','maritalStatus'].forEach(id => $(id).required = true);
+      // Required
+      ['middleName','dobYear','dobMonth','dobDay','maritalStatus'].forEach(id => $(id).required = true);
 
       // Toggle income subforms
       bySel('#income-simple')?.classList.toggle('hidden', !!isFull);
@@ -665,6 +679,9 @@
         $('incomeSourceFull').required = true;
         $('housingPayment').required = true;
       }
+
+      // Height may change with mode toggle
+      setShellHeightToTallest();
     }
 
     function monthsValue(yRaw, mRaw){
@@ -694,6 +711,7 @@
       }
 
       maybeInsertPrevEmploymentStep();
+      setShellHeightToTallest();
     }
 
     function maybeInsertPrevEmploymentStep(){
@@ -715,6 +733,7 @@
         getStepEl(key)?.classList.add('hidden');
       }
       rebuildAndStay();
+      setShellHeightToTallest();
     }
 
     function maybeInsertPrevAddressStep(){
@@ -736,6 +755,7 @@
         getStepEl(key)?.classList.add('hidden');
       }
       rebuildAndStay();
+      setShellHeightToTallest();
     }
 
     function validateStepIndex(idx){
@@ -771,7 +791,7 @@
     $('btnNext').addEventListener('click', ()=> next(1));
     $('btnBack').addEventListener('click', ()=> next(-1));
 
-    // Selections -> advance
+    // Selections
     bySelAll('[data-type]').forEach(b=> b.addEventListener('click', ()=>{
       $('vehicleType').value = b.dataset.type;
       bySelAll('[data-type]').forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); next(1);
@@ -785,12 +805,11 @@
       r.parentElement.addEventListener('click', ()=>{ r.checked=true; next(1); });
     });
 
-    // Purchase step listeners
     $('hasTradeIn')?.addEventListener('change', (e)=>{
       bySel('#tradeInDetails')?.classList.toggle('hidden', e.target.value.toLowerCase()!=='yes');
+      setShellHeightToTallest();
     });
 
-    // App type selection
     bySelAll('[data-app]').forEach(b=> b.addEventListener('click', ()=>{
       setAppMode(b.dataset.app);
       next(1);
@@ -803,8 +822,8 @@
       $('btnOwn').setAttribute('aria-pressed', type==='Own');
       $('housingLabel').textContent = 'Monthly Payment *';
     }
-    $('btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
-    $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
+    $('btnRent')?.addEventListener('click', ()=> { setHousing('Rent'); });
+    $('btnOwn')?.addEventListener('click', ()=> { setHousing('Own'); });
 
     // Formatters
     function currencyFmt(e){ let v=e.target.value.replace(/[$,]/g,''); e.target.value = (!v||isNaN(v))? '' : ('$'+ new Intl.NumberFormat('en-US').format(v)); }
@@ -812,7 +831,7 @@
     $('phone')?.addEventListener('input', phoneFmt);
     ['monthlyIncome','avgMonthlyIncome','otherIncomeAmount','housingPayment'].forEach(id=> $(id)?.addEventListener('input', currencyFmt));
 
-    // Branching listeners
+    // Branching listeners (and re-measure height on change)
     $('incomeSourceFull')?.addEventListener('change', onIncomeSourceFullChange);
     $('timeWithEmployerYears')?.addEventListener('change', ()=>{ maybeInsertPrevEmploymentStep(); });
     $('timeWithEmployerMonths')?.addEventListener('change', ()=>{ maybeInsertPrevEmploymentStep(); });
@@ -845,7 +864,7 @@
     (function init(){
       const y = new Date().getFullYear(); bySel('#year').textContent = y;
 
-      // DOB
+      // DOB selects
       function populateMonths(sel){ if(!sel) return; const m=["January","February","March","April","May","June","July","August","September","October","November","December"]; m.forEach((mm,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=mm; sel.appendChild(o);}); }
       function updateDays(){ const y=parseInt($('dobYear').value||'',10); const m=parseInt($('dobMonth').value||'',10); const sel=parseInt($('dobDay').value||'',10); const days=(y&&m)?new Date(y,m,0).getDate():31; $('dobDay').innerHTML='<option value="">Day</option>'; for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; $('dobDay').appendChild(o);} if(sel&&sel<=days)$('dobDay').value=sel; }
       populateMonths($('dobMonth')); updateDays();
@@ -873,6 +892,10 @@
       // Start
       dynamicOrder = [...BASE_ORDER];
       showStepByIndex(0);
+
+      // First height compute (after initial paints)
+      requestAnimationFrame(setShellHeightToTallest);
+      window.addEventListener('resize', ()=> { setShellHeightToTallest(); });
     })();
   </script>
 </body>
