@@ -71,15 +71,15 @@
     .seg-btn { padding:.5rem .75rem; border-radius:.5rem; font-weight:600; color:#374151; background:transparent; border:2px solid transparent; }
     .seg-btn[aria-pressed="true"] { background:#e0ecff; color:#214B80; border-color:#bfdbfe; }
 
-    /* Fixed-size form shell (smaller box) */
+    /* Fixed-size form shell (small box) */
     .form-shell{
       position:relative;
-      height: clamp(520px, 64vh, 600px);   /* smaller */
-      overflow:hidden;                     /* hide outer scroll */
+      height: clamp(520px, 64vh, 600px);
+      overflow:hidden;
       border-radius:1.1rem;
     }
     .step-viewport{
-      position:absolute; inset:48px 0 0 0; /* leave space for sticky header */
+      position:absolute; inset:48px 0 0 0;
       overflow:auto; height:calc(100% - 48px);
       padding: 1rem 1rem 0.5rem 1rem;
     }
@@ -95,6 +95,13 @@
     section, header, footer { scroll-margin-top: calc(var(--nav-h) + 12px); }
     .container { width:100%; max-width: 880px; margin-inline:auto; }
     .max-form { width:100%; max-width: 720px; margin-inline:auto; }
+    .bodytype-card{
+      position:relative; overflow:hidden; border-radius:1rem; border:1px solid #e5e7eb; background:#fff;
+      transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .bodytype-card:hover{ transform:translateY(-2px); border-color:var(--blue-600); box-shadow:0 10px 18px -10px rgba(42,93,159,.35); }
+    .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:120px; }
+    @media (min-width:640px){ .bodytype-img{ height:140px; } }
   </style>
 
   <script type="application/ld+json">
@@ -150,7 +157,7 @@
 
   <!-- MAIN -->
   <main class="container px-4 sm:px-6 py-6 sm:py-10 space-y-7">
-    <!-- HERO (images removed, spacing tightened) -->
+    <!-- HERO -->
     <section id="about" class="card p-5 sm:p-7">
       <div class="grid grid-cols-1 md:grid-cols-2 hero-grid">
         <div>
@@ -530,7 +537,7 @@
       </div>
     </section>
 
-    <!-- INVENTORY -->
+    <!-- INVENTORY (full set back in) -->
     <section id="inventory" class="card p-5 sm:p-7">
       <div class="flex items-center justify-between mb-3">
         <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Browse by Body Type</h3>
@@ -554,6 +561,22 @@
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('/img/bodytype-coupe.webp'),url('/img/bodytype-coupe.jpg');"></div>
           <div class="p-3"><p class="font-semibold text-sm">Coupe</p></div>
+        </a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('/img/bodytype-minivan.webp'),url('/img/bodytype-minivan.jpg');"></div>
+          <div class="p-3"><p class="font-semibold text-sm">Minivan</p></div>
+        </a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('/img/bodytype-hatchback.webp'),url('/img/bodytype-hatchback.jpg');"></div>
+          <div class="p-3"><p class="font-semibold text-sm">Hatchback</p></div>
+        </a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('/img/bodytype-convertible.webp'),url('/img/bodytype-convertible.jpg');"></div>
+          <div class="p-3"><p class="font-semibold text-sm">Convertible</p></div>
+        </a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('/img/bodytype-wagon.webp'),url('/img/bodytype-wagon.jpg');"></div>
+          <div class="p-3"><p class="font-semibold text-sm">Wagon</p></div>
         </a>
       </div>
     </section>
