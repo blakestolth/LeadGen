@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Vancouver Island Credit | Auto Approvals Online — Work with Blake</title>
 
   <meta name="description" content="Fast, confidential auto approvals across Vancouver Island & BC. New & used options. Delivery to your door. Work 1 on 1 with Blake Stolth — no call centres." />
@@ -31,89 +31,121 @@
       --blue-100:#EAF1FB;
       --blue-grad:#4C7CC0;
 
-      /* Shared badge size (compact) */
-      --badge-w: 280px;
-      --badge-h: 200px;
+      /* Mobile-first badge size */
+      --badge-w: 100%;
+      --badge-h: 140px;
+      --radius-xl: 1.25rem;
+      --shadow-soft: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.06);
     }
+
+    @media (min-width:640px){
+      :root{
+        --badge-w: 280px;
+        --badge-h: 200px;
+      }
+    }
+
     .text-blue-600{ color:var(--blue-600) !important; }
     .bg-blue-100{ background:var(--blue-100) !important; }
 
     body { font-family: 'Inter', sans-serif; background:#f9fafb; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-    .card { background:#fff; border-radius:1.5rem; border:1px solid #e5e7eb; box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05); }
+    .card { background:#fff; border-radius:var(--radius-xl); border:1px solid #e5e7eb; box-shadow:var(--shadow-soft); }
 
+    /* Inputs */
     .form-input, .form-select, .form-textarea {
       background:#f3f4f6; color:#18181b; border:2px solid transparent; font-size:16px; width:100%;
-      padding:.85rem 1rem; border-radius:.75rem; transition:all .2s ease;
+      padding:.8rem 1rem; border-radius:.75rem; transition:all .2s ease;
     }
     .form-input::placeholder { color:#a1a1aa; }
-    .form-input:focus, .form-select:focus, .form-textarea:focus { background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.2); outline:none; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.18); outline:none; }
 
+    /* CTA */
     .cta-button { background:var(--blue-600); color:#fff; font-weight:800; padding:.9rem 1rem; border-radius:.9rem; transition:all .2s ease; box-shadow:0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1); }
-    .cta-button:hover { transform:translateY(-2px); background:var(--blue-700); }
+    .cta-button:hover { transform:translateY(-1px); background:var(--blue-700); }
 
-    .grid-sq, .grid-2, .grid-3 { display:grid; gap:.8rem; justify-items:center; }
-    .grid-sq { grid-template-columns:repeat(2,minmax(120px,1fr)); }
-    .grid-2  { grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); }
-    .grid-3  { grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); }
+    /* Tiles / choices */
+    .grid-sq, .grid-2, .grid-3 { display:grid; gap:.7rem; }
+    .grid-sq { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .grid-2  { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .grid-3  { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    @media (min-width:640px){ .grid-2{ grid-template-columns:repeat(3,minmax(0,1fr)); } .grid-3{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
 
     .tile { display:flex; align-items:center; justify-content:center; text-align:center; font-weight:900; color:#111827;
-      border-radius:.75rem; border:2px solid #e5e7eb; background:#fff; aspect-ratio:1/1; max-width:180px; width:100%;
+      border-radius:.75rem; border:2px solid #e5e7eb; background:#fff; aspect-ratio:1/1; width:100%;
+      font-size:.95rem;
     }
-    .tile:hover { border-color:var(--blue-600); background:#f5f8ff; box-shadow:0 10px 18px -8px rgba(37,99,235,.45); transform:translateY(-1px); transition:.15s; }
+    .tile:hover { border-color:var(--blue-600); background:#f5f8ff; box-shadow:0 10px 18px -8px rgba(37,99,235,.35); transform:translateY(-1px); transition:.15s; }
     .tile.selected { border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
 
-    .choice { border-radius:.75rem; border:2px solid #e5e7eb; background:#fff; padding:.95rem; font-weight:800; text-align:center; max-width:220px; width:100%; }
+    .choice { border-radius:.75rem; border:2px solid #e5e7eb; background:#fff; padding:.85rem .9rem; font-weight:800; text-align:center; width:100%; font-size:.95rem; }
     .choice:hover { border-color:var(--blue-600); background:#f5f8ff; }
     .choice.selected { border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
 
+    /* Progress */
     .track { height:8px; background:#e5e7eb; border-radius:9999px; overflow:hidden; }
     .fill { height:8px; background:linear-gradient(90deg, var(--blue-600), var(--blue-grad)); border-radius:9999px; width:0%; transition:width .25s ease; }
 
+    /* Validation */
     .err { border-color:#ef4444 !important; }
     .err-label { color:#ef4444 !important; }
 
+    /* Segmented switch */
     .seg { display:inline-flex; gap:.25rem; background:#f3f4f6; padding:.25rem; border-radius:.75rem; }
     .seg-btn { padding:.5rem .75rem; border-radius:.5rem; font-weight:600; color:#374151; background:transparent; border:2px solid transparent; }
     .seg-btn[aria-pressed="true"] { background:#e0ecff; color:#214B80; border-color:#bfdbfe; }
 
-    /* BADGES — equal-sized, compact */
+    /* BADGES */
     .badge{
       width:var(--badge-w);
       min-height:var(--badge-h);
       border:1px solid var(--blue-600);
       border-radius:1rem;
       background:#fff;
-      box-shadow:0 10px 26px -16px rgba(42,93,159,.45);
-      padding:.55rem .7rem .6rem;
-      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.35rem;
+      box-shadow:0 10px 26px -16px rgba(42,93,159,.35);
+      padding:.5rem .65rem .55rem;
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.25rem;
       text-align:center;
+      margin-inline:auto;
     }
     .badge img{
-      display:block; width:auto; max-width:100%;
-      max-height:calc(var(--badge-h) - 2.6rem); /* image + caption fit tightly */
+      display:block; width:100%; height:auto;
+      max-height:calc(var(--badge-h) - 2.2rem);
       object-fit:contain;
     }
     .badge .badge-caption{
-      font-weight:800; font-size:.85rem; line-height:1.2; color:#0f172a;
+      font-weight:800; font-size:.8rem; line-height:1.2; color:#0f172a;
     }
 
     /* Inventory cards */
     .bodytype-card{
-      position:relative; overflow:hidden; border-radius:1rem; border:1px solid #e5e7eb; background:#fff;
+      overflow:hidden; border-radius:1rem; border:1px solid #e5e7eb; background:#fff;
       transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
     }
-    .bodytype-card:hover{ transform:translateY(-2px); border-color:var(--blue-600); box-shadow:0 10px 18px -10px rgba(42,93,159,.35); }
-    .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:120px; }
+    .bodytype-card:hover{ transform:translateY(-1px); border-color:var(--blue-600); box-shadow:0 10px 18px -10px rgba(42,93,159,.25); }
+    .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:96px; }
     @media (min-width:640px){ .bodytype-img{ height:140px; } }
 
-    /* FORM SHELL — fixed size with internal scroll */
+    /* FORM SHELL — taller on phones for less bouncing */
     .form-shell{
       position:relative;
-      height:clamp(560px, 72vh, 720px);
-      overflow:auto;           /* internal scroll only */
+      height:78vh;           /* phones */
+      max-height:720px;
+      overflow:auto;
       overscroll-behavior:contain;
+      -webkit-overflow-scrolling: touch;
     }
-    .form-shell .sticky{ position: sticky; top: 0; z-index: 10; }
+    @media (min-width:640px){
+      .form-shell{ height:72vh; }
+    }
+    .form-shell .sticky{ position: sticky; top: 0; z-index: 10; background:#fff; }
+
+    /* Smaller mobile headings and tighter section spacing */
+    @media (max-width:639px){
+      h1{ font-size:1.75rem; line-height:1.2; }
+      h2{ font-size:1.25rem; }
+      section.card{ padding:1rem !important; }
+      .card .p-6{ padding:1rem !important; }
+    }
   </style>
 
   <script type="application/ld+json">
@@ -132,13 +164,13 @@
   }
   </script>
 </head>
-<body class="py-6 sm:py-10 px-4">
+<body class="py-5 sm:py-10 px-3 sm:px-4">
   <!-- NAV -->
-  <header class="w-full max-w-2xl mx-auto mb-6 sm:mb-8">
-    <nav class="bg-white/90 backdrop-blur card px-4 sm:px-6 py-3 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3">
-        <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit" class="h-10 sm:h-12 w-auto object-contain rounded-md" onerror="this.style.display='none'"/>
-        <span class="hidden sm:inline font-extrabold tracking-tight text-zinc-900">Vancouver Island Credit</span>
+  <header class="w-full max-w-2xl mx-auto mb-5 sm:mb-8">
+    <nav class="bg-white/90 backdrop-blur card px-3 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2 sm:gap-3 min-w-0">
+        <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit" class="h-9 sm:h-12 w-auto object-contain rounded-md" onerror="this.style.display='none'"/>
+        <span class="hidden sm:inline font-extrabold tracking-tight text-zinc-900 truncate">Vancouver Island Credit</span>
       </a>
       <div class="hidden sm:flex items-center gap-6 text-sm font-semibold text-zinc-700">
         <a href="#inventory" class="hover:text-blue-600">Inventory</a>
@@ -150,15 +182,15 @@
   </header>
 
   <!-- MAIN -->
-  <main class="w-full max-w-2xl mx-auto space-y-8">
+  <main class="w-full max-w-2xl mx-auto space-y-6 sm:space-y-8">
     <!-- HERO -->
-    <section id="about" class="card p-6 sm:p-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-        <!-- Left: steps + Kot badge -->
-        <div class="flex flex-col justify-between">
-          <div class="space-y-5">
-            <h1 class="font-black text-3xl sm:text-4xl text-zinc-900 tracking-tight">Get driving in 3 easy steps</h1>
-            <ol class="space-y-3">
+    <section id="about" class="card p-4 sm:p-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-12">
+        <!-- Left -->
+        <div class="flex flex-col justify-between gap-4">
+          <div class="space-y-4">
+            <h1 class="font-black text-2xl sm:text-4xl text-zinc-900 tracking-tight">Get driving in 3 easy steps</h1>
+            <ol class="space-y-3 text-sm sm:text-base">
               <li class="flex items-start gap-3">
                 <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 font-extrabold">1</span>
                 <p class="text-zinc-800"><span class="font-semibold">Enter your info</span> — 2–3 minutes, no pressure.</p>
@@ -174,27 +206,25 @@
             </ol>
           </div>
 
-          <!-- Kot badge (compact, same size as 5-star) -->
-          <div class="mt-6 pt-4 border-t border-gray-200">
-            <div class="flex items-center gap-3">
-              <figure class="badge">
-                <img src="Kotautogroup.png" alt="Kot Auto Group" loading="lazy">
-                <figcaption class="badge-caption">Partnered with Kot Auto Group</figcaption>
-              </figure>
-            </div>
+          <!-- Kot badge -->
+          <div class="pt-3 border-t border-gray-200">
+            <figure class="badge">
+              <img src="Kotautogroup.png" alt="Kot Auto Group" loading="lazy">
+              <figcaption class="badge-caption">Partnered with Kot Auto Group</figcaption>
+            </figure>
           </div>
         </div>
 
-        <!-- Right: reasons + 5-star badge -->
-        <div class="flex flex-col justify-between md:border-l md:pl-12 border-gray-200">
+        <!-- Right -->
+        <div class="flex flex-col justify-between gap-4 md:border-l md:pl-12 border-gray-200">
           <div>
-            <div class="flex items-center space-x-4 mb-5">
-              <div class="bg-blue-100 p-3 rounded-xl">
-                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <div class="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-5">
+              <div class="bg-blue-100 p-2.5 sm:p-3 rounded-xl">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               </div>
-              <h2 class="text-2xl font-extrabold text-zinc-900">Fastest Online Approval</h2>
+              <h2 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Fastest Online Approval</h2>
             </div>
-            <ul class="space-y-3 text-zinc-700 text-sm">
+            <ul class="space-y-2.5 sm:space-y-3 text-zinc-700 text-sm">
               <li><strong class="text-zinc-900">Avoid the Runaround:</strong> Deal with one real person.</li>
               <li><strong class="text-zinc-900">All Credit Welcome:</strong> High approval rates.</li>
               <li><strong class="text-zinc-900">Huge Selection:</strong> New & used vehicles across BC.</li>
@@ -202,14 +232,12 @@
             </ul>
           </div>
 
-          <!-- 5-star badge (same size) -->
-          <div class="mt-6 pt-4 border-t border-gray-200">
-            <div class="flex items-center gap-3">
-              <figure class="badge">
-                <img id="gr-img" src="5star.png" alt="5-star Google reviews">
-                <figcaption class="badge-caption">Over 10,000 5-star Google reviews</figcaption>
-              </figure>
-            </div>
+          <!-- 5-star badge -->
+          <div class="pt-3 border-t border-gray-200">
+            <figure class="badge">
+              <img id="gr-img" src="5star.png" alt="5-star Google reviews">
+              <figcaption class="badge-caption">Over 10,000 5-star Google reviews</figcaption>
+            </figure>
             <div id="gr-fallback" class="hidden flex items-center gap-2 mt-2 text-amber-500">
               <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.802 2.036a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.802-2.036a1 1 0 00-1.175 0l-2.802 2.036c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.88 8.72c-.783-.57-.38-1.81.588-1.81H6.93a1 1 0 00.95-.69l1.17-3.292z"/></svg>
               <span class="text-[13px] font-semibold text-zinc-700">Over <span class="font-extrabold">10,000</span> 5-star Google reviews</span>
@@ -219,7 +247,7 @@
       </div>
     </section>
 
-    <!-- FORM (fixed-height shell with internal scroll) -->
+    <!-- FORM -->
     <section class="card p-0 overflow-hidden relative">
       <div class="form-shell" id="form-shell">
         <!-- notice -->
@@ -227,17 +255,16 @@
           To view matching inventory, please complete the quick form.
         </div>
 
-        <!-- sticky progress (sticky inside shell) -->
-        <div class="px-4 sm:px-6 pt-4 sticky bg-white border-b">
+        <!-- sticky header -->
+        <div class="px-3 sm:px-6 pt-3 sm:pt-4 sticky border-b">
           <div class="flex items-center justify-between mb-2">
             <div id="progress-label" class="text-xs font-semibold text-zinc-700">Step 1 of 10</div>
-            <div id="progress-endcap" class="text-xs text-blue-700 font-semibold">Let’s get you approved</div>
+            <div id="progress-endcap" class="text-[11px] sm:text-xs text-blue-700 font-semibold">Let’s get you approved</div>
           </div>
           <div class="track mb-3"><div id="progress-fill" class="fill"></div></div>
         </div>
 
-        <!-- form body scrolls within the shell -->
-        <div class="px-4 sm:px-6 py-6">
+        <div class="px-3 sm:px-6 py-5">
           <form id="lead-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" class="space-y-6" novalidate>
             <input type="hidden" name="form-name" value="lead-form"/>
             <input type="hidden" name="app_type" id="app_type" value="" />
@@ -245,12 +272,10 @@
             <input type="hidden" name="vehicleType" id="vehicleType" />
             <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
 
-            <!-- ORDER: Vehicle → Condition → Budget → PURCHASE → APPLICATION TYPE → Contact → DOB → Income → Address/Housing → Consent -->
-
             <!-- 1: Vehicle Type -->
             <section class="form-step" data-step="1">
               <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">What type of vehicle?</h3>
-              <div class="mt-4 grid-sq">
+              <div class="mt-3 grid-sq">
                 <button type="button" class="tile" data-type="Car">Car</button>
                 <button type="button" class="tile" data-type="SUV">SUV</button>
                 <button type="button" class="tile" data-type="Van">Van</button>
@@ -261,7 +286,7 @@
             <!-- 2: Condition -->
             <section class="form-step hidden" data-step="2">
               <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Used or new?</h3>
-              <div class="mt-4 grid-2">
+              <div class="mt-3 grid-2">
                 <button type="button" class="choice" data-cond="Used">Used</button>
                 <button type="button" class="choice" data-cond="New">New</button>
               </div>
@@ -270,7 +295,7 @@
             <!-- 3: Budget -->
             <section class="form-step hidden" data-step="3">
               <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">What’s your monthly budget?</h3>
-              <div class="mt-4 grid-sq">
+              <div class="mt-3 grid-sq">
                 <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$250 – $375" required><span>$250 – $375</span></label>
                 <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$376 – $499" required><span>$376 – $499</span></label>
                 <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$500 – $750" required><span>$500 – $750</span></label>
@@ -278,7 +303,7 @@
               </div>
             </section>
 
-            <!-- 4: PURCHASE -->
+            <!-- 4: Purchase -->
             <section class="form-step hidden" data-step="4" id="step-purchase">
               <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Purchase details</h3>
               <div class="mt-2 grid gap-4">
@@ -299,7 +324,7 @@
                   </select>
                 </div>
                 <div id="tradeInDetails" class="hidden">
-                  <div class="grid grid-cols-1 sm:grid-cols-4 gap-2">
+                  <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
                     <input type="number" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" />
                     <input type="text" name="tradeInMake" placeholder="Make" class="form-input"/>
                     <input type="text" name="tradeInModel" placeholder="Model" class="form-input"/>
@@ -310,10 +335,10 @@
               </div>
             </section>
 
-            <!-- 5: APPLICATION TYPE -->
+            <!-- 5: Application type -->
             <section class="form-step hidden" data-step="5">
               <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Choose your path</h3>
-              <div class="mt-4 grid-3" role="tablist" aria-label="Application type">
+              <div class="mt-3 grid-3" role="tablist" aria-label="Application type">
                 <button type="button" class="choice" data-app="Pre-Approval" aria-pressed="false">Pre-Approval</button>
                 <button type="button" class="choice" data-app="Credit Inquiry" aria-pressed="false">Credit Inquiry</button>
                 <button type="button" class="choice" data-app="Full Application" aria-pressed="false">Full Application</button>
@@ -321,7 +346,7 @@
               <p class="text-xs text-zinc-500 mt-2">We’ll only show what’s needed based on your choice.</p>
             </section>
 
-            <!-- 6: CONTACT -->
+            <!-- 6: Contact -->
             <section class="form-step hidden" data-step="6" id="step-contact">
               <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Your contact info</h3>
               <div class="mt-2 grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -476,13 +501,13 @@
             <section class="form-step hidden" data-step="9" id="step-address">
               <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Where do you live?</h3>
 
-              <!-- BASIC: Postal code only -->
+              <!-- Postal only (Pre) -->
               <div id="addr-postal-only" class="mt-2 hidden">
                 <label for="currentPostalCode_basic" class="block text-sm font-medium text-zinc-700 mb-1.5">Postal Code <span class="text-red-500">*</span></label>
                 <input type="text" id="currentPostalCode_basic" name="currentPostalCode_basic" class="form-input" placeholder="V8T 4T2"/>
               </div>
 
-              <!-- CREDIT/FULL: Full current address -->
+              <!-- Current address -->
               <div id="addr-full-current" class="mt-2 hidden space-y-2">
                 <label class="block text-sm font-medium text-zinc-700">Current address <span class="text-red-500">*</span></label>
                 <div class="grid grid-cols-6 gap-2">
@@ -494,8 +519,8 @@
                 </div>
               </div>
 
-              <!-- ALWAYS under current address -->
-              <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 items-end">
+              <!-- Always below current address -->
+              <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3 items-end">
                 <div>
                   <label id="housingLabel" for="housingPayment" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly Payment <span class="text-red-500">*</span></label>
                   <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1,500" inputmode="numeric"/>
@@ -510,7 +535,7 @@
                 </div>
               </div>
 
-              <!-- FULL only: duration controls -->
+              <!-- Full only: duration -->
               <div id="addr-duration" class="hidden mt-3">
                 <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at current address <span class="text-red-500">*</span></label>
                 <div class="grid grid-cols-2 gap-2">
@@ -519,7 +544,7 @@
                 </div>
               </div>
 
-              <!-- FULL only: previous address if <24 months (appears AFTER duration) -->
+              <!-- Previous address appears last -->
               <div id="addr-previous" class="hidden mt-3 space-y-2">
                 <p class="text-xs text-zinc-500">Less than 2 years at current address? Add your previous address.</p>
                 <label class="block text-sm font-medium text-zinc-700">Previous address <span class="text-red-500">*</span></label>
@@ -530,8 +555,6 @@
                   <select id="prevProvince" name="prevProvince" class="form-select col-span-3"><option value="">Province</option></select>
                   <input type="text" id="prevPostalCode" name="prevPostalCode" class="form-input col-span-6" placeholder="Postal Code"/>
                 </div>
-
-                <!-- previous address duration -->
                 <div class="grid grid-cols-2 gap-2 mt-2">
                   <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="form-select"><option value="">Years</option></select>
                   <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="form-select"><option value="">Months</option></select>
@@ -563,7 +586,7 @@
             <!-- NAV -->
             <div class="flex items-center justify-between pt-2">
               <button type="button" id="btnBack" class="text-sm font-semibold text-zinc-500 hover:text-zinc-800 px-2 py-2 disabled:opacity-30">Back</button>
-              <button type="button" id="btnNext" class="cta-button">Next</button>
+              <button type="button" id="btnNext" class="cta-button w-auto">Next</button>
             </div>
           </form>
         </div>
@@ -571,45 +594,45 @@
     </section>
 
     <!-- INVENTORY -->
-    <section id="inventory" class="card p-6 sm:p-8">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Browse by Body Type</h3>
-        <a href="#lead-form" class="text-sm font-semibold text-blue-600 hover:underline js-view-inventory">View all</a>
+    <section id="inventory" class="card p-4 sm:p-8">
+      <div class="flex items-center justify-between mb-3 sm:mb-4">
+        <h3 class="text-lg sm:text-2xl font-extrabold text-zinc-900">Browse by Body Type</h3>
+        <a href="#lead-form" class="text-xs sm:text-sm font-semibold text-blue-600 hover:underline js-view-inventory">View all</a>
       </div>
-      <p class="text-sm text-zinc-600 mb-5">Pick a category to see matching options after a quick approval.</p>
+      <p class="text-xs sm:text-sm text-zinc-600 mb-4 sm:mb-5">Pick a category to see matching options after a quick approval.</p>
 
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('/img/bodytype-suv.jpg');"></div>
-          <div class="p-3"><p class="font-semibold text-sm">SUV / Crossover</p></div>
+          <div class="p-2.5 sm:p-3"><p class="font-semibold text-xs sm:text-sm">SUV / Crossover</p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('/img/bodytype-truck.jpg');"></div>
-          <div class="p-3"><p class="font-semibold text-sm">Truck</p></div>
+          <div class="p-2.5 sm:p-3"><p class="font-semibold text-xs sm:text-sm">Truck</p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('/img/bodytype-sedan.jpg');"></div>
-          <div class="p-3"><p class="font-semibold text-sm">Sedan</p></div>
+          <div class="p-2.5 sm:p-3"><p class="font-semibold text-xs sm:text-sm">Sedan</p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('/img/bodytype-coupe.jpg');"></div>
-          <div class="p-3"><p class="font-semibold text-sm">Coupe</p></div>
+          <div class="p-2.5 sm:p-3"><p class="font-semibold text-xs sm:text-sm">Coupe</p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('/img/bodytype-minivan.jpg');"></div>
-          <div class="p-3"><p class="font-semibold text-sm">Minivan</p></div>
+          <div class="p-2.5 sm:p-3"><p class="font-semibold text-xs sm:text-sm">Minivan</p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('/img/bodytype-hatchback.jpg');"></div>
-          <div class="p-3"><p class="font-semibold text-sm">Hatchback</p></div>
+          <div class="p-2.5 sm:p-3"><p class="font-semibold text-xs sm:text-sm">Hatchback</p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('/img/bodytype-convertible.jpg');"></div>
-          <div class="p-3"><p class="font-semibold text-sm">Convertible</p></div>
+          <div class="p-2.5 sm:p-3"><p class="font-semibold text-xs sm:text-sm">Convertible</p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('/img/bodytype-wagon.jpg');"></div>
-          <div class="p-3"><p class="font-semibold text-sm">Wagon</p></div>
+          <div class="p-2.5 sm:p-3"><p class="font-semibold text-xs sm:text-sm">Wagon</p></div>
         </a>
       </div>
     </section>
@@ -657,54 +680,39 @@
     function currencyFmt(e){ let v=e.target.value.replace(/[$,]/g,''); e.target.value = (!v||isNaN(v))? '' : ('$'+ new Intl.NumberFormat('en-US').format(v)); }
     function phoneFmt(e){ const d=e.target.value.replace(/\D/g,'').slice(0,10); if(d.length>6)e.target.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`; else if(d.length>3)e.target.value=`(${d.slice(0,3)}) ${d.slice(3)}`; else if(d.length>0)e.target.value=`(${d}`; }
 
-    // Rent/Own switch (label stays "Monthly Payment")
     function setHousing(type){
       $('housingType').value = type;
       $('btnRent').setAttribute('aria-pressed', type==='Rent');
       $('btnOwn').setAttribute('aria-pressed', type==='Own');
-      // Do NOT change label text here — it must always read "Monthly Payment"
     }
     $('btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
     $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
 
     // Mode
-    const mode = () => $('app_type').value; // '', 'Pre-Approval' | 'Credit Inquiry' | 'Full Application'
+    const mode = () => $('app_type').value;
 
     function setAppMode(nextMode){
       $('app_type').value = nextMode || '';
-
-      // Clear selected states
-      bySelAll('[data-app]').forEach(b=> {
-        b.classList.remove('selected');
-        b.setAttribute('aria-pressed','false');
-      });
-      if (nextMode) {
-        const btn = bySel(`[data-app="${nextMode}"]`);
-        btn?.classList.add('selected');
-        btn?.setAttribute('aria-pressed','true');
-      }
+      bySelAll('[data-app]').forEach(b=> { b.classList.remove('selected'); b.setAttribute('aria-pressed','false'); });
+      if (nextMode) { const btn = bySel(`[data-app="${nextMode}"]`); btn?.classList.add('selected'); btn?.setAttribute('aria-pressed','true'); }
 
       const isPre = nextMode === 'Pre-Approval';
       const isCredit = nextMode === 'Credit Inquiry';
       const isFull = nextMode === 'Full Application';
 
-      // Middle name
       $('middleName').required = !!nextMode && !isPre;
       $('middleReq').classList.toggle('hidden', !(nextMode && !isPre));
       $('middleOpt').classList.toggle('hidden', !!(nextMode && !isPre));
 
-      // DOB required for ALL paths only after selection
       ['dobMonth','dobDay','dobYear'].forEach(id => $(id).required = !!nextMode);
 
-      // Marital: Credit + Full
       bySel('#marital-wrap').classList.toggle('hidden', !(isCredit || isFull));
       $('maritalStatus').required = (isCredit || isFull);
 
-      // Income visibility: simple for Basic/Credit; full for Full
       bySel('#income-simple').classList.toggle('hidden', !!isFull);
       bySel('#income-full').classList.toggle('hidden', !isFull);
 
-      // Reset address & employment requireds
+      // Reset requireds
       ['currentStreetAddress','currentCity','currentProvince','currentPostalCode','currentPostalCode_basic',
        'timeAtAddressYears','timeAtAddressMonths',
        'prevStreetAddress','prevCity','prevProvince','prevPostalCode',
@@ -713,13 +721,11 @@
        'monthlyIncome','incomeSource','incomeSourceFull','currentEmployer','jobTitle']
         .forEach(id => { const n=$(id); if(n) n.required = false; });
 
-      // Hide consent by default until we know path
       bySel('#consent-inline').classList.add('hidden');
       bySel('#consent-checkbox').classList.add('hidden');
 
       if (!nextMode) { updateProgress(); return; }
 
-      // PRE-APPROVAL
       if (isPre) {
         bySel('#addr-postal-only').classList.remove('hidden');
         bySel('#addr-full-current').classList.add('hidden');
@@ -731,19 +737,17 @@
         bySel('#consent-inline').classList.remove('hidden');
       }
 
-      // CREDIT INQUIRY
       if (isCredit) {
         bySel('#addr-postal-only').classList.add('hidden');
         bySel('#addr-full-current').classList.remove('hidden');
-        bySel('#addr-duration').classList.add('hidden');  // no duration gating
-        bySel('#addr-previous').classList.add('hidden');  // explicitly never
+        bySel('#addr-duration').classList.add('hidden');
+        bySel('#addr-previous').classList.add('hidden');
         ['currentStreetAddress','currentCity','currentProvince','currentPostalCode'].forEach(id => $(id).required = true);
         $('monthlyIncome').required = true;
         $('housingPayment').required = true;
         bySel('#consent-inline').classList.remove('hidden');
       }
 
-      // FULL APPLICATION
       if (isFull) {
         bySel('#addr-postal-only').classList.add('hidden');
         bySel('#addr-full-current').classList.remove('hidden');
@@ -757,7 +761,6 @@
       updateProgress();
     }
 
-    // Income branching (FULL)
     function onIncomeSourceFullChange(){
       const v = $('incomeSourceFull').value;
       const employed = (v === 'Full-Time' || v === 'Part-Time');
@@ -781,7 +784,6 @@
       updateProgress();
     }
 
-    // FULL: previous employment if < 24 months (requires user to choose something)
     function checkPrevEmploymentNeed(){
       if (mode() !== 'Full Application') { bySel('#prev-employment').classList.add('hidden'); return; }
       const yRaw = $('timeWithEmployerYears').value;
@@ -796,7 +798,6 @@
       ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id => { const n=$(id); if(n) n.required = need; });
     }
 
-    // FULL: previous address if < 24 months (appears AFTER duration; housing block stays above)
     function onAddressDurationChange(){
       if (mode() !== 'Full Application') return;
       const yRaw = $('timeAtAddressYears').value;
@@ -863,7 +864,6 @@
       if (t < 1) t = 1;
       if (t > steps().length) { submitForm(); return; }
       showStep(t);
-      // (no page scroll here; only the shell scrolls in showStep)
     }
 
     $('btnNext').addEventListener('click', ()=> next(1));
@@ -883,18 +883,15 @@
       r.parentElement.addEventListener('click', ()=>{ r.checked=true; next(1); });
     });
 
-    // Purchase step listeners
     $('hasTradeIn')?.addEventListener('change', (e)=>{
       bySel('#tradeInDetails').classList.toggle('hidden', e.target.value.toLowerCase()!=='yes');
     });
 
-    // App type
     bySelAll('[data-app]').forEach(b=> b.addEventListener('click', ()=>{
       setAppMode(b.dataset.app);
       next(1);
     }));
 
-    // Listeners
     $('phone')?.addEventListener('input', phoneFmt);
     ['monthlyIncome','avgMonthlyIncome','otherIncomeAmount','housingPayment'].forEach(id=> $(id)?.addEventListener('input', currencyFmt));
     $('incomeSourceFull')?.addEventListener('change', onIncomeSourceFullChange);
@@ -935,7 +932,6 @@
 
     // Boot
     (function init(){
-      // footer year
       const y = new Date().getFullYear(); bySel('#year').textContent = y;
 
       // DOB selects
@@ -962,12 +958,8 @@
       function populateProvinces(cur, prev){ const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; [cur,prev].forEach(sel=>{ if(!sel) return; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }); }
       populateProvinces($('currentProvince'), $('prevProvince'));
 
-      // Default housing switch
       setHousing('Rent');
-
-      // Start on step 1
       showStep(1);
-      // IMPORTANT: do NOT preselect any application mode
       setAppMode('');
     })();
   </script>
