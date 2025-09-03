@@ -30,9 +30,10 @@
       --blue-700:#214B80;
       --blue-100:#EAF1FB;
       --blue-grad:#4C7CC0;
-      /* Shared badge size (compact but roomy enough for headings + image + caption) */
+
+      /* Shared badge size (compact) */
       --badge-w: 280px;
-      --badge-h: 220px;
+      --badge-h: 200px;
     }
     .text-blue-600{ color:var(--blue-600) !important; }
     .bg-blue-100{ background:var(--blue-100) !important; }
@@ -75,30 +76,28 @@
     .seg-btn { padding:.5rem .75rem; border-radius:.5rem; font-weight:600; color:#374151; background:transparent; border:2px solid transparent; }
     .seg-btn[aria-pressed="true"] { background:#e0ecff; color:#214B80; border-color:#bfdbfe; }
 
-    /* BADGES — compact, equal-sized boxes */
+    /* BADGES — equal-sized, compact */
     .badge{
       width:var(--badge-w);
       min-height:var(--badge-h);
-      border:1px solid var(--blue-600);          /* thinner line */
+      border:1px solid var(--blue-600);
       border-radius:1rem;
       background:#fff;
       box-shadow:0 10px 26px -16px rgba(42,93,159,.45);
-      padding:.6rem .8rem .7rem;
-      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.4rem;
+      padding:.55rem .7rem .6rem;
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.35rem;
       text-align:center;
-    }
-    .badge .badge-kicker{
-      font-size:.72rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:#1f2937;
     }
     .badge img{
       display:block; width:auto; max-width:100%;
-      max-height:calc(var(--badge-h) - 3.4rem); /* leave room for kicker + caption */
+      max-height:calc(var(--badge-h) - 2.6rem); /* image + caption fit tightly */
       object-fit:contain;
     }
     .badge .badge-caption{
       font-weight:800; font-size:.85rem; line-height:1.2; color:#0f172a;
     }
 
+    /* Inventory cards */
     .bodytype-card{
       position:relative; overflow:hidden; border-radius:1rem; border:1px solid #e5e7eb; background:#fff;
       transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
@@ -106,6 +105,16 @@
     .bodytype-card:hover{ transform:translateY(-2px); border-color:var(--blue-600); box-shadow:0 10px 18px -10px rgba(42,93,159,.35); }
     .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:120px; }
     @media (min-width:640px){ .bodytype-img{ height:140px; } }
+
+    /* FORM SHELL — fixed size with internal scroll */
+    .form-shell{
+      position:relative;
+      height:clamp(560px, 72vh, 720px);
+      overflow:auto;           /* internal scroll only */
+      overscroll-behavior:contain;
+    }
+    /* Keep the sticky header sticky inside the shell */
+    .form-shell .sticky{ position: sticky; top: 0; z-index: 10; }
   </style>
 
   <script type="application/ld+json">
@@ -146,7 +155,7 @@
     <!-- HERO -->
     <section id="about" class="card p-6 sm:p-8">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-        <!-- Left: steps + partnered badge -->
+        <!-- Left: steps + Kot badge -->
         <div class="flex flex-col justify-between">
           <div class="space-y-5">
             <h1 class="font-black text-3xl sm:text-4xl text-zinc-900 tracking-tight">Get driving in 3 easy steps</h1>
@@ -166,19 +175,18 @@
             </ol>
           </div>
 
-          <!-- Partnered badge IN THE SQUARE with kicker -->
+          <!-- Kot badge (compact, same size as 5-star) -->
           <div class="mt-6 pt-4 border-t border-gray-200">
             <div class="flex items-center gap-3">
               <figure class="badge">
-                <div class="badge-kicker">Partnered with</div>
                 <img src="Kotautogroup.png" alt="Kot Auto Group" loading="lazy">
-                <figcaption class="badge-caption">Kot Auto Group</figcaption>
+                <figcaption class="badge-caption">Partnered with Kot Auto Group</figcaption>
               </figure>
             </div>
           </div>
         </div>
 
-        <!-- Right: reasons + reviews badge -->
+        <!-- Right: reasons + 5-star badge -->
         <div class="flex flex-col justify-between md:border-l md:pl-12 border-gray-200">
           <div>
             <div class="flex items-center space-x-4 mb-5">
@@ -195,7 +203,7 @@
             </ul>
           </div>
 
-          <!-- Reviews badge IN THE SQUARE, same size as Kot badge -->
+          <!-- 5-star badge (same size) -->
           <div class="mt-6 pt-4 border-t border-gray-200">
             <div class="flex items-center gap-3">
               <figure class="badge">
@@ -212,337 +220,342 @@
       </div>
     </section>
 
-    <!-- FORM -->
+    <!-- FORM (fixed-height shell with internal scroll) -->
     <section class="card p-0 overflow-hidden relative">
-      <div id="form-notice" class="hidden absolute top-3 right-3 bg-blue-100 text-blue-600 text-xs font-semibold px-3 py-2 rounded-md shadow">
-        To view matching inventory, please complete the quick form.
-      </div>
-
-      <div class="px-4 sm:px-6 pt-4 sticky top-0 bg-white border-b">
-        <div class="flex items-center justify-between mb-2">
-          <div id="progress-label" class="text-xs font-semibold text-zinc-700">Step 1 of 10</div>
-          <div id="progress-endcap" class="text-xs text-blue-700 font-semibold">Let’s get you approved</div>
+      <div class="form-shell" id="form-shell">
+        <!-- notice -->
+        <div id="form-notice" class="hidden absolute top-3 right-3 bg-blue-100 text-blue-600 text-xs font-semibold px-3 py-2 rounded-md shadow">
+          To view matching inventory, please complete the quick form.
         </div>
-        <div class="track mb-3"><div id="progress-fill" class="fill"></div></div>
-      </div>
 
-      <div class="px-4 sm:px-6 py-6">
-        <form id="lead-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" class="space-y-6" novalidate>
-          <input type="hidden" name="form-name" value="lead-form"/>
-          <input type="hidden" name="app_type" id="app_type" value="" />
-          <input type="hidden" name="vehicleCondition" id="vehicleCondition" />
-          <input type="hidden" name="vehicleType" id="vehicleType" />
-          <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
-
-          <!-- 1: Vehicle Type -->
-          <section class="form-step" data-step="1">
-            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">What type of vehicle?</h3>
-            <div class="mt-4 grid-sq">
-              <button type="button" class="tile" data-type="Car">Car</button>
-              <button type="button" class="tile" data-type="SUV">SUV</button>
-              <button type="button" class="tile" data-type="Van">Van</button>
-              <button type="button" class="tile" data-type="Truck">Truck</button>
-            </div>
-          </section>
-
-          <!-- 2: Condition -->
-          <section class="form-step hidden" data-step="2">
-            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Used or new?</h3>
-            <div class="mt-4 grid-2">
-              <button type="button" class="choice" data-cond="Used">Used</button>
-              <button type="button" class="choice" data-cond="New">New</button>
-            </div>
-          </section>
-
-          <!-- 3: Budget -->
-          <section class="form-step hidden" data-step="3">
-            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">What’s your monthly budget?</h3>
-            <div class="mt-4 grid-sq">
-              <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$250 – $375" required><span>$250 – $375</span></label>
-              <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$376 – $499" required><span>$376 – $499</span></label>
-              <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$500 – $750" required><span>$500 – $750</span></label>
-              <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$750+" required><span>$750+</span></label>
-            </div>
-          </section>
-
-          <!-- 4: Purchase -->
-          <section class="form-step hidden" data-step="4" id="step-purchase">
-            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Purchase details</h3>
-            <div class="mt-2 grid gap-4">
-              <div>
-                <label for="downPayment" class="block text-sm font-medium text-zinc-700 mb-1.5">Estimated down payment?</label>
-                <select id="downPayment" name="downPayment" class="form-select">
-                  <option value="">Please select…</option>
-                  <option>$3,000+</option>
-                  <option>$1,000 – $3,000</option>
-                  <option>$0 – $1,000</option>
-                </select>
-              </div>
-              <div>
-                <label for="hasTradeIn" class="block text-sm font-medium text-zinc-700 mb-1.5">Do you have a vehicle to trade in?</label>
-                <select id="hasTradeIn" name="hasTradeIn" class="form-select">
-                  <option>No</option>
-                  <option>Yes</option>
-                </select>
-              </div>
-              <div id="tradeInDetails" class="hidden">
-                <div class="grid grid-cols-1 sm:grid-cols-4 gap-2">
-                  <input type="number" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" />
-                  <input type="text" name="tradeInMake" placeholder="Make" class="form-input"/>
-                  <input type="text" name="tradeInModel" placeholder="Model" class="form-input"/>
-                  <input type="number" name="tradeInKms" placeholder="KM" class="form-input" inputmode="numeric"/>
-                </div>
-                <input type="text" name="tradeInOwed" placeholder="Money owed? e.g., $5,000 or None" class="form-input mt-3"/>
-              </div>
-            </div>
-          </section>
-
-          <!-- 5: App type -->
-          <section class="form-step hidden" data-step="5">
-            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Choose your path</h3>
-            <div class="mt-4 grid-3" role="tablist" aria-label="Application type">
-              <button type="button" class="choice" data-app="Pre-Approval" aria-pressed="false">Pre-Approval</button>
-              <button type="button" class="choice" data-app="Credit Inquiry" aria-pressed="false">Credit Inquiry</button>
-              <button type="button" class="choice" data-app="Full Application" aria-pressed="false">Full Application</button>
-            </div>
-            <p class="text-xs text-zinc-500 mt-2">We’ll only show what’s needed based on your choice.</p>
-          </section>
-
-          <!-- 6: Contact -->
-          <section class="form-step hidden" data-step="6" id="step-contact">
-            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Your contact info</h3>
-            <div class="mt-2 grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div>
-                <label for="firstName" class="block text-sm font-medium text-zinc-700 mb-1.5">First name <span class="text-red-500">*</span></label>
-                <input type="text" id="firstName" name="firstName" class="form-input" autocomplete="given-name" required/>
-              </div>
-              <div>
-                <label for="middleName" class="block text-sm font-medium text-zinc-700 mb-1.5">Middle <span id="middleReq" class="text-red-500 hidden">*</span><span id="middleOpt" class="text-zinc-500"> (Optional)</span></label>
-                <input type="text" id="middleName" name="middleName" class="form-input" autocomplete="additional-name"/>
-              </div>
-              <div>
-                <label for="lastName" class="block text-sm font-medium text-zinc-700 mb-1.5">Last name <span class="text-red-500">*</span></label>
-                <input type="text" id="lastName" name="lastName" class="form-input" autocomplete="family-name" required/>
-              </div>
-            </div>
-            <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label for="phone" class="block text-sm font-medium text-zinc-700 mb-1.5">Phone number <span class="text-red-500">*</span></label>
-                <input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" required/>
-              </div>
-              <div>
-                <label for="email" class="block text-sm font-medium text-zinc-700 mb-1.5">Email address <span class="text-red-500">*</span></label>
-                <input type="email" id="email" name="email" class="form-input" autocomplete="email" required/>
-              </div>
-            </div>
-          </section>
-
-          <!-- 7: DOB (+ marital for Credit/Full) -->
-          <section class="form-step hidden" data-step="7" id="step-dob">
-            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">About you</h3>
-            <div class="grid grid-cols-1 gap-4 mt-2">
-              <div>
-                <label for="dobMonth" class="block text-sm font-medium text-zinc-700 mb-1.5">Date of birth <span class="text-red-500">*</span></label>
-                <div class="grid grid-cols-3 gap-2">
-                  <select id="dobMonth" name="dobMonth" class="form-select" required><option value="">Month</option></select>
-                  <select id="dobDay" name="dobDay" class="form-select" required><option value="">Day</option></select>
-                  <input type="number" id="dobYear" name="dobYear" placeholder="Year" class="form-input" inputmode="numeric" required/>
-                </div>
-              </div>
-
-              <div id="marital-wrap" class="hidden">
-                <label for="maritalStatus" class="block text-sm font-medium text-zinc-700 mb-1.5">Marital status <span class="text-red-500">*</span></label>
-                <select id="maritalStatus" name="maritalStatus" class="form-select">
-                  <option value="">Please select…</option>
-                  <option>Single</option>
-                  <option>Married</option>
-                  <option>Common-Law</option>
-                  <option>Divorced</option>
-                  <option>Separated</option>
-                  <option>Widowed</option>
-                </select>
-              </div>
-            </div>
-          </section>
-
-          <!-- 8: Income -->
-          <section class="form-step hidden" data-step="8" id="step-income">
-            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Income</h3>
-
-            <div id="income-simple" class="mt-2 space-y-3">
-              <div>
-                <label for="incomeSource" class="block text-sm font-medium text-zinc-700 mb-1.5">Primary income source</label>
-                <select id="incomeSource" name="incomeSource" class="form-select">
-                  <option value="">Please select…</option>
-                  <option value="Full-Time">Full-Time Employment</option>
-                  <option value="Part-Time">Part-Time Employment</option>
-                  <option value="Self-Employed">Self-Employed / Business Owner</option>
-                  <option value="Disability">Disability</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-              <div>
-                <label for="monthlyIncome" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly income (before tax) <span class="text-red-500">*</span></label>
-                <input type="text" id="monthlyIncome" name="monthlyIncome" placeholder="$3,500" class="form-input" inputmode="numeric"/>
-              </div>
-            </div>
-
-            <div id="income-full" class="hidden mt-2 space-y-4">
-              <div>
-                <label for="incomeSourceFull" class="block text-sm font-medium text-zinc-700 mb-1.5">Primary income source <span class="text-red-500">*</span></label>
-                <select id="incomeSourceFull" name="incomeSourceFull" class="form-select">
-                  <option value="">Please select…</option>
-                  <option value="Full-Time">Full-Time Employment</option>
-                  <option value="Part-Time">Part-Time Employment</option>
-                  <option value="Self-Employed">Self-Employed / Business Owner</option>
-                  <option value="Disability">Disability</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-
-              <div id="full-employment" class="hidden space-y-3">
-                <div>
-                  <label for="currentEmployer" class="block text-sm font-medium text-zinc-700 mb-1.5">Employer <span class="text-red-500">*</span></label>
-                  <input type="text" id="currentEmployer" name="currentEmployer" class="form-input" placeholder="Company name"/>
-                </div>
-                <div>
-                  <label for="jobTitle" class="block text-sm font-medium text-zinc-700 mb-1.5">Position / Job Title <span class="text-red-500">*</span></label>
-                  <input type="text" id="jobTitle" name="jobTitle" class="form-input" placeholder="Your role"/>
-                </div>
-                <div>
-                  <label for="timeWithEmployerYears" class="block text-sm font-medium text-zinc-700 mb-1.5">Time with employer <span class="text-red-500">*</span></label>
-                  <div class="grid grid-cols-2 gap-2">
-                    <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select>
-                    <select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
-                  </div>
-                </div>
-              </div>
-
-              <div id="full-self" class="hidden space-y-3">
-                <div>
-                  <label for="businessName" class="block text-sm font-medium text-zinc-700 mb-1.5">Business name <span class="text-red-500">*</span></label>
-                  <input type="text" id="businessName" name="businessName" class="form-input" placeholder="Your business"/>
-                </div>
-                <div>
-                  <label for="avgMonthlyIncome" class="block text-sm font-medium text-zinc-700 mb-1.5">Average monthly income (before tax) <span class="text-red-500">*</span></label>
-                  <input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric"/>
-                </div>
-              </div>
-
-              <div id="full-other" class="hidden space-y-3">
-                <div>
-                  <label for="otherIncomeAmount" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly income amount (before tax) <span class="text-red-500">*</span></label>
-                  <input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="$2,000" inputmode="numeric"/>
-                </div>
-                <div>
-                  <label for="otherIncomeSource" class="block text-sm font-medium text-zinc-700 mb-1.5">Source description <span class="text-red-500">*</span></label>
-                  <textarea id="otherIncomeSource" name="otherIncomeSource" class="form-textarea form-input" rows="2" placeholder="Describe the source"></textarea>
-                </div>
-              </div>
-
-              <div id="prev-employment" class="hidden space-y-3">
-                <p class="text-xs text-zinc-500">Less than 2 years with current employer? Add your previous employer.</p>
-                <div>
-                  <label for="previousEmployer" class="block text-sm font-medium text-zinc-700 mb-1.5">Previous employer <span class="text-red-500">*</span></label>
-                  <input type="text" id="previousEmployer" name="previousEmployer" class="form-input" placeholder="Previous company"/>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at previous employer <span class="text-red-500">*</span></label>
-                  <div class="grid grid-cols-2 gap-2">
-                    <select id="prevTimeWithEmployerYears" name="prevTimeWithEmployerYears" class="form-select"><option value="">Years</option></select>
-                    <select id="prevTimeWithEmployerMonths" name="prevTimeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- 9: Address & Housing -->
-          <section class="form-step hidden" data-step="9" id="step-address">
-            <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Where do you live?</h3>
-
-            <div id="addr-postal-only" class="mt-2 hidden">
-              <label for="currentPostalCode_basic" class="block text-sm font-medium text-zinc-700 mb-1.5">Postal Code <span class="text-red-500">*</span></label>
-              <input type="text" id="currentPostalCode_basic" name="currentPostalCode_basic" class="form-input" placeholder="V8T 4T2"/>
-            </div>
-
-            <div id="addr-full-current" class="mt-2 hidden space-y-2">
-              <label class="block text-sm font-medium text-zinc-700">Current address <span class="text-red-500">*</span></label>
-              <div class="grid grid-cols-6 gap-2">
-                <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address" autocomplete="street-address"/>
-                <input type="text" id="currentUnit" name="currentUnit" class="form-input col-span-6 sm:col-span-2" placeholder="Unit #"/>
-                <input type="text" id="currentCity" name="currentCity" class="form-input col-span-3" placeholder="City" autocomplete="address-level2"/>
-                <select id="currentProvince" name="currentProvince" class="form-select col-span-3"><option value="">Province</option></select>
-                <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input col-span-6" placeholder="Postal Code" autocomplete="postal-code"/>
-              </div>
-            </div>
-
-            <div id="addr-duration" class="hidden mt-3">
-              <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at current address <span class="text-red-500">*</span></label>
-              <div class="grid grid-cols-2 gap-2">
-                <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
-              </div>
-            </div>
-
-            <div id="addr-previous" class="hidden mt-3 space-y-2">
-              <p class="text-xs text-zinc-500">Less than 2 years at current address? Add your previous address.</p>
-              <label class="block text-sm font-medium text-zinc-700">Previous address <span class="text-red-500">*</span></label>
-              <div class="grid grid-cols-6 gap-2">
-                <input type="text" id="prevStreetAddress" name="prevStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address"/>
-                <input type="text" id="prevUnit" name="prevUnit" class="form-input col-span-6 sm:col-span-2" placeholder="Unit #"/>
-                <input type="text" id="prevCity" name="prevCity" class="form-input col-span-3" placeholder="City"/>
-                <select id="prevProvince" name="prevProvince" class="form-select col-span-3"><option value="">Province</option></select>
-                <input type="text" id="prevPostalCode" name="prevPostalCode" class="form-input col-span-6" placeholder="Postal Code"/>
-              </div>
-              <div class="grid grid-cols-2 gap-2 mt-2">
-                <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="form-select"><option value="">Months</option></select>
-              </div>
-            </div>
-
-            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 items-end">
-              <div>
-                <label id="housingLabel" for="housingPayment" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly Payment <span class="text-red-500">*</span></label>
-                <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1,500" inputmode="numeric"/>
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-zinc-700 mb-1.5">Rent or Own? <span class="text-red-500">*</span></label>
-                <div class="seg">
-                  <button type="button" class="seg-btn" id="btnRent" aria-pressed="true">Rent</button>
-                  <button type="button" class="seg-btn" id="btnOwn" aria-pressed="false">Own</button>
-                </div>
-                <input type="hidden" id="housingType" name="housingType" value="Rent" />
-              </div>
-            </div>
-          </section>
-
-          <!-- 10: Consent & Submit -->
-          <section class="form-step hidden" data-step="10" id="step-consent">
-            <div id="consent-checkbox" class="hidden">
-              <div class="flex items-start gap-3 bg-gray-100 p-4 rounded-lg">
-                <input id="creditConsent" name="creditConsent" type="checkbox" class="h-5 w-5 rounded border-gray-300 mt-0.5"/>
-                <label for="creditConsent" id="consentLabel" class="text-xs text-zinc-600">
-                  I consent to a credit inquiry by Blake Stolth / Vancouver Island Credit to assess financing options and confirm the information provided is accurate. <span class="text-red-500 font-bold">*</span>
-                </label>
-              </div>
-            </div>
-
-            <p id="consent-inline" class="hidden text-[0.72rem] leading-4 text-zinc-600 mt-1">
-              By submitting, you consent to Vancouver Island Credit collecting and using the information you provide to assess financing options and to contact you about your application.
-            </p>
-
-            <div class="pt-3">
-              <button type="submit" id="submitBtn" class="w-full cta-button">Submit and See Options</button>
-              <p id="form-status" class="mt-3 text-xs text-center text-red-600" aria-live="polite"></p>
-            </div>
-          </section>
-
-          <div class="flex items-center justify-between pt-2">
-            <button type="button" id="btnBack" class="text-sm font-semibold text-zinc-500 hover:text-zinc-800 px-2 py-2 disabled:opacity-30">Back</button>
-            <button type="button" id="btnNext" class="cta-button">Next</button>
+        <!-- sticky progress (sticky inside shell) -->
+        <div class="px-4 sm:px-6 pt-4 sticky bg-white border-b">
+          <div class="flex items-center justify-between mb-2">
+            <div id="progress-label" class="text-xs font-semibold text-zinc-700">Step 1 of 10</div>
+            <div id="progress-endcap" class="text-xs text-blue-700 font-semibold">Let’s get you approved</div>
           </div>
-        </form>
+          <div class="track mb-3"><div id="progress-fill" class="fill"></div></div>
+        </div>
+
+        <!-- form body scrolls within the shell -->
+        <div class="px-4 sm:px-6 py-6">
+          <form id="lead-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" class="space-y-6" novalidate>
+            <input type="hidden" name="form-name" value="lead-form"/>
+            <input type="hidden" name="app_type" id="app_type" value="" />
+            <input type="hidden" name="vehicleCondition" id="vehicleCondition" />
+            <input type="hidden" name="vehicleType" id="vehicleType" />
+            <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
+
+            <!-- 1: Vehicle Type -->
+            <section class="form-step" data-step="1">
+              <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">What type of vehicle?</h3>
+              <div class="mt-4 grid-sq">
+                <button type="button" class="tile" data-type="Car">Car</button>
+                <button type="button" class="tile" data-type="SUV">SUV</button>
+                <button type="button" class="tile" data-type="Van">Van</button>
+                <button type="button" class="tile" data-type="Truck">Truck</button>
+              </div>
+            </section>
+
+            <!-- 2: Condition -->
+            <section class="form-step hidden" data-step="2">
+              <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Used or new?</h3>
+              <div class="mt-4 grid-2">
+                <button type="button" class="choice" data-cond="Used">Used</button>
+                <button type="button" class="choice" data-cond="New">New</button>
+              </div>
+            </section>
+
+            <!-- 3: Budget -->
+            <section class="form-step hidden" data-step="3">
+              <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">What’s your monthly budget?</h3>
+              <div class="mt-4 grid-sq">
+                <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$250 – $375" required><span>$250 – $375</span></label>
+                <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$376 – $499" required><span>$376 – $499</span></label>
+                <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$500 – $750" required><span>$500 – $750</span></label>
+                <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$750+" required><span>$750+</span></label>
+              </div>
+            </section>
+
+            <!-- 4: Purchase -->
+            <section class="form-step hidden" data-step="4" id="step-purchase">
+              <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Purchase details</h3>
+              <div class="mt-2 grid gap-4">
+                <div>
+                  <label for="downPayment" class="block text-sm font-medium text-zinc-700 mb-1.5">Estimated down payment?</label>
+                  <select id="downPayment" name="downPayment" class="form-select">
+                    <option value="">Please select…</option>
+                    <option>$3,000+</option>
+                    <option>$1,000 – $3,000</option>
+                    <option>$0 – $1,000</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="hasTradeIn" class="block text-sm font-medium text-zinc-700 mb-1.5">Do you have a vehicle to trade in?</label>
+                  <select id="hasTradeIn" name="hasTradeIn" class="form-select">
+                    <option>No</option>
+                    <option>Yes</option>
+                  </select>
+                </div>
+                <div id="tradeInDetails" class="hidden">
+                  <div class="grid grid-cols-1 sm:grid-cols-4 gap-2">
+                    <input type="number" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" />
+                    <input type="text" name="tradeInMake" placeholder="Make" class="form-input"/>
+                    <input type="text" name="tradeInModel" placeholder="Model" class="form-input"/>
+                    <input type="number" name="tradeInKms" placeholder="KM" class="form-input" inputmode="numeric"/>
+                  </div>
+                  <input type="text" name="tradeInOwed" placeholder="Money owed? e.g., $5,000 or None" class="form-input mt-3"/>
+                </div>
+              </div>
+            </section>
+
+            <!-- 5: App type -->
+            <section class="form-step hidden" data-step="5">
+              <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Choose your path</h3>
+              <div class="mt-4 grid-3" role="tablist" aria-label="Application type">
+                <button type="button" class="choice" data-app="Pre-Approval" aria-pressed="false">Pre-Approval</button>
+                <button type="button" class="choice" data-app="Credit Inquiry" aria-pressed="false">Credit Inquiry</button>
+                <button type="button" class="choice" data-app="Full Application" aria-pressed="false">Full Application</button>
+              </div>
+              <p class="text-xs text-zinc-500 mt-2">We’ll only show what’s needed based on your choice.</p>
+            </section>
+
+            <!-- 6: Contact -->
+            <section class="form-step hidden" data-step="6" id="step-contact">
+              <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Your contact info</h3>
+              <div class="mt-2 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label for="firstName" class="block text-sm font-medium text-zinc-700 mb-1.5">First name <span class="text-red-500">*</span></label>
+                  <input type="text" id="firstName" name="firstName" class="form-input" autocomplete="given-name" required/>
+                </div>
+                <div>
+                  <label for="middleName" class="block text-sm font-medium text-zinc-700 mb-1.5">Middle <span id="middleReq" class="text-red-500 hidden">*</span><span id="middleOpt" class="text-zinc-500"> (Optional)</span></label>
+                  <input type="text" id="middleName" name="middleName" class="form-input" autocomplete="additional-name"/>
+                </div>
+                <div>
+                  <label for="lastName" class="block text-sm font-medium text-zinc-700 mb-1.5">Last name <span class="text-red-500">*</span></label>
+                  <input type="text" id="lastName" name="lastName" class="form-input" autocomplete="family-name" required/>
+                </div>
+              </div>
+              <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label for="phone" class="block text-sm font-medium text-zinc-700 mb-1.5">Phone number <span class="text-red-500">*</span></label>
+                  <input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" required/>
+                </div>
+                <div>
+                  <label for="email" class="block text-sm font-medium text-zinc-700 mb-1.5">Email address <span class="text-red-500">*</span></label>
+                  <input type="email" id="email" name="email" class="form-input" autocomplete="email" required/>
+                </div>
+              </div>
+            </section>
+
+            <!-- 7: DOB (+ marital for Credit/Full) -->
+            <section class="form-step hidden" data-step="7" id="step-dob">
+              <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">About you</h3>
+              <div class="grid grid-cols-1 gap-4 mt-2">
+                <div>
+                  <label for="dobMonth" class="block text-sm font-medium text-zinc-700 mb-1.5">Date of birth <span class="text-red-500">*</span></label>
+                  <div class="grid grid-cols-3 gap-2">
+                    <select id="dobMonth" name="dobMonth" class="form-select" required><option value="">Month</option></select>
+                    <select id="dobDay" name="dobDay" class="form-select" required><option value="">Day</option></select>
+                    <input type="number" id="dobYear" name="dobYear" placeholder="Year" class="form-input" inputmode="numeric" required/>
+                  </div>
+                </div>
+
+                <div id="marital-wrap" class="hidden">
+                  <label for="maritalStatus" class="block text-sm font-medium text-zinc-700 mb-1.5">Marital status <span class="text-red-500">*</span></label>
+                  <select id="maritalStatus" name="maritalStatus" class="form-select">
+                    <option value="">Please select…</option>
+                    <option>Single</option>
+                    <option>Married</option>
+                    <option>Common-Law</option>
+                    <option>Divorced</option>
+                    <option>Separated</option>
+                    <option>Widowed</option>
+                  </select>
+                </div>
+              </div>
+            </section>
+
+            <!-- 8: Income -->
+            <section class="form-step hidden" data-step="8" id="step-income">
+              <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Income</h3>
+
+              <div id="income-simple" class="mt-2 space-y-3">
+                <div>
+                  <label for="incomeSource" class="block text-sm font-medium text-zinc-700 mb-1.5">Primary income source</label>
+                  <select id="incomeSource" name="incomeSource" class="form-select">
+                    <option value="">Please select…</option>
+                    <option value="Full-Time">Full-Time Employment</option>
+                    <option value="Part-Time">Part-Time Employment</option>
+                    <option value="Self-Employed">Self-Employed / Business Owner</option>
+                    <option value="Disability">Disability</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="monthlyIncome" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly income (before tax) <span class="text-red-500">*</span></label>
+                  <input type="text" id="monthlyIncome" name="monthlyIncome" placeholder="$3,500" class="form-input" inputmode="numeric"/>
+                </div>
+              </div>
+
+              <div id="income-full" class="hidden mt-2 space-y-4">
+                <div>
+                  <label for="incomeSourceFull" class="block text-sm font-medium text-zinc-700 mb-1.5">Primary income source <span class="text-red-500">*</span></label>
+                  <select id="incomeSourceFull" name="incomeSourceFull" class="form-select">
+                    <option value="">Please select…</option>
+                    <option value="Full-Time">Full-Time Employment</option>
+                    <option value="Part-Time">Part-Time Employment</option>
+                    <option value="Self-Employed">Self-Employed / Business Owner</option>
+                    <option value="Disability">Disability</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                <div id="full-employment" class="hidden space-y-3">
+                  <div>
+                    <label for="currentEmployer" class="block text-sm font-medium text-zinc-700 mb-1.5">Employer <span class="text-red-500">*</span></label>
+                    <input type="text" id="currentEmployer" name="currentEmployer" class="form-input" placeholder="Company name"/>
+                  </div>
+                  <div>
+                    <label for="jobTitle" class="block text-sm font-medium text-zinc-700 mb-1.5">Position / Job Title <span class="text-red-500">*</span></label>
+                    <input type="text" id="jobTitle" name="jobTitle" class="form-input" placeholder="Your role"/>
+                  </div>
+                  <div>
+                    <label for="timeWithEmployerYears" class="block text-sm font-medium text-zinc-700 mb-1.5">Time with employer <span class="text-red-500">*</span></label>
+                    <div class="grid grid-cols-2 gap-2">
+                      <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select>
+                      <select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="full-self" class="hidden space-y-3">
+                  <div>
+                    <label for="businessName" class="block text-sm font-medium text-zinc-700 mb-1.5">Business name <span class="text-red-500">*</span></label>
+                    <input type="text" id="businessName" name="businessName" class="form-input" placeholder="Your business"/>
+                  </div>
+                  <div>
+                    <label for="avgMonthlyIncome" class="block text-sm font-medium text-zinc-700 mb-1.5">Average monthly income (before tax) <span class="text-red-500">*</span></label>
+                    <input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric"/>
+                  </div>
+                </div>
+
+                <div id="full-other" class="hidden space-y-3">
+                  <div>
+                    <label for="otherIncomeAmount" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly income amount (before tax) <span class="text-red-500">*</span></label>
+                    <input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="$2,000" inputmode="numeric"/>
+                  </div>
+                  <div>
+                    <label for="otherIncomeSource" class="block text-sm font-medium text-zinc-700 mb-1.5">Source description <span class="text-red-500">*</span></label>
+                    <textarea id="otherIncomeSource" name="otherIncomeSource" class="form-textarea form-input" rows="2" placeholder="Describe the source"></textarea>
+                  </div>
+                </div>
+
+                <div id="prev-employment" class="hidden space-y-3">
+                  <p class="text-xs text-zinc-500">Less than 2 years with current employer? Add your previous employer.</p>
+                  <div>
+                    <label for="previousEmployer" class="block text-sm font-medium text-zinc-700 mb-1.5">Previous employer <span class="text-red-500">*</span></label>
+                    <input type="text" id="previousEmployer" name="previousEmployer" class="form-input" placeholder="Previous company"/>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at previous employer <span class="text-red-500">*</span></label>
+                    <div class="grid grid-cols-2 gap-2">
+                      <select id="prevTimeWithEmployerYears" name="prevTimeWithEmployerYears" class="form-select"><option value="">Years</option></select>
+                      <select id="prevTimeWithEmployerMonths" name="prevTimeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- 9: Address & Housing -->
+            <section class="form-step hidden" data-step="9" id="step-address">
+              <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Where do you live?</h3>
+
+              <div id="addr-postal-only" class="mt-2 hidden">
+                <label for="currentPostalCode_basic" class="block text-sm font-medium text-zinc-700 mb-1.5">Postal Code <span class="text-red-500">*</span></label>
+                <input type="text" id="currentPostalCode_basic" name="currentPostalCode_basic" class="form-input" placeholder="V8T 4T2"/>
+              </div>
+
+              <div id="addr-full-current" class="mt-2 hidden space-y-2">
+                <label class="block text-sm font-medium text-zinc-700">Current address <span class="text-red-500">*</span></label>
+                <div class="grid grid-cols-6 gap-2">
+                  <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address" autocomplete="street-address"/>
+                  <input type="text" id="currentUnit" name="currentUnit" class="form-input col-span-6 sm:col-span-2" placeholder="Unit #"/>
+                  <input type="text" id="currentCity" name="currentCity" class="form-input col-span-3" placeholder="City" autocomplete="address-level2"/>
+                  <select id="currentProvince" name="currentProvince" class="form-select col-span-3"><option value="">Province</option></select>
+                  <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input col-span-6" placeholder="Postal Code" autocomplete="postal-code"/>
+                </div>
+              </div>
+
+              <div id="addr-duration" class="hidden mt-3">
+                <label class="block text-sm font-medium text-zinc-700 mb-1.5">Time at current address <span class="text-red-500">*</span></label>
+                <div class="grid grid-cols-2 gap-2">
+                  <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
+                  <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+                </div>
+              </div>
+
+              <div id="addr-previous" class="hidden mt-3 space-y-2">
+                <p class="text-xs text-zinc-500">Less than 2 years at current address? Add your previous address.</p>
+                <label class="block text-sm font-medium text-zinc-700">Previous address <span class="text-red-500">*</span></label>
+                <div class="grid grid-cols-6 gap-2">
+                  <input type="text" id="prevStreetAddress" name="prevStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address"/>
+                  <input type="text" id="prevUnit" name="prevUnit" class="form-input col-span-6 sm:col-span-2" placeholder="Unit #"/>
+                  <input type="text" id="prevCity" name="prevCity" class="form-input col-span-3" placeholder="City"/>
+                  <select id="prevProvince" name="prevProvince" class="form-select col-span-3"><option value="">Province</option></select>
+                  <input type="text" id="prevPostalCode" name="prevPostalCode" class="form-input col-span-6" placeholder="Postal Code"/>
+                </div>
+                <div class="grid grid-cols-2 gap-2 mt-2">
+                  <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="form-select"><option value="">Years</option></select>
+                  <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+                </div>
+              </div>
+
+              <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 items-end">
+                <div>
+                  <label id="housingLabel" for="housingPayment" class="block text-sm font-medium text-zinc-700 mb-1.5">Monthly Payment <span class="text-red-500">*</span></label>
+                  <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1,500" inputmode="numeric"/>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-zinc-700 mb-1.5">Rent or Own? <span class="text-red-500">*</span></label>
+                  <div class="seg">
+                    <button type="button" class="seg-btn" id="btnRent" aria-pressed="true">Rent</button>
+                    <button type="button" class="seg-btn" id="btnOwn" aria-pressed="false">Own</button>
+                  </div>
+                  <input type="hidden" id="housingType" name="housingType" value="Rent" />
+                </div>
+              </div>
+            </section>
+
+            <!-- 10: Consent & Submit -->
+            <section class="form-step hidden" data-step="10" id="step-consent">
+              <div id="consent-checkbox" class="hidden">
+                <div class="flex items-start gap-3 bg-gray-100 p-4 rounded-lg">
+                  <input id="creditConsent" name="creditConsent" type="checkbox" class="h-5 w-5 rounded border-gray-300 mt-0.5"/>
+                  <label for="creditConsent" id="consentLabel" class="text-xs text-zinc-600">
+                    I consent to a credit inquiry by Blake Stolth / Vancouver Island Credit to assess financing options and confirm the information provided is accurate. <span class="text-red-500 font-bold">*</span>
+                  </label>
+                </div>
+              </div>
+
+              <p id="consent-inline" class="hidden text-[0.72rem] leading-4 text-zinc-600 mt-1">
+                By submitting, you consent to Vancouver Island Credit collecting and using the information you provide to assess financing options and to contact you about your application.
+              </p>
+
+              <div class="pt-3">
+                <button type="submit" id="submitBtn" class="w-full cta-button">Submit and See Options</button>
+                <p id="form-status" class="mt-3 text-xs text-center text-red-600" aria-live="polite"></p>
+              </div>
+            </section>
+
+            <div class="flex items-center justify-between pt-2">
+              <button type="button" id="btnBack" class="text-sm font-semibold text-zinc-500 hover:text-zinc-800 px-2 py-2 disabled:opacity-30">Back</button>
+              <button type="button" id="btnNext" class="cta-button">Next</button>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
 
@@ -610,17 +623,25 @@
     const bySelAll = (s, root=document) => Array.from(root.querySelectorAll(s));
 
     const steps = () => bySelAll('.form-step');
+
     function showStep(n){
       steps().forEach(s => s.classList.add('hidden'));
       const t = steps().find(s => Number(s.dataset.step) === n);
       if (t) t.classList.remove('hidden');
+
       $('btnBack').disabled = (n === 1);
       $('btnNext').textContent = (n === steps().length) ? 'See My Options' : 'Next';
+
       const pct = Math.round((n - 1) / (steps().length - 1) * 100);
       $('progress-fill').style.width = pct + '%';
       $('progress-label').textContent = 'Step ' + n + ' of ' + steps().length;
       $('progress-endcap').textContent = (n === steps().length) ? 'See options you’re actually qualified for' : 'Let’s get you approved';
+
       window.__currentStep = n;
+
+      // Scroll only the form shell, not the page
+      const shell = $('form-shell');
+      if (shell) shell.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function currencyFmt(e){ let v=e.target.value.replace(/[$,]/g,''); e.target.value = (!v||isNaN(v))? '' : ('$'+ new Intl.NumberFormat('en-US').format(v)); }
@@ -807,7 +828,7 @@
       if (t < 1) t = 1;
       if (t > steps().length) { submitForm(); return; }
       showStep(t);
-      window.scrollTo({top:0, behavior:'smooth'});
+      // (no page scroll here)
     }
 
     $('btnNext').addEventListener('click', ()=> next(1));
@@ -843,6 +864,7 @@
     $('timeAtAddressYears')?.addEventListener('change', onAddressDurationChange);
     $('timeAtAddressMonths')?.addEventListener('change', onAddressDurationChange);
 
+    // Inventory "View Inventory" -> jump to form + show notice
     function showFormNotice(){
       const n = $('form-notice');
       if(!n) return;
