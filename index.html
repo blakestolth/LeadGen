@@ -31,7 +31,6 @@
       --blue-100:#EAF1FB;
       --blue-grad:#4C7CC0;
 
-      /* Shared badge size (compact) */
       --badge-w: 280px;
       --badge-h: 200px;
     }
@@ -76,7 +75,7 @@
     .seg-btn { padding:.5rem .75rem; border-radius:.5rem; font-weight:600; color:#374151; background:transparent; border:2px solid transparent; }
     .seg-btn[aria-pressed="true"] { background:#e0ecff; color:#214B80; border-color:#bfdbfe; }
 
-    /* BADGES — equal-sized, compact */
+    /* BADGES */
     .badge{
       width:var(--badge-w);
       min-height:var(--badge-h);
@@ -90,7 +89,7 @@
     }
     .badge img{
       display:block; width:auto; max-width:100%;
-      max-height:calc(var(--badge-h) - 2.6rem); /* image + caption fit tightly */
+      max-height:calc(var(--badge-h) - 2.6rem);
       object-fit:contain;
     }
     .badge .badge-caption{
@@ -106,15 +105,8 @@
     .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:120px; }
     @media (min-width:640px){ .bodytype-img{ height:140px; } }
 
-    /* FORM SHELL — fixed size with internal scroll */
-    .form-shell{
-      position:relative;
-      height:clamp(560px, 72vh, 720px);
-      overflow:auto;           /* internal scroll only */
-      overscroll-behavior:contain;
-    }
-    /* Keep the sticky header sticky inside the shell */
-    .form-shell .sticky{ position: sticky; top: 0; z-index: 10; }
+    /* FORM SHELL — auto height (no fixed clamp); keep sticky inside */
+    .form-shell .sticky{ position: sticky; top: 0; z-index: 10; background:#fff; }
   </style>
 
   <script type="application/ld+json">
@@ -175,7 +167,7 @@
             </ol>
           </div>
 
-          <!-- Kot badge (compact, same size as 5-star) -->
+          <!-- Kot badge -->
           <div class="mt-6 pt-4 border-t border-gray-200">
             <div class="flex items-center gap-3">
               <figure class="badge">
@@ -203,7 +195,7 @@
             </ul>
           </div>
 
-          <!-- 5-star badge (same size) -->
+          <!-- 5-star badge -->
           <div class="mt-6 pt-4 border-t border-gray-200">
             <div class="flex items-center gap-3">
               <figure class="badge">
@@ -220,24 +212,23 @@
       </div>
     </section>
 
-    <!-- FORM (fixed-height shell with internal scroll) -->
-    <section class="card p-0 overflow-hidden relative">
+    <!-- FORM -->
+    <section class="card p-0 overflow-hidden relative" id="form-card">
       <div class="form-shell" id="form-shell">
         <!-- notice -->
         <div id="form-notice" class="hidden absolute top-3 right-3 bg-blue-100 text-blue-600 text-xs font-semibold px-3 py-2 rounded-md shadow">
           To view matching inventory, please complete the quick form.
         </div>
 
-        <!-- sticky progress (sticky inside shell) -->
-        <div class="px-4 sm:px-6 pt-4 sticky bg-white border-b">
-          <div class="flex items-center justify-between mb-2">
+        <!-- sticky progress -->
+        <div class="px-4 sm:px-6 pt-4 sticky border-b">
+          <div class="flex items-center justify-between mb-2 bg-white">
             <div id="progress-label" class="text-xs font-semibold text-zinc-700">Step 1 of 10</div>
             <div id="progress-endcap" class="text-xs text-blue-700 font-semibold">Let’s get you approved</div>
           </div>
           <div class="track mb-3"><div id="progress-fill" class="fill"></div></div>
         </div>
 
-        <!-- form body scrolls within the shell -->
         <div class="px-4 sm:px-6 py-6">
           <form id="lead-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" class="space-y-6" novalidate>
             <input type="hidden" name="form-name" value="lead-form"/>
@@ -622,7 +613,25 @@
     const bySel = (s, root=document) => root.querySelector(s);
     const bySelAll = (s, root=document) => Array.from(root.querySelectorAll(s));
 
+    let hasInteracted = false; // don’t auto-scroll on initial landing
+
     const steps = () => bySelAll('.form-step');
+
+    function ensureFormInView(target=null){
+      if(!hasInteracted) return;
+      const formCard = $('#form-card');
+      if(!formCard) return;
+
+      // If a specific field is given, center it to keep the user “in the form”
+      if (target) {
+        target.scrollIntoView({behavior:'smooth', block:'center'});
+        return;
+      }
+      // Otherwise keep the top of the form card visible
+      const rect = formCard.getBoundingClientRect();
+      const needsScroll = rect.top < 0 || rect.top > 40; // a bit off screen
+      if (needsScroll) formCard.scrollIntoView({behavior:'smooth', block:'start'});
+    }
 
     function showStep(n){
       steps().forEach(s => s.classList.add('hidden'));
@@ -639,9 +648,8 @@
 
       window.__currentStep = n;
 
-      // Scroll only the form shell, not the page
-      const shell = $('form-shell');
-      if (shell) shell.scrollTo({ top: 0, behavior: 'smooth' });
+      // Keep the user oriented on the form after first interaction
+      ensureFormInView();
     }
 
     function currencyFmt(e){ let v=e.target.value.replace(/[$,]/g,''); e.target.value = (!v||isNaN(v))? '' : ('$'+ new Intl.NumberFormat('en-US').format(v)); }
@@ -653,8 +661,8 @@
       $('btnOwn').setAttribute('aria-pressed', type==='Own');
       $('housingLabel').textContent = (type==='Rent' ? 'Monthly Rent' : 'Monthly Mortgage') + ' *';
     }
-    $('btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
-    $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
+    $('btnRent')?.addEventListener('click', ()=> { hasInteracted=true; setHousing('Rent'); });
+    $('btnOwn')?.addEventListener('click', ()=> { hasInteracted=true; setHousing('Own'); });
 
     const mode = () => $('app_type').value;
 
@@ -822,49 +830,61 @@
     }
 
     function next(delta){
+      hasInteracted = true;
       const cur = window.__currentStep || 1;
       if (delta>0 && !validateStep(cur)) return;
       let t = cur + delta;
       if (t < 1) t = 1;
       if (t > steps().length) { submitForm(); return; }
       showStep(t);
-      // (no page scroll here)
     }
 
     $('btnNext').addEventListener('click', ()=> next(1));
     $('btnBack').addEventListener('click', ()=> next(-1));
 
+    // Step selections trigger interaction + keep view
     bySelAll('[data-type]').forEach(b=> b.addEventListener('click', ()=>{
+      hasInteracted = true;
       $('vehicleType').value = b.dataset.type;
       bySelAll('[data-type]').forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); next(1);
     }));
     bySelAll('[data-cond]').forEach(b=> b.addEventListener('click', ()=>{
+      hasInteracted = true;
       $('vehicleCondition').value = b.dataset.cond;
       bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); next(1);
     }));
     bySelAll('[name="budgetRange"]').forEach(r=>{
-      r.addEventListener('change', ()=> next(1));
-      r.parentElement.addEventListener('click', ()=>{ r.checked=true; next(1); });
+      r.addEventListener('change', ()=> { hasInteracted=true; next(1); });
+      r.parentElement.addEventListener('click', ()=>{ hasInteracted=true; r.checked=true; next(1); });
     });
 
     $('hasTradeIn')?.addEventListener('change', (e)=>{
+      hasInteracted = true;
       bySel('#tradeInDetails').classList.toggle('hidden', e.target.value.toLowerCase()!=='yes');
+      ensureFormInView(e.target);
     });
 
     bySelAll('[data-app]').forEach(b=> b.addEventListener('click', ()=>{
+      hasInteracted = true;
       setAppMode(b.dataset.app);
       next(1);
     }));
 
-    $('phone')?.addEventListener('input', phoneFmt);
-    ['monthlyIncome','avgMonthlyIncome','otherIncomeAmount','housingPayment'].forEach(id=> $(id)?.addEventListener('input', currencyFmt));
-    $('incomeSourceFull')?.addEventListener('change', onIncomeSourceFullChange);
-    $('timeWithEmployerYears')?.addEventListener('change', ()=>{ checkPrevEmploymentNeed(); updateProgress(); });
-    $('timeWithEmployerMonths')?.addEventListener('change', ()=>{ checkPrevEmploymentNeed(); updateProgress(); });
-    $('timeAtAddressYears')?.addEventListener('change', onAddressDurationChange);
-    $('timeAtAddressMonths')?.addEventListener('change', onAddressDurationChange);
+    $('phone')?.addEventListener('input', (e)=>{ hasInteracted=true; phoneFmt(e); });
+    ['monthlyIncome','avgMonthlyIncome','otherIncomeAmount','housingPayment'].forEach(id=> $(id)?.addEventListener('input', (e)=>{ hasInteracted=true; currencyFmt(e); }));
 
-    // Inventory "View Inventory" -> jump to form + show notice
+    $('incomeSourceFull')?.addEventListener('change', (e)=>{ hasInteracted=true; onIncomeSourceFullChange(); ensureFormInView(e.target); });
+    $('timeWithEmployerYears')?.addEventListener('change', (e)=>{ hasInteracted=true; checkPrevEmploymentNeed(); updateProgress(); ensureFormInView(e.target); });
+    $('timeWithEmployerMonths')?.addEventListener('change', (e)=>{ hasInteracted=true; checkPrevEmploymentNeed(); updateProgress(); ensureFormInView(e.target); });
+    $('timeAtAddressYears')?.addEventListener('change', (e)=>{ hasInteracted=true; onAddressDurationChange(); ensureFormInView(e.target); });
+    $('timeAtAddressMonths')?.addEventListener('change', (e)=>{ hasInteracted=true; onAddressDurationChange(); ensureFormInView(e.target); });
+
+    // Focus handling: center active field after first interaction
+    bySelAll('#lead-form input, #lead-form select, #lead-form textarea').forEach(el=>{
+      el.addEventListener('focus', ()=> { if (hasInteracted) ensureFormInView(el); }, {passive:true});
+    });
+
+    // Inventory -> jump to form
     function showFormNotice(){
       const n = $('form-notice');
       if(!n) return;
@@ -876,13 +896,15 @@
     bySelAll('.js-view-inventory').forEach(el=>{
       el.addEventListener('click', (e)=>{
         e.preventDefault();
+        hasInteracted = true;
         document.getElementById('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
         showFormNotice();
       });
     });
 
     async function submitForm(){
-      if (!validateAll()) { $('form-status').textContent = 'Please complete all required fields.'; return; }
+      hasInteracted = true;
+      if (!validateAll()) { $('form-status').textContent = 'Please complete all required fields.'; ensureFormInView($('#lead-form')); return; }
       $('submitBtn').disabled = true; $('submitBtn').textContent = 'Submitting…';
       const fd = new FormData($('lead-form'));
       try {
@@ -908,9 +930,8 @@
       populateDropdown($('prevTimeWithEmployerYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('prevTimeWithEmployerMonths'), 0, 11, 'Months', 'Month');
       populateDropdown($('timeAtAddressYears'), 0, 30, 'Years', 'Year');
-      populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
-
       populateDropdown($('prevTimeAtAddressYears'), 0, 30, 'Years', 'Year');
+      populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
       populateDropdown($('prevTimeAtAddressMonths'), 0, 11, 'Months', 'Month');
 
       function populateProvinces(cur, prev){ const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; [cur,prev].forEach(sel=>{ if(!sel) return; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }); }
