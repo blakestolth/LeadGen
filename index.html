@@ -26,10 +26,7 @@
       --blue-700:#214B80;
       --blue-100:#EAF1FB;
       --blue-grad:#4C7CC0;
-
       --ink-900:#0f172a;
-      --ink-700:#334155;
-
       --nav-h:64px;
       --container-w:1100px;
 
@@ -38,7 +35,6 @@
       --badge-h: 200px;
     }
 
-    /* Tailwind color mapping for a few custom vars */
     .text-blue-600{ color:var(--blue-600) !important; }
     .bg-blue-100{ background:var(--blue-100) !important; }
 
@@ -118,21 +114,16 @@
     .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:120px; }
     @media (min-width:640px){ .bodytype-img{ height:140px; } }
 
-    /* FORM SHELL — fixed size with internal scroll (keeps progress visible & form centered) */
-    .form-shell{
-      position:relative;
-      height:clamp(560px, 72vh, 720px);
-      overflow:auto;
-      overscroll-behavior:contain;
-    }
+    /* AUTO-ADJUST FORM: no fixed height, normal page scroll */
+    .form-shell{ position:relative; }
     .form-shell .sticky{ position: sticky; top: 0; z-index: 10; background:#fff; }
 
-    /* Section anchors don’t hide under nav */
+    /* Anchor offset for sticky nav */
     section, header, footer { scroll-margin-top: calc(var(--nav-h) + 12px); }
 
     /* Smarter input widths on desktop for address rows */
     @media (min-width:640px){
-      .addr-grid{ grid-template-columns: repeat(6,minmax(0,1fr)); }
+      .addr-grid{ display:grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap:.5rem; }
       /* City (3) – Province (2) – Postal (1) */
       #currentCity{ grid-column: span 3 / span 3; }
       #currentProvince{ grid-column: span 2 / span 2; }
@@ -141,9 +132,6 @@
       #prevProvince{ grid-column: span 2 / span 2; }
       #prevPostalCode{ grid-column: span 1 / span 1; }
     }
-
-    /* Mobile header spacer */
-    #mobileMenu a{ color:#334155; }
   </style>
 
   <script type="application/ld+json">
@@ -278,8 +266,8 @@
       </div>
     </section>
 
-    <!-- FORM (fixed-height shell with internal scroll) -->
-    <section class="card p-0 overflow-hidden max-w-[720px] mx-auto" id="lead-form">
+    <!-- FORM (AUTO-ADJUST HEIGHT) -->
+    <section class="card p-0 overflow-visible max-w-[720px] mx-auto" id="lead-form">
       <div class="form-shell" id="form-shell">
         <!-- notice -->
         <div id="form-notice" class="hidden absolute top-3 right-3 bg-blue-100 text-blue-600 text-xs font-semibold px-3 py-2 rounded-md shadow">
@@ -537,7 +525,7 @@
               <!-- FULL: Current address -->
               <div id="addr-full-current" class="mt-2 space-y-2">
                 <label class="block text-sm font-medium text-zinc-700">Current address <span class="text-red-500">*</span></label>
-                <div class="grid gap-2 addr-grid">
+                <div class="addr-grid">
                   <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address" autocomplete="street-address" required/>
                   <input type="text" id="currentUnit" name="currentUnit" class="form-input col-span-6 sm:col-span-2" placeholder="Unit #"/>
                   <input type="text" id="currentCity" name="currentCity" class="form-input col-span-6" placeholder="City" autocomplete="address-level2" required/>
@@ -575,7 +563,7 @@
               <div id="addr-previous" class="hidden mt-3 space-y-2">
                 <p class="text-xs text-zinc-500">Less than 2 years at current address? Add your previous address.</p>
                 <label class="block text-sm font-medium text-zinc-700">Previous address <span class="text-red-500">*</span></label>
-                <div class="grid gap-2 addr-grid">
+                <div class="addr-grid">
                   <input type="text" id="prevStreetAddress" name="prevStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address"/>
                   <input type="text" id="prevUnit" name="prevUnit" class="form-input col-span-6 sm:col-span-2" placeholder="Unit #"/>
                   <input type="text" id="prevCity" name="prevCity" class="form-input col-span-6" placeholder="City"/>
@@ -674,7 +662,6 @@
   </main>
 
   <script>
-    // Shortcuts
     const $ = (id) => document.getElementById(id);
     const bySel = (s, root=document) => root.querySelector(s);
     const bySelAll = (s, root=document) => Array.from(root.querySelectorAll(s));
@@ -711,9 +698,8 @@
 
       window.__currentStep = n;
 
-      // Scroll only the form shell, not the page — keeps progress visible
-      const shell = $('form-shell');
-      if (shell) shell.scrollTo({ top: 0, behavior: 'smooth' });
+      // Auto-scroll the active step into view under the sticky progress
+      t.scrollIntoView({ behavior:'smooth', block:'start' });
     }
 
     // Formatters
@@ -741,19 +727,15 @@
       const isCredit = nextMode === 'Credit Inquiry';
       const isFull = nextMode === 'Full Application';
 
-      // Middle name optional for Credit; required for Full
       $('middleName').required = !!isFull;
       $('middleReq').classList.toggle('hidden', !isFull);
       $('middleOpt').classList.toggle('hidden', !!isFull);
 
-      // DOB required after selection
       ['dobMonth','dobDay','dobYear'].forEach(id => $(id).required = !!nextMode);
 
-      // Marital: Credit + Full
       bySel('#marital-wrap').classList.toggle('hidden', !(isCredit || isFull));
       $('maritalStatus').required = (isCredit || isFull);
 
-      // Income visibility
       bySel('#income-simple').classList.toggle('hidden', !!isFull);
       bySel('#income-full').classList.toggle('hidden', !isFull);
 
@@ -766,15 +748,12 @@
        'monthlyIncome','incomeSource','incomeSourceFull','currentEmployer','jobTitle']
         .forEach(id => { const n=$(id); if(n) n.required = false; });
 
-      // Consent copy variants
       bySel('#consent-inline').classList.add('hidden');
       bySel('#consent-checkbox').classList.add('hidden');
 
       if (!nextMode) { updateProgress(); return; }
 
       if (isCredit) {
-        // Show current address only
-        bySel('#addr-full-current').classList.remove('hidden');
         bySel('#addr-duration').classList.add('hidden');
         bySel('#addr-previous').classList.add('hidden');
 
@@ -786,7 +765,6 @@
       }
 
       if (isFull) {
-        bySel('#addr-full-current').classList.remove('hidden');
         bySel('#addr-duration').classList.remove('hidden');
 
         ['currentStreetAddress','currentCity','currentProvince','currentPostalCode','timeAtAddressYears','timeAtAddressMonths'].forEach(id => $(id).required = true);
@@ -975,17 +953,14 @@
 
     // Boot
     (function init(){
-      // footer year
       const y = new Date().getFullYear(); bySel('#year').textContent = y;
 
-      // DOB selects
       function populateMonths(sel){ if(!sel) return; const m=["January","February","March","April","May","June","July","August","September","October","November","December"]; m.forEach((mm,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=mm; sel.appendChild(o);}); }
       function updateDays(){ const y=parseInt($('dobYear').value||'',10); const m=parseInt($('dobMonth').value||'',10); const sel=parseInt($('dobDay').value||'',10); const days=(y&&m)?new Date(y,m,0).getDate():31; $('dobDay').innerHTML='<option value="">Day</option>'; for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; $('dobDay').appendChild(o);} if(sel&&sel<=days)$('dobDay').value=sel; }
       populateMonths($('dobMonth')); updateDays();
       $('dobMonth').addEventListener('change', updateDays);
       $('dobYear').addEventListener('input', updateDays);
 
-      // Dropdowns
       function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i+' '+(i!==1?label:(singular||label)); sel.appendChild(o);} }
       populateDropdown($('timeWithEmployerYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('timeWithEmployerMonths'), 0, 11, 'Months', 'Month');
@@ -996,16 +971,12 @@
       populateDropdown($('prevTimeAtAddressYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('prevTimeAtAddressMonths'), 0, 11, 'Months', 'Month');
 
-      // Provinces
       function populateProvinces(cur, prev){ const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; [cur,prev].forEach(sel=>{ if(!sel) return; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }); }
       populateProvinces($('currentProvince'), $('prevProvince'));
 
-      // Default housing switch text + value
       setHousing('Rent');
-
-      // Start
       showStep(1);
-      setAppMode(''); // user chooses Credit Inquiry or Full
+      setAppMode('');
     })();
   </script>
 </body>
