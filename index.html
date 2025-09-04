@@ -141,7 +141,7 @@
 
   <!-- MAIN -->
   <main class="w-full max-w-5xl mx-auto px-4 py-6 space-y-6">
-    <!-- HERO / ABOUT (kept minimal, spacing tightened) -->
+    <!-- HERO / ABOUT -->
     <section id="about" class="card p-5">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="vstack">
@@ -164,7 +164,7 @@
       </div>
     </section>
 
-    <!-- FORM (SMALL, FIXED HEIGHT) -->
+    <!-- FORM -->
     <section class="card p-0 overflow-hidden" id="lead-form">
       <div class="form-shell" id="form-shell">
         <!-- sticky progress -->
@@ -176,7 +176,7 @@
           <div class="track mt-2"><div id="progress-fill" class="fill"></div></div>
         </div>
 
-        <!-- STEP VIEWPORT (no resizing, no outer scroll) -->
+        <!-- STEP VIEWPORT -->
         <div class="px-4 py-2" style="height:var(--contentH);">
           <form id="the-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" class="h-full flex flex-col justify-center" novalidate>
             <input type="hidden" name="form-name" value="lead-form"/>
@@ -185,7 +185,7 @@
             <input type="hidden" name="vehicleType" id="vehicleType" />
             <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
 
-            <!-- 1: Vehicle Type (compact tiles) -->
+            <!-- 1: Vehicle Type -->
             <section class="form-step step-pane" data-step="1">
               <div class="step-inner">
                 <h3 class="h2 mb-2">What type of vehicle?</h3>
@@ -209,7 +209,7 @@
               </div>
             </section>
 
-            <!-- 3: Budget (smaller tiles) -->
+            <!-- 3: Budget -->
             <section class="form-step step-pane hidden" data-step="3">
               <div class="step-inner">
                 <h3 class="h2 mb-2">What’s your monthly budget?</h3>
@@ -245,7 +245,6 @@
                   </div>
                 </div>
 
-                <!-- compact trade-in row -->
                 <div id="tradeInDetails" class="hidden mt-2">
                   <div class="grid grid-cols-4 gap-2">
                     <input type="number" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric"/>
@@ -258,7 +257,7 @@
               </div>
             </section>
 
-            <!-- 5: App type (no Pre-Approval) -->
+            <!-- 5: App type -->
             <section class="form-step step-pane hidden" data-step="5">
               <div class="step-inner">
                 <h3 class="h2 mb-2">Choose your path</h3>
@@ -272,12 +271,11 @@
               </div>
             </section>
 
-            <!-- 6: YOUR INFORMATION (merged & compact) -->
+            <!-- 6: Your information -->
             <section class="form-step step-pane hidden" data-step="6" id="step-yourinfo">
               <div class="step-inner">
                 <h3 class="h2 mb-2">Your information</h3>
 
-                <!-- Row 1: First / Middle / Last (middle REQUIRED) -->
                 <div class="grid grid-cols-3 gap-2">
                   <div>
                     <label for="firstName" class="label mb-1 block">First name <span class="text-red-500">*</span></label>
@@ -293,7 +291,6 @@
                   </div>
                 </div>
 
-                <!-- Row 2: Phone / Email -->
                 <div class="grid grid-cols-2 gap-2 mt-2">
                   <div>
                     <label for="phone" class="label mb-1 block">Phone <span class="text-red-500">*</span></label>
@@ -305,7 +302,6 @@
                   </div>
                 </div>
 
-                <!-- Row 3: DOB + Marital -->
                 <div class="grid grid-cols-4 gap-2 mt-2">
                   <div>
                     <label class="label mb-1 block">Month <span class="text-red-500">*</span></label>
@@ -331,12 +327,11 @@
               </div>
             </section>
 
-            <!-- 7: Income (compact) -->
+            <!-- 7: Income -->
             <section class="form-step step-pane hidden" data-step="7" id="step-income">
               <div class="step-inner">
                 <h3 class="h2 mb-2">Income</h3>
 
-                <!-- SIMPLE (Credit Inquiry) -->
                 <div id="income-simple" class="space-y-2">
                   <div>
                     <label for="incomeSource" class="label mb-1 block">Primary income</label>
@@ -355,7 +350,6 @@
                   </div>
                 </div>
 
-                <!-- FULL (compact branching) -->
                 <div id="income-full" class="hidden space-y-2">
                   <div>
                     <label for="incomeSourceFull" class="label mb-1 block">Primary income <span class="text-red-500">*</span></label>
@@ -408,13 +402,11 @@
                       <input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Describe"/>
                     </div>
                   </div>
-
-                  <!-- PREVIOUS EMPLOYMENT: becomes its own inserted step when needed -->
                 </div>
               </div>
             </section>
 
-            <!-- 8: Address & Housing (compact, rent/own + payment under current address) -->
+            <!-- 8: Address & Housing -->
             <section class="form-step step-pane hidden" data-step="8" id="step-address">
               <div class="step-inner">
                 <h3 class="h2 mb-2">Where do you live?</h3>
@@ -429,7 +421,6 @@
                   </div>
                 </div>
 
-                <!-- Housing ALWAYS under current address -->
                 <div class="grid grid-cols-2 gap-2 mt-2" id="housing-row">
                   <div>
                     <label id="housingLabel" for="housingPayment" class="label mb-1 block">Monthly Payment <span class="text-red-500">*</span></label>
@@ -445,9 +436,8 @@
                   </div>
                 </div>
 
-                <!-- FULL only: address duration (triggers Previous Address as NEW STEP) -->
+                <!-- Duration (current address) -->
                 <div id="addr-duration" class="mt-2 hidden">
-                  <!-- CHANGED: label now says Duration -->
                   <label class="label mb-1 block">Duration <span class="text-red-500">*</span></label>
                   <div class="grid grid-cols-2 gap-2">
                     <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
@@ -457,9 +447,9 @@
               </div>
             </section>
 
-            <!-- DYNAMIC INSERTS (previous employment / previous address) will be injected here -->
+            <!-- DYNAMIC INSERTS appear after their trigger steps -->
 
-            <!-- CONSENT & SUBMIT (always fits) -->
+            <!-- CONSENT & SUBMIT -->
             <section class="form-step step-pane hidden" data-step="99" id="step-consent">
               <div class="step-inner">
                 <div id="consent-checkbox" class="hidden">
@@ -499,7 +489,7 @@
       <p class="text-[12px] text-zinc-600 mb-3">Pick a category to see matching options after a quick approval.</p>
 
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <!-- EXACT order, paths, and labels -->
+        <!-- EXACT paths + labels + order -->
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('/img/Coupe.jpg');"></div>
           <div class="p-2"><p class="font-semibold text-[13px]">Coupe</p></div>
@@ -555,18 +545,13 @@
 
     // Steps
     const formEl = $('the-form');
-    let dynamicPrevEmpId = null;
-    let dynamicPrevAddrId = null;
+    let prevEmpInserted = false;
+    let prevAddrInserted = false;
 
     const steps = () => bySelAll('.form-step');
-    const stepIndex = (el) => steps().indexOf(el);
-
     function renumberSteps(){
-      let ordered = steps();
-      ordered.forEach((s,i)=>{
-        s.dataset.step = i+1;
-      });
-      const total = ordered.length;
+      steps().forEach((s,i)=>{ s.dataset.step = i+1; });
+      const total = steps().length;
       const cur = window.__currentStep || 1;
       $('progress-label').textContent = 'Step ' + cur + ' of ' + total;
       const pct = Math.round((cur-1)/(total-1)*100);
@@ -601,7 +586,7 @@
     $('btnNext').addEventListener('click', ()=> next(1));
     $('btnBack').addEventListener('click', ()=> next(-1));
 
-    // Selections (compact)
+    // Selections
     bySelAll('[data-type]').forEach(b=> b.addEventListener('click', ()=>{
       $('vehicleType').value = b.dataset.type;
       bySelAll('[data-type]').forEach(x=>x.classList.remove('selected'));
@@ -630,8 +615,8 @@
     // Rent/Own
     function setHousing(type){
       $('housingType').value = type;
-      $('btnRent').setAttribute('aria-pressed', type==='Rent');
-      $('btnOwn').setAttribute('aria-pressed', type==='Own');
+      $('btnRent').setAttribute('aria-pressed', String(type==='Rent'));
+      $('btnOwn').setAttribute('aria-pressed', String(type==='Own'));
     }
     $('btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
     $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
@@ -651,26 +636,25 @@
       const isCredit = nextMode === 'Credit Inquiry';
       const isFull = nextMode === 'Full Application';
 
-      // YOUR INFO: middle required; DOB always required after selection
       $('middleName').required = true;
       ['dobMonth','dobDay','dobYear'].forEach(id => $(id).required = !!nextMode);
 
-      // Marital visible + required for both Credit & Full
       bySel('#marital-wrap').classList.toggle('hidden', !(isCredit || isFull));
       $('maritalStatus').required = (isCredit || isFull);
 
-      // Income variants
       bySel('#income-simple').classList.toggle('hidden', !!isFull);
       bySel('#income-full').classList.toggle('hidden', !isFull);
 
-      // Address duration only for Full (to trigger prev address step)
       bySel('#addr-duration').classList.toggle('hidden', !isFull);
 
-      // Consent variants
       bySel('#consent-inline').classList.add('hidden');
       bySel('#consent-checkbox').classList.add('hidden');
       if (isCredit) bySel('#consent-inline').classList.remove('hidden');
       if (isFull) bySel('#consent-checkbox').classList.remove('hidden');
+
+      // re-evaluate dynamic steps when mode toggles
+      checkPrevEmploymentNeed();
+      onAddressDurationChange();
     }
 
     // Trade-in reveal
@@ -698,116 +682,103 @@
         bySel('#full-other').classList.remove('hidden');
         ['otherIncomeAmount','otherIncomeSource'].forEach(id => $(id).required = true);
       }
+
+      // re-evaluate need for previous employment when source changes
+      checkPrevEmploymentNeed();
     });
 
-    // Dynamic PREVIOUS EMPLOYMENT step (FULL only, if < 24 months)
-    function ensurePrevEmploymentStep(need){
-      if (need && !dynamicPrevEmpId){
-        const sec = document.createElement('section');
-        sec.className = 'form-step step-pane';
-        sec.innerHTML = `
-          <div class="step-inner">
-            <h3 class="h2 mb-2">Previous employment</h3>
-            <div class="grid grid-cols-2 gap-2">
-              <div>
-                <label for="previousEmployer" class="label mb-1 block">Previous employer <span class="text-red-500">*</span></label>
-                <input type="text" id="previousEmployer" name="previousEmployer" class="form-input" placeholder="Company"/>
-              </div>
-              <div>
-                <label class="label mb-1 block">Time there <span class="text-red-500">*</span></label>
-                <div class="grid grid-cols-2 gap-2">
-                  <select id="prevTimeWithEmployerYears" name="prevTimeWithEmployerYears" class="form-select"><option value="">Years</option></select>
-                  <select id="prevTimeWithEmployerMonths" name="prevTimeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
-                </div>
+    // --- Previous Employment (dynamic step) ---
+    function insertPrevEmploymentStep(){
+      if (prevEmpInserted) return;
+      const sec = document.createElement('section');
+      sec.className = 'form-step step-pane';
+      sec.id = 'prev-employment-step';
+      sec.innerHTML = `
+        <div class="step-inner">
+          <h3 class="h2 mb-2">Previous employment</h3>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label for="previousEmployer" class="label mb-1 block">Previous employer <span class="text-red-500">*</span></label>
+              <input type="text" id="previousEmployer" name="previousEmployer" class="form-input" placeholder="Company" required/>
+            </div>
+            <div>
+              <label class="label mb-1 block">Time there <span class="text-red-500">*</span></label>
+              <div class="grid grid-cols-2 gap-2">
+                <select id="prevTimeWithEmployerYears" name="prevTimeWithEmployerYears" class="form-select" required><option value="">Years</option></select>
+                <select id="prevTimeWithEmployerMonths" name="prevTimeWithEmployerMonths" class="form-select" required><option value="">Months</option></select>
               </div>
             </div>
           </div>
-        `;
-        dynamicPrevEmpId = 'prev-emp';
-        // insert RIGHT AFTER step-income
-        const after = $('step-income');
-        after.insertAdjacentElement('afterend', sec);
-        // populate dropdowns
-        populateDropdown(bySel('#prevTimeWithEmployerYears'), 0, 30, 'Years', 'Year');
-        populateDropdown(bySel('#prevTimeWithEmployerMonths'), 0, 11, 'Months', 'Month');
-        renumberSteps();
-      }
-      if (!need && dynamicPrevEmpId){
-        const el = $('step-income').nextElementSibling;
-        if (el && el.querySelector('#previousEmployer')) el.remove();
-        dynamicPrevEmpId = null;
-        renumberSteps();
-      }
-      // Required flag toggles
-      ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id=>{
-        const n = $(id); if(n) n.required = !!need;
-      });
+        </div>
+      `;
+      const after = $('step-income');
+      after.insertAdjacentElement('afterend', sec);
+      populateDropdown(bySel('#prevTimeWithEmployerYears'), 0, 30, 'Years', 'Year');
+      populateDropdown(bySel('#prevTimeWithEmployerMonths'), 0, 11, 'Months', 'Month');
+      prevEmpInserted = true;
+      renumberSteps();
     }
-
+    function removePrevEmploymentStep(){
+      const el = $('prev-employment-step');
+      if (el){ el.remove(); prevEmpInserted = false; renumberSteps(); }
+    }
     function checkPrevEmploymentNeed(){
-      if (mode() !== 'Full Application') { ensurePrevEmploymentStep(false); return; }
-      const y = parseInt(($('timeWithEmployerYears').value || '0'),10);
-      const m = parseInt(($('timeWithEmployerMonths').value || '0'),10);
+      if (mode() !== 'Full Application') { removePrevEmploymentStep(); return; }
+      const employedVisible = bySel('#full-employment') && !bySel('#full-employment').classList.contains('hidden');
+      if (!employedVisible){ removePrevEmploymentStep(); return; }
+      const y = parseInt(($('timeWithEmployerYears').value || ''),10);
+      const m = parseInt(($('timeWithEmployerMonths').value || ''),10);
+      if (!Number.isFinite(y) || !Number.isFinite(m)){ removePrevEmploymentStep(); return; }
       const months = (y*12)+m;
-      const employedBlockVisible = bySel('#full-employment') && !bySel('#full-employment').classList.contains('hidden');
-      const need = employedBlockVisible && (y!==null || m!==null) && months < 24;
-      ensurePrevEmploymentStep(need);
+      if (months < 24) insertPrevEmploymentStep(); else removePrevEmploymentStep();
     }
     $('timeWithEmployerYears')?.addEventListener('change', checkPrevEmploymentNeed);
     $('timeWithEmployerMonths')?.addEventListener('change', checkPrevEmploymentNeed);
 
-    // Dynamic PREVIOUS ADDRESS step (FULL only, if < 24 months)
-    function ensurePrevAddressStep(need){
-      if (need && !dynamicPrevAddrId){
-        const sec = document.createElement('section');
-        sec.className = 'form-step step-pane';
-        sec.innerHTML = `
-          <div class="step-inner">
-            <h3 class="h2 mb-2">Previous address</h3>
-            <div class="grid grid-cols-6 gap-2">
-              <input type="text" id="prevStreetAddress" name="prevStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address"/>
-              <input type="text" id="prevUnit" name="prevUnit" class="form-input col-span-6 sm:col-span-2" placeholder="Unit #"/>
-              <input type="text" id="prevCity" name="prevCity" class="form-input col-span-3" placeholder="City"/>
-              <select id="prevProvince" name="prevProvince" class="form-select col-span-2"><option value="">Prov</option></select>
-              <input type="text" id="prevPostalCode" name="prevPostalCode" class="form-input col-span-1" placeholder="Postal"/>
-            </div>
-            <div class="mt-2">
-              <!-- CHANGED: keep label text as Duration to match current address -->
-              <label class="label mb-1 block">Duration <span class="text-red-500">*</span></label>
-              <div class="grid grid-cols-2 gap-2">
-                <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="form-select"><option value="">Months</option></select>
-              </div>
+    // --- Previous Address (dynamic step) ---
+    function insertPrevAddressStep(){
+      if (prevAddrInserted) return;
+      const sec = document.createElement('section');
+      sec.className = 'form-step step-pane';
+      sec.id = 'prev-address-step';
+      sec.innerHTML = `
+        <div class="step-inner">
+          <h3 class="h2 mb-2">Previous address</h3>
+          <div class="grid grid-cols-6 gap-2">
+            <input type="text" id="prevStreetAddress" name="prevStreetAddress" class="form-input col-span-6 sm:col-span-4" placeholder="Street Address" required/>
+            <input type="text" id="prevUnit" name="prevUnit" class="form-input col-span-6 sm:col-span-2" placeholder="Unit #"/>
+            <input type="text" id="prevCity" name="prevCity" class="form-input col-span-3" placeholder="City" required/>
+            <select id="prevProvince" name="prevProvince" class="form-select col-span-2" required><option value="">Prov</option></select>
+            <input type="text" id="prevPostalCode" name="prevPostalCode" class="form-input col-span-1" placeholder="Postal" required/>
+          </div>
+          <div class="mt-2">
+            <label class="label mb-1 block">Duration <span class="text-red-500">*</span></label>
+            <div class="grid grid-cols-2 gap-2">
+              <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="form-select" required><option value="">Years</option></select>
+              <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="form-select" required><option value="">Months</option></select>
             </div>
           </div>
-        `;
-        dynamicPrevAddrId = 'prev-addr';
-        // insert RIGHT AFTER step-address
-        const after = $('step-address');
-        after.insertAdjacentElement('afterend', sec);
-        populateProvinces(bySel('#prevProvince'));
-        populateDropdown(bySel('#prevTimeAtAddressYears'), 0, 30, 'Years', 'Year');
-        populateDropdown(bySel('#prevTimeAtAddressMonths'), 0, 11, 'Months', 'Month');
-        renumberSteps();
-      }
-      if (!need && dynamicPrevAddrId){
-        const el = $('step-address').nextElementSibling;
-        if (el && el.querySelector('#prevStreetAddress')) el.remove();
-        dynamicPrevAddrId = null;
-        renumberSteps();
-      }
-      ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths'].forEach(id=>{
-        const n = $(id); if(n) n.required = !!need;
-      });
+        </div>
+      `;
+      const after = $('step-address');
+      after.insertAdjacentElement('afterend', sec);
+      populateProvinces(bySel('#prevProvince'));
+      populateDropdown(bySel('#prevTimeAtAddressYears'), 0, 30, 'Years', 'Year');
+      populateDropdown(bySel('#prevTimeAtAddressMonths'), 0, 11, 'Months', 'Month');
+      prevAddrInserted = true;
+      renumberSteps();
     }
-
+    function removePrevAddressStep(){
+      const el = $('prev-address-step');
+      if (el){ el.remove(); prevAddrInserted = false; renumberSteps(); }
+    }
     function onAddressDurationChange(){
-      if (mode() !== 'Full Application') { ensurePrevAddressStep(false); return; }
-      const y = parseInt(($('timeAtAddressYears').value || '0'),10);
-      const m = parseInt(($('timeAtAddressMonths').value || '0'),10);
+      if (mode() !== 'Full Application') { removePrevAddressStep(); return; }
+      const y = parseInt(($('timeAtAddressYears').value || ''),10);
+      const m = parseInt(($('timeAtAddressMonths').value || ''),10);
+      if (!Number.isFinite(y) || !Number.isFinite(m)){ removePrevAddressStep(); return; }
       const months = (y*12)+m;
-      const need = (y!==null || m!==null) && months < 24;
-      ensurePrevAddressStep(need);
+      if (months < 24) insertPrevAddressStep(); else removePrevAddressStep();
     }
     $('timeAtAddressYears')?.addEventListener('change', onAddressDurationChange);
     $('timeAtAddressMonths')?.addEventListener('change', onAddressDurationChange);
@@ -834,7 +805,6 @@
 
     // Submit
     async function submitForm(){
-      // If checkbox consent visible, require it
       if (!validateAll()) { $('form-status').textContent = 'Please complete all required fields.'; return; }
       $('submitBtn').disabled = true; $('submitBtn').textContent = 'Submitting…';
       const fd = new FormData(formEl);
@@ -859,7 +829,7 @@
       });
     });
 
-    // Dropdown population helpers
+    // Dropdown helpers
     function populateMonths(sel){ if(!sel) return;
       const m=["01","02","03","04","05","06","07","08","09","10","11","12"];
       m.forEach((mm,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=mm; sel.appendChild(o);});
@@ -868,10 +838,10 @@
       const y=parseInt($('dobYear').value||'',10);
       const m=parseInt($('dobMonth').value||'',10);
       const sel=parseInt($('dobDay').value||'',10);
-      const days=(y&&m)?new Date(y,m,0).getDate():31;
+      const days=(Number.isFinite(y)&&Number.isFinite(m))?new Date(y,m,0).getDate():31;
       $('dobDay').innerHTML='<option value="">DD</option>';
       for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=String(i).padStart(2,'0'); $('dobDay').appendChild(o);}
-      if(sel&&sel<=days)$('dobDay').value=sel;
+      if(Number.isFinite(sel)&&sel<=days)$('dobDay').value=sel;
     }
     function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o);} }
     function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
