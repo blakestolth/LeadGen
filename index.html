@@ -18,38 +18,36 @@
     .cta{ background:var(--blue-600); color:#fff; font-weight:800; padding:.85rem 1rem; border-radius:.8rem; }
     .cta:hover{ background:var(--blue-700); transform:translateY(-1px); }
 
-    /* Inputs compact + consistent */
+    /* Inputs: compact, consistent */
     .fi, .fs, .ta{
       width:100%; background:#f3f4f6; border:2px solid transparent; color:#0f172a;
-      font-size:15px; padding:.66rem .78rem; border-radius:.7rem; transition:.2s;
+      font-size:15px; padding:.62rem .72rem; border-radius:.7rem; transition:.2s;
     }
     .fi:focus, .fs:focus, .ta:focus{ background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.18); outline:none; }
-    label.small{ font-size:.8rem; color:#374151; font-weight:600; margin-bottom:.34rem; display:block; }
+    label.small{ font-size:.8rem; color:#374151; font-weight:600; margin-bottom:.28rem; display:block; }
 
-    /* Tiles (tighter to fit fixed box) */
+    /* Tiles: small & aligned */
     .tile, .choice{
       display:flex; align-items:center; justify-content:center; text-align:center;
-      background:#fff; border:2px solid #e5e7eb; border-radius:.68rem;
-      padding:.5rem .65rem; font-weight:800; font-size:14.5px;
-      width:100%; max-width:132px; height:50px;
-      transition:.15s; cursor:pointer;
+      background:#fff; border:2px solid #e5e7eb; border-radius:.66rem;
+      padding:.42rem .56rem; font-weight:800; font-size:14.5px;
+      width:100%; max-width:124px; height:44px;
+      transition:.15s; cursor:pointer; user-select:none;
     }
     .tile:hover, .choice:hover{ border-color:var(--blue-600); background:#f5f8ff; }
     .tile.selected, .choice.selected{ border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
+    .tile--budget{ height:40px; font-size:16px; letter-spacing:.15px; }
 
-    /* Budget tiles: shorter but larger numerals for readability */
-    .tile--budget{ height:46px; font-size:16.5px; letter-spacing:.15px; }
-
-    /* Form shell — fixed height; content fits, never grows */
+    /* Fixed shell height = measured from "Your information" step at boot */
     .form-shell{ position:relative; height:540px; overflow:hidden; }
     .form-inner{ height:100%; display:flex; flex-direction:column; }
     .step-wrap{ flex:1 1 auto; overflow:hidden; }
     .step{ height:100%; display:flex; flex-direction:column; }
-    .step-body{ flex:1 1 auto; overflow:auto; padding-bottom:.2rem; }
-    .step-footer{ padding-top:.4rem; }
+    .step-body{ flex:1 1 auto; overflow:auto; padding-top:.12rem; padding-bottom:0; }
+    .step-footer{ padding-top:.3rem; }
 
-    /* Step headings smaller/tighter for the first 3 steps */
-    .step--compact h3{ margin-bottom:.5rem !important; }
+    /* Headings tight & consistent */
+    .step h3{ margin-bottom:.5rem !important; }
 
     /* Progress */
     .track{ height:8px; background:#e5e7eb; border-radius:9999px; overflow:hidden; }
@@ -57,7 +55,7 @@
 
     /* Segmented switch */
     .seg{ display:inline-flex; gap:.25rem; background:#f3f4f6; padding:.25rem; border-radius:.65rem; }
-    .seg-btn{ padding:.4rem .65rem; border-radius:.5rem; font-weight:700; color:#374151; border:2px solid transparent; }
+    .seg-btn{ padding:.38rem .62rem; border-radius:.5rem; font-weight:700; color:#374151; border:2px solid transparent; }
     .seg-btn[aria-pressed="true"]{ background:#e0ecff; color:#214B80; border-color:#bfdbfe; }
 
     /* Inventory cards */
@@ -66,9 +64,8 @@
     .bodytype-img{ height:120px; background:#e5e7eb center/cover no-repeat; }
 
     @media (max-width:380px){
-      .tile, .choice{ max-width:124px; height:46px; font-size:14px; }
-      .tile--budget{ height:44px; font-size:16px; }
-      .form-shell{ height:520px; }
+      .tile, .choice{ max-width:116px; height:40px; font-size:14px; }
+      .tile--budget{ height:38px; font-size:15.5px; }
     }
   </style>
 </head>
@@ -80,7 +77,7 @@
         <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit" class="h-10 w-auto object-contain rounded-md" onerror="this.style.display='none'"/>
         <span class="hidden sm:inline font-extrabold tracking-tight text-zinc-900">Vancouver Island Credit</span>
       </a>
-      <!-- Right side restored: full desktop menu + CTA -->
+      <!-- Right side desktop menu + CTA -->
       <div class="hidden sm:flex items-center gap-6 text-sm font-semibold text-zinc-700">
         <a href="#inventory" class="hover:text-[var(--blue-600)]">Inventory</a>
         <a href="#about" class="hover:text-[var(--blue-600)]">About</a>
@@ -114,7 +111,6 @@
             <li class="flex gap-3"><span class="h-6 w-6 flex items-center justify-center rounded-full bg-zinc-100 text-[var(--blue-600)] font-extrabold">3</span> We deliver to your door—easy.</li>
           </ol>
         </div>
-        <!-- Right side restored to headline + bullets only -->
         <div class="flex flex-col justify-center">
           <div class="flex items-center space-x-3 mb-3">
             <div class="bg-blue-100 p-3 rounded-xl">
@@ -144,7 +140,7 @@
           <input type="hidden" name="app_type" id="app_type"/>
 
           <!-- progress -->
-          <div class="sticky top-0 z-10 bg-white px-4 sm:px-6 pt-4 pb-3 border-b">
+          <div id="progressHdr" class="sticky top-0 z-10 bg-white px-4 sm:px-6 pt-4 pb-3 border-b">
             <div class="flex items-center justify-between mb-2">
               <div id="progress-label" class="text-xs font-semibold text-zinc-700">Step 1 of 6</div>
               <div id="progress-cap" class="text-xs font-semibold text-[var(--blue-700)]">Let’s get you approved</div>
@@ -153,12 +149,12 @@
           </div>
 
           <!-- steps container -->
-          <div id="steps" class="step-wrap px-4 sm:px-6 py-3">
-            <!-- 1 Vehicle Type (compact) -->
-            <section class="step step--compact" data-stepid="vehicle">
+          <div id="steps" class="step-wrap px-4 sm:px-6 pt-3 pb-3">
+            <!-- 1 Vehicle Type -->
+            <section class="step" data-stepid="vehicle">
               <div class="step-body">
-                <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900 mb-2">What type of vehicle?</h3>
-                <div class="grid grid-cols-2 gap-2 justify-items-center">
+                <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900">What type of vehicle?</h3>
+                <div class="grid grid-cols-2 gap-2 justify-items-center mt-2">
                   <button type="button" class="tile" data-type="Car">Car</button>
                   <button type="button" class="tile" data-type="SUV">SUV</button>
                   <button type="button" class="tile" data-type="Truck">Truck</button>
@@ -168,11 +164,11 @@
               <div class="step-footer"></div>
             </section>
 
-            <!-- 2 Condition (compact) -->
-            <section class="step step--compact hidden" data-stepid="condition">
+            <!-- 2 Condition -->
+            <section class="step hidden" data-stepid="condition">
               <div class="step-body">
-                <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900 mb-2">Used or New?</h3>
-                <div class="grid grid-cols-2 gap-2 justify-items-center">
+                <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900">Used or New?</h3>
+                <div class="grid grid-cols-2 gap-2 justify-items-center mt-2">
                   <button type="button" class="choice" data-cond="Used">Used</button>
                   <button type="button" class="choice" data-cond="New">New</button>
                 </div>
@@ -180,15 +176,15 @@
               <div class="step-footer"></div>
             </section>
 
-            <!-- 3 Budget (compact) -->
-            <section class="step step--compact hidden" data-stepid="budget">
+            <!-- 3 Budget -->
+            <section class="step hidden" data-stepid="budget">
               <div class="step-body">
-                <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900 mb-2">Monthly budget?</h3>
-                <div class="grid grid-cols-2 gap-2 justify-items-center">
-                  <label class="tile tile--budget cursor-pointer"><input class="sr-only" type="radio" name="budgetRange" value="$250–$375"><span>$250–$375</span></label>
-                  <label class="tile tile--budget cursor-pointer"><input class="sr-only" type="radio" name="budgetRange" value="$376–$499"><span>$376–$499</span></label>
-                  <label class="tile tile--budget cursor-pointer"><input class="sr-only" type="radio" name="budgetRange" value="$500–$750"><span>$500–$750</span></label>
-                  <label class="tile tile--budget cursor-pointer"><input class="sr-only" type="radio" name="budgetRange" value="$750+"><span>$750+</span></label>
+                <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900">Monthly budget?</h3>
+                <div class="grid grid-cols-2 gap-2 justify-items-center mt-2">
+                  <label class="tile tile--budget cursor-pointer"><input class="sr-only" type="radio" name="budgetRange" value="$250–$375" required><span>$250–$375</span></label>
+                  <label class="tile tile--budget cursor-pointer"><input class="sr-only" type="radio" name="budgetRange" value="$376–$499" required><span>$376–$499</span></label>
+                  <label class="tile tile--budget cursor-pointer"><input class="sr-only" type="radio" name="budgetRange" value="$500–$750" required><span>$500–$750</span></label>
+                  <label class="tile tile--budget cursor-pointer"><input class="sr-only" type="radio" name="budgetRange" value="$750+" required><span>$750+</span></label>
                 </div>
               </div>
               <div class="step-footer"></div>
@@ -197,8 +193,8 @@
             <!-- 4 App Type -->
             <section class="step hidden" data-stepid="apptype">
               <div class="step-body">
-                <h3 class="text-xl font-extrabold text-zinc-900 mb-1">Choose your path</h3>
-                <p class="text-[13px] text-zinc-600 mb-3">Credit Inquiry = quick look at where you stand. Full Application = exact options (if Blake sent you here).</p>
+                <h3 class="text-xl font-extrabold text-zinc-900">Choose your path</h3>
+                <p class="text-[13px] text-zinc-600 mt-1 mb-2">Credit Inquiry = quick look at where you stand. Full Application = exact options (if Blake sent you here).</p>
                 <div class="grid grid-cols-2 gap-2 justify-items-center">
                   <button type="button" class="choice" data-app="Credit Inquiry">Credit Inquiry</button>
                   <button type="button" class="choice" data-app="Full Application">Full Application</button>
@@ -208,11 +204,11 @@
             </section>
 
             <!-- 5 Your Information (merged) -->
-            <section class="step hidden" data-stepid="info">
+            <section class="step" data-stepid="info" id="infoStep">
               <div class="step-body">
-                <h3 class="text-xl font-extrabold text-zinc-900 mb-3">Your information</h3>
+                <h3 class="text-xl font-extrabold text-zinc-900">Your information</h3>
 
-                <div class="grid grid-cols-3 gap-2">
+                <div class="grid grid-cols-3 gap-2 mt-2">
                   <div>
                     <label class="small" for="firstName">First name <span class="text-red-500">*</span></label>
                     <input id="firstName" name="firstName" class="fi" required>
@@ -265,18 +261,17 @@
             <!-- 6 Address + Housing -->
             <section class="step hidden" data-stepid="address">
               <div class="step-body">
-                <h3 class="text-xl font-extrabold text-zinc-900 mb-3">Where do you live?</h3>
-                <label class="small" for="currentStreetAddress">Current address <span class="text-red-500">*</span></label>
-                <input id="currentStreetAddress" name="currentStreetAddress" class="fi" autocomplete="street-address" required>
+                <h3 class="text-xl font-extrabold text-zinc-900">Current address</h3>
 
                 <div class="grid grid-cols-6 gap-2 mt-2">
-                  <input id="currentCity" name="currentCity" class="fi col-span-3" placeholder="City" autocomplete="address-level2" required>
-                  <select id="currentProvince" name="currentProvince" class="fs col-span-2" required><option value="">Province</option></select>
-                  <input id="currentPostalCode" name="currentPostalCode" class="fi col-span-1" placeholder="Postal" autocomplete="postal-code" required>
+                  <input id="currentStreetAddress" name="currentStreetAddress" class="fi col-span-6 sm:col-span-4" placeholder="Street Address" autocomplete="street-address" required>
+                  <input id="currentUnit" name="currentUnit" class="fi col-span-6 sm:col-span-2" placeholder="Unit #">
+                  <input id="currentCity" name="currentCity" class="fi col-span-6 sm:col-span-3" placeholder="City" autocomplete="address-level2" required>
+                  <select id="currentProvince" name="currentProvince" class="fs col-span-6 sm:col-span-2" required><option value="">Province</option></select>
+                  <input id="currentPostalCode" name="currentPostalCode" class="fi col-span-6 sm:col-span-1" placeholder="Postal" autocomplete="postal-code" required>
                 </div>
 
-                <!-- Housing row always after current address, before previous address -->
-                <div class="grid grid-cols-2 gap-2 mt-2" id="housingRow">
+                <div class="grid grid-cols-2 gap-2 mt-2 items-end">
                   <div>
                     <label class="small" for="housingPayment">Monthly Payment <span class="text-red-500">*</span></label>
                     <input id="housingPayment" name="housingPayment" class="fi" placeholder="$1,500" inputmode="numeric" required>
@@ -287,14 +282,13 @@
                       <button type="button" class="seg-btn" id="btnRent" aria-pressed="true">Rent</button>
                       <button type="button" class="seg-btn" id="btnOwn" aria-pressed="false">Own</button>
                     </div>
-                    <input type="hidden" id="housingType" name="housingType" value="Rent">
+                    <input type="hidden" id="housingType" name="housingType" value="Rent" />
                   </div>
                 </div>
 
-                <!-- Duration (Full only) -->
-                <div id="addrDuration" class="grid grid-cols-2 gap-2 mt-2 hidden">
+                <div class="grid grid-cols-2 gap-2 mt-2">
                   <div>
-                    <label class="small" for="timeAtAddressYears">Time at current address <span class="text-red-500">*</span></label>
+                    <label class="small" for="timeAtAddressYears">Time at address <span class="text-red-500">*</span></label>
                     <select id="timeAtAddressYears" name="timeAtAddressYears" class="fs" required><option value="">Years</option></select>
                   </div>
                   <div class="self-end">
@@ -305,39 +299,40 @@
               <div class="step-footer"></div>
             </section>
 
-            <!-- (DYNAMIC) Previous Address -->
-            <section class="step hidden" data-stepid="prev-address" id="prevAddressStep">
-              <div class="step-body">
-                <h3 class="text-xl font-extrabold text-zinc-900 mb-3">Previous address</h3>
-                <label class="small" for="prevStreetAddress">Street <span class="text-red-500">*</span></label>
-                <input id="prevStreetAddress" name="prevStreetAddress" class="fi" required>
-
-                <div class="grid grid-cols-6 gap-2 mt-2">
-                  <input id="prevCity" name="prevCity" class="fi col-span-3" placeholder="City" required>
-                  <select id="prevProvince" name="prevProvince" class="fs col-span-2" required><option value="">Province</option></select>
-                  <input id="prevPostalCode" name="prevPostalCode" class="fi col-span-1" placeholder="Postal" required>
-                </div>
-
-                <div class="grid grid-cols-2 gap-2 mt-2">
-                  <div>
-                    <label class="small" for="prevTimeAtAddressYears">Time at previous address <span class="text-red-500">*</span></label>
-                    <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="fs" required><option value="">Years</option></select>
+            <!-- (Dynamic) Previous Address – inserted after Address if <24mo -->
+            <template id="tplPrevAddr">
+              <section class="step" data-stepid="prev-address">
+                <div class="step-body">
+                  <h3 class="text-xl font-extrabold text-zinc-900">Previous address</h3>
+                  <p class="text-[12.5px] text-zinc-600 mb-1">Required because time at current address is under 2 years.</p>
+                  <div class="grid grid-cols-6 gap-2 mt-2">
+                    <input id="prevStreetAddress" name="prevStreetAddress" class="fi col-span-6 sm:col-span-4" placeholder="Street Address" required>
+                    <input id="prevUnit" name="prevUnit" class="fi col-span-6 sm:col-span-2" placeholder="Unit #">
+                    <input id="prevCity" name="prevCity" class="fi col-span-6 sm:col-span-3" placeholder="City" required>
+                    <select id="prevProvince" name="prevProvince" class="fs col-span-6 sm:col-span-2" required><option value="">Province</option></select>
+                    <input id="prevPostalCode" name="prevPostalCode" class="fi col-span-6 sm:col-span-1" placeholder="Postal" required>
                   </div>
-                  <div class="self-end">
-                    <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="fs" required><option value="">Months</option></select>
+                  <div class="grid grid-cols-2 gap-2 mt-2">
+                    <div>
+                      <label class="small" for="prevTimeAtAddressYears">Time at previous <span class="text-red-500">*</span></label>
+                      <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="fs" required><option value="">Years</option></select>
+                    </div>
+                    <div class="self-end">
+                      <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="fs" required><option value="">Months</option></select>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="step-footer"></div>
-            </section>
+                <div class="step-footer"></div>
+              </section>
+            </template>
 
-            <!-- 7 Income -->
-            <section class="step hidden" data-stepid="income">
+            <!-- 7 Employment (Credit: simple / Full: detailed) -->
+            <section class="step hidden" data-stepid="employment">
               <div class="step-body">
-                <h3 class="text-xl font-extrabold text-zinc-900 mb-3">Income</h3>
+                <h3 class="text-xl font-extrabold text-zinc-900">Employment</h3>
 
-                <!-- Simple (Credit Inquiry) -->
-                <div id="incomeSimple" class="space-y-2">
+                <!-- Credit Inquiry: simple -->
+                <div id="employment-simple" class="space-y-2">
                   <div>
                     <label class="small" for="incomeSource">Primary income source</label>
                     <select id="incomeSource" name="incomeSource" class="fs">
@@ -351,12 +346,12 @@
                   </div>
                   <div>
                     <label class="small" for="monthlyIncome">Monthly income (before tax) <span class="text-red-500">*</span></label>
-                    <input id="monthlyIncome" name="monthlyIncome" class="fi" placeholder="$3,500" inputmode="numeric" required>
+                    <input id="monthlyIncome" name="monthlyIncome" class="fi" placeholder="$3,500" inputmode="numeric">
                   </div>
                 </div>
 
-                <!-- Full (expanded) -->
-                <div id="incomeFull" class="hidden space-y-2">
+                <!-- Full Application: detailed -->
+                <div id="employment-full" class="hidden space-y-2">
                   <div>
                     <label class="small" for="incomeSourceFull">Primary income source <span class="text-red-500">*</span></label>
                     <select id="incomeSourceFull" name="incomeSourceFull" class="fs">
@@ -369,16 +364,18 @@
                     </select>
                   </div>
 
-                  <div id="blockEmployment" class="hidden space-y-2">
-                    <div>
-                      <label class="small" for="currentEmployer">Employer <span class="text-red-500">*</span></label>
-                      <input id="currentEmployer" name="currentEmployer" class="fi" placeholder="Company name">
-                    </div>
-                    <div>
-                      <label class="small" for="jobTitle">Position / Job Title <span class="text-red-500">*</span></label>
-                      <input id="jobTitle" name="jobTitle" class="fi" placeholder="Your role">
-                    </div>
+                  <div id="full-employment" class="hidden">
                     <div class="grid grid-cols-2 gap-2">
+                      <div>
+                        <label class="small" for="currentEmployer">Employer <span class="text-red-500">*</span></label>
+                        <input id="currentEmployer" name="currentEmployer" class="fi" placeholder="Company name">
+                      </div>
+                      <div>
+                        <label class="small" for="jobTitle">Position / Job Title <span class="text-red-500">*</span></label>
+                        <input id="jobTitle" name="jobTitle" class="fi" placeholder="Your role">
+                      </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 mt-2">
                       <div>
                         <label class="small" for="timeWithEmployerYears">Time with employer <span class="text-red-500">*</span></label>
                         <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="fs"><option value="">Years</option></select>
@@ -389,25 +386,29 @@
                     </div>
                   </div>
 
-                  <div id="blockSelf" class="hidden space-y-2">
-                    <div>
-                      <label class="small" for="businessName">Business name <span class="text-red-500">*</span></label>
-                      <input id="businessName" name="businessName" class="fi" placeholder="Your business">
-                    </div>
-                    <div>
-                      <label class="small" for="avgMonthlyIncome">Average monthly income (before tax) <span class="text-red-500">*</span></label>
-                      <input id="avgMonthlyIncome" name="avgMonthlyIncome" class="fi" placeholder="$4,000" inputmode="numeric">
+                  <div id="full-self" class="hidden">
+                    <div class="grid grid-cols-2 gap-2">
+                      <div>
+                        <label class="small" for="businessName">Business name <span class="text-red-500">*</span></label>
+                        <input id="businessName" name="businessName" class="fi" placeholder="Your business">
+                      </div>
+                      <div>
+                        <label class="small" for="avgMonthlyIncome">Average monthly income (before tax) <span class="text-red-500">*</span></label>
+                        <input id="avgMonthlyIncome" name="avgMonthlyIncome" class="fi" placeholder="$4,000" inputmode="numeric">
+                      </div>
                     </div>
                   </div>
 
-                  <div id="blockOther" class="hidden space-y-2">
-                    <div>
-                      <label class="small" for="otherIncomeAmount">Monthly income amount (before tax) <span class="text-red-500">*</span></label>
-                      <input id="otherIncomeAmount" name="otherIncomeAmount" class="fi" placeholder="$2,000" inputmode="numeric">
-                    </div>
-                    <div>
-                      <label class="small" for="otherIncomeSource">Source description <span class="text-red-500">*</span></label>
-                      <input id="otherIncomeSource" name="otherIncomeSource" class="fi" placeholder="Describe the source">
+                  <div id="full-other" class="hidden">
+                    <div class="grid grid-cols-2 gap-2">
+                      <div>
+                        <label class="small" for="otherIncomeAmount">Monthly income amount (before tax) <span class="text-red-500">*</span></label>
+                        <input id="otherIncomeAmount" name="otherIncomeAmount" class="fi" placeholder="$2,000" inputmode="numeric">
+                      </div>
+                      <div>
+                        <label class="small" for="otherIncomeSource">Source description <span class="text-red-500">*</span></label>
+                        <input id="otherIncomeSource" name="otherIncomeSource" class="fi" placeholder="Describe the source">
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -415,53 +416,59 @@
               <div class="step-footer"></div>
             </section>
 
-            <!-- (DYNAMIC) Previous Employment -->
-            <section class="step hidden" data-stepid="prev-employment" id="prevEmploymentStep">
-              <div class="step-body">
-                <h3 class="text-xl font-extrabold text-zinc-900 mb-3">Previous employment</h3>
-                <div>
-                  <label class="small" for="previousEmployer">Previous employer <span class="text-red-500">*</span></label>
-                  <input id="previousEmployer" name="previousEmployer" class="fi" placeholder="Company" required>
-                </div>
-                <div class="grid grid-cols-2 gap-2 mt-2">
-                  <div>
-                    <label class="small" for="prevTimeWithEmployerYears">Time at prev employer <span class="text-red-500">*</span></label>
-                    <select id="prevTimeWithEmployerYears" name="prevTimeWithEmployerYears" class="fs" required><option value="">Years</option></select>
+            <!-- (Dynamic) Previous Employment – inserted after Employment if <24mo -->
+            <template id="tplPrevEmp">
+              <section class="step" data-stepid="prev-employment">
+                <div class="step-body">
+                  <h3 class="text-xl font-extrabold text-zinc-900">Previous employment</h3>
+                  <p class="text-[12.5px] text-zinc-600 mb-1">Required because time with current employer is under 2 years.</p>
+                  <div class="grid grid-cols-2 gap-2 mt-2">
+                    <div>
+                      <label class="small" for="previousEmployer">Previous employer <span class="text-red-500">*</span></label>
+                      <input id="previousEmployer" name="previousEmployer" class="fi" placeholder="Company">
+                    </div>
+                    <div>
+                      <label class="small" for="prevTimeWithEmployerYears">Time at previous <span class="text-red-500">*</span></label>
+                      <select id="prevTimeWithEmployerYears" name="prevTimeWithEmployerYears" class="fs"><option value="">Years</option></select>
+                    </div>
                   </div>
-                  <div class="self-end">
-                    <select id="prevTimeWithEmployerMonths" name="prevTimeWithEmployerMonths" class="fs" required><option value="">Months</option></select>
+                  <div class="grid grid-cols-2 gap-2 mt-2">
+                    <div class="self-end">
+                      <select id="prevTimeWithEmployerMonths" name="prevTimeWithEmployerMonths" class="fs"><option value="">Months</option></select>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="step-footer"></div>
-            </section>
+                <div class="step-footer"></div>
+              </section>
+            </template>
 
             <!-- 8 Consent & Submit -->
             <section class="step hidden" data-stepid="consent">
               <div class="step-body">
-                <h3 class="text-xl font-extrabold text-zinc-900 mb-3">Consent & submit</h3>
-                <div id="consentBox" class="hidden">
-                  <label class="flex items-start gap-3 bg-zinc-100 p-3 rounded-lg">
-                    <input id="creditConsent" name="creditConsent" type="checkbox" class="mt-1">
-                    <span class="text-[13px] text-zinc-700">
-                      I consent to a credit inquiry by Vancouver Island Credit to assess financing options and confirm the information provided is accurate.
-                      <span class="text-red-500 font-bold">*</span>
-                    </span>
-                  </label>
+                <h3 class="text-xl font-extrabold text-zinc-900">Finish</h3>
+                <div id="consent-inline" class="text-[12.5px] leading-5 text-zinc-600 bg-zinc-50 border border-zinc-200 rounded-md p-3">
+                  By submitting, you consent to Vancouver Island Credit collecting and using the information you provide to assess financing options and to contact you about your application.
                 </div>
-                <p id="consentInline" class="text-[12px] text-zinc-600">By submitting, you consent to Vancouver Island Credit collecting and using the information you provide to assess financing options and to contact you about your application.</p>
+                <div id="consent-checkbox" class="hidden mt-2">
+                  <div class="flex items-start gap-3 bg-gray-100 p-3 rounded-lg">
+                    <input id="creditConsent" name="creditConsent" type="checkbox" class="h-5 w-5 rounded border-gray-300 mt-0.5"/>
+                    <label for="creditConsent" id="consentLabel" class="text-xs text-zinc-700">
+                      I consent to a credit inquiry by Blake Stolth / Vancouver Island Credit to assess financing options and confirm the information provided is accurate. <span class="text-red-500 font-bold">*</span>
+                    </label>
+                  </div>
+                </div>
               </div>
-              <div class="step-footer">
-                <button type="submit" class="cta w-full">Submit and See Options</button>
-                <p id="formStatus" class="text-center text-xs text-red-600 mt-2" aria-live="polite"></p>
-              </div>
+              <div class="step-footer"></div>
             </section>
           </div>
 
-          <!-- next/back -->
-          <div class="px-4 sm:px-6 pb-4 flex items-center justify-between">
-            <button type="button" id="btnBack" class="text-sm font-semibold text-zinc-500 hover:text-zinc-800 px-2 py-2">Back</button>
-            <button type="button" id="btnNext" class="cta">Next</button>
+          <!-- NAV -->
+          <div class="px-4 sm:px-6 pb-4 pt-2 flex items-center justify-between">
+            <button type="button" id="btnBack" class="text-sm font-semibold text-zinc-500 hover:text-zinc-800 px-2 py-2 disabled:opacity-30">Back</button>
+            <div class="flex items-center gap-2">
+              <button type="button" id="btnNext" class="cta">Next</button>
+              <button type="submit" id="btnSubmit" class="cta hidden">Submit</button>
+            </div>
           </div>
         </form>
       </div>
@@ -470,199 +477,307 @@
     <!-- INVENTORY (8 boxes) -->
     <section id="inventory" class="card p-5 sm:p-6">
       <div class="flex items-center justify-between mb-3">
-        <h3 class="text-xl font-extrabold text-zinc-900">Browse by Vehicle Type</h3>
-        <a href="#lead-form" class="text-sm font-semibold text-[var(--blue-600)] hover:underline">Apply to see matches</a>
+        <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Browse by Type of Vehicle</h3>
+        <a href="#lead-form" class="text-sm font-semibold text-[var(--blue-600)] hover:underline js-view-inventory">View all</a>
       </div>
       <p class="text-sm text-zinc-600 mb-4">Pick a category to see matching options after a quick approval.</p>
 
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <a href="#lead-form" class="bodytype-card">
-          <div class="bodytype-img" style="background-image:url('/img/bodytype-suv.jpg');"></div>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('/img/browse-suv.jpg');"></div>
           <div class="p-3"><p class="font-semibold text-sm">SUV / Crossover</p></div>
         </a>
-        <a href="#lead-form" class="bodytype-card">
-          <div class="bodytype-img" style="background-image:url('/img/bodytype-truck.jpg');"></div>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('/img/browse-truck.jpg');"></div>
           <div class="p-3"><p class="font-semibold text-sm">Truck</p></div>
         </a>
-        <a href="#lead-form" class="bodytype-card">
-          <div class="bodytype-img" style="background-image:url('/img/bodytype-sedan.jpg');"></div>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('/img/browse-sedan.jpg');"></div>
           <div class="p-3"><p class="font-semibold text-sm">Sedan</p></div>
         </a>
-        <a href="#lead-form" class="bodytype-card">
-          <div class="bodytype-img" style="background-image:url('/img/bodytype-coupe.jpg');"></div>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('/img/browse-coupe.jpg');"></div>
           <div class="p-3"><p class="font-semibold text-sm">Coupe</p></div>
         </a>
-        <a href="#lead-form" class="bodytype-card">
-          <div class="bodytype-img" style="background-image:url('/img/bodytype-minivan.jpg');"></div>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('/img/browse-minivan.jpg');"></div>
           <div class="p-3"><p class="font-semibold text-sm">Minivan</p></div>
         </a>
-        <a href="#lead-form" class="bodytype-card">
-          <div class="bodytype-img" style="background-image:url('/img/bodytype-hatchback.jpg');"></div>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('/img/browse-hatchback.jpg');"></div>
           <div class="p-3"><p class="font-semibold text-sm">Hatchback</p></div>
         </a>
-        <a href="#lead-form" class="bodytype-card">
-          <div class="bodytype-img" style="background-image:url('/img/bodytype-convertible.jpg');"></div>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('/img/browse-convertible.jpg');"></div>
           <div class="p-3"><p class="font-semibold text-sm">Convertible</p></div>
         </a>
-        <a href="#lead-form" class="bodytype-card">
-          <div class="bodytype-img" style="background-image:url('/img/bodytype-wagon.jpg');"></div>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('/img/browse-wagon.jpg');"></div>
           <div class="p-3"><p class="font-semibold text-sm">Wagon</p></div>
         </a>
       </div>
     </section>
 
-    <footer id="contact" class="text-center text-xs text-zinc-500">
+    <footer id="contact" class="text-center text-xs text-zinc-500 pt-2 space-y-2">
       <p class="font-semibold text-zinc-600">Vancouver Island Credit</p>
-      <p>525 Gorge Rd E, Victoria, BC V8T 4T2 • <a href="tel:2369692424" class="hover:text-[var(--blue-600)]">(236) 969-2424</a></p>
+      <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
+      <p><a href="tel:2369692424" class="hover:text-[var(--blue-600)] transition-colors">(236) 969-2424</a></p>
+      <p class="pt-2">Serving Vancouver Island & British Columbia • Delivery available province-wide</p>
       <p class="mt-1">© <span id="year"></span> Vancouver Island Credit • All rights reserved</p>
     </footer>
   </main>
 
   <script>
     // Helpers
-    const $ = (s, r=document) => r.querySelector(s);
-    const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+    const $ = (s,root=document)=>root.querySelector(s);
+    const $$ = (s,root=document)=>Array.from(root.querySelectorAll(s));
 
     // Mobile menu
     $('#menuBtn')?.addEventListener('click', ()=> $('#mobileMenu')?.classList.toggle('hidden'));
 
-    // State
-    let stepOrder = [];
-    let curIndex = 0;
-    const stepsRoot = $('#steps');
+    // Click inventory -> scroll to form
+    $$('.js-view-inventory').forEach(el=>{
+      el.addEventListener('click', (e)=>{
+        e.preventDefault();
+        document.getElementById('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
 
-    function baseSteps(){
-      stepOrder = [
-        'vehicle',
-        'condition',
-        'budget',
-        'apptype',
-        'info',
-        'address',
-        'income',
-        'consent'
-      ];
+    // Form state
+    const form = $('#appForm');
+    const stepsWrap = $('#steps');
+
+    // Build step order dynamically (we’ll inject prev address / prev employment when needed)
+    const getSteps = () => $$('.step', stepsWrap).filter(s => !s.classList.contains('hidden'));
+
+    function showStepByIndex(idx){
+      const steps = getSteps();
+      steps.forEach((s,i)=> s.classList.toggle('hidden', i!==idx));
+      window.__cur = idx;
+      updateProgress();
+      // ensure step body starts at top within fixed shell
+      const body = $('.step:not(.hidden) .step-body');
+      body?.scrollTo({top:0, behavior:'instant'});
+      updateNavButtons();
     }
 
-    function showStepByIndex(i){
-      curIndex = Math.max(0, Math.min(i, stepOrder.length-1));
-      const id = stepOrder[curIndex];
-      $$('.step', stepsRoot).forEach(s => s.classList.add('hidden'));
-      $(`.step[data-stepid="${id}"]`, stepsRoot)?.classList.remove('hidden');
-      updateProgressUI();
-      $('#form-shell')?.scrollTo({ top: 0, behavior: 'smooth' });
+    function updateNavButtons(){
+      const steps = getSteps();
+      const last = steps.length - 1;
+      const i = window.__cur || 0;
+      $('#btnBack').disabled = (i===0);
+      $('#btnNext').classList.toggle('hidden', i===last);
+      $('#btnSubmit').classList.toggle('hidden', i!==last);
+      $('#progress-cap').textContent = (i===last) ? 'See options you’re actually qualified for' : 'Let’s get you approved';
     }
 
-    function updateProgressUI(){
-      $('#progress-label').textContent = `Step ${curIndex+1} of ${stepOrder.length}`;
-      $('#progress-fill').style.width = `${Math.round((curIndex)/(Math.max(1, stepOrder.length-1))*100)}%`;
-      $('#progress-cap').textContent = (curIndex === stepOrder.length-1) ? 'Ready to see your options' : 'Let’s get you approved';
+    function updateProgress(){
+      const steps = getSteps();
+      const total = steps.length;
+      const i = (window.__cur || 0) + 1;
+      $('#progress-label').textContent = `Step ${i} of ${total}`;
+      const pct = Math.round((i-1)/(total-1)*100);
+      $('#progress-fill').style.width = pct + '%';
     }
 
-    function ensureStepAfter(stepIdToInsert, afterStepId){
-      const exists = stepOrder.includes(stepIdToInsert);
-      if (!exists){
-        const idx = stepOrder.indexOf(afterStepId);
-        if (idx !== -1){
-          stepOrder.splice(idx+1, 0, stepIdToInsert);
-        }
-      }
-    }
-    function removeStep(stepId){
-      const idx = stepOrder.indexOf(stepId);
-      if (idx !== -1){
-        stepOrder.splice(idx,1);
-      }
-    }
-
-    // Mode
-    const mode = () => $('#app_type')?.value || '';
-    function setAppMode(m){
-      $('#app_type').value = m || '';
-      $$('.choice[data-app]').forEach(b=>{ b.classList.remove('selected'); if(b.dataset.app===m){ b.classList.add('selected'); }});
-
-      const isCredit = m === 'Credit Inquiry';
-      const isFull   = m === 'Full Application';
-
-      // Always required (per spec)
-      ['firstName','middleName','lastName','phone','email','dobYear','dobDay','dobMonth','maritalStatus']
-        .forEach(id => { const n = $('#'+id); if(n) n.required = true; });
-
-      ['currentStreetAddress','currentCity','currentProvince','currentPostalCode','housingPayment']
-        .forEach(id => { const n = $('#'+id); if(n) n.required = true; });
-
-      // Address duration only Full
-      $('#addrDuration').classList.toggle('hidden', !isFull);
-      if (!isFull){ removeStep('prev-address'); }
-
-      // Income UI swap
-      $('#incomeSimple').classList.toggle('hidden', isFull);
-      $('#incomeFull').classList.toggle('hidden', !isFull);
-
-      // Consent variant
-      $('#consentBox').classList.toggle('hidden', !isFull);
-      $('#consentInline').classList.toggle('hidden', isFull);
-      const cb = $('#creditConsent'); if (cb) cb.required = isFull;
-
-      updateProgressUI();
-    }
-
-    // Housing segmented
-    function setHousing(type){
-      $('#housingType').value = type;
-      $('#btnRent').setAttribute('aria-pressed', String(type==='Rent'));
-      $('#btnOwn').setAttribute('aria-pressed', String(type==='Own'));
-    }
-    $('#btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
-    $('#btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
-    setHousing('Rent');
-
-    // Vehicle
+    // Selection handlers
     $$('.tile[data-type]').forEach(b=>{
-      b.addEventListener('click', ()=>{
+      b.addEventListener('click',()=>{
         $('#vehicleType').value = b.dataset.type;
         $$('.tile[data-type]').forEach(x=>x.classList.remove('selected'));
         b.classList.add('selected');
         next(1);
       });
     });
-
-    // Condition
     $$('.choice[data-cond]').forEach(b=>{
-      b.addEventListener('click', ()=>{
+      b.addEventListener('click',()=>{
         $('#vehicleCondition').value = b.dataset.cond;
         $$('.choice[data-cond]').forEach(x=>x.classList.remove('selected'));
         b.classList.add('selected');
         next(1);
       });
     });
-
-    // Budget
-    $$('label.tile--budget').forEach(lbl=>{
-      const input = $('input[type="radio"]', lbl);
-      lbl.addEventListener('click', ()=>{ input.checked = true; next(1); });
+    $$('label.tile input[name="budgetRange"]').forEach(r=>{
+      const parent = r.closest('label');
+      parent.addEventListener('click',()=>{ r.checked = true; next(1); });
     });
-
-    // App type
     $$('.choice[data-app]').forEach(b=>{
-      b.addEventListener('click', ()=>{
+      b.addEventListener('click',()=>{
         setAppMode(b.dataset.app);
+        $$('.choice[data-app]').forEach(x=>x.classList.remove('selected'));
+        b.classList.add('selected');
         next(1);
       });
     });
 
-    // Provinces
-    function populateProvinces(sel){
-      const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"];
-      prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); });
+    // Rent/Own segmented switch
+    function setHousing(type){
+      $('#housingType').value = type;
+      $('#btnRent').setAttribute('aria-pressed', type==='Rent');
+      $('#btnOwn').setAttribute('aria-pressed', type==='Own');
     }
-    populateProvinces($('#currentProvince'));
-    populateProvinces($('#prevProvince'));
+    $('#btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
+    $('#btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
 
-    // DOB selects
+    // Mode (Credit vs Full) affects visibility + consent style
+    const mode = ()=> $('#app_type').value;
+    function setAppMode(nextMode){
+      $('#app_type').value = nextMode || '';
+
+      const isCredit = nextMode === 'Credit Inquiry';
+      const isFull   = nextMode === 'Full Application';
+
+      // Employment blocks
+      $('#employment-simple').classList.toggle('hidden', !isCredit);
+      $('#employment-full').classList.toggle('hidden', !isFull);
+
+      // Required flags
+      $('#monthlyIncome')?.toggleAttribute('required', isCredit);
+      $('#incomeSourceFull')?.toggleAttribute('required', isFull);
+
+      // Consent
+      $('#consent-inline').classList.toggle('hidden', !isCredit);
+      $('#consent-checkbox').classList.toggle('hidden', !isFull);
+
+      // Recompute tallest if needed (but shell is pegged to info step height; no jump)
+      renumberSteps();
+    }
+
+    // Prev Address logic: insert step after Address when <24mo
+    function ensurePrevAddressStep(need){
+      const exists = $('[data-stepid="prev-address"]', stepsWrap);
+      if (need && !exists){
+        const tpl = $('#tplPrevAddr').content.cloneNode(true);
+        // insert right after Address step
+        const addr = $('[data-stepid="address"]', stepsWrap);
+        addr.after(tpl);
+        populateProvinces($('#prevProvince'));
+        populateDropdown($('#prevTimeAtAddressYears'), 0, 30, 'Years', 'Year');
+        populateDropdown($('#prevTimeAtAddressMonths'), 0, 11, 'Months', 'Month');
+        renumberSteps();
+      } else if (!need && exists){
+        exists.remove();
+        renumberSteps();
+      }
+    }
+
+    // Prev Employment logic: insert step after Employment when <24mo
+    function ensurePrevEmploymentStep(need){
+      const exists = $('[data-stepid="prev-employment"]', stepsWrap);
+      if (need && !exists){
+        const tpl = $('#tplPrevEmp').content.cloneNode(true);
+        const emp = $('[data-stepid="employment"]', stepsWrap);
+        emp.after(tpl);
+        populateDropdown($('#prevTimeWithEmployerYears'), 0, 30, 'Years', 'Year');
+        populateDropdown($('#prevTimeWithEmployerMonths'), 0, 11, 'Months', 'Month');
+        renumberSteps();
+      } else if (!need && exists){
+        exists.remove();
+        renumberSteps();
+      }
+    }
+
+    // Address duration watcher
+    function onAddressDurationChange(){
+      const y = parseInt($('#timeAtAddressYears').value||'0',10);
+      const m = parseInt($('#timeAtAddressMonths').value||'0',10);
+      const months = (y*12)+m;
+      const need = (y!==0 || m!==0) && months < 24;
+      ensurePrevAddressStep(need);
+    }
+    $('#timeAtAddressYears')?.addEventListener('change', onAddressDurationChange);
+    $('#timeAtAddressMonths')?.addEventListener('change', onAddressDurationChange);
+
+    // Employment detail branching for Full
+    function onIncomeSourceFullChange(){
+      const v = $('#incomeSourceFull').value;
+      const employed = (v === 'Full-Time' || v === 'Part-Time');
+      const selfEmp = (v === 'Self-Employed');
+      const other = (v === 'Disability' || v === 'Other');
+
+      $('#full-employment').classList.toggle('hidden', !employed);
+      $('#full-self').classList.toggle('hidden', !selfEmp);
+      $('#full-other').classList.toggle('hidden', !other);
+
+      // Required flags
+      ['currentEmployer','jobTitle','timeWithEmployerYears','timeWithEmployerMonths'].forEach(id=> $('#'+id)?.toggleAttribute('required', employed));
+      ['businessName','avgMonthlyIncome'].forEach(id=> $('#'+id)?.toggleAttribute('required', selfEmp));
+      ['otherIncomeAmount','otherIncomeSource'].forEach(id=> $('#'+id)?.toggleAttribute('required', other));
+
+      // Check prev employment need if employed
+      if (employed){
+        const y = parseInt($('#timeWithEmployerYears').value||'0',10);
+        const m = parseInt($('#timeWithEmployerMonths').value||'0',10);
+        const months = (y*12)+m;
+        ensurePrevEmploymentStep((y!==0 || m!==0) && months < 24);
+      } else {
+        ensurePrevEmploymentStep(false);
+      }
+    }
+    $('#incomeSourceFull')?.addEventListener('change', onIncomeSourceFullChange);
+    $('#timeWithEmployerYears')?.addEventListener('change', ()=>{
+      const y = parseInt($('#timeWithEmployerYears').value||'0',10);
+      const m = parseInt($('#timeWithEmployerMonths').value||'0',10);
+      const months = (y*12)+m;
+      ensurePrevEmploymentStep((y!==0 || m!==0) && months < 24);
+    });
+    $('#timeWithEmployerMonths')?.addEventListener('change', ()=>{
+      const y = parseInt($('#timeWithEmployerYears').value||'0',10);
+      const m = parseInt($('#timeWithEmployerMonths').value||'0',10);
+      const months = (y*12)+m;
+      ensurePrevEmploymentStep((y!==0 || m!==0) && months < 24);
+    });
+
+    // Validation helpers
+    function visibleRequiredInStep(stepEl){
+      return $$('[required]', stepEl).filter(el => el.offsetParent !== null);
+    }
+    function validateCurrentStep(){
+      const steps = getSteps();
+      const el = steps[window.__cur||0];
+      let ok = true;
+      visibleRequiredInStep(el).forEach(i=>{
+        let pass = (i.type==='checkbox') ? i.checked : (i.value && i.value.trim()!=='');
+        if (i.id==='phone') pass = i.value.replace(/\D/g,'').length>=10;
+        if (i.type==='email' || i.id==='email'){ const v=i.value.trim(); pass = pass && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+        i.classList.toggle('ring-2', !pass);
+        i.classList.toggle('ring-red-400', !pass);
+        if (!pass) ok = false;
+      });
+      return ok;
+    }
+
+    // Navigation
+    function next(delta){
+      const steps = getSteps();
+      let i = window.__cur || 0;
+      if (delta>0 && !validateCurrentStep()) return;
+      i += delta;
+      if (i < 0) i = 0;
+      if (i >= steps.length){ return; }
+      showStepByIndex(i);
+    }
+    $('#btnNext').addEventListener('click', ()=> next(1));
+    $('#btnBack').addEventListener('click', ()=> next(-1));
+
+    // Submit
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      if (!validateCurrentStep()) return;
+      try{
+        const fd = new FormData(form);
+        await fetch('/', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:new URLSearchParams(fd).toString() });
+        window.location.href = '/thank-you.html';
+      }catch(err){
+        form.submit(); // Netlify fallback
+      }
+    });
+
+    // Populate selects
     function populateMonths(sel){
+      if(!sel) return;
       const m=["January","February","March","April","May","June","July","August","September","October","November","December"];
-      m.forEach((mm,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=mm; sel.appendChild(o); });
+      m.forEach((mm,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=mm; sel.appendChild(o);});
     }
     function updateDays(){
       const y=parseInt($('#dobYear').value||'',10);
@@ -671,131 +786,83 @@
       const days=(y&&m)?new Date(y,m,0).getDate():31;
       $('#dobDay').innerHTML='<option value="">Day</option>';
       for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; $('#dobDay').appendChild(o); }
-      if(sel&&sel<=days) $('#dobDay').value = sel;
+      if(sel&&sel<=days) $('#dobDay').value=sel;
     }
-    populateMonths($('#dobMonth'));
-    updateDays();
-    $('#dobMonth').addEventListener('change', updateDays);
-    $('#dobYear').addEventListener('input', updateDays);
-
-    // Ranges
-    function populateRange(sel, start, end, label){
-      for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i+' '+label; sel.appendChild(o); }
-    }
-    populateRange($('#timeWithEmployerYears'),0,30,'Years');
-    populateRange($('#timeWithEmployerMonths'),0,11,'Months');
-    populateRange($('#prevTimeWithEmployerYears'),0,30,'Years');
-    populateRange($('#prevTimeWithEmployerMonths'),0,11,'Months');
-    populateRange($('#timeAtAddressYears'),0,30,'Years');
-    populateRange($('#timeAtAddressMonths'),0,11,'Months');
-    populateRange($('#prevTimeAtAddressYears'),0,30,'Years');
-    populateRange($('#prevTimeAtAddressMonths'),0,11,'Months');
-
-    // Income branching for Full
-    $('#incomeSourceFull')?.addEventListener('change', ()=>{
-      const v = $('#incomeSourceFull').value;
-      const employed = (v==='Full-Time' || v==='Part-Time');
-      const selfEmp = (v==='Self-Employed');
-      const other = (v==='Disability' || v==='Other');
-
-      $('#blockEmployment').classList.toggle('hidden', !employed);
-      $('#blockSelf').classList.toggle('hidden', !selfEmp);
-      $('#blockOther').classList.toggle('hidden', !other);
-
-      if (!employed) removeStep('prev-employment');
-      updateProgressUI();
-    });
-
-    // FULL: previous employment trigger (<24 months)
-    $('#timeWithEmployerYears')?.addEventListener('change', checkPrevEmploymentNeed);
-    $('#timeWithEmployerMonths')?.addEventListener('change', checkPrevEmploymentNeed);
-    function checkPrevEmploymentNeed(){
-      if (mode() !== 'Full Application') return;
-      if ($('#blockEmployment').classList.contains('hidden')){ removeStep('prev-employment'); updateProgressUI(); return; }
-      const y = parseInt($('#timeWithEmployerYears').value||'0',10);
-      const m = parseInt($('#timeWithEmployerMonths').value||'0',10);
-      const months = (y*12)+m;
-      if (y || m){
-        if (months < 24){ ensureStepAfter('prev-employment', 'income'); }
-        else { removeStep('prev-employment'); }
-        updateProgressUI();
+    function populateDropdown(sel,start,end,label,singular){
+      if(!sel) return;
+      sel.innerHTML='<option value="">'+(singular||label)+'</option>';
+      for(let i=start;i<=end;i++){
+        const o=document.createElement('option'); o.value=i; o.textContent=i+' '+(i!==1?label:(singular||label)); sel.appendChild(o);
       }
     }
-
-    // FULL: previous address trigger (<24 months)
-    $('#timeAtAddressYears')?.addEventListener('change', checkPrevAddressNeed);
-    $('#timeAtAddressMonths')?.addEventListener('change', checkPrevAddressNeed);
-    function checkPrevAddressNeed(){
-      if (mode() !== 'Full Application') return;
-      const y = parseInt($('#timeAtAddressYears').value||'0',10);
-      const m = parseInt($('#timeAtAddressMonths').value||'0',10);
-      const months = (y*12)+m;
-      if (y || m){
-        if (months < 24){ ensureStepAfter('prev-address', 'address'); }
-        else { removeStep('prev-address'); }
-        updateProgressUI();
-      }
+    function populateProvinces(sel){
+      if(!sel) return;
+      const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"];
+      sel.innerHTML = '<option value="">Province</option>';
+      prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); });
     }
 
-    // Formatting
-    function fmtCurrency(e){
-      const raw = e.target.value.replace(/[$, ]/g,'');
-      if (!raw || isNaN(raw)) { e.target.value=''; return; }
-      e.target.value = '$' + Number(raw).toLocaleString('en-US');
-    }
-    $('#monthlyIncome')?.addEventListener('input', fmtCurrency);
-    $('#avgMonthlyIncome')?.addEventListener('input', fmtCurrency);
-    $('#otherIncomeAmount')?.addEventListener('input', fmtCurrency);
-    $('#housingPayment')?.addEventListener('input', fmtCurrency);
-
-    function fmtPhone(e){
-      const d=e.target.value.replace(/\D/g,'').slice(0,10);
-      if (d.length>6) e.target.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
-      else if (d.length>3) e.target.value=`(${d.slice(0,3)}) ${d.slice(3)}`;
-      else if (d.length>0) e.target.value=`(${d}`;
-    }
-    $('#phone')?.addEventListener('input', fmtPhone);
-
-    // Navigation
-    function next(delta){
-      const target = curIndex + delta;
-      if (target < 0) { showStepByIndex(0); return; }
-      if (target >= stepOrder.length){
-        if (delta>0) submitForm();
-        return;
-      }
-      showStepByIndex(target);
-    }
-    $('#btnNext').addEventListener('click', ()=> next(1));
-    $('#btnBack').addEventListener('click', ()=> next(-1));
-
-    // Submit
-    async function submitForm(){
-      const curStepId = stepOrder[curIndex];
-      const stepEl = $(`.step[data-stepid="${curStepId}"]`);
-      const required = $$('[required]', stepEl).filter(n=>!n.closest('.hidden'));
-      let ok = true;
-      required.forEach(el=>{
-        let pass = (el.type==='checkbox') ? el.checked : (el.value && el.value.trim()!=='');
-        if (el.id==='email'){ const v=el.value.trim(); pass = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-        if (!pass) { ok=false; el.classList.add('ring-2','ring-red-400'); setTimeout(()=>el.classList.remove('ring-2','ring-red-400'), 1600); }
-      });
-      if (!ok){ $('#formStatus').textContent = 'Please complete all required fields.'; showStepByIndex(stepOrder.indexOf('consent')); return; }
-
-      try{
-        const fd = new FormData($('#appForm'));
-        await fetch('/', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:new URLSearchParams(fd).toString() });
-        window.location.href = '/thank-you.html';
-      }catch(err){
-        $('#appForm').submit();
-      }
+    // Renumber steps after inserts/removals
+    function renumberSteps(){
+      const steps = getSteps();
+      steps.forEach((s,idx)=> s.dataset.stepIndex = idx);
+      updateProgress();
+      updateNavButtons();
     }
 
-    // Boot
+    // Measure "Your information" and set fixed shell height
+    function pegShellHeightToInfo(){
+      const shell = $('#form-shell');
+      const info = $('#infoStep');
+      const wasHidden = info.classList.contains('hidden');
+      if (wasHidden) info.classList.remove('hidden');
+      // Temporarily show inside wrapper to measure natural height (body + footer + header height already fixed)
+      const body = $('.step-body', info);
+      const footer = $('.step-footer', info);
+      const hdrH = $('#progressHdr').offsetHeight;
+      const innerPad =  (parseFloat(getComputedStyle($('#steps')).paddingTop)||0) + (parseFloat(getComputedStyle($('#steps')).paddingBottom)||0);
+      const target = Math.ceil(body.scrollHeight + footer.offsetHeight + innerPad + hdrH + 10); // small buffer
+      // Lock height (no jumping)
+      shell.style.height = Math.min(560, Math.max(480, target)) + 'px';
+      if (wasHidden) info.classList.add('hidden');
+    }
+
+    // Init
     (function init(){
-      baseSteps();
+      // footer year
+      const y = new Date().getFullYear(); $('#year') && ($('#year').textContent = y);
+
+      // DOB
+      populateMonths($('#dobMonth')); updateDays();
+      $('#dobMonth').addEventListener('change', updateDays);
+      $('#dobYear').addEventListener('input', updateDays);
+
+      // Dropdowns
+      populateDropdown($('#timeAtAddressYears'), 0, 30, 'Years', 'Year');
+      populateDropdown($('#timeAtAddressMonths'), 0, 11, 'Months', 'Month');
+      populateDropdown($('#timeWithEmployerYears'), 0, 30, 'Years', 'Year');
+      populateDropdown($('#timeWithEmployerMonths'), 0, 11, 'Months', 'Month');
+
+      populateProvinces($('#currentProvince'));
+
+      // Default housing
+      setHousing('Rent');
+
+      // Fix clickability by ensuring no overlays on top of form
+      $('#progressHdr').style.pointerEvents = 'auto';
+
+      // Peg fixed height to "Your information"
+      pegShellHeightToInfo();
+
+      // Start at first step
+      // Show step 0 (vehicle)
+      // Keep others hidden
       showStepByIndex(0);
-      $('#year').textContent = new Date().getFullYear();
+
+      // Re-peg on resize (debounced)
+      let t; window.addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(pegShellHeightToInfo, 120); });
+
+      renumberSteps();
     })();
   </script>
 </body>
