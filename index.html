@@ -21,31 +21,35 @@
     /* Inputs compact + consistent */
     .fi, .fs, .ta{
       width:100%; background:#f3f4f6; border:2px solid transparent; color:#0f172a;
-      font-size:15px; padding:.68rem .8rem; border-radius:.7rem; transition:.2s;
+      font-size:15px; padding:.66rem .78rem; border-radius:.7rem; transition:.2s;
     }
     .fi:focus, .fs:focus, .ta:focus{ background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.18); outline:none; }
-    label.small{ font-size:.82rem; color:#374151; font-weight:600; margin-bottom:.38rem; display:block; }
+    label.small{ font-size:.8rem; color:#374151; font-weight:600; margin-bottom:.34rem; display:block; }
 
-    /* Tiles (tight, universal) */
+    /* Tiles (tighter to fit fixed box) */
     .tile, .choice{
       display:flex; align-items:center; justify-content:center; text-align:center;
-      background:#fff; border:2px solid #e5e7eb; border-radius:.7rem;
-      padding:.55rem .7rem; font-weight:800; font-size:15px; width:100%; max-width:146px; height:58px;
+      background:#fff; border:2px solid #e5e7eb; border-radius:.68rem;
+      padding:.5rem .65rem; font-weight:800; font-size:14.5px;
+      width:100%; max-width:132px; height:50px;
       transition:.15s; cursor:pointer;
     }
     .tile:hover, .choice:hover{ border-color:var(--blue-600); background:#f5f8ff; }
     .tile.selected, .choice.selected{ border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
 
-    /* Budget tiles = shorter but larger characters */
-    .tile--budget{ height:54px; font-size:17px; letter-spacing:.2px; }
+    /* Budget tiles: shorter but larger numerals for readability */
+    .tile--budget{ height:46px; font-size:16.5px; letter-spacing:.15px; }
 
-    /* Form shell — fixed height; content must fit */
+    /* Form shell — fixed height; content fits, never grows */
     .form-shell{ position:relative; height:540px; overflow:hidden; }
     .form-inner{ height:100%; display:flex; flex-direction:column; }
     .step-wrap{ flex:1 1 auto; overflow:hidden; }
     .step{ height:100%; display:flex; flex-direction:column; }
-    .step-body{ flex:1 1 auto; overflow:auto; padding-bottom:.25rem; }
-    .step-footer{ padding-top:.5rem; }
+    .step-body{ flex:1 1 auto; overflow:auto; padding-bottom:.2rem; }
+    .step-footer{ padding-top:.4rem; }
+
+    /* Step headings smaller/tighter for the first 3 steps */
+    .step--compact h3{ margin-bottom:.5rem !important; }
 
     /* Progress */
     .track{ height:8px; background:#e5e7eb; border-radius:9999px; overflow:hidden; }
@@ -53,7 +57,7 @@
 
     /* Segmented switch */
     .seg{ display:inline-flex; gap:.25rem; background:#f3f4f6; padding:.25rem; border-radius:.65rem; }
-    .seg-btn{ padding:.45rem .7rem; border-radius:.5rem; font-weight:700; color:#374151; border:2px solid transparent; }
+    .seg-btn{ padding:.4rem .65rem; border-radius:.5rem; font-weight:700; color:#374151; border:2px solid transparent; }
     .seg-btn[aria-pressed="true"]{ background:#e0ecff; color:#214B80; border-color:#bfdbfe; }
 
     /* Inventory cards */
@@ -62,26 +66,28 @@
     .bodytype-img{ height:120px; background:#e5e7eb center/cover no-repeat; }
 
     @media (max-width:380px){
-      .tile, .choice{ max-width:138px; height:54px; font-size:14px; }
-      .tile--budget{ height:50px; font-size:16px; }
+      .tile, .choice{ max-width:124px; height:46px; font-size:14px; }
+      .tile--budget{ height:44px; font-size:16px; }
       .form-shell{ height:520px; }
     }
   </style>
 </head>
 <body class="min-h-screen">
-  <!-- HEADER -->
+  <!-- HEADER / NAV -->
   <header class="container mx-auto max-w-5xl px-4 sm:px-6 pt-4">
     <nav class="card px-4 sm:px-6 py-3 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
         <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit" class="h-10 w-auto object-contain rounded-md" onerror="this.style.display='none'"/>
         <span class="hidden sm:inline font-extrabold tracking-tight text-zinc-900">Vancouver Island Credit</span>
       </a>
+      <!-- Right side restored: full desktop menu + CTA -->
       <div class="hidden sm:flex items-center gap-6 text-sm font-semibold text-zinc-700">
         <a href="#inventory" class="hover:text-[var(--blue-600)]">Inventory</a>
         <a href="#about" class="hover:text-[var(--blue-600)]">About</a>
         <a href="#contact" class="hover:text-[var(--blue-600)]">Contact</a>
         <a href="#lead-form" class="cta !py-2">Apply Now</a>
       </div>
+      <!-- Mobile -->
       <button id="menuBtn" class="sm:hidden inline-flex items-center justify-center h-10 w-10 rounded-md border border-zinc-200">
         <svg class="h-5 w-5 text-zinc-700" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
@@ -97,7 +103,7 @@
   </header>
 
   <main class="container mx-auto max-w-5xl px-4 sm:px-6 py-6 space-y-8">
-    <!-- HERO / ABOUT (tight) -->
+    <!-- HERO / ABOUT -->
     <section id="about" class="card p-5 sm:p-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
@@ -108,9 +114,22 @@
             <li class="flex gap-3"><span class="h-6 w-6 flex items-center justify-center rounded-full bg-zinc-100 text-[var(--blue-600)] font-extrabold">3</span> We deliver to your door—easy.</li>
           </ol>
         </div>
-        <div class="text-sm text-zinc-700">
-          <p class="mb-2"><strong>One person, no call centres.</strong> You work directly with Blake.</p>
-          <p>All credit welcome • Huge selection • Delivery across BC</p>
+        <!-- Right side restored to headline + bullets only -->
+        <div class="flex flex-col justify-center">
+          <div class="flex items-center space-x-3 mb-3">
+            <div class="bg-blue-100 p-3 rounded-xl">
+              <svg class="w-6 h-6 text-[var(--blue-600)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Fastest Online Approval</h2>
+          </div>
+          <ul class="space-y-2 text-[14.5px] text-zinc-700">
+            <li><strong class="text-zinc-900">Avoid the runaround:</strong> Deal with one real person.</li>
+            <li><strong class="text-zinc-900">All credit welcome:</strong> High approval rates.</li>
+            <li><strong class="text-zinc-900">Huge selection:</strong> New & used vehicles across BC.</li>
+            <li><strong class="text-zinc-900">Delivery:</strong> To your door—anywhere in BC.</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -134,11 +153,11 @@
           </div>
 
           <!-- steps container -->
-          <div id="steps" class="step-wrap px-4 sm:px-6 py-4">
-            <!-- 1 Vehicle Type -->
-            <section class="step" data-stepid="vehicle">
+          <div id="steps" class="step-wrap px-4 sm:px-6 py-3">
+            <!-- 1 Vehicle Type (compact) -->
+            <section class="step step--compact" data-stepid="vehicle">
               <div class="step-body">
-                <h3 class="text-xl font-extrabold text-zinc-900 mb-3">What type of vehicle?</h3>
+                <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900 mb-2">What type of vehicle?</h3>
                 <div class="grid grid-cols-2 gap-2 justify-items-center">
                   <button type="button" class="tile" data-type="Car">Car</button>
                   <button type="button" class="tile" data-type="SUV">SUV</button>
@@ -149,10 +168,10 @@
               <div class="step-footer"></div>
             </section>
 
-            <!-- 2 Condition -->
-            <section class="step hidden" data-stepid="condition">
+            <!-- 2 Condition (compact) -->
+            <section class="step step--compact hidden" data-stepid="condition">
               <div class="step-body">
-                <h3 class="text-xl font-extrabold text-zinc-900 mb-3">Used or New?</h3>
+                <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900 mb-2">Used or New?</h3>
                 <div class="grid grid-cols-2 gap-2 justify-items-center">
                   <button type="button" class="choice" data-cond="Used">Used</button>
                   <button type="button" class="choice" data-cond="New">New</button>
@@ -161,10 +180,10 @@
               <div class="step-footer"></div>
             </section>
 
-            <!-- 3 Budget -->
-            <section class="step hidden" data-stepid="budget">
+            <!-- 3 Budget (compact) -->
+            <section class="step step--compact hidden" data-stepid="budget">
               <div class="step-body">
-                <h3 class="text-xl font-extrabold text-zinc-900 mb-3">Monthly budget?</h3>
+                <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900 mb-2">Monthly budget?</h3>
                 <div class="grid grid-cols-2 gap-2 justify-items-center">
                   <label class="tile tile--budget cursor-pointer"><input class="sr-only" type="radio" name="budgetRange" value="$250–$375"><span>$250–$375</span></label>
                   <label class="tile tile--budget cursor-pointer"><input class="sr-only" type="radio" name="budgetRange" value="$376–$499"><span>$376–$499</span></label>
@@ -312,7 +331,7 @@
               <div class="step-footer"></div>
             </section>
 
-            <!-- 7 Income (simple/branch) -->
+            <!-- 7 Income -->
             <section class="step hidden" data-stepid="income">
               <div class="step-body">
                 <h3 class="text-xl font-extrabold text-zinc-900 mb-3">Income</h3>
@@ -421,7 +440,6 @@
             <section class="step hidden" data-stepid="consent">
               <div class="step-body">
                 <h3 class="text-xl font-extrabold text-zinc-900 mb-3">Consent & submit</h3>
-                <!-- For Full Application, show checkbox; Credit Inquiry shows inline text -->
                 <div id="consentBox" class="hidden">
                   <label class="flex items-start gap-3 bg-zinc-100 p-3 rounded-lg">
                     <input id="creditConsent" name="creditConsent" type="checkbox" class="mt-1">
@@ -509,11 +527,10 @@
     $('#menuBtn')?.addEventListener('click', ()=> $('#mobileMenu')?.classList.toggle('hidden'));
 
     // State
-    let stepOrder = [];    // array of stepids in order
-    let curIndex = 0;      // index into stepOrder
+    let stepOrder = [];
+    let curIndex = 0;
     const stepsRoot = $('#steps');
 
-    // Initialize step order (base)
     function baseSteps(){
       stepOrder = [
         'vehicle',
@@ -522,21 +539,17 @@
         'apptype',
         'info',
         'address',
-        // (maybe 'prev-address' inserted here after 'address')
         'income',
-        // (maybe 'prev-employment' inserted after 'income' employment branch)
         'consent'
       ];
     }
 
-    // Show step by index
     function showStepByIndex(i){
       curIndex = Math.max(0, Math.min(i, stepOrder.length-1));
       const id = stepOrder[curIndex];
       $$('.step', stepsRoot).forEach(s => s.classList.add('hidden'));
       $(`.step[data-stepid="${id}"]`, stepsRoot)?.classList.remove('hidden');
       updateProgressUI();
-      // keep form header visible, but DO NOT scroll the page
       $('#form-shell')?.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -546,7 +559,6 @@
       $('#progress-cap').textContent = (curIndex === stepOrder.length-1) ? 'Ready to see your options' : 'Let’s get you approved';
     }
 
-    // Insert dynamic step after a given stepid if not already present
     function ensureStepAfter(stepIdToInsert, afterStepId){
       const exists = stepOrder.includes(stepIdToInsert);
       if (!exists){
@@ -556,7 +568,6 @@
         }
       }
     }
-    // Remove dynamic step if present
     function removeStep(stepId){
       const idx = stepOrder.indexOf(stepId);
       if (idx !== -1){
@@ -564,9 +575,8 @@
       }
     }
 
-    // App mode & branching
+    // Mode
     const mode = () => $('#app_type')?.value || '';
-
     function setAppMode(m){
       $('#app_type').value = m || '';
       $$('.choice[data-app]').forEach(b=>{ b.classList.remove('selected'); if(b.dataset.app===m){ b.classList.add('selected'); }});
@@ -574,32 +584,26 @@
       const isCredit = m === 'Credit Inquiry';
       const isFull   = m === 'Full Application';
 
-      // Info always required
+      // Always required (per spec)
       ['firstName','middleName','lastName','phone','email','dobYear','dobDay','dobMonth','maritalStatus']
         .forEach(id => { const n = $('#'+id); if(n) n.required = true; });
 
-      // Address always required + Housing required
       ['currentStreetAddress','currentCity','currentProvince','currentPostalCode','housingPayment']
         .forEach(id => { const n = $('#'+id); if(n) n.required = true; });
 
-      // Address duration visible only for Full
+      // Address duration only Full
       $('#addrDuration').classList.toggle('hidden', !isFull);
-      if (!isFull){
-        // If not full, remove prev-address step if it was added
-        removeStep('prev-address');
-      }
+      if (!isFull){ removeStep('prev-address'); }
 
-      // Income ui swap
+      // Income UI swap
       $('#incomeSimple').classList.toggle('hidden', isFull);
       $('#incomeFull').classList.toggle('hidden', !isFull);
 
       // Consent variant
       $('#consentBox').classList.toggle('hidden', !isFull);
       $('#consentInline').classList.toggle('hidden', isFull);
-      const cb = $('#creditConsent');
-      if (cb) cb.required = isFull;
+      const cb = $('#creditConsent'); if (cb) cb.required = isFull;
 
-      // Rebuild progress to reflect possible removals
       updateProgressUI();
     }
 
@@ -647,7 +651,7 @@
       });
     });
 
-    // Province lists
+    // Provinces
     function populateProvinces(sel){
       const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"];
       prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); });
@@ -674,7 +678,7 @@
     $('#dobMonth').addEventListener('change', updateDays);
     $('#dobYear').addEventListener('input', updateDays);
 
-    // Year/Month dropdowns
+    // Ranges
     function populateRange(sel, start, end, label){
       for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i+' '+label; sel.appendChild(o); }
     }
@@ -698,7 +702,6 @@
       $('#blockSelf').classList.toggle('hidden', !selfEmp);
       $('#blockOther').classList.toggle('hidden', !other);
 
-      // Clear dynamic prev-employment unless employed branch visible
       if (!employed) removeStep('prev-employment');
       updateProgressUI();
     });
@@ -713,11 +716,8 @@
       const m = parseInt($('#timeWithEmployerMonths').value||'0',10);
       const months = (y*12)+m;
       if (y || m){
-        if (months < 24){
-          ensureStepAfter('prev-employment', 'income');
-        } else {
-          removeStep('prev-employment');
-        }
+        if (months < 24){ ensureStepAfter('prev-employment', 'income'); }
+        else { removeStep('prev-employment'); }
         updateProgressUI();
       }
     }
@@ -731,11 +731,8 @@
       const m = parseInt($('#timeAtAddressMonths').value||'0',10);
       const months = (y*12)+m;
       if (y || m){
-        if (months < 24){
-          ensureStepAfter('prev-address', 'address');
-        } else {
-          removeStep('prev-address');
-        }
+        if (months < 24){ ensureStepAfter('prev-address', 'address'); }
+        else { removeStep('prev-address'); }
         updateProgressUI();
       }
     }
@@ -764,7 +761,6 @@
       const target = curIndex + delta;
       if (target < 0) { showStepByIndex(0); return; }
       if (target >= stepOrder.length){
-        // if on final, try submit
         if (delta>0) submitForm();
         return;
       }
@@ -775,7 +771,6 @@
 
     // Submit
     async function submitForm(){
-      // Simple validation: ensure visible required have values
       const curStepId = stepOrder[curIndex];
       const stepEl = $(`.step[data-stepid="${curStepId}"]`);
       const required = $$('[required]', stepEl).filter(n=>!n.closest('.hidden'));
@@ -787,7 +782,6 @@
       });
       if (!ok){ $('#formStatus').textContent = 'Please complete all required fields.'; showStepByIndex(stepOrder.indexOf('consent')); return; }
 
-      // netlify
       try{
         const fd = new FormData($('#appForm'));
         await fetch('/', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:new URLSearchParams(fd).toString() });
