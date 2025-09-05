@@ -22,9 +22,11 @@
   <style>
     :root{
       --blue-600:#2A5D9F; --blue-700:#214B80; --blue-100:#EAF1FB; --blue-grad:#4C7CC0;
-      --shellH: 520px;          /* SMALL, fixed height for the entire form */
-      --progressH: 50px;        /* progress header height */
-      --navH: 48px;             /* back/next row height */
+
+      /* tightened shell + chrome heights */
+      --shellH: 470px;          /* fixed height for the entire form (reduced) */
+      --progressH: 44px;        /* progress header height (reduced) */
+      --navH: 44px;             /* back/next row height (reduced) */
       --contentH: calc(var(--shellH) - var(--progressH) - var(--navH));
 
       --fs-h1: 22px;
@@ -33,11 +35,13 @@
       --fs-label: 12px;
       --fs-cta: 14px;
 
-      --pad-section: 10px;
+      /* tighter vertical rhythm */
+      --pad-section: 6px;       /* was 10px */
       --gap-small: 8px;
-      --gap-regular: 10px;
+      --gap-regular: 8px;       /* was 10px */
 
-      --input-py: 8px;
+      /* shorter inputs */
+      --input-py: 6px;          /* was 8px */
       --input-px: 10px;
       --radius: 10px;
     }
@@ -62,10 +66,10 @@
     .cta-button{ background:var(--blue-600); color:#fff; font-weight:800; padding:.55rem .8rem; border-radius:.6rem; font-size:var(--fs-cta); }
     .cta-button:hover{ background:var(--blue-700); }
 
-    /* Tiles & Choices (smaller) */
+    /* Tiles & Choices */
     .tile,.choice{ border-radius:10px; border:1.5px solid #e5e7eb; background:#fff; transition:.15s; font-weight:800; color:#111827; font-size:13px; }
     .tile{ display:flex; align-items:center; justify-content:center; text-align:center; aspect-ratio:4/3; width:100%; padding:.4rem; }
-    .choice{ padding:.55rem; text-align:center; width:100%; }
+    .choice{ padding:.5rem; text-align:center; width:100%; }
     .tile:hover,.choice:hover{ border-color:var(--blue-600); background:#f5f8ff; }
     .tile.selected,.choice.selected{ border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
 
@@ -85,16 +89,15 @@
     .form-shell{ height:var(--shellH); overflow:hidden; position:relative; }
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; }
 
-    /* Each step is forced to fit inside contentH (no outer resizing) */
+    /* Each step fits inside contentH */
     .step-pane{ min-height:var(--contentH); display:flex; }
     .step-inner{ width:100%; margin:auto; padding-top:var(--pad-section); padding-bottom:var(--pad-section); }
-    /* Keep step titles slightly dropped as requested */
     .step-inner > .h2{ margin-top: 8px; }
 
     /* Tight vertical rhythm */
     .vstack > * + *{ margin-top: var(--gap-regular); }
 
-    /* Inventory cards (8 boxes) */
+    /* Inventory cards */
     .bodytype-card{ overflow:hidden; border-radius:10px; border:1px solid #e5e7eb; background:#fff; transition:transform .15s,box-shadow .15s,border-color .15s; }
     .bodytype-card:hover{ transform:translateY(-1px); border-color:var(--blue-600); box-shadow:0 10px 18px -12px rgba(42,93,159,.28); }
     .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:92px; }
@@ -105,22 +108,15 @@
     .grid-2{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
     .grid-3{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
     @media (max-width:460px){ .grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media (min-width:640px){ .grid-sq{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
 
-    /* >>> Revert desktop scaling for form choice grids (previous behavior): 4 columns on ≥640px */
-    @media (min-width:640px){
-      .grid-sq{ grid-template-columns:repeat(4,minmax(0,1fr)); }
-    }
-
-    /* ABCD badge (slightly smaller than 1–2–3) */
     .abc-badge{
       display:inline-flex; align-items:center; justify-content:center;
       width:20px; height:20px; border-radius:9999px;
       border:2px solid var(--blue-600); color:var(--blue-600); background:#fff;
-      font-weight:800; font-size:11px; line-height:1;
-      flex-shrink:0;
+      font-weight:800; font-size:11px; line-height:1; flex-shrink:0;
     }
 
-    /* Keep anchors visible under nav (desktop) */
     section, header, footer { scroll-margin-top: 70px; }
   </style>
 
@@ -143,7 +139,6 @@
 <body>
   <!-- NAV -->
   <header class="w-full max-w-5xl mx-auto mt-4 px-4">
-    <!-- Card size unchanged; logo size kept as you approved -->
     <nav class="bg-white/90 backdrop-blur card px-4 sm:px-6 py-2.5 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
         <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit" class="h-14 w-auto object-contain rounded-md" onerror="this.style.display='none'"/>
@@ -215,7 +210,7 @@
       </div>
     </section>
 
-    <!-- OPTION B: Application Code section (new) -->
+    <!-- Application Code section -->
     <section id="resume" class="card p-5">
       <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
         <div>
@@ -223,16 +218,7 @@
           <p class="text-[12px] text-zinc-600 mt-1">Enter your code if application is completed.</p>
         </div>
         <form id="code-form" class="flex items-center gap-2 w-full sm:w-auto">
-          <input
-            id="appCodeInput"
-            type="text"
-            inputmode="text"
-            autocomplete="one-time-code"
-            placeholder="ABC123"
-            class="form-input w-full sm:w-40 uppercase"
-            maxlength="16"
-            aria-label="Application code"
-          />
+          <input id="appCodeInput" type="text" inputmode="text" autocomplete="one-time-code" placeholder="ABC123" class="form-input w-full sm:w-40 uppercase" maxlength="16" aria-label="Application code"/>
           <button type="submit" class="cta-button">Resume</button>
         </form>
       </div>
@@ -240,7 +226,7 @@
       <p id="code-error" class="text-[11px] text-red-600 mt-1 hidden">Please enter a valid code (letters and numbers only).</p>
     </section>
 
-    <!-- FORM (SMALL, FIXED HEIGHT) -->
+    <!-- FORM -->
     <section class="card p-0 overflow-hidden" id="lead-form">
       <div class="form-shell" id="form-shell">
         <!-- sticky progress -->
@@ -524,8 +510,6 @@
               </div>
             </section>
 
-            <!-- DYNAMIC INSERTS WILL BE INJECTED AFTER INCOME/ADDRESS -->
-
             <!-- CONSENT & SUBMIT -->
             <section class="form-step step-pane hidden" data-step="99" id="step-consent">
               <div class="step-inner">
@@ -621,17 +605,11 @@
 
     // Steps
     const formEl = $('the-form');
-    let dynamicPrevEmpId = null;
-    let dynamicPrevAddrId = null;
-
     const steps = () => bySelAll('.form-step');
-    const stepIndex = (el) => steps().indexOf(el);
 
     function renumberSteps(){
       let ordered = steps();
-      ordered.forEach((s,i)=>{
-        s.dataset.step = i+1;
-      });
+      ordered.forEach((s,i)=>{ s.dataset.step = i+1; });
       const total = ordered.length;
       const cur = window.__currentStep || 1;
       $('progress-label').textContent = 'Step ' + cur + ' of ' + total;
@@ -717,22 +695,17 @@
       const isCredit = nextMode === 'Credit Inquiry';
       const isFull = nextMode === 'Full Application';
 
-      // YOUR INFO: middle required; DOB always required after selection
       $('middleName').required = true;
       ['dobMonth','dobDay','dobYear'].forEach(id => $(id).required = !!nextMode);
 
-      // Marital visible + required for both Credit & Full
       bySel('#marital-wrap').classList.toggle('hidden', !(isCredit || isFull));
       $('maritalStatus').required = (isCredit || isFull);
 
-      // Income variants
       bySel('#income-simple').classList.toggle('hidden', !!isFull);
       bySel('#income-full').classList.toggle('hidden', !isFull);
 
-      // Address duration only for Full (to trigger prev address step)
       bySel('#addr-duration').classList.toggle('hidden', !isFull);
 
-      // Consent variants
       bySel('#consent-inline').classList.add('hidden');
       bySel('#consent-checkbox').classList.add('hidden');
       if (isCredit) bySel('#consent-inline').classList.remove('hidden');
@@ -765,7 +738,6 @@
         ['otherIncomeAmount','otherIncomeSource'].forEach(id => $(id).required = true);
       }
 
-      // re-evaluate need for Previous Employment slide immediately
       checkPrevEmploymentNeed();
     });
 
@@ -773,8 +745,7 @@
     function ensurePrevEmploymentStep(need){
       const after = $('step-income');
       const existing = after.nextElementSibling && after.nextElementSibling.querySelector?.('#previousEmployer')
-        ? after.nextElementSibling
-        : null;
+        ? after.nextElementSibling : null;
 
       if (need && !existing){
         const sec = document.createElement('section');
@@ -795,32 +766,24 @@
                 </div>
               </div>
             </div>
-          </div>
-        `;
+          </div>`;
         after.insertAdjacentElement('afterend', sec);
         populateDropdown(bySel('#prevTimeWithEmployerYears'), 0, 30, 'Years', 'Year');
         populateDropdown(bySel('#prevTimeWithEmployerMonths'), 0, 11, 'Months', 'Month');
         ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id => $(id).required = true);
 
         const prevIdx = window.__currentStep || 1;
-        renumberSteps();
-        showStep(prevIdx);
-        return;
+        renumberSteps(); showStep(prevIdx); return;
       }
 
       if (!need && existing){
         const prevIdx = window.__currentStep || 1;
         existing.remove();
         ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id => { const n=$(id); if(n) n.required=false; });
-        renumberSteps();
-        const total = steps().length;
-        showStep(Math.min(prevIdx, total));
-        return;
+        renumberSteps(); const total = steps().length; showStep(Math.min(prevIdx, total)); return;
       }
 
-      ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id=>{
-        const n = $(id); if(n) n.required = !!need;
-      });
+      ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id=>{ const n=$(id); if(n) n.required = !!need; });
     }
 
     function checkPrevEmploymentNeed(){
@@ -839,8 +802,7 @@
     function ensurePrevAddressStep(need){
       const after = $('step-address');
       const existing = after.nextElementSibling && after.nextElementSibling.querySelector?.('#prevStreetAddress')
-        ? after.nextElementSibling
-        : null;
+        ? after.nextElementSibling : null;
 
       if (need && !existing){
         const sec = document.createElement('section');
@@ -862,8 +824,7 @@
                 <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="form-select"><option value="">Months</option></select>
               </div>
             </div>
-          </div>
-        `;
+          </div>`;
         after.insertAdjacentElement('afterend', sec);
         populateProvinces(bySel('#prevProvince'));
         populateDropdown(bySel('#prevTimeAtAddressYears'), 0, 30, 'Years', 'Year');
@@ -871,24 +832,17 @@
         ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths'].forEach(id => $(id).required = true);
 
         const prevIdx = window.__currentStep || 1;
-        renumberSteps();
-        showStep(prevIdx);
-        return;
+        renumberSteps(); showStep(prevIdx); return;
       }
 
       if (!need && existing){
         const prevIdx = window.__currentStep || 1;
         existing.remove();
         ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths'].forEach(id=>{ const n=$(id); if(n) n.required=false; });
-        renumberSteps();
-        const total = steps().length;
-        showStep(Math.min(prevIdx, total));
-        return;
+        renumberSteps(); const total = steps().length; showStep(Math.min(prevIdx, total)); return;
       }
 
-      ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths'].forEach(id=>{
-        const n = $(id); if(n) n.required = !!need;
-      });
+      ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths'].forEach(id=>{ const n=$(id); if(n) n.required = !!need; });
     }
 
     function onAddressDurationChange(){
@@ -922,15 +876,29 @@
       return ok;
     }
 
-    // Submit
+    // Submit + generate application code
+    function makeCode(len=6){
+      const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // no 0/O/1/I
+      let out=''; for(let i=0;i<len;i++){ out += chars[Math.floor(Math.random()*chars.length)]; }
+      return out;
+    }
+
     async function submitForm(){
       if (!validateAll()) { $('form-status').textContent = 'Please complete all required fields.'; return; }
       $('submitBtn').disabled = true; $('submitBtn').textContent = 'Submitting…';
+
+      // generate + store code, build thank-you URL with code param
+      const code = makeCode(6);
+      try { sessionStorage.setItem('vic_app_code', code); } catch(_) {}
+      const thankUrl = '/thank-you.html?code=' + encodeURIComponent(code);
+
       const fd = new FormData(formEl);
       try {
         await fetch('/', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:new URLSearchParams(fd).toString() });
-        window.location.href = '/thank-you.html';
+        window.location.href = thankUrl;
       } catch (e) {
+        // network blocked? fall back to normal submit but keep ?code
+        formEl.action = thankUrl;
         formEl.submit();
       }
     }
@@ -948,17 +916,14 @@
       });
     });
 
-    // >>> Application Code (Option B) — minimal behavior; no other code changed
+    // Resume box (Option B)
     const codeForm = $('code-form');
     codeForm?.addEventListener('submit', (e)=>{
       e.preventDefault();
       const raw = $('appCodeInput').value || '';
       const code = raw.toUpperCase().replace(/[^A-Z0-9]/g,'').trim();
       const err = $('code-error');
-      if (!code){
-        err.classList.remove('hidden');
-        return;
-      }
+      if (!code){ err.classList.remove('hidden'); return; }
       err.classList.add('hidden');
       try { sessionStorage.setItem('vic_app_code', code); } catch(_) {}
       const url = new URL(window.location.href);
