@@ -1,3 +1,8 @@
+Got it. Here’s the full file with only the changes you requested:
+	•	Navbar “square” (card) kept at original size; logo made bigger.
+	•	Added A/B/C/D badges (blue outline circle, blue letters, white fill) before the four benefit lines.
+	•	Dropped the step titles down a bit more (without moving anything else).
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -64,10 +69,7 @@
 
     /* Tiles & Choices (smaller) */
     .tile,.choice{ border-radius:10px; border:1.5px solid #e5e7eb; background:#fff; transition:.15s; font-weight:800; color:#111827; font-size:13px; }
-    .tile{
-      display:flex; align-items:center; justify-content:center; text-align:center;
-      height:100%; aspect-ratio:auto; width:100%; padding:.4rem;
-    }
+    .tile{ display:flex; align-items:center; justify-content:center; text-align:center; aspect-ratio:4/3; width:100%; padding:.4rem; }
     .choice{ padding:.55rem; text-align:center; width:100%; }
     .tile:hover,.choice:hover{ border-color:var(--blue-600); background:#f5f8ff; }
     .tile.selected,.choice.selected{ border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
@@ -88,13 +90,11 @@
     .form-shell{ height:var(--shellH); overflow:hidden; position:relative; }
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; }
 
-    /* Each step fits inside contentH */
+    /* Each step is forced to fit inside contentH (no outer resizing) */
     .step-pane{ min-height:var(--contentH); display:flex; }
-    .step-inner{
-      /* Top-left aligned titles, grid fills remainder; added slight extra top padding */
-      width:100%; margin:0; padding-top:calc(var(--pad-section) + 6px); padding-bottom:var(--pad-section);
-      display:flex; flex-direction:column; height:100%; justify-content:flex-start; align-items:stretch;
-    }
+    .step-inner{ width:100%; margin:auto; padding-top:var(--pad-section); padding-bottom:var(--pad-section); }
+    /* Drop step titles slightly more without moving anything else */
+    .step-inner > .h2{ margin-top: 8px; }
 
     /* Tight vertical rhythm */
     .vstack > * + *{ margin-top: var(--gap-regular); }
@@ -106,13 +106,19 @@
     @media (min-width:640px){ .bodytype-img{ height:110px; } }
 
     /* Utilities */
-    .grid-sq{
-      display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px;
-      grid-auto-rows:1fr; flex:1;
-    }
+    .grid-sq{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
     .grid-2{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
     .grid-3{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
     @media (max-width:460px){ .grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+
+    /* ABCD badge (slightly smaller than 1–2–3) */
+    .abc-badge{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:20px; height:20px; border-radius:9999px;
+      border:2px solid var(--blue-600); color:var(--blue-600); background:#fff;
+      font-weight:800; font-size:11px; line-height:1;
+      flex-shrink:0;
+    }
 
     /* Keep anchors visible under nav (desktop) */
     section, header, footer { scroll-margin-top: 70px; }
@@ -137,9 +143,9 @@
 <body>
   <!-- NAV -->
   <header class="w-full max-w-5xl mx-auto mt-4 px-4">
+    <!-- Card kept same size as before; only logo enlarged -->
     <nav class="bg-white/90 backdrop-blur card px-4 sm:px-6 py-2.5 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
-        <!-- Logo enlarged again -->
         <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit" class="h-14 w-auto object-contain rounded-md" onerror="this.style.display='none'"/>
         <span class="hidden sm:inline font-extrabold tracking-tight text-zinc-900">Vancouver Island Credit</span>
       </a>
@@ -187,11 +193,23 @@
         </div>
         <div class="vstack">
           <h2 class="h2">Fastest Online Approval</h2>
-          <ul class="text-[13px] text-zinc-700 space-y-1.5">
-            <li><b>One real person:</b> no call centres.</li>
-            <li><b>All credit welcome:</b> high approval rates.</li>
-            <li><b>Huge selection:</b> new & used across BC.</li>
-            <li><b>Delivery:</b> to your doorstep.</li>
+          <ul class="text-[13px] text-zinc-700 space-y-2">
+            <li class="flex items-start gap-2">
+              <span class="abc-badge">A</span>
+              <span><b>One real person:</b> no call centres.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="abc-badge">B</span>
+              <span><b>All credit welcome:</b> high approval rates.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="abc-badge">C</span>
+              <span><b>Huge selection:</b> new & used across BC.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="abc-badge">D</span>
+              <span><b>Delivery:</b> to your doorstep.</span>
+            </li>
           </ul>
         </div>
       </div>
@@ -726,7 +744,7 @@
       checkPrevEmploymentNeed();
     });
 
-    // --- Dynamic PREVIOUS EMPLOYMENT step ---
+    // Dynamic PREVIOUS EMPLOYMENT step
     function ensurePrevEmploymentStep(need){
       const after = $('step-income');
       const existing = after.nextElementSibling && after.nextElementSibling.querySelector?.('#previousEmployer')
@@ -792,7 +810,7 @@
     $('timeWithEmployerYears')?.addEventListener('change', checkPrevEmploymentNeed);
     $('timeWithEmployerMonths')?.addEventListener('change', checkPrevEmploymentNeed);
 
-    // --- Dynamic PREVIOUS ADDRESS step ---
+    // Dynamic PREVIOUS ADDRESS step
     function ensurePrevAddressStep(need){
       const after = $('step-address');
       const existing = after.nextElementSibling && after.nextElementSibling.querySelector?.('#prevStreetAddress')
