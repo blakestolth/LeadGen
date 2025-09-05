@@ -8,7 +8,7 @@
   <meta name="description" content="Fast, confidential auto approvals across Vancouver Island & BC. New & used options. Delivery to your door. Work 1 on 1 with Blake Stolth — no call centres." />
   <link rel="canonical" href="https://vancouverislandcredit.ca/"/>
   <meta property="og:title" content="Vancouver Island Credit — Auto Approvals Online"/>
-  <meta property="og:description" content="Get approved online. New & used inventory across Vancouver Island & BC. Delivery to your door. Work directly with Blake."/>
+  <meta property="og:description" content="Get approved online. New & used inventory across BC. Delivery to your door. Work directly with Blake."/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://vancouverislandcredit.ca/"/>
   <meta property="og:image" content="https://vancouverislandcredit.ca/0041B99D-D49A-4024-AA7A-2786A4605342.jpg"/>
@@ -66,7 +66,7 @@
     .tile,.choice{ border-radius:10px; border:1.5px solid #e5e7eb; background:#fff; transition:.15s; font-weight:800; color:#111827; font-size:13px; }
     .tile{
       display:flex; align-items:center; justify-content:center; text-align:center;
-      /* CHANGED: let tiles fill the row height like mobile */
+      /* Fill the row height on both mobile & desktop */
       height:100%; aspect-ratio:auto; width:100%; padding:.4rem;
     }
     .choice{ padding:.55rem; text-align:center; width:100%; }
@@ -92,9 +92,9 @@
     /* Each step fits inside contentH */
     .step-pane{ min-height:var(--contentH); display:flex; }
     .step-inner{
-      width:100%; margin:auto; padding-top:var(--pad-section); padding-bottom:var(--pad-section);
-      /* CHANGED: make inner a column so the grid can expand */
-      display:flex; flex-direction:column;
+      /* Top-left aligned titles, grid fills remainder */
+      width:100%; margin:0; padding-top:var(--pad-section); padding-bottom:var(--pad-section);
+      display:flex; flex-direction:column; height:100%; justify-content:flex-start; align-items:stretch;
     }
 
     /* Tight vertical rhythm */
@@ -109,7 +109,7 @@
     /* Utilities */
     .grid-sq{
       display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px;
-      /* CHANGED: two equal-height rows that fill remaining space, like mobile */
+      /* Two equal-height rows that fill remaining space (both mobile & desktop) */
       grid-auto-rows:1fr; flex:1;
     }
     .grid-2{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
@@ -172,9 +172,19 @@
         <div class="vstack">
           <h1 class="h1">Get driving in 3 easy steps</h1>
           <ol class="text-[13px] text-zinc-700 space-y-2">
-            <li class="flex items-start gap-2"><span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-100)] text-[var(--blue-600)] font-extrabold text-[12px]">1</span><span><b>Enter your info</b> — 2–3 minutes, no pressure.</span></li>
-            <li class="flex items-start gap-2"><span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-100)] text-[var(--blue-600)] font-extrabold text-[12px]">2</span><span><b>See options you qualify for</b> across BC.</span></li>
-            <li class="flex items-start gap-2"><span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-100)] text-[var(--blue-600)] font-extrabold text-[12px]">3</span><span><b>We deliver</b> to your door — fast & stress-free.</span></li>
+            <li class="flex items-start gap-2">
+              <!-- Theme blue circle, white number -->
+              <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[12px]">1</span>
+              <span><b>Enter your info</b> — 2–3 minutes, no pressure.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[12px]">2</span>
+              <span><b>See options you qualify for</b> across BC.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[12px]">3</span>
+              <span><b>We deliver</b> to your door — fast & stress-free.</span>
+            </li>
           </ol>
         </div>
         <div class="vstack">
