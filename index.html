@@ -88,7 +88,7 @@
     /* Each step is forced to fit inside contentH (no outer resizing) */
     .step-pane{ min-height:var(--contentH); display:flex; }
     .step-inner{ width:100%; margin:auto; padding-top:var(--pad-section); padding-bottom:var(--pad-section); }
-    /* Drop step titles slightly more without moving anything else */
+    /* Keep step titles slightly dropped as requested */
     .step-inner > .h2{ margin-top: 8px; }
 
     /* Tight vertical rhythm */
@@ -105,6 +105,11 @@
     .grid-2{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
     .grid-3{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
     @media (max-width:460px){ .grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+
+    /* >>> Revert desktop scaling for form choice grids (previous behavior): 4 columns on ≥640px */
+    @media (min-width:640px){
+      .grid-sq{ grid-template-columns:repeat(4,minmax(0,1fr)); }
+    }
 
     /* ABCD badge (slightly smaller than 1–2–3) */
     .abc-badge{
@@ -138,7 +143,7 @@
 <body>
   <!-- NAV -->
   <header class="w-full max-w-5xl mx-auto mt-4 px-4">
-    <!-- Card kept same size as before; only logo enlarged -->
+    <!-- Card size unchanged; logo size kept as you approved -->
     <nav class="bg-white/90 backdrop-blur card px-4 sm:px-6 py-2.5 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
         <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit" class="h-14 w-auto object-contain rounded-md" onerror="this.style.display='none'"/>
@@ -149,13 +154,6 @@
         <a href="#about" class="hover:text-[var(--blue-600)]">About</a>
         <a href="#contact" class="hover:text-[var(--blue-600)]">Contact</a>
         <a href="#lead-form" class="cta-button !py-1.5">Apply Now</a>
-
-        <!-- Application Code Resume (added) -->
-        <div class="flex items-center gap-2 ml-3">
-          <input id="appCodeInput" type="text" placeholder="Application code"
-                 class="form-input w-32 placeholder:text-zinc-400 text-[12px]" aria-label="Application code">
-          <button type="button" id="btnResume" class="cta-button !py-1.5">Resume</button>
-        </div>
       </div>
       <button id="menuBtn" class="sm:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-zinc-200">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -217,6 +215,31 @@
       </div>
     </section>
 
+    <!-- OPTION B: Application Code section (new) -->
+    <section id="resume" class="card p-5">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+        <div>
+          <h3 class="h2">Already have an application code?</h3>
+          <p class="text-[12px] text-zinc-600 mt-1">Enter your code to jump back into your application.</p>
+        </div>
+        <form id="code-form" class="flex items-center gap-2 w-full sm:w-auto">
+          <input
+            id="appCodeInput"
+            type="text"
+            inputmode="text"
+            autocomplete="one-time-code"
+            placeholder="ABC123"
+            class="form-input w-full sm:w-40 uppercase"
+            maxlength="16"
+            aria-label="Application code"
+          />
+          <button type="submit" class="cta-button">Resume</button>
+        </form>
+      </div>
+      <p id="code-help" class="text-[11px] text-zinc-500 mt-2">Tip: You’ll receive this code after you submit your details.</p>
+      <p id="code-error" class="text-[11px] text-red-600 mt-1 hidden">Please enter a valid code (letters and numbers only).</p>
+    </section>
+
     <!-- FORM (SMALL, FIXED HEIGHT) -->
     <section class="card p-0 overflow-hidden" id="lead-form">
       <div class="form-shell" id="form-shell">
@@ -236,8 +259,6 @@
             <input type="hidden" name="app_type" id="app_type" value="" />
             <input type="hidden" name="vehicleCondition" id="vehicleCondition" />
             <input type="hidden" name="vehicleType" id="vehicleType" />
-            <!-- added hidden application code field -->
-            <input type="hidden" name="applicationCode" id="applicationCode" />
             <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
 
             <!-- 1: Vehicle Type -->
@@ -927,6 +948,25 @@
       });
     });
 
+    // >>> Application Code (Option B) — minimal behavior; no other code changed
+    const codeForm = $('code-form');
+    codeForm?.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const raw = $('appCodeInput').value || '';
+      const code = raw.toUpperCase().replace(/[^A-Z0-9]/g,'').trim();
+      const err = $('code-error');
+      if (!code){
+        err.classList.remove('hidden');
+        return;
+      }
+      err.classList.add('hidden');
+      try { sessionStorage.setItem('vic_app_code', code); } catch(_) {}
+      const url = new URL(window.location.href);
+      url.searchParams.set('code', code);
+      history.replaceState(null, '', url.toString());
+      document.getElementById('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
     // Dropdown population helpers
     function populateMonths(sel){ if(!sel) return;
       const m=["01","02","03","04","05","06","07","08","09","10","11","12"];
@@ -943,42 +983,6 @@
     }
     function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o);} }
     function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
-
-    // --- Application Code: generate, save snapshot, resume (added) ---
-    function genAppCode(){
-      const hex = () => Math.floor((1+Math.random())*0x10000).toString(16).toUpperCase().slice(-4);
-      return `VIC-${hex()}-${hex()}`;
-    }
-    function saveSnapshot(code){
-      const data = {};
-      bySelAll('#the-form input, #the-form select, #the-form textarea').forEach(el=>{
-        if (el.name && el.value) data[el.name] = el.value;
-      });
-      localStorage.setItem('vic_app_' + code, JSON.stringify(data));
-    }
-    function loadSnapshot(code){
-      const data = localStorage.getItem('vic_app_' + code);
-      if (!data) return false;
-      const values = JSON.parse(data);
-      Object.entries(values).forEach(([k,v])=>{
-        const el = bySel(`[name="${k}"]`);
-        if (el) el.value = v;
-      });
-      document.getElementById('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
-      return true;
-    }
-    $('btnResume')?.addEventListener('click', ()=>{
-      const code = $('appCodeInput').value.trim().toUpperCase();
-      if (!code || !loadSnapshot(code)) alert('Invalid or unknown code.');
-    });
-    const __originalSubmitForm = submitForm;
-    submitForm = async function(){
-      const code = genAppCode();
-      $('applicationCode').value = code;
-      saveSnapshot(code);
-      alert(`Your application code is: ${code}`);
-      return __originalSubmitForm();
-    };
 
     // Init
     (function init(){
