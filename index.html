@@ -88,7 +88,7 @@
     /* Each step is forced to fit inside contentH (no outer resizing) */
     .step-pane{ min-height:var(--contentH); display:flex; }
     .step-inner{ width:100%; margin:auto; padding-top:var(--pad-section); padding-bottom:var(--pad-section); }
-    /* Drop step titles slightly more without moving anything else */
+    /* Keep step titles slightly dropped as requested */
     .step-inner > .h2{ margin-top: 8px; }
 
     /* Tight vertical rhythm */
@@ -105,6 +105,11 @@
     .grid-2{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
     .grid-3{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
     @media (max-width:460px){ .grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+
+    /* >>> Revert desktop scaling for form choice grids (previous behavior): 4 columns on ≥640px */
+    @media (min-width:640px){
+      .grid-sq{ grid-template-columns:repeat(4,minmax(0,1fr)); }
+    }
 
     /* ABCD badge (slightly smaller than 1–2–3) */
     .abc-badge{
@@ -138,7 +143,7 @@
 <body>
   <!-- NAV -->
   <header class="w-full max-w-5xl mx-auto mt-4 px-4">
-    <!-- Card kept same size as before; only logo enlarged -->
+    <!-- Card size unchanged; logo size kept as you approved -->
     <nav class="bg-white/90 backdrop-blur card px-4 sm:px-6 py-2.5 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
         <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit" class="h-14 w-auto object-contain rounded-md" onerror="this.style.display='none'"/>
