@@ -8,7 +8,7 @@
   <meta name="description" content="Fast, confidential auto approvals across Vancouver Island & BC. New & used options. Delivery to your door. Work 1 on 1 with Blake Stolth — no call centres." />
   <link rel="canonical" href="https://vancouverislandcredit.ca/"/>
   <meta property="og:title" content="Vancouver Island Credit — Auto Approvals Online"/>
-  <meta property="og:description" content="Get approved online. New & used inventory across BC. Delivery to your door. Work directly with Blake."/>
+  <meta property="og:description" content="Get approved online. New & used inventory across Vancouver Island & BC. Delivery to your door. Work directly with Blake."/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://vancouverislandcredit.ca/"/>
   <meta property="og:image" content="https://vancouverislandcredit.ca/0041B99D-D49A-4024-AA7A-2786A4605342.jpg"/>
@@ -66,7 +66,6 @@
     .tile,.choice{ border-radius:10px; border:1.5px solid #e5e7eb; background:#fff; transition:.15s; font-weight:800; color:#111827; font-size:13px; }
     .tile{
       display:flex; align-items:center; justify-content:center; text-align:center;
-      /* Fill the row height on both mobile & desktop */
       height:100%; aspect-ratio:auto; width:100%; padding:.4rem;
     }
     .choice{ padding:.55rem; text-align:center; width:100%; }
@@ -92,8 +91,8 @@
     /* Each step fits inside contentH */
     .step-pane{ min-height:var(--contentH); display:flex; }
     .step-inner{
-      /* Top-left aligned titles, grid fills remainder */
-      width:100%; margin:0; padding-top:var(--pad-section); padding-bottom:var(--pad-section);
+      /* Top-left aligned titles, grid fills remainder; added slight extra top padding */
+      width:100%; margin:0; padding-top:calc(var(--pad-section) + 6px); padding-bottom:var(--pad-section);
       display:flex; flex-direction:column; height:100%; justify-content:flex-start; align-items:stretch;
     }
 
@@ -109,7 +108,6 @@
     /* Utilities */
     .grid-sq{
       display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px;
-      /* Two equal-height rows that fill remaining space (both mobile & desktop) */
       grid-auto-rows:1fr; flex:1;
     }
     .grid-2{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
@@ -141,7 +139,8 @@
   <header class="w-full max-w-5xl mx-auto mt-4 px-4">
     <nav class="bg-white/90 backdrop-blur card px-4 sm:px-6 py-2.5 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
-        <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit" class="h-9 w-auto object-contain rounded-md" onerror="this.style.display='none'"/>
+        <!-- Logo enlarged again -->
+        <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit" class="h-14 w-auto object-contain rounded-md" onerror="this.style.display='none'"/>
         <span class="hidden sm:inline font-extrabold tracking-tight text-zinc-900">Vancouver Island Credit</span>
       </a>
       <div class="hidden sm:flex items-center gap-6 text-sm font-semibold text-zinc-700">
@@ -173,7 +172,6 @@
           <h1 class="h1">Get driving in 3 easy steps</h1>
           <ol class="text-[13px] text-zinc-700 space-y-2">
             <li class="flex items-start gap-2">
-              <!-- Theme blue circle, white number -->
               <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[12px]">1</span>
               <span><b>Enter your info</b> — 2–3 minutes, no pressure.</span>
             </li>
