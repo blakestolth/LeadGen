@@ -29,10 +29,10 @@
       --fs-label: 12px;
       --fs-cta: 14px;
 
-      --pad-y: 10px;          /* single vertical rhythm */
+      --pad-y: 10px;
       --gap-regular: 8px;
 
-      --input-py: 6px;        /* tighter inputs */
+      --input-py: 6px;
       --input-px: 10px;
       --radius: 10px;
     }
@@ -77,7 +77,6 @@
     .step-inner{ width:100%; padding-top:var(--pad-y); padding-bottom:var(--pad-y); }
     .step-inner > .h2{ margin-top:0; margin-bottom:var(--pad-y); }
 
-    /* Scrollable viewport inside the fixed shell */
     .step-viewport{ overflow:auto; }
 
     .vstack > * + *{ margin-top: var(--gap-regular); }
@@ -117,28 +116,35 @@
     /* Tighter inputs inside the form only */
     #lead-form .form-input, #lead-form .form-select, #lead-form .form-textarea{ padding:5px 10px; }
 
-    /* Form footer (Next/Back): equal vertical pad */
+    /* Form footer (Next/Back) */
     .form-footer{ padding: var(--pad-y) 1rem; }
 
-    /* Make the entire form content a bit narrower without touching the sidebar */
+    /* Narrower internal content */
     #lead-form .step-viewport,
     #lead-form .form-footer { max-width: 760px; margin-left:auto; margin-right:auto; }
 
-    /* Larger, square tiles for Step 1 & 3 to look good in the narrower width */
+    /* Square tiles (Steps 1, 2, 3) */
     .form-step[data-step="1"] .tile,
+    .form-step[data-step="2"] .tile,
     .form-step[data-step="3"] .tile{ aspect-ratio: 1 / 1; font-size: 15px; }
+
     .form-step[data-step="1"] .grid-sq,
     .form-step[data-step="3"] .grid-sq{ gap:12px; }
+
+    .form-step[data-step="2"] .grid-3{ gap:12px; max-width:560px; margin:0 auto; } /* center the 3 squares */
+
     @media (min-width:640px){
       .form-step[data-step="1"] .grid-sq,
       .form-step[data-step="3"] .grid-sq{ grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .form-step[data-step="2"] .grid-3{ grid-template-columns: repeat(3, minmax(0,1fr)); }
     }
     @media (max-width:639px){
       .form-step[data-step="1"] .grid-sq,
       .form-step[data-step="3"] .grid-sq{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .form-step[data-step="2"] .grid-3{ grid-template-columns: repeat(2, minmax(0,1fr)); }
     }
 
-    /* ---- Powered by / Sidebar visuals ---- */
+    /* Sidebar visuals */
     .powered-card{
       background: linear-gradient(180deg, #ffffff 0%, #f6f8fc 100%);
       border:1px solid #e5e7eb; border-radius:12px;
@@ -239,10 +245,10 @@
 
     <!-- FORM + SIDEBAR -->
     <section class="grid md:grid-cols-4 gap-4">
-      <!-- FORM (fixed to Step 5 height) -->
+      <!-- FORM -->
       <div class="md:col-span-3 card p-0 overflow-hidden" id="lead-form">
         <div class="form-shell" id="form-shell">
-          <!-- sticky progress -->
+          <!-- progress -->
           <div class="sticky px-4 py-2 border-b">
             <div class="flex items-center justify-between">
               <div id="progress-label" class="text-[11px] font-semibold text-zinc-700">Step 1</div>
@@ -251,7 +257,7 @@
             <div class="track mt-2"><div id="progress-fill" class="fill"></div></div>
           </div>
 
-          <!-- STEP VIEWPORT (fixed height set from JS; scrolls internally) -->
+          <!-- STEP VIEWPORT -->
           <div id="step-viewport" class="step-viewport px-4">
             <form id="the-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" novalidate>
               <input type="hidden" name="form-name" value="lead-form"/>
@@ -273,14 +279,14 @@
                 </div>
               </section>
 
-              <!-- 2: Condition -->
+              <!-- 2: Condition: three square tiles like Step 1 -->
               <section class="form-step hidden" data-step="2">
                 <div class="step-inner">
                   <h3 class="h2">Used or new?</h3>
                   <div class="grid-3 mt-2">
-                    <button type="button" class="choice" data-cond="Used">Used</button>
-                    <button type="button" class="choice" data-cond="New">New</button>
-                    <button type="button" class="choice" data-cond="Both">Open to both</button>
+                    <button type="button" class="tile" data-cond="Used">Used</button>
+                    <button type="button" class="tile" data-cond="New">New</button>
+                    <button type="button" class="tile" data-cond="Both">Open to both</button>
                   </div>
                 </div>
               </section>
@@ -321,7 +327,7 @@
                     </div>
                   </div>
 
-                  <!-- Trade-in details ONE line -->
+                  <!-- Trade-in details one line -->
                   <div id="tradeInDetails" class="hidden mt-2">
                     <div class="grid-trade5">
                       <input type="number" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" min="1950" max="2099"/>
@@ -334,7 +340,7 @@
                 </div>
               </section>
 
-              <!-- 5: YOUR INFORMATION -->
+              <!-- 5: Your information -->
               <section class="form-step hidden" data-step="5" id="step-yourinfo">
                 <div class="step-inner">
                   <h3 class="h2">Your information</h3>
@@ -390,7 +396,7 @@
                 </div>
               </section>
 
-              <!-- 6: Income (two lines) -->
+              <!-- 6: Income -->
               <section class="form-step hidden" data-step="6" id="step-income">
                 <div class="step-inner">
                   <h3 class="h2">Income</h3>
@@ -433,7 +439,7 @@
                     </div>
                   </div>
 
-                  <!-- Self-Employed alt -->
+                  <!-- Self-Employed -->
                   <div id="full-self" class="hidden grid grid-cols-2 gap-2 mt-1">
                     <div>
                       <label for="businessName" class="label mb-1 block">Business <span class="text-red-500">*</span></label>
@@ -445,7 +451,7 @@
                     </div>
                   </div>
 
-                  <!-- Other income alt -->
+                  <!-- Other income -->
                   <div id="full-other" class="hidden grid grid-cols-2 gap-2 mt-1">
                     <div>
                       <label for="otherIncomeAmount" class="label mb-1 block">Monthly (pre-tax) <span class="text-red-500">*</span></label>
@@ -518,7 +524,7 @@
             </form>
           </div>
 
-          <!-- FORM FOOTER (Next / Back) -->
+          <!-- FOOTER (Next / Back) -->
           <div class="form-footer flex items-center justify-between">
             <button type="button" id="btnBack" class="text-[12px] font-semibold text-zinc-600 hover:text-zinc-900 px-2 py-1 disabled:opacity-30">Back</button>
             <button type="button" id="btnNext" class="cta-button">Next</button>
@@ -526,12 +532,12 @@
         </div>
       </div>
 
-      <!-- SIDEBAR (matches form height): Powered by + bottom-aligned Resume -->
+      <!-- SIDEBAR -->
       <aside class="md:col-span-1 flex flex-col" id="sidebar">
         <div class="powered-card flex-1 flex items-center justify-center p-4">
           <div class="text-center">
             <div class="text-[11px] uppercase tracking-wide text-zinc-500 font-semibold">Powered by</div>
-            <img class="equifax-logo mx-auto mt-2" src="154-1540588_equifax-uk-logo-hd-png-download.png" alt="Equifax"/>
+            <img class="equifax-logo mx-auto mt-2" src="Equifax.png" alt="Equifax"/>
           </div>
         </div>
 
@@ -562,10 +568,12 @@
     <!-- INVENTORY -->
     <section id="inventory" class="card p-5 mt-6">
       <div class="flex items-center justify-between mb-2">
-        <h3 class="h2">Browse by Vehicle Type</h3>
+        <h3 class="h2">Browse by Vehicle Type <span class="text-zinc-400 font-bold">(0)</span></h3>
         <a href="#lead-form" class="text-[12px] font-semibold text-[var(--blue-600)] hover:underline js-view-inventory">View all</a>
       </div>
-      <p class="text-[12px] text-zinc-600 mb-3">Pick a category to see matching options after a quick approval.</p>
+      <p class="text-[12px] text-zinc-600 mb-3">
+        Fill out the quick form above to see your personalized options.
+      </p>
 
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <a href="#lead-form" class="bodytype-card js-view-inventory">
@@ -999,7 +1007,6 @@
 
       // Calibrate and sync heights after layout
       window.requestAnimationFrame(()=> setTimeout(calibrateShellHeight, 0));
-      // Re-sync on resize
       window.addEventListener('resize', ()=> { calibrateShellHeight(); });
     })();
   </script>
