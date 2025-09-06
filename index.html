@@ -73,7 +73,6 @@
     .form-shell{ position:relative; height:auto; overflow:hidden; }
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; }
 
-    /* Step panes (hug content vertically) */
     .step-inner{ width:100%; padding-top:var(--pad-y); padding-bottom:var(--pad-y); }
     .step-inner > .h2{ margin-top:0; margin-bottom:var(--pad-y); }
 
@@ -152,23 +151,38 @@
     }
     .equifax-logo{ max-width:100%; max-height:110px; height:auto; object-fit:contain; }
 
-    /* --- Faux-loading shimmer + count pulse --- */
+    /* --- Subtle faux-loading shimmer + count pulse --- */
     .bodytype-card.loading .bodytype-img{ position:relative; overflow:hidden; }
     .bodytype-card.loading .bodytype-img::after{
       content:"";
       position:absolute; inset:0;
-      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(240,243,248,.85) 45%, rgba(255,255,255,0) 100%);
+      background: linear-gradient(90deg,
+        rgba(255,255,255,0) 0%,
+        rgba(240,243,248,.55) 45%,
+        rgba(255,255,255,0) 100%);
       transform: translateX(-100%);
-      animation: vicShimmer 1.2s ease-in-out infinite;
+      animation: vicShimmer 0.9s ease-in-out 1; /* quick, single pass */
     }
     @keyframes vicShimmer { to { transform: translateX(100%); } }
 
-    .inv-badge{ transition: opacity .15s ease, transform .15s ease; }
-    .inv-badge.updating{ animation: invPulse .9s ease-in-out; }
+    .inv-badge{ transition: opacity .15s ease, transform .15s ease; opacity:.65; }
+    .inv-badge.updating{ animation: invPulse .7s ease-in-out 1; }
     @keyframes invPulse {
       0%{ opacity:.55; transform:scale(1); }
-      50%{ opacity:1; transform:scale(1.08); }
-      100%{ opacity:.55; transform:scale(1); }
+      50%{ opacity:.85; transform:scale(1.02); }
+      100%{ opacity:.65; transform:scale(1); }
+    }
+
+    /* Mobile-specific sizing for Equifax block (about half height) */
+    @media (max-width: 767px){
+      .powered-card{ padding: 10px; }
+      .equifax-logo{ max-height:56px; } /* ~half of 110px */
+    }
+
+    /* Respect users who prefer reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .bodytype-card.loading .bodytype-img::after,
+      .inv-badge.updating{ animation: none !important; }
     }
   </style>
 
@@ -691,21 +705,21 @@
     $('btnNext').addEventListener('click', ()=> next(1));
     $('btnBack').addEventListener('click', ()=> next(-1));
 
-    // --- Faux "refresh" that never changes the (0) counts — just visual feedback
+    // --- Subtle fake "refresh" that never changes the (0) counts — just visual feedback
     function fakeRefreshCounts(){
       const badgeAll = bySel('#inv-total');
       const badges = [ ...bySelAll('.inv-badge') ];
       const cards = bySelAll('.bodytype-card');
 
-      if (badgeAll) badgeAll.classList.add('updating', 'animate-pulse');
+      if (badgeAll) badgeAll.classList.add('updating');
       badges.forEach(b => b.classList.add('updating'));
       cards.forEach(c => c.classList.add('loading'));
 
       setTimeout(()=>{
-        if (badgeAll) badgeAll.classList.remove('updating','animate-pulse');
+        if (badgeAll) badgeAll.classList.remove('updating');
         badges.forEach(b => b.classList.remove('updating'));
         cards.forEach(c => c.classList.remove('loading'));
-      }, 1200);
+      }, 700);
     }
 
     // Selections
@@ -713,14 +727,14 @@
       $('vehicleType').value = b.dataset.type;
       bySelAll('[data-type]').forEach(x=>x.classList.remove('selected'));
       b.classList.add('selected');
-      fakeRefreshCounts();               // visual "refresh"
+      fakeRefreshCounts();
       next(1);
     }));
     bySelAll('[data-cond]').forEach(b=> b.addEventListener('click', ()=>{
       $('vehicleCondition').value = b.dataset.cond;
       bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected'));
       b.classList.add('selected');
-      fakeRefreshCounts();               // visual "refresh"
+      fakeRefreshCounts();
       next(1);
     }));
     bySelAll('[name="budgetRange"]').forEach(r=>{
@@ -960,7 +974,7 @@
     bySelAll('.js-view-inventory').forEach(el=>{
       el.addEventListener('click', (e)=>{
         e.preventDefault();
-        fakeRefreshCounts(); // visual cue
+        fakeRefreshCounts();
         document.getElementById('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
       });
     });
@@ -997,15 +1011,19 @@
     function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o);} }
     function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
 
-    // Sidebar height sync to form shell height
+    // Sidebar height sync to form shell height (desktop only)
     function syncSidebarHeight(){
       const shell = $('form-shell');
       const sidebar = $('sidebar');
       if (!shell || !sidebar) return;
-      sidebar.style.height = shell.offsetHeight + 'px';
+      if (window.matchMedia('(min-width: 768px)').matches){
+        sidebar.style.height = shell.offsetHeight + 'px';
+      } else {
+        sidebar.style.height = 'auto';
+      }
     }
 
-    // Calibrate fixed height to Step 5 ("Your information") once
+    // Calibrate fixed height to Step 5 and sync heights
     function calibrateShellHeight(){
       const shell = $('form-shell');
       const header = shell.querySelector('.sticky');
