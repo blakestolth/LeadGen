@@ -23,8 +23,8 @@
     :root{
       --blue-600:#2A5D9F; --blue-700:#214B80; --blue-100:#EAF1FB; --blue-grad:#4C7CC0;
 
-      /* Reduced overall shell height + tighter steps */
-      --shellH: 480px;          /* reduced from 520px */
+      /* base sizes (sidebar unaffected); form gets scoped overrides below */
+      --shellH: 480px;
       --progressH: 50px;
       --navH: 46px;
       --contentH: calc(var(--shellH) - var(--progressH) - var(--navH));
@@ -35,11 +35,11 @@
       --fs-label: 12px;
       --fs-cta: 14px;
 
-      --pad-section: 8px;       /* tighter padding */
+      --pad-section: 8px;
       --gap-small: 6px;
       --gap-regular: 8px;
 
-      --input-py: 6px;          /* reduced input height */
+      --input-py: 6px;
       --input-px: 10px;
       --radius: 10px;
     }
@@ -76,7 +76,6 @@
     .seg-btn{ padding:6px 8px; border-radius:6px; font-weight:600; color:#374151; background:transparent; border:2px solid transparent; font-size:12px; }
     .seg-btn[aria-pressed="true"]{ background:#e0ecff; color:#214B80; border-color:#bfdbfe; }
 
-    /* Form shell */
     .form-shell{ height:var(--shellH); overflow:hidden; position:relative; }
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; }
 
@@ -97,27 +96,32 @@
     @media (max-width:460px){ .grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
     @media (min-width:640px){ .grid-sq{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
 
-    /* Field sizing grids (based on real-world lengths) */
-    .grid-name3{ display:grid; gap:10px; grid-template-columns: 1.8fr 2.4fr 1.8fr; } /* First | Middle Name(s) (wider) | Last */
+    /* Smarter sizing grids */
+    .grid-name3{ display:grid; gap:10px; grid-template-columns: 1.8fr 2.4fr 1.8fr; } /* First | Middle Name(s) | Last */
     .grid-trade5{ display:grid; gap:10px; grid-template-columns: .9fr 1.6fr 1.6fr 1.1fr 1.6fr; } /* Year | Make | Model | KM | Owed */
-    .grid-income5{ display:grid; gap:10px; grid-template-columns: 1.3fr 1.8fr 1.4fr 1.1fr 1.4fr; } /* Source | Employer | Position | Monthly | Tenure */
     .grid-addr5{ display:grid; gap:10px; grid-template-columns: 3.2fr .8fr 1.6fr .8fr 1.0fr; } /* Street | Unit | City | Prov | Postal */
     .grid-housing3{ display:grid; gap:10px; grid-template-columns: 1.2fr 1fr 1.2fr; } /* Payment | Rent/Own | Tenure */
 
-    /* Tenure sub-grids */
+    /* NEW income layout (two lines) */
+    .grid-income3{ display:grid; gap:8px; grid-template-columns: 1.2fr 1.8fr 1.5fr; } /* Source | Employer | Position */
+    .grid-income2{ display:grid; gap:8px; grid-template-columns: 1.1fr 1.4fr; } /* Monthly | Tenure */
+
     .tenure-2{ display:grid; gap:8px; grid-template-columns: 1fr 1fr; }
 
-    /* ABCD badge */
     .abc-badge{
       display:inline-flex; align-items:center; justify-content:center;
       width:20px; height:20px; border-radius:9999px;
-      border:2px solid var(--blue-600); color:var(--blue-600); background:#fff;
+      border:2px solid var(--blue-600); color:#2A5D9F; background:#fff;
       font-weight:800; font-size:11px; line-height:1;
       flex-shrink:0;
     }
 
-    /* Keep anchors visible under nav */
     section, header, footer { scroll-margin-top: 70px; }
+
+    /* TIGHTENING THE FORM ONLY (sidebar unaffected) */
+    #lead-form .step-inner{ padding-top:4px; padding-bottom:4px; }
+    #lead-form .form-input, #lead-form .form-select, #lead-form .form-textarea{ padding:5px 10px; }
+    #lead-form .h2{ margin-top:4px; }
   </style>
 
   <script type="application/ld+json">
@@ -212,9 +216,10 @@
 
     <!-- FORM + APPLICATION CODE SIDEBAR (desktop 3/4 + 1/4) -->
     <section class="grid md:grid-cols-4 gap-4">
-      <!-- FORM (SMALL, FIXED HEIGHT) -->
+      <!-- FORM (tightened only inside this card) -->
       <div class="md:col-span-3 card p-0 overflow-hidden" id="lead-form">
-        <div class="form-shell" id="form-shell">
+        <!-- local var overrides to shrink ONLY the form shell -->
+        <div class="form-shell" id="form-shell" style="--shellH: 450px; --progressH: 48px; --navH: 44px;">
           <!-- sticky progress -->
           <div class="sticky px-4 py-2 border-b">
             <div class="flex items-center justify-between">
@@ -261,12 +266,12 @@
               <section class="form-step step-pane hidden" data-step="3">
                 <div class="step-inner">
                   <h3 class="h2 mb-2">What’s your monthly budget?</h3>
-                  <div class="grid-sq">
-                    <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$250 – $375" required><span>$250–$375</span></label>
-                    <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$376 – $499" required><span>$376–$499</span></label>
-                    <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$500 – $750" required><span>$500–$750</span></label>
-                    <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$750+" required><span>$750+</span></label>
-                  </div>
+                <div class="grid-sq">
+                  <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$250 – $375" required><span>$250–$375</span></label>
+                  <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$376 – $499" required><span>$376–$499</span></label>
+                  <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$500 – $750" required><span>$500–$750</span></label>
+                  <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$750+" required><span>$750+</span></label>
+                </div>
                 </div>
               </section>
 
@@ -293,7 +298,7 @@
                     </div>
                   </div>
 
-                  <!-- Trade-in details on ONE line when shown -->
+                  <!-- Trade-in details ONE line -->
                   <div id="tradeInDetails" class="hidden mt-2">
                     <div class="grid-trade5">
                       <input type="number" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" min="1950" max="2099"/>
@@ -311,7 +316,6 @@
                 <div class="step-inner">
                   <h3 class="h2 mb-2">Your information</h3>
 
-                  <!-- One row: First | Middle Name(s) (wider) | Last -->
                   <div class="grid-name3">
                     <div>
                       <label for="firstName" class="label mb-1 block">First name <span class="text-red-500">*</span></label>
@@ -327,7 +331,6 @@
                     </div>
                   </div>
 
-                  <!-- Contact row -->
                   <div class="grid grid-cols-2 gap-2 mt-2">
                     <div>
                       <label for="phone" class="label mb-1 block">Phone <span class="text-red-500">*</span></label>
@@ -339,7 +342,6 @@
                     </div>
                   </div>
 
-                  <!-- DOB + Marital -->
                   <div class="grid grid-cols-4 gap-2 mt-2">
                     <div>
                       <label class="label mb-1 block">Month <span class="text-red-500">*</span></label>
@@ -365,71 +367,70 @@
                 </div>
               </section>
 
-              <!-- 6: Income -->
+              <!-- 6: Income (TWO LINES) -->
               <section class="form-step step-pane hidden" data-step="6" id="step-income">
                 <div class="step-inner">
                   <h3 class="h2 mb-2">Income</h3>
 
-                  <!-- ONE LINE: Source | Employer | Position | Monthly | Tenure -->
-                  <div id="income-full" class="space-y-0">
-                    <div class="grid-income5">
-                      <div>
-                        <label for="incomeSourceFull" class="label mb-1 block">Primary income <span class="text-red-500">*</span></label>
-                        <select id="incomeSourceFull" name="incomeSourceFull" class="form-select" required>
-                          <option value="">Select…</option>
-                          <option value="Full-Time">Full-Time</option>
-                          <option value="Part-Time">Part-Time</option>
-                          <option value="Self-Employed">Self-Employed</option>
-                          <option value="Disability">Disability</option>
-                          <option value="Other">Other</option>
-                        </select>
-                      </div>
+                  <!-- Line 1: Source | Employer | Position -->
+                  <div class="grid-income3">
+                    <div>
+                      <label for="incomeSourceFull" class="label mb-1 block">Primary income <span class="text-red-500">*</span></label>
+                      <select id="incomeSourceFull" name="incomeSourceFull" class="form-select" required>
+                        <option value="">Select…</option>
+                        <option value="Full-Time">Full-Time</option>
+                        <option value="Part-Time">Part-Time</option>
+                        <option value="Self-Employed">Self-Employed</option>
+                        <option value="Disability">Disability</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                    <div id="empWrap">
+                      <label for="currentEmployer" class="label mb-1 block">Employer <span class="text-red-500">*</span></label>
+                      <input type="text" id="currentEmployer" name="currentEmployer" class="form-input" placeholder="Company" maxlength="80"/>
+                    </div>
+                    <div id="posWrap">
+                      <label for="jobTitle" class="label mb-1 block">Position <span class="text-red-500">*</span></label>
+                      <input type="text" id="jobTitle" name="jobTitle" class="form-input" placeholder="Role" maxlength="60"/>
+                    </div>
+                  </div>
 
-                      <div id="empWrap" class="">
-                        <label for="currentEmployer" class="label mb-1 block">Employer <span class="text-red-500">*</span></label>
-                        <input type="text" id="currentEmployer" name="currentEmployer" class="form-input" placeholder="Company" maxlength="80"/>
-                      </div>
-
-                      <div id="posWrap" class="">
-                        <label for="jobTitle" class="label mb-1 block">Position <span class="text-red-500">*</span></label>
-                        <input type="text" id="jobTitle" name="jobTitle" class="form-input" placeholder="Role" maxlength="60"/>
-                      </div>
-
-                      <div id="monthlyWrap" class="">
-                        <label for="avgMonthlyIncome" class="label mb-1 block">Monthly (pre-tax) <span class="text-red-500">*</span></label>
-                        <input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric" maxlength="16"/>
-                      </div>
-
-                      <div>
-                        <label class="label mb-1 block">Time with employer <span class="text-red-500">*</span></label>
-                        <div class="tenure-2">
-                          <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select>
-                          <select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
-                        </div>
+                  <!-- Line 2: Monthly | Tenure (Years & Months) -->
+                  <div class="grid-income2 mt-1">
+                    <div id="monthlyWrap">
+                      <label for="avgMonthlyIncome" class="label mb-1 block">Monthly income (before tax) <span class="text-red-500">*</span></label>
+                      <input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric" maxlength="16"/>
+                    </div>
+                    <div id="tenureWrap">
+                      <label class="label mb-1 block">Time with employer <span class="text-zinc-500">(Years &amp; Months)</span> <span class="text-red-500">*</span></label>
+                      <div class="tenure-2">
+                        <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select>
+                        <select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
                       </div>
                     </div>
+                  </div>
 
-                    <!-- Self-Employed / Other inline replacements -->
-                    <div id="full-self" class="hidden grid grid-cols-2 gap-2 mt-2">
-                      <div>
-                        <label for="businessName" class="label mb-1 block">Business <span class="text-red-500">*</span></label>
-                        <input type="text" id="businessName" name="businessName" class="form-input" placeholder="Name" maxlength="100"/>
-                      </div>
-                      <div>
-                        <label for="selfMonthlyIncome" class="label mb-1 block">Avg monthly (pre-tax) <span class="text-red-500">*</span></label>
-                        <input type="text" id="selfMonthlyIncome" name="selfMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric" maxlength="16"/>
-                      </div>
+                  <!-- Self-Employed alt -->
+                  <div id="full-self" class="hidden grid grid-cols-2 gap-2 mt-1">
+                    <div>
+                      <label for="businessName" class="label mb-1 block">Business <span class="text-red-500">*</span></label>
+                      <input type="text" id="businessName" name="businessName" class="form-input" placeholder="Name" maxlength="100"/>
                     </div>
+                    <div>
+                      <label for="selfMonthlyIncome" class="label mb-1 block">Avg monthly (pre-tax) <span class="text-red-500">*</span></label>
+                      <input type="text" id="selfMonthlyIncome" name="selfMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric" maxlength="16"/>
+                    </div>
+                  </div>
 
-                    <div id="full-other" class="hidden grid grid-cols-2 gap-2 mt-2">
-                      <div>
-                        <label for="otherIncomeAmount" class="label mb-1 block">Monthly (pre-tax) <span class="text-red-500">*</span></label>
-                        <input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="$2,000" inputmode="numeric" maxlength="16"/>
-                      </div>
-                      <div>
-                        <label for="otherIncomeSource" class="label mb-1 block">Source <span class="text-red-500">*</span></label>
-                        <input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Describe" maxlength="80"/>
-                      </div>
+                  <!-- Other income alt -->
+                  <div id="full-other" class="hidden grid grid-cols-2 gap-2 mt-1">
+                    <div>
+                      <label for="otherIncomeAmount" class="label mb-1 block">Monthly (pre-tax) <span class="text-red-500">*</span></label>
+                      <input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="$2,000" inputmode="numeric" maxlength="16"/>
+                    </div>
+                    <div>
+                      <label for="otherIncomeSource" class="label mb-1 block">Source <span class="text-red-500">*</span></label>
+                      <input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Describe" maxlength="80"/>
                     </div>
                   </div>
                 </div>
@@ -440,7 +441,6 @@
                 <div class="step-inner">
                   <h3 class="h2 mb-2">Where do you live?</h3>
 
-                  <!-- ONE LINE: Street | Unit | City | Prov | Postal -->
                   <div id="addr-full-current" class="space-y-0">
                     <div class="grid-addr5">
                       <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" placeholder="Street Address" autocomplete="street-address" maxlength="120" required/>
@@ -451,7 +451,6 @@
                     </div>
                   </div>
 
-                  <!-- ONE LINE: Payment | Rent/Own | Tenure -->
                   <div class="grid-housing3 mt-2" id="housing-row">
                     <div>
                       <label id="housingLabel" for="housingPayment" class="label mb-1 block">Monthly Payment <span class="text-red-500">*</span></label>
@@ -466,7 +465,7 @@
                       <input type="hidden" id="housingType" name="housingType" value="Rent" />
                     </div>
                     <div id="addr-duration">
-                      <label class="label mb-1 block">Time there <span class="text-red-500">*</span></label>
+                      <label class="label mb-1 block">Time there <span class="text-zinc-500">(Years &amp; Months)</span> <span class="text-red-500">*</span></label>
                       <div class="tenure-2">
                         <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
                         <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
@@ -506,7 +505,7 @@
         </div>
       </div>
 
-      <!-- APPLICATION CODE SIDEBAR -->
+      <!-- APPLICATION CODE SIDEBAR (unchanged) -->
       <aside class="md:col-span-1 card p-5 h-fit self-start" id="resume">
         <div class="flex flex-col gap-2">
           <h3 class="h2">Already have an application code?</h3>
@@ -676,7 +675,7 @@
       bySel('#tradeInDetails').classList.toggle('hidden', e.target.value.toLowerCase()!=='yes');
     });
 
-    // Income branching (based on source)
+    // Income branching (two-line layout aware)
     $('incomeSourceFull')?.addEventListener('change', ()=>{
       const v = $('incomeSourceFull').value;
       const employed = (v === 'Full-Time' || v === 'Part-Time');
@@ -684,25 +683,25 @@
       const other = (v === 'Disability' || v === 'Other');
 
       // Reset requirements
-      ['currentEmployer','jobTitle','timeWithEmployerYears','timeWithEmployerMonths','businessName','selfMonthlyIncome','otherIncomeAmount','otherIncomeSource'].forEach(id => { const n=$(id); if(n) n.required=false; });
+      ['currentEmployer','jobTitle','timeWithEmployerYears','timeWithEmployerMonths','businessName','selfMonthlyIncome','otherIncomeAmount','otherIncomeSource','avgMonthlyIncome'].forEach(id => { const n=$(id); if(n) n.required=false; });
 
-      // Toggle visibility blocks
-      bySel('#empWrap').classList.toggle('hidden', !(employed));
-      bySel('#posWrap').classList.toggle('hidden', !(employed));
-      bySel('#monthlyWrap').classList.toggle('hidden', !(employed));
+      // Show/hide employed fields
+      bySel('#empWrap').classList.toggle('hidden', !employed);
+      bySel('#posWrap').classList.toggle('hidden', !employed);
+      bySel('#monthlyWrap').classList.toggle('hidden', !employed);
+      bySel('#tenureWrap').classList.toggle('hidden', !employed);
 
+      // Toggle alt layouts
       bySel('#full-self').classList.toggle('hidden', !selfEmp);
       bySel('#full-other').classList.toggle('hidden', !other);
 
-      // Set requirements for visible paths
+      // Requirements
       if (employed){
         ['currentEmployer','jobTitle','timeWithEmployerYears','timeWithEmployerMonths','avgMonthlyIncome'].forEach(id => $(id).required = true);
       } else if (selfEmp){
         ['businessName','selfMonthlyIncome'].forEach(id => $(id).required = true);
-        ['timeWithEmployerYears','timeWithEmployerMonths'].forEach(id => $(id).required = false);
       } else if (other){
         ['otherIncomeAmount','otherIncomeSource'].forEach(id => $(id).required = true);
-        ['timeWithEmployerYears','timeWithEmployerMonths'].forEach(id => $(id).required = false);
       }
 
       // Re-evaluate Previous Employment need
@@ -764,7 +763,6 @@
     }
 
     function checkPrevEmploymentNeed(){
-      // Only show "Previous employment" if employed AND tenure < 24 months
       const v = $('incomeSourceFull').value;
       const employed = (v === 'Full-Time' || v === 'Part-Time');
       const y = parseInt(($('timeWithEmployerYears').value || '0'),10);
@@ -833,7 +831,6 @@
     }
 
     function onAddressDurationChange(){
-      // Show "Previous address" only when tenure < 24 months
       const y = parseInt(($('timeAtAddressYears').value || '0'),10);
       const m = parseInt(($('timeAtAddressMonths').value || '0'),10);
       const months = (y*12)+m;
@@ -868,7 +865,6 @@
       if (!validateAll()) { $('form-status').textContent = 'Please complete all required fields.'; return; }
       $('submitBtn').disabled = true; $('submitBtn').textContent = 'Submitting…';
 
-      // Generate a simple application code and store it for the thank-you page
       const code = 'VIC-' + Math.random().toString(36).slice(2,8).toUpperCase();
       try { sessionStorage.setItem('vic_app_code', code); } catch(_) {}
 
@@ -877,7 +873,6 @@
 
       try {
         await fetch('/', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:new URLSearchParams(fd).toString() });
-        // pass code via URL too
         const url = new URL('/thank-you.html', window.location.origin);
         url.searchParams.set('code', code);
         window.location.href = url.toString();
@@ -944,6 +939,7 @@
       populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
       populateProvinces($('currentProvince'));
 
+      // Defaults
       setHousing('Rent');
       window.__currentStep = 1;
       showStep(1);
