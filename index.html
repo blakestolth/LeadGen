@@ -151,7 +151,7 @@
     }
     .equifax-logo{ max-width:100%; max-height:110px; height:auto; object-fit:contain; }
 
-    /* --- Subtle faux-loading shimmer + count pulse --- */
+    /* Subtle faux-loading shimmer + count pulse */
     .bodytype-card.loading .bodytype-img{ position:relative; overflow:hidden; }
     .bodytype-card.loading .bodytype-img::after{
       content:"";
@@ -174,8 +174,8 @@
     }
 
     /* MAP sizing — 3/4 of previous */
-    .map-embed{ width:100%; height:240px; border:0; }   /* was 320 */
-    @media (min-width:768px){ .map-embed{ height:315px; } } /* was 420 */
+    .map-embed{ width:100%; height:240px; border:0; }   /* mobile */
+    @media (min-width:768px){ .map-embed{ height:315px; } } /* desktop */
   </style>
 
   <script type="application/ld+json">
@@ -650,7 +650,7 @@
         title="Map — Vancouver Island Credit"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
-        src="https://www.google.com/maps?q=525+Gorge+Rd+E,+Victoria,+BC+V8T+4T2&output=embed">
+        src="https://www.google.com/maps?q=525+Gorge+Rd+E,+Victoria,+BC+V8T+4T2&z=12&output=embed">
       </iframe>
       <div class="px-4 py-3 text-[12px] text-zinc-600 border-t">
         525 Gorge Rd E, Victoria, BC V8T 4T2
@@ -660,7 +660,7 @@
     <footer id="contact" class="text-center text-[11px] text-zinc-500 pt-1 space-y-1">
       <p class="font-semibold text-zinc-600">Vancouver Island Credit</p>
       <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
-      <p><a href="tel:2369692424" class="hover:text-[var(--blue-600)] transition-colors">(236) 969-2424</a></p>
+      <p><a href="tel:2369692424" class="hover:text-[var(--blue-600)] transition-colors">Customer service: 2369692424</a></p>
       <p class="pt-1">Serving Vancouver Island & British Columbia • Delivery available province-wide</p>
       <p class="mt-1">© <span id="year"></span> Vancouver Island Credit • All rights reserved</p>
     </footer>
