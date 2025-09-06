@@ -151,6 +151,25 @@
       box-shadow:0 8px 18px -12px rgba(0,0,0,.12);
     }
     .equifax-logo{ max-width:100%; max-height:110px; height:auto; object-fit:contain; }
+
+    /* --- Faux-loading shimmer + count pulse --- */
+    .bodytype-card.loading .bodytype-img{ position:relative; overflow:hidden; }
+    .bodytype-card.loading .bodytype-img::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(240,243,248,.85) 45%, rgba(255,255,255,0) 100%);
+      transform: translateX(-100%);
+      animation: vicShimmer 1.2s ease-in-out infinite;
+    }
+    @keyframes vicShimmer { to { transform: translateX(100%); } }
+
+    .inv-badge{ transition: opacity .15s ease, transform .15s ease; }
+    .inv-badge.updating{ animation: invPulse .9s ease-in-out; }
+    @keyframes invPulse {
+      0%{ opacity:.55; transform:scale(1); }
+      50%{ opacity:1; transform:scale(1.08); }
+      100%{ opacity:.55; transform:scale(1); }
+    }
   </style>
 
   <script type="application/ld+json">
@@ -279,7 +298,7 @@
                 </div>
               </section>
 
-              <!-- 2: Condition: three square tiles like Step 1 -->
+              <!-- 2: Condition -->
               <section class="form-step hidden" data-step="2">
                 <div class="step-inner">
                   <h3 class="h2">Used or new?</h3>
@@ -295,7 +314,7 @@
               <section class="form-step hidden" data-step="3">
                 <div class="step-inner">
                   <h3 class="h2">What’s your monthly budget?</h3>
-                  <div class="grid-sq mt-2">
+                <div class="grid-sq mt-2">
                     <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$250 – $375" required><span>$250–$375</span></label>
                     <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$376 – $499" required><span>$376–$499</span></label>
                     <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$500 – $750" required><span>$500–$750</span></label>
@@ -568,45 +587,48 @@
     <!-- INVENTORY -->
     <section id="inventory" class="card p-5 mt-6">
       <div class="flex items-center justify-between mb-2">
-        <h3 class="h2">Browse by Vehicle Type <span class="text-zinc-400 font-bold">(0)</span></h3>
-        <a href="#lead-form" class="text-[12px] font-semibold text-[var(--blue-600)] hover:underline js-view-inventory">View all</a>
+        <h3 class="h2">Browse by Vehicle Type</h3>
+        <a href="#lead-form" class="text-[12px] font-semibold text-[var(--blue-600)] hover:underline js-view-inventory">
+          View all <span id="inv-total" class="inv-badge text-zinc-400 font-bold">(0)</span>
+        </a>
       </div>
-      <p class="text-[12px] text-zinc-600 mb-3">
+      <p class="text-[12px] text-zinc-600 mb-1">
         Fill out the quick form above to see your personalized options.
       </p>
+      <p class="text-[11px] text-zinc-500 -mt-1">Numbers refresh as you complete the short form.</p>
 
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Coupe.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Coupe</p></div>
+          <div class="p-2"><p class="font-semibold text-[13px]">Coupe <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Hatchback.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Hatchback / Wagen</p></div>
+          <div class="p-2"><p class="font-semibold text-[13px]">Hatchback / Wagen <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Electric.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Electric / Hybrid</p></div>
+          <div class="p-2"><p class="font-semibold text-[13px]">Electric / Hybrid <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Sedan.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Sedan</p></div>
+          <div class="p-2"><p class="font-semibold text-[13px]">Sedan <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Crossover.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Crossover</p></div>
+          <div class="p-2"><p class="font-semibold text-[13px]">Crossover <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Suv.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">SUV</p></div>
+          <div class="p-2"><p class="font-semibold text-[13px]">SUV <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Van.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Van</p></div>
+          <div class="p-2"><p class="font-semibold text-[13px]">Van <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Truck.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Truck</p></div>
+          <div class="p-2"><p class="font-semibold text-[13px]">Truck <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
         </a>
       </div>
     </section>
@@ -669,22 +691,41 @@
     $('btnNext').addEventListener('click', ()=> next(1));
     $('btnBack').addEventListener('click', ()=> next(-1));
 
+    // --- Faux "refresh" that never changes the (0) counts — just visual feedback
+    function fakeRefreshCounts(){
+      const badgeAll = bySel('#inv-total');
+      const badges = [ ...bySelAll('.inv-badge') ];
+      const cards = bySelAll('.bodytype-card');
+
+      if (badgeAll) badgeAll.classList.add('updating', 'animate-pulse');
+      badges.forEach(b => b.classList.add('updating'));
+      cards.forEach(c => c.classList.add('loading'));
+
+      setTimeout(()=>{
+        if (badgeAll) badgeAll.classList.remove('updating','animate-pulse');
+        badges.forEach(b => b.classList.remove('updating'));
+        cards.forEach(c => c.classList.remove('loading'));
+      }, 1200);
+    }
+
     // Selections
     bySelAll('[data-type]').forEach(b=> b.addEventListener('click', ()=>{
       $('vehicleType').value = b.dataset.type;
       bySelAll('[data-type]').forEach(x=>x.classList.remove('selected'));
       b.classList.add('selected');
+      fakeRefreshCounts();               // visual "refresh"
       next(1);
     }));
     bySelAll('[data-cond]').forEach(b=> b.addEventListener('click', ()=>{
       $('vehicleCondition').value = b.dataset.cond;
       bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected'));
       b.classList.add('selected');
+      fakeRefreshCounts();               // visual "refresh"
       next(1);
     }));
     bySelAll('[name="budgetRange"]').forEach(r=>{
-      r.addEventListener('change', ()=> next(1));
-      r.parentElement.addEventListener('click', ()=>{ r.checked=true; next(1); });
+      r.addEventListener('change', ()=> { fakeRefreshCounts(); next(1); });
+      r.parentElement.addEventListener('click', ()=>{ r.checked=true; fakeRefreshCounts(); next(1); });
     });
 
     // Phone format
@@ -915,10 +956,11 @@
       return ok;
     }
 
-    // Inventory “View all” -> focus form
+    // Inventory “View all” -> focus form + fake refresh
     bySelAll('.js-view-inventory').forEach(el=>{
       el.addEventListener('click', (e)=>{
         e.preventDefault();
+        fakeRefreshCounts(); // visual cue
         document.getElementById('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
       });
     });
@@ -1008,6 +1050,9 @@
       // Calibrate and sync heights after layout
       window.requestAnimationFrame(()=> setTimeout(calibrateShellHeight, 0));
       window.addEventListener('resize', ()=> { calibrateShellHeight(); });
+
+      // Subtle initial shimmer so it looks like a pre-fetch
+      setTimeout(fakeRefreshCounts, 500);
     })();
   </script>
 </body>
