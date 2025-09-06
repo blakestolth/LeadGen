@@ -93,7 +93,7 @@
     @media (max-width:460px){ .grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
     @media (min-width:640px){ .grid-sq{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
 
-    /* Smart field sizing (unchanged logic) */
+    /* Smart field sizing */
     .grid-name3{ display:grid; gap:10px; grid-template-columns: 1.8fr 2.4fr 1.8fr; }
     .grid-trade5{ display:grid; gap:10px; grid-template-columns: .9fr 1.6fr 1.6fr 1.1fr 1.6fr; }
     .grid-addr5{ display:grid; gap:10px; grid-template-columns: 3.2fr .8fr 1.6fr .8fr 1.0fr; }
@@ -137,6 +137,14 @@
       .form-step[data-step="1"] .grid-sq,
       .form-step[data-step="3"] .grid-sq{ grid-template-columns: repeat(2, minmax(0,1fr)); }
     }
+
+    /* ---- Powered by / Sidebar visuals ---- */
+    .powered-card{
+      background: linear-gradient(180deg, #ffffff 0%, #f6f8fc 100%);
+      border:1px solid #e5e7eb; border-radius:12px;
+      box-shadow:0 8px 18px -12px rgba(0,0,0,.12);
+    }
+    .equifax-logo{ max-width:100%; max-height:110px; height:auto; object-fit:contain; }
   </style>
 
   <script type="application/ld+json">
@@ -229,7 +237,7 @@
       </div>
     </section>
 
-    <!-- FORM + APPLICATION CODE SIDEBAR -->
+    <!-- FORM + SIDEBAR -->
     <section class="grid md:grid-cols-4 gap-4">
       <!-- FORM (fixed to Step 5 height) -->
       <div class="md:col-span-3 card p-0 overflow-hidden" id="lead-form">
@@ -265,7 +273,7 @@
                 </div>
               </section>
 
-              <!-- 2: Condition (added "Open to both") -->
+              <!-- 2: Condition -->
               <section class="form-step hidden" data-step="2">
                 <div class="step-inner">
                   <h3 class="h2">Used or new?</h3>
@@ -490,8 +498,6 @@
                 </div>
               </section>
 
-              <!-- DYNAMIC inserts: Previous Employment / Previous Address -->
-
               <!-- CONSENT & SUBMIT -->
               <section class="form-step hidden" data-step="99" id="step-consent">
                 <div class="step-inner">
@@ -520,26 +526,35 @@
         </div>
       </div>
 
-      <!-- APPLICATION CODE SIDEBAR (unchanged) -->
-      <aside class="md:col-span-1 card p-5 h-fit self-start" id="resume">
-        <div class="flex flex-col gap-2">
-          <h3 class="h2">Already have an application code?</h3>
-          <p class="text-[12px] text-zinc-600">Enter your code to resume.</p>
-          <form id="code-form" class="flex items-center gap-2 w-full">
-            <input
-              id="appCodeInput"
-              type="text"
-              inputmode="text"
-              autocomplete="one-time-code"
-              placeholder="ABC123"
-              class="form-input uppercase"
-              maxlength="16"
-              aria-label="Application code"
-            />
-            <button type="submit" class="cta-button">Resume</button>
-          </form>
-          <p id="code-error" class="text-[11px] text-red-600 hidden">Please enter a valid code (letters and numbers only).</p>
-          <p class="text-[11px] text-zinc-500">Tip: You’ll get this code on the confirmation page after you submit.</p>
+      <!-- SIDEBAR (matches form height): Powered by + bottom-aligned Resume -->
+      <aside class="md:col-span-1 flex flex-col" id="sidebar">
+        <div class="powered-card flex-1 flex items-center justify-center p-4">
+          <div class="text-center">
+            <div class="text-[11px] uppercase tracking-wide text-zinc-500 font-semibold">Powered by</div>
+            <img class="equifax-logo mx-auto mt-2" src="154-1540588_equifax-uk-logo-hd-png-download.png" alt="Equifax"/>
+          </div>
+        </div>
+
+        <div class="card p-5 mt-4 h-fit" id="resume">
+          <div class="flex flex-col gap-2">
+            <h3 class="h2">Already have an application code?</h3>
+            <p class="text-[12px] text-zinc-600">Enter your code to resume.</p>
+            <form id="code-form" class="flex items-center gap-2 w-full">
+              <input
+                id="appCodeInput"
+                type="text"
+                inputmode="text"
+                autocomplete="one-time-code"
+                placeholder="ABC123"
+                class="form-input uppercase"
+                maxlength="16"
+                aria-label="Application code"
+              />
+              <button type="submit" class="cta-button">Resume</button>
+            </form>
+            <p id="code-error" class="text-[11px] text-red-600 hidden">Please enter a valid code (letters and numbers only).</p>
+            <p class="text-[11px] text-zinc-500">Tip: You’ll get this code on the confirmation page after you submit.</p>
+          </div>
         </div>
       </aside>
     </section>
@@ -714,7 +729,7 @@
       checkPrevEmploymentNeed();
     });
 
-    // Dynamic PREVIOUS EMPLOYMENT (count only when shown)
+    // Dynamic PREVIOUS EMPLOYMENT
     function ensurePrevEmploymentStep(need){
       const after = $('step-income');
       const existing = after.nextElementSibling && after.nextElementSibling.querySelector?.('#previousEmployer')
@@ -780,7 +795,7 @@
     $('timeWithEmployerYears')?.addEventListener('change', checkPrevEmploymentNeed);
     $('timeWithEmployerMonths')?.addEventListener('change', checkPrevEmploymentNeed);
 
-    // Dynamic PREVIOUS ADDRESS (count only when shown)
+    // Dynamic PREVIOUS ADDRESS
     function ensurePrevAddressStep(need){
       const after = $('step-address');
       const existing = after.nextElementSibling && after.nextElementSibling.querySelector?.('#prevStreetAddress')
@@ -846,7 +861,7 @@
     $('timeAtAddressYears')?.addEventListener('change', onAddressDurationChange);
     $('timeAtAddressMonths')?.addEventListener('change', onAddressDurationChange);
 
-    // Validation (only visible fields in current step)
+    // Validation
     function visibleRequired() {
       const req = bySelAll('#the-form [required]');
       return req.filter(el => !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none');
@@ -932,18 +947,24 @@
     function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o);} }
     function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
 
-    // --- Calibrate fixed height to Step 5 ("Your information") once ---
+    // Sidebar height sync to form shell height
+    function syncSidebarHeight(){
+      const shell = $('form-shell');
+      const sidebar = $('sidebar');
+      if (!shell || !sidebar) return;
+      sidebar.style.height = shell.offsetHeight + 'px';
+    }
+
+    // Calibrate fixed height to Step 5 ("Your information") once
     function calibrateShellHeight(){
       const shell = $('form-shell');
       const header = shell.querySelector('.sticky');
       const footer = bySel('.form-footer');
       const step = $('step-yourinfo');
 
-      // Temporarily reveal step 5 to measure if hidden
       const wasHidden = step.classList.contains('hidden');
       if (wasHidden) step.classList.remove('hidden');
 
-      // measure inner content height (after width constraints apply)
       const inner = step.querySelector('.step-inner');
       const contentH = inner ? inner.offsetHeight : step.offsetHeight;
 
@@ -951,9 +972,10 @@
 
       const shellH = header.offsetHeight + contentH + footer.offsetHeight;
 
-      // Apply fixed heights
       shell.style.height = shellH + 'px';
       bySel('#step-viewport').style.height = contentH + 'px';
+
+      syncSidebarHeight();
     }
 
     // Init
@@ -975,8 +997,10 @@
       showStep(1);
       renumberSteps();
 
-      // Calibrate fixed shell height to Step 5 once (after layout width applies)
+      // Calibrate and sync heights after layout
       window.requestAnimationFrame(()=> setTimeout(calibrateShellHeight, 0));
+      // Re-sync on resize
+      window.addEventListener('resize', ()=> { calibrateShellHeight(); });
     })();
   </script>
 </body>
