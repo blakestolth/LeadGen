@@ -79,7 +79,9 @@
     .form-shell{ height:var(--shellH); overflow:hidden; position:relative; }
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; }
 
-    .step-pane{ min-height:var(--contentH); display:flex; }
+    /* Each step pane: keep height, DO NOT override display so Tailwind .hidden works */
+    .step-pane{ min-height:var(--contentH); }
+
     .step-inner{ width:100%; margin:auto; padding-top:var(--pad-section); padding-bottom:var(--pad-section); }
 
     .vstack > * + *{ margin-top: var(--gap-regular); }
@@ -117,7 +119,6 @@
     section, header, footer { scroll-margin-top: 70px; }
 
     /* ------- TIGHTEN THE FORM CARD ONLY ------- */
-    #lead-form .step-pane{ display:block; min-height:var(--contentH); }
     #lead-form .step-inner{ margin:0; padding-top:6px; padding-bottom:6px; }
     #lead-form .form-input, #lead-form .form-select, #lead-form .form-textarea{ padding:5px 10px; }
     #lead-form .h2{ margin-top:4px; }
@@ -859,7 +860,7 @@
       return ok;
     }
 
-    // Submit (kept; adds app code and passes to thank-you)
+    // Submit (adds app code and passes to thank-you)
     async function submitForm(){
       if (!validateAll()) { $('form-status').textContent = 'Please complete all required fields.'; return; }
       $('submitBtn').disabled = true; $('submitBtn').textContent = 'Submitting…';
