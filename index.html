@@ -69,13 +69,13 @@
     .seg-btn{ padding:6px 8px; border-radius:6px; font-weight:600; color:#374151; background:transparent; border:2px solid transparent; font-size:12px; }
     .seg-btn[aria-pressed="true"]{ background:#e0ecff; color:#214B80; border-color:#bfdbfe; }
 
-    /* Form shell: fixed height (set once from JS) */
+    /* Form shell */
     .form-shell{ position:relative; height:auto; overflow:hidden; }
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; }
 
     /* Step panes (hug content vertically) */
     .step-inner{ width:100%; padding-top:var(--pad-y); padding-bottom:var(--pad-y); }
-    .step-inner > .h2{ margin-top:0; margin-bottom:var(--pad-y); } /* consistent rule from title to content */
+    .step-inner > .h2{ margin-top:0; margin-bottom:var(--pad-y); }
 
     /* Scrollable viewport inside the fixed shell */
     .step-viewport{ overflow:auto; }
@@ -93,15 +93,15 @@
     @media (max-width:460px){ .grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
     @media (min-width:640px){ .grid-sq{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
 
-    /* Smart field sizing */
-    .grid-name3{ display:grid; gap:10px; grid-template-columns: 1.8fr 2.4fr 1.8fr; }         /* First | Middle Name(s) | Last */
-    .grid-trade5{ display:grid; gap:10px; grid-template-columns: .9fr 1.6fr 1.6fr 1.1fr 1.6fr; } /* Year | Make | Model | KM | Owed */
-    .grid-addr5{ display:grid; gap:10px; grid-template-columns: 3.2fr .8fr 1.6fr .8fr 1.0fr; }   /* Street | Unit | City | Prov | Postal */
-    .grid-housing3{ display:grid; gap:10px; grid-template-columns: 1.2fr 1fr 1.2fr; }            /* Payment | Rent/Own | Tenure */
+    /* Smart field sizing (unchanged logic) */
+    .grid-name3{ display:grid; gap:10px; grid-template-columns: 1.8fr 2.4fr 1.8fr; }
+    .grid-trade5{ display:grid; gap:10px; grid-template-columns: .9fr 1.6fr 1.6fr 1.1fr 1.6fr; }
+    .grid-addr5{ display:grid; gap:10px; grid-template-columns: 3.2fr .8fr 1.6fr .8fr 1.0fr; }
+    .grid-housing3{ display:grid; gap:10px; grid-template-columns: 1.2fr 1fr 1.2fr; }
 
     /* Income (two lines) */
-    .grid-income3{ display:grid; gap:8px; grid-template-columns: 1.2fr 1.8fr 1.5fr; }  /* Source | Employer | Position */
-    .grid-income2{ display:grid; gap:8px; grid-template-columns: 1.1fr 1.4fr; }       /* Monthly | Tenure */
+    .grid-income3{ display:grid; gap:8px; grid-template-columns: 1.2fr 1.8fr 1.5fr; }
+    .grid-income2{ display:grid; gap:8px; grid-template-columns: 1.1fr 1.4fr; }
     .tenure-2{ display:grid; gap:8px; grid-template-columns: 1fr 1fr; }
 
     .abc-badge{
@@ -120,17 +120,23 @@
     /* Form footer (Next/Back): equal vertical pad */
     .form-footer{ padding: var(--pad-y) 1rem; }
 
-    /* --------- NEW: Budget step fills more space with larger squares ---------- */
-    /* Make the budget tiles true squares and a bit larger */
+    /* Make the entire form content a bit narrower without touching the sidebar */
+    #lead-form .step-viewport,
+    #lead-form .form-footer { max-width: 760px; margin-left:auto; margin-right:auto; }
+
+    /* Larger, square tiles for Step 1 & 3 to look good in the narrower width */
+    .form-step[data-step="1"] .tile,
     .form-step[data-step="3"] .tile{ aspect-ratio: 1 / 1; font-size: 15px; }
+    .form-step[data-step="1"] .grid-sq,
     .form-step[data-step="3"] .grid-sq{ gap:12px; }
     @media (min-width:640px){
+      .form-step[data-step="1"] .grid-sq,
       .form-step[data-step="3"] .grid-sq{ grid-template-columns: repeat(4, minmax(0,1fr)); }
     }
     @media (max-width:639px){
+      .form-step[data-step="1"] .grid-sq,
       .form-step[data-step="3"] .grid-sq{ grid-template-columns: repeat(2, minmax(0,1fr)); }
     }
-    /* ------------------------------------------------------------------------- */
   </style>
 
   <script type="application/ld+json">
@@ -237,7 +243,7 @@
             <div class="track mt-2"><div id="progress-fill" class="fill"></div></div>
           </div>
 
-          <!-- STEP VIEWPORT (gets fixed height from JS; scrolls internally) -->
+          <!-- STEP VIEWPORT (fixed height set from JS; scrolls internally) -->
           <div id="step-viewport" class="step-viewport px-4">
             <form id="the-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" novalidate>
               <input type="hidden" name="form-name" value="lead-form"/>
@@ -259,18 +265,19 @@
                 </div>
               </section>
 
-              <!-- 2: Condition -->
+              <!-- 2: Condition (added "Open to both") -->
               <section class="form-step hidden" data-step="2">
                 <div class="step-inner">
                   <h3 class="h2">Used or new?</h3>
-                  <div class="grid-2 mt-2">
+                  <div class="grid-3 mt-2">
                     <button type="button" class="choice" data-cond="Used">Used</button>
                     <button type="button" class="choice" data-cond="New">New</button>
+                    <button type="button" class="choice" data-cond="Both">Open to both</button>
                   </div>
                 </div>
               </section>
 
-              <!-- 3: Budget (larger square tiles) -->
+              <!-- 3: Budget -->
               <section class="form-step hidden" data-step="3">
                 <div class="step-inner">
                   <h3 class="h2">What’s your monthly budget?</h3>
@@ -936,7 +943,7 @@
       const wasHidden = step.classList.contains('hidden');
       if (wasHidden) step.classList.remove('hidden');
 
-      // measure inner content height
+      // measure inner content height (after width constraints apply)
       const inner = step.querySelector('.step-inner');
       const contentH = inner ? inner.offsetHeight : step.offsetHeight;
 
@@ -968,7 +975,7 @@
       showStep(1);
       renumberSteps();
 
-      // Set fixed shell height to Step 5 once
+      // Calibrate fixed shell height to Step 5 once (after layout width applies)
       window.requestAnimationFrame(()=> setTimeout(calibrateShellHeight, 0));
     })();
   </script>
