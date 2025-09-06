@@ -29,7 +29,7 @@
       --fs-label: 12px;
       --fs-cta: 14px;
 
-      --pad-y: 10px;          /* same vertical rhythm above title / above nav / below last field */
+      --pad-y: 10px;          /* single vertical rhythm */
       --gap-regular: 8px;
 
       --input-py: 6px;        /* tighter inputs */
@@ -75,7 +75,7 @@
 
     /* Step panes (hug content vertically) */
     .step-inner{ width:100%; padding-top:var(--pad-y); padding-bottom:var(--pad-y); }
-    .step-inner > .h2{ margin-top:0; }
+    .step-inner > .h2{ margin-top:0; margin-bottom:var(--pad-y); } /* consistent rule from title to content */
 
     /* Scrollable viewport inside the fixed shell */
     .step-viewport{ overflow:auto; }
@@ -119,6 +119,18 @@
 
     /* Form footer (Next/Back): equal vertical pad */
     .form-footer{ padding: var(--pad-y) 1rem; }
+
+    /* --------- NEW: Budget step fills more space with larger squares ---------- */
+    /* Make the budget tiles true squares and a bit larger */
+    .form-step[data-step="3"] .tile{ aspect-ratio: 1 / 1; font-size: 15px; }
+    .form-step[data-step="3"] .grid-sq{ gap:12px; }
+    @media (min-width:640px){
+      .form-step[data-step="3"] .grid-sq{ grid-template-columns: repeat(4, minmax(0,1fr)); }
+    }
+    @media (max-width:639px){
+      .form-step[data-step="3"] .grid-sq{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    /* ------------------------------------------------------------------------- */
   </style>
 
   <script type="application/ld+json">
@@ -237,8 +249,8 @@
               <!-- 1: Vehicle Type -->
               <section class="form-step" data-step="1">
                 <div class="step-inner">
-                  <h3 class="h2 mb-2">What type of vehicle?</h3>
-                  <div class="grid-sq">
+                  <h3 class="h2">What type of vehicle?</h3>
+                  <div class="grid-sq mt-2">
                     <button type="button" class="tile" data-type="Car">Car</button>
                     <button type="button" class="tile" data-type="SUV">SUV</button>
                     <button type="button" class="tile" data-type="Van">Van</button>
@@ -250,19 +262,19 @@
               <!-- 2: Condition -->
               <section class="form-step hidden" data-step="2">
                 <div class="step-inner">
-                  <h3 class="h2 mb-2">Used or new?</h3>
-                  <div class="grid-2">
+                  <h3 class="h2">Used or new?</h3>
+                  <div class="grid-2 mt-2">
                     <button type="button" class="choice" data-cond="Used">Used</button>
                     <button type="button" class="choice" data-cond="New">New</button>
                   </div>
                 </div>
               </section>
 
-              <!-- 3: Budget -->
+              <!-- 3: Budget (larger square tiles) -->
               <section class="form-step hidden" data-step="3">
                 <div class="step-inner">
-                  <h3 class="h2 mb-2">What’s your monthly budget?</h3>
-                  <div class="grid-sq">
+                  <h3 class="h2">What’s your monthly budget?</h3>
+                  <div class="grid-sq mt-2">
                     <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$250 – $375" required><span>$250–$375</span></label>
                     <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$376 – $499" required><span>$376–$499</span></label>
                     <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$500 – $750" required><span>$500–$750</span></label>
@@ -274,8 +286,8 @@
               <!-- 4: Purchase -->
               <section class="form-step hidden" data-step="4" id="step-purchase">
                 <div class="step-inner">
-                  <h3 class="h2 mb-2">Purchase details</h3>
-                  <div class="grid grid-cols-2 gap-2">
+                  <h3 class="h2">Purchase details</h3>
+                  <div class="grid grid-cols-2 gap-2 mt-2">
                     <div>
                       <label for="downPayment" class="label mb-1 block">Down payment?</label>
                       <select id="downPayment" name="downPayment" class="form-select">
@@ -310,7 +322,7 @@
               <!-- 5: YOUR INFORMATION -->
               <section class="form-step hidden" data-step="5" id="step-yourinfo">
                 <div class="step-inner">
-                  <h3 class="h2 mb-2">Your information</h3>
+                  <h3 class="h2">Your information</h3>
 
                   <div class="grid-name3">
                     <div>
@@ -366,7 +378,7 @@
               <!-- 6: Income (two lines) -->
               <section class="form-step hidden" data-step="6" id="step-income">
                 <div class="step-inner">
-                  <h3 class="h2 mb-2">Income</h3>
+                  <h3 class="h2">Income</h3>
 
                   <!-- Line 1 -->
                   <div class="grid-income3">
@@ -435,10 +447,10 @@
               <!-- 7: Address -->
               <section class="form-step hidden" data-step="7" id="step-address">
                 <div class="step-inner">
-                  <h3 class="h2 mb-2">Where do you live?</h3>
+                  <h3 class="h2">Where do you live?</h3>
 
                   <div id="addr-full-current">
-                    <div class="grid-addr5">
+                    <div class="grid-addr5 mt-2">
                       <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" placeholder="Street Address" autocomplete="street-address" maxlength="120" required/>
                       <input type="text" id="currentUnit" name="currentUnit" class="form-input" placeholder="Unit #" maxlength="10"/>
                       <input type="text" id="currentCity" name="currentCity" class="form-input" placeholder="City" autocomplete="address-level2" maxlength="60" required/>
@@ -957,7 +969,6 @@
       renumberSteps();
 
       // Set fixed shell height to Step 5 once
-      // Run after layout is ready to avoid font reflow issues
       window.requestAnimationFrame(()=> setTimeout(calibrateShellHeight, 0));
     })();
   </script>
