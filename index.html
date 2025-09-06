@@ -46,12 +46,10 @@
     .form-input,.form-select,.form-textarea{
       background:#f3f4f6; color:#18181b; border:1.5px solid #e5e7eb; font-size:var(--fs-body); width:100%;
       padding:var(--input-py) var(--input-px); border-radius:var(--radius); transition:all .15s ease;
-      min-height: 42px; /* make selects match inputs visually */
     }
     .form-input::placeholder{ color:#a1a1aa; }
     .form-input:focus,.form-select:focus,.form-textarea:focus{ background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.15); outline:none; }
     .label{ font-size:var(--fs-label); color:#3f3f46; font-weight:600; }
-    .form-select{ -webkit-appearance:none; appearance:none; padding-right: 34px; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="%236b7280"><path d="M5.5 7l4.5 5 4.5-5z"/></svg>'); background-repeat:no-repeat; background-position: right 10px center; }
 
     .cta-button{ background:var(--blue-600); color:#fff; font-weight:800; padding:.5rem .8rem; border-radius:.6rem; font-size:var(--fs-cta); }
     .cta-button:hover{ background:var(--blue-700); }
@@ -90,7 +88,7 @@
     .grid-sq{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
     .grid-2{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
     .grid-3{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
-    @media (max-width:460px){ .grid-3{ grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; } } /* 3-up even on small phones */
+    @media (max-width:460px){ .grid-3{ grid-template-columns:repeat(3,minmax(0,1fr)); } } /* 3-up on small phones as requested */
     @media (min-width:640px){ .grid-sq{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
 
     /* Smart field sizing */
@@ -132,14 +130,16 @@
     .form-step[data-step="1"] .grid-sq,
     .form-step[data-step="3"] .grid-sq{ gap:12px; }
 
-    /* Step 2: 3 tiles side-by-side even on mobile */
     .form-step[data-step="2"] .grid-3{ gap:12px; max-width:560px; margin:0 auto; }
-    @media (max-width:639px){
-      .form-step[data-step="2"] .grid-3{ grid-template-columns: repeat(3, minmax(0,1fr)); gap:8px; }
-    }
     @media (min-width:640px){
       .form-step[data-step="1"] .grid-sq,
       .form-step[data-step="3"] .grid-sq{ grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .form-step[data-step="2"] .grid-3{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+    }
+    /* Force 3-up on phones for step 2 */
+    @media (max-width:639px){
+      .form-step[data-step="1"] .grid-sq,
+      .form-step[data-step="3"] .grid-sq{ grid-template-columns: repeat(2, minmax(0,1fr)); }
       .form-step[data-step="2"] .grid-3{ grid-template-columns: repeat(3, minmax(0,1fr)); }
     }
 
@@ -173,25 +173,27 @@
       100%{ opacity:.65; transform:scale(1); }
     }
 
-    /* Mobile-specific sizing and no inner scroll */
+    /* Mobile-specific sizing: make Equifax smaller (~40%) */
     @media (max-width: 767px){
-      /* Kill inner scroller; let page scroll */
-      #lead-form .step-viewport{ height:auto !important; overflow:visible !important; }
-      #lead-form .form-shell{ height:auto !important; }
-      #lead-form .form-shell .sticky{ position:static !important; }
-
-      /* Sidebar + Equifax block */
-      #sidebar{ display:block; }
-      .powered-card{ padding:8px 10px !important; }
-      .powered-card{ flex:0 0 auto !important; }
-      .equifax-logo{ max-height:32px !important; width:auto !important; height:auto !important; } /* smaller on mobile */
+      .powered-card{ padding: 10px; }
+      .equifax-logo{ max-height:44px; }
     }
 
-    /* Respect reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      .bodytype-card.loading .bodytype-img::after,
-      .inv-badge.updating{ animation: none !important; }
+    /* MAP sizing */
+    .map-embed{ width:100%; height:320px; border:0; }
+    @media (min-width:768px){ .map-embed{ height:420px; } }
+
+    /* INVENTORY SECTION OVERRIDES */
+    #inventory.card{
+      background: var(--blue-600);
+      border-color: rgba(255,255,255,.25);
     }
+    /* Make header/subtext/links white, but keep vehicle cards readable on their white backgrounds */
+    #inventory .h2,
+    #inventory .inventory-sub,
+    #inventory .inventory-link{ color:#fff !important; }
+    #inventory .inventory-link:hover{ text-decoration: underline; }
+    #inventory .inv-badge{ color:#fff; opacity:.85; }
   </style>
 
   <script type="application/ld+json">
@@ -337,10 +339,10 @@
                 <div class="step-inner">
                   <h3 class="h2">What’s your monthly budget?</h3>
                   <div class="grid-sq mt-2">
-                    <label class="tile cursor-pointer"><input type="radio" class="sr-only budget-radio" name="budgetRange" value="$250 – $375" required><span>$250–$375</span></label>
-                    <label class="tile cursor-pointer"><input type="radio" class="sr-only budget-radio" name="budgetRange" value="$376 – $499" required><span>$376–$499</span></label>
-                    <label class="tile cursor-pointer"><input type="radio" class="sr-only budget-radio" name="budgetRange" value="$500 – $750" required><span>$500–$750</span></label>
-                    <label class="tile cursor-pointer"><input type="radio" class="sr-only budget-radio" name="budgetRange" value="$750+" required><span>$750+</span></label>
+                    <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$250 – $375" required><span>$250–$375</span></label>
+                    <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$376 – $499" required><span>$376–$499</span></label>
+                    <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$500 – $750" required><span>$500–$750</span></label>
+                    <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$750+" required><span>$750+</span></label>
                   </div>
                 </div>
               </section>
@@ -371,10 +373,7 @@
                   <!-- Trade-in details one line -->
                   <div id="tradeInDetails" class="hidden mt-2">
                     <div class="grid-trade5">
-                      <!-- changed to smart dropdown -->
-                      <select id="tradeInYear" name="tradeInYear" class="form-select">
-                        <option value="">Year</option>
-                      </select>
+                      <input type="number" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" min="2000" max="2025"/>
                       <input type="text" name="tradeInMake" placeholder="Make" class="form-input" maxlength="40"/>
                       <input type="text" name="tradeInModel" placeholder="Model" class="form-input" maxlength="50"/>
                       <input type="number" name="tradeInKms" placeholder="KM" class="form-input" inputmode="numeric" min="0" max="1000000"/>
@@ -612,49 +611,71 @@
     <!-- INVENTORY -->
     <section id="inventory" class="card p-5 mt-6">
       <div class="flex items-center justify-between mb-2">
-        <h3 class="h2">Browse by Vehicle Type</h3>
-        <a href="#lead-form" class="text-[12px] font-semibold text-[var(--blue-600)] hover:underline js-view-inventory">
-          View all <span id="inv-total" class="inv-badge text-zinc-400 font-bold">(0)</span>
+        <h3 class="h2 text-white">Browse by Vehicle Type</h3>
+        <a href="#lead-form" class="inventory-link text-[12px] font-semibold js-view-inventory">
+          View all <span id="inv-total" class="inv-badge font-bold">(0)</span>
         </a>
       </div>
-      <p class="text-[12px] text-zinc-600 mb-1">
+      <p class="inventory-sub text-[12px] mb-1">
         Fill out the quick form above to see your personalized options.
       </p>
-      <p class="text-[11px] text-zinc-500 -mt-1">Numbers refresh as you complete the short form.</p>
+      <p class="inventory-sub text-[11px] -mt-1 opacity-90">Numbers refresh as you complete the short form.</p>
 
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-3">
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Coupe.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Coupe <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
+          <div class="p-2"><p class="font-semibold text-[13px]">Coupe <span class="inv-badge font-semibold">(0)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Hatchback.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Hatchback / Wagen <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
+          <div class="p-2"><p class="font-semibold text-[13px]">Hatchback / Wagen <span class="inv-badge font-semibold">(0)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Electric.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Electric / Hybrid <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
+          <div class="p-2"><p class="font-semibold text-[13px]">Electric / Hybrid <span class="inv-badge font-semibold">(0)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Sedan.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Sedan <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
+          <div class="p-2"><p class="font-semibold text-[13px]">Sedan <span class="inv-badge font-semibold">(0)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Crossover.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Crossover <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
+          <div class="p-2"><p class="font-semibold text-[13px]">Crossover <span class="inv-badge font-semibold">(0)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Suv.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">SUV <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
+          <div class="p-2"><p class="font-semibold text-[13px]">SUV <span class="inv-badge font-semibold">(0)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Van.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Van <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
+          <div class="p-2"><p class="font-semibold text-[13px]">Van <span class="inv-badge font-semibold">(0)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Truck.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Truck <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
+          <div class="p-2"><p class="font-semibold text-[13px]">Truck <span class="inv-badge font-semibold">(0)</span></p></div>
         </a>
+      </div>
+    </section>
+
+    <!-- MAP -->
+    <section id="map" class="card p-0 mt-6 overflow-hidden">
+      <div class="flex items-center justify-between px-4 py-3">
+        <h3 class="h2">Find Us</h3>
+        <a
+          href="https://www.google.com/maps/dir/?api=1&destination=525+Gorge+Rd+E,+Victoria,+BC+V8T+4T2"
+          target="_blank" rel="noopener"
+          class="cta-button !py-1.5"
+        >Directions</a>
+      </div>
+      <iframe
+        class="map-embed"
+        title="Map — Vancouver Island Credit"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps?q=525+Gorge+Rd+E,+Victoria,+BC+V8T+4T2&output=embed">
+      </iframe>
+      <div class="px-4 py-3 text-[12px] text-zinc-600 border-t">
+        Serving Vancouver Island &amp; British Columbia • Delivery available province-wide
       </div>
     </section>
 
@@ -733,7 +754,7 @@
       }, 700);
     }
 
-    // Selections (steps 1 & 2)
+    // Selections
     bySelAll('[data-type]').forEach(b=> b.addEventListener('click', ()=>{
       $('vehicleType').value = b.dataset.type;
       bySelAll('[data-type]').forEach(x=>x.classList.remove('selected'));
@@ -748,11 +769,9 @@
       fakeRefreshCounts();
       next(1);
     }));
-
-    // Budget (step 3) — FIX: advance only once (was double-advancing)
-    bySelAll('.budget-radio').forEach(r=>{
+    bySelAll('[name="budgetRange"]').forEach(r=>{
       r.addEventListener('change', ()=> { fakeRefreshCounts(); next(1); });
-      // No click listener on parent label anymore (it caused a second next())
+      r.parentElement.addEventListener('click', ()=>{ r.checked=true; fakeRefreshCounts(); next(1); });
     });
 
     // Phone format
@@ -992,6 +1011,21 @@
       });
     });
 
+    // Application Code (sidebar)
+    $('code-form')?.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const raw = $('appCodeInput').value || '';
+      const code = raw.toUpperCase().replace(/[^A-Z0-9\-]/g,'').trim();
+      const err = $('code-error');
+      if (!code){ err.classList.remove('hidden'); return; }
+      err.classList.add('hidden');
+      try { sessionStorage.setItem('vic_app_code', code); } catch(_) {}
+      const url = new URL(window.location.href);
+      url.searchParams.set('code', code);
+      history.replaceState(null, '', url.toString());
+      document.getElementById('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
     // Dropdown helpers
     function populateMonths(sel){ if(!sel) return;
       const m=["01","02","03","04","05","06","07","08","09","10","11","12"];
@@ -1008,7 +1042,6 @@
     }
     function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o);} }
     function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
-    function populateYearsDesc(sel,start,end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start;y>=end;y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} }
 
     // Sidebar height sync to form shell height (desktop only)
     function syncSidebarHeight(){
@@ -1022,23 +1055,9 @@
       }
     }
 
-    // Calibrate fixed height (desktop only) + sync heights
+    // Calibrate fixed height to Step 5 and sync heights
     function calibrateShellHeight(){
-      const isDesktop = window.matchMedia('(min-width: 768px)').matches;
       const shell = $('form-shell');
-      const viewport = bySel('#step-viewport');
-      if (!shell || !viewport) return;
-
-      if (!isDesktop){
-        shell.style.height = 'auto';
-        viewport.style.height = 'auto';
-        viewport.style.overflow = 'visible';
-        const sticky = shell.querySelector('.sticky');
-        if (sticky) sticky.style.position = 'static';
-        return syncSidebarHeight();
-      }
-
-      // Desktop behavior unchanged
       const header = shell.querySelector('.sticky');
       const footer = bySel('.form-footer');
       const step = $('step-yourinfo');
@@ -1054,8 +1073,7 @@
       const shellH = header.offsetHeight + contentH + footer.offsetHeight;
 
       shell.style.height = shellH + 'px';
-      viewport.style.height = contentH + 'px';
-      viewport.style.overflow = 'auto';
+      bySel('#step-viewport').style.height = contentH + 'px';
 
       syncSidebarHeight();
     }
@@ -1073,10 +1091,6 @@
       populateDropdown($('timeAtAddressYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
       populateProvinces($('currentProvince'));
-
-      // Smart years for trade-in: current year down to 2004
-      const currentYear = new Date().getFullYear();
-      populateYearsDesc($('tradeInYear'), currentYear, 2004);
 
       setHousing('Rent');
       window.__currentStep = 1;
