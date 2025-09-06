@@ -23,16 +23,16 @@
     :root{
       --blue-600:#2A5D9F; --blue-700:#214B80; --blue-100:#EAF1FB; --blue-grad:#4C7CC0;
 
-      /* typography + rhythm */
       --fs-h1: 22px;
       --fs-h2: 18px;
       --fs-body: 14px;
       --fs-label: 12px;
       --fs-cta: 14px;
 
-      --pad-y: 10px;           /* unified vertical padding above title / above nav / below last field */
+      --pad-y: 10px;          /* same vertical rhythm above title / above nav / below last field */
       --gap-regular: 8px;
-      --input-py: 6px;
+
+      --input-py: 6px;        /* tighter inputs */
       --input-px: 10px;
       --radius: 10px;
     }
@@ -69,14 +69,16 @@
     .seg-btn{ padding:6px 8px; border-radius:6px; font-weight:600; color:#374151; background:transparent; border:2px solid transparent; font-size:12px; }
     .seg-btn[aria-pressed="true"]{ background:#e0ecff; color:#214B80; border-color:#bfdbfe; }
 
-    /* Form shell: auto height so it hugs content (no wasted space) */
-    .form-shell{ position:relative; }
+    /* Form shell: fixed height (set once from JS) */
+    .form-shell{ position:relative; height:auto; overflow:hidden; }
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; }
 
-    /* Step panes: no min-height; they size to content so the card stays tight */
-    .step-pane{ }
+    /* Step panes (hug content vertically) */
     .step-inner{ width:100%; padding-top:var(--pad-y); padding-bottom:var(--pad-y); }
-    .step-inner > .h2{ margin-top: 0; }
+    .step-inner > .h2{ margin-top:0; }
+
+    /* Scrollable viewport inside the fixed shell */
+    .step-viewport{ overflow:auto; }
 
     .vstack > * + *{ margin-top: var(--gap-regular); }
 
@@ -91,11 +93,11 @@
     @media (max-width:460px){ .grid-3{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
     @media (min-width:640px){ .grid-sq{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
 
-    /* Smarter sizing grids */
-    .grid-name3{ display:grid; gap:10px; grid-template-columns: 1.8fr 2.4fr 1.8fr; }        /* First | Middle Name(s) | Last */
+    /* Smart field sizing */
+    .grid-name3{ display:grid; gap:10px; grid-template-columns: 1.8fr 2.4fr 1.8fr; }         /* First | Middle Name(s) | Last */
     .grid-trade5{ display:grid; gap:10px; grid-template-columns: .9fr 1.6fr 1.6fr 1.1fr 1.6fr; } /* Year | Make | Model | KM | Owed */
     .grid-addr5{ display:grid; gap:10px; grid-template-columns: 3.2fr .8fr 1.6fr .8fr 1.0fr; }   /* Street | Unit | City | Prov | Postal */
-    .grid-housing3{ display:grid; gap:10px; grid-template-columns: 1.2fr 1fr 1.2fr; }           /* Payment | Rent/Own | Tenure */
+    .grid-housing3{ display:grid; gap:10px; grid-template-columns: 1.2fr 1fr 1.2fr; }            /* Payment | Rent/Own | Tenure */
 
     /* Income (two lines) */
     .grid-income3{ display:grid; gap:8px; grid-template-columns: 1.2fr 1.8fr 1.5fr; }  /* Source | Employer | Position */
@@ -115,8 +117,8 @@
     /* Tighter inputs inside the form only */
     #lead-form .form-input, #lead-form .form-select, #lead-form .form-textarea{ padding:5px 10px; }
 
-    /* Form footer (Next/Back): same vertical pad as above titles */
-    .form-footer{ padding: var(--pad-y) 0; }
+    /* Form footer (Next/Back): equal vertical pad */
+    .form-footer{ padding: var(--pad-y) 1rem; }
   </style>
 
   <script type="application/ld+json">
@@ -211,8 +213,8 @@
 
     <!-- FORM + APPLICATION CODE SIDEBAR -->
     <section class="grid md:grid-cols-4 gap-4">
-      <!-- FORM (auto-height; tight spacing) -->
-      <div class="md:col-span-3 card p-0 overflow-visible" id="lead-form">
+      <!-- FORM (fixed to Step 5 height) -->
+      <div class="md:col-span-3 card p-0 overflow-hidden" id="lead-form">
         <div class="form-shell" id="form-shell">
           <!-- sticky progress -->
           <div class="sticky px-4 py-2 border-b">
@@ -223,281 +225,283 @@
             <div class="track mt-2"><div id="progress-fill" class="fill"></div></div>
           </div>
 
-          <!-- STEP CONTENT -->
-          <form id="the-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" class="px-4" novalidate>
-            <input type="hidden" name="form-name" value="lead-form"/>
-            <input type="hidden" name="app_type" id="app_type" value="Full Application" />
-            <input type="hidden" name="vehicleCondition" id="vehicleCondition" />
-            <input type="hidden" name="vehicleType" id="vehicleType" />
-            <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
+          <!-- STEP VIEWPORT (gets fixed height from JS; scrolls internally) -->
+          <div id="step-viewport" class="step-viewport px-4">
+            <form id="the-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" novalidate>
+              <input type="hidden" name="form-name" value="lead-form"/>
+              <input type="hidden" name="app_type" id="app_type" value="Full Application" />
+              <input type="hidden" name="vehicleCondition" id="vehicleCondition" />
+              <input type="hidden" name="vehicleType" id="vehicleType" />
+              <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
 
-            <!-- 1: Vehicle Type -->
-            <section class="form-step step-pane" data-step="1">
-              <div class="step-inner">
-                <h3 class="h2 mb-2">What type of vehicle?</h3>
-                <div class="grid-sq">
-                  <button type="button" class="tile" data-type="Car">Car</button>
-                  <button type="button" class="tile" data-type="SUV">SUV</button>
-                  <button type="button" class="tile" data-type="Van">Van</button>
-                  <button type="button" class="tile" data-type="Truck">Truck</button>
-                </div>
-              </div>
-            </section>
-
-            <!-- 2: Condition -->
-            <section class="form-step step-pane hidden" data-step="2">
-              <div class="step-inner">
-                <h3 class="h2 mb-2">Used or new?</h3>
-                <div class="grid-2">
-                  <button type="button" class="choice" data-cond="Used">Used</button>
-                  <button type="button" class="choice" data-cond="New">New</button>
-                </div>
-              </div>
-            </section>
-
-            <!-- 3: Budget -->
-            <section class="form-step step-pane hidden" data-step="3">
-              <div class="step-inner">
-                <h3 class="h2 mb-2">What’s your monthly budget?</h3>
-                <div class="grid-sq">
-                  <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$250 – $375" required><span>$250–$375</span></label>
-                  <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$376 – $499" required><span>$376–$499</span></label>
-                  <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$500 – $750" required><span>$500–$750</span></label>
-                  <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$750+" required><span>$750+</span></label>
-                </div>
-              </div>
-            </section>
-
-            <!-- 4: Purchase -->
-            <section class="form-step step-pane hidden" data-step="4" id="step-purchase">
-              <div class="step-inner">
-                <h3 class="h2 mb-2">Purchase details</h3>
-                <div class="grid grid-cols-2 gap-2">
-                  <div>
-                    <label for="downPayment" class="label mb-1 block">Down payment?</label>
-                    <select id="downPayment" name="downPayment" class="form-select">
-                      <option value="">Select…</option>
-                      <option>$3,000+</option>
-                      <option>$1,000–$3,000</option>
-                      <option>$0–$1,000</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label for="hasTradeIn" class="label mb-1 block">Trade-in?</label>
-                    <select id="hasTradeIn" name="hasTradeIn" class="form-select">
-                      <option>No</option>
-                      <option>Yes</option>
-                    </select>
+              <!-- 1: Vehicle Type -->
+              <section class="form-step" data-step="1">
+                <div class="step-inner">
+                  <h3 class="h2 mb-2">What type of vehicle?</h3>
+                  <div class="grid-sq">
+                    <button type="button" class="tile" data-type="Car">Car</button>
+                    <button type="button" class="tile" data-type="SUV">SUV</button>
+                    <button type="button" class="tile" data-type="Van">Van</button>
+                    <button type="button" class="tile" data-type="Truck">Truck</button>
                   </div>
                 </div>
+              </section>
 
-                <!-- Trade-in details ONE line -->
-                <div id="tradeInDetails" class="hidden mt-2">
-                  <div class="grid-trade5">
-                    <input type="number" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" min="1950" max="2099"/>
-                    <input type="text" name="tradeInMake" placeholder="Make" class="form-input" maxlength="40"/>
-                    <input type="text" name="tradeInModel" placeholder="Model" class="form-input" maxlength="50"/>
-                    <input type="number" name="tradeInKms" placeholder="KM" class="form-input" inputmode="numeric" min="0" max="1000000"/>
-                    <input type="text" name="tradeInOwed" placeholder="Money owed e.g. $5,000 or None" class="form-input" maxlength="20"/>
+              <!-- 2: Condition -->
+              <section class="form-step hidden" data-step="2">
+                <div class="step-inner">
+                  <h3 class="h2 mb-2">Used or new?</h3>
+                  <div class="grid-2">
+                    <button type="button" class="choice" data-cond="Used">Used</button>
+                    <button type="button" class="choice" data-cond="New">New</button>
                   </div>
                 </div>
-              </div>
-            </section>
+              </section>
 
-            <!-- 5: YOUR INFORMATION -->
-            <section class="form-step step-pane hidden" data-step="5" id="step-yourinfo">
-              <div class="step-inner">
-                <h3 class="h2 mb-2">Your information</h3>
-
-                <div class="grid-name3">
-                  <div>
-                    <label for="firstName" class="label mb-1 block">First name <span class="text-red-500">*</span></label>
-                    <input type="text" id="firstName" name="firstName" class="form-input" autocomplete="given-name" maxlength="50" required/>
-                  </div>
-                  <div>
-                    <label for="middleName" class="label mb-1 block">Middle Name(s) <span class="text-red-500">*</span></label>
-                    <input type="text" id="middleName" name="middleName" class="form-input" autocomplete="additional-name" maxlength="100" required/>
-                  </div>
-                  <div>
-                    <label for="lastName" class="label mb-1 block">Last name <span class="text-red-500">*</span></label>
-                    <input type="text" id="lastName" name="lastName" class="form-input" autocomplete="family-name" maxlength="50" required/>
+              <!-- 3: Budget -->
+              <section class="form-step hidden" data-step="3">
+                <div class="step-inner">
+                  <h3 class="h2 mb-2">What’s your monthly budget?</h3>
+                  <div class="grid-sq">
+                    <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$250 – $375" required><span>$250–$375</span></label>
+                    <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$376 – $499" required><span>$376–$499</span></label>
+                    <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$500 – $750" required><span>$500–$750</span></label>
+                    <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$750+" required><span>$750+</span></label>
                   </div>
                 </div>
+              </section>
 
-                <div class="grid grid-cols-2 gap-2 mt-2">
-                  <div>
-                    <label for="phone" class="label mb-1 block">Phone <span class="text-red-500">*</span></label>
-                    <input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" maxlength="14" required/>
+              <!-- 4: Purchase -->
+              <section class="form-step hidden" data-step="4" id="step-purchase">
+                <div class="step-inner">
+                  <h3 class="h2 mb-2">Purchase details</h3>
+                  <div class="grid grid-cols-2 gap-2">
+                    <div>
+                      <label for="downPayment" class="label mb-1 block">Down payment?</label>
+                      <select id="downPayment" name="downPayment" class="form-select">
+                        <option value="">Select…</option>
+                        <option>$3,000+</option>
+                        <option>$1,000–$3,000</option>
+                        <option>$0–$1,000</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label for="hasTradeIn" class="label mb-1 block">Trade-in?</label>
+                      <select id="hasTradeIn" name="hasTradeIn" class="form-select">
+                        <option>No</option>
+                        <option>Yes</option>
+                      </select>
+                    </div>
                   </div>
-                  <div>
-                    <label for="email" class="label mb-1 block">Email <span class="text-red-500">*</span></label>
-                    <input type="email" id="email" name="email" class="form-input" autocomplete="email" maxlength="100" required/>
-                  </div>
-                </div>
 
-                <div class="grid grid-cols-4 gap-2 mt-2">
-                  <div>
-                    <label class="label mb-1 block">Month <span class="text-red-500">*</span></label>
-                    <select id="dobMonth" name="dobMonth" class="form-select" required><option value="">MM</option></select>
-                  </div>
-                  <div>
-                    <label class="label mb-1 block">Day <span class="text-red-500">*</span></label>
-                    <select id="dobDay" name="dobDay" class="form-select" required><option value="">DD</option></select>
-                  </div>
-                  <div>
-                    <label class="label mb-1 block">Year <span class="text-red-500">*</span></label>
-                    <input type="number" id="dobYear" name="dobYear" placeholder="YYYY" class="form-input" inputmode="numeric" min="1900" max="2099" required/>
-                  </div>
-                  <div id="marital-wrap">
-                    <label for="maritalStatus" class="label mb-1 block">Marital <span class="text-red-500">*</span></label>
-                    <select id="maritalStatus" name="maritalStatus" class="form-select" required>
-                      <option value="">Select</option>
-                      <option>Single</option><option>Married</option><option>Common-Law</option>
-                      <option>Divorced</option><option>Separated</option><option>Widowed</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- 6: Income (TWO LINES) -->
-            <section class="form-step step-pane hidden" data-step="6" id="step-income">
-              <div class="step-inner">
-                <h3 class="h2 mb-2">Income</h3>
-
-                <!-- Line 1: Source | Employer | Position -->
-                <div class="grid-income3">
-                  <div>
-                    <label for="incomeSourceFull" class="label mb-1 block">Primary income <span class="text-red-500">*</span></label>
-                    <select id="incomeSourceFull" name="incomeSourceFull" class="form-select" required>
-                      <option value="">Select…</option>
-                      <option value="Full-Time">Full-Time</option>
-                      <option value="Part-Time">Part-Time</option>
-                      <option value="Self-Employed">Self-Employed</option>
-                      <option value="Disability">Disability</option>
-                      <option value="Other">Other</option>
-                    </select>
-                  </div>
-                  <div id="empWrap">
-                    <label for="currentEmployer" class="label mb-1 block">Employer <span class="text-red-500">*</span></label>
-                    <input type="text" id="currentEmployer" name="currentEmployer" class="form-input" placeholder="Company" maxlength="80"/>
-                  </div>
-                  <div id="posWrap">
-                    <label for="jobTitle" class="label mb-1 block">Position <span class="text-red-500">*</span></label>
-                    <input type="text" id="jobTitle" name="jobTitle" class="form-input" placeholder="Role" maxlength="60"/>
-                  </div>
-                </div>
-
-                <!-- Line 2: Monthly | Tenure (Years & Months) -->
-                <div class="grid-income2 mt-1">
-                  <div id="monthlyWrap">
-                    <label for="avgMonthlyIncome" class="label mb-1 block">Monthly income (before tax) <span class="text-red-500">*</span></label>
-                    <input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric" maxlength="16"/>
-                  </div>
-                  <div id="tenureWrap">
-                    <label class="label mb-1 block">Time with employer <span class="text-zinc-500">(Years &amp; Months)</span> <span class="text-red-500">*</span></label>
-                    <div class="tenure-2">
-                      <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select>
-                      <select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
+                  <!-- Trade-in details ONE line -->
+                  <div id="tradeInDetails" class="hidden mt-2">
+                    <div class="grid-trade5">
+                      <input type="number" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" min="1950" max="2099"/>
+                      <input type="text" name="tradeInMake" placeholder="Make" class="form-input" maxlength="40"/>
+                      <input type="text" name="tradeInModel" placeholder="Model" class="form-input" maxlength="50"/>
+                      <input type="number" name="tradeInKms" placeholder="KM" class="form-input" inputmode="numeric" min="0" max="1000000"/>
+                      <input type="text" name="tradeInOwed" placeholder="Money owed e.g. $5,000 or None" class="form-input" maxlength="20"/>
                     </div>
                   </div>
                 </div>
+              </section>
 
-                <!-- Self-Employed alt -->
-                <div id="full-self" class="hidden grid grid-cols-2 gap-2 mt-1">
-                  <div>
-                    <label for="businessName" class="label mb-1 block">Business <span class="text-red-500">*</span></label>
-                    <input type="text" id="businessName" name="businessName" class="form-input" placeholder="Name" maxlength="100"/>
-                  </div>
-                  <div>
-                    <label for="selfMonthlyIncome" class="label mb-1 block">Avg monthly (pre-tax) <span class="text-red-500">*</span></label>
-                    <input type="text" id="selfMonthlyIncome" name="selfMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric" maxlength="16"/>
-                  </div>
-                </div>
+              <!-- 5: YOUR INFORMATION -->
+              <section class="form-step hidden" data-step="5" id="step-yourinfo">
+                <div class="step-inner">
+                  <h3 class="h2 mb-2">Your information</h3>
 
-                <!-- Other income alt -->
-                <div id="full-other" class="hidden grid grid-cols-2 gap-2 mt-1">
-                  <div>
-                    <label for="otherIncomeAmount" class="label mb-1 block">Monthly (pre-tax) <span class="text-red-500">*</span></label>
-                    <input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="$2,000" inputmode="numeric" maxlength="16"/>
-                  </div>
-                  <div>
-                    <label for="otherIncomeSource" class="label mb-1 block">Source <span class="text-red-500">*</span></label>
-                    <input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Describe" maxlength="80"/>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- 7: Address -->
-            <section class="form-step step-pane hidden" data-step="7" id="step-address">
-              <div class="step-inner">
-                <h3 class="h2 mb-2">Where do you live?</h3>
-
-                <div id="addr-full-current" class="">
-                  <div class="grid-addr5">
-                    <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" placeholder="Street Address" autocomplete="street-address" maxlength="120" required/>
-                    <input type="text" id="currentUnit" name="currentUnit" class="form-input" placeholder="Unit #" maxlength="10"/>
-                    <input type="text" id="currentCity" name="currentCity" class="form-input" placeholder="City" autocomplete="address-level2" maxlength="60" required/>
-                    <select id="currentProvince" name="currentProvince" class="form-select" required><option value="">Prov</option></select>
-                    <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" placeholder="Postal" autocomplete="postal-code" maxlength="7"/>
-                  </div>
-                </div>
-
-                <div class="grid-housing3 mt-2" id="housing-row">
-                  <div>
-                    <label id="housingLabel" for="housingPayment" class="label mb-1 block">Monthly Payment <span class="text-red-500">*</span></label>
-                    <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1,500" inputmode="numeric" maxlength="16" required/>
-                  </div>
-                  <div>
-                    <label class="label mb-1 block">Rent or Own? <span class="text-red-500">*</span></label>
-                    <div class="seg">
-                      <button type="button" class="seg-btn" id="btnRent" aria-pressed="true">Rent</button>
-                      <button type="button" class="seg-btn" id="btnOwn" aria-pressed="false">Own</button>
+                  <div class="grid-name3">
+                    <div>
+                      <label for="firstName" class="label mb-1 block">First name <span class="text-red-500">*</span></label>
+                      <input type="text" id="firstName" name="firstName" class="form-input" autocomplete="given-name" maxlength="50" required/>
                     </div>
-                    <input type="hidden" id="housingType" name="housingType" value="Rent" />
+                    <div>
+                      <label for="middleName" class="label mb-1 block">Middle Name(s) <span class="text-red-500">*</span></label>
+                      <input type="text" id="middleName" name="middleName" class="form-input" autocomplete="additional-name" maxlength="100" required/>
+                    </div>
+                    <div>
+                      <label for="lastName" class="label mb-1 block">Last name <span class="text-red-500">*</span></label>
+                      <input type="text" id="lastName" name="lastName" class="form-input" autocomplete="family-name" maxlength="50" required/>
+                    </div>
                   </div>
-                  <div id="addr-duration">
-                    <label class="label mb-1 block">Time there <span class="text-zinc-500">(Years &amp; Months)</span> <span class="text-red-500">*</span></label>
-                    <div class="tenure-2">
-                      <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                      <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+
+                  <div class="grid grid-cols-2 gap-2 mt-2">
+                    <div>
+                      <label for="phone" class="label mb-1 block">Phone <span class="text-red-500">*</span></label>
+                      <input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" maxlength="14" required/>
+                    </div>
+                    <div>
+                      <label for="email" class="label mb-1 block">Email <span class="text-red-500">*</span></label>
+                      <input type="email" id="email" name="email" class="form-input" autocomplete="email" maxlength="100" required/>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-4 gap-2 mt-2">
+                    <div>
+                      <label class="label mb-1 block">Month <span class="text-red-500">*</span></label>
+                      <select id="dobMonth" name="dobMonth" class="form-select" required><option value="">MM</option></select>
+                    </div>
+                    <div>
+                      <label class="label mb-1 block">Day <span class="text-red-500">*</span></label>
+                      <select id="dobDay" name="dobDay" class="form-select" required><option value="">DD</option></select>
+                    </div>
+                    <div>
+                      <label class="label mb-1 block">Year <span class="text-red-500">*</span></label>
+                      <input type="number" id="dobYear" name="dobYear" placeholder="YYYY" class="form-input" inputmode="numeric" min="1900" max="2099" required/>
+                    </div>
+                    <div id="marital-wrap">
+                      <label for="maritalStatus" class="label mb-1 block">Marital <span class="text-red-500">*</span></label>
+                      <select id="maritalStatus" name="maritalStatus" class="form-select" required>
+                        <option value="">Select</option>
+                        <option>Single</option><option>Married</option><option>Common-Law</option>
+                        <option>Divorced</option><option>Separated</option><option>Widowed</option>
+                      </select>
                     </div>
                   </div>
                 </div>
-              </div>
-            </section>
+              </section>
 
-            <!-- DYNAMIC inserts: Previous Employment / Previous Address -->
+              <!-- 6: Income (two lines) -->
+              <section class="form-step hidden" data-step="6" id="step-income">
+                <div class="step-inner">
+                  <h3 class="h2 mb-2">Income</h3>
 
-            <!-- CONSENT & SUBMIT -->
-            <section class="form-step step-pane hidden" data-step="99" id="step-consent">
-              <div class="step-inner">
-                <div id="consent-checkbox">
-                  <div class="flex items-start gap-2 bg-gray-100 p-3 rounded-lg">
-                    <input id="creditConsent" name="creditConsent" type="checkbox" class="h-4 w-4 rounded border-gray-300 mt-0.5"/>
-                    <label for="creditConsent" id="consentLabel" class="text-[11px] text-zinc-700">
-                      I consent to a credit inquiry by Blake Stolth / Vancouver Island Credit to assess financing options and confirm the information provided is accurate. <span class="text-red-500 font-bold">*</span>
-                    </label>
+                  <!-- Line 1 -->
+                  <div class="grid-income3">
+                    <div>
+                      <label for="incomeSourceFull" class="label mb-1 block">Primary income <span class="text-red-500">*</span></label>
+                      <select id="incomeSourceFull" name="incomeSourceFull" class="form-select" required>
+                        <option value="">Select…</option>
+                        <option value="Full-Time">Full-Time</option>
+                        <option value="Part-Time">Part-Time</option>
+                        <option value="Self-Employed">Self-Employed</option>
+                        <option value="Disability">Disability</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                    <div id="empWrap">
+                      <label for="currentEmployer" class="label mb-1 block">Employer <span class="text-red-500">*</span></label>
+                      <input type="text" id="currentEmployer" name="currentEmployer" class="form-input" placeholder="Company" maxlength="80"/>
+                    </div>
+                    <div id="posWrap">
+                      <label for="jobTitle" class="label mb-1 block">Position <span class="text-red-500">*</span></label>
+                      <input type="text" id="jobTitle" name="jobTitle" class="form-input" placeholder="Role" maxlength="60"/>
+                    </div>
+                  </div>
+
+                  <!-- Line 2 -->
+                  <div class="grid-income2 mt-1">
+                    <div id="monthlyWrap">
+                      <label for="avgMonthlyIncome" class="label mb-1 block">Monthly income (before tax) <span class="text-red-500">*</span></label>
+                      <input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric" maxlength="16"/>
+                    </div>
+                    <div id="tenureWrap">
+                      <label class="label mb-1 block">Time with employer <span class="text-zinc-500">(Years &amp; Months)</span> <span class="text-red-500">*</span></label>
+                      <div class="tenure-2">
+                        <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select>
+                        <select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Self-Employed alt -->
+                  <div id="full-self" class="hidden grid grid-cols-2 gap-2 mt-1">
+                    <div>
+                      <label for="businessName" class="label mb-1 block">Business <span class="text-red-500">*</span></label>
+                      <input type="text" id="businessName" name="businessName" class="form-input" placeholder="Name" maxlength="100"/>
+                    </div>
+                    <div>
+                      <label for="selfMonthlyIncome" class="label mb-1 block">Avg monthly (pre-tax) <span class="text-red-500">*</span></label>
+                      <input type="text" id="selfMonthlyIncome" name="selfMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric" maxlength="16"/>
+                    </div>
+                  </div>
+
+                  <!-- Other income alt -->
+                  <div id="full-other" class="hidden grid grid-cols-2 gap-2 mt-1">
+                    <div>
+                      <label for="otherIncomeAmount" class="label mb-1 block">Monthly (pre-tax) <span class="text-red-500">*</span></label>
+                      <input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="$2,000" inputmode="numeric" maxlength="16"/>
+                    </div>
+                    <div>
+                      <label for="otherIncomeSource" class="label mb-1 block">Source <span class="text-red-500">*</span></label>
+                      <input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Describe" maxlength="80"/>
+                    </div>
                   </div>
                 </div>
-                <div class="pt-2">
-                  <button type="submit" id="submitBtn" class="w-full cta-button">Submit and See Options</button>
-                  <p id="form-status" class="mt-2 text-[11px] text-center text-red-600" aria-live="polite"></p>
-                </div>
-              </div>
-            </section>
+              </section>
 
-            <!-- FORM FOOTER (Next / Back) — consistent vertical spacing -->
-            <div class="form-footer flex items-center justify-between">
-              <button type="button" id="btnBack" class="text-[12px] font-semibold text-zinc-600 hover:text-zinc-900 px-2 py-1 disabled:opacity-30">Back</button>
-              <button type="button" id="btnNext" class="cta-button">Next</button>
-            </div>
-          </form>
+              <!-- 7: Address -->
+              <section class="form-step hidden" data-step="7" id="step-address">
+                <div class="step-inner">
+                  <h3 class="h2 mb-2">Where do you live?</h3>
+
+                  <div id="addr-full-current">
+                    <div class="grid-addr5">
+                      <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" placeholder="Street Address" autocomplete="street-address" maxlength="120" required/>
+                      <input type="text" id="currentUnit" name="currentUnit" class="form-input" placeholder="Unit #" maxlength="10"/>
+                      <input type="text" id="currentCity" name="currentCity" class="form-input" placeholder="City" autocomplete="address-level2" maxlength="60" required/>
+                      <select id="currentProvince" name="currentProvince" class="form-select" required><option value="">Prov</option></select>
+                      <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" placeholder="Postal" autocomplete="postal-code" maxlength="7"/>
+                    </div>
+                  </div>
+
+                  <div class="grid-housing3 mt-2" id="housing-row">
+                    <div>
+                      <label id="housingLabel" for="housingPayment" class="label mb-1 block">Monthly Payment <span class="text-red-500">*</span></label>
+                      <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1,500" inputmode="numeric" maxlength="16" required/>
+                    </div>
+                    <div>
+                      <label class="label mb-1 block">Rent or Own? <span class="text-red-500">*</span></label>
+                      <div class="seg">
+                        <button type="button" class="seg-btn" id="btnRent" aria-pressed="true">Rent</button>
+                        <button type="button" class="seg-btn" id="btnOwn" aria-pressed="false">Own</button>
+                      </div>
+                      <input type="hidden" id="housingType" name="housingType" value="Rent" />
+                    </div>
+                    <div id="addr-duration">
+                      <label class="label mb-1 block">Time there <span class="text-zinc-500">(Years &amp; Months)</span> <span class="text-red-500">*</span></label>
+                      <div class="tenure-2">
+                        <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
+                        <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- DYNAMIC inserts: Previous Employment / Previous Address -->
+
+              <!-- CONSENT & SUBMIT -->
+              <section class="form-step hidden" data-step="99" id="step-consent">
+                <div class="step-inner">
+                  <div id="consent-checkbox">
+                    <div class="flex items-start gap-2 bg-gray-100 p-3 rounded-lg">
+                      <input id="creditConsent" name="creditConsent" type="checkbox" class="h-4 w-4 rounded border-gray-300 mt-0.5"/>
+                      <label for="creditConsent" id="consentLabel" class="text-[11px] text-zinc-700">
+                        I consent to a credit inquiry by Blake Stolth / Vancouver Island Credit to assess financing options and confirm the information provided is accurate. <span class="text-red-500 font-bold">*</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="pt-2">
+                    <button type="submit" id="submitBtn" class="w-full cta-button">Submit and See Options</button>
+                    <p id="form-status" class="mt-2 text-[11px] text-center text-red-600" aria-live="polite"></p>
+                  </div>
+                </div>
+              </section>
+            </form>
+          </div>
+
+          <!-- FORM FOOTER (Next / Back) -->
+          <div class="form-footer flex items-center justify-between">
+            <button type="button" id="btnBack" class="text-[12px] font-semibold text-zinc-600 hover:text-zinc-900 px-2 py-1 disabled:opacity-30">Back</button>
+            <button type="button" id="btnNext" class="cta-button">Next</button>
+          </div>
         </div>
       </div>
 
-      <!-- APPLICATION CODE SIDEBAR -->
+      <!-- APPLICATION CODE SIDEBAR (unchanged) -->
       <aside class="md:col-span-1 card p-5 h-fit self-start" id="resume">
         <div class="flex flex-col gap-2">
           <h3 class="h2">Already have an application code?</h3>
@@ -584,15 +588,14 @@
     $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
 
     // Steps
-    const formEl = $('the-form');
     const steps = () => bySelAll('.form-step');
 
     function renumberSteps(){
       const total = steps().length;
       const cur = window.__currentStep || 1;
-      $('progress-label').textContent = 'Step ' + cur + ' of ' + total;
+      bySel('#progress-label').textContent = 'Step ' + cur + ' of ' + total;
       const pct = Math.round((cur-1)/(total-1)*100);
-      $('progress-fill').style.width = pct + '%';
+      bySel('#progress-fill').style.width = pct + '%';
     }
 
     function showStep(n){
@@ -604,10 +607,10 @@
       const total = s.length;
       $('btnBack').disabled = (n === 1);
       $('btnNext').textContent = (n === total) ? 'See My Options' : 'Next';
-      $('progress-label').textContent = 'Step ' + n + ' of ' + total;
+      bySel('#progress-label').textContent = 'Step ' + n + ' of ' + total;
       const pct = Math.round((n-1)/(total-1)*100);
-      $('progress-fill').style.width = pct + '%';
-      $('progress-endcap').textContent = (n === total) ? 'See options you’re actually qualified for' : 'Let’s get you approved';
+      bySel('#progress-fill').style.width = pct + '%';
+      bySel('#progress-endcap').textContent = (n === total) ? 'See options you’re actually qualified for' : 'Let’s get you approved';
     }
 
     function next(delta){
@@ -620,6 +623,7 @@
       showStep(t);
     }
 
+    // Nav buttons
     $('btnNext').addEventListener('click', ()=> next(1));
     $('btnBack').addEventListener('click', ()=> next(-1));
 
@@ -691,7 +695,7 @@
       checkPrevEmploymentNeed();
     });
 
-    // Dynamic PREVIOUS EMPLOYMENT (only counted when shown)
+    // Dynamic PREVIOUS EMPLOYMENT (count only when shown)
     function ensurePrevEmploymentStep(need){
       const after = $('step-income');
       const existing = after.nextElementSibling && after.nextElementSibling.querySelector?.('#previousEmployer')
@@ -700,7 +704,7 @@
 
       if (need && !existing){
         const sec = document.createElement('section');
-        sec.className = 'form-step step-pane hidden';
+        sec.className = 'form-step hidden';
         sec.innerHTML = `
           <div class="step-inner">
             <h3 class="h2 mb-2">Previous employment</h3>
@@ -757,7 +761,7 @@
     $('timeWithEmployerYears')?.addEventListener('change', checkPrevEmploymentNeed);
     $('timeWithEmployerMonths')?.addEventListener('change', checkPrevEmploymentNeed);
 
-    // Dynamic PREVIOUS ADDRESS (only counted when shown)
+    // Dynamic PREVIOUS ADDRESS (count only when shown)
     function ensurePrevAddressStep(need){
       const after = $('step-address');
       const existing = after.nextElementSibling && after.nextElementSibling.querySelector?.('#prevStreetAddress')
@@ -766,7 +770,7 @@
 
       if (need && !existing){
         const sec = document.createElement('section');
-        sec.className = 'form-step step-pane hidden';
+        sec.className = 'form-step hidden';
         sec.innerHTML = `
           <div class="step-inner">
             <h3 class="h2 mb-2">Previous address</h3>
@@ -845,13 +849,13 @@
 
     // Submit (adds app code and passes to thank-you)
     async function submitForm(){
-      if (!validateAll()) { $('form-status').textContent = 'Please complete all required fields.'; return; }
-      $('submitBtn').disabled = true; $('submitBtn').textContent = 'Submitting…';
+      if (!validateAll()) { bySel('#form-status').textContent = 'Please complete all required fields.'; return; }
+      bySel('#submitBtn').disabled = true; bySel('#submitBtn').textContent = 'Submitting…';
 
       const code = 'VIC-' + Math.random().toString(36).slice(2,8).toUpperCase();
       try { sessionStorage.setItem('vic_app_code', code); } catch(_) {}
 
-      const fd = new FormData(formEl);
+      const fd = new FormData(bySel('#the-form'));
       fd.append('appCode', code);
 
       try {
@@ -860,7 +864,7 @@
         url.searchParams.set('code', code);
         window.location.href = url.toString();
       } catch (e) {
-        formEl.submit();
+        bySel('#the-form').submit();
       }
     }
     function validateAll(){
@@ -909,6 +913,30 @@
     function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o);} }
     function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
 
+    // --- Calibrate fixed height to Step 5 ("Your information") once ---
+    function calibrateShellHeight(){
+      const shell = $('form-shell');
+      const header = shell.querySelector('.sticky');
+      const footer = bySel('.form-footer');
+      const step = $('step-yourinfo');
+
+      // Temporarily reveal step 5 to measure if hidden
+      const wasHidden = step.classList.contains('hidden');
+      if (wasHidden) step.classList.remove('hidden');
+
+      // measure inner content height
+      const inner = step.querySelector('.step-inner');
+      const contentH = inner ? inner.offsetHeight : step.offsetHeight;
+
+      if (wasHidden) step.classList.add('hidden');
+
+      const shellH = header.offsetHeight + contentH + footer.offsetHeight;
+
+      // Apply fixed heights
+      shell.style.height = shellH + 'px';
+      bySel('#step-viewport').style.height = contentH + 'px';
+    }
+
     // Init
     (function init(){
       const y = new Date().getFullYear(); bySel('#year').textContent = y;
@@ -927,6 +955,10 @@
       window.__currentStep = 1;
       showStep(1);
       renumberSteps();
+
+      // Set fixed shell height to Step 5 once
+      // Run after layout is ready to avoid font reflow issues
+      window.requestAnimationFrame(()=> setTimeout(calibrateShellHeight, 0));
     })();
   </script>
 </body>
