@@ -173,13 +173,21 @@
       100%{ opacity:.65; transform:scale(1); }
     }
 
-    /* Mobile-specific sizing for Equifax block (about half height) */
+    /* Mobile-specific sizing and no inner scroll */
     @media (max-width: 767px){
-      .powered-card{ padding: 10px; }
-      .equifax-logo{ max-height:56px; } /* ~half of 110px */
+      /* Kill inner scroller; let page scroll */
+      #lead-form .step-viewport{ height:auto !important; overflow:visible !important; }
+      #lead-form .form-shell{ height:auto !important; }
+      #lead-form .form-shell .sticky{ position:static !important; }
+
+      /* Sidebar + Equifax block */
+      #sidebar{ display:block; }
+      .powered-card{ padding:8px 10px !important; }
+      .powered-card{ flex:0 0 auto !important; } /* don’t stretch */
+      .equifax-logo{ max-height:40px !important; width:auto !important; height:auto !important; }
     }
 
-    /* Respect users who prefer reduced motion */
+    /* Respect reduced motion */
     @media (prefers-reduced-motion: reduce){
       .bodytype-card.loading .bodytype-img::after,
       .inv-badge.updating{ animation: none !important; }
@@ -1023,9 +1031,24 @@
       }
     }
 
-    // Calibrate fixed height to Step 5 and sync heights
+    // Calibrate fixed height (desktop only) + sync heights
     function calibrateShellHeight(){
+      const isDesktop = window.matchMedia('(min-width: 768px)').matches;
       const shell = $('form-shell');
+      const viewport = bySel('#step-viewport');
+      if (!shell || !viewport) return;
+
+      if (!isDesktop){
+        // Mobile: no fixed heights, no inner scroll, no sticky header
+        shell.style.height = 'auto';
+        viewport.style.height = 'auto';
+        viewport.style.overflow = 'visible';
+        const sticky = shell.querySelector('.sticky');
+        if (sticky) sticky.style.position = 'static';
+        return syncSidebarHeight();
+      }
+
+      // Desktop behavior unchanged
       const header = shell.querySelector('.sticky');
       const footer = bySel('.form-footer');
       const step = $('step-yourinfo');
@@ -1041,7 +1064,8 @@
       const shellH = header.offsetHeight + contentH + footer.offsetHeight;
 
       shell.style.height = shellH + 'px';
-      bySel('#step-viewport').style.height = contentH + 'px';
+      viewport.style.height = contentH + 'px';
+      viewport.style.overflow = 'auto';
 
       syncSidebarHeight();
     }
