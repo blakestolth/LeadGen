@@ -105,7 +105,6 @@
     /* NEW income layout (two lines) */
     .grid-income3{ display:grid; gap:8px; grid-template-columns: 1.2fr 1.8fr 1.5fr; } /* Source | Employer | Position */
     .grid-income2{ display:grid; gap:8px; grid-template-columns: 1.1fr 1.4fr; } /* Monthly | Tenure */
-
     .tenure-2{ display:grid; gap:8px; grid-template-columns: 1fr 1fr; }
 
     .abc-badge{
@@ -118,9 +117,15 @@
 
     section, header, footer { scroll-margin-top: 70px; }
 
-    /* TIGHTENING THE FORM ONLY (sidebar unaffected) */
-    #lead-form .step-inner{ padding-top:4px; padding-bottom:4px; }
+    /* ------- TIGHTEN THE FORM CARD ONLY ------- */
+    /* 1) Top-anchor step content inside the form (no vertical centering) */
+    #lead-form .step-pane{ display:block; min-height:var(--contentH); }
+    #lead-form .step-inner{ margin:0; padding-top:6px; padding-bottom:6px; }
+
+    /* 2) Slightly tighter inputs just inside the form */
     #lead-form .form-input, #lead-form .form-select, #lead-form .form-textarea{ padding:5px 10px; }
+
+    /* 3) Nudge step headings closer */
     #lead-form .h2{ margin-top:4px; }
   </style>
 
@@ -219,7 +224,7 @@
       <!-- FORM (tightened only inside this card) -->
       <div class="md:col-span-3 card p-0 overflow-hidden" id="lead-form">
         <!-- local var overrides to shrink ONLY the form shell -->
-        <div class="form-shell" id="form-shell" style="--shellH: 450px; --progressH: 48px; --navH: 44px;">
+        <div class="form-shell" id="form-shell" style="--shellH: 410px; --progressH: 48px; --navH: 38px;">
           <!-- sticky progress -->
           <div class="sticky px-4 py-2 border-b">
             <div class="flex items-center justify-between">
@@ -230,8 +235,8 @@
           </div>
 
           <!-- STEP VIEWPORT -->
-          <div class="px-4 py-2" style="height:var(--contentH);">
-            <form id="the-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" class="h-full flex flex-col justify-center" novalidate>
+          <div class="px-4 py-1" style="height:var(--contentH);">
+            <form id="the-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" class="h-full flex flex-col" novalidate>
               <input type="hidden" name="form-name" value="lead-form"/>
               <input type="hidden" name="app_type" id="app_type" value="Full Application" />
               <input type="hidden" name="vehicleCondition" id="vehicleCondition" />
@@ -266,12 +271,12 @@
               <section class="form-step step-pane hidden" data-step="3">
                 <div class="step-inner">
                   <h3 class="h2 mb-2">What’s your monthly budget?</h3>
-                <div class="grid-sq">
-                  <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$250 – $375" required><span>$250–$375</span></label>
-                  <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$376 – $499" required><span>$376–$499</span></label>
-                  <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$500 – $750" required><span>$500–$750</span></label>
-                  <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$750+" required><span>$750+</span></label>
-                </div>
+                  <div class="grid-sq">
+                    <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$250 – $375" required><span>$250–$375</span></label>
+                    <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$376 – $499" required><span>$376–$499</span></label>
+                    <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$500 – $750" required><span>$500–$750</span></label>
+                    <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$750+" required><span>$750+</span></label>
+                  </div>
                 </div>
               </section>
 
