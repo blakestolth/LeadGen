@@ -193,6 +193,35 @@
       text-decoration: underline;
       text-underline-offset: 2px;
     }
+
+    /* ====== ABOUT: Center perfectly + keep two columns on mobile ====== */
+    #about .about-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr; /* no stacking at any breakpoint */
+      gap: 1.5rem;
+      align-items:start;
+      justify-items:center;          /* center each column block */
+    }
+    #about .vstack{
+      align-items:center;            /* center content inside each column */
+      text-align:center;
+      width:100%;
+      max-width: 36rem;              /* keep lines a comfortable width */
+    }
+    /* Center each list row (badge + text) as a unit; keep horizontal layout */
+    #about ol li,
+    #about ul li{
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;        /* centers the pair as a row */
+      gap: 0.5rem;
+      text-align:left;               /* keep text readable while centered as a unit */
+    }
+    /* Keep list text from stretching too wide so the centering feels precise */
+    #about ol li span:last-child,
+    #about ul li span:last-child{
+      max-width: 36ch;
+    }
   </style>
 
   <script type="application/ld+json">
@@ -243,7 +272,8 @@
   <main class="w-full max-w-5xl mx-auto px-4 py-6 space-y-6">
     <!-- HERO / ABOUT -->
     <section id="about" class="card p-5">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="about-grid">
+        <!-- Col 1 -->
         <div class="vstack">
           <h1 class="h1">Get driving in 3 easy steps</h1>
           <ol class="text-[13px] text-zinc-700 space-y-2">
@@ -261,6 +291,7 @@
             </li>
           </ol>
         </div>
+        <!-- Col 2 -->
         <div class="vstack">
           <h2 class="h2">Why people pick us</h2>
           <ul class="text-[13px] text-zinc-700 space-y-2">
