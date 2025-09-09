@@ -101,8 +101,7 @@
     .grid-income2{ display:grid; gap:8px; grid-template-columns: 1.1fr 1.4fr; }
     .tenure-2{ display:grid; gap:8px; grid-template-columns: 1fr 1fr; }
 
-    /* Badges — EXACTLY matching your original desktop size */
-    .abc-badge, .k-badge{
+    .abc-badge{
       display:inline-flex; align-items:center; justify-content:center;
       width:20px; height:20px; border-radius:9999px;
       border:2px solid var(--blue-600); color:#2A5D9F; background:#fff;
@@ -130,11 +129,17 @@
     .form-step[data-step="1"] .grid-sq,
     .form-step[data-step="3"] .grid-sq{ gap:12px; }
 
-    .form-step[data-step="2"] .grid-3{ gap:12px; max-width:560px; margin:0 auto; }
+    .form-step[data-step="2"] .grid-3{ gap:12px; max-width:560px; margin:0 auto; } /* center the 3 squares */
 
     @media (min-width:640px){
       .form-step[data-step="1"] .grid-sq,
       .form-step[data-step="3"] .grid-sq{ grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .form-step[data-step="2"] .grid-3{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+    }
+    /* Force 3-up on phones for step 2 */
+    @media (max-width:639px){
+      .form-step[data-step="1"] .grid-sq,
+      .form-step[data-step="3"] .grid-sq{ grid-template-columns: repeat(2, minmax(0,1fr)); }
       .form-step[data-step="2"] .grid-3{ grid-template-columns: repeat(3, minmax(0,1fr)); }
     }
 
@@ -146,7 +151,7 @@
     }
     .equifax-logo{ max-width:100%; max-height:110px; height:auto; object-fit:contain; }
 
-    /* Subtle shimmer */
+    /* Subtle faux-loading shimmer + count pulse */
     .bodytype-card.loading .bodytype-img{ position:relative; overflow:hidden; }
     .bodytype-card.loading .bodytype-img::after{
       content:"";
@@ -162,7 +167,7 @@
 
     .inv-badge{ transition: opacity .15s ease, transform .15s ease; opacity:.65; }
 
-    /* Mobile-specific sizing for Equifax */
+    /* Mobile-specific sizing: make Equifax smaller (~40%) */
     @media (max-width: 767px){
       .powered-card{ padding: 10px; }
       .equifax-logo{ max-height:44px; }
@@ -172,55 +177,31 @@
     .map-embed{ width:100%; height:240px; border:0; }   /* mobile */
     @media (min-width:768px){ .map-embed{ height:315px; } } /* desktop */
 
-    /* CONTACT on blue */
-    .contact-contained { max-width: 64rem; margin-left: auto; margin-right: auto; border-radius: 12px; box-shadow: 0 4px 14px rgba(17, 24, 39, 0.08); padding: 20px; }
-    .contact-contained.contact-on-blue { color: #ffffff; }
-    .contact-contained.contact-on-blue a { color:#fff; text-decoration:underline; text-underline-offset:2px; }
-
-    /* ===== ABOUT: 2-up always + badge-aligned rows (no desktop font changes) ===== */
-    #about .about-grid{
+    /* === ABOUT: perfectly paired grid (desktop + mobile, no stacking) === */
+    #about .about-paired{
       display:grid;
-      grid-template-columns: 1fr 1fr;       /* stay 2 columns on all sizes */
-      gap: 1.5rem;
-      align-items:start;
-      justify-items:center;
-    }
-    #about .vstack{
-      display:flex; flex-direction:column; align-items:center; text-align:center;
-      width:100%; max-width:36rem;
-    }
-    /* equal row height so 1=A, 2=B, 3=C align perfectly */
-    :root { --about-row-h: 56px; }
-    #about ol, #about ul{ width:100%; }
-    #about li.row{
-      display:grid;
-      grid-template-columns: 24px 1fr; /* badge + text */
+      grid-template-columns: 24px 1fr 24px 1fr; /* L badge, L text, R badge, R text */
+      column-gap: 10px;
+      row-gap: 10px;
       align-items:center;
-      column-gap: .5rem;
-      height: var(--about-row-h);
     }
-
-    /* ===== Mobile-only tweaks: smaller type & tiles so layout = desktop with no inner scroll ===== */
+    /* Titles span their respective two columns */
+    #about .about-title-left{ grid-column: 1 / span 2; }
+    #about .about-title-right{ grid-column: 3 / span 2; }
+    /* Badge styling */
+    #about .about-badge{
+      display:flex; align-items:center; justify-content:center;
+      width:20px; height:20px; border-radius:9999px;
+      border:2px solid var(--blue-600); color:#2A5D9F; background:#fff;
+      font-weight:800; font-size:11px; line-height:1;
+    }
+    /* Text cell */
+    #about .about-txt{ font-size:13px; color:#374151; }
+    /* Invisible placeholders to keep row alignment (for the blank left of D) */
+    #about .about-empty{ visibility:hidden; }
+    /* Keep mobile in two columns (no stacking), just tighten spacing a hair */
     @media (max-width: 480px){
-      #about .h1, #about .h2 { font-size: 16px; } /* MOBILE ONLY */
-      #about li.row { height: 52px; }
-      #about .row span:last-child{ font-size:12px; line-height:1.25; }
-
-      /* shrink tiles so Steps 1–3 fit without inner scrolling */
-      .form-step[data-step="1"] .tile,
-      .form-step[data-step="2"] .tile,
-      .form-step[data-step="3"] .tile{
-        aspect-ratio: 5 / 4;
-        font-size: 12px;
-        padding: .25rem;
-      }
-      .form-step[data-step="1"] .grid-sq,
-      .form-step[data-step="3"] .grid-sq,
-      .form-step[data-step="2"] .grid-3{ gap:6px; }
-
-      /* remove fixed shell height to avoid internal scroll on mobile */
-      .form-shell{ height:auto !important; }
-      #step-viewport{ height:auto !important; overflow:visible !important; }
+      #about .about-paired{ column-gap: 8px; row-gap: 8px; }
     }
   </style>
 
@@ -270,26 +251,36 @@
 
   <!-- MAIN -->
   <main class="w-full max-w-5xl mx-auto px-4 py-6 space-y-6">
-    <!-- ABOUT -->
+    <!-- HERO / ABOUT -->
     <section id="about" class="card p-5">
-      <div class="about-grid">
-        <div class="vstack">
-          <h1 class="h1">Get driving in 3 easy steps</h1>
-          <ol class="text-[13px] text-zinc-700">
-            <li class="row"><span class="k-badge">1</span><span><b>Enter your info</b> — 2–3 minutes, no pressure.</span></li>
-            <li class="row"><span class="k-badge">2</span><span><b>See options you qualify for</b> across BC.</span></li>
-            <li class="row"><span class="k-badge">3</span><span><b>We deliver</b> to your door — fast & stress-free.</span></li>
-          </ol>
-        </div>
-        <div class="vstack">
-          <h2 class="h2">Why people pick us</h2>
-          <ul class="text-[13px] text-zinc-700">
-            <li class="row"><span class="abc-badge">A</span><span><b>All credit welcome:</b> high approval rates.</span></li>
-            <li class="row"><span class="abc-badge">B</span><span><b>Bigger selection:</b> new &amp; used vehicles across BC.</span></li>
-            <li class="row"><span class="abc-badge">C</span><span><b>Contact from us:</b> no information sold to dealerships.</span></li>
-            <li class="row"><span class="abc-badge">D</span><span><b>Delivery across BC:</b> right to your doorstep.</span></li>
-          </ul>
-        </div>
+      <div class="about-paired">
+        <!-- Titles -->
+        <h1 class="h1 about-title-left">Get driving in 3 easy steps</h1>
+        <h2 class="h2 about-title-right">Why people pick us</h2>
+
+        <!-- Row 1: 1 ↔ A -->
+        <div class="about-badge">1</div>
+        <div class="about-txt"><b>Enter your info</b> — 2–3 minutes, no pressure.</div>
+        <div class="about-badge">A</div>
+        <div class="about-txt"><b>All credit welcome:</b> high approval rates.</div>
+
+        <!-- Row 2: 2 ↔ B -->
+        <div class="about-badge">2</div>
+        <div class="about-txt"><b>See options you qualify for</b> across BC.</div>
+        <div class="about-badge">B</div>
+        <div class="about-txt"><b>Bigger selection:</b> new &amp; used vehicles across BC.</div>
+
+        <!-- Row 3: 3 ↔ C -->
+        <div class="about-badge">3</div>
+        <div class="about-txt"><b>We deliver</b> to your door — fast &amp; stress-free.</div>
+        <div class="about-badge">C</div>
+        <div class="about-txt"><b>Contact from us:</b> no information sold to dealerships.</div>
+
+        <!-- Row 4: (blank) ↔ D -->
+        <div class="about-badge about-empty" aria-hidden="true"></div>
+        <div class="about-txt about-empty" aria-hidden="true"></div>
+        <div class="about-badge">D</div>
+        <div class="about-txt"><b>Delivery across BC:</b> right to your doorstep.</div>
       </div>
     </section>
 
@@ -681,18 +672,15 @@
         525 Gorge Rd E, Victoria, BC V8T 4T2
       </div>
     </section>
-  </main>
 
-  <!-- CONTACT on blue -->
-  <section class="bg-[var(--blue-600)] py-6">
-    <footer id="contact" class="contact-contained contact-on-blue text-center text-[11px] pt-1 space-y-1">
-      <p class="font-semibold">Vancouver Island Credit</p>
+    <footer id="contact" class="text-center text-[11px] text-zinc-500 pt-1 space-y-1">
+      <p class="font-semibold text-zinc-600">Vancouver Island Credit</p>
       <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
-      <p><a href="tel:2369692424" class="transition-colors">Customer service: 2369692424</a></p>
-      <p class="pt-1">Serving Vancouver Island &amp; British Columbia • Delivery available province-wide</p>
+      <p><a href="tel:2369692424" class="hover:text-[var(--blue-600)] transition-colors">Customer service: 2369692424</a></p>
+      <p class="pt-1">Serving Vancouver Island & British Columbia • Delivery available province-wide</p>
       <p class="mt-1">© <span id="year"></span> Vancouver Island Credit • All rights reserved</p>
     </footer>
-  </section>
+  </main>
 
   <script>
     // Helpers
@@ -743,22 +731,41 @@
     $('btnNext').addEventListener('click', ()=> next(1));
     $('btnBack').addEventListener('click', ()=> next(-1));
 
+    // Subtle fake "refresh" that never changes the (0) counts — just visual feedback
+    function fakeRefreshCounts(){
+      const badgeAll = bySel('#inv-total');
+      const badges = [ ...bySelAll('.inv-badge') ];
+      const cards = bySelAll('.bodytype-card');
+
+      if (badgeAll) badgeAll.classList.add('updating');
+      badges.forEach(b => b.classList.add('updating'));
+      cards.forEach(c => c.classList.add('loading'));
+
+      setTimeout(()=>{
+        if (badgeAll) badgeAll.classList.remove('updating');
+        badges.forEach(b => b.classList.remove('updating'));
+        cards.forEach(c => c.classList.remove('loading'));
+      }, 700);
+    }
+
     // Selections
     bySelAll('[data-type]').forEach(b=> b.addEventListener('click', ()=>{
       $('vehicleType').value = b.dataset.type;
       bySelAll('[data-type]').forEach(x=>x.classList.remove('selected'));
       b.classList.add('selected');
+      fakeRefreshCounts();
       next(1);
     }));
     bySelAll('[data-cond]').forEach(b=> b.addEventListener('click', ()=>{
       $('vehicleCondition').value = b.dataset.cond;
       bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected'));
       b.classList.add('selected');
+      fakeRefreshCounts();
       next(1);
     }));
     bySelAll('[name="budgetRange"]').forEach(r=>{
-      r.addEventListener('change', ()=> { next(1); });
-      r.parentElement.addEventListener('click', ()=>{ r.checked=true; next(1); });
+      r.addEventListener('change', ()=> { fakeRefreshCounts(); next(1); });
+      r.parentElement.addEventListener('click', ()=>{ r.checked=true; fakeRefreshCounts(); next(1); });
     });
 
     // Phone format
@@ -845,7 +852,8 @@
         ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id => $(id).required = true);
 
         const prevIdx = window.__currentStep || 1;
-        renumberSteps(); showStep(prevIdx);
+        renumberSteps();
+        showStep(prevIdx);
         return;
       }
 
@@ -853,7 +861,9 @@
         const prevIdx = window.__currentStep || 1;
         existing.remove();
         ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id => { const n=$(id); if(n) n.required=false; });
-        renumberSteps(); showStep(Math.min(prevIdx, steps().length));
+        renumberSteps();
+        const total = steps().length;
+        showStep(Math.min(prevIdx, total));
         return;
       }
 
@@ -910,7 +920,8 @@
         ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths'].forEach(id => $(id).required = true);
 
         const prevIdx = window.__currentStep || 1;
-        renumberSteps(); showStep(prevIdx);
+        renumberSteps();
+        showStep(prevIdx);
         return;
       }
 
@@ -918,7 +929,9 @@
         const prevIdx = window.__currentStep || 1;
         existing.remove();
         ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths'].forEach(id=>{ const n=$(id); if(n) n.required=false; });
-        renumberSteps(); showStep(Math.min(prevIdx, steps().length));
+        renumberSteps();
+        const total = steps().length;
+        showStep(Math.min(prevIdx, total));
         return;
       }
 
@@ -983,10 +996,11 @@
       return ok;
     }
 
-    // Inventory “View all” -> focus form
+    // Inventory “View all” -> focus form + fake refresh
     bySelAll('.js-view-inventory').forEach(el=>{
       el.addEventListener('click', (e)=>{
         e.preventDefault();
+        fakeRefreshCounts();
         document.getElementById('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
       });
     });
@@ -1050,14 +1064,10 @@
 
       if (wasHidden) step.classList.add('hidden');
 
-      if (window.matchMedia('(min-width: 768px)').matches){
-        const shellH = header.offsetHeight + contentH + footer.offsetHeight;
-        shell.style.height = shellH + 'px';
-        bySel('#step-viewport').style.height = contentH + 'px';
-      } else {
-        shell.style.height = 'auto';
-        bySel('#step-viewport').style.height = 'auto';
-      }
+      const shellH = header.offsetHeight + contentH + footer.offsetHeight;
+
+      shell.style.height = shellH + 'px';
+      bySel('#step-viewport').style.height = contentH + 'px';
 
       syncSidebarHeight();
     }
@@ -1084,6 +1094,9 @@
       // Calibrate and sync heights after layout
       window.requestAnimationFrame(()=> setTimeout(calibrateShellHeight, 0));
       window.addEventListener('resize', ()=> { calibrateShellHeight(); });
+
+      // Subtle initial shimmer so it looks like a pre-fetch
+      setTimeout(fakeRefreshCounts, 500);
     })();
   </script>
 </body>
