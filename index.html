@@ -101,13 +101,17 @@
     .grid-income2{ display:grid; gap:8px; grid-template-columns: 1.1fr 1.4fr; }
     .tenure-2{ display:grid; gap:8px; grid-template-columns: 1fr 1fr; }
 
+    /* Unified badge for perfect alignment */
+    .k-badge,
     .abc-badge{
       display:inline-flex; align-items:center; justify-content:center;
-      width:20px; height:20px; border-radius:9999px;
+      width:22px; height:22px; border-radius:9999px;
       border:2px solid var(--blue-600); color:#2A5D9F; background:#fff;
-      font-weight:800; font-size:11px; line-height:1;
+      font-weight:800; font-size:12px; line-height:1;
       flex-shrink:0;
     }
+    /* keep abc visual same border color via variable */
+    .abc-badge{ width:22px; height:22px; }
 
     section, header, footer { scroll-margin-top: 70px; }
 
@@ -121,7 +125,7 @@
     #lead-form .step-viewport,
     #lead-form .form-footer { max-width: 760px; margin-left:auto; margin-right:auto; }
 
-    /* Square tiles (Steps 1, 2, 3) */
+    /* Square tiles (Steps 1, 2, 3) default desktop */
     .form-step[data-step="1"] .tile,
     .form-step[data-step="2"] .tile,
     .form-step[data-step="3"] .tile{ aspect-ratio: 1 / 1; font-size: 15px; }
@@ -136,7 +140,7 @@
       .form-step[data-step="3"] .grid-sq{ grid-template-columns: repeat(4, minmax(0,1fr)); }
       .form-step[data-step="2"] .grid-3{ grid-template-columns: repeat(3, minmax(0,1fr)); }
     }
-    /* Force 3-up on phones for step 2 */
+    /* Force 3-up on phones for step 2 (we’ll shrink tiles to avoid scroll) */
     @media (max-width:639px){
       .form-step[data-step="1"] .grid-sq,
       .form-step[data-step="3"] .grid-sq{ grid-template-columns: repeat(2, minmax(0,1fr)); }
@@ -177,50 +181,55 @@
     .map-embed{ width:100%; height:240px; border:0; }   /* mobile */
     @media (min-width:768px){ .map-embed{ height:315px; } } /* desktop */
 
-    /* --- Contained & centered contact block on blue background --- */
-    .contact-contained {
-      max-width: 64rem;           /* matches Tailwind max-w-5xl */
-      margin-left: auto;
-      margin-right: auto;
-      border-radius: 12px;
-      box-shadow: 0 4px 14px rgba(17, 24, 39, 0.08);
-      padding: 20px;
-    }
-    .contact-contained > * { margin-left: auto; margin-right: auto; }
+    /* --- CONTACT on blue container --- */
+    .contact-contained { max-width: 64rem; margin-left: auto; margin-right: auto; border-radius: 12px; box-shadow: 0 4px 14px rgba(17, 24, 39, 0.08); padding: 20px; }
     .contact-contained.contact-on-blue { color: #ffffff; }
-    .contact-contained.contact-on-blue a {
-      color: #ffffff;
-      text-decoration: underline;
-      text-underline-offset: 2px;
-    }
+    .contact-contained.contact-on-blue a { color:#fff; text-decoration:underline; text-underline-offset:2px; }
 
-    /* ====== ABOUT: Center perfectly + keep two columns on mobile ====== */
+    /* ====== ABOUT (centered perfectly, no stacking on mobile) ====== */
     #about .about-grid{
       display:grid;
-      grid-template-columns: 1fr 1fr; /* no stacking at any breakpoint */
+      grid-template-columns: 1fr 1fr; /* stay 2-up at all sizes */
       gap: 1.5rem;
       align-items:start;
-      justify-items:center;          /* center each column block */
+      justify-items:center;
     }
     #about .vstack{
-      align-items:center;            /* center content inside each column */
-      text-align:center;
-      width:100%;
-      max-width: 36rem;              /* keep lines a comfortable width */
+      display:flex; flex-direction:column; align-items:center; text-align:center;
+      width:100%; max-width:36rem;
     }
-    /* Center each list row (badge + text) as a unit; keep horizontal layout */
-    #about ol li,
-    #about ul li{
-      display:flex;
-      align-items:flex-start;
-      justify-content:center;        /* centers the pair as a row */
-      gap: 0.5rem;
-      text-align:left;               /* keep text readable while centered as a unit */
+    /* Headings centered identical spacing */
+    #about .vstack .h1, #about .vstack .h2{ margin-bottom:10px; }
+
+    /* Row layout: badge + text centered as a unit, consistent line-height */
+    #about .row{
+      display:flex; align-items:center; justify-content:center;
+      gap:.5rem; line-height:1.35; text-align:left;
+      max-width: 44ch; /* keeps rows same width so both columns feel aligned */
     }
-    /* Keep list text from stretching too wide so the centering feels precise */
-    #about ol li span:last-child,
-    #about ul li span:last-child{
-      max-width: 36ch;
+
+    /* Use unified badge in both lists for perfect alignment */
+    #about .row .k-badge,
+    #about .row .abc-badge{ margin-top:0; }
+
+    /* ====== MOBILE: reduce tile height so steps 1–3 fit with no internal scroll ====== */
+    @media (max-width: 480px){
+      .form-step[data-step="1"] .tile,
+      .form-step[data-step="2"] .tile,
+      .form-step[data-step="3"] .tile{
+        aspect-ratio: 6 / 5;      /* shorter than square to reduce vertical height */
+        font-size: 12px;
+        padding: .25rem;
+      }
+      .form-step[data-step="1"] .grid-sq,
+      .form-step[data-step="3"] .grid-sq,
+      .form-step[data-step="2"] .grid-3{ gap:8px; }
+    }
+    /* If the screen is short (older phones), shrink a bit more */
+    @media (max-height: 700px) and (max-width: 480px){
+      .form-step[data-step="1"] .tile,
+      .form-step[data-step="2"] .tile,
+      .form-step[data-step="3"] .tile{ aspect-ratio: 7 / 5; font-size:11px; }
     }
   </style>
 
@@ -277,16 +286,16 @@
         <div class="vstack">
           <h1 class="h1">Get driving in 3 easy steps</h1>
           <ol class="text-[13px] text-zinc-700 space-y-2">
-            <li class="flex items-start gap-2">
-              <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[12px]">1</span>
+            <li class="row">
+              <span class="k-badge">1</span>
               <span><b>Enter your info</b> — 2–3 minutes, no pressure.</span>
             </li>
-            <li class="flex items-start gap-2">
-              <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[12px]">2</span>
+            <li class="row">
+              <span class="k-badge">2</span>
               <span><b>See options you qualify for</b> across BC.</span>
             </li>
-            <li class="flex items-start gap-2">
-              <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[12px]">3</span>
+            <li class="row">
+              <span class="k-badge">3</span>
               <span><b>We deliver</b> to your door — fast & stress-free.</span>
             </li>
           </ol>
@@ -295,19 +304,19 @@
         <div class="vstack">
           <h2 class="h2">Why people pick us</h2>
           <ul class="text-[13px] text-zinc-700 space-y-2">
-            <li class="flex items-start gap-2">
+            <li class="row">
               <span class="abc-badge">A</span>
               <span><b>All credit welcome:</b> high approval rates.</span>
             </li>
-            <li class="flex items-start gap-2">
+            <li class="row">
               <span class="abc-badge">B</span>
               <span><b>Bigger selection:</b> new &amp; used vehicles across BC.</span>
             </li>
-            <li class="flex items-start gap-2">
+            <li class="row">
               <span class="abc-badge">C</span>
               <span><b>Contact from us:</b> no information sold to dealerships.</span>
             </li>
-            <li class="flex items-start gap-2">
+            <li class="row">
               <span class="abc-badge">D</span>
               <span><b>Delivery across BC:</b> right to your doorstep.</span>
             </li>
@@ -766,41 +775,22 @@
     $('btnNext').addEventListener('click', ()=> next(1));
     $('btnBack').addEventListener('click', ()=> next(-1));
 
-    // Subtle fake "refresh" that never changes the (0) counts — just visual feedback
-    function fakeRefreshCounts(){
-      const badgeAll = bySel('#inv-total');
-      const badges = [ ...bySelAll('.inv-badge') ];
-      const cards = bySelAll('.bodytype-card');
-
-      if (badgeAll) badgeAll.classList.add('updating');
-      badges.forEach(b => b.classList.add('updating'));
-      cards.forEach(c => c.classList.add('loading'));
-
-      setTimeout(()=>{
-        if (badgeAll) badgeAll.classList.remove('updating');
-        badges.forEach(b => b.classList.remove('updating'));
-        cards.forEach(c => c.classList.remove('loading'));
-      }, 700);
-    }
-
     // Selections
     bySelAll('[data-type]').forEach(b=> b.addEventListener('click', ()=>{
       $('vehicleType').value = b.dataset.type;
       bySelAll('[data-type]').forEach(x=>x.classList.remove('selected'));
       b.classList.add('selected');
-      fakeRefreshCounts();
       next(1);
     }));
     bySelAll('[data-cond]').forEach(b=> b.addEventListener('click', ()=>{
       $('vehicleCondition').value = b.dataset.cond;
       bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected'));
       b.classList.add('selected');
-      fakeRefreshCounts();
       next(1);
     }));
     bySelAll('[name="budgetRange"]').forEach(r=>{
-      r.addEventListener('change', ()=> { fakeRefreshCounts(); next(1); });
-      r.parentElement.addEventListener('click', ()=>{ r.checked=true; fakeRefreshCounts(); next(1); });
+      r.addEventListener('change', ()=> { next(1); });
+      r.parentElement.addEventListener('click', ()=>{ r.checked=true; next(1); });
     });
 
     // Phone format
@@ -1031,11 +1021,10 @@
       return ok;
     }
 
-    // Inventory “View all” -> focus form + fake refresh
+    // Inventory “View all” -> focus form
     bySelAll('.js-view-inventory').forEach(el=>{
       el.addEventListener('click', (e)=>{
         e.preventDefault();
-        fakeRefreshCounts();
         document.getElementById('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
       });
     });
@@ -1129,9 +1118,6 @@
       // Calibrate and sync heights after layout
       window.requestAnimationFrame(()=> setTimeout(calibrateShellHeight, 0));
       window.addEventListener('resize', ()=> { calibrateShellHeight(); });
-
-      // Subtle initial shimmer so it looks like a pre-fetch
-      setTimeout(fakeRefreshCounts, 500);
     })();
   </script>
 </body>
