@@ -101,17 +101,14 @@
     .grid-income2{ display:grid; gap:8px; grid-template-columns: 1.1fr 1.4fr; }
     .tenure-2{ display:grid; gap:8px; grid-template-columns: 1fr 1fr; }
 
-    /* Unified badge for perfect alignment */
-    .k-badge,
-    .abc-badge{
+    /* Badges unified size */
+    .k-badge,.abc-badge{
       display:inline-flex; align-items:center; justify-content:center;
       width:22px; height:22px; border-radius:9999px;
       border:2px solid var(--blue-600); color:#2A5D9F; background:#fff;
       font-weight:800; font-size:12px; line-height:1;
       flex-shrink:0;
     }
-    /* keep abc visual same border color via variable */
-    .abc-badge{ width:22px; height:22px; }
 
     section, header, footer { scroll-margin-top: 70px; }
 
@@ -133,17 +130,11 @@
     .form-step[data-step="1"] .grid-sq,
     .form-step[data-step="3"] .grid-sq{ gap:12px; }
 
-    .form-step[data-step="2"] .grid-3{ gap:12px; max-width:560px; margin:0 auto; } /* center the 3 squares */
+    .form-step[data-step="2"] .grid-3{ gap:12px; max-width:560px; margin:0 auto; }
 
     @media (min-width:640px){
       .form-step[data-step="1"] .grid-sq,
       .form-step[data-step="3"] .grid-sq{ grid-template-columns: repeat(4, minmax(0,1fr)); }
-      .form-step[data-step="2"] .grid-3{ grid-template-columns: repeat(3, minmax(0,1fr)); }
-    }
-    /* Force 3-up on phones for step 2 (we’ll shrink tiles to avoid scroll) */
-    @media (max-width:639px){
-      .form-step[data-step="1"] .grid-sq,
-      .form-step[data-step="3"] .grid-sq{ grid-template-columns: repeat(2, minmax(0,1fr)); }
       .form-step[data-step="2"] .grid-3{ grid-template-columns: repeat(3, minmax(0,1fr)); }
     }
 
@@ -155,7 +146,6 @@
     }
     .equifax-logo{ max-width:100%; max-height:110px; height:auto; object-fit:contain; }
 
-    /* Subtle faux-loading shimmer + count pulse */
     .bodytype-card.loading .bodytype-img{ position:relative; overflow:hidden; }
     .bodytype-card.loading .bodytype-img::after{
       content:"";
@@ -171,25 +161,24 @@
 
     .inv-badge{ transition: opacity .15s ease, transform .15s ease; opacity:.65; }
 
-    /* Mobile-specific sizing: make Equifax smaller (~40%) */
     @media (max-width: 767px){
       .powered-card{ padding: 10px; }
       .equifax-logo{ max-height:44px; }
     }
 
-    /* MAP sizing — 3/4 of previous */
-    .map-embed{ width:100%; height:240px; border:0; }   /* mobile */
-    @media (min-width:768px){ .map-embed{ height:315px; } } /* desktop */
+    /* MAP sizing — 3/4 */
+    .map-embed{ width:100%; height:240px; border:0; }
+    @media (min-width:768px){ .map-embed{ height:315px; } }
 
-    /* --- CONTACT on blue container --- */
+    /* CONTACT on blue */
     .contact-contained { max-width: 64rem; margin-left: auto; margin-right: auto; border-radius: 12px; box-shadow: 0 4px 14px rgba(17, 24, 39, 0.08); padding: 20px; }
     .contact-contained.contact-on-blue { color: #ffffff; }
     .contact-contained.contact-on-blue a { color:#fff; text-decoration:underline; text-underline-offset:2px; }
 
-    /* ====== ABOUT (centered perfectly, no stacking on mobile) ====== */
+    /* ===== ABOUT: 2-up always + badge-aligned rows ===== */
     #about .about-grid{
       display:grid;
-      grid-template-columns: 1fr 1fr; /* stay 2-up at all sizes */
+      grid-template-columns: 1fr 1fr; /* stay 2 columns on all sizes */
       gap: 1.5rem;
       align-items:start;
       justify-items:center;
@@ -198,38 +187,46 @@
       display:flex; flex-direction:column; align-items:center; text-align:center;
       width:100%; max-width:36rem;
     }
-    /* Headings centered identical spacing */
-    #about .vstack .h1, #about .vstack .h2{ margin-bottom:10px; }
 
-    /* Row layout: badge + text centered as a unit, consistent line-height */
-    #about .row{
-      display:flex; align-items:center; justify-content:center;
-      gap:.5rem; line-height:1.35; text-align:left;
-      max-width: 44ch; /* keeps rows same width so both columns feel aligned */
+    /* rows: badge column (fixed) + text column, with shared row height so 1=A, 2=B, 3=C align */
+    :root { --about-row-h: 56px; }
+    #about ol, #about ul{
+      width:100%;
+    }
+    #about li.row{
+      display:grid;
+      grid-template-columns: 24px 1fr;
+      align-items:center;
+      column-gap: .5rem;
+      height: var(--about-row-h);
     }
 
-    /* Use unified badge in both lists for perfect alignment */
-    #about .row .k-badge,
-    #about .row .abc-badge{ margin-top:0; }
-
-    /* ====== MOBILE: reduce tile height so steps 1–3 fit with no internal scroll ====== */
+    /* ===== Mobile tweaks: keep same layout visually ===== */
     @media (max-width: 480px){
+      /* slightly smaller type so lines don’t wrap */
+      #about .h1, #about .h2 { font-size: 16px; }
+      #about li.row { height: 52px; }
+      #about .row span:last-child{ font-size:12px; line-height:1.25; }
+
+      /* shrink tiles so Steps 1–3 fit without inner scrolling */
       .form-step[data-step="1"] .tile,
       .form-step[data-step="2"] .tile,
       .form-step[data-step="3"] .tile{
-        aspect-ratio: 6 / 5;      /* shorter than square to reduce vertical height */
+        aspect-ratio: 5 / 4;
         font-size: 12px;
         padding: .25rem;
       }
       .form-step[data-step="1"] .grid-sq,
       .form-step[data-step="3"] .grid-sq,
-      .form-step[data-step="2"] .grid-3{ gap:8px; }
+      .form-step[data-step="2"] .grid-3{ gap:6px; }
+
+      /* disable fixed shell height on mobile to avoid internal scroll */
+      .form-shell{ height:auto !important; }
+      #step-viewport{ height:auto !important; overflow:visible !important; }
     }
-    /* If the screen is short (older phones), shrink a bit more */
-    @media (max-height: 700px) and (max-width: 480px){
-      .form-step[data-step="1"] .tile,
-      .form-step[data-step="2"] .tile,
-      .form-step[data-step="3"] .tile{ aspect-ratio: 7 / 5; font-size:11px; }
+    /* very small phones: tiny downscale of the about block (keeps alignment) */
+    @media (max-width: 360px){
+      #about .about-grid{ transform: scale(.95); transform-origin: top center; }
     }
   </style>
 
@@ -279,47 +276,24 @@
 
   <!-- MAIN -->
   <main class="w-full max-w-5xl mx-auto px-4 py-6 space-y-6">
-    <!-- HERO / ABOUT -->
+    <!-- ABOUT -->
     <section id="about" class="card p-5">
       <div class="about-grid">
-        <!-- Col 1 -->
         <div class="vstack">
           <h1 class="h1">Get driving in 3 easy steps</h1>
-          <ol class="text-[13px] text-zinc-700 space-y-2">
-            <li class="row">
-              <span class="k-badge">1</span>
-              <span><b>Enter your info</b> — 2–3 minutes, no pressure.</span>
-            </li>
-            <li class="row">
-              <span class="k-badge">2</span>
-              <span><b>See options you qualify for</b> across BC.</span>
-            </li>
-            <li class="row">
-              <span class="k-badge">3</span>
-              <span><b>We deliver</b> to your door — fast & stress-free.</span>
-            </li>
+          <ol class="text-[13px] text-zinc-700">
+            <li class="row"><span class="k-badge">1</span><span><b>Enter your info</b> — 2–3 minutes, no pressure.</span></li>
+            <li class="row"><span class="k-badge">2</span><span><b>See options you qualify for</b> across BC.</span></li>
+            <li class="row"><span class="k-badge">3</span><span><b>We deliver</b> to your door — fast & stress-free.</span></li>
           </ol>
         </div>
-        <!-- Col 2 -->
         <div class="vstack">
           <h2 class="h2">Why people pick us</h2>
-          <ul class="text-[13px] text-zinc-700 space-y-2">
-            <li class="row">
-              <span class="abc-badge">A</span>
-              <span><b>All credit welcome:</b> high approval rates.</span>
-            </li>
-            <li class="row">
-              <span class="abc-badge">B</span>
-              <span><b>Bigger selection:</b> new &amp; used vehicles across BC.</span>
-            </li>
-            <li class="row">
-              <span class="abc-badge">C</span>
-              <span><b>Contact from us:</b> no information sold to dealerships.</span>
-            </li>
-            <li class="row">
-              <span class="abc-badge">D</span>
-              <span><b>Delivery across BC:</b> right to your doorstep.</span>
-            </li>
+          <ul class="text-[13px] text-zinc-700">
+            <li class="row"><span class="abc-badge">A</span><span><b>All credit welcome:</b> high approval rates.</span></li>
+            <li class="row"><span class="abc-badge">B</span><span><b>Bigger selection:</b> new &amp; used vehicles across BC.</span></li>
+            <li class="row"><span class="abc-badge">C</span><span><b>Contact from us:</b> no information sold to dealerships.</span></li>
+            <li class="row"><span class="abc-badge">D</span><span><b>Delivery across BC:</b> right to your doorstep.</span></li>
           </ul>
         </div>
       </div>
@@ -377,12 +351,12 @@
               <section class="form-step hidden" data-step="3">
                 <div class="step-inner">
                   <h3 class="h2">What’s your monthly budget?</h3>
-                  <div class="grid-sq mt-2">
-                    <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$250 – $375" required><span>$250–$375</span></label>
-                    <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$376 – $499" required><span>$376–$499</span></label>
-                    <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$500 – $750" required><span>$500–$750</span></label>
-                    <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$750+" required><span>$750+</span></label>
-                  </div>
+                <div class="grid-sq mt-2">
+                  <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$250 – $375" required><span>$250–$375</span></label>
+                  <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$376 – $499" required><span>$376–$499</span></label>
+                  <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$500 – $750" required><span>$500–$750</span></label>
+                  <label class="tile cursor-pointer"><input type="radio" class="sr-only" name="budgetRange" value="$750+" required><span>$750+</span></label>
+                </div>
                 </div>
               </section>
 
@@ -409,7 +383,7 @@
                     </div>
                   </div>
 
-                  <!-- Trade-in details one line -->
+                  <!-- Trade-in details -->
                   <div id="tradeInDetails" class="hidden mt-2">
                     <div class="grid-trade5">
                       <input type="number" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" min="2000" max="2025"/>
@@ -715,7 +689,7 @@
     </section>
   </main>
 
-  <!-- CONTACT on blue (Contained & Centered) -->
+  <!-- CONTACT on blue -->
   <section class="bg-[var(--blue-600)] py-6">
     <footer id="contact" class="contact-contained contact-on-blue text-center text-[11px] pt-1 space-y-1">
       <p class="font-semibold">Vancouver Island Credit</p>
@@ -727,15 +701,12 @@
   </section>
 
   <script>
-    // Helpers
     const $ = (id) => document.getElementById(id);
     const bySel = (s, root=document) => root.querySelector(s);
     const bySelAll = (s, root=document) => Array.from(root.querySelectorAll(s));
 
-    // Mobile menu
     $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
 
-    // Steps
     const steps = () => bySelAll('.form-step');
 
     function renumberSteps(){
@@ -771,11 +742,9 @@
       showStep(t);
     }
 
-    // Nav buttons
     $('btnNext').addEventListener('click', ()=> next(1));
     $('btnBack').addEventListener('click', ()=> next(-1));
 
-    // Selections
     bySelAll('[data-type]').forEach(b=> b.addEventListener('click', ()=>{
       $('vehicleType').value = b.dataset.type;
       bySelAll('[data-type]').forEach(x=>x.classList.remove('selected'));
@@ -793,7 +762,6 @@
       r.parentElement.addEventListener('click', ()=>{ r.checked=true; next(1); });
     });
 
-    // Phone format
     $('phone')?.addEventListener('input', (e)=>{
       const d=e.target.value.replace(/\D/g,'').slice(0,10);
       if(d.length>6)e.target.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
@@ -801,7 +769,6 @@
       else if(d.length>0)e.target.value=`(${d}`;
     });
 
-    // Rent/Own
     function setHousing(type){
       $('housingType').value = type;
       $('btnRent').setAttribute('aria-pressed', type==='Rent');
@@ -810,12 +777,10 @@
     $('btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
     $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
 
-    // Trade-in reveal
     $('hasTradeIn')?.addEventListener('change', (e)=>{
       bySel('#tradeInDetails').classList.toggle('hidden', e.target.value.toLowerCase()!=='yes');
     });
 
-    // Income branching
     $('incomeSourceFull')?.addEventListener('change', ()=>{
       const v = $('incomeSourceFull').value;
       const employed = (v === 'Full-Time' || v === 'Part-Time');
@@ -843,7 +808,6 @@
       checkPrevEmploymentNeed();
     });
 
-    // Dynamic PREVIOUS EMPLOYMENT
     function ensurePrevEmploymentStep(need){
       const after = $('step-income');
       const existing = after.nextElementSibling && after.nextElementSibling.querySelector?.('#previousEmployer')
@@ -877,8 +841,7 @@
         ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id => $(id).required = true);
 
         const prevIdx = window.__currentStep || 1;
-        renumberSteps();
-        showStep(prevIdx);
+        renumberSteps(); showStep(prevIdx);
         return;
       }
 
@@ -886,9 +849,7 @@
         const prevIdx = window.__currentStep || 1;
         existing.remove();
         ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id => { const n=$(id); if(n) n.required=false; });
-        renumberSteps();
-        const total = steps().length;
-        showStep(Math.min(prevIdx, total));
+        renumberSteps(); showStep(Math.min(prevIdx, steps().length));
         return;
       }
 
@@ -909,7 +870,6 @@
     $('timeWithEmployerYears')?.addEventListener('change', checkPrevEmploymentNeed);
     $('timeWithEmployerMonths')?.addEventListener('change', checkPrevEmploymentNeed);
 
-    // Dynamic PREVIOUS ADDRESS
     function ensurePrevAddressStep(need){
       const after = $('step-address');
       const existing = after.nextElementSibling && after.nextElementSibling.querySelector?.('#prevStreetAddress')
@@ -945,8 +905,7 @@
         ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths'].forEach(id => $(id).required = true);
 
         const prevIdx = window.__currentStep || 1;
-        renumberSteps();
-        showStep(prevIdx);
+        renumberSteps(); showStep(prevIdx);
         return;
       }
 
@@ -954,9 +913,7 @@
         const prevIdx = window.__currentStep || 1;
         existing.remove();
         ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths'].forEach(id=>{ const n=$(id); if(n) n.required=false; });
-        renumberSteps();
-        const total = steps().length;
-        showStep(Math.min(prevIdx, total));
+        renumberSteps(); showStep(Math.min(prevIdx, steps().length));
         return;
       }
 
@@ -975,7 +932,6 @@
     $('timeAtAddressYears')?.addEventListener('change', onAddressDurationChange);
     $('timeAtAddressMonths')?.addEventListener('change', onAddressDurationChange);
 
-    // Validation
     function visibleRequired() {
       const req = bySelAll('#the-form [required]');
       return req.filter(el => !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none');
@@ -995,7 +951,6 @@
       return ok;
     }
 
-    // Submit (adds app code and passes to thank-you)
     async function submitForm(){
       if (!validateAll()) { bySel('#form-status').textContent = 'Please complete all required fields.'; return; }
       bySel('#submitBtn').disabled = true; bySel('#submitBtn').textContent = 'Submitting…';
@@ -1021,7 +976,6 @@
       return ok;
     }
 
-    // Inventory “View all” -> focus form
     bySelAll('.js-view-inventory').forEach(el=>{
       el.addEventListener('click', (e)=>{
         e.preventDefault();
@@ -1029,7 +983,6 @@
       });
     });
 
-    // Application Code (sidebar)
     $('code-form')?.addEventListener('submit', (e)=>{
       e.preventDefault();
       const raw = $('appCodeInput').value || '';
@@ -1044,7 +997,6 @@
       document.getElementById('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
     });
 
-    // Dropdown helpers
     function populateMonths(sel){ if(!sel) return;
       const m=["01","02","03","04","05","06","07","08","09","10","11","12"];
       m.forEach((mm,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=mm; sel.appendChild(o);});
@@ -1061,7 +1013,6 @@
     function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o);} }
     function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
 
-    // Sidebar height sync to form shell height (desktop only)
     function syncSidebarHeight(){
       const shell = $('form-shell');
       const sidebar = $('sidebar');
@@ -1073,7 +1024,6 @@
       }
     }
 
-    // Calibrate fixed height to Step 5 and sync heights
     function calibrateShellHeight(){
       const shell = $('form-shell');
       const header = shell.querySelector('.sticky');
@@ -1082,21 +1032,21 @@
 
       const wasHidden = step.classList.contains('hidden');
       if (wasHidden) step.classList.remove('hidden');
-
       const inner = step.querySelector('.step-inner');
       const contentH = inner ? inner.offsetHeight : step.offsetHeight;
-
       if (wasHidden) step.classList.add('hidden');
 
-      const shellH = header.offsetHeight + contentH + footer.offsetHeight;
-
-      shell.style.height = shellH + 'px';
-      bySel('#step-viewport').style.height = contentH + 'px';
-
+      if (window.matchMedia('(min-width: 768px)').matches){
+        const shellH = header.offsetHeight + contentH + footer.offsetHeight;
+        shell.style.height = shellH + 'px';
+        bySel('#step-viewport').style.height = contentH + 'px';
+      } else {
+        shell.style.height = 'auto';
+        bySel('#step-viewport').style.height = 'auto';
+      }
       syncSidebarHeight();
     }
 
-    // Init
     (function init(){
       const y = new Date().getFullYear(); bySel('#year').textContent = y;
 
@@ -1115,7 +1065,6 @@
       showStep(1);
       renumberSteps();
 
-      // Calibrate and sync heights after layout
       window.requestAnimationFrame(()=> setTimeout(calibrateShellHeight, 0));
       window.addEventListener('resize', ()=> { calibrateShellHeight(); });
     })();
