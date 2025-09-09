@@ -22,28 +22,22 @@
   <style>
     :root{
       --blue-600:#2A5D9F; --blue-700:#214B80; --blue-100:#EAF1FB; --blue-grad:#4C7CC0;
-      --fs-h1: 22px; --fs-h2: 18px; --fs-body: 14px; --fs-label: 12px; --fs-cta: 14px;
-      --pad-y: 10px; --gap-regular: 8px; --input-py: 6px; --input-px: 10px; --radius: 10px;
 
-      /* rail thickness (sides + top + bottom) */
-      --rail: 28px;
+      --fs-h1: 22px;
+      --fs-h2: 18px;
+      --fs-body: 14px;
+      --fs-label: 12px;
+      --fs-cta: 14px;
+
+      --pad-y: 10px;
+      --gap-regular: 8px;
+
+      --input-py: 6px;
+      --input-px: 10px;
+      --radius: 10px;
     }
 
-    /* BLUE RAILS around the whole page */
-    html, body { height: 100%; }
-    body{
-      font-family:'Inter',sans-serif;
-      background: var(--blue-600);           /* rail color */
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-    }
-    /* Grey canvas sits inside blue rails with equal thickness on all sides */
-    .frame-rails{
-      background:#f6f7fb;
-      width: calc(100% - (var(--rail) * 2));
-      min-height: calc(100% - (var(--rail) * 2));
-      margin: var(--rail) auto;              /* makes top rail match side rails */
-    }
-
+    body{ font-family:'Inter',sans-serif; background:#f6f7fb; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
     .card{ background:#fff; border-radius:12px; border:1px solid #e5e7eb; box-shadow:0 8px 18px -10px rgb(0 0 0 / .15); }
 
     .h1{ font-size:var(--fs-h1); font-weight:800; color:#0f172a; }
@@ -59,12 +53,6 @@
 
     .cta-button{ background:var(--blue-600); color:#fff; font-weight:800; padding:.5rem .8rem; border-radius:.6rem; font-size:var(--fs-cta); }
     .cta-button:hover{ background:var(--blue-700); }
-
-    /* Make ONLY the sticky Next button white so it doesn’t blend into rails */
-    .form-footer #btnNext{
-      background:#ffffff; color:var(--blue-600); border:1.5px solid #e5e7eb;
-    }
-    .form-footer #btnNext:hover{ background:#f9fafb; }
 
     .tile,.choice{ border-radius:10px; border:1.5px solid #e5e7eb; background:#fff; transition:.15s; font-weight:800; color:#111827; font-size:13px; }
     .tile{ display:flex; align-items:center; justify-content:center; text-align:center; aspect-ratio:4/3; width:100%; padding:.35rem; }
@@ -117,7 +105,8 @@
       display:inline-flex; align-items:center; justify-content:center;
       width:20px; height:20px; border-radius:9999px;
       border:2px solid var(--blue-600); color:#2A5D9F; background:#fff;
-      font-weight:800; font-size:11px; line-height:1; flex-shrink:0;
+      font-weight:800; font-size:11px; line-height:1;
+      flex-shrink:0;
     }
 
     section, header, footer { scroll-margin-top: 70px; }
@@ -140,7 +129,7 @@
     .form-step[data-step="1"] .grid-sq,
     .form-step[data-step="3"] .grid-sq{ gap:12px; }
 
-    .form-step[data-step="2"] .grid-3{ gap:12px; max-width:560px; margin:0 auto; }
+    .form-step[data-step="2"] .grid-3{ gap:12px; max-width:560px; margin:0 auto; } /* center the 3 squares */
 
     @media (min-width:640px){
       .form-step[data-step="1"] .grid-sq,
@@ -187,6 +176,23 @@
     /* MAP sizing — 3/4 of previous */
     .map-embed{ width:100%; height:240px; border:0; }   /* mobile */
     @media (min-width:768px){ .map-embed{ height:315px; } } /* desktop */
+
+    /* --- Contained & centered contact block on blue background --- */
+    .contact-contained {
+      max-width: 64rem;           /* matches Tailwind max-w-5xl */
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(17, 24, 39, 0.08);
+      padding: 20px;
+    }
+    .contact-contained > * { margin-left: auto; margin-right: auto; }
+    .contact-contained.contact-on-blue { color: #ffffff; }
+    .contact-contained.contact-on-blue a {
+      color: #ffffff;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
   </style>
 
   <script type="application/ld+json">
@@ -206,13 +212,8 @@
   </script>
 </head>
 <body>
-
-  <!-- Wrap EVERYTHING to create the blue rails evenly on all sides -->
-  <div class="frame-rails">
-
   <!-- NAV -->
-  <!-- Removed mt-4 so the grey canvas starts right at the top; blue rail touches top of nav -->
-  <header class="w-full max-w-5xl mx-auto mt-0 px-4">
+  <header class="w-full max-w-5xl mx-auto mt-4 px-4">
     <nav class="bg-white/90 backdrop-blur card px-4 sm:px-6 py-2.5 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
         <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit" class="h-14 w-auto object-contain rounded-md" onerror="this.style.display='none'"/>
@@ -672,17 +673,18 @@
         525 Gorge Rd E, Victoria, BC V8T 4T2
       </div>
     </section>
-
-    <footer id="contact" class="text-center text-[11px] text-zinc-500 pt-1 space-y-1">
-      <p class="font-semibold text-zinc-600">Vancouver Island Credit</p>
-      <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
-      <p><a href="tel:2369692424" class="hover:text-[var(--blue-600)] transition-colors">Customer service: 2369692424</a></p>
-      <p class="pt-1">Serving Vancouver Island & British Columbia • Delivery available province-wide</p>
-      <p class="mt-1">© <span id="year"></span> Vancouver Island Credit • All rights reserved</p>
-    </footer>
   </main>
 
-  </div><!-- /.frame-rails -->
+  <!-- CONTACT on blue (Contained & Centered) -->
+  <section class="bg-[var(--blue-600)] py-6">
+    <footer id="contact" class="contact-contained contact-on-blue text-center text-[11px] pt-1 space-y-1">
+      <p class="font-semibold">Vancouver Island Credit</p>
+      <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
+      <p><a href="tel:2369692424" class="transition-colors">Customer service: 2369692424</a></p>
+      <p class="pt-1">Serving Vancouver Island &amp; British Columbia • Delivery available province-wide</p>
+      <p class="mt-1">© <span id="year"></span> Vancouver Island Credit • All rights reserved</p>
+    </footer>
+  </section>
 
   <script>
     // Helpers
@@ -733,7 +735,7 @@
     $('btnNext').addEventListener('click', ()=> next(1));
     $('btnBack').addEventListener('click', ()=> next(-1));
 
-    // Subtle fake "refresh"
+    // Subtle fake "refresh" that never changes the (0) counts — just visual feedback
     function fakeRefreshCounts(){
       const badgeAll = bySel('#inv-total');
       const badges = [ ...bySelAll('.inv-badge') ];
@@ -998,7 +1000,7 @@
       return ok;
     }
 
-    // Inventory “View all”
+    // Inventory “View all” -> focus form + fake refresh
     bySelAll('.js-view-inventory').forEach(el=>{
       el.addEventListener('click', (e)=>{
         e.preventDefault();
@@ -1097,7 +1099,7 @@
       window.requestAnimationFrame(()=> setTimeout(calibrateShellHeight, 0));
       window.addEventListener('resize', ()=> { calibrateShellHeight(); });
 
-      // Subtle initial shimmer
+      // Subtle initial shimmer so it looks like a pre-fetch
       setTimeout(fakeRefreshCounts, 500);
     })();
   </script>
