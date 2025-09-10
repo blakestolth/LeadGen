@@ -36,20 +36,20 @@
       --input-px: 10px;
       --radius: 10px;
 
-      /* Blue rails thickness (all sides equal) */
+      /* Blue rails thickness */
       --rail: 32px;
     }
 
     /* Blue rails */
     body{
       font-family:'Inter',sans-serif;
-      background: var(--blue-600); /* the blue outside */
+      background: var(--blue-600);
       -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
     }
     .rails{
-      background:#f6f7fb;        /* inner gray you wanted visible */
+      background:#f6f7fb;
       min-height:100svh;
-      margin: var(--rail);        /* equal top/right/bottom/left rails */
+      margin: var(--rail);
       border-radius:14px;
       overflow:hidden;
     }
@@ -193,33 +193,26 @@
       .equifax-logo{ max-height:44px; }
     }
 
-    /* MAP sizing — 3/4 of previous */
-    .map-embed{ width:100%; height:240px; border:0; }   /* mobile */
-    @media (min-width:768px){ .map-embed{ height:315px; } } /* desktop */
+    /* MAP sizing — now HALF previous */
+    .map-embed{ width:100%; height:120px; border:0; }   /* mobile half (was 240px) */
+    @media (min-width:768px){ .map-embed{ height:160px; } } /* desktop approx half (was 315px) */
 
-    /* ===== ABOUT SECTION: keep 2 columns on mobile, center headings, align badges perfectly ===== */
+    /* ===== ABOUT SECTION layout & alignment ===== */
     .about-grid{
       display:grid; grid-template-columns: 1fr 1fr; gap:24px; align-items:start;
     }
-    /* never stack on mobile */
     @media (max-width:639px){
       .about-grid{ grid-template-columns: 1fr 1fr; gap:16px; }
     }
-
     .about-col h1, .about-col h2{ text-align:center; }
-
     .li-list{ display:flex; flex-direction:column; gap:8px; max-width: 36rem; margin: 0 auto; padding-left:6px; }
     .li-row{ display:grid; grid-template-columns: 28px 1fr; column-gap:12px; align-items:start; }
-
-    /* numeric badges (1/2/3) */
     .num-badge{
       display:flex; align-items:center; justify-content:center;
       width:26px; height:26px; border-radius:9999px;
       background: var(--blue-600); color:#fff; font-weight:800; font-size:12px; line-height:1;
     }
-    /* scale ABC badge to match in this context, and nudge right a touch */
     .li-row .abc-badge{ width:26px; height:26px; font-size:12px; border-width:2px; }
-
   </style>
 
   <script type="application/ld+json">
@@ -696,7 +689,7 @@
         title="Map — Vancouver Island Credit"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
-        src="https://www.google.com/maps?q=525+Gorge+Rd+E,+Victoria,+BC+V8T+4T2&z=12&output=embed">
+        src="https://www.google.com/maps?q=Victoria,+BC&z=11&output=embed">
       </iframe>
       <div class="px-4 py-3 text-[12px] text-zinc-600 border-t">
         525 Gorge Rd E, Victoria, BC V8T 4T2
@@ -761,7 +754,7 @@
       bySel('#progress-fill').style.width = pct + '%';
       bySel('#progress-endcap').textContent = (n === total) ? 'See options you’re actually qualified for' : 'Let’s get you approved';
 
-      // Fit container to the current step (prevents internal scrolling)
+      // Fit container to the current step
       resizeShellToStep(n);
     }
 
@@ -779,7 +772,7 @@
     $('btnNext').addEventListener('click', ()=> next(1));
     $('btnBack').addEventListener('click', ()=> next(-1));
 
-    // Subtle fake "refresh" that never changes the (0) counts — just visual feedback
+    // Subtle fake "refresh"
     function fakeRefreshCounts(){
       const badgeAll = bySel('#inv-total');
       const badges = [ ...bySelAll('.inv-badge') ];
@@ -1026,7 +1019,7 @@
       return ok;
     }
 
-    // Submit (adds app code and passes to thank-you)
+    // Submit
     async function submitForm(){
       if (!validateAll()) { bySel('#form-status').textContent = 'Please complete all required fields.'; return; }
       bySel('#submitBtn').disabled = true; bySel('#submitBtn').textContent = 'Submitting…';
@@ -1052,7 +1045,7 @@
       return ok;
     }
 
-    // Inventory “View all” -> focus form + fake refresh
+    // Inventory “View all”
     bySelAll('.js-view-inventory').forEach(el=>{
       el.addEventListener('click', (e)=>{
         e.preventDefault();
@@ -1126,7 +1119,6 @@
 
       window.addEventListener('resize', ()=> { resizeShellToStep(window.__currentStep || 1); });
 
-      // Subtle initial shimmer so it looks like a pre-fetch
       setTimeout(fakeRefreshCounts, 500);
     })();
   </script>
