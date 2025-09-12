@@ -101,34 +101,12 @@
     .grid-income2{ display:grid; gap:8px; grid-template-columns: 1.1fr 1.4fr; }
     .tenure-2{ display:grid; gap:8px; grid-template-columns: 1fr 1fr; }
 
-    /* Badge: unified size so 1–3 and A–D align perfectly */
     .abc-badge{
       display:inline-flex; align-items:center; justify-content:center;
-      width:24px; height:24px; border-radius:9999px;
+      width:20px; height:20px; border-radius:9999px;
       border:2px solid var(--blue-600); color:#2A5D9F; background:#fff;
-      font-weight:800; font-size:12px; line-height:1; flex-shrink:0;
-    }
-
-    /* Perfect alignment row for both lists */
-    .aligned-row{
-      display:grid; grid-template-columns: 28px 1fr; /* 24px badge + 4px breathing room */
-      align-items:start; column-gap:8px;
-    }
-
-    /* Keep hero two columns on mobile exactly like desktop */
-    .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; justify-items:center; align-items:start; }
-    .about-col{ width:100%; max-width:460px; }
-
-    /* Tighter, responsive type only on small screens (desktop unchanged) */
-    @media (max-width:639px){
-      #about .h1{ font-size: clamp(16px, 5vw, var(--fs-h1)); }
-      #about .h2{ font-size: clamp(15px, 4.6vw, var(--fs-h2)); }
-      #about ol, #about ul{ font-size: clamp(11px, 3.4vw, 13px); }
-      /* keep form tiles readable but compact to avoid scroll */
-      .form-step[data-step="1"] .tile,
-      .form-step[data-step="2"] .tile,
-      .form-step[data-step="3"] .tile{ font-size:12px; }
-      .form-step[data-step="2"] .grid-3{ gap:8px; }
+      font-weight:800; font-size:11px; line-height:1;
+      flex-shrink:0;
     }
 
     section, header, footer { scroll-margin-top: 70px; }
@@ -199,10 +177,7 @@
     .map-embed{ width:100%; height:150px; border:0; }   /* mobile */
     @media (min-width:768px){ .map-embed{ height:200px; } } /* desktop */
 
-    /* ===== UI POLISH: trust strip + progress overlay ===== */
-    .trust-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center}
-    .trust-item{font-size:12px;font-weight:700;color:#1f2937;background:#f8fafc;border:1px solid #e5e7eb;border-radius:9999px;padding:6px 10px}
-
+    /* ===== Progress overlay ===== */
     .progress-overlay{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:50}
     .progress-card{background:#fff;border-radius:12px;box-shadow:0 20px 40px -20px rgba(0,0,0,.35);width:min(520px,92vw);padding:18px 16px}
     .progress-title{font-weight:800;font-size:16px;color:#0f172a}
@@ -213,6 +188,12 @@
     .progress-steps li.active{opacity:1;font-weight:700}
     .progress-note{margin-top:10px;font-size:12px;color:#64748b}
     .hidden{display:none}
+
+    /* ===== MOBILE: remove inner scroll in form, desktop unchanged ===== */
+    @media (max-width: 767px){
+      #lead-form .step-viewport{ height:auto !important; overflow:visible !important; }
+      #lead-form .form-shell{ height:auto !important; }
+    }
   </style>
 
   <script type="application/ld+json">
@@ -263,54 +244,45 @@
   <main class="w-full max-w-5xl mx-auto px-4 py-6 space-y-6">
     <!-- HERO / ABOUT -->
     <section id="about" class="card p-5">
-      <div class="about-grid">
-        <div class="vstack about-col">
-          <h1 class="h1 text-center md:text-left">Get driving in 3 easy steps</h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="vstack">
+          <h1 class="h1">Get driving in 3 easy steps</h1>
           <ol class="text-[13px] text-zinc-700 space-y-2">
-            <li class="aligned-row">
+            <li class="flex items-start gap-2">
               <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[12px]">1</span>
               <span><b>Enter your info</b> — 2–3 minutes, no pressure.</span>
             </li>
-            <li class="aligned-row">
+            <li class="flex items-start gap-2">
               <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[12px]">2</span>
               <span><b>See options you qualify for</b> across BC.</span>
             </li>
-            <li class="aligned-row">
+            <li class="flex items-start gap-2">
               <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[12px]">3</span>
               <span><b>We deliver</b> to your door — fast & stress-free.</span>
             </li>
           </ol>
         </div>
-        <div class="vstack about-col">
-          <h2 class="h2 text-center md:text-left">Why people pick us</h2>
+        <div class="vstack">
+          <h2 class="h2">Why people pick us</h2>
           <ul class="text-[13px] text-zinc-700 space-y-2">
-            <li class="aligned-row">
+            <li class="flex items-start gap-2">
               <span class="abc-badge">A</span>
               <span><b>All credit welcome:</b> high approval rates.</span>
             </li>
-            <li class="aligned-row">
+            <li class="flex items-start gap-2">
               <span class="abc-badge">B</span>
               <span><b>Bigger selection:</b> new &amp; used vehicles across BC.</span>
             </li>
-            <li class="aligned-row">
+            <li class="flex items-start gap-2">
               <span class="abc-badge">C</span>
               <span><b>Contact from us:</b> no information sold to dealerships.</span>
             </li>
-            <li class="aligned-row">
+            <li class="flex items-start gap-2">
               <span class="abc-badge">D</span>
               <span><b>Delivery across BC:</b> right to your doorstep.</span>
             </li>
           </ul>
         </div>
-      </div>
-    </section>
-
-    <!-- TRUST STRIP (UI polish only) -->
-    <section class="card p-3" id="trust-strip">
-      <div class="trust-row">
-        <div class="trust-item">We never share or sell your info</div>
-        <div class="trust-item">Secure &amp; encrypted</div>
-        <div class="trust-item">All credit welcome</div>
       </div>
     </section>
 
@@ -586,7 +558,6 @@
                       </label>
                     </div>
                   </div>
-                  <!-- privacy reassurance (UI-only) -->
                   <p class="text-[11px] text-zinc-500 mt-2">
                     Your info stays private — we never share or sell your data.
                   </p>
@@ -845,340 +816,4 @@
       const selfEmp = (v === 'Self-Employed');
       const other = (v === 'Disability' || v === 'Other');
 
-      ['currentEmployer','jobTitle','timeWithEmployerYears','timeWithEmployerMonths','businessName','selfMonthlyIncome','otherIncomeAmount','otherIncomeSource','avgMonthlyIncome'].forEach(id => { const n=$(id); if(n) n.required=false; });
-
-      bySel('#empWrap').classList.toggle('hidden', !employed);
-      bySel('#posWrap').classList.toggle('hidden', !employed);
-      bySel('#monthlyWrap').classList.toggle('hidden', !employed);
-      bySel('#tenureWrap').classList.toggle('hidden', !employed);
-
-      bySel('#full-self').classList.toggle('hidden', !selfEmp);
-      bySel('#full-other').classList.toggle('hidden', !other);
-
-      if (employed){
-        ['currentEmployer','jobTitle','timeWithEmployerYears','timeWithEmployerMonths','avgMonthlyIncome'].forEach(id => $(id).required = true);
-      } else if (selfEmp){
-        ['businessName','selfMonthlyIncome'].forEach(id => $(id).required = true);
-      } else if (other){
-        ['otherIncomeAmount','otherIncomeSource'].forEach(id => $(id).required = true);
-      }
-
-      checkPrevEmploymentNeed();
-    });
-
-    // Dynamic PREVIOUS EMPLOYMENT
-    function ensurePrevEmploymentStep(need){
-      const after = $('step-income');
-      const existing = after.nextElementSibling && after.nextElementSibling.querySelector?.('#previousEmployer')
-        ? after.nextElementSibling
-        : null;
-
-      if (need && !existing){
-        const sec = document.createElement('section');
-        sec.className = 'form-step hidden';
-        sec.innerHTML = `
-          <div class="step-inner">
-            <h3 class="h2 mb-2">Previous employment</h3>
-            <div class="grid grid-cols-2 gap-2">
-              <div>
-                <label for="previousEmployer" class="label mb-1 block">Previous employer <span class="text-red-500">*</span></label>
-                <input type="text" id="previousEmployer" name="previousEmployer" class="form-input" placeholder="Company" maxlength="80"/>
-              </div>
-              <div>
-                <label class="label mb-1 block">Time there <span class="text-red-500">*</span></label>
-                <div class="tenure-2">
-                  <select id="prevTimeWithEmployerYears" name="prevTimeWithEmployerYears" class="form-select"><option value="">Years</option></select>
-                  <select id="prevTimeWithEmployerMonths" name="prevTimeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-        after.insertAdjacentElement('afterend', sec);
-        populateDropdown(bySel('#prevTimeWithEmployerYears'), 0, 30, 'Years', 'Year');
-        populateDropdown(bySel('#prevTimeWithEmployerMonths'), 0, 11, 'Months', 'Month');
-        ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id => $(id).required = true);
-
-        const prevIdx = window.__currentStep || 1;
-        renumberSteps();
-        showStep(prevIdx);
-        return;
-      }
-
-      if (!need && existing){
-        const prevIdx = window.__currentStep || 1;
-        existing.remove();
-        ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id => { const n=$(id); if(n) n.required=false; });
-        renumberSteps();
-        const total = steps().length;
-        showStep(Math.min(prevIdx, total));
-        return;
-      }
-
-      ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id=>{
-        const n = $(id); if(n) n.required = !!need;
-      });
-    }
-
-    function checkPrevEmploymentNeed(){
-      const v = $('incomeSourceFull').value;
-      const employed = (v === 'Full-Time' || v === 'Part-Time');
-      const y = parseInt(($('timeWithEmployerYears').value || '0'),10);
-      const m = parseInt(($('timeWithEmployerMonths').value || '0'),10);
-      const months = (y*12)+m;
-      const need = employed && (y!==null || m!==null) && months < 24;
-      ensurePrevEmploymentStep(need);
-    }
-    $('timeWithEmployerYears')?.addEventListener('change', checkPrevEmploymentNeed);
-    $('timeWithEmployerMonths')?.addEventListener('change', checkPrevEmploymentNeed);
-
-    // Dynamic PREVIOUS ADDRESS
-    function ensurePrevAddressStep(need){
-      const after = $('step-address');
-      const existing = after.nextElementSibling && after.nextElementSibling.querySelector?.('#prevStreetAddress')
-        ? after.nextElementSibling
-        : null;
-
-      if (need && !existing){
-        const sec = document.createElement('section');
-        sec.className = 'form-step hidden';
-        sec.innerHTML = `
-          <div class="step-inner">
-            <h3 class="h2 mb-2">Previous address</h3>
-            <div class="grid-addr5">
-              <input type="text" id="prevStreetAddress" name="prevStreetAddress" class="form-input" placeholder="Street Address" maxlength="120"/>
-              <input type="text" id="prevUnit" name="prevUnit" class="form-input" placeholder="Unit #" maxlength="10"/>
-              <input type="text" id="prevCity" name="prevCity" class="form-input" placeholder="City" maxlength="60"/>
-              <select id="prevProvince" name="prevProvince" class="form-select"><option value="">Prov</option></select>
-              <input type="text" id="prevPostalCode" name="prevPostalCode" class="form-input" placeholder="Postal" maxlength="7"/>
-            </div>
-            <div class="mt-2">
-              <label class="label mb-1 block">Time at previous address <span class="text-red-500">*</span></label>
-              <div class="tenure-2">
-                <select id="prevTimeAtAddressYears" name="prevTimeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="form-select"><option value="">Months</option></select>
-              </div>
-            </div>
-          </div>
-        `;
-        after.insertAdjacentElement('afterend', sec);
-        populateProvinces(bySel('#prevProvince'));
-        populateDropdown(bySel('#prevTimeAtAddressYears'), 0, 30, 'Years', 'Year');
-        populateDropdown(bySel('#prevTimeAtAddressMonths'), 0, 11, 'Months', 'Month');
-        ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths'].forEach(id => $(id).required = true);
-
-        const prevIdx = window.__currentStep || 1;
-        renumberSteps();
-        showStep(prevIdx);
-        return;
-      }
-
-      if (!need && existing){
-        const prevIdx = window.__currentStep || 1;
-        existing.remove();
-        ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths'].forEach(id=>{ const n=$(id); if(n) n.required=false; });
-        renumberSteps();
-        const total = steps().length;
-        showStep(Math.min(prevIdx, total));
-        return;
-      }
-
-      ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths'].forEach(id=>{
-        const n = $(id); if(n) n.required = !!need;
-      });
-    }
-
-    function onAddressDurationChange(){
-      const y = parseInt(($('timeAtAddressYears').value || '0'),10);
-      const m = parseInt(($('timeAtAddressMonths').value || '0'),10);
-      const months = (y*12)+m;
-      const need = (y!==null || m!==null) && months < 24;
-      ensurePrevAddressStep(need);
-    }
-    $('timeAtAddressYears')?.addEventListener('change', onAddressDurationChange);
-    $('timeAtAddressMonths')?.addEventListener('change', onAddressDurationChange);
-
-    // Validation
-    function visibleRequired() {
-      const req = bySelAll('#the-form [required]');
-      return req.filter(el => !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none');
-    }
-    function validateStep(n){
-      const stepEl = steps()[n-1];
-      if(!stepEl) return true;
-      let ok = true;
-      const fields = visibleRequired().filter(el => stepEl.contains(el));
-      fields.forEach(el => {
-        let pass = (el.type==='checkbox') ? el.checked : (el.value && el.value.trim()!=='');
-        if (el.id==='phone') pass = el.value.replace(/\D/g,'').length>=10;
-        if (el.type==='email' || el.id==='email'){ const v=el.value.trim(); pass = pass && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-        if (!pass){ ok=false; el.classList.add('err'); const lab = bySel('label[for="'+el.id+'"]'); lab?.classList.add('err-label'); }
-        else { el.classList.remove('err'); const lab = bySel('label[for="'+el.id+'"]'); lab?.classList.remove('err-label'); }
-      });
-      return ok;
-    }
-
-    // ===== UI POLISH: progress overlay helper =====
-    async function runProgressOverlay(minMs=4800){
-      const overlay = $('progress-overlay');
-      const bar = $('progress-bar');
-      const stepsEl = bySelAll('#progress-steps li');
-      overlay.classList.remove('hidden');
-
-      const stages = [
-        { width: 30, index: 0, ms: 1200 },
-        { width: 65, index: 1, ms: 1400 },
-        { width: 100, index: 2, ms: 1600 }
-      ];
-
-      const t0 = Date.now();
-      for (const st of stages){
-        stepsEl.forEach((li,i)=> li.classList.toggle('active', i===st.index));
-        requestAnimationFrame(()=> bar.style.width = st.width + '%');
-        await new Promise(r=>setTimeout(r, st.ms));
-      }
-      const elapsed = Date.now() - t0;
-      if (elapsed < minMs) await new Promise(r=>setTimeout(r, minMs - elapsed));
-      overlay.classList.add('hidden');
-    }
-
-    // Submit (adds app code and passes to thank-you) + overlay
-    async function submitForm(){
-      if (!validateAll()) { bySel('#form-status').textContent = 'Please complete all required fields.'; return; }
-      const btn = bySel('#submitBtn');
-      btn.disabled = true; btn.textContent = 'Submitting…';
-
-      const code = 'VIC-' + Math.random().toString(36).slice(2,8).toUpperCase();
-      try { sessionStorage.setItem('vic_app_code', code); } catch(_) {}
-
-      const fd = new FormData(bySel('#the-form'));
-      fd.append('appCode', code);
-
-      const post = fetch('/', {
-        method:'POST',
-        headers:{'Content-Type':'application/x-www-form-urlencoded'},
-        body:new URLSearchParams(fd).toString()
-      }).catch(()=>null);
-
-      await runProgressOverlay(4600);
-
-      try {
-        await post;
-        const url = new URL('/thank-you.html', window.location.origin);
-        url.searchParams.set('code', code);
-        window.location.href = url.toString();
-      } catch (e) {
-        bySel('#the-form').submit();
-      }
-    }
-    function validateAll(){
-      let ok = true;
-      for (let i=1;i<=steps().length;i++){ if(!validateStep(i)) ok=false; }
-      return ok;
-    }
-
-    // Inventory “View all” -> focus form + fake refresh
-    bySelAll('.js-view-inventory').forEach(el=>{
-      el.addEventListener('click', (e)=>{
-        e.preventDefault();
-        fakeRefreshCounts();
-        document.getElementById('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
-      });
-    });
-
-    // Application Code (sidebar)
-    $('code-form')?.addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const raw = $('appCodeInput').value || '';
-      const code = raw.toUpperCase().replace(/[^A-Z0-9\-]/g,'').trim();
-      const err = $('code-error');
-      if (!code){ err.classList.remove('hidden'); return; }
-      err.classList.add('hidden');
-      try { sessionStorage.setItem('vic_app_code', code); } catch(_) {}
-      const url = new URL(window.location.href);
-      url.searchParams.set('code', code);
-      history.replaceState(null, '', url.toString());
-      document.getElementById('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
-    });
-
-    // Dropdown helpers
-    function populateMonths(sel){ if(!sel) return;
-      const m=["01","02","03","04","05","06","07","08","09","10","11","12"];
-      m.forEach((mm,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=mm; sel.appendChild(o);});
-    }
-    function updateDays(){
-      const y=parseInt($('dobYear').value||'',10);
-      const m=parseInt($('dobMonth').value||'',10);
-      const sel=parseInt($('dobDay').value||'',10);
-      const days=(y&&m)?new Date(y,m,0).getDate():31;
-      $('dobDay').innerHTML='<option value="">DD</option>';
-      for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=String(i).padStart(2,'0'); $('dobDay').appendChild(o);}
-      if(sel&&sel<=days)$('dobDay').value=sel;
-    }
-    function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o);} }
-    function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
-
-    // Sidebar height sync to form shell height (desktop only)
-    function syncSidebarHeight(){
-      const shell = $('form-shell');
-      const sidebar = $('sidebar');
-      if (!shell || !sidebar) return;
-      if (window.matchMedia('(min-width: 768px)').matches){
-        sidebar.style.height = shell.offsetHeight + 'px';
-      } else {
-        sidebar.style.height = 'auto';
-      }
-    }
-
-    // Calibrate fixed height to Step 5 and sync heights
-    function calibrateShellHeight(){
-      const shell = $('form-shell');
-      const header = shell.querySelector('.sticky');
-      const footer = bySel('.form-footer');
-      const step = $('step-yourinfo');
-
-      const wasHidden = step.classList.contains('hidden');
-      if (wasHidden) step.classList.remove('hidden');
-
-      const inner = step.querySelector('.step-inner');
-      const contentH = inner ? inner.offsetHeight : step.offsetHeight;
-
-      if (wasHidden) step.classList.add('hidden');
-
-      const shellH = header.offsetHeight + contentH + footer.offsetHeight;
-
-      shell.style.height = shellH + 'px';
-      bySel('#step-viewport').style.height = contentH + 'px';
-
-      syncSidebarHeight();
-    }
-
-    // Init
-    (function init(){
-      const y = new Date().getFullYear(); bySel('#year').textContent = y;
-
-      populateMonths($('dobMonth')); updateDays();
-      $('dobMonth').addEventListener('change', updateDays);
-      $('dobYear').addEventListener('input', updateDays);
-
-      populateDropdown($('timeWithEmployerYears'), 0, 30, 'Years', 'Year');
-      populateDropdown($('timeWithEmployerMonths'), 0, 11, 'Months', 'Month');
-      populateDropdown($('timeAtAddressYears'), 0, 30, 'Years', 'Year');
-      populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
-      populateProvinces($('currentProvince'));
-
-      setHousing('Rent');
-      window.__currentStep = 1;
-      showStep(1);
-      renumberSteps();
-
-      // Calibrate and sync heights after layout
-      window.requestAnimationFrame(()=> setTimeout(calibrateShellHeight, 0));
-      window.addEventListener('resize', ()=> { calibrateShellHeight(); });
-
-      // Subtle initial shimmer so it looks like a pre-fetch
-      setTimeout(fakeRefreshCounts, 500);
-    })();
-  </script>
-</body>
-</html>
+      ['currentEmployer','jobTitle','timeWithEmployerYears','timeWithEmployerMonths','businessName','selfMonthlyIncome','otherIncomeAmount','otherIncomeSource','avgMonthlyIncome'].forEach(id => { const n=$(id); if(n) n.required=false
