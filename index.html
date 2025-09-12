@@ -189,13 +189,17 @@
     .progress-note{margin-top:10px;font-size:12px;color:#64748b}
     .hidden{display:none}
 
-    /* ===== MOBILE FIX: no inner scrolling in the form ===== */
-    @media (max-width: 767px){
-      #lead-form .step-viewport{ overflow:visible !important; height:auto !important; }
-      .form-shell{ height:auto !important; }
-      /* Keep footer readable against any backgrounds */
-      #lead-form .form-footer{ position:static; background:#fff; }
+    /* ===== Brand badge (blue bubble) ===== */
+    .brand-badge{
+      display:inline-flex; align-items:center; gap:10px;
+      background:var(--blue-600); color:#fff;
+      border:1px solid rgba(21,60,113,.35);
+      border-radius:.6rem; padding:6px 12px;
+      height:56px; /* h-14 => nav height unchanged */
+      box-shadow:0 6px 14px rgba(42,93,159,.25);
     }
+    .brand-logo{ height:40px; width:auto; object-fit:contain; border-radius:8px; }
+    .brand-name{ color:#fff; font-weight:800; letter-spacing:-0.01em; white-space:nowrap; font-size:clamp(15px, 2.4vw, 18px); }
   </style>
 
   <script type="application/ld+json">
@@ -218,9 +222,9 @@
   <!-- NAV -->
   <header class="w-full max-w-5xl mx-auto mt-4 px-4">
     <nav class="bg-white/90 backdrop-blur card px-4 sm:px-6 py-2.5 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3">
-        <img src="Untitled_Artwork.PNG" alt="Vancouver Island Credit" class="h-14 w-auto object-contain rounded-md" onerror="this.style.display='none'"/>
-        <span class="hidden sm:inline font-extrabold tracking-tight text-zinc-900">Vancouver Island Credit</span>
+      <a href="#" class="brand-badge" aria-label="Vancouver Island Credit — Home">
+        <img src="Logo.png" alt="Vancouver Island Credit" class="brand-logo"/>
+        <span class="brand-name">Vancouver Island Credit</span>
       </a>
       <div class="hidden sm:flex items-center gap-6 text-sm font-semibold text-zinc-700">
         <a href="#inventory" class="hover:text-[var(--blue-600)]">Inventory</a>
@@ -228,7 +232,7 @@
         <a href="#contact" class="hover:text-[var(--blue-600)]">Contact</a>
         <a href="#lead-form" class="cta-button !py-1.5">Apply Now</a>
       </div>
-      <button id="menuBtn" class="sm:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-zinc-200">
+      <button id="menuBtn" class="sm:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-zinc-200" aria-label="Open menu">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
     </nav>
@@ -287,8 +291,6 @@
         </div>
       </div>
     </section>
-
-    <!-- (Trust strip removed by request) -->
 
     <!-- FORM + SIDEBAR -->
     <section class="grid md:grid-cols-4 gap-4">
@@ -754,7 +756,7 @@
     $('btnNext').addEventListener('click', ()=> next(1));
     $('btnBack').addEventListener('click', ()=> next(-1));
 
-    // Subtle fake "refresh" effect for inventory badges
+    // Subtle fake "refresh" that never changes the (0) counts — just visual feedback
     function fakeRefreshCounts(){
       const badgeAll = bySel('#inv-total');
       const badges = [ ...bySelAll('.inv-badge') ];
@@ -802,8 +804,8 @@
     // Rent/Own
     function setHousing(type){
       $('housingType').value = type;
-      $('btnRent').setAttribute('aria-pressed', type==='Rent');
-      $('btnOwn').setAttribute('aria-pressed', type==='Own');
+      $('btnRent').setAttribute('aria-pressed', String(type==='Rent'));
+      $('btnOwn').setAttribute('aria-pressed', String(type==='Own'));
     }
     $('btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
     $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
@@ -820,6 +822,7 @@
       const selfEmp = (v === 'Self-Employed');
       const other = (v === 'Disability' || v === 'Other');
 
+      // reset required flags
       ['currentEmployer','jobTitle','timeWithEmployerYears','timeWithEmployerMonths','businessName','selfMonthlyIncome','otherIncomeAmount','otherIncomeSource','avgMonthlyIncome'].forEach(id => { const n=$(id); if(n) n.required=false; });
 
       bySel('#empWrap').classList.toggle('hidden', !employed);
@@ -1021,7 +1024,7 @@
     async function submitForm(){
       if (!validateAll()) { bySel('#form-status').textContent = 'Please complete all required fields.'; return; }
       const btn = bySel('#submitBtn');
-      btn.disabled = true; btn.textContent = 'Submitting…';
+      if (btn){ btn.disabled = true; btn.textContent = 'Submitting…'; }
 
       const code = 'VIC-' + Math.random().toString(36).slice(2,8).toUpperCase();
       try { sessionStorage.setItem('vic_app_code', code); } catch(_) {}
@@ -1105,20 +1108,8 @@
       }
     }
 
-    // Calibrate fixed height to Step 5 and sync heights (desktop only)
+    // Calibrate fixed height to Step 5 and sync heights
     function calibrateShellHeight(){
-      // MOBILE FIX: skip calibration on phones to avoid inner scrolling
-      if (window.matchMedia('(max-width: 767px)').matches){
-        const shell = $('form-shell');
-        if (shell){
-          shell.style.height = 'auto';
-          const vp = bySel('#step-viewport');
-          if (vp) vp.style.height = 'auto';
-        }
-        syncSidebarHeight();
-        return;
-      }
-
       const shell = $('form-shell');
       const header = shell.querySelector('.sticky');
       const footer = bySel('.form-footer');
