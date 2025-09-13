@@ -36,11 +36,11 @@
       --input-px: 10px;
       --radius: 10px;
 
-      /* New: unified nav font size */
-      --nav-font: 15px; /* desktop/base */
+      /* Unified nav font size */
+      --nav-font: 15px;
     }
     @media (max-width:640px){
-      :root{ --nav-font: 14px; } /* mobile */
+      :root{ --nav-font: 14px; }
     }
 
     body{ font-family:'Inter',sans-serif; background:#f6f7fb; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
@@ -188,40 +188,27 @@
     .progress-note{margin-top:10px;font-size:12px;color:#64748b}
     .hidden{display:none}
 
-    /* ===== Brand area (logo left, blue bubble with text, spacing adjusted) ===== */
-    .brand-left{ display:flex; align-items:center; gap:8px; } /* add breathing room between logo and blue box */
+    /* ===== Brand area (logo left, black title text) ===== */
+    .brand-left{ display:flex; align-items:center; gap:12px; }
     .site-logo{
-      height:78px;            /* unchanged */
+      height:64px;            /* smaller than before */
       width:auto;
       object-fit:contain;
       display:block;
-      margin-right:0;         /* was -2px; now give space */
       transform:translateY(-2px);
     }
-    .brand-badge{
-      display:inline-flex; align-items:center;
-      background:var(--blue-600); color:#fff;
-      border:1px solid rgba(21,60,113,.35);
-      border-radius:.6rem;
-      padding:6px 12px;
-      height:auto;            /* shrink with font size */
-      line-height:1.05;
-      white-space:nowrap;
-      box-shadow:0 6px 14px rgba(42,93,159,.25);
+    @media (max-width:640px){
+      .site-logo{ height:58px; transform:translateY(-1px); }
     }
-    .brand-name{
-      color:#fff; font-weight:800; letter-spacing:-0.01em;
-      font-size:var(--nav-font); /* unify size with nav links */
+    .brand-title{
+      color:#0f172a; font-weight:800; letter-spacing:-0.01em;
+      font-size:var(--nav-font); white-space:nowrap;
+      text-decoration:none;
     }
 
     /* Nav links & CTA unified sizing */
     .nav-link{ font-size:var(--nav-font); font-weight:700; }
     .nav-cta{ font-size:var(--nav-font); font-weight:800; padding-top:.4rem; padding-bottom:.4rem; }
-
-    @media (max-width:640px){
-      .site-logo{ height:68px; transform:translateY(-1px); }
-      .brand-badge{ padding:6px 10px; }
-    }
   </style>
 
   <script type="application/ld+json">
@@ -243,12 +230,12 @@
 <body>
   <!-- NAV -->
   <header class="w-full max-w-5xl mx-auto mt-4 px-4">
-    <nav class="site-nav bg-white/90 backdrop-blur card px-4 sm:px-6 py-2.5 flex items-center justify-between">
-      <!-- LEFT: big logo (outside) + blue bubble with text only -->
+    <nav class="bg-white/90 backdrop-blur card px-4 sm:px-6 py-2.5 flex items-center justify-between">
+      <!-- LEFT: logo + black title (no blue box) -->
       <div class="brand-left">
         <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
-        <a href="#" class="brand-badge" aria-label="Vancouver Island Credit — Home">
-          <span class="brand-name">Vancouver Island Credit</span>
+        <a href="#" class="brand-title" aria-label="Vancouver Island Credit — Home">
+          Vancouver Island Credit
         </a>
       </div>
 
