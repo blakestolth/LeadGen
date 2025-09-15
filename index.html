@@ -36,7 +36,6 @@
       --input-px: 10px;
       --radius: 10px;
 
-      /* Unified nav font size */
       --nav-font: 15px;
     }
     @media (max-width:640px){
@@ -102,7 +101,7 @@
     .grid-addr5{ display:grid; gap:10px; grid-template-columns: 3.2fr .8fr 1.6fr .8fr 1.0fr; }
     .grid-housing3{ display:grid; gap:10px; grid-template-columns: 1.2fr 1fr 1.2fr; }
 
-    /* Income (two lines) */
+    /* Income */
     .grid-income3{ display:grid; gap:8px; grid-template-columns: 1.2fr 1.8fr 1.5fr; }
     .grid-income2{ display:grid; gap:8px; grid-template-columns: 1.1fr 1.4fr; }
     .tenure-2{ display:grid; gap:8px; grid-template-columns: 1fr 1fr; }
@@ -116,25 +115,15 @@
     }
 
     section, header, footer { scroll-margin-top: 70px; }
-
-    /* Tighter inputs inside the form only */
     #lead-form .form-input, #lead-form .form-select, #lead-form .form-textarea{ padding:5px 10px; }
-
-    /* Form footer (Next/Back) */
     .form-footer{ padding: var(--pad-y) 1rem; }
+    #lead-form .step-viewport, #lead-form .form-footer { max-width: 760px; margin-left:auto; margin-right:auto; }
 
-    /* Narrower internal content */
-    #lead-form .step-viewport,
-    #lead-form .form-footer { max-width: 760px; margin-left:auto; margin-right:auto; }
-
-    /* Square tiles (Steps 1, 2, 3) */
     .form-step[data-step="1"] .tile,
     .form-step[data-step="2"] .tile,
     .form-step[data-step="3"] .tile{ aspect-ratio: 1 / 1; font-size: 15px; }
-
     .form-step[data-step="1"] .grid-sq,
     .form-step[data-step="3"] .grid-sq{ gap:12px; }
-
     .form-step[data-step="2"] .grid-3{ gap:12px; max-width:560px; margin:0 auto; }
     @media (min-width:640px){
       .form-step[data-step="1"] .grid-sq,
@@ -147,7 +136,6 @@
       .form-step[data-step="2"] .grid-3{ grid-template-columns: repeat(3, minmax(0,1fr)); }
     }
 
-    /* Sidebar visuals */
     .powered-card{
       background: linear-gradient(180deg, #ffffff 0%, #f6f8fc 100%);
       border:1px solid #e5e7eb; border-radius:12px;
@@ -155,29 +143,22 @@
     }
     .equifax-logo{ max-width:100%; max-height:110px; height:auto; object-fit:contain; }
 
-    /* Subtle faux-loading shimmer */
     .bodytype-card.loading .bodytype-img{ position:relative; overflow:hidden; }
     .bodytype-card.loading .bodytype-img::after{
-      content:"";
-      position:absolute; inset:0;
+      content:""; position:absolute; inset:0;
       background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(240,243,248,.55) 45%, rgba(255,255,255,0) 100%);
-      transform: translateX(-100%);
-      animation: vicShimmer 0.9s ease-in-out 1;
+      transform: translateX(-100%); animation: Shimmer .9s ease-in-out 1;
     }
-    @keyframes vicShimmer { to { transform: translateX(100%); } }
+    @keyframes Shimmer { to { transform: translateX(100%); } }
 
     .inv-badge{ transition: opacity .15s ease, transform .15s ease; opacity:.65; }
-
-    @media (max-width: 767px){
-      .powered-card{ padding: 10px; }
-      .equifax-logo{ max-height:44px; }
-    }
+    @media (max-width: 767px){ .powered-card{ padding: 10px; } .equifax-logo{ max-height:44px; } }
 
     .map-embed{ width:100%; height:150px; border:0; }
     @media (min-width:768px){ .map-embed{ height:200px; } }
 
     /* ===== Progress overlay ===== */
-    .progress-overlay{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:50}
+    .progress-overlay{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:50}
     .progress-card{background:#fff;border-radius:12px;box-shadow:0 20px 40px -20px rgba(0,0,0,.35);width:min(520px,92vw);padding:18px 16px}
     .progress-title{font-weight:800;font-size:16px;color:#0f172a}
     .progress-track{height:8px;background:#e5e7eb;border-radius:9999px;overflow:hidden;margin-top:10px}
@@ -188,27 +169,51 @@
     .progress-note{margin-top:10px;font-size:12px;color:#64748b}
     .hidden{display:none}
 
-    /* ===== Brand area (logo left, black title text) ===== */
+    /* ===== Brand area ===== */
     .brand-left{ display:flex; align-items:center; gap:12px; }
-    .site-logo{
-      height:64px;            /* smaller than before */
-      width:auto;
-      object-fit:contain;
-      display:block;
-      transform:translateY(-2px);
-    }
-    @media (max-width:640px){
-      .site-logo{ height:58px; transform:translateY(-1px); }
-    }
-    .brand-title{
-      color:#0f172a; font-weight:800; letter-spacing:-0.01em;
-      font-size:var(--nav-font); white-space:nowrap;
-      text-decoration:none;
-    }
+    .site-logo{ height:64px; width:auto; object-fit:contain; display:block; transform:translateY(-2px); }
+    @media (max-width:640px){ .site-logo{ height:58px; transform:translateY(-1px); } }
+    .brand-title{ color:#0f172a; font-weight:800; letter-spacing:-0.01em; font-size:var(--nav-font); white-space:nowrap; text-decoration:none; }
 
-    /* Nav links & CTA unified sizing */
     .nav-link{ font-size:var(--nav-font); font-weight:700; }
     .nav-cta{ font-size:var(--nav-font); font-weight:800; padding-top:.4rem; padding-bottom:.4rem; }
+
+    /* ===== Drawers / Offer UI ===== */
+    .backdrop{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(2px);display:none;z-index:70}
+    .sheet{position:fixed;inset:0 auto 0 0;background:#fff;max-width:980px;width:100%;transform:translateX(-102%);transition:transform .22s ease;z-index:80;box-shadow:0 10px 30px -12px rgba(0,0,0,.35);border-right:1px solid #e5e7eb}
+    .sheet.right{left:auto;right:0;transform:translateX(102%)}
+    .sheet.open{transform:translateX(0)}
+    .backdrop.open{display:block}
+
+    .option-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    @media(min-width:640px){.option-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+    .opt-tile{border:1.5px solid #e5e7eb;border-radius:12px;background:#fff;padding:12px;display:flex;flex-direction:column;gap:8px;cursor:pointer;transition:.15s}
+    .opt-tile:hover{border-color:var(--blue-600);background:#f5f8ff}
+    .opt-h{font-weight:800;font-size:13px;color:#0f172a}
+    .opt-sub{font-size:12px;color:#475569}
+    .opt-pill{font-size:10px;font-weight:800;color:#214B80;background:#e6f0ff;padding:2px 6px;border-radius:9999px;align-self:flex-start}
+
+    .offer-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;height:100%}
+    @media(max-width:768px){.offer-wrap{grid-template-columns:1fr;gap:10px}}
+    .offer-left{border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;background:#fff}
+    .offer-right{border:1px solid #e5e7eb;border-radius:12px;background:#fff;padding:12px}
+
+    .gallery{position:relative}
+    .gallery-main{aspect-ratio:4/3;background:#e5e7eb center/cover no-repeat;cursor:zoom-in}
+    .gallery-strip{display:flex;gap:8px;padding:8px;overflow:auto;border-top:1px solid #e5e7eb}
+    .gallery-thumb{width:72px;height:56px;border-radius:8px;background:#e5e7eb center/cover no-repeat;border:2px solid transparent;flex:0 0 auto;cursor:pointer}
+    .gallery-thumb.active{border-color:var(--blue-600)}
+
+    .offer-tabs{display:inline-flex;gap:6px;background:#f3f4f6;padding:4px;border-radius:10px}
+    .offer-tab{padding:6px 10px;border-radius:8px;border:2px solid transparent;font-weight:800;font-size:12px;color:#374151;background:transparent;cursor:pointer}
+    .offer-tab[aria-pressed="true"]{background:#e0ecff;color:#214B80;border-color:#bfdbfe}
+    .offer-field{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border:1px solid #eef2f7;border-radius:10px;background:#fff}
+    .offer-field + .offer-field{margin-top:8px}
+    .offer-key{font-size:12px;color:#475569;font-weight:700}
+    .offer-val{font-size:14px;font-weight:800;color:#0f172a}
+
+    .zoom-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:90}
+    .zoom-img{max-width:92vw;max-height:92vh;border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
   </style>
 
   <script type="application/ld+json">
@@ -231,15 +236,10 @@
   <!-- NAV -->
   <header class="w-full max-w-5xl mx-auto mt-4 px-4">
     <nav class="bg-white/90 backdrop-blur card px-4 sm:px-6 py-2.5 flex items-center justify-between">
-      <!-- LEFT: logo + black title (no blue box) -->
       <div class="brand-left">
         <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
-        <a href="#" class="brand-title" aria-label="Vancouver Island Credit — Home">
-          Vancouver Island Credit
-        </a>
+        <a href="#" class="brand-title" aria-label="Vancouver Island Credit — Home">Vancouver Island Credit</a>
       </div>
-
-      <!-- RIGHT: nav links -->
       <div class="hidden sm:flex items-center gap-6 font-semibold text-zinc-700">
         <a href="#inventory" class="nav-link hover:text-[var(--blue-600)]">Inventory</a>
         <a href="#about" class="nav-link hover:text-[var(--blue-600)]">About</a>
@@ -285,22 +285,10 @@
         <div class="vstack">
           <h2 class="h2">Why people pick us</h2>
           <ul class="text-[13px] text-zinc-700 space-y-2">
-            <li class="flex items-start gap-2">
-              <span class="abc-badge">A</span>
-              <span><b>All credit welcome:</b> high approval rates.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="abc-badge">B</span>
-              <span><b>Bigger selection:</b> new &amp; used vehicles across BC.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="abc-badge">C</span>
-              <span><b>Contact from us:</b> no information sold to dealerships.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="abc-badge">D</span>
-              <span><b>Delivery across BC:</b> right to your doorstep.</span>
-            </li>
+            <li class="flex items-start gap-2"><span class="abc-badge">A</span><span><b>All credit welcome:</b> high approval rates.</span></li>
+            <li class="flex items-start gap-2"><span class="abc-badge">B</span><span><b>Bigger selection:</b> new &amp; used vehicles across BC.</span></li>
+            <li class="flex items-start gap-2"><span class="abc-badge">C</span><span><b>Contact from us:</b> no information sold to dealerships.</span></li>
+            <li class="flex items-start gap-2"><span class="abc-badge">D</span><span><b>Delivery across BC:</b> right to your doorstep.</span></li>
           </ul>
         </div>
       </div>
@@ -332,7 +320,7 @@
               <!-- 1: Vehicle Type -->
               <section class="form-step" data-step="1">
                 <div class="step-inner">
-                  <h3 class="h2">What type of vehicle?</h3>
+                  <h3 class="h2">What body style?</h3>
                   <div class="grid-sq mt-2">
                     <button type="button" class="tile" data-type="Car">Car</button>
                     <button type="button" class="tile" data-type="SUV">SUV</button>
@@ -390,7 +378,6 @@
                     </div>
                   </div>
 
-                  <!-- Trade-in details one line -->
                   <div id="tradeInDetails" class="hidden mt-2">
                     <div class="grid-trade5">
                       <input type="number" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" min="2000" max="2025"/>
@@ -613,14 +600,14 @@
                 type="text"
                 inputmode="text"
                 autocomplete="one-time-code"
-                placeholder="ABC123"
+                placeholder="ABC1234"
                 class="form-input uppercase"
-                maxlength="16"
+                maxlength="7"
                 aria-label="Application code"
               />
               <button type="submit" class="cta-button">Resume</button>
             </form>
-            <p id="code-error" class="text-[11px] text-red-600 hidden">Please enter a valid code (letters and numbers only).</p>
+            <p id="code-error" class="text-[11px] text-red-600 hidden">Enter a valid code (ABC + 4 digits, e.g., ABC1234).</p>
             <p class="text-[11px] text-zinc-500">Tip: You’ll get this code on the confirmation page after you submit.</p>
           </div>
         </div>
@@ -635,44 +622,18 @@
           View all <span id="inv-total" class="inv-badge text-zinc-400 font-bold">(0)</span>
         </a>
       </div>
-      <p class="text-[12px] text-zinc-600 mb-1">
-        Fill out the quick form above to see your personalized options.
-      </p>
+      <p class="text-[12px] text-zinc-600 mb-1">Fill out the quick form above to see your personalized options.</p>
       <p class="text-[11px] text-zinc-500 -mt-1">Numbers refresh as you complete the short form.</p>
 
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-3">
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-img" style="background-image:url('Coupe.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Coupe <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-img" style="background-image:url('Hatchback.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Hatchback / Wagen <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-img" style="background-image:url('Electric.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Electric / Hybrid <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-img" style="background-image:url('Sedan.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Sedan <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-img" style="background-image:url('Crossover.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Crossover <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-img" style="background-image:url('Suv.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">SUV <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-img" style="background-image:url('Van.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Van <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-img" style="background-image:url('Truck.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[13px]">Truck <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
-        </a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory"><div class="bodytype-img" style="background-image:url('Coupe.jpg');"></div><div class="p-2"><p class="font-semibold text-[13px]">Coupe <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div></a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory"><div class="bodytype-img" style="background-image:url('Hatchback.jpg');"></div><div class="p-2"><p class="font-semibold text-[13px]">Hatchback / Wagen <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div></a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory"><div class="bodytype-img" style="background-image:url('Electric.jpg');"></div><div class="p-2"><p class="font-semibold text-[13px]">Electric / Hybrid <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div></a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory"><div class="bodytype-img" style="background-image:url('Sedan.jpg');"></div><div class="p-2"><p class="font-semibold text-[13px]">Sedan <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div></a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory"><div class="bodytype-img" style="background-image:url('Crossover.jpg');"></div><div class="p-2"><p class="font-semibold text-[13px]">Crossover <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div></a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory"><div class="bodytype-img" style="background-image:url('Suv.jpg');"></div><div class="p-2"><p class="font-semibold text-[13px]">SUV <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div></a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory"><div class="bodytype-img" style="background-image:url('Van.jpg');"></div><div class="p-2"><p class="font-semibold text-[13px]">Van <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div></a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory"><div class="bodytype-img" style="background-image:url('Truck.jpg');"></div><div class="p-2"><p class="font-semibold text-[13px]">Truck <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div></a>
       </div>
     </section>
 
@@ -682,16 +643,8 @@
         <h3 class="h2">Head Office — Victoria, BC</h3>
         <p class="text-[12px] text-zinc-600 mt-1">Real location. Real people. No call centres.</p>
       </div>
-      <iframe
-        class="map-embed"
-        title="Map — Vancouver Island Credit"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        src="https://www.google.com/maps?q=Victoria,BC&z=11&output=embed">
-      </iframe>
-      <div class="px-4 py-3 text-[12px] text-zinc-600 border-t">
-        525 Gorge Rd E, Victoria, BC V8T 4T2
-      </div>
+      <iframe class="map-embed" title="Map — Vancouver Island Credit" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Victoria,BC&z=11&output=embed"></iframe>
+      <div class="px-4 py-3 text-[12px] text-zinc-600 border-t">525 Gorge Rd E, Victoria, BC V8T 4T2</div>
     </section>
 
     <footer id="contact" class="text-center text-[11px] text-zinc-500 pt-1 space-y-1">
@@ -703,8 +656,8 @@
     </footer>
   </main>
 
-  <!-- Progress overlay (UI only) -->
-  <div id="progress-overlay" class="progress-overlay hidden" aria-hidden="true">
+  <!-- Progress overlay -->
+  <div id="progress-overlay" class="progress-overlay" aria-hidden="true">
     <div class="progress-card">
       <div class="progress-title">Working on it…</div>
       <div class="progress-track"><div id="progress-bar" class="progress-bar"></div></div>
@@ -717,130 +670,178 @@
     </div>
   </div>
 
-  <script>
-    // Helpers
-    const $ = (id) => document.getElementById(id);
-    const bySel = (s, root=document) => root.querySelector(s);
-    const bySelAll = (s, root=document) => Array.from(root.querySelectorAll(s));
+  <!-- BODY STYLE → OPTION GRID drawer -->
+  <div id="gridBackdrop" class="backdrop"></div>
+  <aside id="optionGrid" class="sheet">
+    <div class="p-3 border-b flex items-center justify-between">
+      <div class="h2">Select an Option</div>
+      <button id="closeGrid" class="text-[12px] font-semibold text-zinc-600 hover:text-zinc-900">Close</button>
+    </div>
+    <div class="p-3">
+      <p id="gridTitle" class="text-[12px] text-zinc-600 mb-2">Body style: —</p>
+      <div id="grid" class="option-grid"></div>
+      <p class="text-[11px] text-zinc-500 mt-2">Tip: options are curated privately for your application.</p>
+    </div>
+  </aside>
 
-    // Mobile menu
+  <!-- TWO-PANEL OFFER drawer -->
+  <div id="offerBackdrop" class="backdrop"></div>
+  <aside id="offerDrawer" class="sheet right">
+    <div class="p-3 border-b flex items-center justify-between">
+      <div>
+        <div class="h2" id="offerTitle">Offer</div>
+        <div class="text-[12px] text-zinc-600" id="offerSub">—</div>
+      </div>
+      <button id="closeOffer" class="text-[12px] font-semibold text-zinc-600 hover:text-zinc-900">Close</button>
+    </div>
+
+    <div class="p-3 offer-wrap">
+      <div class="offer-left">
+        <div class="gallery">
+          <div id="galleryMain" class="gallery-main"></div>
+          <div id="galleryStrip" class="gallery-strip"></div>
+        </div>
+      </div>
+
+      <div class="offer-right">
+        <div class="flex items-center justify-between mb-2">
+          <div class="offer-tabs" id="offerTabs" role="tablist" aria-label="Offer versions"></div>
+          <div class="text-[11px] text-zinc-500" id="offerUpdated">Updated just now</div>
+        </div>
+        <div id="offerFields"></div>
+        <div class="mt-3 flex gap-2">
+          <a href="#contact" class="cta-button">Message Blake</a>
+          <a href="#lead-form" class="px-3 py-2 border rounded-lg text-[12px] font-semibold text-zinc-700 hover:bg-zinc-50">Request a call</a>
+        </div>
+        <p class="text-[11px] text-zinc-500 mt-2">Private to your login. Numbers and availability change as lenders reply.</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Zoom overlay -->
+  <div id="zoom" class="zoom-backdrop"><img id="zoomImg" class="zoom-img" alt="Zoomed image"/></div>
+
+  <script>
+    // ===== Helpers
+    const $ = id => document.getElementById(id);
+    const qs = (s, r=document)=>r.querySelector(s);
+    const qsa = (s, r=document)=>Array.from(r.querySelectorAll(s));
+
+    // ===== App code handling (ABC + 4 digits)
+    function getApplicationCode(){
+      const s = sessionStorage.getItem('application_code');
+      if (s) return s;
+      const urlc = new URL(location.href).searchParams.get('code');
+      return urlc || null;
+    }
+    function isSignedIn(){ return !!getApplicationCode(); }
+    function makeApplicationCode(){
+      // ABC followed by 4 digits, no hyphen (e.g., ABC1234)
+      const n = Math.floor(Math.random()*10000); // 0..9999
+      return 'ABC' + String(n).padStart(4,'0');
+    }
+    function isValidCode(c){ return /^ABC\d{4}$/.test(c); }
+
+    // ===== Mobile menu
     $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
 
-    // Steps
-    const steps = () => bySelAll('.form-step');
-
+    // ===== Steps + progress
+    const stepsEls = ()=> qsa('.form-step');
     function renumberSteps(){
-      const total = steps().length;
+      const total = stepsEls().length;
       const cur = window.__currentStep || 1;
-      bySel('#progress-label').textContent = 'Step ' + cur + ' of ' + total;
+      $('#progress-label').textContent = 'Step ' + cur + ' of ' + total;
       const pct = Math.round((cur-1)/(total-1)*100);
-      bySel('#progress-fill').style.width = pct + '%';
+      $('#progress-fill').style.width = pct + '%';
     }
-
     function showStep(n){
-      const s = steps();
+      const s = stepsEls();
       s.forEach(x=> x.classList.add('hidden'));
       const t = s[n-1];
       if (t){ t.classList.remove('hidden'); window.__currentStep = n; }
-
       const total = s.length;
-      $('btnBack').disabled = (n === 1);
-      $('btnNext').textContent = (n === total) ? 'See My Options' : 'Next';
-      bySel('#progress-label').textContent = 'Step ' + n + ' of ' + total;
+      $('#btnBack').disabled = (n === 1);
+      $('#btnNext').textContent = (n === total) ? 'See My Options' : 'Next';
+      $('#progress-label').textContent = 'Step ' + n + ' of ' + total;
       const pct = Math.round((n-1)/(total-1)*100);
-      bySel('#progress-fill').style.width = pct + '%';
-      bySel('#progress-endcap').textContent = (n === total) ? 'See options you’re actually qualified for' : 'Let’s get you approved';
+      $('#progress-fill').style.width = pct + '%';
+      $('#progress-endcap').textContent = (n === total) ? 'See options you’re actually qualified for' : 'Let’s get you approved';
     }
-
     function next(delta){
       const cur = window.__currentStep || 1;
       if (delta>0 && !validateStep(cur)) return;
       let t = cur + delta;
-      const total = steps().length;
+      const total = stepsEls().length;
       if (t < 1) t = 1;
       if (t > total) { submitForm(); return; }
       showStep(t);
     }
+    $('#btnNext').addEventListener('click', ()=> next(1));
+    $('#btnBack').addEventListener('click', ()=> next(-1));
 
-    // Nav buttons
-    $('btnNext').addEventListener('click', ()=> next(1));
-    $('btnBack').addEventListener('click', ()=> next(-1));
-
-    // Subtle fake "refresh"
+    // ===== Faux refresh
     function fakeRefreshCounts(){
-      const badgeAll = bySel('#inv-total');
-      const badges = [ ...bySelAll('.inv-badge') ];
-      const cards = bySelAll('.bodytype-card');
-
-      if (badgeAll) badgeAll.classList.add('updating');
-      badges.forEach(b => b.classList.add('updating'));
-      cards.forEach(c => c.classList.add('loading'));
-
-      setTimeout(()=>{
-        if (badgeAll) badgeAll.classList.remove('updating');
-        badges.forEach(b => b.classList.remove('updating'));
-        cards.forEach(c => c.classList.remove('loading'));
-      }, 700);
+      const badgeAll = qs('#inv-total');
+      const badges = [ ...qsa('.inv-badge') ];
+      const cards = qsa('.bodytype-card');
+      badgeAll?.classList.add('updating'); badges.forEach(b=>b.classList.add('updating')); cards.forEach(c=>c.classList.add('loading'));
+      setTimeout(()=>{ badgeAll?.classList.remove('updating'); badges.forEach(b=>b.classList.remove('updating')); cards.forEach(c=>c.classList.remove('loading')); }, 700);
     }
 
-    // Selections
-    bySelAll('[data-type]').forEach(b=> b.addEventListener('click', ()=>{
-      $('vehicleType').value = b.dataset.type;
-      bySelAll('[data-type]').forEach(x=>x.classList.remove('selected'));
-      b.classList.add('selected');
-      fakeRefreshCounts();
-      next(1);
+    // ===== Selections
+    qsa('[data-type]').forEach(b=> b.addEventListener('click', ()=>{
+      $('#vehicleType').value = b.dataset.type;
+      qsa('[data-type]').forEach(x=>x.classList.remove('selected'));
+      b.classList.add('selected'); fakeRefreshCounts(); next(1);
     }));
-    bySelAll('[data-cond]').forEach(b=> b.addEventListener('click', ()=>{
-      $('vehicleCondition').value = b.dataset.cond;
-      bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected'));
-      b.classList.add('selected');
-      fakeRefreshCounts();
-      next(1);
+    qsa('[data-cond]').forEach(b=> b.addEventListener('click', ()=>{
+      $('#vehicleCondition').value = b.dataset.cond;
+      qsa('[data-cond]').forEach(x=>x.classList.remove('selected'));
+      b.classList.add('selected'); fakeRefreshCounts(); next(1);
     }));
-    bySelAll('[name="budgetRange"]').forEach(r=>{
+    qsa('[name="budgetRange"]').forEach(r=>{
       r.addEventListener('change', ()=> { fakeRefreshCounts(); next(1); });
       r.parentElement.addEventListener('click', ()=>{ r.checked=true; fakeRefreshCounts(); next(1); });
     });
 
-    // Phone format
-    $('phone')?.addEventListener('input', (e)=>{
+    // ===== Phone format
+    $('#phone')?.addEventListener('input', (e)=>{
       const d=e.target.value.replace(/\D/g,'').slice(0,10);
       if(d.length>6)e.target.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
       else if(d.length>3)e.target.value=`(${d.slice(0,3)}) ${d.slice(3)}`;
       else if(d.length>0)e.target.value=`(${d}`;
     });
 
-    // Rent/Own
+    // ===== Rent/Own
     function setHousing(type){
-      $('housingType').value = type;
-      $('btnRent').setAttribute('aria-pressed', String(type==='Rent'));
-      $('btnOwn').setAttribute('aria-pressed', String(type==='Own'));
+      $('#housingType').value = type;
+      $('#btnRent').setAttribute('aria-pressed', String(type==='Rent'));
+      $('#btnOwn').setAttribute('aria-pressed', String(type==='Own'));
     }
-    $('btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
-    $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
+    $('#btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
+    $('#btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
 
-    // Trade-in reveal
-    $('hasTradeIn')?.addEventListener('change', (e)=>{
-      bySel('#tradeInDetails').classList.toggle('hidden', e.target.value.toLowerCase()!=='yes');
+    // ===== Trade-in
+    $('#hasTradeIn')?.addEventListener('change', (e)=>{
+      qs('#tradeInDetails').classList.toggle('hidden', e.target.value.toLowerCase()!=='yes');
     });
 
-    // Income branching
-    $('incomeSourceFull')?.addEventListener('change', ()=>{
-      const v = $('incomeSourceFull').value;
+    // ===== Income branching
+    $('#incomeSourceFull')?.addEventListener('change', ()=>{
+      const v = $('#incomeSourceFull').value;
       const employed = (v === 'Full-Time' || v === 'Part-Time');
       const selfEmp = (v === 'Self-Employed');
       const other = (v === 'Disability' || v === 'Other');
 
       ['currentEmployer','jobTitle','timeWithEmployerYears','timeWithEmployerMonths','businessName','selfMonthlyIncome','otherIncomeAmount','otherIncomeSource','avgMonthlyIncome'].forEach(id => { const n=$(id); if(n) n.required=false; });
 
-      bySel('#empWrap').classList.toggle('hidden', !employed);
-      bySel('#posWrap').classList.toggle('hidden', !employed);
-      bySel('#monthlyWrap').classList.toggle('hidden', !employed);
-      bySel('#tenureWrap').classList.toggle('hidden', !employed);
+      qs('#empWrap').classList.toggle('hidden', !employed);
+      qs('#posWrap').classList.toggle('hidden', !employed);
+      qs('#monthlyWrap').classList.toggle('hidden', !employed);
+      qs('#tenureWrap').classList.toggle('hidden', !employed);
 
-      bySel('#full-self').classList.toggle('hidden', !selfEmp);
-      bySel('#full-other').classList.toggle('hidden', !other);
+      qs('#full-self').classList.toggle('hidden', !selfEmp);
+      qs('#full-other').classList.toggle('hidden', !other);
 
       if (employed){
         ['currentEmployer','jobTitle','timeWithEmployerYears','timeWithEmployerMonths','avgMonthlyIncome'].forEach(id => $(id).required = true);
@@ -849,16 +850,13 @@
       } else if (other){
         ['otherIncomeAmount','otherIncomeSource'].forEach(id => $(id).required = true);
       }
-
       checkPrevEmploymentNeed();
     });
 
-    // Dynamic PREVIOUS EMPLOYMENT
+    // ===== Dynamic previous employment
     function ensurePrevEmploymentStep(need){
-      const after = $('step-income');
-      const existing = after.nextElementSibling && after.nextElementSibling.querySelector?.('#previousEmployer')
-        ? after.nextElementSibling
-        : null;
+      const after = $('#step-income');
+      const existing = after.nextElementSibling && after.nextElementSibling.querySelector?.('#previousEmployer') ? after.nextElementSibling : null;
 
       if (need && !existing){
         const sec = document.createElement('section');
@@ -879,52 +877,36 @@
                 </div>
               </div>
             </div>
-          </div>
-        `;
+          </div>`;
         after.insertAdjacentElement('afterend', sec);
-        populateDropdown(bySel('#prevTimeWithEmployerYears'), 0, 30, 'Years', 'Year');
-        populateDropdown(bySel('#prevTimeWithEmployerMonths'), 0, 11, 'Months', 'Month');
+        populateDropdown(qs('#prevTimeWithEmployerYears'), 0, 30, 'Years', 'Year');
+        populateDropdown(qs('#prevTimeWithEmployerMonths'), 0, 11, 'Months', 'Month');
         ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id => $(id).required = true);
-
-        const prevIdx = window.__currentStep || 1;
-        renumberSteps();
-        showStep(prevIdx);
-        return;
+        const prevIdx = window.__currentStep || 1; renumberSteps(); showStep(prevIdx); return;
       }
-
       if (!need && existing){
-        const prevIdx = window.__currentStep || 1;
-        existing.remove();
+        const prevIdx = window.__currentStep || 1; existing.remove();
         ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id => { const n=$(id); if(n) n.required=false; });
-        renumberSteps();
-        const total = steps().length;
-        showStep(Math.min(prevIdx, total));
-        return;
+        renumberSteps(); const total = stepsEls().length; showStep(Math.min(prevIdx, total)); return;
       }
-
-      ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id=>{
-        const n = $(id); if(n) n.required = !!need;
-      });
+      ['previousEmployer','prevTimeWithEmployerYears','prevTimeWithEmployerMonths'].forEach(id=>{ const n = $(id); if(n) n.required = !!need; });
     }
-
     function checkPrevEmploymentNeed(){
-      const v = $('incomeSourceFull').value;
+      const v = $('#incomeSourceFull').value;
       const employed = (v === 'Full-Time' || v === 'Part-Time');
-      const y = parseInt(($('timeWithEmployerYears').value || '0'),10);
-      const m = parseInt(($('timeWithEmployerMonths').value || '0'),10);
+      const y = parseInt(($('#timeWithEmployerYears').value || '0'),10);
+      const m = parseInt(($('#timeWithEmployerMonths').value || '0'),10);
       const months = (y*12)+m;
       const need = employed && (y!==null || m!==null) && months < 24;
       ensurePrevEmploymentStep(need);
     }
-    $('timeWithEmployerYears')?.addEventListener('change', checkPrevEmploymentNeed);
-    $('timeWithEmployerMonths')?.addEventListener('change', checkPrevEmploymentNeed);
+    $('#timeWithEmployerYears')?.addEventListener('change', checkPrevEmploymentNeed);
+    $('#timeWithEmployerMonths')?.addEventListener('change', checkPrevEmploymentNeed);
 
-    // Dynamic PREVIOUS ADDRESS
+    // ===== Dynamic previous address
     function ensurePrevAddressStep(need){
-      const after = $('step-address');
-      const existing = after.nextElementSibling && after.nextElementSibling.querySelector?.('#prevStreetAddress')
-        ? after.nextElementSibling
-        : null;
+      const after = $('#step-address');
+      const existing = after.nextElementSibling && after.nextElementSibling.querySelector?.('#prevStreetAddress') ? after.nextElementSibling : null;
 
       if (need && !existing){
         const sec = document.createElement('section');
@@ -946,78 +928,64 @@
                 <select id="prevTimeAtAddressMonths" name="prevTimeAtAddressMonths" class="form-select"><option value="">Months</option></select>
               </div>
             </div>
-          </div>
-        `;
+          </div>`;
         after.insertAdjacentElement('afterend', sec);
-        populateProvinces(bySel('#prevProvince'));
-        populateDropdown(bySel('#prevTimeAtAddressYears'), 0, 30, 'Years', 'Year');
-        populateDropdown(bySel('#prevTimeAtAddressMonths'), 0, 11, 'Months', 'Month');
+        populateProvinces(qs('#prevProvince'));
+        populateDropdown(qs('#prevTimeAtAddressYears'), 0, 30, 'Years', 'Year');
+        populateDropdown(qs('#prevTimeAtAddressMonths'), 0, 11, 'Months', 'Month');
         ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths'].forEach(id => $(id).required = true);
-
-        const prevIdx = window.__currentStep || 1;
-        renumberSteps();
-        showStep(prevIdx);
-        return;
+        const prevIdx = window.__currentStep || 1; renumberSteps(); showStep(prevIdx); return;
       }
-
       if (!need && existing){
-        const prevIdx = window.__currentStep || 1;
-        existing.remove();
+        const prevIdx = window.__currentStep || 1; existing.remove();
         ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths'].forEach(id=>{ const n=$(id); if(n) n.required=false; });
-        renumberSteps();
-        const total = steps().length;
-        showStep(Math.min(prevIdx, total));
-        return;
+        renumberSteps(); const total = stepsEls().length; showStep(Math.min(prevIdx, total)); return;
       }
-
       ['prevStreetAddress','prevCity','prevProvince','prevPostalCode','prevTimeAtAddressYears','prevTimeAtAddressMonths'].forEach(id=>{
         const n = $(id); if(n) n.required = !!need;
       });
     }
-
     function onAddressDurationChange(){
-      const y = parseInt(($('timeAtAddressYears').value || '0'),10);
-      const m = parseInt(($('timeAtAddressMonths').value || '0'),10);
+      const y = parseInt(($('#timeAtAddressYears').value || '0'),10);
+      const m = parseInt(($('#timeAtAddressMonths').value || '0'),10);
       const months = (y*12)+m;
       const need = (y!==null || m!==null) && months < 24;
       ensurePrevAddressStep(need);
     }
-    $('timeAtAddressYears')?.addEventListener('change', onAddressDurationChange);
-    $('timeAtAddressMonths')?.addEventListener('change', onAddressDurationChange);
+    $('#timeAtAddressYears')?.addEventListener('change', onAddressDurationChange);
+    $('#timeAtAddressMonths')?.addEventListener('change', onAddressDurationChange);
 
-    // Validation
+    // ===== Validation
     function visibleRequired() {
-      const req = bySelAll('#the-form [required]');
+      const req = qsa('#the-form [required]');
       return req.filter(el => !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none');
     }
     function validateStep(n){
-      const stepEl = steps()[n-1];
-      if(!stepEl) return true;
+      const stepEl = stepsEls()[n-1]; if(!stepEl) return true;
       let ok = true;
       const fields = visibleRequired().filter(el => stepEl.contains(el));
       fields.forEach(el => {
         let pass = (el.type==='checkbox') ? el.checked : (el.value && el.value.trim()!=='');
         if (el.id==='phone') pass = el.value.replace(/\D/g,'').length>=10;
         if (el.type==='email' || el.id==='email'){ const v=el.value.trim(); pass = pass && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-        if (!pass){ ok=false; el.classList.add('err'); const lab = bySel('label[for="'+el.id+'"]'); lab?.classList.add('err-label'); }
-        else { el.classList.remove('err'); const lab = bySel('label[for="'+el.id+'"]'); lab?.classList.remove('err-label'); }
+        if (!pass){ ok=false; el.classList.add('err'); const lab = qs('label[for="'+el.id+'"]'); lab?.classList.add('err-label'); }
+        else { el.classList.remove('err'); const lab = qs('label[for="'+el.id+'"]'); lab?.classList.remove('err-label'); }
       });
       return ok;
     }
+    function validateAll(){ let ok = true; for (let i=1;i<=stepsEls().length;i++){ if(!validateStep(i)) ok=false; } return ok; }
 
-    // Progress overlay helper
-    async function runProgressOverlay(minMs=4800){
-      const overlay = $('progress-overlay');
-      const bar = $('progress-bar');
-      const stepsEl = bySelAll('#progress-steps li');
-      overlay.classList.remove('hidden');
-
+    // ===== Progress overlay
+    async function runProgressOverlay(minMs=4600){
+      const overlay = $('#progress-overlay');
+      const bar = $('#progress-bar');
+      const stepsEl = qsa('#progress-steps li');
+      overlay.style.display='flex';
       const stages = [
-        { width: 30, index: 0, ms: 1200 },
+        { width: 30, index: 0, ms: 1100 },
         { width: 65, index: 1, ms: 1400 },
         { width: 100, index: 2, ms: 1600 }
       ];
-
       const t0 = Date.now();
       for (const st of stages){
         stepsEl.forEach((li,i)=> li.classList.toggle('active', i===st.index));
@@ -1026,21 +994,17 @@
       }
       const elapsed = Date.now() - t0;
       if (elapsed < minMs) await new Promise(r=>setTimeout(r, minMs - elapsed));
-      overlay.classList.add('hidden');
+      overlay.style.display='none';
     }
 
-    // Submit + overlay
+    // ===== Submit
     async function submitForm(){
-      if (!validateAll()) { bySel('#form-status').textContent = 'Please complete all required fields.'; return; }
-      const btn = bySel('#submitBtn');
-      if (btn){ btn.disabled = true; btn.textContent = 'Submitting…'; }
+      if (!validateAll()) { qs('#form-status').textContent = 'Please complete all required fields.'; return; }
+      const btn = $('#submitBtn'); if (btn){ btn.disabled = true; btn.textContent = 'Submitting…'; }
+      const code = makeApplicationCode();
+      try { sessionStorage.setItem('application_code', code); } catch(_) {}
 
-      const code = 'VIC-' + Math.random().toString(36).slice(2,8).toUpperCase();
-      try { sessionStorage.setItem('vic_app_code', code); } catch(_) {}
-
-      const fd = new FormData(bySel('#the-form'));
-      fd.append('appCode', code);
-
+      const fd = new FormData($('#the-form')); fd.append('appCode', code);
       const post = fetch('/', {
         method:'POST',
         headers:{'Content-Type':'application/x-www-form-urlencoded'},
@@ -1048,122 +1012,270 @@
       }).catch(()=>null);
 
       await runProgressOverlay(4600);
-
       try {
         await post;
         const url = new URL('/thank-you.html', window.location.origin);
         url.searchParams.set('code', code);
         window.location.href = url.toString();
       } catch (e) {
-        bySel('#the-form').submit();
+        $('#the-form').submit();
       }
     }
-    function validateAll(){
-      let ok = true;
-      for (let i=1;i<=steps().length;i++){ if(!validateStep(i)) ok=false; }
-      return ok;
-    }
 
-    // Inventory “View all”
-    bySelAll('.js-view-inventory').forEach(el=>{
+    // ===== Inventory “View all” scroll
+    qsa('.js-view-inventory').forEach(el=>{
       el.addEventListener('click', (e)=>{
-        e.preventDefault();
-        fakeRefreshCounts();
+        e.preventDefault(); fakeRefreshCounts();
         document.getElementById('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
       });
     });
 
-    // Application Code (sidebar)
-    $('code-form')?.addEventListener('submit', (e)=>{
+    // ===== Resume code form (sidebar)
+    $('#code-form')?.addEventListener('submit', (e)=>{
       e.preventDefault();
-      const raw = $('appCodeInput').value || '';
-      const code = raw.toUpperCase().replace(/[^A-Z0-9\-]/g,'').trim();
-      const err = $('code-error');
-      if (!code){ err.classList.remove('hidden'); return; }
+      const raw = $('#appCodeInput').value || '';
+      const code = raw.toUpperCase().replace(/[^A-Z0-9]/g,'').trim();
+      const err = $('#code-error');
+      if (!isValidCode(code)){ err.classList.remove('hidden'); return; }
       err.classList.add('hidden');
-      try { sessionStorage.setItem('vic_app_code', code); } catch(_) {}
-      const url = new URL(window.location.href);
-      url.searchParams.set('code', code);
-      history.replaceState(null, '', url.toString());
+      try { sessionStorage.setItem('application_code', code); } catch(_) {}
+      const url = new URL(window.location.href); url.searchParams.set('code', code); history.replaceState(null, '', url.toString());
       document.getElementById('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
     });
 
-    // Dropdown helpers
+    // ===== Dropdown helpers
     function populateMonths(sel){ if(!sel) return;
       const m=["01","02","03","04","05","06","07","08","09","10","11","12"];
       m.forEach((mm,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=mm; sel.appendChild(o);});
     }
     function updateDays(){
-      const y=parseInt($('dobYear').value||'',10);
-      const m=parseInt($('dobMonth').value||'',10);
-      const sel=parseInt($('dobDay').value||'',10);
+      const y=parseInt($('#dobYear').value||'',10);
+      const m=parseInt($('#dobMonth').value||'',10);
+      const sel=parseInt($('#dobDay').value||'',10);
       const days=(y&&m)?new Date(y,m,0).getDate():31;
-      $('dobDay').innerHTML='<option value="">DD</option>';
-      for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=String(i).padStart(2,'0'); $('dobDay').appendChild(o);}
-      if(sel&&sel<=days)$('dobDay').value=sel;
+      $('#dobDay').innerHTML='<option value="">DD</option>';
+      for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=String(i).padStart(2,'0'); $('#dobDay').appendChild(o);}
+      if(sel&&sel<=days)$('#dobDay').value=sel;
     }
     function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o);} }
     function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
 
-    // Sidebar height sync (desktop only)
+    // ===== Sidebar height sync
     function syncSidebarHeight(){
-      const shell = $('form-shell');
-      const sidebar = $('sidebar');
-      if (!shell || !sidebar) return;
-      if (window.matchMedia('(min-width: 768px)').matches){
-        sidebar.style.height = shell.offsetHeight + 'px';
-      } else {
-        sidebar.style.height = 'auto';
+      const shell = $('#form-shell'); const sidebar = $('#sidebar'); if (!shell || !sidebar) return;
+      if (window.matchMedia('(min-width: 768px)').matches){ sidebar.style.height = shell.offsetHeight + 'px'; } else { sidebar.style.height = 'auto'; }
+    }
+    function calibrateShellHeight(){
+      const shell = $('#form-shell'); const header = shell.querySelector('.sticky'); const footer = qs('.form-footer'); const step = $('#step-yourinfo');
+      const wasHidden = step.classList.contains('hidden'); if (wasHidden) step.classList.remove('hidden');
+      const inner = step.querySelector('.step-inner'); const contentH = inner ? inner.offsetHeight : step.offsetHeight;
+      if (wasHidden) step.classList.add('hidden');
+      const shellH = header.offsetHeight + contentH + footer.offsetHeight;
+      shell.style.height = shellH + 'px'; qs('#step-viewport').style.height = contentH + 'px'; syncSidebarHeight();
+    }
+
+    // ===== Drawers (grid & offer)
+    const gridSheet = $('#optionGrid'), gridBackdrop = $('#gridBackdrop');
+    const offerSheet = $('#offerDrawer'), offerBackdrop = $('#offerBackdrop');
+    function openGrid(){ gridSheet.classList.add('open'); gridBackdrop.classList.add('open'); }
+    function closeGrid(){ gridSheet.classList.remove('open'); gridBackdrop.classList.remove('open'); }
+    function openOffer(){ offerSheet.classList.add('open'); offerBackdrop.classList.add('open'); }
+    function closeOffer(){ offerSheet.classList.remove('open'); offerBackdrop.classList.remove('open'); }
+    $('#closeGrid').onclick = closeGrid; $('#closeOffer').onclick = closeOffer;
+    gridBackdrop.onclick = closeGrid; offerBackdrop.onclick = closeOffer;
+
+    // ===== Body Style cards → Option Grid (only when signed in)
+    qsa('.bodytype-card').forEach(card=>{
+      card.addEventListener('click', (e)=>{
+        if (!isSignedIn()) return; // anchor already goes to form if not
+        e.preventDefault();
+        const label = card.textContent.trim().split('(')[0].trim();
+        showOptionGrid(label);
+      });
+    });
+
+    // ===== LocalStorage data model (per application code)
+    // Structure: localStorage["offers"] = { "<CODE>": { "<BodyStyle>": { "1": {...}, ... } } }
+    function readOffers(){ try{ return JSON.parse(localStorage.getItem('offers')||'{}'); }catch(_){ return {}; } }
+    function writeOffers(obj){ localStorage.setItem('offers', JSON.stringify(obj)); }
+    function ensurePath(code, body){
+      const db = readOffers(); db[code] ||= {}; db[code][body] ||= {}; writeOffers(db); return db;
+    }
+
+    // ===== Option Grid (1–8)
+    function showOptionGrid(bodyStyle){
+      const code = getApplicationCode();
+      ensurePath(code, bodyStyle);
+      const db = readOffers(); const data = db[code][bodyStyle];
+      $('#gridTitle').textContent = 'Body style: ' + bodyStyle;
+
+      const grid = $('#grid'); grid.innerHTML = '';
+      for (let i=1;i<=8;i++){
+        const row = data[String(i)];
+        const tile = document.createElement('button');
+        tile.className = 'opt-tile'; tile.type = 'button';
+        tile.innerHTML = `
+          <div class="flex items-center justify-between">
+            <div class="opt-h">Option ${i}</div>
+            ${(row && row.versions && row.versions.B) ? '<span class="opt-pill">A/B</span>' : ''}
+          </div>
+          <div class="opt-sub">${row && row.published ? summarize(row) : (adminMode() ? 'Add details' : 'Coming soon')}</div>
+        `;
+        tile.addEventListener('click', ()=>{
+          if (!data[String(i)] || !data[String(i)].published){
+            if (adminMode()){
+              adminFillOption({code, bodyStyle, idx:i}); showOptionGrid(bodyStyle);
+            } else { return; }
+          } else { showOfferView({code, bodyStyle, idx:i}); }
+        });
+        grid.appendChild(tile);
+      }
+      openGrid();
+    }
+    function summarize(row){
+      const A = row.versions?.A || [];
+      const map = Object.fromEntries(A.map(f=>[f.key.toLowerCase(), f.val]));
+      const bw = map['bi-weekly payment'] || map['bi-weekly'] || '';
+      const term = map['term length'] || map['term'] || '';
+      const w1 = A.find(f=>f.key.toLowerCase().startsWith('warranty'))?.val || '';
+      const parts = [bw, term, w1].filter(Boolean);
+      return parts.length ? parts.join(' • ') : 'Ready';
+    }
+
+    // ===== Offer View (Two-panel)
+    function showOfferView({code, bodyStyle, idx}){
+      const db = readOffers(); const row = db?.[code]?.[bodyStyle]?.[String(idx)];
+      if (!row) return;
+
+      $('#offerTitle').textContent = `${bodyStyle} — Option ${idx}`;
+      $('#offerSub').textContent = (row.versions?.B) ? 'Two versions available' : 'Single version';
+      $('#offerUpdated').textContent = 'Updated ' + timeAgo(row.updatedAt || Date.now());
+
+      const imgs = Array.isArray(row.images) && row.images.length ? row.images : ['https://via.placeholder.com/800x600?text=Vehicle'];
+      const main = $('#galleryMain'); const strip = $('#galleryStrip'); strip.innerHTML = '';
+      let cur = 0;
+      function setMain(i){ cur = i; main.style.backgroundImage = `url("${imgs[i]}")`; qsa('.gallery-thumb', strip).forEach((t,j)=> t.classList.toggle('active', j===i)); }
+      imgs.forEach((url,i)=>{ const th = document.createElement('div'); th.className='gallery-thumb'; th.style.backgroundImage=`url("${url}")`; th.onclick=()=>setMain(i); strip.appendChild(th); });
+      setMain(0);
+      main.onclick = ()=> openZoom(imgs[cur]);
+
+      const tabs = $('#offerTabs'); const fields = $('#offerFields'); tabs.innerHTML=''; fields.innerHTML='';
+      const versions = row.versions || {}; const names = Object.keys(versions); const defaultSel = names.includes('A') ? 'A' : names[0];
+      names.forEach(name=>{
+        const b = document.createElement('button'); b.className='offer-tab'; b.textContent='Offer '+name; b.setAttribute('role','tab'); b.setAttribute('aria-pressed', String(name===defaultSel));
+        b.onclick=()=>{ qsa('.offer-tab', tabs).forEach(t=>t.setAttribute('aria-pressed','false')); b.setAttribute('aria-pressed','true'); renderFields(versions[name]); };
+        tabs.appendChild(b);
+      });
+      if (!names.length){ const b=document.createElement('button'); b.className='offer-tab'; b.textContent='Offer'; b.setAttribute('aria-pressed','true'); tabs.appendChild(b); }
+      renderFields(versions[defaultSel] || []);
+      closeGrid(); openOffer();
+
+      function renderFields(arr){
+        fields.innerHTML=''; (arr||[]).forEach(f=>{ const row=document.createElement('div'); row.className='offer-field'; row.innerHTML=`<div class="offer-key">${f.key}</div><div class="offer-val">${f.val}</div>`; fields.appendChild(row); });
       }
     }
 
-    // Calibrate fixed height to Step 5 and sync heights
-    function calibrateShellHeight(){
-      const shell = $('form-shell');
-      const header = shell.querySelector('.sticky');
-      const footer = bySel('.form-footer');
-      const step = $('step-yourinfo');
+    // ===== Zoom
+    const zoomEl = $('#zoom'); $('#zoom').addEventListener('click', ()=> zoomEl.style.display='none');
+    function openZoom(url){ $('#zoomImg').src = url; zoomEl.style.display='flex'; }
 
-      const wasHidden = step.classList.contains('hidden');
-      if (wasHidden) step.classList.remove('hidden');
+    // ===== Admin mock (only with ?admin=1)
+    function adminMode(){ return new URL(location.href).searchParams.get('admin') === '1'; }
+    async function adminFillOption({code, bodyStyle, idx}){
+      if (!adminMode()) return;
+      const imagesCSV = prompt('[Admin] Enter image URLs (comma-separated):', '');
+      const twoVersions = confirm('[Admin] Create two versions (A + B)?');
 
-      const inner = step.querySelector('.step-inner');
-      const contentH = inner ? inner.offsetHeight : step.offsetHeight;
+      async function captureVersion(label){
+        alert(`[Admin] Enter fields for Offer ${label} in the EXACT order you want them shown.\nCommon keys:\n- Down Payment\n- Bi-Weekly Payment\n- Term Length\n- Warranty 1 (e.g., 3y / 60,000 km)\n- Warranty 2 (optional)`);
+        const arr = [];
+        while (true){
+          const key = prompt(`[Offer ${label}] Field label (blank to finish):`, arr.length===0?'Down Payment':'');
+          if (!key) break;
+          const val = prompt(`[Offer ${label}] Value for "${key}":`, key.toLowerCase().includes('bi-weekly')?'$289':'');
+          if (!val) continue;
+          arr.push({key:key.trim(), val:val.trim()});
+        }
+        return arr;
+      }
 
-      if (wasHidden) step.classList.add('hidden');
+      const vA = await captureVersion('A');
+      const vB = twoVersions ? await captureVersion('B') : null;
 
-      const shellH = header.offsetHeight + contentH + footer.offsetHeight;
-
-      shell.style.height = shellH + 'px';
-      bySel('#step-viewport').style.height = contentH + 'px';
-
-      syncSidebarHeight();
+      const db = ensurePath(code, bodyStyle);
+      db[code][bodyStyle][String(idx)] = {
+        published: true,
+        images: (imagesCSV||'').split(',').map(s=>s.trim()).filter(Boolean),
+        versions: { A: vA, ...(vB?{B:vB}:{}) },
+        updatedAt: Date.now()
+      };
+      writeOffers(db);
+      alert('Saved. Option '+idx+' is now published.');
     }
 
-    // Init
+    // ===== Utility
+    function timeAgo(t){
+      const s = Math.max(1, Math.round((Date.now()-t)/1000));
+      if (s<60) return s+'s ago';
+      const m = Math.round(s/60); if (m<60) return m+'m ago';
+      const h = Math.round(m/60); if (h<24) return h+'h ago';
+      const d = Math.round(h/24); return d+'d ago';
+    }
+
+    // ===== Init
     (function init(){
-      const y = new Date().getFullYear(); bySel('#year').textContent = y;
+      const y = new Date().getFullYear(); qs('#year').textContent = y;
 
-      populateMonths($('dobMonth')); updateDays();
-      $('dobMonth').addEventListener('change', updateDays);
-      $('dobYear').addEventListener('input', updateDays);
+      populateMonths($('#dobMonth')); updateDays();
+      $('#dobMonth').addEventListener('change', updateDays);
+      $('#dobYear').addEventListener('input', updateDays);
 
-      populateDropdown($('timeWithEmployerYears'), 0, 30, 'Years', 'Year');
-      populateDropdown($('timeWithEmployerMonths'), 0, 11, 'Months', 'Month');
-      populateDropdown($('timeAtAddressYears'), 0, 30, 'Years', 'Year');
-      populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
-      populateProvinces($('currentProvince'));
+      populateDropdown($('#timeWithEmployerYears'), 0, 30, 'Years', 'Year');
+      populateDropdown($('#timeWithEmployerMonths'), 0, 11, 'Months', 'Month');
+      populateDropdown($('#timeAtAddressYears'), 0, 30, 'Years', 'Year');
+      populateDropdown($('#timeAtAddressMonths'), 0, 11, 'Months', 'Month');
+      populateProvinces($('#currentProvince'));
 
       setHousing('Rent');
-      window.__currentStep = 1;
-      showStep(1);
-      renumberSteps();
-
-      window.requestAnimationFrame(()=> setTimeout(calibrateShellHeight, 0));
+      window.__currentStep = 1; showStep(1); renumberSteps();
+      requestAnimationFrame(()=> setTimeout(calibrateShellHeight, 0));
       window.addEventListener('resize', ()=> { calibrateShellHeight(); });
-
       setTimeout(fakeRefreshCounts, 500);
+
+      // Seed example if admin (so the Offer view has something)
+      if (adminMode()){
+        const code = getApplicationCode() || 'ABC1234';
+        const bodyStyle = 'SUV';
+        const db = ensurePath(code, bodyStyle);
+        if (!db[code][bodyStyle]['1']){
+          db[code][bodyStyle]['1'] = {
+            published:true,
+            images:[
+              'https://images.unsplash.com/photo-1549924231-f129b911e442?q=80&w=1200&auto=format&fit=crop',
+              'https://images.unsplash.com/photo-1532219413303-9f3fb3e319df?q=80&w=1200&auto=format&fit=crop'
+            ],
+            versions:{
+              A:[
+                {key:'Down Payment', val:'$1,000'},
+                {key:'Bi-Weekly Payment', val:'$289'},
+                {key:'Term Length', val:'72 months'},
+                {key:'Warranty 1', val:'3y / 60,000 km'}
+              ],
+              B:[
+                {key:'Down Payment', val:'$0'},
+                {key:'Bi-Weekly Payment', val:'$319'},
+                {key:'Warranty 1', val:'5y / 100,000 km'},
+                {key:'Term Length', val:'84 months'}
+              ]
+            },
+            updatedAt: Date.now()
+          };
+          writeOffers(db);
+        }
+      }
     })();
+
+    // Buttons / form handlers wired earlier
   </script>
 </body>
 </html>
