@@ -633,7 +633,7 @@
     // Step 1 (condition)
     bySelAll('[data-cond]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
-        bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected'));
+        bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected','err'));
         btn.classList.add('selected');
         const v = btn.dataset.cond;
         const hidden = $('vehicleCondition');
@@ -684,7 +684,12 @@
     }
     function validateStep(n){
       // Step-specific checks
-      if (n===1) { return !!($('vehicleCondition')?.value); }
+      if (n===1) {
+        const ok = !!($('vehicleCondition')?.value);
+        // show a visible error on the choice rectangles if nothing selected
+        bySelAll('[data-cond]').forEach(x => x.classList.toggle('err', !ok));
+        return ok;
+      }
       if (n===2) { return !!($('budgetRange')?.value); }
       // If visiting step 4 (trade-in details) only when trade-in is Yes, allow blank (for speed)
       const stepEl = steps()[n-1];
