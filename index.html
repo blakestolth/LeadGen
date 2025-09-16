@@ -74,14 +74,23 @@
     .grid-inline-addr2{ display:grid; grid-template-columns: 1.6fr 1fr 1fr; gap:10px; }
     .grid-inline-dob{ display:grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap:10px; }
 
-    /* Sidebar / “Powered by” in title */
+    /* Brand area + Powered by under title */
     .brand-left{ display:flex; align-items:center; gap:12px; }
     .site-logo{ height:60px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
     @media (max-width:640px){ .site-logo{ height:56px; } }
     .brand-title{ color:#0f172a; font-weight:800; letter-spacing:-0.01em; font-size:var(--nav-font); white-space:nowrap; text-decoration:none; line-height:1.1; }
     .brand-stack{ display:flex; flex-direction:column; gap:4px; }
     .powered-by-inline{ display:flex; align-items:center; gap:6px; font-size: calc(var(--nav-font) * .8); color:#475569; font-weight:700; line-height:1; }
-    .powered-by-inline img{ height: 0.85em; width:auto; object-fit:contain; }
+    .powered-by-inline img{ height: 0.8em; width:auto; object-fit:contain; }
+
+    /* ABCD badge — blue filled circle w/ white text */
+    .abc-badge{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:20px; height:20px; border-radius:9999px;
+      background:var(--blue-600); color:#fff; border:none;
+      font-weight:800; font-size:11px; line-height:1;
+      flex-shrink:0;
+    }
 
     /* Browse Vehicles (with shimmer) */
     .bodytype-card{ overflow:hidden; border-radius:10px; border:1px solid #e5e7eb; background:#fff; transition:transform .15s,box-shadow .15s,border-color .15s; }
@@ -197,7 +206,7 @@
       </div>
     </section>
 
-    <!-- FORM + LOGIN (two columns; form itself is vertical) -->
+    <!-- FORM + LOGIN -->
     <section class="grid md:grid-cols-2 gap-4">
       <!-- FORM -->
       <div class="card p-0 overflow-hidden" id="lead-form">
@@ -218,7 +227,7 @@
               <input type="hidden" name="app_type" id="app_type" value="Full Application" />
               <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
 
-              <!-- 1. New / Used / Both (VERTICAL, auto-next) -->
+              <!-- 1. New / Used / Both -->
               <section class="form-step" data-step="1">
                 <div class="step-inner">
                   <h3 class="h2">1. Vehicle condition</h3>
@@ -227,11 +236,11 @@
                     <button type="button" class="choice-rect" data-cond="Used">Used</button>
                     <button type="button" class="choice-rect" data-cond="Both">Both</button>
                   </div>
-                  <input type="hidden" name="vehicleCondition" id="vehicleCondition" required>
+                  <input type="hidden" name="vehicleCondition" id="vehicleCondition">
                 </div>
               </section>
 
-              <!-- 2. Bi-weekly budget (slider + 4 VERTICAL rectangles) -->
+              <!-- 2. Bi-weekly budget -->
               <section class="form-step hidden" data-step="2">
                 <div class="step-inner">
                   <h3 class="h2">2. Bi-weekly budget <span class="muted">(starts at $120)</span></h3>
@@ -245,11 +254,11 @@
                     <button type="button" class="choice-rect" data-budget="Option range three">Option range three</button>
                     <button type="button" class="choice-rect" data-budget="Option range four">Option range four</button>
                   </div>
-                  <input type="hidden" name="budgetRange" id="budgetRange" required>
+                  <input type="hidden" name="budgetRange" id="budgetRange">
                 </div>
               </section>
 
-              <!-- 3. Down payment / Trade-in (VERTICAL) -->
+              <!-- 3. Down payment / Trade-in -->
               <section class="form-step hidden" data-step="3" id="step-purchase">
                 <div class="step-inner">
                   <h3 class="h2">3. Purchase details</h3>
@@ -449,7 +458,7 @@
         </div>
       </div>
 
-      <!-- LOGIN (right) -->
+      <!-- LOGIN -->
       <aside class="flex flex-col gap-4" id="sidebar">
         <details class="card p-5 login-drop" open>
           <summary class="flex items-center justify-between gap-2">
@@ -475,7 +484,7 @@
       </aside>
     </section>
 
-    <!-- INVENTORY (original 8 cards with shimmer) -->
+    <!-- INVENTORY (8 cards with shimmer) -->
     <section id="inventory" class="card p-5 mt-6">
       <div class="flex items-center justify-between mb-2">
         <h3 class="h2">Browse by Vehicle Type</h3>
@@ -573,7 +582,7 @@
       const t = s[n-1];
       if (t){ t.classList.remove('hidden'); window.__currentStep = n; }
 
-      const total = s.length - 1; // 99 is hidden
+      const total = s.length - 1; // exclude hidden 99
       $('btnBack').disabled = (n === 1);
       $('btnNext').textContent = 'Next';
       bySel('#progress-label').textContent = 'Step ' + n + ' of ' + total;
@@ -653,6 +662,10 @@
       return req.filter(el => !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none');
     }
     function validateStep(n){
+      // Step-specific checks first (avoid hidden required traps)
+      if (n===1) { return !!$('vehicleCondition').value; }
+      if (n===2) { return !!$('budgetRange').value; }
+
       const stepEl = steps()[n-1];
       if(!stepEl) return true;
       let ok = true;
@@ -664,9 +677,6 @@
         if (!pass){ ok=false; el.classList.add('err'); const lab = bySel('label[for="'+el.id+'"]'); lab?.classList.add('err-label'); }
         else { el.classList.remove('err'); const lab = bySel('label[for="'+el.id+'"]'); lab?.classList.remove('err-label'); }
       });
-      // step-specific hidden requirements
-      if (n===1 && !$('vehicleCondition').value) ok=false;
-      if (n===2 && !$('budgetRange').value) ok=false;
       return ok;
     }
     function validateAll(){
