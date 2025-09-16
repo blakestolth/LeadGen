@@ -80,8 +80,9 @@
     @media (max-width:640px){ .site-logo{ height:56px; } }
     .brand-title{ color:#0f172a; font-weight:800; letter-spacing:-0.01em; font-size:var(--nav-font); white-space:nowrap; text-decoration:none; line-height:1.1; }
     .brand-stack{ display:flex; flex-direction:column; gap:4px; }
-    .powered-by-inline{ display:flex; align-items:center; gap:6px; font-size: calc(var(--nav-font) * .8); color:#475569; font-weight:700; line-height:1; }
-    .powered-by-inline img{ height: 0.8em; width:auto; object-fit:contain; }
+    /* Align “Powered by” perfectly with logo baseline */
+    .powered-by-inline{ display:flex; align-items:baseline; gap:6px; font-size: calc(var(--nav-font) * .8); color:#475569; font-weight:700; line-height:1; }
+    .powered-by-inline img{ height: 0.78em; width:auto; object-fit:contain; transform: translateY(2px); }
 
     /* ABCD badge (blue filled, white text) */
     .abc-badge{
@@ -120,6 +121,9 @@
     .progress-steps li.active{opacity:1;font-weight:700}
     .progress-note{margin-top:10px;font-size:12px;color:#64748b}
     .hidden{display:none}
+
+    /* Footer buttons: consistent offset from bottom/edges */
+    .form-footer{ padding: 12px 12px 12px 12px; }
   </style>
 
   <script type="application/ld+json">
@@ -448,8 +452,8 @@
 
           <!-- FOOTER -->
           <div class="form-footer flex items-center justify-between">
-            <button type="button" id="btnBack" class="text-[12px] font-semibold text-zinc-600 hover:text-zinc-900 px-2 py-1 disabled:opacity-30">Back</button>
-            <button type="button" id="btnNext" class="cta-button">Next</button>
+            <button type="button" id="btnBack" class="text-[12px] font-semibold text-zinc-600 hover:text-zinc-900 px-3 py-1.5 disabled:opacity-30">Back</button>
+            <button type="button" id="btnNext" class="cta-button px-3 py-1.5">Next</button>
           </div>
         </div>
       </div>
@@ -569,48 +573,58 @@
     // Mobile menu
     $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
 
-    // Steps
-    const steps = () => bySelAll('.form-step');
-    function totalSteps(){ return steps().filter(sec=>sec.dataset.step!=='99').length; }
-
-    function showStep(n){
-      const s = steps();
-      s.forEach(x=> x.classList.add('hidden'));
-      const t = s.find(sec => (sec.dataset.step === String(n) || sec.dataset.step === (n===3.5?'3b':String(n))));
-      const idx = s.findIndex(sec => sec === t);
-      if (t){ t.classList.remove('hidden'); window.__currentStep = (t.id==='step-tradein') ? 3.5 : n; }
-
-      const total = totalSteps();
-      $('btnBack').disabled = (window.__currentStep === 1);
-      $('btnNext').textContent = 'Next';
-      const curNum = (window.__currentStep===3.5)?4:window.__currentStep; // for label display
-      bySel('#progress-label').textContent = 'Step ' + curNum + ' of ' + total;
-      const pct = Math.round((curNum-1)/(total-1)*100);
-      bySel('#progress-fill').style.width = pct + '%';
-      bySel('#progress-endcap').textContent = (curNum >= total) ? 'Finding matches…' : 'Let’s get you approved';
+    // -------- Robust step sequencer (fixes all "can't advance" issues) --------
+    let currentIndex = 0; // index into getFlow()
+    function getFlow(){
+      const tradeYes = ($('hasTradeIn')?.value || 'No').toLowerCase() === 'yes';
+      // keys match data-step values
+      return tradeYes
+        ? ['1','2','3','3b','4','5','6','7','8']
+        : ['1','2','3','4','5','6','7','8'];
     }
+    function stepIdxToLabel(idx){
+      // What number to show in "Step X of Y" (skip "3b" in numbering)
+      const flow = getFlow();
+      const key = flow[idx];
+      const without99 = flow.slice();
+      // Map label position: simple 1..N
+      return idx + 1;
+    }
+    function showCurrent(){
+      const flow = getFlow();
+      const key = flow[currentIndex];
+      bySelAll('.form-step').forEach(sec => sec.classList.add('hidden'));
+      const sec = bySel(`.form-step[data-step="${key}"]`);
+      if (sec) sec.classList.remove('hidden');
 
-    function next(delta){
-      const cur = window.__currentStep || 1;
-      if (delta>0 && !validateStep(cur)) return;
+      const total = flow.length;
+      const labelNum = stepIdxToLabel(currentIndex);
+      bySel('#progress-label').textContent = 'Step ' + labelNum + ' of ' + total;
+      const pct = Math.round((labelNum-1)/(total-1)*100);
+      bySel('#progress-fill').style.width = pct + '%';
+      bySel('#progress-endcap').textContent = (labelNum>=total) ? 'Finding matches…' : 'Let’s get you approved';
 
-      // Handle special 3 -> 3b -> 4 flow when trade-in yes
-      if (cur===3 && delta>0 && $('hasTradeIn').value.toLowerCase()==='yes'){ showStep(3.5); return; }
-      if (cur===3.5 && delta>0){ showStep(4); return; }
-      if (cur===3.5 && delta<0){ showStep(3); return; }
-
-      let t = cur + delta;
-      const max = totalSteps();
-      if (t < 1) t = 1;
-      if (t > max) { submitForm(); return; }
-      showStep(t);
+      // Buttons state
+      $('btnBack').disabled = (currentIndex === 0);
+      $('btnNext').textContent = (labelNum >= total) ? 'Next' : 'Next';
+    }
+    function goto(delta){
+      if (delta>0 && !validateCurrent()) return;
+      const flow = getFlow();
+      let nextIndex = currentIndex + delta;
+      if (nextIndex < 0) nextIndex = 0;
+      if (nextIndex >= flow.length){
+        submitForm(); return;
+      }
+      currentIndex = nextIndex;
+      showCurrent();
     }
 
     // Nav
-    $('btnNext').addEventListener('click', ()=> next(1));
-    $('btnBack').addEventListener('click', ()=> next(-1));
+    $('btnNext').addEventListener('click', ()=> goto(1));
+    $('btnBack').addEventListener('click', ()=> goto(-1));
 
-    // Choice rectangles (event delegation for reliability)
+    // Choice rectangles (event delegation)
     document.addEventListener('click', (e)=>{
       const btn = e.target.closest('.choice-rect');
       if (!btn) return;
@@ -619,7 +633,7 @@
         bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected'));
         btn.classList.add('selected');
         $('vehicleCondition').value = btn.dataset.cond;
-        next(1);
+        goto(1);
       }
 
       if (btn.dataset.trade){
@@ -627,9 +641,43 @@
         btn.classList.add('selected');
         const v = btn.dataset.trade || 'No';
         $('hasTradeIn').value = v;
-        // Don't toggle fields here; step logic handles 3b
+        // Recompute flow when user toggles Yes/No
+        const oldFlowLen = getFlow().length;
+        const oldLabel = stepIdxToLabel(currentIndex);
+        // If we are on step 3 and they picked "Yes", advance to the new 3b on Next
+        // No immediate jump; user still controls Next.
       }
     });
+
+    // Validation per current step
+    function validateCurrent(){
+      const flow = getFlow();
+      const key = flow[currentIndex];
+
+      // Step 1: need vehicleCondition
+      if (key==='1'){ return !!$('vehicleCondition').value; }
+
+      // Step 2: slider always has value
+      if (key==='2'){ return true; }
+
+      // Other steps: basic required check on visibles
+      const stepEl = bySel(`.form-step[data-step="${key}"]`);
+      if(!stepEl) return true;
+      let ok = true;
+      const fields = Array.from(stepEl.querySelectorAll('[required]'));
+      fields.forEach(el => {
+        let pass = (el.type==='checkbox') ? el.checked : (el.value && el.value.trim()!=='');
+        if (el.id==='phone') pass = el.value.replace(/\D/g,'').length>=10;
+        if (el.type==='email' || el.id==='email'){ const v=el.value.trim(); pass = pass && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+        if (!pass){ ok=false; el.classList.add('err'); const lab = bySel('label[for="'+el.id+'"]'); lab?.classList.add('err-label'); }
+        else { el.classList.remove('err'); const lab = bySel('label[for="'+el.id+'"]'); lab?.classList.remove('err-label'); }
+      });
+      return ok;
+    }
+    function validateAll(){
+      // Minimal — we rely on step-by-step validation already
+      return true;
+    }
 
     // Rent/Own segmented
     function setHousing(type){
@@ -647,44 +695,6 @@
       else if(d.length>3)e.target.value=`(${d.slice(0,3)}) ${d.slice(3)}`;
       else if(d.length>0)e.target.value=`(${d}`;
     });
-
-    // Validation
-    function visibleRequired() {
-      const req = bySelAll('#the-form [required]');
-      return req.filter(el => !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none');
-    }
-    function validateStep(n){
-      // Step 1: require condition selected
-      if (n===1) { return !!$('vehicleCondition').value; }
-      // Step 2: slider always has a value
-      if (n===2) { return true; }
-      // Step 3: no strict requirement
-      if (n===3) { return true; }
-      // Step 3.5 (trade-in) no strict requirement
-      if (n===3.5) { return true; }
-
-      const stepEl = steps().find(sec => (sec.dataset.step === String(n)));
-      if(!stepEl) return true;
-      let ok = true;
-      const fields = visibleRequired().filter(el => stepEl.contains(el));
-      fields.forEach(el => {
-        let pass = (el.type==='checkbox') ? el.checked : (el.value && el.value.trim()!=='');
-        if (el.id==='phone') pass = el.value.replace(/\D/g,'').length>=10;
-        if (el.type==='email' || el.id==='email'){ const v=el.value.trim(); pass = pass && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-        if (!pass){ ok=false; el.classList.add('err'); const lab = bySel('label[for="'+el.id+'"]'); lab?.classList.add('err-label'); }
-        else { el.classList.remove('err'); const lab = bySel('label[for="'+el.id+'"]'); lab?.classList.remove('err-label'); }
-      });
-      return ok;
-    }
-    function validateAll(){
-      let ok = true;
-      const order = [1,2,3,3.5,4,5,6,7,8];
-      for (const step of order){
-        if (step===3.5 && $('hasTradeIn').value.toLowerCase()!=='yes') continue;
-        if(!validateStep(step)) ok=false;
-      }
-      return ok;
-    }
 
     // Overlay
     async function runProgressOverlay(minMs=4200){
@@ -804,13 +814,14 @@
       populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
       populateProvinces($('currentProvince'));
 
-      // Trade-in year dropdown (2008..2025 example)
+      // Trade-in year dropdown (1990..2025)
       populateYears($('tradeInYear'), 2025, 1990);
 
-      // Defaults
       setHousing('Rent');
-      window.__currentStep = 1;
-      showStep(1);
+
+      // Start at first visible step
+      currentIndex = 0;
+      showCurrent();
 
       // Slider output
       const biw = $('biWeeklyRange'); const out = $('biWeeklyOut');
