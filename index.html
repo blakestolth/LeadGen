@@ -605,6 +605,11 @@
     $('btnNext').addEventListener('click', ()=> next(1));
     $('btnBack').addEventListener('click', ()=> next(-1));
 
+    // Enter key should not submit mid-step; go to next instead
+    bySel('#the-form')?.addEventListener('keydown', (e)=>{
+      if (e.key === 'Enter') { e.preventDefault(); next(1); }
+    });
+
     // Choice rectangles (auto-advance)
     // Step 1 (condition)
     bySelAll('[data-cond]').forEach(btn=>{
@@ -616,9 +621,17 @@
       });
     });
 
-    // Step 2 (budget quick ranges)
+    // Step 2 (budget quick ranges + slider)
     const biw = $('biWeeklyRange'); const out = $('biWeeklyOut');
-    if (biw && out){ biw.addEventListener('input', ()=> out.textContent = biw.value); }
+    if (biw && out){
+      const syncBudgetFromSlider = () => {
+        out.textContent = biw.value;
+        $('budgetRange').value = `$${biw.value} / bi-weekly (slider)`;
+      };
+      biw.addEventListener('input', syncBudgetFromSlider);
+      // Initialize hidden value so it's never empty even if they press Next right away
+      syncBudgetFromSlider();
+    }
     bySelAll('[data-budget]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-budget]').forEach(x=>x.classList.remove('selected'));
@@ -656,13 +669,12 @@
       else if(d.length>0)e.target.value=`(${d}`;
     });
 
-    // Validation
+    // Validation (only what’s visible on the step)
     function visibleRequired() {
       const req = bySelAll('#the-form [required]');
       return req.filter(el => !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none');
     }
     function validateStep(n){
-      // Step-specific checks (so hidden required fields won't block)
       if (n===1) { return !!$('vehicleCondition').value; }
       if (n===2) { return !!$('budgetRange').value; }
 
