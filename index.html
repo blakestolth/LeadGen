@@ -22,28 +22,27 @@
   <style>
     :root{
       --blue-600:#2A5D9F; --blue-700:#214B80; --blue-100:#EAF1FB; --blue-grad:#4C7CC0;
-      --fs-h1: 22px; --fs-h2: 18px; --fs-body: 14px; --fs-label: 12px; --fs-cta: 14px;
-      --pad-y: 10px; --gap-regular: 8px; --input-py: 10px; --input-px: 12px; --radius: 10px;
-      --nav-font: 15px;
+      --fs-h1:22px; --fs-h2:18px; --fs-body:14px; --fs-label:12px; --fs-cta:14px;
+      --pad-y:10px; --gap-regular:8px; --input-py:6px; --input-px:10px; --radius:10px;
+      --nav-font:15px;
     }
-    @media (max-width:640px){ :root{ --nav-font: 14px; } }
+    @media (max-width:640px){ :root{ --nav-font:14px; } }
 
     body{ font-family:'Inter',sans-serif; background:#f6f7fb; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
     .card{ background:#fff; border-radius:12px; border:1px solid #e5e7eb; box-shadow:0 8px 18px -10px rgb(0 0 0 / .15); }
+
     .h1{ font-size:var(--fs-h1); font-weight:800; color:#0f172a; }
     .h2{ font-size:var(--fs-h2); font-weight:800; color:#0f172a; }
 
-    /* Uniform input sizing */
     .form-input,.form-select,.form-textarea{
       background:#f3f4f6; color:#18181b; border:1.5px solid #e5e7eb; font-size:var(--fs-body); width:100%;
-      padding:var(--input-py) var(--input-px); border-radius:var(--radius); transition:all .15s ease; line-height:1.2; height:42px;
+      padding:var(--input-py) var(--input-px); border-radius:var(--radius); transition:all .15s ease;
     }
-    .form-select{ height:42px; }
     .form-input::placeholder{ color:#a1a1aa; }
     .form-input:focus,.form-select:focus,.form-textarea:focus{ background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.15); outline:none; }
     .label{ font-size:var(--fs-label); color:#3f3f46; font-weight:600; }
 
-    .cta-button{ background:var(--blue-600); color:#fff; font-weight:800; padding:.55rem .9rem; border-radius:.6rem; font-size:var(--fs-cta); height:40px; display:inline-flex; align-items:center; }
+    .cta-button{ background:var(--blue-600); color:#fff; font-weight:800; padding:.5rem .8rem; border-radius:.6rem; font-size:var(--fs-cta); }
     .cta-button:hover{ background:var(--blue-700); }
 
     .track{ height:6px; background:#e5e7eb; border-radius:9999px; overflow:hidden; }
@@ -58,25 +57,26 @@
     .step-viewport{ overflow:auto; }
     .vstack > * + *{ margin-top: var(--gap-regular); }
 
-    /* Rectangular choices */
+    /* Choice rectangles (uniform look) */
     .choice-rect{
-      width:100%; text-align:left; border:1.5px solid #e5e7eb; border-radius:10px; background:#fff;
-      padding:10px 12px; font-weight:700; color:#111827; transition:all .15s ease; display:block; height:42px; line-height:20px;
+      width:100%; text-align:center; border:1.5px solid #e5e7eb; border-radius:10px; background:#fff;
+      padding:12px 14px; font-weight:700; color:#111827; transition:all .15s ease; display:block; font-size:14px;
     }
     .choice-rect:hover{ border-color:var(--blue-600); background:#f5f8ff; }
     .choice-rect.selected{ border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
 
-    .muted{ font-size:12px; color:#6b7280; }
+    /* Center step content */
+    .step-inner .h2, .centered { text-align:center; }
 
     /* Inline grids */
     .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
     .grid-inline-3{ display:grid; grid-template-columns: 1.2fr 1fr 1.2fr; gap:10px; }
-    .grid-inline-3-tight{ display:grid; grid-template-columns: 1.2fr .9fr 1fr; gap:10px; }
+    .grid-inline-3-wide{ display:grid; grid-template-columns: .8fr 1.2fr 1.2fr; gap:10px; } /* year small, make/model wider */
     .grid-inline-addr1{ display:grid; grid-template-columns: 3fr 1fr; gap:10px; }
     .grid-inline-addr2{ display:grid; grid-template-columns: 1.6fr 1fr 1fr; gap:10px; }
     .grid-inline-dob{ display:grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap:10px; }
 
-    /* Brand + Powered by */
+    /* Brand area + Powered by under title */
     .brand-left{ display:flex; align-items:center; gap:12px; }
     .site-logo{ height:60px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
     @media (max-width:640px){ .site-logo{ height:56px; } }
@@ -85,7 +85,7 @@
     .powered-by-inline{ display:flex; align-items:center; gap:6px; font-size: calc(var(--nav-font) * .8); color:#475569; font-weight:700; line-height:1; }
     .powered-by-inline img{ height: 0.8em; width:auto; object-fit:contain; }
 
-    /* ABCD badge */
+    /* ABCD badge — blue filled circle w/ white text */
     .abc-badge{
       display:inline-flex; align-items:center; justify-content:center;
       width:20px; height:20px; border-radius:9999px;
@@ -123,8 +123,23 @@
     .progress-note{margin-top:10px;font-size:12px;color:#64748b}
     .hidden{display:none}
 
-    /* Footer spacing fix */
-    .form-footer{ padding: 12px 16px; border-top:1px solid #e5e7eb; }
+    /* Range slider themed to blue */
+    input[type="range"]{
+      -webkit-appearance:none; width:100%; height:6px; border-radius:9999px; background:#e5e7eb; outline:none; margin-top:8px;
+    }
+    input[type="range"]::-webkit-slider-thumb{
+      -webkit-appearance:none; appearance:none; width:18px; height:18px; border-radius:50%;
+      background:var(--blue-600); cursor:pointer; border:2px solid #fff; box-shadow:0 0 0 3px rgba(42,93,159,.2);
+    }
+    input[type="range"]::-moz-range-thumb{
+      width:18px; height:18px; border-radius:50%; background:var(--blue-600); cursor:pointer; border:2px solid #fff;
+    }
+    .range-fill{
+      height:6px; background:linear-gradient(90deg,var(--blue-600),var(--blue-grad)); border-radius:9999px; width:0%;
+    }
+
+    /* Footer spacing */
+    .form-footer{ padding:12px 16px; }
   </style>
 
   <script type="application/ld+json">
@@ -219,7 +234,7 @@
           <!-- progress -->
           <div class="sticky px-4 py-2 border-b">
             <div class="flex items-center justify-between">
-              <div id="progress-label" class="text-[11px] font-semibold text-zinc-700">Step 1</div>
+              <div id="progress-label" class="text-[11px] font-semibold text-zinc-700">Step 0</div>
               <div id="progress-endcap" class="text-[11px] text-[var(--blue-700)] font-semibold">Let’s get you approved</div>
             </div>
             <div class="track mt-2"><div id="progress-fill" class="fill"></div></div>
@@ -232,10 +247,21 @@
               <input type="hidden" name="app_type" id="app_type" value="Full Application" />
               <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
 
-              <!-- 1. New / Used / Both -->
-              <section class="form-step" data-step="1">
+              <!-- 0. Start -->
+              <section class="form-step" data-step="0">
                 <div class="step-inner">
-                  <h3 class="h2">1. Vehicle condition</h3>
+                  <h3 class="h2 centered">Welcome — quick approval</h3>
+                  <p class="text-[13px] text-zinc-600 centered">Takes 2–3 minutes. No pressure.</p>
+                  <div class="mt-4 flex items-center justify-center">
+                    <button type="button" class="cta-button" id="btnStart">Start</button>
+                  </div>
+                </div>
+              </section>
+
+              <!-- 1. New / Used / Both -->
+              <section class="form-step hidden" data-step="1">
+                <div class="step-inner">
+                  <h3 class="h2 centered">1. Vehicle condition</h3>
                   <div class="vstack mt-2">
                     <button type="button" class="choice-rect" data-cond="New">New</button>
                     <button type="button" class="choice-rect" data-cond="Used">Used</button>
@@ -245,24 +271,24 @@
                 </div>
               </section>
 
-              <!-- 2. Bi-weekly budget (slider only, centered) -->
+              <!-- 2. Bi-weekly budget (centered slider only) -->
               <section class="form-step hidden" data-step="2">
                 <div class="step-inner">
-                  <h3 class="h2 text-center">2. Bi-weekly budget</h3>
-                  <p class="muted text-center">Starts at $120</p>
-                  <div class="mt-3 flex flex-col items-center justify-center">
-                    <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="120" class="w-3/4 max-w-md">
-                    <div class="text-[13px] text-zinc-700 mt-2">Selected: <b>$<span id="biWeeklyOut">120</span></b> / bi-weekly</div>
+                  <h3 class="h2 centered">2. Bi-weekly budget</h3>
+                  <p class="text-[13px] text-zinc-600 centered">Starts at $120</p>
+                  <div class="mt-3 max-w-sm mx-auto">
+                    <div class="range-fill" id="rangeFill"></div>
+                    <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="120" />
+                    <div class="text-[13px] text-zinc-700 mt-1 centered">Selected: <b>$<span id="biWeeklyOut">120</span></b> / bi-weekly</div>
                   </div>
-                  <input type="hidden" name="budgetRange" id="budgetRange">
                 </div>
               </section>
 
               <!-- 3. Down payment / Trade-in -->
               <section class="form-step hidden" data-step="3" id="step-purchase">
                 <div class="step-inner">
-                  <h3 class="h2">3. Purchase details</h3>
-                  <div class="vstack mt-2">
+                  <h3 class="h2 centered">3. Purchase details</h3>
+                  <div class="vstack mt-3 max-w-md mx-auto">
                     <div>
                       <label for="downPayment" class="label mb-1 block">Down payment</label>
                       <select id="downPayment" name="downPayment" class="form-select">
@@ -272,7 +298,7 @@
                         <option>$0–$1,000</option>
                       </select>
                     </div>
-                    <div>
+                    <div class="mt-2">
                       <label class="label mb-1 block">Trade-in</label>
                       <div class="grid-inline-2">
                         <button type="button" class="choice-rect" data-trade="No">No</button>
@@ -284,17 +310,38 @@
                 </div>
               </section>
 
-              <!-- (Dynamic) 4. Trade-in details — inserted after Step 3 if needed -->
-              <!-- Placeholder anchor so we know where to insert -->
-              <div id="trade-step-anchor"></div>
+              <!-- 3A. Trade-in details (only when Yes) -->
+              <section class="form-step hidden" data-step="3a" id="step-tradein">
+                <div class="step-inner">
+                  <h3 class="h2 centered">Trade-in details</h3>
+                  <div class="mt-3 max-w-xl mx-auto">
+                    <div class="grid-inline-3-wide">
+                      <div>
+                        <label class="label mb-1 block" for="tradeInYear">Year</label>
+                        <select id="tradeInYear" name="tradeInYear" class="form-select"></select>
+                      </div>
+                      <div>
+                        <label class="label mb-1 block" for="tradeInMake">Make</label>
+                        <input type="text" id="tradeInMake" name="tradeInMake" class="form-input" placeholder="Make" maxlength="40"/>
+                      </div>
+                      <div>
+                        <label class="label mb-1 block" for="tradeInModel">Model</label>
+                        <input type="text" id="tradeInModel" name="tradeInModel" class="form-input" placeholder="Model" maxlength="50"/>
+                      </div>
+                    </div>
+                    <div class="grid-inline-2 mt-2">
+                      <input type="number" id="tradeInKms" name="tradeInKms" class="form-input" placeholder="Km" inputmode="numeric" min="0" max="1000000"/>
+                      <input type="text" id="tradeInOwed" name="tradeInOwed" class="form-input" placeholder="Money owed e.g. $5,000 or None" maxlength="20"/>
+                    </div>
+                  </div>
+                </div>
+              </section>
 
-              <!-- 4/5/6/7/8 continue as before (index shifts if trade step exists) -->
-
-              <!-- Employment + monthly income -->
+              <!-- 4. Employment + monthly income -->
               <section class="form-step hidden" data-step="4" id="step-income-quick">
                 <div class="step-inner">
-                  <h3 class="h2">4. Employment & Income</h3>
-                  <div class="vstack mt-2">
+                  <h3 class="h2 centered">4. Employment & Income</h3>
+                  <div class="vstack mt-3 max-w-md mx-auto">
                     <div>
                       <label for="incomeSourceFull" class="label mb-1 block">Employment type <span class="text-red-500">*</span></label>
                       <select id="incomeSourceFull" name="incomeSourceFull" class="form-select" required>
@@ -314,12 +361,12 @@
                 </div>
               </section>
 
-              <!-- Account creation + contact -->
+              <!-- 5. Account creation + contact -->
               <section class="form-step hidden" data-step="5" id="step-account">
                 <div class="step-inner">
-                  <h3 class="h2">5. Account creation</h3>
-                  <p class="muted mt-1">You’ll receive an application code after submission — that becomes your username to log in.</p>
-                  <div class="vstack mt-2">
+                  <h3 class="h2 centered">5. Account creation</h3>
+                  <p class="text-[12px] text-zinc-600 centered mt-1">You’ll receive an application code after submission — that becomes your username to log in.</p>
+                  <div class="vstack mt-3 max-w-md mx-auto">
                     <div>
                       <label for="email" class="label mb-1 block">Email <span class="text-red-500">*</span></label>
                       <input type="email" id="email" name="email" class="form-input" autocomplete="email" maxlength="100" required/>
@@ -336,11 +383,11 @@
                 </div>
               </section>
 
-              <!-- Names + DOB -->
+              <!-- 6. Names + DOB -->
               <section class="form-step hidden" data-step="6" id="step-yourinfo">
                 <div class="step-inner">
-                  <h3 class="h2">6. Your information</h3>
-                  <div class="vstack mt-2">
+                  <h3 class="h2 centered">6. Your information</h3>
+                  <div class="vstack mt-3 max-w-xl mx-auto">
                     <div class="grid-inline-3">
                       <div>
                         <label for="firstName" class="label mb-1 block">First name <span class="text-red-500">*</span></label>
@@ -356,7 +403,7 @@
                       </div>
                     </div>
 
-                    <div class="grid-inline-dob mt-1">
+                    <div class="grid-inline-dob mt-2">
                       <div>
                         <label class="label mb-1 block">DOB Year <span class="text-red-500">*</span></label>
                         <select id="dobYear" name="dobYear" class="form-select" required></select>
@@ -382,57 +429,61 @@
                 </div>
               </section>
 
-              <!-- Current address -->
+              <!-- 7. Current address -->
               <section class="form-step hidden" data-step="7" id="step-address">
                 <div class="step-inner">
-                  <h3 class="h2">7. Current address</h3>
-                  <div class="grid-inline-addr1 mt-2">
-                    <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" placeholder="Street address" autocomplete="street-address" maxlength="120" required/>
-                    <input type="text" id="currentUnit" name="currentUnit" class="form-input" placeholder="Unit #" maxlength="10"/>
-                  </div>
-                  <div class="grid-inline-addr2 mt-2">
-                    <input type="text" id="currentCity" name="currentCity" class="form-input" placeholder="City" autocomplete="address-level2" maxlength="60" required/>
-                    <select id="currentProvince" name="currentProvince" class="form-select" required><option value="">Prov</option></select>
-                    <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" placeholder="Postal code" autocomplete="postal-code" maxlength="7" required/>
-                  </div>
-                  <div class="grid-inline-2 mt-2">
-                    <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="Monthly payments" inputmode="numeric" maxlength="16" required/>
-                    <div class="grid-inline-2">
-                      <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                      <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+                  <h3 class="h2 centered">7. Current address</h3>
+                  <div class="max-w-xl mx-auto">
+                    <div class="grid-inline-addr1 mt-2">
+                      <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" placeholder="Street address" autocomplete="street-address" maxlength="120" required/>
+                      <input type="text" id="currentUnit" name="currentUnit" class="form-input" placeholder="Unit #" maxlength="10"/>
                     </div>
-                  </div>
-                  <div class="mt-2">
-                    <label class="label mb-1 block">Rent or Own?</label>
-                    <div class="seg">
-                      <button type="button" class="seg-btn" id="btnRent" aria-pressed="true">Rent</button>
-                      <button type="button" class="seg-btn" id="btnOwn" aria-pressed="false">Own</button>
+                    <div class="grid-inline-addr2 mt-2">
+                      <input type="text" id="currentCity" name="currentCity" class="form-input" placeholder="City" autocomplete="address-level2" maxlength="60" required/>
+                      <select id="currentProvince" name="currentProvince" class="form-select" required><option value="">Prov</option></select>
+                      <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" placeholder="Postal code" autocomplete="postal-code" maxlength="7" required/>
                     </div>
-                    <input type="hidden" id="housingType" name="housingType" value="Rent" />
+                    <div class="grid-inline-2 mt-2">
+                      <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="Monthly payments" inputmode="numeric" maxlength="16" required/>
+                      <div class="grid-inline-2">
+                        <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
+                        <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+                      </div>
+                    </div>
+                    <div class="mt-2 centered">
+                      <label class="label mb-1 block">Rent or Own?</label>
+                      <div class="seg inline-flex">
+                        <button type="button" class="seg-btn" id="btnRent" aria-pressed="true">Rent</button>
+                        <button type="button" class="seg-btn" id="btnOwn" aria-pressed="false">Own</button>
+                      </div>
+                      <input type="hidden" id="housingType" name="housingType" value="Rent" />
+                    </div>
                   </div>
                 </div>
               </section>
 
-              <!-- Employment details -->
+              <!-- 8. Employer / position / time / optional additional income -->
               <section class="form-step hidden" data-step="8" id="step-employer">
                 <div class="step-inner">
-                  <h3 class="h2">8. Employment details</h3>
-                  <div class="grid-inline-2 mt-2">
-                    <input type="text" id="currentEmployer" name="currentEmployer" class="form-input" placeholder="Employer"/>
-                    <input type="text" id="jobTitle" name="jobTitle" class="form-input" placeholder="Position"/>
-                  </div>
-                  <div class="grid-inline-2 mt-2">
-                    <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select>
-                    <select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
-                  </div>
-                  <div class="mt-3">
-                    <p class="label mb-1">Optional additional income</p>
-                    <div class="grid-inline-2">
-                      <input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Type (e.g., child benefit, side work)"/>
-                      <input id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="How much per month" inputmode="numeric" maxlength="16"/>
+                  <h3 class="h2 centered">8. Employment details</h3>
+                  <div class="max-w-xl mx-auto">
+                    <div class="grid-inline-2 mt-2">
+                      <input type="text" id="currentEmployer" name="currentEmployer" class="form-input" placeholder="Employer"/>
+                      <input type="text" id="jobTitle" name="jobTitle" class="form-input" placeholder="Position"/>
                     </div>
+                    <div class="grid-inline-2 mt-2">
+                      <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select>
+                      <select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
+                    </div>
+                    <div class="mt-3">
+                      <p class="label mb-1 centered">Optional additional income</p>
+                      <div class="grid-inline-2">
+                        <input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Type (e.g., child benefit, side work)"/>
+                        <input id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="How much per month" inputmode="numeric" maxlength="16"/>
+                      </div>
+                    </div>
+                    <p class="text-[11px] text-zinc-600 mt-3 centered">By selecting Next, you give Vancouver Island Credit permission to review your credit to find exact matches.</p>
                   </div>
-                  <p class="muted mt-3">By selecting Next, you give Vancouver Island Credit permission to review your credit to find exact matches.</p>
                 </div>
               </section>
 
@@ -451,7 +502,7 @@
         </div>
       </div>
 
-      <!-- LOGIN -->
+      <!-- LOGIN (unchanged layout) -->
       <aside class="flex flex-col gap-4" id="sidebar">
         <details class="card p-5 login-drop" open>
           <summary class="flex items-center justify-between gap-2">
@@ -559,314 +610,283 @@
 
   <script>
     // Helpers
-    function $(id){ return document.getElementById(id); }
-    function bySel(s, root){ return (root||document).querySelector(s); }
-    function bySelAll(s, root){ return Array.prototype.slice.call((root||document).querySelectorAll(s)); }
+    const $ = (id) => document.getElementById(id);
+    const bySel = (s, root=document) => root.querySelector(s);
+    const bySelAll = (s, root=document) => Array.from(root.querySelectorAll(s));
 
     // Mobile menu
-    var menuBtn = $('menuBtn');
-    if (menuBtn){
-      menuBtn.addEventListener('click', function(){ var mm=$('mobileMenu'); if(mm){ mm.classList.toggle('hidden'); } });
-    }
+    $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
 
     // Steps
-    var steps = function(){ return bySelAll('.form-step'); };
+    const steps = () => bySelAll('.form-step');
 
     function showStep(n){
-      var s = steps();
-      s.forEach(function(x){ x.classList.add('hidden'); });
-      var t = s[n-1];
+      const s = steps();
+      s.forEach(x=> x.classList.add('hidden'));
+      const t = s[n]; // because step 0 is the first section
       if (t){ t.classList.remove('hidden'); window.__currentStep = n; }
 
-      var total = s.length - 1; // exclude hidden 99
-      var backBtn = $('btnBack'); if (backBtn) backBtn.disabled = (n === 1);
-      var nextBtn = $('btnNext'); if (nextBtn) nextBtn.textContent = 'Next';
-      var pl = bySel('#progress-label'); if (pl) pl.textContent = 'Step ' + n + ' of ' + total;
-      var pf = bySel('#progress-fill'); if (pf){ var pct = Math.round((n-1)/(total-1)*100); pf.style.width = pct + '%'; }
-      var pe = bySel('#progress-endcap'); if (pe) pe.textContent = (n >= total) ? 'Finding matches…' : 'Let’s get you approved';
-    }
+      // Count total visible steps excluding hidden 99
+      const total = steps().length - 1;
+      $('btnBack').disabled = (n === 0);
+      $('btnNext').textContent = 'Next';
 
-    function renumberAndStay(){
-      var cur = window.__currentStep || 1;
-      var total = steps().length;
-      if (cur > total) cur = total;
-      showStep(cur);
+      bySel('#progress-label').textContent = 'Step ' + n + ' of ' + total;
+      const pct = Math.round((n)/(total)*100);
+      bySel('#progress-fill').style.width = pct + '%';
+      bySel('#progress-endcap').textContent = (n >= total) ? 'Finding matches…' : 'Let’s get you approved';
     }
 
     function next(delta){
-      var cur = window.__currentStep || 1;
+      const cur = window.__currentStep || 0;
       if (delta>0 && !validateStep(cur)) return;
-      var t = cur + delta;
-      var total = steps().length - 1;
-      if (t < 1) t = 1;
+      let t = cur + delta;
+      const total = steps().length - 1;
+      if (t < 0) t = 0;
       if (t > total) { submitForm(); return; }
       showStep(t);
     }
 
     // Nav
-    var btnNext = $('btnNext'); if (btnNext) btnNext.addEventListener('click', function(){ next(1); });
-    var btnBack = $('btnBack'); if (btnBack) btnBack.addEventListener('click', function(){ next(-1); });
+    $('btnNext').addEventListener('click', ()=> next(1));
+    $('btnBack').addEventListener('click', ()=> next(-1));
 
-    // Prevent Enter from submitting mid-flow
-    var theForm = bySel('#the-form');
-    if (theForm){
-      theForm.addEventListener('keydown', function(e){
-        if (e.key === 'Enter') { e.preventDefault(); next(1); }
-      });
-    }
+    // Start button -> Step 1
+    $('btnStart')?.addEventListener('click', ()=> showStep(1));
 
+    // Choice rectangles (auto-advance)
     // Step 1 (condition)
-    bySelAll('[data-cond]').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        bySelAll('[data-cond]').forEach(function(x){ x.classList.remove('selected'); });
+    bySelAll('[data-cond]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected'));
         btn.classList.add('selected');
-        var vc = $('vehicleCondition'); if (vc) vc.value = btn.getAttribute('data-cond');
+        $('vehicleCondition').value = btn.dataset.cond;
         next(1);
       });
     });
 
-    // Step 2 (budget slider only)
-    var biw = $('biWeeklyRange'); var out = $('biWeeklyOut');
-    function syncBudgetFromSlider(){
-      if (biw && out){
-        out.textContent = biw.value;
-        var br = $('budgetRange'); if (br) br.value = '$' + biw.value + ' / bi-weekly';
-      }
+    // Step 2 (budget slider)
+    const biw = $('biWeeklyRange'); const out = $('biWeeklyOut'); const fill = $('rangeFill');
+    function updateRange(){
+      const min = parseInt(biw.min,10), max = parseInt(biw.max,10), val = parseInt(biw.value,10);
+      const pct = Math.round((val - min) * 100 / (max - min));
+      if (fill) fill.style.width = pct + '%';
+      if (out) out.textContent = String(val);
     }
-    if (biw){ biw.addEventListener('input', syncBudgetFromSlider); syncBudgetFromSlider(); }
+    if (biw){ biw.addEventListener('input', updateRange); updateRange(); }
 
-    // Step 3 trade-in rectangles -> create/remove Trade step
-    bySelAll('[data-trade]').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        bySelAll('[data-trade]').forEach(function(x){ x.classList.remove('selected'); });
+    // Step 3 trade-in rectangles -> add/remove Step 3A
+    function ensureTradeInStep(show){
+      const step = $('step-tradein');
+      if (show){ step.classList.remove('hidden'); }
+      else { step.classList.add('hidden'); }
+    }
+    bySelAll('[data-trade]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        bySelAll('[data-trade]').forEach(x=>x.classList.remove('selected'));
         btn.classList.add('selected');
-        var v = btn.getAttribute('data-trade') || 'No';
-        var hti = $('hasTradeIn'); if (hti) hti.value = v;
-        ensureTradeStep(v.toLowerCase()==='yes');
-        if (v.toLowerCase()==='yes'){ next(1); } else { /* stay */ }
+        const v = btn.dataset.trade || 'No';
+        $('hasTradeIn').value = v;
+        ensureTradeInStep(v.toLowerCase()==='yes');
+        // If yes, automatically go to the Trade-in step; else, go to next
+        if (v.toLowerCase()==='yes'){ showStep(3); next(1); }
+        else { // ensure trade-in fields are cleared
+          ['tradeInYear','tradeInMake','tradeInModel','tradeInKms','tradeInOwed'].forEach(id=>{ const el=$(id); if(el) el.value=''; });
+          ensureTradeInStep(false);
+          next(1);
+        }
       });
     });
 
-    // Create/Remove the Trade-In Details step dynamically
-    function ensureTradeStep(need){
-      var anchor = $('trade-step-anchor');
-      if (!anchor) return;
-
-      var nextSibling = anchor.nextElementSibling;
-      var exists = nextSibling && nextSibling.classList && nextSibling.classList.contains('form-step') && nextSibling.getAttribute('data-trade-step') === 'true';
-
-      if (need && !exists){
-        var sec = document.createElement('section');
-        sec.className = 'form-step hidden';
-        sec.setAttribute('data-trade-step','true');
-        sec.innerHTML = ''+
-          '<div class="step-inner">'+
-          '  <h3 class="h2">Trade-in details</h3>'+
-          '  <div class="grid-inline-3-tight mt-2">'+
-          '    <input type="number" id="tradeInYear" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" min="2000" max="2025" required/>'+
-          '    <input type="text" id="tradeInMake" name="tradeInMake" placeholder="Make" class="form-input" maxlength="40" required/>'+
-          '    <input type="text" id="tradeInModel" name="tradeInModel" placeholder="Model" class="form-input" maxlength="50" required/>'+
-          '  </div>'+
-          '  <div class="grid-inline-2 mt-2">'+
-          '    <input type="number" id="tradeInKms" name="tradeInKms" placeholder="Km" class="form-input" inputmode="numeric" min="0" max="1000000" required/>'+
-          '    <input type="text" id="tradeInOwed" name="tradeInOwed" placeholder="Money owed e.g. $5,000 or None" class="form-input" maxlength="20" required/>'+
-          '  </div>'+
-          '</div>';
-        anchor.parentNode.insertBefore(sec, anchor.nextSibling);
-        renumberAndStay();
-        return;
-      }
-
-      if (!need && exists){
-        var cur = window.__currentStep || 1;
-        nextSibling.remove();
-        renumberAndStay();
-        // stay on the same numerical step index after removal
-        showStep(Math.min(cur, steps().length-1));
-      }
-    }
-
     // Rent/Own segmented
     function setHousing(type){
-      var ht = $('housingType'); if (ht) ht.value = type;
-      var br = $('btnRent'); if (br) br.setAttribute('aria-pressed', String(type==='Rent'));
-      var bo = $('btnOwn'); if (bo) bo.setAttribute('aria-pressed', String(type==='Own'));
+      $('housingType').value = type;
+      $('btnRent').setAttribute('aria-pressed', String(type==='Rent'));
+      $('btnOwn').setAttribute('aria-pressed', String(type==='Own'));
     }
-    var btnRent = $('btnRent'); if (btnRent) btnRent.addEventListener('click', function(){ setHousing('Rent'); });
-    var btnOwn = $('btnOwn'); if (btnOwn) btnOwn.addEventListener('click', function(){ setHousing('Own'); });
+    $('btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
+    $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
 
     // Phone format
-    var phone = $('phone');
-    if (phone){
-      phone.addEventListener('input', function(e){
-        var d=e.target.value.replace(/\D/g,'').slice(0,10);
-        if(d.length>6)e.target.value='('+d.slice(0,3)+') '+d.slice(3,6)+'-'+d.slice(6);
-        else if(d.length>3)e.target.value='('+d.slice(0,3)+') '+d.slice(3);
-        else if(d.length>0)e.target.value='('+d;
-      });
-    }
+    $('phone')?.addEventListener('input', (e)=>{
+      const d=e.target.value.replace(/\D/g,'').slice(0,10);
+      if(d.length>6)e.target.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
+      else if(d.length>3)e.target.value=`(${d.slice(0,3)}) ${d.slice(3)}`;
+      else if(d.length>0)e.target.value=`(${d}`;
+    });
 
     // Validation
     function visibleRequired() {
-      var req = bySelAll('#the-form [required]');
-      return req.filter(function(el){ return !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none'; });
+      const req = bySelAll('#the-form [required]');
+      return req.filter(el => !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none');
     }
     function validateStep(n){
-      if (n===1) { var vc=$('vehicleCondition'); return !!(vc && vc.value); }
-      if (n===2) { var br=$('budgetRange'); return !!(br && br.value); }
+      // Avoid hidden required traps with step-specific checks
+      if (n===1) { return !!$('vehicleCondition').value; }
+      if (n===2) { return true; } // slider always has a value
+      if (n===3) { return true; }
+      if (n===4) {
+        return ($('#incomeSourceFull').value?.trim()!=='') &&
+               ($('#avgMonthlyIncome').value?.trim()!=='');
+      }
+      if (n===5) {
+        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(($('email').value||'').trim());
+        const phoneOk = (($('phone').value||'').replace(/\D/g,'').length>=10);
+        const passOk = (($('accountPass').value||'').trim().length>=6);
+        return emailOk && phoneOk && passOk;
+      }
+      if (n===6) {
+        return ($('#firstName').value.trim()!=='') &&
+               ($('#lastName').value.trim()!=='') &&
+               ($('#dobYear').value!=='') &&
+               ($('#dobMonth').value!=='') &&
+               ($('#dobDay').value!=='');
+      }
+      if (n===7) {
+        return ($('#currentStreetAddress').value.trim()!=='') &&
+               ($('#currentCity').value.trim()!=='') &&
+               ($('#currentProvince').value!=='') &&
+               ($('#currentPostalCode').value.trim()!=='') &&
+               ($('#housingPayment').value.trim()!=='');
+      }
+      if (n===3 && $('hasTradeIn').value.toLowerCase()==='yes'){ return true; }
+      if (n===3 && $('hasTradeIn').value.toLowerCase()==='no'){ return true; }
 
-      var stepEl = steps()[n-1];
+      // Generic fallback (for trade-in step or others)
+      const stepEl = steps()[n];
       if(!stepEl) return true;
-      var ok = true;
-      var fields = visibleRequired().filter(function(el){ return stepEl.contains(el); });
-      fields.forEach(function(el){
-        var pass = (el.type==='checkbox') ? el.checked : (el.value && el.value.trim()!=='');
+      let ok = true;
+      const fields = visibleRequired().filter(el => stepEl.contains(el));
+      fields.forEach(el => {
+        let pass = (el.type==='checkbox') ? el.checked : (el.value && el.value.trim()!=='');
         if (el.id==='phone') pass = el.value.replace(/\D/g,'').length>=10;
-        if (el.type==='email' || el.id==='email'){ var v=el.value.trim(); pass = pass && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-        if (!pass){ ok=false; el.classList.add('err'); var lab = bySel('label[for="'+el.id+'"]'); if(lab) lab.classList.add('err-label'); }
-        else { el.classList.remove('err'); var lab2 = bySel('label[for="'+el.id+'"]'); if(lab2) lab2.classList.remove('err-label'); }
+        if (el.type==='email' || el.id==='email'){ const v=el.value.trim(); pass = pass && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+        if (!pass){ ok=false; el.classList.add('err'); const lab = bySel('label[for="'+el.id+'"]'); lab?.classList.add('err-label'); }
+        else { el.classList.remove('err'); const lab = bySel('label[for="'+el.id+'"]'); lab?.classList.remove('err-label'); }
       });
+      // If we are on the trade-in step (3a), make minimal checks
+      if (stepEl && stepEl.id==='step-tradein'){
+        const y = $('tradeInYear').value, mk = $('tradeInMake').value.trim(), md = $('tradeInModel').value.trim();
+        ok = ok && !!y && !!mk && !!md;
+      }
       return ok;
     }
     function validateAll(){
-      var ok = true;
-      for (var i=1;i<=steps().length-1;i++){ if(!validateStep(i)) ok=false; }
+      let ok = true;
+      for (let i=0;i<=steps().length-2;i++){ if(!validateStep(i)) ok=false; }
       return ok;
     }
 
     // Overlay
-    function runProgressOverlay(minMs){
-      if (minMs===undefined) minMs=4200;
-      return new Promise(function(resolve){
-        var overlay = $('progress-overlay');
-        var bar = bySel('#progress-bar');
-        var stepsEl = bySelAll('#progress-steps li');
-        if (overlay) overlay.classList.remove('hidden');
+    async function runProgressOverlay(minMs=4200){
+      const overlay = $('progress-overlay');
+      const bar = $('progress-bar');
+      const stepsEl = bySelAll('#progress-steps li');
+      overlay.classList.remove('hidden');
 
-        var stages = [
-          { width: 35, index: 0, ms: 900 },
-          { width: 70, index: 1, ms: 1200 },
-          { width: 100, index: 2, ms: 1400 }
-        ];
+      const stages = [
+        { width: 35, index: 0, ms: 900 },
+        { width: 70, index: 1, ms: 1200 },
+        { width: 100, index: 2, ms: 1400 }
+      ];
 
-        var t0 = Date.now();
-        (function run(i){
-          if (i>=stages.length){
-            var elapsed = Date.now() - t0;
-            var left = Math.max(0, minMs - elapsed);
-            setTimeout(function(){ if (overlay) overlay.classList.add('hidden'); resolve(); }, left);
-            return;
-          }
-          var st = stages[i];
-          stepsEl.forEach(function(li,idx){ li.classList.toggle('active', idx===st.index); });
-          if (bar) requestAnimationFrame(function(){ bar.style.width = st.width + '%'; });
-          setTimeout(function(){ run(i+1); }, st.ms);
-        })(0);
-      });
+      const t0 = Date.now();
+      for (const st of stages){
+        stepsEl.forEach((li,i)=> li.classList.toggle('active', i===st.index));
+        requestAnimationFrame(()=> bar.style.width = st.width + '%');
+        await new Promise(r=>setTimeout(r, st.ms));
+      }
+      const elapsed = Date.now() - t0;
+      if (elapsed < minMs) await new Promise(r=>setTimeout(r, minMs - elapsed));
+      overlay.classList.add('hidden');
     }
 
     // Submit on final "Next"
-    function submitForm(){
+    async function submitForm(){
       if (!validateAll()) { return; }
-      var code = 'VIC-' + Math.random().toString(36).slice(2,8).toUpperCase();
+      const code = 'VIC-' + Math.random().toString(36).slice(2,8).toUpperCase();
       try { sessionStorage.setItem('vic_app_code', code); } catch(_) {}
 
-      var fd = new FormData(bySel('#the-form'));
+      const fd = new FormData(bySel('#the-form'));
       fd.append('appCode', code);
 
-      var post;
-      try {
-        post = fetch('/', {
-          method:'POST',
-          headers:{'Content-Type':'application/x-www-form-urlencoded'},
-          body:new URLSearchParams(fd).toString()
-        }).catch(function(){ return null; });
-      } catch(e){ post = Promise.resolve(null); }
+      const post = fetch('/', {
+        method:'POST',
+        headers:{'Content-Type':'application/x-www-form-urlencoded'},
+        body:new URLSearchParams(fd).toString()
+      }).catch(()=>null);
 
-      runProgressOverlay(4200).then(function(){
-        if (!post){ bySel('#the-form').submit(); return; }
-        post.then(function(){
-          var url = new URL('/thank-you.html', window.location.origin);
-          url.searchParams.set('code', code);
-          window.location.href = url.toString();
-        }).catch(function(){
-          bySel('#the-form').submit();
-        });
-      });
+      await runProgressOverlay(4200);
+
+      try {
+        await post;
+        const url = new URL('/thank-you.html', window.location.origin);
+        url.searchParams.set('code', code);
+        window.location.href = url.toString();
+      } catch (e) {
+        bySel('#the-form').submit();
+      }
     }
 
     // Inventory shimmer “refresh”
     function fakeRefreshCounts(){
-      var cards = bySelAll('.bodytype-card');
-      cards.forEach(function(c){ c.classList.add('loading'); });
-      setTimeout(function(){ cards.forEach(function(c){ c.classList.remove('loading'); }); }, 700);
+      const cards = bySelAll('.bodytype-card');
+      cards.forEach(c => c.classList.add('loading'));
+      setTimeout(()=> cards.forEach(c=> c.classList.remove('loading')), 700);
     }
 
-    // “View all” -> focus form & shimmer
-    bySelAll('.js-view-inventory').forEach(function(el){
-      el.addEventListener('click', function(e){
+    // “View all” anchor -> focus form & shimmer
+    bySelAll('.js-view-inventory').forEach(el=>{
+      el.addEventListener('click', (e)=>{
         e.preventDefault();
         fakeRefreshCounts();
-        var form = document.getElementById('lead-form');
-        if (form && form.scrollIntoView) form.scrollIntoView({behavior:'smooth', block:'start'});
+        document.getElementById('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
       });
     });
 
     // Login (demo)
-    var loginForm = $('login-form');
-    if (loginForm){
-      loginForm.addEventListener('submit', function(e){
-        e.preventDefault();
-        var raw = $('loginCode').value || '';
-        var code = raw.toUpperCase().trim();
-        var pass = $('loginPass').value || '';
-        if (!code || !pass) return;
-        try { sessionStorage.setItem('vic_app_code', code); } catch(_) {}
-        alert('Logged in (demo). Matching options would show here.');
-      });
-    }
+    $('login-form')?.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const raw = $('loginCode').value || '';
+      const code = raw.toUpperCase().trim();
+      const pass = $('loginPass').value || '';
+      if (!code || !pass) return;
+      try { sessionStorage.setItem('vic_app_code', code); } catch(_) {}
+      alert('Logged in (demo). Matching options would show here.');
+    });
 
     // DOB / dropdown helpers
-    function populateDOBYears(sel){
-      if(!sel) return;
-      var start=2004; sel.innerHTML = '';
-      for(var y=start; y>=1940; y--){ var o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); }
+    function populateDOBYears(sel){ if(!sel) return;
+      const start=2004; sel.innerHTML = '';
+      for(let y=start; y>=1940; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); }
     }
-    function populateMonths(sel){
-      if(!sel) return;
-      var m=["01","02","03","04","05","06","07","08","09","10","11","12"];
+    function populateMonths(sel){ if(!sel) return;
+      const m=["01","02","03","04","05","06","07","08","09","10","11","12"];
       sel.innerHTML = '<option value="">MM</option>';
-      m.forEach(function(mm,i){ var o=document.createElement('option'); o.value=i+1; o.textContent=mm; sel.appendChild(o);});
+      m.forEach((mm,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=mm; sel.appendChild(o);});
     }
     function updateDays(){
-      var y=parseInt(($('dobYear')?$('dobYear').value:''),10);
-      var m=parseInt(($('dobMonth')?$('dobMonth').value:''),10);
-      var sel=parseInt(($('dobDay')?$('dobDay').value:''),10);
-      var days=(y&&m)?new Date(y,m,0).getDate():31;
-      var daySel=$('dobDay'); if (!daySel) return;
-      daySel.innerHTML='<option value="">DD</option>';
-      for(var i=1;i<=days;i++){ var o=document.createElement('option'); o.value=i; o.textContent=String(i).padStart(2,'0'); daySel.appendChild(o);}
-      if(sel&&sel<=days) daySel.value=sel;
+      const y=parseInt($('dobYear').value||'',10);
+      const m=parseInt($('dobMonth').value||'',10);
+      const sel=parseInt($('dobDay').value||'',10);
+      const days=(y&&m)?new Date(y,m,0).getDate():31;
+      $('dobDay').innerHTML='<option value="">DD</option>';
+      for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=String(i).padStart(2,'0'); $('dobDay').appendChild(o);}
+      if(sel&&sel<=days)$('dobDay').value=sel;
     }
-    function populateDropdown(sel,start,end,label,singular){
-      if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>';
-      for(var i=start;i<=end;i++){ var o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o);}
-    }
-    function populateProvinces(sel){
-      if(!sel) return; var prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"];
-      sel.innerHTML='<option value="">Prov</option>';
-      prov.forEach(function(p){ var o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); });
-    }
+    function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o);} }
+    function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
+    function populateTradeYears(sel){ if(!sel) return; const now=new Date().getFullYear(); sel.innerHTML=''; for(let y=now; y>=1990; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} }
 
     // Init
     (function init(){
-      var yearEl = bySel('#year'); if (yearEl) yearEl.textContent = (new Date().getFullYear());
+      const y = new Date().getFullYear(); bySel('#year')?.textContent = y;
 
       // DOB
       populateDOBYears($('dobYear'));
       populateMonths($('dobMonth')); updateDays();
-      var dobMonth = $('dobMonth'); if (dobMonth) dobMonth.addEventListener('change', updateDays);
-      var dobYear = $('dobYear'); if (dobYear) dobYear.addEventListener('change', updateDays);
+      $('dobMonth')?.addEventListener('change', updateDays);
+      $('dobYear')?.addEventListener('change', updateDays);
 
       // Tenures & address helpers
       populateDropdown($('timeWithEmployerYears'), 0, 30, 'Years', 'Year');
@@ -874,14 +894,16 @@
       populateDropdown($('timeAtAddressYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
       populateProvinces($('currentProvince'));
+      populateTradeYears($('tradeInYear'));
 
       // Defaults
       setHousing('Rent');
-      window.__currentStep = 1;
-      showStep(1);
+      window.__currentStep = 0; // start screen
+      showStep(0);
 
       // light shimmer once
       setTimeout(fakeRefreshCounts, 500);
+      updateRange?.();
     })();
   </script>
 </body>
