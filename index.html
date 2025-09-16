@@ -52,8 +52,7 @@
 
     /* Form shell */
     .form-shell{ position:relative; height:auto; overflow:hidden; }
-    .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; pointer-events:none; } /* ← let clicks pass through */
-
+    .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; pointer-events:none; } /* clicks pass through */
     .step-inner{ width:100%; padding-top:var(--pad-y); padding-bottom:var(--pad-y); }
     .step-viewport{ overflow:auto; }
     .vstack > * + *{ margin-top: var(--gap-regular); }
@@ -62,7 +61,7 @@
     .choice-rect{
       width:100%; text-align:left; border:1.5px solid #e5e7eb; border-radius:10px; background:#fff;
       padding:10px 12px; font-weight:700; color:#111827; transition:all .15s ease; display:block;
-      cursor: pointer; position: relative; z-index: 1; /* ensure taps always reach the tile */
+      cursor:pointer; position:relative; z-index:1;
     }
     .choice-rect:hover{ border-color:var(--blue-600); background:#f5f8ff; }
     .choice-rect.selected{ border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
@@ -581,6 +580,7 @@
       const t = s[n-1];
       if (t){ t.classList.remove('hidden'); window.__currentStep = n; }
 
+      // progress bar + label
       const total = 9;
       $('btnBack').disabled = (n === 1);
       $('btnNext').textContent = 'Next';
@@ -593,7 +593,7 @@
     function computeNextStep(cur, delta){
       const hasTrade = ($('hasTradeIn')?.value || 'No').toLowerCase() === 'yes';
       if (delta > 0){
-        if (cur === 3 && !hasTrade) return 5;
+        if (cur === 3 && !hasTrade) return 5; // skip 4
         return cur + 1;
       } else {
         if (cur === 5 && !hasTrade) return 3;
@@ -615,19 +615,17 @@
     $('btnNext')?.addEventListener('click', ()=> next(1));
     $('btnBack')?.addEventListener('click', ()=> next(-1));
 
-    // Step 1 (condition)
+    // Step 1 tiles
     bySelAll('[data-cond]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected','err'));
         btn.classList.add('selected');
-        const v = btn.dataset.cond;
-        const hidden = $('vehicleCondition');
-        if (hidden) hidden.value = v;
+        $('vehicleCondition').value = btn.dataset.cond || '';
         next(1);
       });
     });
 
-    // Step 2 (budget slider)
+    // Step 2 range
     const biw = $('biWeeklyRange'); const out = $('biWeeklyOut'); const br = $('budgetRange');
     if (biw && out && br){
       const updateBudget = ()=>{ out.textContent = biw.value; br.value = '$' + biw.value + ' bi-weekly'; };
@@ -635,13 +633,12 @@
       updateBudget();
     }
 
-    // Step 3 trade-in rectangles
+    // Step 3 trade-in tiles
     bySelAll('[data-trade]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-trade]').forEach(x=>x.classList.remove('selected'));
         btn.classList.add('selected');
-        const v = btn.dataset.trade || 'No';
-        $('hasTradeIn').value = v;
+        $('hasTradeIn').value = btn.dataset.trade || 'No';
       });
     });
 
@@ -669,21 +666,31 @@
     }
     function validateStep(n){
       if (n===1) {
-        const ok = !!($('vehicleCondition')?.value);
+        const ok = !!$('vehicleCondition').value;
         bySelAll('[data-cond]').forEach(x => x.classList.toggle('err', !ok));
         return ok;
       }
-      if (n===2) { return !!($('budgetRange')?.value); }
+      if (n===2) { return !!$('budgetRange').value; }
+
       const stepEl = steps()[n-1];
       if(!stepEl) return true;
+
       let ok = true;
       const fields = visibleRequired().filter(el => stepEl.contains(el));
       fields.forEach(el => {
         let pass = (el.type==='checkbox') ? el.checked : (el.value && el.value.trim()!=='');
         if (el.id==='phone') pass = el.value.replace(/\D/g,'').length>=10;
-        if (el.type==='email' || el.id==='email'){ const v=el.value.trim(); pass = pass && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-        if (!pass){ ok=false; el.classList.add('err'); const lab = bySel('label[for="'+el.id+'"]'); lab?.classList.add('err-label'); }
-        else { el.classList.remove('err'); const lab = bySel('label[for="'+el.id+'"]'); lab?.classList.remove('err-label'); }
+        if (el.type==='email' || el.id==='email'){
+          const v=el.value.trim();
+          pass = pass && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+        }
+        if (!pass){
+          ok=false; el.classList.add('err');
+          const lab = bySel('label[for="'+el.id+'"]'); lab?.classList.add('err-label');
+        } else {
+          el.classList.remove('err');
+          const lab = bySel('label[for="'+el.id+'"]'); lab?.classList.remove('err-label');
+        }
       });
       return ok;
     }
@@ -720,12 +727,15 @@
     // Submit on final "Next"
     async function submitForm(){
       if (!validateAll()) { return; }
+
+      // Optional app code for your thank-you page
       const code = 'VIC-' + Math.random().toString(36).slice(2,8).toUpperCase();
       try { sessionStorage.setItem('vic_app_code', code); } catch(_) {}
 
       const fd = new FormData(bySel('#the-form'));
       fd.append('appCode', code);
 
+      // Try Netlify-style POST, then navigate
       const post = fetch('/', {
         method:'POST',
         headers:{'Content-Type':'application/x-www-form-urlencoded'},
@@ -740,6 +750,7 @@
         url.searchParams.set('code', code);
         window.location.href = url.toString();
       } catch (e) {
+        // Fallback to native submit if fetch failed
         bySel('#the-form').submit();
       }
     }
@@ -833,7 +844,7 @@
       window.__currentStep = 1;
       showStep(1);
 
-      // initial shimmer + height sync
+      // shimmer + height sync
       setTimeout(()=>{ fakeRefreshCounts(); syncHeights(); }, 300);
       window.addEventListener('resize', syncHeights);
       ['btnNext','btnBack'].forEach(id=> $(id)?.addEventListener('click', ()=> setTimeout(syncHeights, 0)));
