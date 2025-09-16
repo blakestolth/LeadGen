@@ -23,7 +23,7 @@
     :root{
       --blue-600:#2A5D9F; --blue-700:#214B80; --blue-100:#EAF1FB; --blue-grad:#4C7CC0;
       --fs-h1: 22px; --fs-h2: 18px; --fs-body: 14px; --fs-label: 12px; --fs-cta: 14px;
-      --pad-y: 10px; --gap-regular: 8px; --input-py: 6px; --input-px: 10px; --radius: 10px;
+      --pad-y: 10px; --gap-regular: 8px; --input-py: 10px; --input-px: 12px; --radius: 10px;
       --nav-font: 15px;
     }
     @media (max-width:640px){ :root{ --nav-font: 14px; } }
@@ -33,15 +33,17 @@
     .h1{ font-size:var(--fs-h1); font-weight:800; color:#0f172a; }
     .h2{ font-size:var(--fs-h2); font-weight:800; color:#0f172a; }
 
+    /* Uniform input sizing */
     .form-input,.form-select,.form-textarea{
       background:#f3f4f6; color:#18181b; border:1.5px solid #e5e7eb; font-size:var(--fs-body); width:100%;
-      padding:var(--input-py) var(--input-px); border-radius:var(--radius); transition:all .15s ease;
+      padding:var(--input-py) var(--input-px); border-radius:var(--radius); transition:all .15s ease; line-height:1.2; height:42px;
     }
+    .form-select{ height:42px; }
     .form-input::placeholder{ color:#a1a1aa; }
     .form-input:focus,.form-select:focus,.form-textarea:focus{ background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.15); outline:none; }
     .label{ font-size:var(--fs-label); color:#3f3f46; font-weight:600; }
 
-    .cta-button{ background:var(--blue-600); color:#fff; font-weight:800; padding:.5rem .8rem; border-radius:.6rem; font-size:var(--fs-cta); }
+    .cta-button{ background:var(--blue-600); color:#fff; font-weight:800; padding:.55rem .9rem; border-radius:.6rem; font-size:var(--fs-cta); height:40px; display:inline-flex; align-items:center; }
     .cta-button:hover{ background:var(--blue-700); }
 
     .track{ height:6px; background:#e5e7eb; border-radius:9999px; overflow:hidden; }
@@ -56,17 +58,17 @@
     .step-viewport{ overflow:auto; }
     .vstack > * + *{ margin-top: var(--gap-regular); }
 
-    /* Vertical rectangular choices */
+    /* Rectangular choices */
     .choice-rect{
       width:100%; text-align:left; border:1.5px solid #e5e7eb; border-radius:10px; background:#fff;
-      padding:10px 12px; font-weight:700; color:#111827; transition:all .15s ease; display:block;
+      padding:10px 12px; font-weight:700; color:#111827; transition:all .15s ease; display:block; height:42px; line-height:20px;
     }
     .choice-rect:hover{ border-color:var(--blue-600); background:#f5f8ff; }
     .choice-rect.selected{ border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
 
     .muted{ font-size:12px; color:#6b7280; }
 
-    /* Simple inline grids for “same line” fields */
+    /* Inline grids */
     .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
     .grid-inline-3{ display:grid; grid-template-columns: 1.2fr 1fr 1.2fr; gap:10px; }
     .grid-inline-3-tight{ display:grid; grid-template-columns: 1.2fr .9fr 1fr; gap:10px; }
@@ -74,7 +76,7 @@
     .grid-inline-addr2{ display:grid; grid-template-columns: 1.6fr 1fr 1fr; gap:10px; }
     .grid-inline-dob{ display:grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap:10px; }
 
-    /* Brand area + Powered by under title */
+    /* Brand + Powered by */
     .brand-left{ display:flex; align-items:center; gap:12px; }
     .site-logo{ height:60px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
     @media (max-width:640px){ .site-logo{ height:56px; } }
@@ -83,7 +85,7 @@
     .powered-by-inline{ display:flex; align-items:center; gap:6px; font-size: calc(var(--nav-font) * .8); color:#475569; font-weight:700; line-height:1; }
     .powered-by-inline img{ height: 0.8em; width:auto; object-fit:contain; }
 
-    /* ABCD badge — blue filled circle w/ white text */
+    /* ABCD badge */
     .abc-badge{
       display:inline-flex; align-items:center; justify-content:center;
       width:20px; height:20px; border-radius:9999px;
@@ -120,6 +122,9 @@
     .progress-steps li.active{opacity:1;font-weight:700}
     .progress-note{margin-top:10px;font-size:12px;color:#64748b}
     .hidden{display:none}
+
+    /* Footer spacing fix */
+    .form-footer{ padding: 12px 16px; border-top:1px solid #e5e7eb; }
   </style>
 
   <script type="application/ld+json">
@@ -240,19 +245,14 @@
                 </div>
               </section>
 
-              <!-- 2. Bi-weekly budget -->
+              <!-- 2. Bi-weekly budget (slider only, centered) -->
               <section class="form-step hidden" data-step="2">
                 <div class="step-inner">
-                  <h3 class="h2">2. Bi-weekly budget <span class="muted">(starts at $120)</span></h3>
-                  <div class="mt-2">
-                    <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="120" class="w-full">
-                    <div class="text-[12px] text-zinc-700 mt-1">Selected: <b>$<span id="biWeeklyOut">120</span></b> / bi-weekly</div>
-                  </div>
-                  <div class="vstack mt-3">
-                    <button type="button" class="choice-rect" data-budget="Option range one">Option range one</button>
-                    <button type="button" class="choice-rect" data-budget="Option range two">Option range two</button>
-                    <button type="button" class="choice-rect" data-budget="Option range three">Option range three</button>
-                    <button type="button" class="choice-rect" data-budget="Option range four">Option range four</button>
+                  <h3 class="h2 text-center">2. Bi-weekly budget</h3>
+                  <p class="muted text-center">Starts at $120</p>
+                  <div class="mt-3 flex flex-col items-center justify-center">
+                    <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="120" class="w-3/4 max-w-md">
+                    <div class="text-[13px] text-zinc-700 mt-2">Selected: <b>$<span id="biWeeklyOut">120</span></b> / bi-weekly</div>
                   </div>
                   <input type="hidden" name="budgetRange" id="budgetRange">
                 </div>
@@ -281,23 +281,16 @@
                       <input type="hidden" id="hasTradeIn" name="hasTradeIn" value="No">
                     </div>
                   </div>
-
-                  <!-- If yes -->
-                  <div id="tradeInDetails" class="hidden mt-2">
-                    <div class="grid-inline-3-tight">
-                      <input type="number" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" min="2000" max="2025"/>
-                      <input type="text" name="tradeInMake" placeholder="Make" class="form-input" maxlength="40"/>
-                      <input type="text" name="tradeInModel" placeholder="Model" class="form-input" maxlength="50"/>
-                    </div>
-                    <div class="grid-inline-2 mt-2">
-                      <input type="number" name="tradeInKms" placeholder="Km" class="form-input" inputmode="numeric" min="0" max="1000000"/>
-                      <input type="text" name="tradeInOwed" placeholder="Money owed e.g. $5,000 or None" class="form-input" maxlength="20"/>
-                    </div>
-                  </div>
                 </div>
               </section>
 
-              <!-- 4. Employment + monthly income -->
+              <!-- (Dynamic) 4. Trade-in details — inserted after Step 3 if needed -->
+              <!-- Placeholder anchor so we know where to insert -->
+              <div id="trade-step-anchor"></div>
+
+              <!-- 4/5/6/7/8 continue as before (index shifts if trade step exists) -->
+
+              <!-- Employment + monthly income -->
               <section class="form-step hidden" data-step="4" id="step-income-quick">
                 <div class="step-inner">
                   <h3 class="h2">4. Employment & Income</h3>
@@ -321,7 +314,7 @@
                 </div>
               </section>
 
-              <!-- 5. Account creation + contact -->
+              <!-- Account creation + contact -->
               <section class="form-step hidden" data-step="5" id="step-account">
                 <div class="step-inner">
                   <h3 class="h2">5. Account creation</h3>
@@ -343,7 +336,7 @@
                 </div>
               </section>
 
-              <!-- 6. Names + DOB -->
+              <!-- Names + DOB -->
               <section class="form-step hidden" data-step="6" id="step-yourinfo">
                 <div class="step-inner">
                   <h3 class="h2">6. Your information</h3>
@@ -389,7 +382,7 @@
                 </div>
               </section>
 
-              <!-- 7. Current address -->
+              <!-- Current address -->
               <section class="form-step hidden" data-step="7" id="step-address">
                 <div class="step-inner">
                   <h3 class="h2">7. Current address</h3>
@@ -420,7 +413,7 @@
                 </div>
               </section>
 
-              <!-- 8. Employer / position / time / optional additional income -->
+              <!-- Employment details -->
               <section class="form-step hidden" data-step="8" id="step-employer">
                 <div class="step-inner">
                   <h3 class="h2">8. Employment details</h3>
@@ -570,7 +563,7 @@
     function bySel(s, root){ return (root||document).querySelector(s); }
     function bySelAll(s, root){ return Array.prototype.slice.call((root||document).querySelectorAll(s)); }
 
-    // Mobile menu (no optional chaining)
+    // Mobile menu
     var menuBtn = $('menuBtn');
     if (menuBtn){
       menuBtn.addEventListener('click', function(){ var mm=$('mobileMenu'); if(mm){ mm.classList.toggle('hidden'); } });
@@ -593,6 +586,13 @@
       var pe = bySel('#progress-endcap'); if (pe) pe.textContent = (n >= total) ? 'Finding matches…' : 'Let’s get you approved';
     }
 
+    function renumberAndStay(){
+      var cur = window.__currentStep || 1;
+      var total = steps().length;
+      if (cur > total) cur = total;
+      showStep(cur);
+    }
+
     function next(delta){
       var cur = window.__currentStep || 1;
       if (delta>0 && !validateStep(cur)) return;
@@ -607,7 +607,7 @@
     var btnNext = $('btnNext'); if (btnNext) btnNext.addEventListener('click', function(){ next(1); });
     var btnBack = $('btnBack'); if (btnBack) btnBack.addEventListener('click', function(){ next(-1); });
 
-    // Enter key should not submit mid-step; go to next instead
+    // Prevent Enter from submitting mid-flow
     var theForm = bySel('#the-form');
     if (theForm){
       theForm.addEventListener('keydown', function(e){
@@ -615,7 +615,6 @@
       });
     }
 
-    // Choice rectangles (auto-advance)
     // Step 1 (condition)
     bySelAll('[data-cond]').forEach(function(btn){
       btn.addEventListener('click', function(){
@@ -626,37 +625,66 @@
       });
     });
 
-    // Step 2 (budget quick ranges + slider)
+    // Step 2 (budget slider only)
     var biw = $('biWeeklyRange'); var out = $('biWeeklyOut');
     function syncBudgetFromSlider(){
       if (biw && out){
         out.textContent = biw.value;
-        var br = $('budgetRange'); if (br) br.value = '$' + biw.value + ' / bi-weekly (slider)';
+        var br = $('budgetRange'); if (br) br.value = '$' + biw.value + ' / bi-weekly';
       }
     }
-    if (biw){
-      biw.addEventListener('input', syncBudgetFromSlider);
-      syncBudgetFromSlider();
-    }
-    bySelAll('[data-budget]').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        bySelAll('[data-budget]').forEach(function(x){ x.classList.remove('selected'); });
-        btn.classList.add('selected');
-        var br = $('budgetRange'); if (br) br.value = btn.getAttribute('data-budget');
-        next(1);
-      });
-    });
+    if (biw){ biw.addEventListener('input', syncBudgetFromSlider); syncBudgetFromSlider(); }
 
-    // Step 3 trade-in rectangles
+    // Step 3 trade-in rectangles -> create/remove Trade step
     bySelAll('[data-trade]').forEach(function(btn){
       btn.addEventListener('click', function(){
         bySelAll('[data-trade]').forEach(function(x){ x.classList.remove('selected'); });
         btn.classList.add('selected');
         var v = btn.getAttribute('data-trade') || 'No';
         var hti = $('hasTradeIn'); if (hti) hti.value = v;
-        var details = bySel('#tradeInDetails'); if (details){ if (v.toLowerCase() !== 'yes') details.classList.add('hidden'); else details.classList.remove('hidden'); }
+        ensureTradeStep(v.toLowerCase()==='yes');
+        if (v.toLowerCase()==='yes'){ next(1); } else { /* stay */ }
       });
     });
+
+    // Create/Remove the Trade-In Details step dynamically
+    function ensureTradeStep(need){
+      var anchor = $('trade-step-anchor');
+      if (!anchor) return;
+
+      var nextSibling = anchor.nextElementSibling;
+      var exists = nextSibling && nextSibling.classList && nextSibling.classList.contains('form-step') && nextSibling.getAttribute('data-trade-step') === 'true';
+
+      if (need && !exists){
+        var sec = document.createElement('section');
+        sec.className = 'form-step hidden';
+        sec.setAttribute('data-trade-step','true');
+        sec.innerHTML = ''+
+          '<div class="step-inner">'+
+          '  <h3 class="h2">Trade-in details</h3>'+
+          '  <div class="grid-inline-3-tight mt-2">'+
+          '    <input type="number" id="tradeInYear" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" min="2000" max="2025" required/>'+
+          '    <input type="text" id="tradeInMake" name="tradeInMake" placeholder="Make" class="form-input" maxlength="40" required/>'+
+          '    <input type="text" id="tradeInModel" name="tradeInModel" placeholder="Model" class="form-input" maxlength="50" required/>'+
+          '  </div>'+
+          '  <div class="grid-inline-2 mt-2">'+
+          '    <input type="number" id="tradeInKms" name="tradeInKms" placeholder="Km" class="form-input" inputmode="numeric" min="0" max="1000000" required/>'+
+          '    <input type="text" id="tradeInOwed" name="tradeInOwed" placeholder="Money owed e.g. $5,000 or None" class="form-input" maxlength="20" required/>'+
+          '  </div>'+
+          '</div>';
+        anchor.parentNode.insertBefore(sec, anchor.nextSibling);
+        renumberAndStay();
+        return;
+      }
+
+      if (!need && exists){
+        var cur = window.__currentStep || 1;
+        nextSibling.remove();
+        renumberAndStay();
+        // stay on the same numerical step index after removal
+        showStep(Math.min(cur, steps().length-1));
+      }
+    }
 
     // Rent/Own segmented
     function setHousing(type){
@@ -678,7 +706,7 @@
       });
     }
 
-    // Validation (only what’s visible on the step)
+    // Validation
     function visibleRequired() {
       var req = bySelAll('#the-form [required]');
       return req.filter(function(el){ return !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none'; });
@@ -757,7 +785,7 @@
 
       runProgressOverlay(4200).then(function(){
         if (!post){ bySel('#the-form').submit(); return; }
-        post.then(function(){ 
+        post.then(function(){
           var url = new URL('/thank-you.html', window.location.origin);
           url.searchParams.set('code', code);
           window.location.href = url.toString();
