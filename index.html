@@ -62,6 +62,7 @@
     .choice-rect{
       width:100%; text-align:left; border:1.5px solid #e5e7eb; border-radius:10px; background:#fff;
       padding:10px 12px; font-weight:700; color:#111827; transition:all .15s ease; display:block;
+      cursor: pointer; /* ensure obvious tap target */
     }
     .choice-rect:hover{ border-color:var(--blue-600); background:#f5f8ff; }
     .choice-rect.selected{ border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
@@ -85,12 +86,12 @@
     .brand-title{
       color:#0f172a; font-weight:800; letter-spacing:-0.01em; font-size:var(--nav-font);
       white-space:nowrap; text-decoration:none; line-height:1.1;
-      margin-left:-2px; /* ← nudge title ONLY to align with Powered by */
+      margin-left:-2px;
     }
     .powered-by-inline{ display:flex; align-items:center; gap:6px; font-size: calc(var(--nav-font) * .8); color:#475569; font-weight:700; line-height:1; }
-    .powered-by-inline img{ height: 0.9em; width:auto; object-fit:contain; position:relative; top:2px; } /* drop a touch */
+    .powered-by-inline img{ height: 0.9em; width:auto; object-fit:contain; position:relative; top:2px; }
 
-    /* ABCD badge — blue filled circle w/ white text */
+    /* ABCD badge */
     .abc-badge{
       display:inline-flex; align-items:center; justify-content:center;
       width:20px; height:20px; border-radius:9999px;
@@ -103,6 +104,7 @@
     .bodytype-card:hover{ transform:translateY(-1px); border-color:var(--blue-600); box-shadow:0 10px 18px -12px rgba(42,93,159,.28); }
     .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:92px; }
     @media (min-width:640px){ .bodytype-img{ height:110px; } }
+    .bodytype-card.loading .bodytype-img{ position:relative; overflow:hidden; }
     .bodytype-card.loading .bodytype-img::after{
       content:""; position:absolute; inset:0;
       background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(240,243,248,.55) 45%, rgba(255,255,255,0) 100%);
@@ -126,7 +128,7 @@
     .progress-note{margin-top:10px;font-size:12px;color:#64748b}
     .hidden{display:none}
 
-    /* Footer controls – same position every step */
+    /* Footer controls */
     .form-footer{
       padding: 10px 12px;
       position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb;
@@ -821,6 +823,14 @@
     (function init(){
       const y = new Date().getFullYear(); bySel('#year')?.textContent = y;
 
+      // Prevent sticky bar from overlapping first buttons (ensures clicks go through)
+      const sticky = bySel('.form-shell .sticky');
+      const viewport = $('step-viewport');
+      if (sticky && viewport) {
+        const h = sticky.getBoundingClientRect().height || 0;
+        viewport.style.paddingTop = (h + 6) + 'px';
+      }
+
       // DOB
       populateDOBYears($('dobYear'));
       populateMonths($('dobMonth')); updateDays();
@@ -840,7 +850,7 @@
       // Defaults
       setHousing('Rent');
 
-      // ✅ Default Step 1 to "Both" so Next always progresses
+      // Default Step 1 to "Both" so Next works even if not tapped yet
       const bothBtn = bySel('[data-cond="Both"]');
       const hiddenCond = $('vehicleCondition');
       if (hiddenCond) hiddenCond.value = 'Both';
