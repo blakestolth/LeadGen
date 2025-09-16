@@ -52,17 +52,17 @@
 
     /* Form shell */
     .form-shell{ position:relative; height:auto; overflow:hidden; }
-    .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; pointer-events:none; } /* allow clicks to pass through header */
-    .step-inner{ width:100%; padding-top:var(--pad-y); padding-bottom:var(--pad-y); }
-    .step-viewport{ overflow:auto; padding-top:64px; } /* keep content clear of sticky header */
+    .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; pointer-events:none; } /* ← let clicks pass through */
 
+    .step-inner{ width:100%; padding-top:var(--pad-y); padding-bottom:var(--pad-y); }
+    .step-viewport{ overflow:auto; }
     .vstack > * + *{ margin-top: var(--gap-regular); }
 
     /* Vertical rectangular choices */
     .choice-rect{
       width:100%; text-align:left; border:1.5px solid #e5e7eb; border-radius:10px; background:#fff;
       padding:10px 12px; font-weight:700; color:#111827; transition:all .15s ease; display:block;
-      cursor: pointer;
+      cursor: pointer; /* clearer tap affordance */
     }
     .choice-rect:hover{ border-color:var(--blue-600); background:#f5f8ff; }
     .choice-rect.selected{ border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
@@ -72,32 +72,22 @@
     /* Inline grids */
     .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
     .grid-inline-3{ display:grid; grid-template-columns: 1.2fr 1fr 1.2fr; gap:10px; }
-    .grid-inline-3-tight{ display:grid; grid-template-columns: .65fr 1.1fr 1.3fr; gap:10px; } /* Year smaller */
+    .grid-inline-3-tight{ display:grid; grid-template-columns: .65fr 1.1fr 1.3fr; gap:10px; }
     .grid-inline-addr1{ display:grid; grid-template-columns: 3fr 1fr; gap:10px; }
     .grid-inline-addr2{ display:grid; grid-template-columns: 1.6fr 1fr 1fr; gap:10px; }
     .grid-inline-dob{ display:grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap:10px; }
 
-    /* Brand area + Powered by (ALIGNMENT TWEAKS) */
+    /* Brand area + Powered by */
     .brand-left{ display:flex; align-items:center; gap:12px; }
     .site-logo{ height:60px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
     @media (max-width:640px){ .site-logo{ height:56px; } }
 
     .brand-stack{ display:flex; flex-direction:column; gap:4px; }
-    .brand-title{
-      color:#0f172a; font-weight:800; letter-spacing:-0.01em; font-size:var(--nav-font);
-      white-space:nowrap; text-decoration:none; line-height:1.1;
-      margin-left:-2px;
-    }
+    .brand-title{ color:#0f172a; font-weight:800; letter-spacing:-0.01em; font-size:var(--nav-font); white-space:nowrap; text-decoration:none; line-height:1.1; margin-left:-2px; }
     .powered-by-inline{ display:flex; align-items:center; gap:6px; font-size: calc(var(--nav-font) * .8); color:#475569; font-weight:700; line-height:1; }
     .powered-by-inline img{ height: 0.9em; width:auto; object-fit:contain; position:relative; top:2px; }
 
-    /* ABCD badge */
-    .abc-badge{
-      display:inline-flex; align-items:center; justify-content:center;
-      width:20px; height:20px; border-radius:9999px;
-      background:var(--blue-600); color:#fff; border:none;
-      font-weight:800; font-size:11px; line-height:1; flex-shrink:0;
-    }
+    .abc-badge{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:9999px; background:var(--blue-600); color:#fff; border:none; font-weight:800; font-size:11px; line-height:1; flex-shrink:0; }
 
     /* Browse Vehicles (with shimmer) */
     .bodytype-card{ overflow:hidden; border-radius:10px; border:1px solid #e5e7eb; background:#fff; transition:transform .15s,box-shadow .15s,border-color .15s; }
@@ -128,11 +118,8 @@
     .progress-note{margin-top:10px;font-size:12px;color:#64748b}
     .hidden{display:none}
 
-    /* Footer controls – same position every step */
-    .form-footer{
-      padding: 10px 12px;
-      position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb;
-    }
+    /* Footer controls */
+    .form-footer{ padding: 10px 12px; position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb; }
 
     /* Make login card same height as form card */
     .equal-h { height: 100%; }
@@ -150,7 +137,7 @@
     "url":"https://vancouverislandcredit.ca",
     "slogan":"Get approved online. Delivery across BC. Work directly with Blake.",
     "founder":{"@type":"Person","name":"Blake Stolth"},
-    "makesOffer":[{"@type":"Offer","name":"Auto Financing (New & Used)"}]
+    "makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Auto Financing (New & Used)"}}]
   }
   </script>
 </head>
@@ -496,7 +483,7 @@
       </aside>
     </section>
 
-    <!-- INVENTORY (8 cards with shimmer) -->
+    <!-- INVENTORY -->
     <section id="inventory" class="card p-5 mt-6">
       <div class="flex items-center justify-between mb-2">
         <h3 class="h2">Browse by Vehicle Type</h3>
@@ -594,7 +581,6 @@
       const t = s[n-1];
       if (t){ t.classList.remove('hidden'); window.__currentStep = n; }
 
-      // total visible steps (skip hidden 99)
       const total = 9;
       $('btnBack').disabled = (n === 1);
       $('btnNext').textContent = 'Next';
@@ -604,14 +590,13 @@
       bySel('#progress-endcap').textContent = (n >= total) ? 'Finding matches…' : 'Let’s get you approved';
     }
 
-    // Determine next step considering trade-in
     function computeNextStep(cur, delta){
       const hasTrade = ($('hasTradeIn')?.value || 'No').toLowerCase() === 'yes';
       if (delta > 0){
-        if (cur === 3 && !hasTrade) return 5;   // skip 4 if no trade-in
+        if (cur === 3 && !hasTrade) return 5;
         return cur + 1;
       } else {
-        if (cur === 5 && !hasTrade) return 3;   // back skips 4 if no trade-in
+        if (cur === 5 && !hasTrade) return 3;
         return cur - 1;
       }
     }
@@ -630,7 +615,6 @@
     $('btnNext')?.addEventListener('click', ()=> next(1));
     $('btnBack')?.addEventListener('click', ()=> next(-1));
 
-    // Choice rectangles (auto-advance)
     // Step 1 (condition)
     bySelAll('[data-cond]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
@@ -638,7 +622,7 @@
         btn.classList.add('selected');
         const v = btn.dataset.cond;
         const hidden = $('vehicleCondition');
-        if (hidden) hidden.value = v;         // ensure Step 1 validates
+        if (hidden) hidden.value = v;
         next(1);
       });
     });
@@ -684,7 +668,6 @@
       return req.filter(el => !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none');
     }
     function validateStep(n){
-      // Step-specific checks
       if (n===1) {
         const ok = !!($('vehicleCondition')?.value);
         bySelAll('[data-cond]').forEach(x => x.classList.toggle('err', !ok));
@@ -811,7 +794,7 @@
     function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
     function populateYears(sel, start, end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} }
 
-    // Height sync: make login card same height as form card
+    // Height sync
     function syncHeights(){
       const form = document.getElementById('lead-form');
       const login = document.getElementById('login-card');
@@ -822,6 +805,12 @@
     // Init
     (function init(){
       const y = new Date().getFullYear(); bySel('#year')?.textContent = y;
+
+      // Default Step 1 to "Both" so Next works even if not tapped yet
+      const bothBtn = bySel('[data-cond="Both"]');
+      const hiddenCond = $('vehicleCondition');
+      if (hiddenCond) hiddenCond.value = 'Both';
+      bothBtn?.classList.add('selected');
 
       // DOB
       populateDOBYears($('dobYear'));
@@ -836,18 +825,11 @@
       populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
       populateProvinces($('currentProvince'));
 
-      // Trade-in Years (new)
+      // Trade-in Years
       populateYears($('tradeInYear'), new Date().getFullYear(), 1995);
 
       // Defaults
       setHousing('Rent');
-
-      // Default Step 1 to "Both" so Next works even if not tapped yet
-      const bothBtn = bySel('[data-cond="Both"]');
-      const hiddenCond = $('vehicleCondition');
-      if (hiddenCond) hiddenCond.value = 'Both';
-      bothBtn?.classList.add('selected');
-
       window.__currentStep = 1;
       showStep(1);
 
