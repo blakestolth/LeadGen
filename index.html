@@ -563,6 +563,7 @@
   </div>
 
   <script>
+  document.addEventListener('DOMContentLoaded', () => {
     // Helpers
     const $ = (id) => document.getElementById(id);
     const bySel = (s, root=document) => root.querySelector(s);
@@ -615,13 +616,14 @@
     $('btnNext')?.addEventListener('click', ()=> next(1));
     $('btnBack')?.addEventListener('click', ()=> next(-1));
 
-    // Step 1 tiles
+    // Step 1 tiles (hardened: select + jump to step 2)
     bySelAll('[data-cond]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected','err'));
         btn.classList.add('selected');
-        $('vehicleCondition').value = btn.dataset.cond || '';
-        next(1);
+        const v = btn.dataset.cond || '';
+        const hidden = $('vehicleCondition'); if (hidden) hidden.value = v;
+        showStep(2);
       });
     });
 
@@ -686,10 +688,20 @@
         }
         if (!pass){
           ok=false; el.classList.add('err');
-          const lab = bySel('label[for="'+el.id+'"]'); lab?.classList.add('err-label');
+          if (el.id) {
+            try {
+              const lab = document.querySelector(`label[for="${CSS && CSS.escape ? CSS.escape(el.id) : el.id}"]`);
+              lab?.classList.add('err-label');
+            } catch(_) {}
+          }
         } else {
           el.classList.remove('err');
-          const lab = bySel('label[for="'+el.id+'"]'); lab?.classList.remove('err-label');
+          if (el.id) {
+            try {
+              const lab = document.querySelector(`label[for="${CSS && CSS.escape ? CSS.escape(el.id) : el.id}"]`);
+              lab?.classList.remove('err-label');
+            } catch(_) {}
+          }
         }
       });
       return ok;
@@ -727,7 +739,7 @@
     // === Submit orchestration ===
     function generateAppCode(){
       // ABC-###### (zero-padded 6 digits)
-      const n = Math.floor(Math.random()*1_000_000);
+      const n = Math.floor(Math.random()*1000000);
       return 'ABC-' + String(n).padStart(6,'0');
     }
 
@@ -846,6 +858,7 @@
       window.addEventListener('resize', syncHeights);
       ['btnNext','btnBack'].forEach(id=> $(id)?.addEventListener('click', ()=> setTimeout(syncHeights, 0)));
     })();
+  });
   </script>
 </body>
 </html>
