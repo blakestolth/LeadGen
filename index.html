@@ -260,7 +260,7 @@
               <section class="form-step" data-step="1">
                 <div class="step-inner">
                   <h3 class="h2">1. Vehicle condition</h3>
-                  <div class="vstack mt-2">
+                  <div class="vstack mt-2" id="step1-choices">
                     <button type="button" class="choice-rect" data-cond="New">New</button>
                     <button type="button" class="choice-rect" data-cond="Used">Used</button>
                     <button type="button" class="choice-rect" data-cond="Both">Both</button>
@@ -269,7 +269,7 @@
                 </div>
               </section>
 
-              <!-- 2. Bi-weekly budget (slider + 4 named ranges) -->
+              <!-- 2. Bi-weekly budget -->
               <section class="form-step hidden" data-step="2">
                 <div class="step-inner">
                   <h3 class="h2">2. Bi-weekly budget <span class="muted">(starts at $120)</span></h3>
@@ -311,12 +311,9 @@
                     </div>
                   </div>
 
-                  <!-- If yes, enter details (inline—this is the version you had before) -->
                   <div id="tradeInDetails" class="hidden mt-2">
                     <div class="grid-inline-3-tight">
-                      <select name="tradeInYear" class="form-select" id="tradeInYear">
-                        <option value="">Year</option>
-                      </select>
+                      <select name="tradeInYear" class="form-select" id="tradeInYear"><option value="">Year</option></select>
                       <input type="text" name="tradeInMake" placeholder="Make" class="form-input" maxlength="40"/>
                       <input type="text" name="tradeInModel" placeholder="Model" class="form-input" maxlength="50"/>
                     </div>
@@ -474,14 +471,14 @@
                 </div>
               </section>
 
-              <!-- hidden consent (kept for posting) -->
+              <!-- hidden consent -->
               <section class="form-step hidden" data-step="99" id="step-consent">
                 <div class="step-inner"><input id="creditConsent" name="creditConsent" type="checkbox" class="hidden" checked /></div>
               </section>
             </form>
           </div>
 
-          <!-- FOOTER (Back / Next) -->
+          <!-- FOOTER -->
           <div class="form-footer flex items-center justify-between px-4 py-2">
             <button type="button" id="btnBack" class="text-[12px] font-medium text-zinc-600 hover:text-zinc-900 px-2 py-1 disabled:opacity-30">Back</button>
             <button type="button" id="btnNext" class="cta-button">Next</button>
@@ -489,9 +486,9 @@
         </div>
       </div>
 
-      <!-- LOGIN (unchanged; not collapsible) -->
+      <!-- LOGIN -->
       <aside class="flex flex-col gap-4" id="sidebar">
-        <div class="card p-5">
+        <div class="card p-5" id="login-card">
           <h3 class="h2">Log in to view options</h3>
           <p class="text-[12px] text-zinc-600 mt-1">Log in if you’ve submitted an application to see options you qualify for.</p>
           <form id="login-form" class="flex flex-col gap-2 mt-3">
@@ -601,6 +598,18 @@
     // Mobile menu
     $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
 
+    // === Sidebar height sync (login matches form height on desktop) ===
+    function syncSidebarHeight(){
+      const shell = $('form-shell');
+      const login = $('login-card');
+      if (!shell || !login) return;
+      if (window.matchMedia('(min-width: 768px)').matches){
+        login.style.height = shell.offsetHeight + 'px';
+      } else {
+        login.style.height = 'auto';
+      }
+    }
+
     // Step helpers
     const steps = () => bySelAll('.form-step');
 
@@ -617,6 +626,9 @@
       const pct = Math.round((n-1)/(total-1)*100);
       bySel('#progress-fill').style.width = pct + '%';
       bySel('#progress-endcap').textContent = (n >= total) ? 'Finding matches…' : 'Let’s get you approved';
+
+      // keep login level with form
+      syncSidebarHeight();
     }
 
     function next(delta){
@@ -633,22 +645,24 @@
     $('btnNext').addEventListener('click', ()=> next(1));
     $('btnBack').addEventListener('click', ()=> next(-1));
 
-    // Choice rectangles (auto-advance but Next also works)
-    // Step 1 (condition)
-    bySelAll('[data-cond]').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected'));
-        btn.classList.add('selected');
-        $('vehicleCondition').value = btn.dataset.cond;
-        next(1);
-      });
+    // --- Defensive event delegation for STEP 1 (so it always advances) ---
+    const step1 = $('step1-choices');
+    step1?.addEventListener('click', (e)=>{
+      const target = e.target.closest('[data-cond]');
+      if (!target) return;
+      e.preventDefault();
+      bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected'));
+      target.classList.add('selected');
+      $('vehicleCondition').value = target.dataset.cond || '';
+      next(1);
     });
 
     // Step 2 (budget)
     const biw = $('biWeeklyRange'); const out = $('biWeeklyOut');
     if (biw && out){ biw.addEventListener('input', ()=> out.textContent = biw.value); }
     bySelAll('[data-budget]').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
+      btn.addEventListener('click', (e)=>{
+        e.preventDefault();
         bySelAll('[data-budget]').forEach(x=>x.classList.remove('selected'));
         btn.classList.add('selected');
         $('budgetRange').value = btn.dataset.budget;
@@ -658,12 +672,14 @@
 
     // Step 3 trade-in rectangles
     bySelAll('[data-trade]').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
+      btn.addEventListener('click', (e)=>{
+        e.preventDefault();
         bySelAll('[data-trade]').forEach(x=>x.classList.remove('selected'));
         btn.classList.add('selected');
         const v = btn.dataset.trade || 'No';
         $('hasTradeIn').value = v;
         bySel('#tradeInDetails').classList.toggle('hidden', v.toLowerCase()!=='yes');
+        syncSidebarHeight();
       });
     });
 
@@ -684,13 +700,12 @@
       else if(d.length>0)e.target.value=`(${d}`;
     });
 
-    // Validation — strictly step-scoped (prevents hidden fields from blocking)
+    // Validation — strictly step-scoped
     function visibleRequiredWithin(stepEl) {
       return Array.from(stepEl.querySelectorAll('[required]'))
         .filter(el => !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none');
     }
     function validateStep(n){
-      // Early checks for selection steps (no "required" fields there)
       if (n===1) { return !!$('vehicleCondition').value; }
       if (n===2) { return !!$('budgetRange').value; }
 
@@ -769,6 +784,7 @@
       const cards = bySelAll('.bodytype-card');
       cards.forEach(c => c.classList.add('loading'));
       setTimeout(()=> cards.forEach(c=> c.classList.remove('loading')), 700);
+      syncSidebarHeight();
     }
     bySelAll('.js-view-inventory').forEach(el=>{
       el.addEventListener('click', (e)=>{
@@ -794,8 +810,8 @@
       const start=2004; sel.innerHTML = '';
       for(let y=start; y>=1940; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); }
     }
-    function populateMonths(sel){ if(!sel) return;
-      const m=["01","02","03","04","05","06","07","08","09","10","11","12"];
+    function populateMonths(sel){ if(!sel) return{
+    }; const m=["01","02","03","04","05","06","07","08","09","10","11","12"];
       sel.innerHTML = '<option value="">MM</option>';
       m.forEach((mm,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=mm; sel.appendChild(o);});
     }
@@ -832,7 +848,7 @@
       populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
       populateProvinces($('currentProvince'));
 
-      // Trade-in year dropdown (2008 -> current)
+      // Trade-in year dropdown (current -> 1990)
       const curYear = new Date().getFullYear();
       populateYears($('tradeInYear'), curYear, 1990);
 
@@ -843,6 +859,10 @@
 
       // one-time shimmer
       setTimeout(fakeRefreshCounts, 500);
+
+      // initial sidebar match + on resize
+      syncSidebarHeight();
+      window.addEventListener('resize', syncSidebarHeight);
     })();
   </script>
 </body>
