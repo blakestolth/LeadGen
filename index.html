@@ -22,27 +22,14 @@
   <style>
     :root{
       --blue-600:#2A5D9F; --blue-700:#214B80; --blue-100:#EAF1FB; --blue-grad:#4C7CC0;
-
-      --fs-h1: 22px;
-      --fs-h2: 18px;
-      --fs-body: 14px;
-      --fs-label: 12px;
-      --fs-cta: 14px;
-
-      --pad-y: 10px;
-      --gap-regular: 8px;
-
-      --input-py: 6px;
-      --input-px: 10px;
-      --radius: 10px;
-
+      --fs-h1: 22px; --fs-h2: 18px; --fs-body: 14px; --fs-label: 12px; --fs-cta: 14px;
+      --pad-y: 10px; --gap-regular: 8px; --input-py: 6px; --input-px: 10px; --radius: 10px;
       --nav-font: 15px;
     }
     @media (max-width:640px){ :root{ --nav-font: 14px; } }
 
     body{ font-family:'Inter',sans-serif; background:#f6f7fb; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
     .card{ background:#fff; border-radius:12px; border:1px solid #e5e7eb; box-shadow:0 8px 18px -10px rgb(0 0 0 / .15); }
-
     .h1{ font-size:var(--fs-h1); font-weight:800; color:#0f172a; }
     .h2{ font-size:var(--fs-h2); font-weight:800; color:#0f172a; }
 
@@ -57,66 +44,59 @@
     .cta-button{ background:var(--blue-600); color:#fff; font-weight:800; padding:.5rem .8rem; border-radius:.6rem; font-size:var(--fs-cta); }
     .cta-button:hover{ background:var(--blue-700); }
 
-    .tile-btn{ border-radius:10px; border:1.5px solid #e5e7eb; background:#fff; transition:.15s; font-weight:800; color:#111827; font-size:13px; padding:.6rem .8rem; text-align:left; width:100%; }
-    .tile-btn:hover{ border-color:var(--blue-600); background:#f5f8ff; }
-    .tile-btn.selected{ border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
-
     .track{ height:6px; background:#e5e7eb; border-radius:9999px; overflow:hidden; }
     .fill{ height:6px; background:linear-gradient(90deg,var(--blue-600),var(--blue-grad)); border-radius:9999px; width:0%; transition:width .25s ease; }
 
     .err{ border-color:#ef4444 !important; } .err-label{ color:#ef4444 !important; }
 
-    .seg{ display:inline-flex; gap:4px; background:#f3f4f6; padding:3px; border-radius:8px; }
-    .seg-btn{ padding:6px 8px; border-radius:6px; font-weight:600; color:#374151; background:transparent; border:2px solid transparent; font-size:12px; }
-    .seg-btn[aria-pressed="true"]{ background:#e0ecff; color:#214B80; border-color:#bfdbfe; }
-
-    .form-shell{ position:relative; overflow:visible; } /* no auto height adjustments */
-
+    /* Shell */
+    .form-shell{ position:relative; height:auto; overflow:hidden; }
+    .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; }
     .step-inner{ width:100%; padding-top:var(--pad-y); padding-bottom:var(--pad-y); }
-    .step-inner > .h2{ margin-top:0; margin-bottom:var(--pad-y); }
-
+    .step-viewport{ overflow:auto; }
     .vstack > * + *{ margin-top: var(--gap-regular); }
 
-    .bodytype-card{ overflow:hidden; border-radius:10px; border:1px solid #e5e7eb; background:#fff; transition:transform .15s,box-shadow .15s,border-color .15s; }
-    .bodytype-card:hover{ transform:translateY(-1px); border-color:var(--blue-600); box-shadow:0 10px 18px -12px rgba(42,93,159,.28); }
-    .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:92px; }
-    @media (min-width:640px){ .bodytype-img{ height:110px; } }
+    /* Vertical rectangular choices */
+    .choice-rect{
+      width:100%; text-align:left; border:1.5px solid #e5e7eb; border-radius:10px; background:#fff;
+      padding:10px 12px; font-weight:700; color:#111827; transition:all .15s ease; display:block;
+    }
+    .choice-rect:hover{ border-color:var(--blue-600); background:#f5f8ff; }
+    .choice-rect.selected{ border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
 
-    .grid-sq{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
-    @media (min-width:640px){ .grid-sq{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
+    .muted{ font-size:12px; color:#6b7280; }
 
-    /* Smart field sizing */
-    .grid-name3{ display:grid; gap:10px; grid-template-columns: 1.8fr 2.4fr 1.8fr; }
-    .grid-addr5{ display:grid; gap:10px; grid-template-columns: 3.2fr .8fr 1.6fr .8fr 1.0fr; }
-    .grid-2{ display:grid; gap:10px; grid-template-columns: 1fr 1fr; }
-    .grid-3{ display:grid; gap:10px; grid-template-columns: 1fr 1fr 1fr; }
-    .tenure-2{ display:grid; gap:10px; grid-template-columns: 1fr 1fr; }
+    /* Simple inline grids for “same line” fields */
+    .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
+    .grid-inline-3{ display:grid; grid-template-columns: 1.2fr 1fr 1.2fr; gap:10px; }
+    .grid-inline-3-tight{ display:grid; grid-template-columns: 1.2fr .9fr 1fr; gap:10px; }
+    .grid-inline-addr1{ display:grid; grid-template-columns: 3fr 1fr; gap:10px; }
+    .grid-inline-addr2{ display:grid; grid-template-columns: 1.6fr 1fr 1fr; gap:10px; }
+    .grid-inline-dob{ display:grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap:10px; }
 
+    /* Brand area + Powered by under title */
+    .brand-left{ display:flex; align-items:center; gap:12px; }
+    .site-logo{ height:60px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
+    @media (max-width:640px){ .site-logo{ height:56px; } }
+    .brand-title{ color:#0f172a; font-weight:800; letter-spacing:-0.01em; font-size:var(--nav-font); white-space:nowrap; text-decoration:none; line-height:1.1; }
+    .brand-stack{ display:flex; flex-direction:column; gap:4px; }
+    .powered-by-inline{ display:flex; align-items:center; gap:6px; font-size: calc(var(--nav-font) * .8); color:#475569; font-weight:700; line-height:1; }
+    .powered-by-inline img{ height: 0.8em; width:auto; object-fit:contain; }
+
+    /* ABCD badge — blue filled circle w/ white text */
     .abc-badge{
       display:inline-flex; align-items:center; justify-content:center;
       width:20px; height:20px; border-radius:9999px;
-      border:2px solid #2A5D9F; color:#2A5D9F; background:#fff;
+      background:var(--blue-600); color:#fff; border:none;
       font-weight:800; font-size:11px; line-height:1;
       flex-shrink:0;
     }
 
-    section, header, footer { scroll-margin-top: 70px; }
-
-    #lead-form .form-input, #lead-form .form-select, #lead-form .form-textarea{ padding:5px 10px; }
-
-    .form-footer{ padding: var(--pad-y) 1rem; }
-
-    #lead-form .step-viewport,
-    #lead-form .form-footer { max-width: 760px; margin-left:auto; margin-right:auto; }
-
-    .powered-card{
-      background: linear-gradient(180deg, #ffffff 0%, #f6f8fc 100%);
-      border:1px solid #e5e7eb; border-radius:12px;
-      box-shadow:0 8px 18px -12px rgba(0,0,0,.12);
-    }
-    .equifax-logo{ max-width:100%; max-height:110px; height:auto; object-fit:contain; } /* original size kept */
-
-    /* Shimmer */
+    /* Browse Vehicles (with shimmer) */
+    .bodytype-card{ overflow:hidden; border-radius:10px; border:1px solid #e5e7eb; background:#fff; transition:transform .15s,box-shadow .15s,border-color .15s; }
+    .bodytype-card:hover{ transform:translateY(-1px); border-color:var(--blue-600); box-shadow:0 10px 18px -12px rgba(42,93,159,.28); }
+    .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:92px; }
+    @media (min-width:640px){ .bodytype-img{ height:110px; } }
     .bodytype-card.loading .bodytype-img{ position:relative; overflow:hidden; }
     .bodytype-card.loading .bodytype-img::after{
       content:""; position:absolute; inset:0;
@@ -124,12 +104,12 @@
       transform: translateX(-100%); animation: vicShimmer 0.9s ease-in-out 1;
     }
     @keyframes vicShimmer { to { transform: translateX(100%); } }
-
     .inv-badge{ transition: opacity .15s ease, transform .15s ease; opacity:.65; }
 
     .map-embed{ width:100%; height:150px; border:0; }
     @media (min-width:768px){ .map-embed{ height:200px; } }
 
+    /* Overlay */
     .progress-overlay{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:50}
     .progress-card{background:#fff;border-radius:12px;box-shadow:0 20px 40px -20px rgba(0,0,0,.35);width:min(520px,92vw);padding:18px 16px}
     .progress-title{font-weight:800;font-size:16px;color:#0f172a}
@@ -140,17 +120,6 @@
     .progress-steps li.active{opacity:1;font-weight:700}
     .progress-note{margin-top:10px;font-size:12px;color:#64748b}
     .hidden{display:none}
-
-    /* Brand area + "Powered by" under title (unchanged sizes) */
-    .brand-left{ display:flex; align-items:center; gap:12px; }
-    .site-logo{ height:64px; width:auto; object-fit:contain; display:block; transform:translateY(-2px); }
-    @media (max-width:640px){ .site-logo{ height:58px; transform:translateY(-1px); } }
-    .brand-title{ color:#0f172a; font-weight:800; letter-spacing:-0.01em; font-size:var(--nav-font); white-space:nowrap; text-decoration:none; }
-    .powered-under{ margin-top:-2px; font-size: calc(var(--nav-font) - 1px); color:#475569; display:flex; align-items:center; gap:6px; }
-    .powered-under img{ height:1.1em; width:auto; }
-
-    .nav-link{ font-size:var(--nav-font); font-weight:700; }
-    .nav-cta{ font-size:var(--nav-font); font-weight:800; padding-top:.4rem; padding-bottom:.4rem; }
   </style>
 
   <script type="application/ld+json">
@@ -172,40 +141,35 @@
 <body>
   <!-- NAV -->
   <header class="w-full max-w-5xl mx-auto mt-4 px-4">
-    <nav class="bg-white/90 backdrop-blur card px-4 sm:px-6 py-2.5">
-      <div class="flex items-center justify-between">
-        <!-- LEFT: logo + title + powered by under -->
-        <div>
-          <div class="brand-left">
-            <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
-            <a href="#" class="brand-title" aria-label="Vancouver Island Credit — Home">Vancouver Island Credit</a>
-          </div>
-          <div class="powered-under">
-            <span class="uppercase tracking-wide">Powered by</span>
-            <img src="Equifax.png" alt="Equifax"/>
+    <nav class="bg-white/90 backdrop-blur card px-4 sm:px-6 py-2.5 flex items-center justify-between">
+      <div class="brand-left">
+        <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
+        <div class="brand-stack">
+          <a href="#" class="brand-title" aria-label="Vancouver Island Credit — Home">Vancouver Island Credit</a>
+          <div class="powered-by-inline">
+            <span>Powered by</span><img src="Equifax.png" alt="Equifax"/>
           </div>
         </div>
+      </div>
 
-        <!-- RIGHT: nav links -->
-        <div class="hidden sm:flex items-center gap-6 font-semibold text-zinc-700">
-          <a href="#inventory" class="nav-link hover:text-[var(--blue-600)]">Inventory</a>
-          <a href="#about" class="nav-link hover:text-[var(--blue-600)]">About</a>
-          <a href="#contact" class="nav-link hover:text-[var(--blue-600)]">Contact</a>
-          <a href="#lead-form" class="cta-button nav-cta !py-1.5">Apply Now</a>
-        </div>
-        <button id="menuBtn" class="sm:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-zinc-200" aria-label="Open menu">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
+      <div class="hidden sm:flex items-center gap-6 font-semibold text-zinc-700">
+        <a href="#inventory" class="nav-link hover:text-[var(--blue-600)]">Inventory</a>
+        <a href="#about" class="nav-link hover:text-[var(--blue-600)]">About</a>
+        <a href="#contact" class="nav-link hover:text-[var(--blue-600)]">Contact</a>
+        <a href="#lead-form" class="cta-button nav-cta !py-1.5">Apply Now</a>
       </div>
-      <div id="mobileMenu" class="hidden sm:hidden mt-2 card px-4 py-3">
-        <div class="flex flex-col gap-2 font-semibold text-zinc-700">
-          <a href="#inventory" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Inventory</a>
-          <a href="#about" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">About</a>
-          <a href="#contact" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Contact</a>
-          <a href="#lead-form" class="mt-1 cta-button text-center">Apply Now</a>
-        </div>
-      </div>
+      <button id="menuBtn" class="sm:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-zinc-200" aria-label="Open menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
     </nav>
+    <div id="mobileMenu" class="hidden sm:hidden mt-2 card px-4 py-3">
+      <div class="flex flex-col gap-2 font-semibold text-zinc-700">
+        <a href="#inventory" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Inventory</a>
+        <a href="#about" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">About</a>
+        <a href="#contact" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Contact</a>
+        <a href="#lead-form" class="mt-1 cta-button text-center">Apply Now</a>
+      </div>
+    </div>
   </header>
 
   <!-- MAIN -->
@@ -233,34 +197,22 @@
         <div class="vstack">
           <h2 class="h2">Why people pick us</h2>
           <ul class="text-[13px] text-zinc-700 space-y-2">
-            <li class="flex items-start gap-2">
-              <span class="abc-badge">A</span>
-              <span><b>All credit welcome:</b> high approval rates.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="abc-badge">B</span>
-              <span><b>Bigger selection:</b> new &amp; used vehicles across BC.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="abc-badge">C</span>
-              <span><b>Contact from us:</b> no information sold to dealerships.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="abc-badge">D</span>
-              <span><b>Delivery across BC:</b> right to your doorstep.</span>
-            </li>
+            <li class="flex items-start gap-2"><span class="abc-badge">A</span><span><b>All credit welcome:</b> high approval rates.</span></li>
+            <li class="flex items-start gap-2"><span class="abc-badge">B</span><span><b>Bigger selection:</b> new &amp; used vehicles across BC.</span></li>
+            <li class="flex items-start gap-2"><span class="abc-badge">C</span><span><b>Contact from us:</b> no information sold to dealerships.</span></li>
+            <li class="flex items-start gap-2"><span class="abc-badge">D</span><span><b>Delivery across BC:</b> right to your doorstep.</span></li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- FORM + SIDEBAR (Login) -->
-    <section class="grid md:grid-cols-4 gap-4">
-      <!-- FORM (vertical) -->
-      <div class="md:col-span-3 card p-0 overflow-visible" id="lead-form">
+    <!-- FORM + LOGIN -->
+    <section class="grid md:grid-cols-2 gap-4">
+      <!-- FORM -->
+      <div class="card p-0 overflow-hidden" id="lead-form">
         <div class="form-shell" id="form-shell">
           <!-- progress -->
-          <div class="sticky px-4 py-2 border-b bg-white">
+          <div class="sticky px-4 py-2 border-b">
             <div class="flex items-center justify-between">
               <div id="progress-label" class="text-[11px] font-semibold text-zinc-700">Step 1</div>
               <div id="progress-endcap" class="text-[11px] text-[var(--blue-700)] font-semibold">Let’s get you approved</div>
@@ -269,74 +221,112 @@
           </div>
 
           <!-- STEP VIEWPORT -->
-          <div id="step-viewport" class="px-4">
+          <div id="step-viewport" class="step-viewport px-4">
             <form id="the-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" novalidate>
               <input type="hidden" name="form-name" value="lead-form"/>
               <input type="hidden" name="app_type" id="app_type" value="Full Application" />
-              <input type="hidden" name="vehicleCondition" id="vehicleCondition" required />
-              <input type="hidden" name="budgetRangeBiWeekly" id="budgetRangeBiWeekly" required />
-              <input type="hidden" name="downPayment" id="downPayment" required />
-              <input type="hidden" name="hasTradeIn" id="hasTradeIn" required />
-
               <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
 
-              <!-- 1: New/Used/Both -->
+              <!-- 1. New / Used / Both -->
               <section class="form-step" data-step="1">
                 <div class="step-inner">
-                  <h3 class="h2">1. Condition</h3>
-                  <div class="space-y-2">
-                    <button type="button" class="tile-btn" data-cond="New">New</button>
-                    <button type="button" class="tile-btn" data-cond="Used">Used</button>
-                    <button type="button" class="tile-btn" data-cond="Both">Both</button>
+                  <h3 class="h2">1. Vehicle condition</h3>
+                  <div class="vstack mt-2">
+                    <button type="button" class="choice-rect" data-cond="New">New</button>
+                    <button type="button" class="choice-rect" data-cond="Used">Used</button>
+                    <button type="button" class="choice-rect" data-cond="Both">Both</button>
                   </div>
+                  <input type="hidden" name="vehicleCondition" id="vehicleCondition">
                 </div>
               </section>
 
-              <!-- 2: Bi-weekly budget -->
+              <!-- 2. Bi-weekly budget -->
               <section class="form-step hidden" data-step="2">
                 <div class="step-inner">
-                  <h3 class="h2">2. Bi-weekly budget (from $120)</h3>
-                  <div class="space-y-2">
-                    <button type="button" class="tile-btn" data-budget="$120–$180">$120–$180</button>
-                    <button type="button" class="tile-btn" data-budget="$181–$240">$181–$240</button>
-                    <button type="button" class="tile-btn" data-budget="$241–$320">$241–$320</button>
-                    <button type="button" class="tile-btn" data-budget="$321+">$321+</button>
+                  <h3 class="h2">2. Bi-weekly budget <span class="muted">(starts at $120)</span></h3>
+                  <div class="mt-2">
+                    <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="120" class="w-full">
+                    <div class="text-[12px] text-zinc-700 mt-1">Selected: <b>$<span id="biWeeklyOut">120</span></b> / bi-weekly</div>
                   </div>
+                  <div class="vstack mt-3">
+                    <button type="button" class="choice-rect" data-budget="Option range one">Option range one</button>
+                    <button type="button" class="choice-rect" data-budget="Option range two">Option range two</button>
+                    <button type="button" class="choice-rect" data-budget="Option range three">Option range three</button>
+                    <button type="button" class="choice-rect" data-budget="Option range four">Option range four</button>
+                  </div>
+                  <input type="hidden" name="budgetRange" id="budgetRange">
                 </div>
               </section>
 
-              <!-- 3: Down payment + Trade-in -->
+              <!-- 3. Down payment / Trade-in -->
               <section class="form-step hidden" data-step="3" id="step-purchase">
                 <div class="step-inner">
                   <h3 class="h2">3. Purchase details</h3>
-                  <div>
-                    <p class="label mb-1">Down payment?</p>
-                    <div class="grid-3">
-                      <button type="button" class="tile-btn" data-down="$3,000+">$3,000+</button>
-                      <button type="button" class="tile-btn" data-down="$1,000–$3,000">$1,000–$3,000</button>
-                      <button type="button" class="tile-btn" data-down="$0–$1,000">$0–$1,000</button>
+                  <div class="vstack mt-2">
+                    <div>
+                      <label for="downPayment" class="label mb-1 block">Down payment</label>
+                      <select id="downPayment" name="downPayment" class="form-select">
+                        <option value="">Select…</option>
+                        <option>$3,000+</option>
+                        <option>$1,000–$3,000</option>
+                        <option>$0–$1,000</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="label mb-1 block">Trade-in</label>
+                      <div class="grid-inline-2">
+                        <button type="button" class="choice-rect" data-trade="No">No</button>
+                        <button type="button" class="choice-rect" data-trade="Yes">Yes</button>
+                      </div>
+                      <input type="hidden" id="hasTradeIn" name="hasTradeIn" value="No">
                     </div>
                   </div>
 
-                  <div class="mt-3">
-                    <p class="label mb-1">Trade-in?</p>
-                    <div class="grid-2">
-                      <button type="button" class="tile-btn" data-trade="No">No</button>
-                      <button type="button" class="tile-btn" data-trade="Yes">Yes</button>
+                  <!-- If yes -->
+                  <div id="tradeInDetails" class="hidden mt-2">
+                    <div class="grid-inline-3-tight">
+                      <input type="number" name="tradeInYear" placeholder="Year" class="form-input" inputmode="numeric" min="2000" max="2025"/>
+                      <input type="text" name="tradeInMake" placeholder="Make" class="form-input" maxlength="40"/>
+                      <input type="text" name="tradeInModel" placeholder="Model" class="form-input" maxlength="50"/>
+                    </div>
+                    <div class="grid-inline-2 mt-2">
+                      <input type="number" name="tradeInKms" placeholder="Km" class="form-input" inputmode="numeric" min="0" max="1000000"/>
+                      <input type="text" name="tradeInOwed" placeholder="Money owed e.g. $5,000 or None" class="form-input" maxlength="20"/>
                     </div>
                   </div>
                 </div>
               </section>
 
-              <!-- 4: Trade-in details (conditional) -->
-              <!-- This section is injected dynamically when Trade-in = Yes -->
+              <!-- 4. Employment + monthly income -->
+              <section class="form-step hidden" data-step="4" id="step-income-quick">
+                <div class="step-inner">
+                  <h3 class="h2">4. Employment & Income</h3>
+                  <div class="vstack mt-2">
+                    <div>
+                      <label for="incomeSourceFull" class="label mb-1 block">Employment type <span class="text-red-500">*</span></label>
+                      <select id="incomeSourceFull" name="incomeSourceFull" class="form-select" required>
+                        <option value="">Select…</option>
+                        <option value="Full-Time">Full-Time</option>
+                        <option value="Part-Time">Part-Time</option>
+                        <option value="Self-Employed">Self-Employed</option>
+                        <option value="Disability">Disability</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label for="avgMonthlyIncome" class="label mb-1 block">Monthly income (pre-tax) <span class="text-red-500">*</span></label>
+                      <input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric" maxlength="16" required/>
+                    </div>
+                  </div>
+                </div>
+              </section>
 
-              <!-- 5: Account creation -->
+              <!-- 5. Account creation + contact -->
               <section class="form-step hidden" data-step="5" id="step-account">
                 <div class="step-inner">
                   <h3 class="h2">5. Account creation</h3>
-                  <p class="text-[12px] text-zinc-600 mb-2">You’ll receive an application code after submission — that code is your username to log in.</p>
-                  <div class="grid-2">
+                  <p class="muted mt-1">You’ll receive an application code after submission — that becomes your username to log in.</p>
+                  <div class="vstack mt-2">
                     <div>
                       <label for="email" class="label mb-1 block">Email <span class="text-red-500">*</span></label>
                       <input type="email" id="email" name="email" class="form-input" autocomplete="email" maxlength="100" required/>
@@ -345,82 +335,80 @@
                       <label for="phone" class="label mb-1 block">Phone number <span class="text-red-500">*</span></label>
                       <input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" maxlength="14" required/>
                     </div>
-                  </div>
-                  <div class="mt-2">
-                    <label for="password" class="label mb-1 block">Password <span class="text-red-500">*</span></label>
-                    <input type="password" id="password" name="password" class="form-input" minlength="6" maxlength="64" required/>
+                    <div>
+                      <label for="accountPass" class="label mb-1 block">Password <span class="text-red-500">*</span></label>
+                      <input type="password" id="accountPass" name="accountPass" class="form-input" minlength="6" maxlength="64" required/>
+                    </div>
                   </div>
                 </div>
               </section>
 
-              <!-- 6: Names + DOB -->
+              <!-- 6. Names + DOB -->
               <section class="form-step hidden" data-step="6" id="step-yourinfo">
                 <div class="step-inner">
                   <h3 class="h2">6. Your information</h3>
-                  <div class="grid-name3">
-                    <div>
-                      <label for="firstName" class="label mb-1 block">First name <span class="text-red-500">*</span></label>
-                      <input type="text" id="firstName" name="firstName" class="form-input" autocomplete="given-name" maxlength="50" required/>
+                  <div class="vstack mt-2">
+                    <div class="grid-inline-3">
+                      <div>
+                        <label for="firstName" class="label mb-1 block">First name <span class="text-red-500">*</span></label>
+                        <input type="text" id="firstName" name="firstName" class="form-input" autocomplete="given-name" maxlength="50" required/>
+                      </div>
+                      <div>
+                        <label for="middleName" class="label mb-1 block">Middle name(s)</label>
+                        <input type="text" id="middleName" name="middleName" class="form-input" autocomplete="additional-name" maxlength="100"/>
+                      </div>
+                      <div>
+                        <label for="lastName" class="label mb-1 block">Last name <span class="text-red-500">*</span></label>
+                        <input type="text" id="lastName" name="lastName" class="form-input" autocomplete="family-name" maxlength="50" required/>
+                      </div>
                     </div>
-                    <div>
-                      <label for="middleName" class="label mb-1 block">Middle name(s)</label>
-                      <input type="text" id="middleName" name="middleName" class="form-input" autocomplete="additional-name" maxlength="100"/>
-                    </div>
-                    <div>
-                      <label for="lastName" class="label mb-1 block">Last name <span class="text-red-500">*</span></label>
-                      <input type="text" id="lastName" name="lastName" class="form-input" autocomplete="family-name" maxlength="50" required/>
-                    </div>
-                  </div>
 
-                  <div class="grid-3 mt-2">
-                    <div>
-                      <label class="label mb-1 block">Year <span class="text-red-500">*</span></label>
-                      <select id="dobYear" name="dobYear" class="form-select" required><option value="">YYYY</option></select>
-                    </div>
-                    <div>
-                      <label class="label mb-1 block">Month <span class="text-red-500">*</span></label>
-                      <select id="dobMonth" name="dobMonth" class="form-select" required><option value="">MM</option></select>
-                    </div>
-                    <div>
-                      <label class="label mb-1 block">Day <span class="text-red-500">*</span></label>
-                      <select id="dobDay" name="dobDay" class="form-select" required><option value="">DD</option></select>
+                    <div class="grid-inline-dob mt-1">
+                      <div>
+                        <label class="label mb-1 block">DOB Year <span class="text-red-500">*</span></label>
+                        <select id="dobYear" name="dobYear" class="form-select" required></select>
+                      </div>
+                      <div>
+                        <label class="label mb-1 block">Month <span class="text-red-500">*</span></label>
+                        <select id="dobMonth" name="dobMonth" class="form-select" required><option value="">MM</option></select>
+                      </div>
+                      <div>
+                        <label class="label mb-1 block">Day <span class="text-red-500">*</span></label>
+                        <select id="dobDay" name="dobDay" class="form-select" required><option value="">DD</option></select>
+                      </div>
+                      <div>
+                        <label for="maritalStatus" class="label mb-1 block">Marital</label>
+                        <select id="maritalStatus" name="maritalStatus" class="form-select">
+                          <option value="">Select</option>
+                          <option>Single</option><option>Married</option><option>Common-Law</option>
+                          <option>Divorced</option><option>Separated</option><option>Widowed</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                 </div>
               </section>
 
-              <!-- 7: Current address -->
+              <!-- 7. Current address -->
               <section class="form-step hidden" data-step="7" id="step-address">
                 <div class="step-inner">
                   <h3 class="h2">7. Current address</h3>
-
-                  <div>
-                    <label class="label mb-1 block">Street address &amp; Unit</label>
-                    <div class="grid-2">
-                      <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" placeholder="Street Address" autocomplete="street-address" maxlength="120" required/>
-                      <input type="text" id="currentUnit" name="currentUnit" class="form-input" placeholder="Unit #" maxlength="10"/>
+                  <div class="grid-inline-addr1 mt-2">
+                    <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" placeholder="Street address" autocomplete="street-address" maxlength="120" required/>
+                    <input type="text" id="currentUnit" name="currentUnit" class="form-input" placeholder="Unit #" maxlength="10"/>
+                  </div>
+                  <div class="grid-inline-addr2 mt-2">
+                    <input type="text" id="currentCity" name="currentCity" class="form-input" placeholder="City" autocomplete="address-level2" maxlength="60" required/>
+                    <select id="currentProvince" name="currentProvince" class="form-select" required><option value="">Prov</option></select>
+                    <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" placeholder="Postal code" autocomplete="postal-code" maxlength="7" required/>
+                  </div>
+                  <div class="grid-inline-2 mt-2">
+                    <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="Monthly payments" inputmode="numeric" maxlength="16" required/>
+                    <div class="grid-inline-2">
+                      <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
+                      <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
                     </div>
                   </div>
-
-                  <div class="grid-3 mt-2">
-                    <div><label class="label mb-1 block">City</label><input type="text" id="currentCity" name="currentCity" class="form-input" autocomplete="address-level2" maxlength="60" required/></div>
-                    <div><label class="label mb-1 block">Province</label><select id="currentProvince" name="currentProvince" class="form-select" required><option value="">Prov</option></select></div>
-                    <div><label class="label mb-1 block">Postal code</label><input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" placeholder="A1A 1A1" autocomplete="postal-code" maxlength="7"/></div>
-                  </div>
-
-                  <div class="grid-2 mt-2">
-                    <div><label id="housingLabel" for="housingPayment" class="label mb-1 block">Monthly payment <span class="text-red-500">*</span></label>
-                      <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1,500" inputmode="numeric" maxlength="16" required/>
-                    </div>
-                    <div>
-                      <label class="label mb-1 block">Duration at address</label>
-                      <div class="tenure-2">
-                        <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                        <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
-                      </div>
-                    </div>
-                  </div>
-
                   <div class="mt-2">
                     <label class="label mb-1 block">Rent or Own?</label>
                     <div class="seg">
@@ -432,53 +420,37 @@
                 </div>
               </section>
 
-              <!-- 8: Employment & optional income + consent (auto-submit on Next) -->
-              <section class="form-step hidden" data-step="8" id="step-employment">
+              <!-- 8. Employer / position / time / optional additional income -->
+              <section class="form-step hidden" data-step="8" id="step-employer">
                 <div class="step-inner">
-                  <h3 class="h2">8. Employment</h3>
-
-                  <div class="grid-2">
-                    <div>
-                      <label for="currentEmployer" class="label mb-1 block">Employer <span class="text-red-500">*</span></label>
-                      <input type="text" id="currentEmployer" name="currentEmployer" class="form-input" placeholder="Company" maxlength="80" required/>
-                    </div>
-                    <div>
-                      <label for="jobTitle" class="label mb-1 block">Position <span class="text-red-500">*</span></label>
-                      <input type="text" id="jobTitle" name="jobTitle" class="form-input" placeholder="Role" maxlength="60" required/>
-                    </div>
+                  <h3 class="h2">8. Employment details</h3>
+                  <div class="grid-inline-2 mt-2">
+                    <input type="text" id="currentEmployer" name="currentEmployer" class="form-input" placeholder="Employer"/>
+                    <input type="text" id="jobTitle" name="jobTitle" class="form-input" placeholder="Position"/>
                   </div>
-
-                  <div class="grid-2 mt-2">
-                    <div>
-                      <label class="label mb-1 block">Time with employer <span class="text-red-500">*</span></label>
-                      <div class="tenure-2">
-                        <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select" required><option value="">Years</option></select>
-                        <select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select" required><option value="">Months</option></select>
-                      </div>
-                    </div>
-                    <div>
-                      <label class="label mb-1 block">Monthly income (before tax) <span class="text-red-500">*</span></label>
-                      <input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric" maxlength="16" required/>
-                    </div>
+                  <div class="grid-inline-2 mt-2">
+                    <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select>
+                    <select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
                   </div>
-
                   <div class="mt-3">
                     <p class="label mb-1">Optional additional income</p>
-                    <div class="grid-2">
-                      <input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Type (e.g., tips, rental)"/>
-                      <input id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="Amount per month (optional)" inputmode="numeric"/>
+                    <div class="grid-inline-2">
+                      <input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Type (e.g., child benefit, side work)"/>
+                      <input id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="How much per month" inputmode="numeric" maxlength="16"/>
                     </div>
                   </div>
-
-                  <p class="mt-3 text-[11px] text-zinc-600">
-                    By tapping Next, you authorize Vancouver Island Credit to obtain credit information to find exact matches for your profile.
-                  </p>
+                  <p class="muted mt-3">By selecting Next, you give Vancouver Island Credit permission to review your credit to find exact matches.</p>
                 </div>
+              </section>
+
+              <!-- hidden consent -->
+              <section class="form-step hidden" data-step="99" id="step-consent">
+                <div class="step-inner"><input id="creditConsent" name="creditConsent" type="checkbox" class="hidden" checked /></div>
               </section>
             </form>
           </div>
 
-          <!-- FOOTER (Next / Back) -->
+          <!-- FOOTER -->
           <div class="form-footer flex items-center justify-between">
             <button type="button" id="btnBack" class="text-[12px] font-semibold text-zinc-600 hover:text-zinc-900 px-2 py-1 disabled:opacity-30">Back</button>
             <button type="button" id="btnNext" class="cta-button">Next</button>
@@ -486,37 +458,33 @@
         </div>
       </div>
 
-      <!-- SIDEBAR: Login (not collapsible) -->
-      <aside class="md:col-span-1 flex flex-col" id="sidebar">
-        <div class="card p-5 h-fit" id="login">
-          <h3 class="h2">Log in</h3>
-          <p class="text-[12px] text-zinc-600">Log in if you’ve submitted an application to see options you qualify for.</p>
-          <form id="login-form" class="mt-2 space-y-2">
+      <!-- LOGIN -->
+      <aside class="flex flex-col gap-4" id="sidebar">
+        <details class="card p-5 login-drop" open>
+          <summary class="flex items-center justify-between gap-2">
+            <h3 class="h2">Log in to view options</h3>
+            <svg class="chev" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9 6 6 6-6"/></svg>
+          </summary>
+          <p class="text-[12px] text-zinc-600 mt-1">Log in if you’ve submitted an application to see options you qualify for.</p>
+          <form id="login-form" class="flex flex-col gap-2 mt-3">
             <div>
               <label class="label mb-1 block" for="loginCode">Application number</label>
-              <input id="loginCode" class="form-input uppercase" maxlength="16" placeholder="ABC1234" autocomplete="one-time-code"/>
+              <input id="loginCode" type="text" class="form-input uppercase" placeholder="VIC-ABC123" maxlength="16" />
             </div>
             <div>
               <label class="label mb-1 block" for="loginPass">Password</label>
-              <input id="loginPass" class="form-input" type="password" placeholder="Password"/>
+              <input id="loginPass" type="password" class="form-input" placeholder="••••••••" />
             </div>
-            <div class="text-right">
-              <a class="text-[12px] text-[var(--blue-600)] hover:underline" href="#">Forgot password?</a>
+            <button type="submit" class="cta-button">Log In</button>
+            <div class="text-[12px]">
+              <a href="#" class="text-[var(--blue-600)] hover:underline">Forgot password?</a>
             </div>
-            <button type="submit" class="cta-button w-full">Log in</button>
           </form>
-        </div>
-
-        <div class="powered-card flex-1 flex items-center justify-center p-4 mt-4">
-          <div class="text-center">
-            <div class="text-[11px] uppercase tracking-wide text-zinc-500 font-semibold">Powered by</div>
-            <img class="equifax-logo mx-auto mt-2" src="Equifax.png" alt="Equifax"/>
-          </div>
-        </div>
+        </details>
       </aside>
     </section>
 
-    <!-- INVENTORY (original 8 tiles with shimmer) -->
+    <!-- INVENTORY (8 cards with shimmer) -->
     <section id="inventory" class="card p-5 mt-6">
       <div class="flex items-center justify-between mb-2">
         <h3 class="h2">Browse by Vehicle Type</h3>
@@ -524,9 +492,7 @@
           View all <span id="inv-total" class="inv-badge text-zinc-400 font-bold">(0)</span>
         </a>
       </div>
-      <p class="text-[12px] text-zinc-600 mb-1">
-        Fill out the quick form above to see your personalized options.
-      </p>
+      <p class="text-[12px] text-zinc-600 mb-1">Fill out the quick form above to see your personalized options.</p>
       <p class="text-[11px] text-zinc-500 -mt-1">Numbers refresh as you complete the short form.</p>
 
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-3">
@@ -571,16 +537,8 @@
         <h3 class="h2">Head Office — Victoria, BC</h3>
         <p class="text-[12px] text-zinc-600 mt-1">Real location. Real people. No call centres.</p>
       </div>
-      <iframe
-        class="map-embed"
-        title="Map — Vancouver Island Credit"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        src="https://www.google.com/maps?q=Victoria,BC&z=11&output=embed">
-      </iframe>
-      <div class="px-4 py-3 text-[12px] text-zinc-600 border-t">
-        525 Gorge Rd E, Victoria, BC V8T 4T2
-      </div>
+      <iframe class="map-embed" title="Map — Vancouver Island Credit" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Victoria,BC&z=11&output=embed"></iframe>
+      <div class="px-4 py-3 text-[12px] text-zinc-600 border-t">525 Gorge Rd E, Victoria, BC V8T 4T2</div>
     </section>
 
     <footer id="contact" class="text-center text-[11px] text-zinc-500 pt-1 space-y-1">
@@ -592,7 +550,7 @@
     </footer>
   </main>
 
-  <!-- Progress overlay (UI only) -->
+  <!-- Overlay -->
   <div id="progress-overlay" class="progress-overlay hidden" aria-hidden="true">
     <div class="progress-card">
       <div class="progress-title">Working on it…</div>
@@ -615,7 +573,7 @@
     // Mobile menu
     $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
 
-    // Steps helpers
+    // Steps
     const steps = () => bySelAll('.form-step');
 
     function showStep(n){
@@ -624,64 +582,31 @@
       const t = s[n-1];
       if (t){ t.classList.remove('hidden'); window.__currentStep = n; }
 
-      const total = s.length;
+      const total = s.length - 1; // exclude hidden 99
       $('btnBack').disabled = (n === 1);
-      $('btnNext').textContent = (n === total) ? 'Next' : 'Next'; // always "Next"
+      $('btnNext').textContent = 'Next';
       bySel('#progress-label').textContent = 'Step ' + n + ' of ' + total;
       const pct = Math.round((n-1)/(total-1)*100);
       bySel('#progress-fill').style.width = pct + '%';
-      bySel('#progress-endcap').textContent = (n === total) ? 'Submitting…' : 'Let’s get you approved';
+      bySel('#progress-endcap').textContent = (n >= total) ? 'Finding matches…' : 'Let’s get you approved';
     }
 
     function next(delta){
       const cur = window.__currentStep || 1;
       if (delta>0 && !validateStep(cur)) return;
       let t = cur + delta;
-      const total = steps().length;
+      const total = steps().length - 1;
       if (t < 1) t = 1;
       if (t > total) { submitForm(); return; }
       showStep(t);
     }
 
-    // Nav buttons
-    $('btnNext').addEventListener('click', ()=> {
-      const cur = window.__currentStep || 1;
-      // Auto-submit on last (consent text on step 8)
-      if (cur === steps().length) {
-        if (!validateStep(cur)) return;
-        submitForm();
-        return;
-      }
-      next(1);
-    });
+    // Nav
+    $('btnNext').addEventListener('click', ()=> next(1));
     $('btnBack').addEventListener('click', ()=> next(-1));
 
-    // Faux "refresh" for inventory cards
-    function fakeRefreshCounts(){
-      const badgeAll = bySel('#inv-total');
-      const badges = [ ...bySelAll('.inv-badge') ];
-      const cards = bySelAll('.bodytype-card');
-
-      badgeAll?.classList.add('updating');
-      badges.forEach(b => b.classList.add('updating'));
-      cards.forEach(c => c.classList.add('loading'));
-      setTimeout(()=>{
-        badgeAll?.classList.remove('updating');
-        badges.forEach(b => b.classList.remove('updating'));
-        cards.forEach(c => c.classList.remove('loading'));
-      }, 700);
-    }
-
-    bySelAll('.js-view-inventory').forEach(el=>{
-      el.addEventListener('click', (e)=>{
-        e.preventDefault();
-        fakeRefreshCounts();
-        $('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
-      });
-    });
-
-    // ===== Rectangular option tiles (auto-advance)
-    // Step 1: Condition
+    // Choice rectangles (auto-advance)
+    // Step 1 (condition)
     bySelAll('[data-cond]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected'));
@@ -691,92 +616,30 @@
       });
     });
 
-    // Step 2: Budget
+    // Step 2 (budget quick ranges)
+    const biw = $('biWeeklyRange'); const out = $('biWeeklyOut');
+    if (biw && out){ biw.addEventListener('input', ()=> out.textContent = biw.value); }
     bySelAll('[data-budget]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-budget]').forEach(x=>x.classList.remove('selected'));
         btn.classList.add('selected');
-        $('budgetRangeBiWeekly').value = btn.dataset.budget;
+        $('budgetRange').value = btn.dataset.budget;
         next(1);
       });
     });
 
-    // Step 3: Down payment + Trade-in (need both before advance)
-    let downPicked = false, tradePicked = false;
-    function maybeAdvanceStep3(){
-      if (downPicked && tradePicked) next(1);
-    }
-    bySelAll('[data-down]').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        bySelAll('[data-down]').forEach(x=>x.classList.remove('selected'));
-        btn.classList.add('selected');
-        $('downPayment').value = btn.dataset.down;
-        downPicked = true;
-        maybeAdvanceStep3();
-      });
-    });
+    // Step 3 trade-in rectangles
     bySelAll('[data-trade]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-trade]').forEach(x=>x.classList.remove('selected'));
         btn.classList.add('selected');
-        $('hasTradeIn').value = btn.dataset.trade;
-        tradePicked = true;
-        ensureTradeInStep(btn.dataset.trade === 'Yes');
-        maybeAdvanceStep3();
+        const v = btn.dataset.trade || 'No';
+        $('hasTradeIn').value = v;
+        bySel('#tradeInDetails').classList.toggle('hidden', v.toLowerCase()!=='yes');
       });
     });
 
-    // Insert/remove Trade-in details step after Step 3
-    function ensureTradeInStep(need){
-      const after = $('step-purchase');
-      const existing = after.nextElementSibling && after.nextElementSibling.dataset?.step === '4' && after.nextElementSibling.id === 'step-tradein'
-        ? after.nextElementSibling : null;
-
-      if (need && !existing){
-        const sec = document.createElement('section');
-        sec.className = 'form-step hidden';
-        sec.dataset.step = '4';
-        sec.id = 'step-tradein';
-        sec.innerHTML = `
-          <div class="step-inner">
-            <h3 class="h2">4. Trade-in details</h3>
-            <div class="grid-3">
-              <div><label class="label mb-1 block">Year</label><input type="number" name="tradeInYear" class="form-input" inputmode="numeric" min="2000" max="2099" required/></div>
-              <div><label class="label mb-1 block">Make</label><input type="text" name="tradeInMake" class="form-input" maxlength="40" required/></div>
-              <div><label class="label mb-1 block">Model</label><input type="text" name="tradeInModel" class="form-input" maxlength="50" required/></div>
-            </div>
-            <div class="grid-2 mt-2">
-              <div><label class="label mb-1 block">KM</label><input type="number" name="tradeInKms" class="form-input" inputmode="numeric" min="0" max="1000000" required/></div>
-              <div><label class="label mb-1 block">Money owed</label><input type="text" name="tradeInOwed" class="form-input" placeholder="$5,000 or None" maxlength="20" required/></div>
-            </div>
-          </div>
-        `;
-        after.insertAdjacentElement('afterend', sec);
-        renumberSteps();
-      } else if (!need && existing){
-        existing.remove();
-        renumberSteps();
-      }
-    }
-
-    // Progress labeling after structural changes
-    function renumberSteps(){
-      const total = steps().length;
-      const cur = window.__currentStep || 1;
-      bySel('#progress-label').textContent = 'Step ' + cur + ' of ' + total;
-      const pct = Math.round((cur-1)/(total-1)*100);
-      bySel('#progress-fill').style.width = pct + '%';
-    }
-
-    // Phone formatting
-    $('phone')?.addEventListener('input', (e)=>{
-      const d=e.target.value.replace(/\D/g,'').slice(0,10);
-      if(d.length>6)e.target.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
-      else if(d.length>3)e.target.value=`(${d.slice(0,3)}) ${d.slice(3)}`;
-      else if(d.length>0)e.target.value=`(${d}`;
-    });
-
-    // Rent/Own switch
+    // Rent/Own segmented
     function setHousing(type){
       $('housingType').value = type;
       $('btnRent').setAttribute('aria-pressed', String(type==='Rent'));
@@ -785,18 +648,30 @@
     $('btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
     $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
 
+    // Phone format
+    $('phone')?.addEventListener('input', (e)=>{
+      const d=e.target.value.replace(/\D/g,'').slice(0,10);
+      if(d.length>6)e.target.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
+      else if(d.length>3)e.target.value=`(${d.slice(0,3)}) ${d.slice(3)}`;
+      else if(d.length>0)e.target.value=`(${d}`;
+    });
+
     // Validation
     function visibleRequired() {
       const req = bySelAll('#the-form [required]');
       return req.filter(el => !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none');
     }
     function validateStep(n){
+      // Step-specific checks (so hidden required fields won't block)
+      if (n===1) { return !!$('vehicleCondition').value; }
+      if (n===2) { return !!$('budgetRange').value; }
+
       const stepEl = steps()[n-1];
       if(!stepEl) return true;
       let ok = true;
       const fields = visibleRequired().filter(el => stepEl.contains(el));
       fields.forEach(el => {
-        let pass = (el.type==='checkbox') ? el.checked : (el.value && el.value.toString().trim()!=='');
+        let pass = (el.type==='checkbox') ? el.checked : (el.value && el.value.trim()!=='');
         if (el.id==='phone') pass = el.value.replace(/\D/g,'').length>=10;
         if (el.type==='email' || el.id==='email'){ const v=el.value.trim(); pass = pass && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
         if (!pass){ ok=false; el.classList.add('err'); const lab = bySel('label[for="'+el.id+'"]'); lab?.classList.add('err-label'); }
@@ -804,18 +679,23 @@
       });
       return ok;
     }
+    function validateAll(){
+      let ok = true;
+      for (let i=1;i<=steps().length-1;i++){ if(!validateStep(i)) ok=false; }
+      return ok;
+    }
 
-    // Progress overlay (UI only)
-    async function runProgressOverlay(minMs=4600){
+    // Overlay
+    async function runProgressOverlay(minMs=4200){
       const overlay = $('progress-overlay');
       const bar = bySel('#progress-bar');
       const stepsEl = bySelAll('#progress-steps li');
       overlay.classList.remove('hidden');
 
       const stages = [
-        { width: 30, index: 0, ms: 1200 },
-        { width: 65, index: 1, ms: 1400 },
-        { width: 100, index: 2, ms: 1600 }
+        { width: 35, index: 0, ms: 900 },
+        { width: 70, index: 1, ms: 1200 },
+        { width: 100, index: 2, ms: 1400 }
       ];
 
       const t0 = Date.now();
@@ -829,13 +709,13 @@
       overlay.classList.add('hidden');
     }
 
-    // Submit + overlay
+    // Submit on final "Next"
     async function submitForm(){
-      if (!validateAll()) { alert('Please complete all required fields.'); return; }
-      const code = 'ABC' + Math.floor(1000 + Math.random()*9000); // application code format
+      if (!validateAll()) { return; }
+      const code = 'VIC-' + Math.random().toString(36).slice(2,8).toUpperCase();
       try { sessionStorage.setItem('vic_app_code', code); } catch(_) {}
 
-      const fd = new FormData($('the-form'));
+      const fd = new FormData(bySel('#the-form'));
       fd.append('appCode', code);
 
       const post = fetch('/', {
@@ -844,25 +724,53 @@
         body:new URLSearchParams(fd).toString()
       }).catch(()=>null);
 
-      await runProgressOverlay(4600);
+      await runProgressOverlay(4200);
+
       try {
         await post;
         const url = new URL('/thank-you.html', window.location.origin);
         url.searchParams.set('code', code);
         window.location.href = url.toString();
       } catch (e) {
-        $('the-form').submit();
+        bySel('#the-form').submit();
       }
     }
-    function validateAll(){
-      let ok = true;
-      for (let i=1;i<=steps().length;i++){ if(!validateStep(i)) ok=false; }
-      return ok;
+
+    // Inventory shimmer “refresh”
+    function fakeRefreshCounts(){
+      const cards = bySelAll('.bodytype-card');
+      cards.forEach(c => c.classList.add('loading'));
+      setTimeout(()=> cards.forEach(c=> c.classList.remove('loading')), 700);
     }
 
-    // Dropdown helpers
+    // “View all” -> focus form & shimmer
+    bySelAll('.js-view-inventory').forEach(el=>{
+      el.addEventListener('click', (e)=>{
+        e.preventDefault();
+        fakeRefreshCounts();
+        document.getElementById('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    // Login (demo)
+    $('login-form')?.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const raw = $('loginCode').value || '';
+      const code = raw.toUpperCase().trim();
+      const pass = $('loginPass').value || '';
+      if (!code || !pass) return;
+      try { sessionStorage.setItem('vic_app_code', code); } catch(_) {}
+      alert('Logged in (demo). Matching options would show here.');
+    });
+
+    // DOB / dropdown helpers
+    function populateDOBYears(sel){ if(!sel) return;
+      const start=2004; sel.innerHTML = '';
+      for(let y=start; y>=1940; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); }
+    }
     function populateMonths(sel){ if(!sel) return;
       const m=["01","02","03","04","05","06","07","08","09","10","11","12"];
+      sel.innerHTML = '<option value="">MM</option>';
       m.forEach((mm,i)=>{ const o=document.createElement('option'); o.value=i+1; o.textContent=mm; sel.appendChild(o);});
     }
     function updateDays(){
@@ -879,29 +787,27 @@
 
     // Init
     (function init(){
-      const y = new Date().getFullYear(); bySel('#year').textContent = y;
+      const y = new Date().getFullYear(); bySel('#year')?.textContent = y;
 
-      // DOB dropdowns
-      const yearSel = $('dobYear');
-      if (yearSel){
-        for (let yr=2004; yr>=1900; yr--){ const o=document.createElement('option'); o.value=yr; o.textContent=yr; yearSel.appendChild(o); }
-      }
+      // DOB
+      populateDOBYears($('dobYear'));
       populateMonths($('dobMonth')); updateDays();
       $('dobMonth')?.addEventListener('change', updateDays);
-      $('dobYear')?.addEventListener('input', updateDays);
+      $('dobYear')?.addEventListener('change', updateDays);
 
-      // Tenure dropdowns
-      populateDropdown($('timeWithEmployerYears'), 0, 30, 'Years', 'Years');
-      populateDropdown($('timeWithEmployerMonths'), 0, 11, 'Months', 'Months');
-      populateDropdown($('timeAtAddressYears'), 0, 30, 'Years', 'Years');
-      populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Months');
+      // Tenures & address helpers
+      populateDropdown($('timeWithEmployerYears'), 0, 30, 'Years', 'Year');
+      populateDropdown($('timeWithEmployerMonths'), 0, 11, 'Months', 'Month');
+      populateDropdown($('timeAtAddressYears'), 0, 30, 'Years', 'Year');
+      populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
       populateProvinces($('currentProvince'));
 
+      // Defaults
       setHousing('Rent');
       window.__currentStep = 1;
       showStep(1);
 
-      // Inventory shimmer
+      // light shimmer once
       setTimeout(fakeRefreshCounts, 500);
     })();
   </script>
