@@ -225,6 +225,7 @@
             <form id="the-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" novalidate>
               <input type="hidden" name="form-name" value="lead-form"/>
               <input type="hidden" name="app_type" id="app_type" value="Full Application" />
+              <input type="hidden" name="appCode" id="appCode" value="" />
               <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
 
               <!-- 1. Vehicle condition -->
@@ -245,8 +246,7 @@
                 <div class="step-inner">
                   <h3 class="h2">2. Bi-weekly budget <span class="muted">(starts at $120)</span></h3>
                   <div class="mt-2">
-                    <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="120" class="w-full"
-                      style="accent-color: var(--blue-600);">
+                    <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="120" class="w-full" style="accent-color: var(--blue-600);">
                     <div class="text-[12px] text-zinc-700 mt-1 text-center">Selected: <b>$<span id="biWeeklyOut">120</span></b> / bi-weekly</div>
                     <input type="hidden" name="budgetRange" id="budgetRange" value="$120 bi-weekly">
                   </div>
@@ -466,7 +466,7 @@
           <form id="login-form" class="flex flex-col gap-2 mt-3">
             <div>
               <label class="label mb-1 block" for="loginCode">Application number</label>
-              <input id="loginCode" type="text" class="form-input uppercase" placeholder="VIC-ABC123" maxlength="16" />
+              <input id="loginCode" type="text" class="form-input uppercase" placeholder="ABC-123456" maxlength="16" />
             </div>
             <div>
               <label class="label mb-1 block" for="loginPass">Password</label>
@@ -659,7 +659,7 @@
       else if(d.length>0)e.target.value=`(${d}`;
     });
 
-    // Validation
+    // Validation (validate current step only)
     function visibleRequired() {
       const req = bySelAll('#the-form [required]');
       return req.filter(el => !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none');
@@ -700,7 +700,7 @@
       return ok;
     }
 
-    // Overlay
+    // Overlay runner
     async function runProgressOverlay(minMs=4200){
       const overlay = $('progress-overlay');
       const bar = $('progress-bar');
@@ -724,36 +724,33 @@
       overlay.classList.add('hidden');
     }
 
-    // Submit on final "Next"
+    // === Submit orchestration ===
+    function generateAppCode(){
+      // ABC-###### (zero-padded 6 digits)
+      const n = Math.floor(Math.random()*1_000_000);
+      return 'ABC-' + String(n).padStart(6,'0');
+    }
+
     async function submitForm(){
-      if (!validateAll()) { return; }
+      if (!validateAll()) return;
+      // Trigger native submit; actual handling happens in the 'submit' handler below
+      bySel('#the-form').requestSubmit();
+    }
 
-      // Optional app code for your thank-you page
-      const code = 'VIC-' + Math.random().toString(36).slice(2,8).toUpperCase();
+    // Intercept native submit ONLY to show overlay and stamp code, then let it post
+    bySel('#the-form')?.addEventListener('submit', async (e)=>{
+      // Show overlay and enrich payload, then allow native post (Netlify-friendly)
+      e.preventDefault();
+
+      const code = generateAppCode();
       try { sessionStorage.setItem('vic_app_code', code); } catch(_) {}
-
-      const fd = new FormData(bySel('#the-form'));
-      fd.append('appCode', code);
-
-      // Try Netlify-style POST, then navigate
-      const post = fetch('/', {
-        method:'POST',
-        headers:{'Content-Type':'application/x-www-form-urlencoded'},
-        body:new URLSearchParams(fd).toString()
-      }).catch(()=>null);
+      const codeInput = $('appCode'); if (codeInput) codeInput.value = code;
 
       await runProgressOverlay(4200);
 
-      try {
-        await post;
-        const url = new URL('/thank-you.html', window.location.origin);
-        url.searchParams.set('code', code);
-        window.location.href = url.toString();
-      } catch (e) {
-        // Fallback to native submit if fetch failed
-        bySel('#the-form').submit();
-      }
-    }
+      // Now do a real post to action="/thank-you.html"
+      e.target.submit();
+    });
 
     // Inventory shimmer “refresh”
     function fakeRefreshCounts(){
@@ -762,7 +759,7 @@
       setTimeout(()=> cards.forEach(c=> c.classList.remove('loading')), 700);
     }
 
-    // “View all” anchor -> focus form & shimmer
+    // “View all” -> focus form & shimmer
     bySelAll('.js-view-inventory').forEach(el=>{
       el.addEventListener('click', (e)=>{
         e.preventDefault();
@@ -801,7 +798,7 @@
       for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=String(i).padStart(2,'0'); $('dobDay').appendChild(o);}
       if(sel&&sel<=days)$('dobDay').value=sel;
     }
-    function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o);} }
+    function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start; i<=end; i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o);} }
     function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
     function populateYears(sel, start, end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} }
 
