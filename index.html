@@ -58,6 +58,7 @@
     .input-note{ font-size:11px; margin-top:4px; }
     .input-note.error{ color:#ef4444; display:block; }
     .input-note.hidden{ display:none; }
+    .help{ font-size:11px; color:#6b7280; margin-top:2px; }
 
     /* Form shell — consistent height + pinned footer */
     .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; }
@@ -281,7 +282,8 @@
                   <div class="step-inner">
                     <h3 class="h2">1. Vehicle condition</h3>
                     <div class="step-fields">
-                      <div class="vstack mt-2">
+                      <div class="vstack mt-2" role="group" aria-labelledby="vehicleConditionLabel">
+                        <span id="vehicleConditionLabel" class="label">Condition</span>
                         <button type="button" class="choice-rect" data-cond="New">New</button>
                         <button type="button" class="choice-rect" data-cond="Used">Used</button>
                         <button type="button" class="choice-rect" data-cond="Both">Both</button>
@@ -297,6 +299,7 @@
                     <h3 class="h2">2. Bi-weekly budget <span class="muted">(starts at $120)</span></h3>
                     <div class="step-fields">
                       <div class="mt-2">
+                        <label for="biWeeklyRange" class="label">Select a budget</label>
                         <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="120" class="w-full" style="accent-color: var(--blue-600);">
                         <div class="text-[12px] text-zinc-700 mt-1 text-center">Selected: <b>$<span id="biWeeklyOut">120</span></b> / bi-weekly</div>
                         <input type="hidden" name="budgetRange" id="budgetRange" value="$120 bi-weekly">
@@ -327,6 +330,7 @@
                             <button type="button" class="choice-rect" data-trade="Yes">Yes</button>
                           </div>
                           <input type="hidden" id="hasTradeIn" name="hasTradeIn" value="No">
+                          <p class="help">Let us know if you have a vehicle to trade.</p>
                         </div>
                       </div>
                     </div>
@@ -339,15 +343,30 @@
                     <h3 class="h2">4. Trade-in details</h3>
                     <div class="step-fields">
                       <div class="grid-inline-3-tight mt-2">
-                        <select name="tradeInYear" id="tradeInYear" class="form-select">
-                          <option value="">Year</option>
-                        </select>
-                        <input type="text" name="tradeInMake" id="tradeInMake" placeholder="Make" class="form-input" maxlength="40"/>
-                        <input type="text" name="tradeInModel" id="tradeInModel" placeholder="Model" class="form-input" maxlength="50"/>
+                        <div>
+                          <label for="tradeInYear" class="label">Year</label>
+                          <select name="tradeInYear" id="tradeInYear" class="form-select">
+                            <option value="">Year</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label for="tradeInMake" class="label">Make</label>
+                          <input type="text" name="tradeInMake" id="tradeInMake" placeholder="e.g., Toyota" class="form-input" maxlength="40"/>
+                        </div>
+                        <div>
+                          <label for="tradeInModel" class="label">Model</label>
+                          <input type="text" name="tradeInModel" id="tradeInModel" placeholder="e.g., RAV4" class="form-input" maxlength="50"/>
+                        </div>
                       </div>
                       <div class="grid-inline-2 mt-2">
-                        <input type="number" name="tradeInKms" id="tradeInKms" placeholder="Km" class="form-input" inputmode="numeric" min="0" max="1000000"/>
-                        <input type="text" name="tradeInOwed" id="tradeInOwed" placeholder="Money owed e.g. $5,000 or None" class="form-input" maxlength="20"/>
+                        <div>
+                          <label for="tradeInKms" class="label">Kilometers</label>
+                          <input type="number" name="tradeInKms" id="tradeInKms" placeholder="e.g., 85,000" class="form-input" inputmode="numeric" min="0" max="1000000"/>
+                        </div>
+                        <div>
+                          <label for="tradeInOwed" class="label">Amount owed</label>
+                          <input type="text" name="tradeInOwed" id="tradeInOwed" placeholder="e.g., $5,000 or None" class="form-input" maxlength="20"/>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -373,6 +392,20 @@
                         <div>
                           <label for="avgMonthlyIncome" class="label mb-1 block">Monthly income (pre-tax) <span class="text-red-500">*</span></label>
                           <input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric" maxlength="16" required/>
+                        </div>
+                        <div>
+                          <span class="label mb-1 block">Time with current employer</span>
+                          <div class="grid-inline-2">
+                            <div>
+                              <label for="timeWithEmployerYears" class="label">Years</label>
+                              <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select>
+                            </div>
+                            <div>
+                              <label for="timeWithEmployerMonths" class="label">Months</label>
+                              <select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
+                            </div>
+                          </div>
+                          <p class="help">How long you’ve been with your current employer.</p>
                         </div>
                       </div>
                     </div>
@@ -462,21 +495,51 @@
                     <h3 class="h2">8. Current address</h3>
                     <div class="step-fields">
                       <div class="grid-inline-addr1 mt-2">
-                        <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" placeholder="Street address" autocomplete="street-address" maxlength="120" required/>
-                        <input type="text" id="currentUnit" name="currentUnit" class="form-input" placeholder="Unit #" maxlength="10"/>
-                      </div>
-                      <div class="grid-inline-addr2 mt-2">
-                        <input type="text" id="currentCity" name="currentCity" class="form-input" placeholder="City" autocomplete="address-level2" maxlength="60" required/>
-                        <select id="currentProvince" name="currentProvince" class="form-select" required><option value="">Prov</option></select>
-                        <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" placeholder="Postal code" autocomplete="postal-code" maxlength="7" required/>
-                      </div>
-                      <div class="grid-inline-2 mt-2">
-                        <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="Monthly payments" inputmode="numeric" maxlength="16" required/>
-                        <div class="grid-inline-2">
-                          <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                          <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+                        <div>
+                          <label for="currentStreetAddress" class="label">Street address <span class="text-red-500">*</span></label>
+                          <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" placeholder="123 Main St" autocomplete="street-address" maxlength="120" required/>
+                        </div>
+                        <div>
+                          <label for="currentUnit" class="label">Unit #</label>
+                          <input type="text" id="currentUnit" name="currentUnit" class="form-input" placeholder="Apt / Unit" maxlength="10"/>
                         </div>
                       </div>
+                      <div class="grid-inline-addr2 mt-2">
+                        <div>
+                          <label for="currentCity" class="label">City <span class="text-red-500">*</span></label>
+                          <input type="text" id="currentCity" name="currentCity" class="form-input" placeholder="City" autocomplete="address-level2" maxlength="60" required/>
+                        </div>
+                        <div>
+                          <label for="currentProvince" class="label">Province <span class="text-red-500">*</span></label>
+                          <select id="currentProvince" name="currentProvince" class="form-select" required><option value="">Prov</option></select>
+                        </div>
+                        <div>
+                          <label for="currentPostalCode" class="label">Postal code <span class="text-red-500">*</span></label>
+                          <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" placeholder="A1A 1A1" autocomplete="postal-code" maxlength="7" required/>
+                        </div>
+                      </div>
+
+                      <div class="grid-inline-2 mt-2">
+                        <div>
+                          <label for="housingPayment" class="label">Monthly housing payment <span class="text-red-500">*</span></label>
+                          <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1,800" inputmode="numeric" maxlength="16" required/>
+                        </div>
+                        <div>
+                          <span class="label">Time at current address</span>
+                          <div class="grid-inline-2">
+                            <div>
+                              <label for="timeAtAddressYears" class="label">Years</label>
+                              <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
+                            </div>
+                            <div>
+                              <label for="timeAtAddressMonths" class="label">Months</label>
+                              <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+                            </div>
+                          </div>
+                          <p class="help">How long you’ve lived at this address.</p>
+                        </div>
+                      </div>
+
                       <div class="mt-2">
                         <label class="label mb-1 block">Rent or Own?</label>
                         <div class="seg">
@@ -495,18 +558,39 @@
                     <h3 class="h2">9. Employment details</h3>
                     <div class="step-fields">
                       <div class="grid-inline-2 mt-2">
-                        <input type="text" id="currentEmployer" name="currentEmployer" class="form-input" placeholder="Employer"/>
-                        <input type="text" id="jobTitle" name="jobTitle" class="form-input" placeholder="Position"/>
+                        <div>
+                          <label for="currentEmployer" class="label">Employer</label>
+                          <input type="text" id="currentEmployer" name="currentEmployer" class="form-input" placeholder="Company name"/>
+                        </div>
+                        <div>
+                          <label for="jobTitle" class="label">Position</label>
+                          <input type="text" id="jobTitle" name="jobTitle" class="form-input" placeholder="Job title"/>
+                        </div>
                       </div>
-                      <div class="grid-inline-2 mt-2">
-                        <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select>
-                        <select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
+                      <div class="mt-2">
+                        <span class="label">Time with current employer</span>
+                        <div class="grid-inline-2">
+                          <div>
+                            <label for="timeWithEmployerYears" class="label">Years</label>
+                            <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select>
+                          </div>
+                          <div>
+                            <label for="timeWithEmployerMonths" class="label">Months</label>
+                            <select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
+                          </div>
+                        </div>
                       </div>
                       <div class="mt-3">
                         <p class="label mb-1">Optional additional income</p>
                         <div class="grid-inline-2">
-                          <input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Type (e.g., child benefit, side work)"/>
-                          <input id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="How much per month" inputmode="numeric" maxlength="16"/>
+                          <div>
+                            <label for="otherIncomeSource" class="label">Type</label>
+                            <input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="e.g., child benefit, side work"/>
+                          </div>
+                          <div>
+                            <label for="otherIncomeAmount" class="label">Amount per month</label>
+                            <input id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="$" inputmode="numeric" maxlength="16"/>
+                          </div>
                         </div>
                       </div>
                       <p class="muted mt-3" style="font-size:11px">By selecting Next, you give Vancouver Island Credit permission to review your credit to find exact matches.</p>
