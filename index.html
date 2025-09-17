@@ -95,7 +95,8 @@
 
     /* Inline grids — unify gaps */
     .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:var(--field-gap); }
-    .grid-inline-3{ display:grid; grid-template-columns: 1.2fr 1fr 1.2fr; gap:var(--field-gap); }
+    /* Middle name wider than first/last */
+    .grid-inline-3{ display:grid; grid-template-columns: 1fr 1.3fr 1fr; gap:var(--field-gap); }
     .grid-inline-3-tight{ display:grid; grid-template-columns: .65fr 1.1fr 1.3fr; gap:var(--field-gap); }
     .grid-inline-addr1{ display:grid; grid-template-columns: 3fr 1fr; gap:var(--field-gap); }
     .grid-inline-addr2{ display:grid; grid-template-columns: 1.6fr 1fr 1fr; gap:var(--field-gap); }
@@ -411,7 +412,7 @@
                         </div>
                         <div>
                           <label class="label mb-1 block">Month <span class="text-red-500">*</span></label>
-                          <select id="dobMonth" name="dobMonth" class="form-select" required><option value="">MM — Month</option></select>
+                          <select id="dobMonth" name="dobMonth" class="form-select" required><option value="">MM</option></select>
                         </div>
                         <div>
                           <label class="label mb-1 block">Day <span class="text-red-500">*</span></label>
@@ -862,19 +863,45 @@
       var start=2004; sel.innerHTML = '';
       for(var y=start; y>=1940; y--){ var o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); }
     }
-    // Updated: month label shows "01 — January" etc.
+
+    // Month select: show long labels in popup, short number when selected
     function populateMonths(sel){
       if(!sel) return;
       var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-      sel.innerHTML = '<option value="">MM — Month</option>';
+      sel.innerHTML = '<option value="">MM</option>';
       months.forEach(function(name, i){
         var num = String(i+1).padStart(2,'0');
         var o = document.createElement('option');
-        o.value = (i+1); // 1..12
-        o.textContent = num + ' — ' + name;
+        o.value = (i+1);             // 1..12
+        o.dataset.num = num;         // "01"
+        o.dataset.long = name + ' ' + num; // "January 01"
+        o.textContent = num;         // default closed state: just "01"
         sel.appendChild(o);
       });
+
+      function setLabelsLong(){
+        Array.prototype.forEach.call(sel.options, function(opt){
+          if (!opt.value) return; // skip placeholder
+          if (opt.dataset && opt.dataset.long) opt.textContent = opt.dataset.long;
+        });
+      }
+      function setLabelsShort(){
+        Array.prototype.forEach.call(sel.options, function(opt){
+          if (!opt.value) return;
+          if (opt.dataset && opt.dataset.num) opt.textContent = opt.dataset.num;
+        });
+      }
+
+      // Before opening: show long labels in the dropdown list
+      sel.addEventListener('mousedown', setLabelsLong);
+      sel.addEventListener('touchstart', setLabelsLong, {passive:true});
+      sel.addEventListener('focus', setLabelsLong);
+
+      // After choose/close: revert to short number for compact display
+      sel.addEventListener('change', setLabelsShort);
+      sel.addEventListener('blur', setLabelsShort);
     }
+
     function updateDays(){
       var y=parseInt(($('dobYear')&&$('dobYear').value)||'',10);
       var m=parseInt(($('dobMonth')&&$('dobMonth').value)||'',10);
