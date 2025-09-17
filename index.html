@@ -104,7 +104,10 @@
     .grid-inline-3-tight{ display:grid; grid-template-columns: .65fr 1.1fr 1.3fr; gap:var(--field-gap); }
     .grid-inline-addr1{ display:grid; grid-template-columns: 3fr 1fr; gap:var(--field-gap); }
     .grid-inline-addr2{ display:grid; grid-template-columns: 1.6fr 1fr 1fr; gap:var(--field-gap); }
-    .grid-inline-dob{ display:grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap:var(--field-gap); }
+
+    /* DOB row — order unchanged: Year, Month, Day, Marital
+       Make Marital largest, then Year, then Month/Day */
+    .grid-inline-dob{ display:grid; grid-template-columns: 1.1fr .75fr .75fr 1.7fr; gap:var(--field-gap); }
 
     /* Brand area + Powered by */
     .brand-left{ display:flex; align-items:center; gap:12px; }
@@ -300,9 +303,10 @@
                     <div class="step-fields">
                       <div class="mt-2">
                         <label for="biWeeklyRange" class="label">Select a budget</label>
-                        <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="120" class="w-full" style="accent-color: var(--blue-600);">
-                        <div class="text-[12px] text-zinc-700 mt-1 text-center">Selected: <b>$<span id="biWeeklyOut">120</span></b> / bi-weekly</div>
-                        <input type="hidden" name="budgetRange" id="budgetRange" value="$120 bi-weekly">
+                        <!-- DEFAULT TO 250 -->
+                        <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="250" class="w-full" style="accent-color: var(--blue-600);">
+                        <div class="text-[12px] text-zinc-700 mt-1 text-center">Selected: <b>$<span id="biWeeklyOut">250</span></b> / bi-weekly</div>
+                        <input type="hidden" name="budgetRange" id="budgetRange" value="$250 bi-weekly">
                       </div>
                     </div>
                   </div>
@@ -441,7 +445,7 @@
                   </div>
                 </section>
 
-                <!-- 7. Names + DOB -->
+                <!-- 7. Your information -->
                 <section class="form-step hidden" data-step="7" id="step-yourinfo">
                   <div class="step-inner">
                     <h3 class="h2">7. Your information</h3>
@@ -465,18 +469,21 @@
                         <div class="grid-inline-dob mt-1">
                           <div>
                             <label class="label mb-1 block">DOB Year <span class="text-red-500">*</span></label>
+                            <!-- 4-digit years in options -->
                             <select id="dobYear" name="dobYear" class="form-select" required></select>
                           </div>
                           <div>
                             <label class="label mb-1 block">Month <span class="text-red-500">*</span></label>
+                            <!-- shows 01..12 in control; long name in dropdown list -->
                             <select id="dobMonth" name="dobMonth" class="form-select" required><option value="">MM</option></select>
                           </div>
                           <div>
                             <label class="label mb-1 block">Day <span class="text-red-500">*</span></label>
+                            <!-- shows 01..31 -->
                             <select id="dobDay" name="dobDay" class="form-select" required><option value="">DD</option></select>
                           </div>
                           <div>
-                            <label for="maritalStatus" class="label mb-1 block">Marital</label>
+                            <label for="maritalStatus" class="label mb-1 block">Marital status</label>
                             <select id="maritalStatus" name="maritalStatus" class="form-select">
                               <option value="">Select</option>
                               <option>Single</option><option>Married</option><option>Common-Law</option>
@@ -1012,7 +1019,7 @@
         o.value = (i+1);
         o.dataset.num = num;
         o.dataset.long = name + ' ' + num; // "January 01"
-        o.textContent = num;
+        o.textContent = num;               // control shows "01"
         sel.appendChild(o);
       });
 
