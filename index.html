@@ -78,6 +78,7 @@
     .choice-rect.selected{ border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
 
     .muted{ font-size:12px; color:#6b7280; }
+    .hint { font-size:11px; color:#6b7280; }
 
     /* Segmented control (Rent / Own) */
     .seg{
@@ -99,7 +100,7 @@
     .grid-inline-3-tight{ display:grid; grid-template-columns: .65fr 1.1fr 1.3fr; gap:var(--field-gap); }
     .grid-inline-addr1{ display:grid; grid-template-columns: 3fr 1fr; gap:var(--field-gap); }
     .grid-inline-addr2{ display:grid; grid-template-columns: 1.6fr 1fr 1fr; gap:var(--field-gap); }
-    /* DOB layout: Marital largest, then Year, then Month, Day (same order as markup) */
+    /* DOB order kept; sizes: Marital > Year > Month = Day */
     .grid-inline-dob{ display:grid; grid-template-columns: 1.6fr 1.2fr 1fr 1fr; gap:var(--field-gap); }
 
     .brand-left{ display:flex; align-items:center; gap:12px; }
@@ -113,7 +114,7 @@
 
     .abc-badge{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:9999px; background:var(--blue-600); color:#fff; border:none; font-weight:800; font-size:11px; line-height:1; flex-shrink:0; }
 
-    /* Browse Vehicles (with shimmer) */
+    /* Inventory cards */
     .bodytype-card{ overflow:hidden; border-radius:10px; border:1px solid #e5e7eb; background:#fff; transition:transform .15s,box-shadow .15s,border-color .15s; }
     .bodytype-card:hover{ transform:translateY(-1px); border-color:var(--blue-600); box-shadow:0 10px 18px -12px rgba(42,93,159,.28); }
     .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:92px; }
@@ -162,8 +163,21 @@
       padding-right: 2.2rem;
     }
 
-    /* Small helper to make compact hint text align nicely */
-    .hint { font-size:11px; color:#6b7280; }
+    /* ---------- Refi compact block ---------- */
+    #refi-card.refi-compact{
+      padding: 14px 16px;
+    }
+    .refi-compact .h2{ margin-bottom: 2px; }
+    .refi-compact .row{ display:grid; grid-template-columns: 1fr; gap:8px; }
+    .refi-compact .row-2{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
+    .refi-compact .slider-wrap{ margin-top: 6px; }
+    .refi-compact input[type="range"]{ accent-color: var(--blue-600); width:100%; }
+    .refi-compact .mini{ font-size:12px; color:#374151; }
+    .refi-compact .tiny{ font-size:11px; color:#6b7280; }
+    /* Keep the card low-profile so it only fills the intended gap area */
+    @media (min-width: 768px){
+      #refi-card{ max-height: 320px; overflow: hidden; }
+    }
   </style>
 
   <script type="application/ld+json">
@@ -284,7 +298,7 @@
                   </div>
                 </section>
 
-                <!-- 2. Bi-weekly budget (slider only) -->
+                <!-- 2. Bi-weekly budget -->
                 <section class="form-step hidden" data-step="2">
                   <div class="step-inner">
                     <h3 class="h2">2. Bi-weekly budget <span class="muted">(starts at $120)</span></h3>
@@ -322,7 +336,7 @@
                   </div>
                 </section>
 
-                <!-- 4. Trade-in details (only if Yes) -->
+                <!-- 4. Trade-in details -->
                 <section class="form-step hidden" data-step="4" id="step-tradein">
                   <div class="step-inner">
                     <h3 class="h2">4. Trade-in details</h3>
@@ -513,42 +527,49 @@
         </div>
       </div>
 
-      <!-- RIGHT COLUMN: Refinance + Login -->
+      <!-- RIGHT COLUMN: Refinance (compact) + Login -->
       <aside class="equal-h flex flex-col gap-4">
-        <!-- Refinance Calculator -->
-        <div class="card p-5" id="refi-card">
+        <!-- Refinance Calculator (compact band to fill the gap above login) -->
+        <div class="card refi-compact" id="refi-card">
           <h3 class="h2">If I were to refinance…</h3>
 
-          <div class="vstack mt-2">
-            <!-- Loan amount slider + number -->
+          <!-- Loan Amount -->
+          <div class="row slider-wrap">
+            <label class="label" for="refLoanRange">Current loan amount</label>
+            <input type="range" id="refLoanRange" min="0" max="120000" step="500" value="15000" />
+            <div class="mini">Selected: <b>$<span id="refLoanOut">15,000</span></b></div>
+          </div>
+
+          <!-- Current Rate & New Rate (sliders) -->
+          <div class="row-2 slider-wrap">
             <div>
-              <label class="label" for="refLoanRange">Current loan amount</label>
-              <input type="range" id="refLoanRange" min="0" max="120000" step="500" value="15000" class="w-full" style="accent-color: var(--blue-600);" />
-              <div class="text-[12px] mt-1">
-                Selected: <b>$<span id="refLoanOut">15,000</span></b>
-              </div>
+              <label class="label" for="refRateRange">Current interest rate (%)</label>
+              <input type="range" id="refRateRange" min="1" max="29" step="0.1" value="9.99" />
+              <div class="mini">Current: <b><span id="refRateOut">9.99</span>%</b></div>
             </div>
-
-            <div class="grid-inline-2">
-              <div>
-                <label class="label" for="refRate">Current interest rate (%)</label>
-                <input type="number" id="refRate" class="form-input" placeholder="e.g. 9.99" step="0.01" value="9.99"/>
-              </div>
-              <div>
-                <label class="label" for="refTerm">Remaining term (years)</label>
-                <input type="number" id="refTerm" class="form-input" placeholder="e.g. 5" value="5"/>
-              </div>
-            </div>
-
-            <!-- New rate -->
             <div>
               <label class="label" for="refNewRate">New interest rate (%)</label>
-              <input type="range" id="refNewRate" min="1" max="29" step="0.1" value="5" class="w-full" style="accent-color: var(--blue-600);" />
-              <div class="text-[12px] mt-1">Selected new rate: <b><span id="refNewRateOut">5.0</span>%</b></div>
+              <input type="range" id="refNewRate" min="1" max="8.99" step="0.1" value="5" />
+              <div class="mini">New: <b><span id="refNewRateOut">5.0</span>%</b></div>
+              <div id="refNewRateNote" class="tiny hidden">New rate must be at least 1.0% lower than current.</div>
             </div>
           </div>
 
-          <div class="mt-3 text-[13px] text-zinc-700 space-y-1" id="refResults">
+          <!-- Term -->
+          <div class="row-2 slider-wrap">
+            <div>
+              <label class="label" for="refTermRange">Remaining term (years)</label>
+              <input type="range" id="refTermRange" min="1" max="8" step="1" value="5" />
+              <div class="mini">Term: <b><span id="refTermOut">5</span> years</b></div>
+            </div>
+            <div>
+              <!-- spacer for vertical balance -->
+              <div class="mini" style="visibility:hidden">.</div>
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div class="mt-2 text-[13px] text-zinc-700 space-y-1" id="refResults">
             <p><b>Current payment:</b> —</p>
             <p><b>New payment:</b> —</p>
             <p><b>Monthly savings:</b> —</p>
@@ -681,7 +702,6 @@
       var t = s[n-1];
       if (t){ t.classList.remove('hidden'); window.__currentStep = n; }
 
-      // progress bar + label
       var total = 9;
       var backBtn = $('btnBack'); if (backBtn) backBtn.disabled = (n === 1);
       var nextBtn = $('btnNext'); if (nextBtn) nextBtn.textContent = 'Next';
@@ -690,7 +710,6 @@
       var fill = bySel('#progress-fill'); if (fill) fill.style.width = pct + '%';
       var endcap = bySel('#progress-endcap'); if (endcap) endcap.textContent = (n >= total) ? 'Finding matches…' : 'Let’s get you approved';
 
-      // keep viewport height stable
       setViewportHeight();
     }
 
@@ -698,7 +717,7 @@
       var hasInput = $('hasTradeIn');
       var hasTrade = (hasInput && hasInput.value || 'No').toLowerCase() === 'yes';
       if (delta > 0){
-        if (cur === 3 && !hasTrade) return 5; // skip 4
+        if (cur === 3 && !hasTrade) return 5;
         return cur + 1;
       } else {
         if (cur === 5 && !hasTrade) return 3;
@@ -720,7 +739,7 @@
     var nextBtn = $('btnNext'); if (nextBtn) nextBtn.addEventListener('click', function(){ next(1); });
     var backBtn = $('btnBack'); if (backBtn) backBtn.addEventListener('click', function(){ next(-1); });
 
-    // Step 1 tiles (select + immediate advance)
+    // Step 1
     bySelAll('[data-cond]').forEach(function(btn){
       btn.addEventListener('click', function(){
         bySelAll('[data-cond]').forEach(function(x){ x.classList.remove('selected','err'); });
@@ -730,18 +749,15 @@
       });
     });
 
-    // Step 2 range default at 250
-    var biw = $('biWeeklyRange'); var out = $('biWeeklyOut'); var br = $('budgetRange');
+    // Step 2 default at 250
+    var biw = $('biWeeklyRange'), out = $('biWeeklyOut'), br = $('budgetRange');
     if (biw && out && br){
-      function updateBudget(){
-        out.textContent = biw.value;
-        br.value = '$' + biw.value + ' bi-weekly';
-      }
+      function updateBudget(){ out.textContent = biw.value; br.value = '$' + biw.value + ' bi-weekly'; }
       biw.addEventListener('input', updateBudget);
       updateBudget();
     }
 
-    // Step 3 trade-in tiles
+    // Step 3 trade-in
     bySelAll('[data-trade]').forEach(function(btn){
       btn.addEventListener('click', function(){
         bySelAll('[data-trade]').forEach(function(x){ x.classList.remove('selected'); });
@@ -783,7 +799,7 @@
     if (p1) p1.addEventListener('input', checkPass);
     if (p2) p2.addEventListener('input', checkPass);
 
-    // Validation (validate current step only)
+    // Validation
     function visibleRequired() {
       var req = bySelAll('#the-form [required]');
       return req.filter(function(el){ return !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none'; });
@@ -794,9 +810,7 @@
         bySelAll('[data-cond]').forEach(function(x){ x.classList.toggle('err', !ok1); });
         return ok1;
       }
-      if (n===2) {
-        return !!(br && br.value);
-      }
+      if (n===2) { return !!(br && br.value); }
 
       var stepEl = steps()[n-1];
       if(!stepEl) return true;
@@ -871,20 +885,18 @@
       });
     }
 
-    // === Submit orchestration ===
+    // Submit orchestration
     function generateAppCode(){
       var n = Math.floor(Math.random()*1000000);
       var s = String(n);
       while (s.length<6) s = '0'+s;
       return 'ABC-' + s;
     }
-
     function submitForm(){
       if (!validateAll()) return;
       var form = bySel('#the-form');
       if (form) form.requestSubmit();
     }
-
     var formEl = bySel('#the-form');
     if (formEl){
       formEl.addEventListener('submit', function(e){
@@ -896,14 +908,12 @@
       });
     }
 
-    // Inventory shimmer “refresh”
+    // Inventory shimmer
     function fakeRefreshCounts(){
       var cards = bySelAll('.bodytype-card');
       cards.forEach(function(c){ c.classList.add('loading'); });
       setTimeout(function(){ cards.forEach(function(c){ c.classList.remove('loading'); }); }, 700);
     }
-
-    // “View all” -> focus form & shimmer
     bySelAll('.js-view-inventory').forEach(function(el){
       el.addEventListener('click', function(e){
         e.preventDefault();
@@ -932,8 +942,6 @@
       var start=2004; sel.innerHTML = '';
       for(var y=start; y>=1940; y--){ var o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); }
     }
-
-    // Month select: show long labels in popup, short number when selected
     function populateMonths(sel){
       if(!sel) return;
       var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -941,16 +949,15 @@
       months.forEach(function(name, i){
         var num = String(i+1).padStart(2,'0');
         var o = document.createElement('option');
-        o.value = (i+1);             // 1..12
-        o.dataset.num = num;         // "01"
-        o.dataset.long = name + ' ' + num; // "January 01"
-        o.textContent = num;         // default closed state: just "01"
+        o.value = (i+1);
+        o.dataset.num = num;
+        o.dataset.long = name + ' ' + num;
+        o.textContent = num;
         sel.appendChild(o);
       });
-
       function setLabelsLong(){
         Array.prototype.forEach.call(sel.options, function(opt){
-          if (!opt.value) return; // skip placeholder
+          if (!opt.value) return;
           if (opt.dataset && opt.dataset.long) opt.textContent = opt.dataset.long;
         });
       }
@@ -960,15 +967,12 @@
           if (opt.dataset && opt.dataset.num) opt.textContent = opt.dataset.num;
         });
       }
-
       sel.addEventListener('mousedown', setLabelsLong);
       sel.addEventListener('touchstart', setLabelsLong, {passive:true});
       sel.addEventListener('focus', setLabelsLong);
-
       sel.addEventListener('change', setLabelsShort);
       sel.addEventListener('blur', setLabelsShort);
     }
-
     function updateDays(){
       var y=parseInt(($('dobYear')&&$('dobYear').value)||'',10);
       var m=parseInt(($('dobMonth')&&$('dobMonth').value)||'',10);
@@ -992,23 +996,19 @@
       for(var y=start; y>=end; y--){ var o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); }
     }
 
-    // ---- Consistent height for all steps ----
+    // ---- Consistent step viewport height ----
     function setViewportHeight(){
       var viewport = $('step-viewport');
       if (!viewport) return;
-
       var s = steps();
       var maxH = 0;
-      // Temporarily show hidden steps to measure
       for (var i=0;i<s.length;i++){
         var sec = s[i];
         var wasHidden = sec.classList.contains('hidden');
         if (wasHidden) sec.classList.remove('hidden');
-
         var inner = sec.querySelector('.step-inner');
         var h = inner ? inner.offsetHeight : sec.offsetHeight;
         if (h > maxH) maxH = h;
-
         if (wasHidden) sec.classList.add('hidden');
       }
       var buffer = 8;
@@ -1027,43 +1027,36 @@
     (function init(){
       var y = new Date().getFullYear(); var yEl = bySel('#year'); if (yEl) yEl.textContent = y;
 
-      // Default Step 1 to "Both"
+      // Default Step 1
       var hiddenCond = $('vehicleCondition'); if (hiddenCond) hiddenCond.value = 'Both';
       var bothBtn = bySel('[data-cond="Both"]'); if (bothBtn) bothBtn.classList.add('selected');
 
-      // DOB
+      // DOB + helpers
       populateDOBYears($('dobYear'));
       populateMonths($('dobMonth')); updateDays();
       var dobMonth = $('dobMonth'); if (dobMonth) dobMonth.addEventListener('change', updateDays);
       var dobYear = $('dobYear'); if (dobYear) dobYear.addEventListener('change', updateDays);
 
-      // Tenures & address helpers
       populateDropdown($('timeWithEmployerYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('timeWithEmployerMonths'), 0, 11, 'Months', 'Month');
       populateDropdown($('timeAtAddressYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
       populateProvinces($('currentProvince'));
 
-      // Trade-in Years
       populateYears($('tradeInYear'), new Date().getFullYear(), 1995);
 
-      // Defaults
       setHousing('Rent');
       window.__currentStep = 1;
       showStep(1);
 
-      // Initial size pass + sync
       setViewportHeight();
       setTimeout(function(){ syncHeights(); }, 0);
 
-      // Resize listeners
       window.addEventListener('resize', function(){ setViewportHeight(); syncHeights(); });
-
-      // Also after nav clicks, keep heights in sync
       var nb = $('btnNext'); if (nb) nb.addEventListener('click', function(){ setTimeout(function(){ setViewportHeight(); syncHeights(); }, 0); });
       var bb = $('btnBack'); if (bb) bb.addEventListener('click', function(){ setTimeout(function(){ setViewportHeight(); syncHeights(); }, 0); });
 
-      // --- Refinance calculator wiring ---
+      // Refi setup
       setupRefiCalc();
       updateRefi(); // initial calc
     })();
@@ -1073,7 +1066,6 @@
       var v = (isFinite(x) ? x : 0);
       return "$" + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-
     function calcPayment(P, annualRate, years){
       var r = (annualRate/100)/12;
       var n = years*12;
@@ -1083,36 +1075,52 @@
     }
 
     function setupRefiCalc(){
-      var loanRange = $('refLoanRange');
+      var loan = $('refLoanRange');
       var loanOut = $('refLoanOut');
-      var rate = $('refRate');
-      var term = $('refTerm');
+      var curRate = $('refRateRange');
+      var curRateOut = $('refRateOut');
       var newRate = $('refNewRate');
       var newRateOut = $('refNewRateOut');
+      var newRateNote = $('refNewRateNote');
+      var term = $('refTermRange');
+      var termOut = $('refTermOut');
 
-      if (!loanRange || !loanOut || !rate || !term || !newRate || !newRateOut) return;
-
-      function updateLoanOut(){
-        loanOut.textContent = parseInt(loanRange.value,10).toLocaleString();
-        updateRefi();
+      function enforceNewRateBounds(){
+        var c = parseFloat(curRate.value || 0);
+        var maxAllowedNew = Math.max(1, (c - 1)); // must be at least 1.0% lower than current
+        // Adjust slider max and current value
+        newRate.max = String(Math.max(1, maxAllowedNew.toFixed(2)));
+        if (parseFloat(newRate.value) > parseFloat(newRate.max)){
+          newRate.value = newRate.max;
+        }
+        // Show rule note if current too low to allow any 1% drop
+        var disable = c <= 1.1; // practically no room for a 1% lower rate
+        newRate.disabled = disable;
+        newRateNote.classList.toggle('hidden', !disable);
       }
-      loanRange.addEventListener('input', updateLoanOut);
 
-      newRate.addEventListener('input', function(){
-        newRateOut.textContent = this.value;
-        updateRefi();
-      });
-      rate.addEventListener('input', updateRefi);
-      term.addEventListener('input', updateRefi);
+      function updateLoanOut(){ loanOut.textContent = parseInt(loan.value,10).toLocaleString(); }
+      function updateCurRateOut(){ curRateOut.textContent = Number(curRate.value).toFixed(2).replace(/\.00$/,''); }
+      function updateNewRateOut(){ newRateOut.textContent = Number(newRate.value).toFixed(1).replace(/\.0$/,''); }
+      function updateTermOut(){ termOut.textContent = term.value; }
 
-      // initial display
+      loan.addEventListener('input', function(){ updateLoanOut(); updateRefi(); });
+      curRate.addEventListener('input', function(){ updateCurRateOut(); enforceNewRateBounds(); updateNewRateOut(); updateRefi(); });
+      newRate.addEventListener('input', function(){ updateNewRateOut(); updateRefi(); });
+      term.addEventListener('input', function(){ updateTermOut(); updateRefi(); });
+
+      // Initial displays + bounds
       updateLoanOut();
+      updateCurRateOut();
+      enforceNewRateBounds();
+      updateNewRateOut();
+      updateTermOut();
     }
 
     function updateRefi(){
       var loan = parseFloat(($('refLoanRange')&&$('refLoanRange').value)||0) || 0;
-      var rate = parseFloat(($('refRate')&&$('refRate').value)||0) || 0;
-      var years = parseFloat(($('refTerm')&&$('refTerm').value)||0) || 0;
+      var rate = parseFloat(($('refRateRange')&&$('refRateRange').value)||0) || 0;
+      var years = parseFloat(($('refTermRange')&&$('refTermRange').value)||0) || 0;
       var newRate = parseFloat(($('refNewRate')&&$('refNewRate').value)||0) || 0;
 
       var results = $('refResults');
@@ -1120,16 +1128,14 @@
       if (!results) return;
 
       if (!loan || !rate || !years){
-        results.innerHTML = "<p class='hint'>Enter loan, rate, and term to see results.</p>";
+        results.innerHTML = "<p class='hint'>Adjust the sliders to see your refinance scenario.</p>";
         if (feeHint) feeHint.classList.add('hidden');
         return;
       }
 
-      // Current
       var curPmt = calcPayment(loan, rate, years);
       var curTotInt = curPmt*years*12 - loan;
 
-      // New (always add $3k fees) — UI hint only if loan > 7000
       var newLoan = loan + 3000;
       var showFeeHint = loan > 7000;
       if (feeHint){
