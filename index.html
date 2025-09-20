@@ -23,7 +23,7 @@
     :root{
       --blue-600:#2A5D9F; --blue-700:#214B80; --blue-100:#EAF1FB; --blue-grad:#4C7CC0;
 
-      /* Scaled-down typography & rhythm kept */
+      /* scaled-down but consistent */
       --fs-h1: 20px; --fs-h2: 16px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
       --pad-y: 10px; --gap-regular: 8px; --input-py: 5px; --input-px: 10px; --radius: 10px;
       --nav-font: 14px;
@@ -31,7 +31,7 @@
       --field-gap: 8px;
       --section-max: 720px;
 
-      /* Fixed viewport heights (keeps form size stable) */
+      /* these are just fallbacks; JS locks exact height at runtime */
       --form-viewport-h: 560px;    /* desktop */
       --form-viewport-h-sm: 520px; /* mobile */
 
@@ -62,14 +62,26 @@
 
     .err{ border-color:#ef4444 !important; } .err-label{ color:#ef4444 !important; }
 
-    /* Form shell — fixed inner height + pinned footer */
+    /* Form shell */
     .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; }
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; pointer-events:none; }
+
+    /* Viewport is locked by JS to tallest step (so no jump) */
     .step-viewport{ flex:1; overflow:auto; height: var(--form-viewport-h); }
     @media (max-width:640px){ .step-viewport{ height: var(--form-viewport-h-sm); } }
     .step-viewport-inner{ height:100%; }
-    .step-inner{ width:100%; max-width: var(--section-max); margin-left:auto; margin-right:auto; padding-top:var(--pad-y); padding-bottom:var(--pad-y); }
-    .step-inner > *:not(.h2){ margin-left:auto; margin-right:auto; } /* center content under title */
+
+    /* Step layout: title stays pinned top; content vertically centered */
+    .step-inner{
+      max-width: var(--section-max); margin: 0 auto; padding: var(--pad-y) 0;
+      display:flex; flex-direction:column; min-height:100%;
+    }
+    .step-title{ /* h2 wrapper to keep top aligned */ }
+    .step-body{
+      flex:1; display:flex; align-items:center; justify-content:center;
+      padding-top: 4px; padding-bottom: 8px;
+    }
+    .step-body > .content{ width:100%; max-width:640px; margin: 0 auto; }
     .vstack > * + *{ margin-top: var(--gap-regular); }
 
     /* Footer controls */
@@ -93,17 +105,13 @@
 
     /* Inline grids */
     .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:var(--field-gap); }
-    .grid-inline-3{ display:grid; grid-template-columns: 1fr 1.3fr 1fr; gap:var(--field-gap); } /* middle name wider */
+    .grid-inline-3{ display:grid; grid-template-columns: 1fr 1.3fr 1fr; gap:var(--field-gap); } /* middle wider */
     .grid-inline-3-tight{ display:grid; grid-template-columns: .65fr 1.1fr 1.3fr; gap:var(--field-gap); }
     .grid-inline-addr1{ display:grid; grid-template-columns: 3fr 1fr; gap:var(--field-gap); }
     .grid-inline-addr2{ display:grid; grid-template-columns: 1.6fr 1fr 1fr; gap:var(--field-gap); }
 
-    /* DOB row sizing: Year (4 digits) > Month (2) > Day (2) > Marital (widest) — order preserved */
-    .grid-inline-dob{
-      display:grid;
-      grid-template-columns: 1.2fr .9fr .9fr 1.6fr;
-      gap:var(--field-gap);
-    }
+    /* DOB row sizing and order preserved; Marital widest */
+    .grid-inline-dob{ display:grid; grid-template-columns: 1.2fr .9fr .9fr 1.6fr; gap:var(--field-gap); }
 
     /* Nav branding */
     .brand-left{ display:flex; align-items:center; gap:12px; }
@@ -116,23 +124,15 @@
 
     .abc-badge{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:9999px; background:var(--blue-600); color:#fff; border:none; font-weight:800; font-size:11px; line-height:1; flex-shrink:0; }
 
-    /* Inventory */
+    /* Inventory cards */
     .bodytype-card{ overflow:hidden; border-radius:10px; border:1px solid #e5e7eb; background:#fff; transition:transform .15s,box-shadow .15s,border-color .15s; }
     .bodytype-card:hover{ transform:translateY(-1px); border-color:var(--blue-600); box-shadow:0 10px 18px -12px rgba(42,93,159,.28); }
     .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:92px; }
     @media (min-width:640px){ .bodytype-img{ height:110px; } }
-    .bodytype-card.loading .bodytype-img{ position:relative; overflow:hidden; }
-    .bodytype-card.loading .bodytype-img::after{
-      content:""; position:absolute; inset:0; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(240,243,248,.55) 45%, rgba(255,255,255,0) 100%);
-      transform: translateX(-100%); animation: vicShimmer 0.9s ease-in-out 1;
-    }
-    @keyframes vicShimmer { to { transform: translateX(100%); } }
-    .inv-badge{ transition: opacity .15s ease, transform .15s ease; opacity:.65; }
 
+    /* Map, overlay */
     .map-embed{ width:100%; height:150px; border:0; }
     @media (min-width:768px){ .map-embed{ height:200px; } }
-
-    /* Overlay */
     .progress-overlay{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:50}
     .progress-card{background:#fff;border-radius:12px;box-shadow:0 20px 40px -20px rgba(0,0,0,.35);width:min(520px,92vw);padding:18px 16px}
     .progress-title{font-weight:800;font-size:16px;color:#0f172a}
@@ -142,9 +142,9 @@
     .progress-steps li{display:flex;align-items:center;gap:8px;opacity:.7}
     .progress-steps li.active{opacity:1;font-weight:700}
     .progress-note{margin-top:10px;font-size:12px;color:#64748b}
-    .hidden{display:none}
+    .hidden{display:none !important;}
 
-    /* Tidy selects (esp. iOS/Safari) */
+    /* Tidy selects */
     .form-select{
       -webkit-appearance: none; -moz-appearance: none; appearance: none;
       background-image:
@@ -160,7 +160,7 @@
       padding-right: 2.2rem;
     }
 
-    /* ===== Compact Refinance Calculator (kept) ===== */
+    /* Refi calculator compact */
     .refi-card { padding: var(--aside-pad); border-bottom:1px solid #e5e7eb; }
     .refi-title { font-size: var(--fs-h2); font-weight: 800; color:#0f172a; line-height:1.2; }
     .refi-grid{ display:grid; grid-template-columns: 1fr; gap:8px; align-items:center; }
@@ -170,16 +170,8 @@
     .refi-hint{ font-size:10px; color:#6b7280; margin-top:2px; }
     .refi-slider{ width:100%; accent-color: var(--blue-600); }
     .refi-note{ font-size:10px; color:#6b7280; margin-top:4px; }
-    @media (max-width: 768px){
-      .refi-row{ grid-template-columns: 1fr 0.7fr 0.7fr; }
-      .refi-mini{ grid-template-columns: 1fr; }
-      .refi-results{ margin-top:6px; }
-    }
 
     #login-card-inner{ padding: var(--aside-pad); display:flex; flex-direction:column; height:100%; }
-
-    /* Hide/show helper */
-    .hidden { display: none !important; }
   </style>
 
   <script type="application/ld+json">
@@ -264,7 +256,7 @@
       </div>
     </section>
 
-    <!-- FORM + LOGIN (side-by-side) -->
+    <!-- FORM + RIGHT COLUMN -->
     <section class="grid md:grid-cols-2 gap-4">
       <!-- FORM -->
       <div class="card p-0 overflow-hidden" id="lead-form">
@@ -288,13 +280,15 @@
                 <input type="hidden" name="intent" id="intent" value="finance" />
                 <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
 
-                <!-- 1. Intent: Finance or Refinance -->
+                <!-- 1. Intent -->
                 <section class="form-step" data-id="step-intent">
                   <div class="step-inner">
-                    <h3 class="h2">1. What are you looking to do?</h3>
-                    <div class="vstack mt-2" style="max-width:560px;">
-                      <button type="button" class="choice-rect" data-intent="finance">Finance a vehicle</button>
-                      <button type="button" class="choice-rect" data-intent="refinance">Refinance current vehicle</button>
+                    <div class="step-title"><h3 class="h2">1. What are you looking to do?</h3></div>
+                    <div class="step-body">
+                      <div class="content vstack" style="max-width:560px;">
+                        <button type="button" class="choice-rect" data-intent="finance">Finance a vehicle</button>
+                        <button type="button" class="choice-rect" data-intent="refinance">Refinance current vehicle</button>
+                      </div>
                     </div>
                   </div>
                 </section>
@@ -302,73 +296,81 @@
                 <!-- 2. Vehicle condition -->
                 <section class="form-step hidden" data-id="step-cond">
                   <div class="step-inner">
-                    <h3 class="h2">2. Vehicle condition</h3>
-                    <div class="vstack mt-2">
-                      <button type="button" class="choice-rect" data-cond="New">New</button>
-                      <button type="button" class="choice-rect" data-cond="Used">Used</button>
-                      <button type="button" class="choice-rect" data-cond="Both">Both</button>
+                    <div class="step-title"><h3 class="h2">2. Vehicle condition</h3></div>
+                    <div class="step-body">
+                      <div class="content vstack">
+                        <button type="button" class="choice-rect" data-cond="New">New</button>
+                        <button type="button" class="choice-rect" data-cond="Used">Used</button>
+                        <button type="button" class="choice-rect" data-cond="Both">Both</button>
+                        <input type="hidden" name="vehicleCondition" id="vehicleCondition">
+                      </div>
                     </div>
-                    <input type="hidden" name="vehicleCondition" id="vehicleCondition">
                   </div>
                 </section>
 
-                <!-- 3. Bi-weekly budget -->
+                <!-- 3. Budget -->
                 <section class="form-step hidden" data-id="step-budget">
                   <div class="step-inner">
-                    <h3 class="h2">3. Bi-weekly budget <span class="muted">(starts at $120)</span></h3>
-                    <div class="mt-2" style="max-width:560px;">
-                      <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="250" class="w-full" style="accent-color: var(--blue-600);">
-                      <div class="text-[11px] text-zinc-700 mt-1 text-center">Selected: <b>$<span id="biWeeklyOut">250</span></b> / bi-weekly</div>
-                      <input type="hidden" name="budgetRange" id="budgetRange" value="$250 bi-weekly">
+                    <div class="step-title"><h3 class="h2">3. Bi-weekly budget <span class="muted">(starts at $120)</span></h3></div>
+                    <div class="step-body">
+                      <div class="content" style="max-width:560px;">
+                        <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="250" class="w-full" style="accent-color: var(--blue-600);">
+                        <div class="text-[11px] text-zinc-700 mt-1 text-center">Selected: <b>$<span id="biWeeklyOut">250</span></b> / bi-weekly</div>
+                        <input type="hidden" name="budgetRange" id="budgetRange" value="$250 bi-weekly">
+                      </div>
                     </div>
                   </div>
                 </section>
 
-                <!-- 4a. Finance: Purchase details -->
+                <!-- 4a. Finance: Purchase -->
                 <section class="form-step hidden" data-id="step-purchase">
                   <div class="step-inner">
-                    <h3 class="h2">4. Purchase details</h3>
-                    <div class="vstack mt-2" style="max-width:560px;">
-                      <div>
-                        <label for="downPayment" class="label">Down payment</label>
-                        <select id="downPayment" name="downPayment" class="form-select">
-                          <option value="">Select…</option>
-                          <option>$3,000+</option>
-                          <option>$1,000–$3,000</option>
-                          <option>$0–$1,000</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label class="label">Trade-in</label>
-                        <div class="grid-inline-2">
-                          <button type="button" class="choice-rect" data-trade="No">No</button>
-                          <button type="button" class="choice-rect" data-trade="Yes">Yes</button>
+                    <div class="step-title"><h3 class="h2">4. Purchase details</h3></div>
+                    <div class="step-body">
+                      <div class="content vstack" style="max-width:560px;">
+                        <div>
+                          <label for="downPayment" class="label">Down payment</label>
+                          <select id="downPayment" name="downPayment" class="form-select">
+                            <option value="">Select…</option>
+                            <option>$3,000+</option>
+                            <option>$1,000–$3,000</option>
+                            <option>$0–$1,000</option>
+                          </select>
                         </div>
-                        <input type="hidden" id="hasTradeIn" name="hasTradeIn" value="No">
+                        <div>
+                          <label class="label">Trade-in</label>
+                          <div class="grid-inline-2">
+                            <button type="button" class="choice-rect" data-trade="No">No</button>
+                            <button type="button" class="choice-rect" data-trade="Yes">Yes</button>
+                          </div>
+                          <input type="hidden" id="hasTradeIn" name="hasTradeIn" value="No">
+                        </div>
                       </div>
                     </div>
                   </div>
                 </section>
 
-                <!-- 4b. Refinance: Vehicle + loan details (combined) -->
+                <!-- 4b. Refinance: combined vehicle + loan -->
                 <section class="form-step hidden" data-id="step-refi-details">
                   <div class="step-inner">
-                    <h3 class="h2">4. Refinance details</h3>
-                    <div class="vstack mt-2" style="max-width:640px;">
-                      <div class="grid-inline-3-tight">
-                        <select name="refiYear" id="refiYear" class="form-select" required>
-                          <option value="">Year</option>
-                        </select>
-                        <input type="text" name="refiMake" id="refiMake" placeholder="Make" class="form-input" maxlength="40" required/>
-                        <input type="text" name="refiModel" id="refiModel" placeholder="Model" class="form-input" maxlength="50" required/>
-                      </div>
-                      <div class="grid-inline-2">
-                        <select id="refiRemainYears" name="refiRemainYears" class="form-select" required>
-                          <option value="">Years left</option>
-                          <option>1</option><option>2</option><option>3</option><option>4</option>
-                          <option>5</option><option>6</option><option>7</option><option>8</option>
-                        </select>
-                        <input type="text" id="refiCurrentRate" name="refiCurrentRate" class="form-input" placeholder="Current interest % (e.g., 9.49)" inputmode="decimal" maxlength="6" required/>
+                    <div class="step-title"><h3 class="h2">4. Refinance details</h3></div>
+                    <div class="step-body">
+                      <div class="content vstack" style="max-width:640px;">
+                        <div class="grid-inline-3-tight">
+                          <select name="refiYear" id="refiYear" class="form-select" required>
+                            <option value="">Year</option>
+                          </select>
+                          <input type="text" name="refiMake" id="refiMake" placeholder="Make" class="form-input" maxlength="40" required/>
+                          <input type="text" name="refiModel" id="refiModel" placeholder="Model" class="form-input" maxlength="50" required/>
+                        </div>
+                        <div class="grid-inline-2">
+                          <select id="refiRemainYears" name="refiRemainYears" class="form-select" required>
+                            <option value="">Years left</option>
+                            <option>1</option><option>2</option><option>3</option><option>4</option>
+                            <option>5</option><option>6</option><option>7</option><option>8</option>
+                          </select>
+                          <input type="text" id="refiCurrentRate" name="refiCurrentRate" class="form-input" placeholder="Current interest % (e.g., 9.49)" inputmode="decimal" maxlength="6" required/>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -377,17 +379,21 @@
                 <!-- 5. Trade-in details (finance only & only if Yes) -->
                 <section class="form-step hidden" data-id="step-tradein">
                   <div class="step-inner">
-                    <h3 class="h2">5. Trade-in details</h3>
-                    <div class="grid-inline-3-tight mt-2" style="max-width:640px;">
-                      <select name="tradeInYear" id="tradeInYear" class="form-select">
-                        <option value="">Year</option>
-                      </select>
-                      <input type="text" name="tradeInMake" id="tradeInMake" placeholder="Make" class="form-input" maxlength="40"/>
-                      <input type="text" name="tradeInModel" id="tradeInModel" placeholder="Model" class="form-input" maxlength="50"/>
-                    </div>
-                    <div class="grid-inline-2 mt-2" style="max-width:640px;">
-                      <input type="number" name="tradeInKms" id="tradeInKms" placeholder="Km" class="form-input" inputmode="numeric" min="0" max="1000000"/>
-                      <input type="text" name="tradeInOwed" id="tradeInOwed" placeholder="Money owed e.g. $5,000 or None" class="form-input" maxlength="20"/>
+                    <div class="step-title"><h3 class="h2">5. Trade-in details</h3></div>
+                    <div class="step-body">
+                      <div class="content">
+                        <div class="grid-inline-3-tight mt-2">
+                          <select name="tradeInYear" id="tradeInYear" class="form-select">
+                            <option value="">Year</option>
+                          </select>
+                          <input type="text" name="tradeInMake" id="tradeInMake" placeholder="Make" class="form-input" maxlength="40"/>
+                          <input type="text" name="tradeInModel" id="tradeInModel" placeholder="Model" class="form-input" maxlength="50"/>
+                        </div>
+                        <div class="grid-inline-2 mt-2">
+                          <input type="number" name="tradeInKms" id="tradeInKms" placeholder="Km" class="form-input" inputmode="numeric" min="0" max="1000000"/>
+                          <input type="text" name="tradeInOwed" id="tradeInOwed" placeholder="Money owed e.g. $5,000 or None" class="form-input" maxlength="20"/>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </section>
@@ -395,161 +401,174 @@
                 <!-- 6. Employment + monthly income -->
                 <section class="form-step hidden" data-id="step-income">
                   <div class="step-inner">
-                    <h3 class="h2">6. Employment &amp; Income</h3>
-                    <div class="vstack mt-2" style="max-width:560px;">
-                      <div>
-                        <label for="incomeSourceFull" class="label">Employment type <span class="text-red-500">*</span></label>
-                        <select id="incomeSourceFull" name="incomeSourceFull" class="form-select" required>
-                          <option value="">Select…</option>
-                          <option value="Full-Time">Full-Time</option>
-                          <option value="Part-Time">Part-Time</option>
-                          <option value="Self-Employed">Self-Employed</option>
-                          <option value="Disability">Disability</option>
-                          <option value="Other">Other</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label for="avgMonthlyIncome" class="label">Monthly income (pre-tax) <span class="text-red-500">*</span></label>
-                        <input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric" maxlength="16" required/>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-
-                <!-- 7. Account creation + contact -->
-                <section class="form-step hidden" data-id="step-account">
-                  <div class="step-inner">
-                    <h3 class="h2">7. Account creation</h3>
-                    <p class="muted mt-1">You’ll receive an application code after submission — that becomes your username to log in.</p>
-                    <div class="vstack mt-2" style="max-width:560px;">
-                      <div>
-                        <label for="email" class="label">Email <span class="text-red-500">*</span></label>
-                        <input type="email" id="email" name="email" class="form-input" autocomplete="email" maxlength="100" required/>
-                      </div>
-                      <div>
-                        <label for="phone" class="label">Phone number <span class="text-red-500">*</span></label>
-                        <input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" maxlength="14" required/>
-                      </div>
-                      <div>
-                        <label for="accountPass" class="label">Password <span class="text-red-500">*</span></label>
-                        <input type="password" id="accountPass" name="accountPass" class="form-input" minlength="6" maxlength="64" required/>
-                      </div>
-                      <div>
-                        <label for="accountPass2" class="label">Re-enter password <span class="text-red-500">*</span></label>
-                        <input type="password" id="accountPass2" name="accountPass2" class="form-input" minlength="6" maxlength="64" required/>
-                        <div id="passMatchMsg" class="muted hidden">Passwords must match.</div>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-
-                <!-- 8. Your information -->
-                <section class="form-step hidden" data-id="step-yourinfo">
-                  <div class="step-inner">
-                    <h3 class="h2">8. Your information</h3>
-                    <div class="vstack mt-2" style="max-width:640px;">
-                      <div class="grid-inline-3">
+                    <div class="step-title"><h3 class="h2">6. Employment &amp; Income</h3></div>
+                    <div class="step-body">
+                      <div class="content vstack" style="max-width:560px;">
                         <div>
-                          <label for="firstName" class="label">First name <span class="text-red-500">*</span></label>
-                          <input type="text" id="firstName" name="firstName" class="form-input" autocomplete="given-name" maxlength="50" required/>
-                        </div>
-                        <div>
-                          <label for="middleName" class="label">Middle name(s)</label>
-                          <input type="text" id="middleName" name="middleName" class="form-input" autocomplete="additional-name" maxlength="100"/>
-                        </div>
-                        <div>
-                          <label for="lastName" class="label">Last name <span class="text-red-500">*</span></label>
-                          <input type="text" id="lastName" name="lastName" class="form-input" autocomplete="family-name" maxlength="50" required/>
-                        </div>
-                      </div>
-
-                      <div class="grid-inline-dob mt-1">
-                        <div>
-                          <label class="label">DOB Year <span class="text-red-500">*</span></label>
-                          <select id="dobYear" name="dobYear" class="form-select" required></select>
-                        </div>
-                        <div>
-                          <label class="label">Month <span class="text-red-500">*</span></label>
-                          <select id="dobMonth" name="dobMonth" class="form-select" required><option value="">MM</option></select>
-                        </div>
-                        <div>
-                          <label class="label">Day <span class="text-red-500">*</span></label>
-                          <select id="dobDay" name="dobDay" class="form-select" required><option value="">DD</option></select>
-                        </div>
-                        <div>
-                          <label for="maritalStatus" class="label">Marital</label>
-                          <select id="maritalStatus" name="maritalStatus" class="form-select">
-                            <option value="">Select</option>
-                            <option>Single</option><option>Married</option><option>Common-Law</option>
-                            <option>Divorced</option><option>Separated</option><option>Widowed</option>
+                          <label for="incomeSourceFull" class="label">Employment type <span class="text-red-500">*</span></label>
+                          <select id="incomeSourceFull" name="incomeSourceFull" class="form-select" required>
+                            <option value="">Select…</option>
+                            <option value="Full-Time">Full-Time</option>
+                            <option value="Part-Time">Part-Time</option>
+                            <option value="Self-Employed">Self-Employed</option>
+                            <option value="Disability">Disability</option>
+                            <option value="Other">Other</option>
                           </select>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-
-                <!-- 9. Current address -->
-                <section class="form-step hidden" data-id="step-address">
-                  <div class="step-inner">
-                    <h3 class="h2">9. Current address</h3>
-                    <div class="grid-inline-addr1 mt-2" style="max-width:640px;">
-                      <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" placeholder="Street address" autocomplete="street-address" maxlength="120" required/>
-                      <input type="text" id="currentUnit" name="currentUnit" class="form-input" placeholder="Unit #" maxlength="10"/>
-                    </div>
-                    <div class="grid-inline-addr2 mt-2" style="max-width:640px;">
-                      <input type="text" id="currentCity" name="currentCity" class="form-input" placeholder="City" autocomplete="address-level2" maxlength="60" required/>
-                      <select id="currentProvince" name="currentProvince" class="form-select" required><option value="">Prov</option></select>
-                      <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" placeholder="Postal code" autocomplete="postal-code" maxlength="7" required/>
-                    </div>
-                    <div class="grid-inline-2 mt-2" style="max-width:640px;">
-                      <div>
-                        <label for="housingPayment" class="label">Monthly payments</label>
-                        <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1,800" inputmode="numeric" maxlength="16" required/>
-                      </div>
-                      <div>
-                        <label class="label">Time at address</label>
-                        <div class="grid-inline-2">
-                          <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                          <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+                        <div>
+                          <label for="avgMonthlyIncome" class="label">Monthly income (pre-tax) <span class="text-red-500">*</span></label>
+                          <input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric" maxlength="16" required/>
                         </div>
                       </div>
                     </div>
-                    <div class="mt-2" style="max-width:640px;">
-                      <label class="label">Rent or Own?</label>
-                      <div class="seg">
-                        <button type="button" class="seg-btn" id="btnRent" aria-pressed="true">Rent</button>
-                        <button type="button" class="seg-btn" id="btnOwn" aria-pressed="false">Own</button>
+                  </div>
+                </section>
+
+                <!-- 7. Account -->
+                <section class="form-step hidden" data-id="step-account">
+                  <div class="step-inner">
+                    <div class="step-title"><h3 class="h2">7. Account creation</h3></div>
+                    <div class="step-body">
+                      <div class="content vstack" style="max-width:560px;">
+                        <div>
+                          <label for="email" class="label">Email <span class="text-red-500">*</span></label>
+                          <input type="email" id="email" name="email" class="form-input" autocomplete="email" maxlength="100" required/>
+                        </div>
+                        <div>
+                          <label for="phone" class="label">Phone number <span class="text-red-500">*</span></label>
+                          <input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" maxlength="14" required/>
+                        </div>
+                        <div>
+                          <label for="accountPass" class="label">Password <span class="text-red-500">*</span></label>
+                          <input type="password" id="accountPass" name="accountPass" class="form-input" minlength="6" maxlength="64" required/>
+                        </div>
+                        <div>
+                          <label for="accountPass2" class="label">Re-enter password <span class="text-red-500">*</span></label>
+                          <input type="password" id="accountPass2" name="accountPass2" class="form-input" minlength="6" maxlength="64" required/>
+                          <div id="passMatchMsg" class="muted hidden">Passwords must match.</div>
+                        </div>
                       </div>
-                      <input type="hidden" id="housingType" name="housingType" value="Rent" />
                     </div>
                   </div>
                 </section>
 
-                <!-- 10. Employment / optional income -->
+                <!-- 8. Your info -->
+                <section class="form-step hidden" data-id="step-yourinfo">
+                  <div class="step-inner">
+                    <div class="step-title"><h3 class="h2">8. Your information</h3></div>
+                    <div class="step-body">
+                      <div class="content vstack" style="max-width:640px;">
+                        <div class="grid-inline-3">
+                          <div>
+                            <label for="firstName" class="label">First name <span class="text-red-500">*</span></label>
+                            <input type="text" id="firstName" name="firstName" class="form-input" autocomplete="given-name" maxlength="50" required/>
+                          </div>
+                          <div>
+                            <label for="middleName" class="label">Middle name(s)</label>
+                            <input type="text" id="middleName" name="middleName" class="form-input" autocomplete="additional-name" maxlength="100"/>
+                          </div>
+                          <div>
+                            <label for="lastName" class="label">Last name <span class="text-red-500">*</span></label>
+                            <input type="text" id="lastName" name="lastName" class="form-input" autocomplete="family-name" maxlength="50" required/>
+                          </div>
+                        </div>
+
+                        <div class="grid-inline-dob mt-1">
+                          <div>
+                            <label class="label">DOB Year <span class="text-red-500">*</span></label>
+                            <select id="dobYear" name="dobYear" class="form-select" required></select>
+                          </div>
+                          <div>
+                            <label class="label">Month <span class="text-red-500">*</span></label>
+                            <select id="dobMonth" name="dobMonth" class="form-select" required><option value="">MM</option></select>
+                          </div>
+                          <div>
+                            <label class="label">Day <span class="text-red-500">*</span></label>
+                            <select id="dobDay" name="dobDay" class="form-select" required><option value="">DD</option></select>
+                          </div>
+                          <div>
+                            <label for="maritalStatus" class="label">Marital</label>
+                            <select id="maritalStatus" name="maritalStatus" class="form-select">
+                              <option value="">Select</option>
+                              <option>Single</option><option>Married</option><option>Common-Law</option>
+                              <option>Divorced</option><option>Separated</option><option>Widowed</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <!-- 9. Address -->
+                <section class="form-step hidden" data-id="step-address">
+                  <div class="step-inner">
+                    <div class="step-title"><h3 class="h2">9. Current address</h3></div>
+                    <div class="step-body">
+                      <div class="content" style="max-width:640px;">
+                        <div class="grid-inline-addr1 mt-2">
+                          <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" placeholder="Street address" autocomplete="street-address" maxlength="120" required/>
+                          <input type="text" id="currentUnit" name="currentUnit" class="form-input" placeholder="Unit #" maxlength="10"/>
+                        </div>
+                        <div class="grid-inline-addr2 mt-2">
+                          <input type="text" id="currentCity" name="currentCity" class="form-input" placeholder="City" autocomplete="address-level2" maxlength="60" required/>
+                          <select id="currentProvince" name="currentProvince" class="form-select" required><option value="">Prov</option></select>
+                          <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" placeholder="Postal code" autocomplete="postal-code" maxlength="7" required/>
+                        </div>
+                        <div class="grid-inline-2 mt-2">
+                          <div>
+                            <label for="housingPayment" class="label">Monthly payments</label>
+                            <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1,800" inputmode="numeric" maxlength="16" required/>
+                          </div>
+                          <div>
+                            <label class="label">Time at address</label>
+                            <div class="grid-inline-2">
+                              <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
+                              <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mt-2">
+                          <label class="label">Rent or Own?</label>
+                          <div class="seg">
+                            <button type="button" class="seg-btn" id="btnRent" aria-pressed="true">Rent</button>
+                            <button type="button" class="seg-btn" id="btnOwn" aria-pressed="false">Own</button>
+                          </div>
+                          <input type="hidden" id="housingType" name="housingType" value="Rent" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <!-- 10. Employer -->
                 <section class="form-step hidden" data-id="step-employer">
                   <div class="step-inner">
-                    <h3 class="h2">10. Employment details</h3>
-                    <div class="grid-inline-2 mt-2" style="max-width:640px;">
-                      <input type="text" id="currentEmployer" name="currentEmployer" class="form-input" placeholder="Employer"/>
-                      <input type="text" id="jobTitle" name="jobTitle" class="form-input" placeholder="Position"/>
-                    </div>
-                    <div class="grid-inline-2 mt-2" style="max-width:640px;">
-                      <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select>
-                      <select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
-                    </div>
-                    <div class="mt-3" style="max-width:640px;">
-                      <p class="label">Optional additional income</p>
-                      <div class="grid-inline-2">
-                        <input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Type (e.g., child benefit, side work)"/>
-                        <input id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="How much per month" inputmode="numeric" maxlength="16"/>
+                    <div class="step-title"><h3 class="h2">10. Employment details</h3></div>
+                    <div class="step-body">
+                      <div class="content">
+                        <div class="grid-inline-2 mt-2">
+                          <input type="text" id="currentEmployer" name="currentEmployer" class="form-input" placeholder="Employer"/>
+                          <input type="text" id="jobTitle" name="jobTitle" class="form-input" placeholder="Position"/>
+                        </div>
+                        <div class="grid-inline-2 mt-2">
+                          <select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select>
+                          <select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select>
+                        </div>
+                        <div class="mt-3">
+                          <p class="label">Optional additional income</p>
+                          <div class="grid-inline-2">
+                            <input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Type (e.g., child benefit, side work)"/>
+                            <input id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="How much per month" inputmode="numeric" maxlength="16"/>
+                          </div>
+                        </div>
+                        <p class="muted mt-3">By selecting Next, you give Vancouver Island Credit permission to review your credit to find exact matches.</p>
                       </div>
                     </div>
-                    <p class="muted mt-3">By selecting Next, you give Vancouver Island Credit permission to review your credit to find exact matches.</p>
                   </div>
                 </section>
 
-                <!-- hidden consent -->
+                <!-- 11. hidden consent -->
                 <section class="form-step hidden" data-id="step-consent">
                   <div class="step-inner"><input id="creditConsent" name="creditConsent" type="checkbox" class="hidden" checked /></div>
                 </section>
@@ -565,14 +584,13 @@
         </div>
       </div>
 
-      <!-- ASIDE: COMPACT REFINANCE CALCULATOR + LOGIN -->
+      <!-- RIGHT: Refinance Calculator + Login -->
       <aside>
         <div class="card p-0 h-full flex flex-col" id="login-card">
-          <!-- Compact Refinance Calculator -->
+          <!-- Refinance Calculator -->
           <div class="refi-card">
             <div class="refi-title">Refinance Calculator</div>
             <div class="refi-grid mt-2">
-              <!-- Top row: amount (big) | years (small) | current rate (small) -->
               <div class="refi-row">
                 <div>
                   <label class="label" for="refLoanInput">Loan amount</label>
@@ -591,8 +609,6 @@
                   <input id="refRateInput" class="form-input" placeholder="8.99" inputmode="decimal" maxlength="5" />
                 </div>
               </div>
-
-              <!-- Slider row + results to the right -->
               <div class="refi-mini">
                 <div>
                   <label class="label" for="refNewRateSlider">Try a new rate</label>
@@ -604,7 +620,6 @@
                   <div class="text-zinc-500">Enter your numbers to see savings.</div>
                 </div>
               </div>
-
               <div class="refi-note">Estimated.</div>
             </div>
           </div>
@@ -719,134 +734,135 @@
   const bySel = (s, root=document) => root.querySelector(s);
   const bySelAll = (s, root=document) => Array.from(root.querySelectorAll(s));
 
-  // Money utils (for calculator)
+  // Money utils (calculator)
   function fmtMoney(x){ x = isFinite(x) ? x : 0; return "$" + x.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
   function parseMoneyInput(v){ if (!v) return 0; return parseFloat(String(v).replace(/[^0-9.]/g,'')) || 0; }
   function formatMoneyField(input){ const num = parseMoneyInput(input.value); input.value = num ? num.toLocaleString('en-CA', {style:'currency', currency:'CAD', maximumFractionDigits:0}) : ''; }
-  function calcPayment(P, annualRate, years){
-    const r = (annualRate/100)/12, n = years*12;
-    if (!n || n<=0) return 0;
-    if (r===0) return P/n;
-    return P * r / (1 - Math.pow(1+r, -n));
-  }
+  function calcPayment(P, annualRate, years){ const r=(annualRate/100)/12, n=years*12; if(!n||n<=0) return 0; if(r===0) return P/n; return P*r/(1-Math.pow(1+r,-n)); }
 
   document.addEventListener('DOMContentLoaded', function () {
     // Mobile menu
     $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
 
-    // ====== DYNAMIC FLOW SETUP ======
-    const stepOrder = [
-      'step-intent',
-      'step-cond',
-      'step-budget',
-      // Finance branch:
-      'step-purchase',
-      'step-tradein',
-      // Refinance branch:
-      'step-refi-details',
-      // Common tail:
-      'step-income',
-      'step-account',
-      'step-yourinfo',
-      'step-address',
-      'step-employer',
-      'step-consent'
-    ];
+    // ===== FLOW =====
+    const stepsMap = {};
+    bySelAll('.form-step').forEach(sec => stepsMap[sec.getAttribute('data-id')] = sec);
 
-    // build current flow based on selections
     function currentFlow(){
       const intent = $('intent')?.value || 'finance';
       const hasTrade = ($('hasTradeIn')?.value || 'No').toLowerCase()==='yes';
-
       let flow = ['step-intent','step-cond','step-budget'];
-
       if (intent==='finance'){
         flow.push('step-purchase');
         if (hasTrade) flow.push('step-tradein');
       } else {
         flow.push('step-refi-details');
       }
-
-      flow = flow.concat(['step-income','step-account','step-yourinfo','step-address','step-employer']);
-      // consent is hidden field step just before submit
-      flow.push('step-consent');
+      flow = flow.concat(['step-income','step-account','step-yourinfo','step-address','step-employer','step-consent']);
       return flow;
     }
 
-    const stepsMap = {};
-    bySelAll('.form-step').forEach(sec => stepsMap[sec.getAttribute('data-id')] = sec);
-
     function showOnly(id){
       Object.values(stepsMap).forEach(sec=> sec.classList.add('hidden'));
-      const s = stepsMap[id];
-      if (s){ s.classList.remove('hidden'); }
+      stepsMap[id]?.classList.remove('hidden');
     }
-
-    function indexInFlow(id){ return currentFlow().indexOf(id); }
-
-    // Progress HUD
     function updateProgress(curId){
       const flow = currentFlow();
       const i = Math.max(0, flow.indexOf(curId));
-      const total = flow.length-1; // exclude consent (not visible)
+      const visible = flow.filter(x=>x!=='step-consent');
+      const total = visible.length;
       const stepNumber = Math.min(i+1, total);
       const pct = Math.round((i)/(total-1)*100);
 
       $('btnBack').disabled = (i===0);
       $('btnNext').textContent = (i >= total-1) ? 'Submit' : 'Next';
-      bySel('#progress-label').textContent = 'Step ' + stepNumber + ' of ' + (total-1);
-      bySel('#progress-fill').style.width = pct + '%';
+      bySel('#progress-label').textContent = 'Step ' + stepNumber + ' of ' + total;
+      bySel('#progress-fill').style.width = (total>1 ? pct : 0) + '%';
       bySel('#progress-endcap').textContent = (i >= total-1) ? 'Finding matches…' : 'Let’s get you approved';
     }
 
     let curStepId = 'step-intent';
-    function goTo(id){
-      curStepId = id;
-      showOnly(id);
-      updateProgress(id);
+    function goTo(id){ curStepId=id; showOnly(id); updateProgress(id); }
+
+    function validateCurrent(stepId){
+      const stepEl = stepsMap[stepId];
+      if (!stepEl) return true;
+
+      // special checks
+      if (stepId==='step-intent'){
+        const v = $('intent').value;
+        const ok = (v==='finance' || v==='refinance');
+        bySelAll('[data-intent]').forEach(x=>x.classList.toggle('err', !ok));
+        return ok;
+      }
+      if (stepId==='step-cond'){
+        const ok = !!$('vehicleCondition').value;
+        bySelAll('[data-cond]').forEach(x => x.classList.toggle('err', !ok));
+        return ok;
+      }
+      if (stepId==='step-budget'){ return !!$('budgetRange').value; }
+
+      // generic visible required in this step
+      let ok = true;
+      const fields = Array.from(stepEl.querySelectorAll('[required]'));
+      fields.forEach(el=>{
+        if (window.getComputedStyle(el).display==='none') return;
+        let pass = (el.type==='checkbox') ? el.checked : (el.value && el.value.trim()!=='');
+        if (el.id==='phone') pass = el.value.replace(/\D/g,'').length>=10;
+        if (el.type==='email' || el.id==='email'){
+          const v=el.value.trim();
+          pass = pass && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+        }
+        if (el.id==='accountPass2'){ pass = pass && ($('accountPass')?.value === $('accountPass2')?.value); bySel('#passMatchMsg')?.classList.toggle('hidden', pass); }
+        el.classList.toggle('err', !pass);
+        const lab = document.querySelector('label[for="'+el.id+'"]'); lab?.classList.toggle('err-label', !pass);
+        if (!pass) ok=false;
+      });
+      return ok;
     }
 
     function next(delta){
       const flow = currentFlow();
       let i = flow.indexOf(curStepId);
-      if (i<0) i = 0;
-
-      // on forward, validate current visible step
-      if (delta>0 && !validateCurrent(curStepId)) return;
-
+      if (i<0) i=0;
+      if (delta>0 && !validateCurrent(curStepId)) return; // stop if invalid
       i += delta;
-      if (i < 0) i = 0;
 
-      // if beyond last visible (exclude consent), submit
-      const lastVisible = flow.length-2; // last index before consent
-      if (i > lastVisible){
-        submitForm();
-        return;
-      }
-      goTo(flow[i]);
+      const visible = flow.filter(x=>x!=='step-consent');
+      const lastIdx = visible.length-1;
+
+      if (i > lastIdx){ submitForm(); return; }
+      if (i < 0) i = 0;
+      goTo(visible[i]);
     }
 
     $('btnNext')?.addEventListener('click', ()=> next(1));
     $('btnBack')?.addEventListener('click', ()=> next(-1));
 
-    // ====== CLICK HANDLERS (set values + advance) ======
-    // Intent
+    // Click handlers
     bySelAll('[data-intent]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-intent]').forEach(x=>x.classList.remove('selected','err'));
         btn.classList.add('selected');
         $('intent').value = btn.dataset.intent;
         goTo('step-cond');
+        lockViewportHeight(); // make sure height reflects tallest step for chosen path too
       });
     });
-
-    // Vehicle condition
     bySelAll('[data-cond]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected','err'));
         btn.classList.add('selected');
         $('vehicleCondition').value = btn.dataset.cond || '';
         goTo('step-budget');
+      });
+    });
+    bySelAll('[data-trade]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        bySelAll('[data-trade]').forEach(x=>x.classList.remove('selected'));
+        btn.classList.add('selected');
+        $('hasTradeIn').value = btn.dataset.trade || 'No';
+        // do not auto-advance: user controls with Next
       });
     });
 
@@ -857,15 +873,6 @@
       biw.addEventListener('input', updateBudget);
       updateBudget();
     }
-
-    // Trade-in choice (finance only)
-    bySelAll('[data-trade]').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        bySelAll('[data-trade]').forEach(x=>x.classList.remove('selected'));
-        btn.classList.add('selected');
-        $('hasTradeIn').value = btn.dataset.trade || 'No';
-      });
-    });
 
     // Rent/Own segmented
     function setHousing(type){
@@ -884,94 +891,26 @@
       else if(d.length>0)e.target.value=`(${d}`;
     });
 
-    // ====== VALIDATION (per visible step) ======
-    function reqVisibleInside(stepEl){
-      return Array.from(stepEl.querySelectorAll('[required]'))
-        .filter(el => window.getComputedStyle(el).display !== 'none');
-    }
-
-    function validateCurrent(stepId){
-      const stepEl = stepsMap[stepId];
-      if (!stepEl) return true;
-
-      // special checks per step
-      if (stepId==='step-intent'){
-        const v = $('intent').value;
-        const ok = (v==='finance' || v==='refinance');
-        if (!ok){ bySelAll('[data-intent]').forEach(x=>x.classList.add('err')); }
-        else { bySelAll('[data-intent]').forEach(x=>x.classList.remove('err')); }
-        return ok;
-      }
-      if (stepId==='step-cond'){
-        const ok = !!$('vehicleCondition').value;
-        bySelAll('[data-cond]').forEach(x => x.classList.toggle('err', !ok));
-        return ok;
-      }
-      if (stepId==='step-budget'){ return !!$('budgetRange').value; }
-
-      let ok = true;
-      reqVisibleInside(stepEl).forEach(el=>{
-        let pass = (el.type==='checkbox') ? el.checked : (el.value && el.value.trim()!=='');
-        if (el.id==='phone') pass = el.value.replace(/\D/g,'').length>=10;
-        if (el.type==='email' || el.id==='email'){
-          const v=el.value.trim();
-          pass = pass && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-        }
-        if (el.id==='accountPass2'){
-          pass = pass && ($('accountPass')?.value === $('accountPass2')?.value);
-          bySel('#passMatchMsg')?.classList.toggle('hidden', pass);
-        }
-        if (!pass){
-          ok=false; el.classList.add('err');
-          const lab = document.querySelector('label[for="'+el.id+'"]'); lab?.classList.add('err-label');
-        } else {
-          el.classList.remove('err');
-          const lab = document.querySelector('label[for="'+el.id+'"]'); lab?.classList.remove('err-label');
-        }
-      });
-      return ok;
-    }
-
-    // Validate all (used before submit)
-    function validateAll(){
-      let ok = true;
-      const flow = currentFlow().filter(id => id!=='step-consent');
-      for (const id of flow){ if(!validateCurrent(id)) ok=false; }
-      return ok;
-    }
-
-    // Overlay runner
+    // Submit
+    function generateAppCode(){ const n=Math.floor(Math.random()*1_000_000); return 'ABC-' + String(n).padStart(6,'0'); }
     async function runProgressOverlay(minMs=4200){
-      const overlay = $('progress-overlay');
-      const bar = $('progress-bar');
-      const stepsEl = bySelAll('#progress-steps li');
+      const overlay = $('progress-overlay'); const bar = $('progress-bar'); const stepsEl = bySelAll('#progress-steps li');
       if (!overlay || !bar) return;
-
       overlay.classList.remove('hidden');
-      const stages = [
-        { width: 35, index: 0, ms: 900 },
-        { width: 70, index: 1, ms: 1200 },
-        { width: 100, index: 2, ms: 1400 }
-      ];
-
-      const t0 = Date.now();
+      const stages = [{width:35,index:0,ms:900},{width:70,index:1,ms:1200},{width:100,index:2,ms:1400}];
+      const t0=Date.now();
       for (const st of stages){
         stepsEl.forEach((li,i)=> li.classList.toggle('active', i===st.index));
         requestAnimationFrame(()=> bar.style.width = st.width + '%');
         await new Promise(r=>setTimeout(r, st.ms));
       }
-      const elapsed = Date.now() - t0;
-      if (elapsed < minMs) await new Promise(r=>setTimeout(r, minMs - elapsed));
+      const elapsed=Date.now()-t0; if (elapsed<minMs) await new Promise(r=>setTimeout(r, minMs-elapsed));
       overlay.classList.add('hidden');
     }
-
-    // Submit
-    function generateAppCode(){
-      const n = Math.floor(Math.random()*1_000_000);
-      return 'ABC-' + String(n).padStart(6,'0');
-    }
     function submitForm(){
-      if (!validateAll()) return;
+      // full validation across visible flow
+      const flow = currentFlow().filter(id=>id!=='step-consent');
+      for (const id of flow){ if(!validateCurrent(id)){ goTo(id); return; } }
       bySel('#the-form').requestSubmit();
     }
     bySel('#the-form')?.addEventListener('submit', async (e)=>{
@@ -983,11 +922,11 @@
       e.target.submit();
     });
 
-    // “View all” -> focus form
+    // Inventory “View all”
     bySelAll('.js-view-inventory').forEach(el=>{
       el.addEventListener('click', (e)=>{
         e.preventDefault();
-        document.getElementById('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
+        $('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
       });
     });
 
@@ -1002,11 +941,8 @@
       alert('Logged in (demo). Matching options would show here.');
     });
 
-    // DOB & dropdown helpers
-    function populateDOBYears(sel){ if(!sel) return;
-      const start=2004; sel.innerHTML = '';
-      for(let y=start; y>=1940; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); }
-    }
+    // DOB helpers
+    function populateDOBYears(sel){ if(!sel) return; const start=2004; sel.innerHTML = ''; for(let y=start; y>=1940; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); } }
     function populateMonths(sel){
       if(!sel) return;
       const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -1030,27 +966,79 @@
       const m=parseInt($('dobMonth')?.value||'',10);
       const selV=parseInt($('dobDay')?.value||'',10);
       const days=(y&&m)?new Date(y,m,0).getDate():31;
-      const daySel = $('dobDay'); if (!daySel) return;
+      const daySel=$('dobDay'); if(!daySel) return;
       daySel.innerHTML='<option value="">DD</option>';
       for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=(i<10?('0'+i):String(i)); daySel.appendChild(o); }
       if(selV&&selV<=days) daySel.value=selV;
     }
-    function populateDropdown(sel,start,end,label,singular){
-      if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>';
-      for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o); }
+    function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o); } }
+    function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
+    function populateYears(sel, start, end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} }
+
+    // Refi calc wiring
+    function setupRefiCalcInputs(){
+      const loanEl = $('refLoanInput');
+      const rateEl = $('refRateInput');
+      const termEl = $('refTermInput');
+      const newRateSlider = $('refNewRateSlider');
+      const newRateOut = $('refNewRateOut');
+      const results = $('refResults'); const feeHint = $('refFeeHint');
+
+      if (!(loanEl && rateEl && termEl && newRateSlider && newRateOut)) return;
+
+      loanEl.addEventListener('blur', ()=>{ formatMoneyField(loanEl); update(); });
+      [loanEl, rateEl, termEl].forEach(el=> el.addEventListener('input', update));
+      newRateSlider.addEventListener('input', ()=>{ newRateOut.textContent = Number(newRateSlider.value).toFixed(2); update(); });
+
+      function update(){
+        const loan = parseMoneyInput(loanEl.value);
+        const rate = parseFloat(rateEl.value)||0;
+        const years = parseFloat(termEl.value)||0;
+        if (!loan || !rate || !years){ results.innerHTML = "<div class='text-zinc-500'>Enter your numbers to see savings.</div>"; feeHint?.classList.add('hidden'); return; }
+
+        const desired = parseFloat(newRateSlider.value)||0;
+        const maxAllowed = Math.max(0, rate - 0.99);
+        const newRate = Math.min(desired, maxAllowed);
+        if (newRate !== desired){ newRateSlider.value = newRate.toFixed(2); newRateOut.textContent = newRate.toFixed(2); }
+
+        const curPmt = calcPayment(loan, rate, years);
+        const curTotInt = curPmt*years*12 - loan;
+        const newLoan = loan + 3000;
+        feeHint?.classList.toggle('hidden', !(loan>7000));
+        const newPmt = calcPayment(newLoan, newRate, years);
+        const newTotInt = newPmt*years*12 - newLoan;
+        const saveInterest = curTotInt - newTotInt;
+        results.innerHTML = `<div><span class="text-zinc-500">New payment:</span> ${fmtMoney(newPmt)}</div>
+                             <div><span class="text-zinc-500">Total interest saved:</span> ${fmtMoney(saveInterest)}</div>`;
+      }
+
+      newRateOut.textContent = Number(newRateSlider.value).toFixed(2);
+      update();
     }
-    function populateProvinces(sel){
-      if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"];
-      sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); });
-    }
-    function populateYears(sel, start, end){
-      if(!sel) return; sel.innerHTML='<option value="">Year</option>';
-      for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); }
+
+    // Lock viewport height to tallest step (keeps size stable, centers content)
+    function lockViewportHeight(){
+      const viewport = $('step-viewport');
+      if (!viewport) return;
+      // temporarily reveal all to measure
+      const hidden = [];
+      bySelAll('.form-step').forEach(sec=>{
+        if (sec.classList.contains('hidden')){ hidden.push(sec); sec.classList.remove('hidden'); }
+      });
+      let maxH = 0;
+      bySelAll('.form-step .step-inner').forEach(inner=>{
+        const h = inner.offsetHeight;
+        if (h>maxH) maxH=h;
+      });
+      // restore hidden
+      hidden.forEach(sec=> sec.classList.add('hidden'));
+      // set exact height
+      viewport.style.height = Math.ceil(maxH + 1) + 'px';
     }
 
     // Init
     (function init(){
-      const y = new Date().getFullYear(); bySel('#year')?.textContent = y;
+      bySel('#year').textContent = new Date().getFullYear();
 
       // Defaults
       $('intent').value = 'finance';
@@ -1058,7 +1046,7 @@
       bySel('[data-cond="Both"]')?.classList.add('selected');
       $('housingType') && ( $('housingType').value = 'Rent' );
 
-      // DOB & month/day
+      // DOB
       populateDOBYears($('dobYear'));
       populateMonths($('dobMonth')); updateDays();
       $('dobMonth')?.addEventListener('change', updateDays);
@@ -1075,78 +1063,16 @@
       populateYears($('tradeInYear'), new Date().getFullYear(), 1995);
       populateYears($('refiYear'), new Date().getFullYear(), 1995);
 
-      // Start at intent
+      // Start
       goTo('step-intent');
 
-      // Refinance calculator init
+      // Refi calc
       setupRefiCalcInputs();
+
+      // Lock size (then re-lock on resize)
+      lockViewportHeight();
+      window.addEventListener('resize', ()=> lockViewportHeight());
     })();
-
-    // ===== Refinance calculator wiring =====
-    function setupRefiCalcInputs(){
-      const loanEl = $('refLoanInput');
-      const rateEl = $('refRateInput');
-      const termEl = $('refTermInput');
-      const newRateSlider = $('refNewRateSlider');
-      const newRateOut = $('refNewRateOut');
-
-      if (!loanEl || !rateEl || !termEl || !newRateSlider || !newRateOut) return;
-
-      loanEl.addEventListener('blur', ()=>{ formatMoneyField(loanEl); updateRefiInputs(); });
-      loanEl.addEventListener('input', updateRefiInputs);
-      rateEl.addEventListener('input', updateRefiInputs);
-      termEl.addEventListener('input', updateRefiInputs);
-
-      newRateSlider.addEventListener('input', ()=>{
-        newRateOut.textContent = Number(newRateSlider.value).toFixed(2);
-        updateRefiInputs();
-      });
-
-      newRateOut.textContent = Number(newRateSlider.value).toFixed(2);
-      updateRefiInputs();
-    }
-
-    function updateRefiInputs(){
-      const loan = parseMoneyInput($('refLoanInput')?.value);
-      const rate = parseFloat($('refRateInput')?.value) || 0;
-      const years = parseFloat($('refTermInput')?.value) || 0;
-      const sliderEl = $('refNewRateSlider');
-      const results = $('refResults');
-      const feeHint = $('refFeeHint');
-      if (!sliderEl || !results) return;
-
-      // Nothing yet
-      if (!loan || !rate || !years){
-        results.innerHTML = "<div class='text-zinc-500'>Enter your numbers to see savings.</div>";
-        feeHint?.classList.add('hidden');
-        return;
-      }
-
-      // Enforce: new rate cannot be within 0.99% of current rate or higher
-      const desired = parseFloat(sliderEl.value) || 0;
-      const maxAllowed = Math.max(0, rate - 0.99);
-      const finalNewRate = Math.min(desired, maxAllowed);
-      if (finalNewRate !== desired){
-        sliderEl.value = finalNewRate.toFixed(2);
-        $('refNewRateOut').textContent = finalNewRate.toFixed(2);
-      }
-
-      const curPmt = calcPayment(loan, rate, years);
-      const curTotInt = curPmt*years*12 - loan;
-
-      const newLoan = loan + 3000;              // include fees silently
-      const showFeeHint = loan > 7000;          // only mention when > $7k
-      if (feeHint){ feeHint.classList.toggle('hidden', !showFeeHint); }
-
-      const newPmt = calcPayment(newLoan, finalNewRate, years);
-      const newTotInt = newPmt*years*12 - newLoan;
-      const saveInterest = curTotInt - newTotInt;
-
-      results.innerHTML = `
-        <div><span class="text-zinc-500">New payment:</span> ${fmtMoney(newPmt)}</div>
-        <div><span class="text-zinc-500">Total interest saved:</span> ${fmtMoney(saveInterest)}</div>
-      `;
-    }
   });
   </script>
 </body>
