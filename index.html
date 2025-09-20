@@ -26,12 +26,13 @@
       --pad-y: 10px; --gap-regular: 8px; --input-py: 6px; --input-px: 10px; --radius: 10px;
       --nav-font: 15px;
 
-      /* Visual polish variables */
+      /* Visual polish + fixed viewport */
       --control-h: 42px;
       --field-gap: 10px;
       --section-max: 720px;
+      --step-viewport-min: 640px; /* lock form viewport height to avoid “growing” */
     }
-    @media (max-width:640px){ :root{ --nav-font: 14px; } }
+    @media (max-width:640px){ :root{ --nav-font: 14px; --step-viewport-min: 680px; } }
 
     body{ font-family:'Inter',sans-serif; background:#f6f7fb; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
     .card{ background:#fff; border-radius:12px; border:1px solid #e5e7eb; box-shadow:0 8px 18px -10px rgb(0 0 0 / .15); }
@@ -56,19 +57,19 @@
 
     .err{ border-color:#ef4444 !important; } .err-label{ color:#ef4444 !important; }
 
-    /* Form shell — consistent height + pinned footer */
+    /* Form shell — fixed viewport height + pinned footer */
     .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; }
-    .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; pointer-events:none; } /* clicks pass through */
-    .step-viewport{ flex:1; overflow:auto; }
+    .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; pointer-events:none; }
+    .step-viewport{ flex:1; overflow:auto; min-height: var(--step-viewport-min); }
     .step-viewport-inner{ height:100%; }
     .step-inner{ width:100%; padding-top:var(--pad-y); padding-bottom:var(--pad-y); max-width: var(--section-max); margin-left:auto; margin-right:auto; }
     .vstack > * + *{ margin-top: var(--gap-regular); }
 
-    /* Footer controls — roomy padding, consistent placement */
+    /* Footer controls */
     .form-footer{ padding: 14px 18px; position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb; }
     #btnBack{ min-height:38px; border-radius:10px; }
 
-    /* Vertical rectangular choices */
+    /* Choices */
     .choice-rect{
       width:100%; text-align:left; border:1.5px solid #e5e7eb; border-radius:10px; background:#fff;
       padding:10px 12px; font-weight:700; color:#111827; transition:all .15s ease; display:block;
@@ -79,7 +80,7 @@
 
     .muted{ font-size:12px; color:#6b7280; }
 
-    /* Segmented control (Rent / Own) */
+    /* Segmented (Rent / Own) */
     .seg{
       display:inline-flex; align-items:center; gap:6px;
       background:#f3f4f6; border:1.5px solid #e5e7eb; border-radius:9999px; padding:4px; margin-top:4px;
@@ -89,20 +90,17 @@
       padding:6px 12px; border-radius:9999px; font-weight:800; font-size:13px; color:#374151;
       transition:background .15s ease, color .15s ease, box-shadow .15s ease;
     }
-    .seg-btn[aria-pressed="true"]{
-      background:var(--blue-600); color:#fff; box-shadow:0 1px 2px rgba(0,0,0,.06);
-    }
+    .seg-btn[aria-pressed="true"]{ background:var(--blue-600); color:#fff; box-shadow:0 1px 2px rgba(0,0,0,.06); }
 
-    /* Inline grids — unify gaps */
+    /* Inline grids */
     .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:var(--field-gap); }
-    /* Middle name wider than first/last */
-    .grid-inline-3{ display:grid; grid-template-columns: 1fr 1.3fr 1fr; gap:var(--field-gap); }
+    .grid-inline-3{ display:grid; grid-template-columns: 1fr 1.3fr 1fr; gap:var(--field-gap); } /* middle wider */
     .grid-inline-3-tight{ display:grid; grid-template-columns: .65fr 1.1fr 1.3fr; gap:var(--field-gap); }
     .grid-inline-addr1{ display:grid; grid-template-columns: 3fr 1fr; gap:var(--field-gap); }
     .grid-inline-addr2{ display:grid; grid-template-columns: 1.6fr 1fr 1fr; gap:var(--field-gap); }
-    .grid-inline-dob{ display:grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap:var(--field-gap); }
+    .grid-inline-dob{ display:grid; grid-template-columns: 1.6fr 1.1fr 1fr 1.3fr; gap:var(--field-gap); } /* Marital biggest, then Year, Month, Day */
 
-    /* Brand area + Powered by */
+    /* Brand */
     .brand-left{ display:flex; align-items:center; gap:12px; }
     .site-logo{ height:60px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
     @media (max-width:640px){ .site-logo{ height:56px; } }
@@ -114,7 +112,7 @@
 
     .abc-badge{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:9999px; background:var(--blue-600); color:#fff; border:none; font-weight:800; font-size:11px; line-height:1; flex-shrink:0; }
 
-    /* Browse Vehicles (with shimmer) */
+    /* Inventory cards */
     .bodytype-card{ overflow:hidden; border-radius:10px; border:1px solid #e5e7eb; background:#fff; transition:transform .15s,box-shadow .15s,border-color .15s; }
     .bodytype-card:hover{ transform:translateY(-1px); border-color:var(--blue-600); box-shadow:0 10px 18px -12px rgba(42,93,159,.28); }
     .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:92px; }
@@ -143,10 +141,10 @@
     .progress-note{margin-top:10px;font-size:12px;color:#64748b}
     .hidden{display:none}
 
-    /* Make login card same height as form card */
+    /* Equal height column helper */
     .equal-h { height: 100%; }
 
-    /* Tidy selects (esp. iOS/Safari) */
+    /* Tidy selects */
     .form-select{
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -164,7 +162,7 @@
       padding-right: 2.2rem;
     }
 
-    /* --- Refi calc small tweaks to perfectly match login card spacing --- */
+    /* Refi calc */
     #refi-card .label{ margin-bottom:6px; }
     #refi-card .form-input{ font-size:14px; }
     #refi-card .mini{ font-size:12px; color:#374151; }
@@ -253,7 +251,7 @@
       </div>
     </section>
 
-    <!-- FORM + LOGIN (side-by-side, same height) -->
+    <!-- FORM + RIGHT COLUMN -->
     <section class="grid md:grid-cols-2 gap-4">
       <!-- FORM -->
       <div class="card p-0 overflow-hidden equal-h" id="lead-form">
@@ -267,7 +265,7 @@
             <div class="track mt-2"><div id="progress-fill" class="fill"></div></div>
           </div>
 
-          <!-- STEP VIEWPORT -->
+          <!-- STEP VIEWPORT (fixed height) -->
           <div id="step-viewport" class="step-viewport px-4">
             <div class="step-viewport-inner">
               <form id="the-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" novalidate>
@@ -276,35 +274,65 @@
                 <input type="hidden" name="appCode" id="appCode" value="" />
                 <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
 
-                <!-- 1. Vehicle condition -->
-                <section class="form-step" data-step="1">
+                <!-- 1. Application type -->
+                <section class="form-step" data-step="1" id="step-appType">
                   <div class="step-inner">
-                    <h3 class="h2">1. Vehicle condition</h3>
+                    <h3 class="h2">1. Application type</h3>
                     <div class="vstack mt-2">
-                      <button type="button" class="choice-rect" data-cond="New">New</button>
-                      <button type="button" class="choice-rect" data-cond="Used">Used</button>
-                      <button type="button" class="choice-rect" data-cond="Both">Both</button>
+                      <button type="button" class="choice-rect" data-app="Finance">Finance (new purchase)</button>
+                      <button type="button" class="choice-rect" data-app="Refinance">Refinance existing loan</button>
                     </div>
-                    <input type="hidden" name="vehicleCondition" id="vehicleCondition">
+                    <input type="hidden" name="applicationType" id="applicationType" value="Finance">
                   </div>
                 </section>
 
-                <!-- 2. Bi-weekly budget (slider only) -->
-                <section class="form-step hidden" data-step="2">
+                <!-- 2. Either Vehicle condition (Finance) OR Refinance details (Refinance) -->
+                <section class="form-step hidden" data-step="2" id="step-choice">
                   <div class="step-inner">
-                    <h3 class="h2">2. Bi-weekly budget <span class="muted">(starts at $120)</span></h3>
+                    <!-- Finance-only block -->
+                    <div id="block-finance">
+                      <h3 class="h2">2. Vehicle condition</h3>
+                      <div class="vstack mt-2">
+                        <button type="button" class="choice-rect" data-cond="New">New</button>
+                        <button type="button" class="choice-rect" data-cond="Used">Used</button>
+                        <button type="button" class="choice-rect" data-cond="Both">Both</button>
+                      </div>
+                      <input type="hidden" name="vehicleCondition" id="vehicleCondition">
+                    </div>
+
+                    <!-- Refinance-only block -->
+                    <div id="block-refi" class="hidden">
+                      <h3 class="h2">2. Refinance details</h3>
+                      <div class="grid-inline-2 mt-2">
+                        <div>
+                          <label class="label" for="refiDurationYears">Remaining duration (years) <span class="text-red-500">*</span></label>
+                          <input type="number" id="refiDurationYears" name="refiDurationYears" class="form-input" min="1" max="10" required/>
+                        </div>
+                        <div>
+                          <label class="label" for="refiInterestRate">Current interest rate (%) <span class="text-red-500">*</span></label>
+                          <input type="number" id="refiInterestRate" name="refiInterestRate" class="form-input" step="0.01" min="0" max="40" required/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <!-- 3. Bi-weekly budget (Finance only) -->
+                <section class="form-step hidden" data-step="3" id="step-budget">
+                  <div class="step-inner">
+                    <h3 class="h2">3. Bi-weekly budget <span class="muted">(starts at $120)</span></h3>
                     <div class="mt-2">
-                      <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="120" class="w-full" style="accent-color: var(--blue-600);">
-                      <div class="text-[12px] text-zinc-700 mt-1 text-center">Selected: <b>$<span id="biWeeklyOut">120</span></b> / bi-weekly</div>
-                      <input type="hidden" name="budgetRange" id="budgetRange" value="$120 bi-weekly">
+                      <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="250" class="w-full" style="accent-color: var(--blue-600);">
+                      <div class="text-[12px] text-zinc-700 mt-1 text-center">Selected: <b>$<span id="biWeeklyOut">250</span></b> / bi-weekly</div>
+                      <input type="hidden" name="budgetRange" id="budgetRange" value="$250 bi-weekly">
                     </div>
                   </div>
                 </section>
 
-                <!-- 3. Down payment / Trade-in -->
-                <section class="form-step hidden" data-step="3" id="step-purchase">
+                <!-- 4. Down payment / Trade-in (both paths) -->
+                <section class="form-step hidden" data-step="4" id="step-purchase">
                   <div class="step-inner">
-                    <h3 class="h2">3. Purchase details</h3>
+                    <h3 class="h2">4. Purchase details</h3>
                     <div class="vstack mt-2">
                       <div>
                         <label for="downPayment" class="label mb-1 block">Down payment</label>
@@ -327,10 +355,10 @@
                   </div>
                 </section>
 
-                <!-- 4. Trade-in details (only if Yes) -->
-                <section class="form-step hidden" data-step="4" id="step-tradein">
+                <!-- 5. Trade-in details (only if Yes) -->
+                <section class="form-step hidden" data-step="5" id="step-tradein">
                   <div class="step-inner">
-                    <h3 class="h2">4. Trade-in details</h3>
+                    <h3 class="h2">5. Trade-in details</h3>
                     <div class="grid-inline-3-tight mt-2">
                       <select name="tradeInYear" id="tradeInYear" class="form-select">
                         <option value="">Year</option>
@@ -345,10 +373,10 @@
                   </div>
                 </section>
 
-                <!-- 5. Employment + monthly income -->
-                <section class="form-step hidden" data-step="5" id="step-income-quick">
+                <!-- 6. Employment + monthly income -->
+                <section class="form-step hidden" data-step="6" id="step-income-quick">
                   <div class="step-inner">
-                    <h3 class="h2">5. Employment & Income</h3>
+                    <h3 class="h2">6. Employment & Income</h3>
                     <div class="vstack mt-2">
                       <div>
                         <label for="incomeSourceFull" class="label mb-1 block">Employment type <span class="text-red-500">*</span></label>
@@ -369,10 +397,10 @@
                   </div>
                 </section>
 
-                <!-- 6. Account creation + contact -->
-                <section class="form-step hidden" data-step="6" id="step-account">
+                <!-- 7. Account creation + contact -->
+                <section class="form-step hidden" data-step="7" id="step-account">
                   <div class="step-inner">
-                    <h3 class="h2">6. Account creation</h3>
+                    <h3 class="h2">7. Account creation</h3>
                     <p class="muted mt-1">You’ll receive an application code after submission — that becomes your username to log in.</p>
                     <div class="vstack mt-2">
                       <div>
@@ -391,10 +419,10 @@
                   </div>
                 </section>
 
-                <!-- 7. Names + DOB -->
-                <section class="form-step hidden" data-step="7" id="step-yourinfo">
+                <!-- 8. Your information -->
+                <section class="form-step hidden" data-step="8" id="step-yourinfo">
                   <div class="step-inner">
-                    <h3 class="h2">7. Your information</h3>
+                    <h3 class="h2">8. Your information</h3>
                     <div class="vstack mt-2">
                       <div class="grid-inline-3">
                         <div>
@@ -437,10 +465,10 @@
                   </div>
                 </section>
 
-                <!-- 8. Current address -->
-                <section class="form-step hidden" data-step="8" id="step-address">
+                <!-- 9. Current address -->
+                <section class="form-step hidden" data-step="9" id="step-address">
                   <div class="step-inner">
-                    <h3 class="h2">8. Current address</h3>
+                    <h3 class="h2">9. Current address</h3>
                     <div class="grid-inline-addr1 mt-2">
                       <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" placeholder="Street address" autocomplete="street-address" maxlength="120" required/>
                       <input type="text" id="currentUnit" name="currentUnit" class="form-input" placeholder="Unit #" maxlength="10"/>
@@ -461,7 +489,7 @@
                           <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
                         </div>
                         <div>
-                          <label class="label mb-1 block" for="timeAtAddressMonths"> </label>
+                          <label class="label mb-1 block" for="timeAtAddressMonths">&nbsp;</label>
                           <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
                         </div>
                       </div>
@@ -477,10 +505,10 @@
                   </div>
                 </section>
 
-                <!-- 9. Employer / position / time / optional additional income -->
-                <section class="form-step hidden" data-step="9" id="step-employer">
+                <!-- 10. Employer / position -->
+                <section class="form-step hidden" data-step="10" id="step-employer">
                   <div class="step-inner">
-                    <h3 class="h2">9. Employment details</h3>
+                    <h3 class="h2">10. Employment details</h3>
                     <div class="grid-inline-2 mt-2">
                       <input type="text" id="currentEmployer" name="currentEmployer" class="form-input" placeholder="Employer"/>
                       <input type="text" id="jobTitle" name="jobTitle" class="form-input" placeholder="Position"/>
@@ -516,9 +544,9 @@
         </div>
       </div>
 
-      <!-- RIGHT COLUMN: Refi + LOGIN -->
+      <!-- RIGHT COLUMN: Refi calculator + LOGIN -->
       <aside class="equal-h">
-        <!-- Refinance Calculator (fills the normal gap above login) -->
+        <!-- Refinance Calculator (fills the gap above login) -->
         <div class="card p-5" id="refi-card">
           <h3 class="h2">If I were to refinance…</h3>
           <div class="grid gap-3 mt-2">
@@ -671,6 +699,9 @@
 
     // Steps
     function steps(){ return bySelAll('.form-step'); }
+    function isRefi(){ return ( $('applicationType')?.value || 'Finance') === 'Refinance'; }
+
+    const TOTAL_STEPS = 10;
 
     function showStep(n){
       var s = steps();
@@ -678,27 +709,41 @@
       var t = s[n-1];
       if (t){ t.classList.remove('hidden'); window.__currentStep = n; }
 
-      // progress bar + label
-      var total = 9;
-      var backBtn = $('btnBack'); if (backBtn) backBtn.disabled = (n === 1);
-      var nextBtn = $('btnNext'); if (nextBtn) nextBtn.textContent = 'Next';
-      var lbl = bySel('#progress-label'); if (lbl) lbl.textContent = 'Step ' + n + ' of ' + total;
-      var pct = Math.round((n-1)/(total-1)*100);
-      var fill = bySel('#progress-fill'); if (fill) fill.style.width = pct + '%';
-      var endcap = bySel('#progress-endcap'); if (endcap) endcap.textContent = (n >= total) ? 'Finding matches…' : 'Let’s get you approved';
+      // Toggle finance vs refi block inside step 2
+      if (n === 2){
+        var fin = $('block-finance'), refblk = $('block-refi');
+        if (isRefi()){
+          fin && fin.classList.add('hidden');
+          refblk && refblk.classList.remove('hidden');
+        } else {
+          refblk && refblk.classList.add('hidden');
+          fin && fin.classList.remove('hidden');
+        }
+      }
 
-      // keep viewport height stable
-      setViewportHeight();
+      // Progress bar + label
+      var backBtn = $('btnBack'); if (backBtn) backBtn.disabled = (n === 1);
+      var lbl = bySel('#progress-label'); if (lbl) lbl.textContent = 'Step ' + n + ' of ' + TOTAL_STEPS;
+      var pct = Math.round((n-1)/(TOTAL_STEPS-1)*100);
+      var fill = bySel('#progress-fill'); if (fill) fill.style.width = pct + '%';
+      var endcap = bySel('#progress-endcap'); if (endcap) endcap.textContent = (n >= TOTAL_STEPS) ? 'Finding matches…' : 'Let’s get you approved';
     }
 
     function computeNextStep(cur, delta){
-      var hasInput = $('hasTradeIn');
-      var hasTrade = (hasInput && hasInput.value || 'No').toLowerCase() === 'yes';
-      if (delta > 0){
-        if (cur === 3 && !hasTrade) return 5; // skip 4
+      var tradeYes = ( ($('hasTradeIn')?.value) || 'No' ).toLowerCase() === 'yes';
+      var forward = delta > 0;
+
+      if (forward){
+        // Skip rules going forward
+        if (cur === 2 && isRefi()) return 4;        // Refi skips budget (step 3)
+        if (cur === 3 && isRefi()) return 4;        // safety
+        if (cur === 4 && !tradeYes) return 6;       // skip trade details
+        if (cur === 5 && !tradeYes) return 6;       // safety
         return cur + 1;
       } else {
-        if (cur === 5 && !hasTrade) return 3;
+        // Backwards skip logic
+        if (cur === 4 && isRefi()) return 2;        // back over skipped budget
+        if (cur === 6 && !tradeYes) return 4;       // back to purchase if we skipped trade step
         return cur - 1;
       }
     }
@@ -707,35 +752,47 @@
       var cur = window.__currentStep || 1;
       if (delta>0 && !validateStep(cur)) return;
       var t = computeNextStep(cur, delta);
-      var maxStep = 9;
       if (t < 1) t = 1;
-      if (t > maxStep) { submitForm(); return; }
+      if (t > TOTAL_STEPS) { submitForm(); return; }
       showStep(t);
     }
 
     // Nav
-    var nextBtn = $('btnNext'); if (nextBtn) nextBtn.addEventListener('click', function(){ next(1); });
-    var backBtn = $('btnBack'); if (backBtn) backBtn.addEventListener('click', function(){ next(-1); });
+    $('btnNext')?.addEventListener('click', function(){ next(1); });
+    $('btnBack')?.addEventListener('click', function(){ next(-1); });
 
-    // Step 1 tiles (select + immediate advance)
+    // Step 1: application type
+    bySelAll('[data-app]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        bySelAll('[data-app]').forEach(function(x){ x.classList.remove('selected'); });
+        btn.classList.add('selected');
+        $('applicationType').value = btn.getAttribute('data-app') || 'Finance';
+        showStep(2);
+      });
+    });
+
+    // Step 2 Finance: vehicle condition
     bySelAll('[data-cond]').forEach(function(btn){
       btn.addEventListener('click', function(){
         bySelAll('[data-cond]').forEach(function(x){ x.classList.remove('selected','err'); });
         btn.classList.add('selected');
         var hidden = $('vehicleCondition'); if (hidden) hidden.value = btn.getAttribute('data-cond') || '';
-        showStep(2);
+        // If Finance, proceed to Budget (3). If Refi, we were not on this block.
+        if (!isRefi()) showStep(3);
       });
     });
 
-    // Step 2 range
-    var biw = $('biWeeklyRange'); var out = $('biWeeklyOut'); var br = $('budgetRange');
-    if (biw && out && br){
-      function updateBudget(){ out.textContent = biw.value; br.value = '$' + biw.value + ' bi-weekly'; }
-      biw.addEventListener('input', updateBudget);
-      updateBudget();
-    }
+    // Budget
+    (function(){
+      var biw = $('biWeeklyRange'); var out = $('biWeeklyOut'); var br = $('budgetRange');
+      if (biw && out && br){
+        function updateBudget(){ out.textContent = biw.value; br.value = '$' + biw.value + ' bi-weekly'; }
+        biw.addEventListener('input', updateBudget);
+        updateBudget();
+      }
+    })();
 
-    // Step 3 trade-in tiles
+    // Trade tiles
     bySelAll('[data-trade]').forEach(function(btn){
       btn.addEventListener('click', function(){
         bySelAll('[data-trade]').forEach(function(x){ x.classList.remove('selected'); });
@@ -747,39 +804,55 @@
     // Rent/Own segmented
     function setHousing(type){
       var h = $('housingType'); if (h) h.value = type;
-      var rent = $('btnRent'), own = $('btnOwn');
-      if (rent) rent.setAttribute('aria-pressed', String(type==='Rent'));
-      if (own) own.setAttribute('aria-pressed', String(type==='Own'));
+      $('btnRent')?.setAttribute('aria-pressed', String(type==='Rent'));
+      $('btnOwn')?.setAttribute('aria-pressed', String(type==='Own'));
     }
-    var rentBtn = $('btnRent'); if (rentBtn) rentBtn.addEventListener('click', function(){ setHousing('Rent'); });
-    var ownBtn = $('btnOwn'); if (ownBtn) ownBtn.addEventListener('click', function(){ setHousing('Own'); });
+    $('btnRent')?.addEventListener('click', function(){ setHousing('Rent'); });
+    $('btnOwn')?.addEventListener('click', function(){ setHousing('Own'); });
 
     // Phone format
-    var phone = $('phone');
-    if (phone){
-      phone.addEventListener('input', function(e){
-        var d = e.target.value.replace(/\D/g,'').slice(0,10);
-        if(d.length>6) e.target.value='(' + d.slice(0,3) + ') ' + d.slice(3,6) + '-' + d.slice(6);
-        else if(d.length>3) e.target.value='(' + d.slice(0,3) + ') ' + d.slice(3);
-        else if(d.length>0) e.target.value='(' + d;
-      });
-    }
+    $('phone')?.addEventListener('input', function(e){
+      var d = e.target.value.replace(/\D/g,'').slice(0,10);
+      if(d.length>6) e.target.value='(' + d.slice(0,3) + ') ' + d.slice(3,6) + '-' + d.slice(6);
+      else if(d.length>3) e.target.value='(' + d.slice(0,3) + ') ' + d.slice(3);
+      else if(d.length>0) e.target.value='(' + d;
+    });
 
-    // Validation (validate current step only)
+    // Validation (visible only)
     function visibleRequired() {
       var req = bySelAll('#the-form [required]');
       return req.filter(function(el){ return !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none'; });
     }
     function validateStep(n){
-      if (n===1) {
-        var ok1 = !!($('vehicleCondition') && $('vehicleCondition').value);
-        bySelAll('[data-cond]').forEach(function(x){ x.classList.toggle('err', !ok1); });
-        return ok1;
-      }
-      if (n===2) {
-        return !!(br && br.value);
+      // Step 1: ensure app type chosen
+      if (n===1){
+        var v = $('applicationType')?.value;
+        var ok = !!v;
+        bySelAll('[data-app]').forEach(function(x){ x.classList.toggle('err', !ok); });
+        return ok;
       }
 
+      // Step 2 branch
+      if (n===2){
+        if (isRefi()){
+          var dur = $('refiDurationYears'), rate = $('refiInterestRate');
+          var ok = !!(dur && dur.value) && !!(rate && rate.value);
+          if (dur) dur.classList.toggle('err', !dur.value);
+          if (rate) rate.classList.toggle('err', !rate.value);
+          return ok;
+        } else {
+          var ok2 = !!($('vehicleCondition') && $('vehicleCondition').value);
+          bySelAll('[data-cond]').forEach(function(x){ x.classList.toggle('err', !ok2); });
+          return ok2;
+        }
+      }
+
+      // Step 3 (budget) only validated for Finance path
+      if (n===3 && !isRefi()){
+        return !!($('budgetRange') && $('budgetRange').value);
+      }
+
+      // Generic validation for other steps
       var stepEl = steps()[n-1];
       if(!stepEl) return true;
 
@@ -810,7 +883,7 @@
     }
     function validateAll(){
       var ok = true;
-      for (var i=1;i<=9;i++){ if(!validateStep(i)) ok=false; }
+      for (var i=1;i<=TOTAL_STEPS;i++){ if(!validateStep(i)) ok=false; }
       return ok;
     }
 
@@ -853,20 +926,16 @@
       });
     }
 
-    // === Submit orchestration ===
+    // Submit
     function generateAppCode(){
       var n = Math.floor(Math.random()*1000000);
-      var s = String(n);
-      while (s.length<6) s = '0'+s;
-      return 'ABC-' + s;
+      return 'ABC-' + String(n).padStart(6,'0');
     }
-
     function submitForm(){
       if (!validateAll()) return;
       var form = bySel('#the-form');
       if (form) form.requestSubmit();
     }
-
     var formEl = bySel('#the-form');
     if (formEl){
       formEl.addEventListener('submit', function(e){
@@ -878,14 +947,12 @@
       });
     }
 
-    // Inventory shimmer “refresh”
+    // Inventory shimmer
     function fakeRefreshCounts(){
       var cards = bySelAll('.bodytype-card');
       cards.forEach(function(c){ c.classList.add('loading'); });
       setTimeout(function(){ cards.forEach(function(c){ c.classList.remove('loading'); }); }, 700);
     }
-
-    // “View all” -> focus form & shimmer
     bySelAll('.js-view-inventory').forEach(function(el){
       el.addEventListener('click', function(e){
         e.preventDefault();
@@ -896,26 +963,21 @@
     });
 
     // Login (demo)
-    var loginForm = $('login-form');
-    if (loginForm){
-      loginForm.addEventListener('submit', function(e){
-        e.preventDefault();
-        var raw = ($('loginCode') && $('loginCode').value) || '';
-        var code = raw.toUpperCase().trim();
-        var pass = ($('loginPass') && $('loginPass').value) || '';
-        if (!code || !pass) return;
-        try { sessionStorage.setItem('vic_app_code', code); } catch(_){}
-        alert('Logged in (demo). Matching options would show here.');
-      });
-    }
+    $('login-form')?.addEventListener('submit', function(e){
+      e.preventDefault();
+      var raw = $('loginCode')?.value || '';
+      var code = raw.toUpperCase().trim();
+      var pass = $('loginPass')?.value || '';
+      if (!code || !pass) return;
+      try { sessionStorage.setItem('vic_app_code', code); } catch(_){}
+      alert('Logged in (demo). Matching options would show here.');
+    });
 
-    // DOB & dropdown helpers
+    // DOB helpers
     function populateDOBYears(sel){ if(!sel) return;
       var start=2004; sel.innerHTML = '';
       for(var y=start; y>=1940; y--){ var o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); }
     }
-
-    // Month select: show long labels in popup, short number when selected
     function populateMonths(sel){
       if(!sel) return;
       var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -923,36 +985,20 @@
       months.forEach(function(name, i){
         var num = String(i+1).padStart(2,'0');
         var o = document.createElement('option');
-        o.value = (i+1);             // 1..12
-        o.dataset.num = num;         // "01"
-        o.dataset.long = name + ' ' + num; // "January 01"
-        o.textContent = num;         // default closed state: just "01"
+        o.value = (i+1);
+        o.dataset.num = num;
+        o.dataset.long = name + ' ' + num;
+        o.textContent = num;
         sel.appendChild(o);
       });
-
-      function setLabelsLong(){
-        Array.prototype.forEach.call(sel.options, function(opt){
-          if (!opt.value) return; // skip placeholder
-          if (opt.dataset && opt.dataset.long) opt.textContent = opt.dataset.long;
-        });
-      }
-      function setLabelsShort(){
-        Array.prototype.forEach.call(sel.options, function(opt){
-          if (!opt.value) return;
-          if (opt.dataset && opt.dataset.num) opt.textContent = opt.dataset.num;
-        });
-      }
-
-      // Before opening: show long labels in the dropdown list
+      function setLabelsLong(){ Array.prototype.forEach.call(sel.options, function(opt){ if(opt.value && opt.dataset?.long) opt.textContent = opt.dataset.long; }); }
+      function setLabelsShort(){ Array.prototype.forEach.call(sel.options, function(opt){ if(opt.value && opt.dataset?.num) opt.textContent = opt.dataset.num; }); }
       sel.addEventListener('mousedown', setLabelsLong);
       sel.addEventListener('touchstart', setLabelsLong, {passive:true});
       sel.addEventListener('focus', setLabelsLong);
-
-      // After choose/close: revert to short number for compact display
       sel.addEventListener('change', setLabelsShort);
       sel.addEventListener('blur', setLabelsShort);
     }
-
     function updateDays(){
       var y=parseInt(($('dobYear')&&$('dobYear').value)||'',10);
       var m=parseInt(($('dobMonth')&&$('dobMonth').value)||'',10);
@@ -963,6 +1009,8 @@
       for(var i=1;i<=days;i++){ var o=document.createElement('option'); o.value=i; o.textContent=(i<10?('0'+i):String(i)); daySel.appendChild(o); }
       if(selV&&selV<=days) daySel.value=selV;
     }
+
+    // Provinces/tenures
     function populateDropdown(sel,start,end,label,singular){
       if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>';
       for(var i=start;i<=end;i++){ var o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o); }
@@ -976,52 +1024,24 @@
       for(var y=start; y>=end; y--){ var o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); }
     }
 
-    // ---- Consistent height for all steps ----
-    function setViewportHeight(){
-      var viewport = $('step-viewport');
-      if (!viewport) return;
-
-      var s = steps();
-      var maxH = 0;
-      // Temporarily show hidden steps to measure
-      for (var i=0;i<s.length;i++){
-        var sec = s[i];
-        var wasHidden = sec.classList.contains('hidden');
-        if (wasHidden) sec.classList.remove('hidden');
-
-        var inner = sec.querySelector('.step-inner');
-        var h = inner ? inner.offsetHeight : sec.offsetHeight;
-        if (h > maxH) maxH = h;
-
-        if (wasHidden) sec.classList.add('hidden');
-      }
-      var buffer = 8;
-      viewport.style.minHeight = (maxH + buffer) + 'px';
-    }
-
-    // Height sync between form and login card
-    function syncHeights(){
-      var form = document.getElementById('lead-form');
-      var login = document.getElementById('login-card');
-      if (!form || !login) return;
-      login.style.minHeight = form.offsetHeight + 'px';
-    }
-
-    // Init
+    // ---- Init ----
     (function init(){
-      var y = new Date().getFullYear(); var yEl = bySel('#year'); if (yEl) yEl.textContent = y;
+      var y = new Date().getFullYear(); bySel('#year')?.textContent = y;
 
-      // Default Step 1 to "Both"
+      // Default application type to Finance
+      $('applicationType').value = 'Finance';
+
+      // Finance defaults
       var hiddenCond = $('vehicleCondition'); if (hiddenCond) hiddenCond.value = 'Both';
       var bothBtn = bySel('[data-cond="Both"]'); if (bothBtn) bothBtn.classList.add('selected');
 
       // DOB
       populateDOBYears($('dobYear'));
       populateMonths($('dobMonth')); updateDays();
-      var dobMonth = $('dobMonth'); if (dobMonth) dobMonth.addEventListener('change', updateDays);
-      var dobYear = $('dobYear'); if (dobYear) dobYear.addEventListener('change', updateDays);
+      $('dobMonth')?.addEventListener('change', updateDays);
+      $('dobYear')?.addEventListener('change', updateDays);
 
-      // Tenures & address helpers
+      // Tenures & address
       populateDropdown($('timeWithEmployerYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('timeWithEmployerMonths'), 0, 11, 'Months', 'Month');
       populateDropdown($('timeAtAddressYears'), 0, 30, 'Years', 'Year');
@@ -1035,20 +1055,9 @@
       setHousing('Rent');
       window.__currentStep = 1;
       showStep(1);
-
-      // Initial size pass + sync
-      setViewportHeight();
-      setTimeout(function(){ syncHeights(); }, 0);
-
-      // Resize listeners
-      window.addEventListener('resize', function(){ setViewportHeight(); syncHeights(); });
-
-      // Also after nav clicks, keep heights in sync
-      var nb = $('btnNext'); if (nb) nb.addEventListener('click', function(){ setTimeout(function(){ setViewportHeight(); syncHeights(); }, 0); });
-      var bb = $('btnBack'); if (bb) bb.addEventListener('click', function(){ setTimeout(function(){ setViewportHeight(); syncHeights(); }, 0); });
     })();
 
-    /* ------------------ Refinance calculator logic (matches login card) ------------------ */
+    /* ------------------ Refinance calculator logic ------------------ */
     function fmtMoney(x){ x = isFinite(x) ? x : 0; return "$" + x.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
     function calcPayment(P, annualRate, years){
       var r = (annualRate/100)/12, n = years*12;
@@ -1074,21 +1083,19 @@
       var curPmt = calcPayment(loan, rate, years);
       var curTotInt = curPmt*years*12 - loan;
 
-      // silent fee only when loan > 7,000
+      // add fee silently only if loan > 7,000
       var newLoan = loan + (loan>7000?3000:0);
       var newPmt = calcPayment(newLoan, newRate, years);
       var newTotInt = newPmt*years*12 - newLoan;
 
       var savePerMonth = curPmt - newPmt;
       var saveInterest = curTotInt - newTotInt;
-      results.innerHTML = ""
-        + "<p><b>Current payment:</b> " + fmtMoney(curPmt) + "</p>"
-        + "<p><b>New payment:</b> " + fmtMoney(newPmt) + "</p>"
-        + "<p><b>Monthly savings:</b> " + fmtMoney(savePerMonth) + "</p>"
-        + "<p><b>Total interest saved:</b> " + fmtMoney(saveInterest) + "</p>";
+      results.innerHTML =
+        "<p><b>Current payment:</b> " + fmtMoney(curPmt) + "</p>" +
+        "<p><b>New payment:</b> " + fmtMoney(newPmt) + "</p>" +
+        "<p><b>Monthly savings:</b> " + fmtMoney(savePerMonth) + "</p>" +
+        "<p><b>Total interest saved:</b> " + fmtMoney(saveInterest) + "</p>";
     }
-
-    // attach listeners
     (function initRefi(){
       var loanEl = bySel('#refLoanInput');
       if(loanEl){
@@ -1096,12 +1103,15 @@
         loanEl.addEventListener('input', updateRefiInputs);
         formatMoneyField(loanEl);
       }
-      var rateEl = bySel('#refRateInput'); if(rateEl) rateEl.addEventListener('input', updateRefiInputs);
-      var termEl = bySel('#refTermInput'); if(termEl) termEl.addEventListener('input', updateRefiInputs);
+      bySel('#refRateInput')?.addEventListener('input', updateRefiInputs);
+      bySel('#refTermInput')?.addEventListener('input', updateRefiInputs);
       var slider = bySel('#refNewRateSlider');
       if(slider){
         var out = bySel('#refNewRateOut');
-        slider.addEventListener('input', function(){ if(out) out.textContent = Number(slider.value).toFixed(2); updateRefiInputs(); });
+        slider.addEventListener('input', function(){
+          if(out) out.textContent = Number(slider.value).toFixed(2);
+          updateRefiInputs();
+        });
         if(out) out.textContent = Number(slider.value).toFixed(2);
       }
       updateRefiInputs();
