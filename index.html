@@ -23,7 +23,6 @@
     :root{
       --blue-600:#2A5D9F; --blue-700:#214B80; --blue-100:#EAF1FB; --blue-grad:#4C7CC0;
 
-      /* scaled-down but consistent */
       --fs-h1: 20px; --fs-h2: 16px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
       --pad-y: 10px; --gap-regular: 8px; --input-py: 5px; --input-px: 10px; --radius: 10px;
       --nav-font: 14px;
@@ -31,9 +30,8 @@
       --field-gap: 8px;
       --section-max: 720px;
 
-      /* these are just fallbacks; JS locks exact height at runtime */
-      --form-viewport-h: 560px;    /* desktop */
-      --form-viewport-h-sm: 520px; /* mobile */
+      --form-viewport-h: 560px;
+      --form-viewport-h-sm: 520px;
 
       --aside-pad: 16px;
     }
@@ -62,33 +60,28 @@
 
     .err{ border-color:#ef4444 !important; } .err-label{ color:#ef4444 !important; }
 
-    /* Form shell */
     .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; }
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; pointer-events:none; }
 
-    /* Viewport is locked by JS to tallest step (so no jump) */
     .step-viewport{ flex:1; overflow:auto; height: var(--form-viewport-h); }
     @media (max-width:640px){ .step-viewport{ height: var(--form-viewport-h-sm); } }
     .step-viewport-inner{ height:100%; }
 
-    /* Step layout: title stays pinned top; content vertically centered */
     .step-inner{
       max-width: var(--section-max); margin: 0 auto; padding: var(--pad-y) 0;
       display:flex; flex-direction:column; min-height:100%;
     }
-    .step-title{ /* h2 wrapper to keep top aligned */ }
+    .step-title{}
     .step-body{
       flex:1; display:flex; align-items:center; justify-content:center;
-      padding-top: 4px; padding-bottom: 8px;
+      padding-top:4px; padding-bottom:8px;
     }
-    .step-body > .content{ width:100%; max-width:640px; margin: 0 auto; }
+    .step-body > .content{ width:100%; max-width:640px; margin:0 auto; }
     .vstack > * + *{ margin-top: var(--gap-regular); }
 
-    /* Footer controls */
     .form-footer{ padding: 12px 16px; position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb; }
     #btnBack{ min-height:36px; border-radius:10px; }
 
-    /* Choice tiles */
     .choice-rect{
       width:100%; text-align:left; border:1.5px solid #e5e7eb; border-radius:10px; background:#fff;
       padding:10px 12px; font-weight:700; color:#111827; transition:all .15s ease; display:block; cursor:pointer;
@@ -98,22 +91,17 @@
 
     .muted{ font-size:11px; color:#6b7280; }
 
-    /* Segmented control (Rent / Own) */
     .seg{ display:inline-flex; align-items:center; gap:6px; background:#f3f4f6; border:1.5px solid #e5e7eb; border-radius:9999px; padding:4px; margin-top:4px; }
     .seg-btn{ appearance:none; border:0; background:transparent; cursor:pointer; padding:6px 12px; border-radius:9999px; font-weight:800; font-size:12px; color:#374151; transition:background .15s ease, color .15s ease, box-shadow .15s ease; }
     .seg-btn[aria-pressed="true"]{ background:var(--blue-600); color:#fff; box-shadow:0 1px 2px rgba(0,0,0,.06); }
 
-    /* Inline grids */
     .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:var(--field-gap); }
-    .grid-inline-3{ display:grid; grid-template-columns: 1fr 1.3fr 1fr; gap:var(--field-gap); } /* middle wider */
+    .grid-inline-3{ display:grid; grid-template-columns: 1fr 1.3fr 1fr; gap:var(--field-gap); }
     .grid-inline-3-tight{ display:grid; grid-template-columns: .65fr 1.1fr 1.3fr; gap:var(--field-gap); }
     .grid-inline-addr1{ display:grid; grid-template-columns: 3fr 1fr; gap:var(--field-gap); }
     .grid-inline-addr2{ display:grid; grid-template-columns: 1.6fr 1fr 1fr; gap:var(--field-gap); }
-
-    /* DOB row sizing and order preserved; Marital widest */
     .grid-inline-dob{ display:grid; grid-template-columns: 1.2fr .9fr .9fr 1.6fr; gap:var(--field-gap); }
 
-    /* Nav branding */
     .brand-left{ display:flex; align-items:center; gap:12px; }
     .site-logo{ height:60px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
     @media (max-width:640px){ .site-logo{ height:56px; } }
@@ -124,13 +112,11 @@
 
     .abc-badge{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:9999px; background:var(--blue-600); color:#fff; border:none; font-weight:800; font-size:11px; line-height:1; flex-shrink:0; }
 
-    /* Inventory cards */
     .bodytype-card{ overflow:hidden; border-radius:10px; border:1px solid #e5e7eb; background:#fff; transition:transform .15s,box-shadow .15s,border-color .15s; }
     .bodytype-card:hover{ transform:translateY(-1px); border-color:var(--blue-600); box-shadow:0 10px 18px -12px rgba(42,93,159,.28); }
     .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:92px; }
     @media (min-width:640px){ .bodytype-img{ height:110px; } }
 
-    /* Map, overlay */
     .map-embed{ width:100%; height:150px; border:0; }
     @media (min-width:768px){ .map-embed{ height:200px; } }
     .progress-overlay{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:50}
@@ -144,7 +130,6 @@
     .progress-note{margin-top:10px;font-size:12px;color:#64748b}
     .hidden{display:none !important;}
 
-    /* Tidy selects */
     .form-select{
       -webkit-appearance: none; -moz-appearance: none; appearance: none;
       background-image:
@@ -160,7 +145,6 @@
       padding-right: 2.2rem;
     }
 
-    /* Refi calculator compact */
     .refi-card { padding: var(--aside-pad); border-bottom:1px solid #e5e7eb; }
     .refi-title { font-size: var(--fs-h2); font-weight: 800; color:#0f172a; line-height:1.2; }
     .refi-grid{ display:grid; grid-template-columns: 1fr; gap:8px; align-items:center; }
@@ -293,7 +277,7 @@
                   </div>
                 </section>
 
-                <!-- 2. Vehicle condition -->
+                <!-- 2. Vehicle condition (finance only) -->
                 <section class="form-step hidden" data-id="step-cond">
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">2. Vehicle condition</h3></div>
@@ -308,7 +292,7 @@
                   </div>
                 </section>
 
-                <!-- 3. Budget -->
+                <!-- 3. Budget (finance only) -->
                 <section class="form-step hidden" data-id="step-budget">
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">3. Bi-weekly budget <span class="muted">(starts at $120)</span></h3></div>
@@ -729,35 +713,31 @@
   </div>
 
   <script>
-  // ===== Helpers =====
   const $ = (id) => document.getElementById(id);
   const bySel = (s, root=document) => root.querySelector(s);
   const bySelAll = (s, root=document) => Array.from(root.querySelectorAll(s));
 
-  // Money utils (calculator)
   function fmtMoney(x){ x = isFinite(x) ? x : 0; return "$" + x.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
   function parseMoneyInput(v){ if (!v) return 0; return parseFloat(String(v).replace(/[^0-9.]/g,'')) || 0; }
   function formatMoneyField(input){ const num = parseMoneyInput(input.value); input.value = num ? num.toLocaleString('en-CA', {style:'currency', currency:'CAD', maximumFractionDigits:0}) : ''; }
   function calcPayment(P, annualRate, years){ const r=(annualRate/100)/12, n=years*12; if(!n||n<=0) return 0; if(r===0) return P/n; return P*r/(1-Math.pow(1+r,-n)); }
 
   document.addEventListener('DOMContentLoaded', function () {
-    // Mobile menu
     $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
 
-    // ===== FLOW =====
     const stepsMap = {};
     bySelAll('.form-step').forEach(sec => stepsMap[sec.getAttribute('data-id')] = sec);
 
     function currentFlow(){
       const intent = $('intent')?.value || 'finance';
       const hasTrade = ($('hasTradeIn')?.value || 'No').toLowerCase()==='yes';
-      let flow = ['step-intent','step-cond','step-budget'];
-      if (intent==='finance'){
-        flow.push('step-purchase');
-        if (hasTrade) flow.push('step-tradein');
-      } else {
-        flow.push('step-refi-details');
+      if (intent==='refinance'){
+        // Refinance skips condition + budget
+        return ['step-intent','step-refi-details','step-income','step-account','step-yourinfo','step-address','step-employer','step-consent'];
       }
+      // Finance path (with optional trade)
+      let flow = ['step-intent','step-cond','step-budget','step-purchase'];
+      if (hasTrade) flow.push('step-tradein');
       flow = flow.concat(['step-income','step-account','step-yourinfo','step-address','step-employer','step-consent']);
       return flow;
     }
@@ -772,7 +752,7 @@
       const visible = flow.filter(x=>x!=='step-consent');
       const total = visible.length;
       const stepNumber = Math.min(i+1, total);
-      const pct = Math.round((i)/(total-1)*100);
+      const pct = Math.round((i)/(Math.max(1,total-1))*100);
 
       $('btnBack').disabled = (i===0);
       $('btnNext').textContent = (i >= total-1) ? 'Submit' : 'Next';
@@ -788,7 +768,6 @@
       const stepEl = stepsMap[stepId];
       if (!stepEl) return true;
 
-      // special checks
       if (stepId==='step-intent'){
         const v = $('intent').value;
         const ok = (v==='finance' || v==='refinance');
@@ -802,7 +781,6 @@
       }
       if (stepId==='step-budget'){ return !!$('budgetRange').value; }
 
-      // generic visible required in this step
       let ok = true;
       const fields = Array.from(stepEl.querySelectorAll('[required]'));
       fields.forEach(el=>{
@@ -825,7 +803,7 @@
       const flow = currentFlow();
       let i = flow.indexOf(curStepId);
       if (i<0) i=0;
-      if (delta>0 && !validateCurrent(curStepId)) return; // stop if invalid
+      if (delta>0 && !validateCurrent(curStepId)) return;
       i += delta;
 
       const visible = flow.filter(x=>x!=='step-consent');
@@ -839,16 +817,24 @@
     $('btnNext')?.addEventListener('click', ()=> next(1));
     $('btnBack')?.addEventListener('click', ()=> next(-1));
 
-    // Click handlers
+    // Intent click -> route to the correct first step
     bySelAll('[data-intent]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-intent]').forEach(x=>x.classList.remove('selected','err'));
         btn.classList.add('selected');
         $('intent').value = btn.dataset.intent;
-        goTo('step-cond');
-        lockViewportHeight(); // make sure height reflects tallest step for chosen path too
+
+        // Go directly to the right first step for this path
+        if (btn.dataset.intent === 'refinance'){
+          goTo('step-refi-details');
+        } else {
+          goTo('step-cond');
+        }
+        lockViewportHeight(); // ensure tallness is set for this branch
       });
     });
+
+    // Vehicle condition select
     bySelAll('[data-cond]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected','err'));
@@ -857,12 +843,12 @@
         goTo('step-budget');
       });
     });
+
     bySelAll('[data-trade]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-trade]').forEach(x=>x.classList.remove('selected'));
         btn.classList.add('selected');
         $('hasTradeIn').value = btn.dataset.trade || 'No';
-        // do not auto-advance: user controls with Next
       });
     });
 
@@ -908,7 +894,6 @@
       overlay.classList.add('hidden');
     }
     function submitForm(){
-      // full validation across visible flow
       const flow = currentFlow().filter(id=>id!=='step-consent');
       for (const id of flow){ if(!validateCurrent(id)){ goTo(id); return; } }
       bySel('#the-form').requestSubmit();
@@ -975,7 +960,6 @@
     function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
     function populateYears(sel, start, end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} }
 
-    // Refi calc wiring
     function setupRefiCalcInputs(){
       const loanEl = $('refLoanInput');
       const rateEl = $('refRateInput');
@@ -1016,11 +1000,9 @@
       update();
     }
 
-    // Lock viewport height to tallest step (keeps size stable, centers content)
     function lockViewportHeight(){
       const viewport = $('step-viewport');
       if (!viewport) return;
-      // temporarily reveal all to measure
       const hidden = [];
       bySelAll('.form-step').forEach(sec=>{
         if (sec.classList.contains('hidden')){ hidden.push(sec); sec.classList.remove('hidden'); }
@@ -1030,46 +1012,69 @@
         const h = inner.offsetHeight;
         if (h>maxH) maxH=h;
       });
-      // restore hidden
       hidden.forEach(sec=> sec.classList.add('hidden'));
-      // set exact height
       viewport.style.height = Math.ceil(maxH + 1) + 'px';
     }
 
-    // Init
     (function init(){
       bySel('#year').textContent = new Date().getFullYear();
 
-      // Defaults
       $('intent').value = 'finance';
       $('vehicleCondition') && ( $('vehicleCondition').value = 'Both' );
       bySel('[data-cond="Both"]')?.classList.add('selected');
       $('housingType') && ( $('housingType').value = 'Rent' );
 
-      // DOB
+      function populateDOBYears(sel){ if(!sel) return; const start=2004; sel.innerHTML = ''; for(let y=start; y>=1940; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); } }
       populateDOBYears($('dobYear'));
-      populateMonths($('dobMonth')); updateDays();
+      function populateMonths(sel){
+        if(!sel) return;
+        const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        sel.innerHTML = '<option value="">MM</option>';
+        months.forEach((name, i)=>{
+          const num = String(i+1).padStart(2,'0');
+          const o = document.createElement('option');
+          o.value = (i+1); o.dataset.num = num; o.dataset.long = name + ' ' + num; o.textContent = num;
+          sel.appendChild(o);
+        });
+        function setLabelsLong(){ Array.from(sel.options).forEach(opt=>{ if(opt.value && opt.dataset.long) opt.textContent = opt.dataset.long; }); }
+        function setLabelsShort(){ Array.from(sel.options).forEach(opt=>{ if(opt.value && opt.dataset.num) opt.textContent = opt.dataset.num; }); }
+        sel.addEventListener('mousedown', setLabelsLong);
+        sel.addEventListener('touchstart', setLabelsLong, {passive:true});
+        sel.addEventListener('focus', setLabelsLong);
+        sel.addEventListener('change', setLabelsShort);
+        sel.addEventListener('blur', setLabelsShort);
+      }
+      populateMonths($('dobMonth'));
+      function updateDays(){
+        const y=parseInt($('dobYear')?.value||'',10);
+        const m=parseInt($('dobMonth')?.value||'',10);
+        const selV=parseInt($('dobDay')?.value||'',10);
+        const days=(y&&m)?new Date(y,m,0).getDate():31;
+        const daySel=$('dobDay'); if(!daySel) return;
+        daySel.innerHTML='<option value="">DD</option>';
+        for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=(i<10?('0'+i):String(i)); daySel.appendChild(o); }
+        if(selV&&selV<=days) daySel.value=selV;
+      }
       $('dobMonth')?.addEventListener('change', updateDays);
       $('dobYear')?.addEventListener('change', updateDays);
+      updateDays();
 
-      // Tenures & address helpers
+      function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o); } }
       populateDropdown($('timeWithEmployerYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('timeWithEmployerMonths'), 0, 11, 'Months', 'Month');
       populateDropdown($('timeAtAddressYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
+      function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
       populateProvinces($('currentProvince'));
 
-      // Years lists
+      function populateYears(sel, start, end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} }
       populateYears($('tradeInYear'), new Date().getFullYear(), 1995);
       populateYears($('refiYear'), new Date().getFullYear(), 1995);
 
-      // Start
       goTo('step-intent');
 
-      // Refi calc
       setupRefiCalcInputs();
 
-      // Lock size (then re-lock on resize)
       lockViewportHeight();
       window.addEventListener('resize', ()=> lockViewportHeight());
     })();
