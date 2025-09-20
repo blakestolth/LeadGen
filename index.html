@@ -56,7 +56,7 @@
 
     .err{ border-color:#ef4444 !important; } .err-label{ color:#ef4444 !important; }
 
-    /* Form shell — ORIGINAL behavior: dynamic fixed height based on tallest step */
+    /* Form shell — fixed height (tallest step) */
     .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; }
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; pointer-events:none; }
     .step-viewport{ flex:1; overflow:auto; }
@@ -284,7 +284,7 @@
                   </div>
                 </section>
 
-                <!-- 2. Either Vehicle condition (Finance) OR Refinance details (Refinance) -->
+                <!-- 2. Finance: Vehicle condition | Refinance: Vehicle details -->
                 <section class="form-step hidden" data-step="2" id="step-choice">
                   <div class="step-inner">
                     <!-- Finance-only block -->
@@ -300,34 +300,56 @@
 
                     <!-- Refinance-only block -->
                     <div id="block-refi" class="hidden">
-                      <h3 class="h2">2. Refinance details</h3>
+                      <h3 class="h2">2. Vehicle details</h3>
+                      <div class="grid-inline-3-tight mt-2">
+                        <select name="refiVehicleYear" id="refiVehicleYear" class="form-select">
+                          <option value="">Year</option>
+                        </select>
+                        <input type="text" name="refiVehicleMake" id="refiVehicleMake" placeholder="Make" class="form-input" maxlength="40"/>
+                        <input type="text" name="refiVehicleModel" id="refiVehicleModel" placeholder="Model" class="form-input" maxlength="50"/>
+                      </div>
+                      <div class="grid-inline-2 mt-2">
+                        <input type="number" name="refiVehicleKms" id="refiVehicleKms" placeholder="Km" class="form-input" inputmode="numeric" min="0" max="1000000"/>
+                        <input type="text" name="refiVehicleOwed" id="refiVehicleOwed" placeholder="Money owed e.g. $5,000 or None" class="form-input" maxlength="20"/>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <!-- 3. Finance: Budget | Refinance: Loan details (years left + rate) -->
+                <section class="form-step hidden" data-step="3" id="step-budget-or-refi">
+                  <div class="step-inner">
+                    <!-- Finance block -->
+                    <div id="block-budget">
+                      <h3 class="h2">3. Bi-weekly budget <span class="muted">(starts at $120)</span></h3>
+                      <div class="mt-2">
+                        <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="250" class="w-full" style="accent-color: var(--blue-600);">
+                        <div class="text-[12px] text-zinc-700 mt-1 text-center">Selected: <b>$<span id="biWeeklyOut">250</span></b> / bi-weekly</div>
+                        <input type="hidden" name="budgetRange" id="budgetRange" value="$250 bi-weekly">
+                      </div>
+                    </div>
+                    <!-- Refinance block -->
+                    <div id="block-refi-loan" class="hidden">
+                      <h3 class="h2">3. Loan details</h3>
                       <div class="grid-inline-2 mt-2">
                         <div>
-                          <label class="label" for="refiDurationYears">Remaining duration (years) <span class="text-red-500">*</span></label>
-                          <input type="number" id="refiDurationYears" name="refiDurationYears" class="form-input" min="1" max="10" required/>
+                          <label class="label" for="refiYearsLeft">Years left on loan <span class="text-red-500">*</span></label>
+                          <select id="refiYearsLeft" name="refiYearsLeft" class="form-select" required>
+                            <option value="">Select…</option>
+                            <option>1</option><option>2</option><option>3</option><option>4</option>
+                            <option>5</option><option>6</option><option>7</option><option>8</option>
+                          </select>
                         </div>
                         <div>
-                          <label class="label" for="refiInterestRate">Current interest rate (%) <span class="text-red-500">*</span></label>
-                          <input type="number" id="refiInterestRate" name="refiInterestRate" class="form-input" step="0.01" min="0" max="40" required/>
+                          <label class="label" for="refiCurrentRate">Current interest rate (%) <span class="text-red-500">*</span></label>
+                          <input type="number" id="refiCurrentRate" name="refiCurrentRate" class="form-input" step="0.01" min="0" max="40" required/>
                         </div>
                       </div>
                     </div>
                   </div>
                 </section>
 
-                <!-- 3. Bi-weekly budget (Finance only) -->
-                <section class="form-step hidden" data-step="3" id="step-budget">
-                  <div class="step-inner">
-                    <h3 class="h2">3. Bi-weekly budget <span class="muted">(starts at $120)</span></h3>
-                    <div class="mt-2">
-                      <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="250" class="w-full" style="accent-color: var(--blue-600);">
-                      <div class="text-[12px] text-zinc-700 mt-1 text-center">Selected: <b>$<span id="biWeeklyOut">250</span></b> / bi-weekly</div>
-                      <input type="hidden" name="budgetRange" id="budgetRange" value="$250 bi-weekly">
-                    </div>
-                  </div>
-                </section>
-
-                <!-- 4. Down payment / Trade-in -->
+                <!-- 4. Purchase details (Finance only) -->
                 <section class="form-step hidden" data-step="4" id="step-purchase">
                   <div class="step-inner">
                     <h3 class="h2">4. Purchase details</h3>
@@ -353,7 +375,7 @@
                   </div>
                 </section>
 
-                <!-- 5. Trade-in details (only if Yes) -->
+                <!-- 5. Trade-in details (Finance, only if Yes) -->
                 <section class="form-step hidden" data-step="5" id="step-tradein">
                   <div class="step-inner">
                     <h3 class="h2">5. Trade-in details</h3>
@@ -542,7 +564,7 @@
         </div>
       </div>
 
-      <!-- RIGHT COLUMN: Refi calculator (compact, fills gap) + LOGIN (original size) -->
+      <!-- RIGHT COLUMN: Refi calculator (compact, fills gap) + LOGIN -->
       <aside id="right-col" class="equal-h">
         <!-- Refinance Calculator -->
         <div class="card p-5" id="refi-card">
@@ -580,7 +602,7 @@
           <p class="hint mt-2">Estimated</p>
         </div>
 
-        <!-- LOGIN (natural/original size) -->
+        <!-- LOGIN -->
         <div class="card p-5 flex flex-col" id="login-card">
           <h3 class="h2">Log in to view options</h3>
           <p class="text-[12px] text-zinc-600 mt-1">Log in if you’ve submitted an application to see options you qualify for.</p>
@@ -685,12 +707,12 @@
   <script>
   document.addEventListener('DOMContentLoaded', function () {
     // Helpers
-    function $(id){ return document.getElementById(id); }
-    function bySel(s, root){ try { return (root||document).querySelector(s); } catch(e){ return null; } }
-    function bySelAll(s, root){ try { return Array.from((root||document).querySelectorAll(s)); } catch(e){ return []; } }
+    const $ = (id)=>document.getElementById(id);
+    const bySel = (s, root=document)=>{ try{return root.querySelector(s);}catch(e){return null;} };
+    const bySelAll = (s, root=document)=>{ try{return Array.from(root.querySelectorAll(s));}catch(e){return [];} };
 
     // Mobile menu
-    $('menuBtn')?.addEventListener('click', function(){ $('mobileMenu')?.classList.toggle('hidden'); });
+    $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
 
     // Steps
     function steps(){ return bySelAll('.form-step'); }
@@ -703,28 +725,26 @@
       const t = s[n-1];
       if (t){ t.classList.remove('hidden'); window.__currentStep = n; }
 
-      // Toggle finance vs refi block inside step 2
+      // Toggle blocks for finance vs refi
       if (n === 2){
         const fin = $('block-finance'), refblk = $('block-refi');
-        if (isRefi()){
-          fin && fin.classList.add('hidden');
-          refblk && refblk.classList.remove('hidden');
-        } else {
-          refblk && refblk.classList.add('hidden');
-          fin && fin.classList.remove('hidden');
-        }
+        if (isRefi()){ fin?.classList.add('hidden'); refblk?.classList.remove('hidden'); }
+        else { refblk?.classList.add('hidden'); fin?.classList.remove('hidden'); }
+      }
+      if (n === 3){
+        const bud = $('block-budget'), rloan = $('block-refi-loan');
+        if (isRefi()){ bud?.classList.add('hidden'); rloan?.classList.remove('hidden'); }
+        else { rloan?.classList.add('hidden'); bud?.classList.remove('hidden'); }
       }
 
       // Progress
       $('btnBack') && ( $('btnBack').disabled = (n === 1) );
-      const lbl = bySel('#progress-label'); if (lbl) lbl.textContent = 'Step ' + n + ' of ' + TOTAL_STEPS;
-      const pct = Math.round((n-1)/(TOTAL_STEPS-1)*100);
-      const fill = bySel('#progress-fill'); if (fill) fill.style.width = pct + '%';
-      const endcap = bySel('#progress-endcap'); if (endcap) endcap.textContent = (n >= TOTAL_STEPS) ? 'Finding matches…' : 'Let’s get you approved';
+      bySel('#progress-label').textContent = 'Step ' + n + ' of ' + TOTAL_STEPS;
+      bySel('#progress-fill').style.width = Math.round((n-1)/(TOTAL_STEPS-1)*100) + '%';
+      bySel('#progress-endcap').textContent = (n >= TOTAL_STEPS) ? 'Finding matches…' : 'Let’s get you approved';
 
-      // keep viewport height stable (original behavior)
+      // Keep viewport fixed & fit right column gap
       setViewportHeight();
-      // then re-fit the compact calc gap
       fitRightColumn();
     }
 
@@ -733,14 +753,20 @@
       const forward = delta > 0;
 
       if (forward){
-        if (cur === 2 && isRefi()) return 4;        // Refi skips budget
-        if (cur === 3 && isRefi()) return 4;        // safety
-        if (cur === 4 && !tradeYes) return 6;       // skip trade details
-        if (cur === 5 && !tradeYes) return 6;
+        if (isRefi()){
+          if (cur === 2) return 3;          // Refi: vehicle details -> loan details
+          if (cur === 3) return 6;          // Refi: skip purchase + trade-in
+        } else {
+          if (cur === 4 && !tradeYes) return 6; // Finance: skip trade-in details if No
+        }
         return cur + 1;
       } else {
-        if (cur === 4 && isRefi()) return 2;        // back over skipped budget
-        if (cur === 6 && !tradeYes) return 4;       // back to purchase if skipped 5
+        if (isRefi()){
+          if (cur === 6) return 3;          // back from Employment to loan details
+          if (cur === 3) return 2;          // back to vehicle details
+        } else {
+          if (cur === 6 && !tradeYes) return 4; // back to Purchase when 5 was skipped
+        }
         return cur - 1;
       }
     }
@@ -778,7 +804,7 @@
       });
     });
 
-    // Budget slider
+    // Budget slider (finance)
     (function(){
       const biw = $('biWeeklyRange'); const out = $('biWeeklyOut'); const br = $('budgetRange');
       if (biw && out && br){
@@ -788,7 +814,7 @@
       }
     })();
 
-    // Trade tiles
+    // Trade tiles (finance)
     bySelAll('[data-trade]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-trade]').forEach(x=>x.classList.remove('selected'));
@@ -828,19 +854,24 @@
       }
       if (n===2){
         if (isRefi()){
-          const dur = $('refiDurationYears'), rate = $('refiInterestRate');
-          const ok = !!(dur && dur.value) && !!(rate && rate.value);
-          dur && dur.classList.toggle('err', !dur.value);
-          rate && rate.classList.toggle('err', !rate.value);
-          return ok;
+          // Vehicle details optional; allow proceed
+          return true;
         } else {
           const ok2 = !!($('vehicleCondition') && $('vehicleCondition').value);
           bySelAll('[data-cond]').forEach(x=>x.classList.toggle('err', !ok2));
           return ok2;
         }
       }
-      if (n===3 && !isRefi()){
-        return !!($('budgetRange') && $('budgetRange').value);
+      if (n===3){
+        if (isRefi()){
+          const yrs = $('refiYearsLeft'), rate = $('refiCurrentRate');
+          const o = !!(yrs && yrs.value) && !!(rate && rate.value);
+          yrs?.classList.toggle('err', !(yrs && yrs.value));
+          rate?.classList.toggle('err', !(rate && rate.value));
+          return o;
+        } else {
+          return !!($('budgetRange') && $('budgetRange').value);
+        }
       }
       const stepEl = steps()[n-1];
       if(!stepEl) return true;
@@ -865,7 +896,7 @@
     }
     function validateAll(){ let ok=true; for(let i=1;i<=TOTAL_STEPS;i++){ if(!validateStep(i)) ok=false;} return ok; }
 
-    // Overlay runner
+    // Overlay
     function runProgressOverlay(minMs=4200){
       const overlay = $('progress-overlay');
       const bar = $('progress-bar');
@@ -916,7 +947,7 @@
       });
     }
 
-    // Inventory shimmer + “view all” behavior
+    // Inventory shimmer + “view all”
     function fakeRefreshCounts(){
       const cards = bySelAll('.bodytype-card');
       cards.forEach(c=>c.classList.add('loading'));
@@ -992,7 +1023,11 @@
       for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); }
     }
 
-    // ORIGINAL behavior: compute tallest step and lock viewport height to it
+    // Extra year dropdowns
+    populateYears($('refiVehicleYear'), new Date().getFullYear(), 1995);
+    populateYears($('tradeInYear'), new Date().getFullYear(), 1995);
+
+    // Fixed viewport height (tallest step)
     function setViewportHeight(){
       const viewport = $('step-viewport');
       if (!viewport) return;
@@ -1018,17 +1053,16 @@
       const login = $('login-card');
       if (!formCard || !refi || !login) return;
 
-      // Reset any previous constraints to measure natural sizes
       refi.style.maxHeight = '';
       refi.classList.remove('compact');
 
       const formH = formCard.offsetHeight;
       const loginH = login.offsetHeight;
-      const gap = Math.max(0, formH - loginH - 12); // 12px gap between cards
-      const cap = 260; // don't let calculator get too tall; stays compact
+      const gap = Math.max(0, formH - loginH - 12); // spacing between cards
+      const cap = 260; // keep compact
       const finalH = Math.min(gap, cap);
 
-      if (finalH > 40){ // only show if there's meaningful space
+      if (finalH > 40){
         refi.style.maxHeight = finalH + 'px';
         refi.classList.add('compact');
       } else {
@@ -1039,11 +1073,11 @@
 
     // ---- Init ----
     (function init(){
-      bySel('#year') && (bySel('#year').textContent = new Date().getFullYear());
+      bySel('#year').textContent = new Date().getFullYear();
 
       // Defaults
       $('applicationType').value = 'Finance';
-      const hiddenCond = $('vehicleCondition'); if (hiddenCond) hiddenCond.value = 'Both';
+      $('vehicleCondition').value = 'Both';
       bySel('[data-cond="Both"]')?.classList.add('selected');
       setHousing('Rent');
 
@@ -1060,23 +1094,20 @@
       populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
       populateProvinces($('currentProvince'));
 
-      // Trade-in Years
-      populateYears($('tradeInYear'), new Date().getFullYear(), 1995);
-
-      // Start flow
+      // start
       window.__currentStep = 1;
       showStep(1);
 
-      // After first paint, lock heights and fit calc
+      // After paint
       setTimeout(()=>{ setViewportHeight(); fitRightColumn(); }, 0);
 
-      // Re-fit on resize & after step changes
+      // Re-fit on resize & after nav
       window.addEventListener('resize', ()=>{ setViewportHeight(); fitRightColumn(); });
       ['btnNext','btnBack'].forEach(id=> $(id)?.addEventListener('click', ()=> setTimeout(()=>{ setViewportHeight(); fitRightColumn(); }, 0)));
     })();
 
     /* ================== Refinance calculator (compact) ================== */
-    // --- helpers (only include if not already defined) ---
+    // helpers
     if (typeof fmtMoney !== 'function') {
       function fmtMoney(x){ x = isFinite(x) ? x : 0; return "$" + x.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
     }
@@ -1135,7 +1166,7 @@
       const curPmt = calcPayment(loan, rate, years);
       const curTotInt = curPmt*years*12 - loan;
 
-      // Always add $3,000 silently; only *mention* fees when loan > 7000
+      // Always add $3,000 silently; mention only if loan > 7000
       const newLoan = loan + 3000;
       const showFeeHint = loan > 7000;
       if (feeHint){
@@ -1157,7 +1188,6 @@
         ${showFeeHint ? "<p class='hint'>Includes estimated fees.</p>" : ""}
       `;
     }
-    // Init compact calculator
     setupRefiCalcInputs();
   });
   </script>
