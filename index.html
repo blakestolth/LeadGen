@@ -58,13 +58,13 @@
 
     /* Form shell — consistent height + pinned footer */
     .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; }
-    .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; pointer-events:none; } /* clicks pass through */
+    .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; pointer-events:none; }
     .step-viewport{ flex:1; overflow:auto; }
     .step-viewport-inner{ height:100%; }
     .step-inner{ width:100%; padding-top:var(--pad-y); padding-bottom:var(--pad-y); max-width: var(--section-max); margin-left:auto; margin-right:auto; }
     .vstack > * + *{ margin-top: var(--gap-regular); }
 
-    /* Footer controls — roomy padding, consistent placement */
+    /* Footer controls */
     .form-footer{ padding: 14px 18px; position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb; }
     #btnBack{ min-height:38px; border-radius:10px; }
 
@@ -89,13 +89,10 @@
       padding:6px 12px; border-radius:9999px; font-weight:800; font-size:13px; color:#374151;
       transition:background .15s ease, color .15s ease, box-shadow .15s ease;
     }
-    .seg-btn[aria-pressed="true"]{
-      background:var(--blue-600); color:#fff; box-shadow:0 1px 2px rgba(0,0,0,.06);
-    }
+    .seg-btn[aria-pressed="true"]{ background:var(--blue-600); color:#fff; box-shadow:0 1px 2px rgba(0,0,0,.06); }
 
-    /* Inline grids — unify gaps */
+    /* Inline grids */
     .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:var(--field-gap); }
-    /* Middle name wider than first/last */
     .grid-inline-3{ display:grid; grid-template-columns: 1fr 1.3fr 1fr; gap:var(--field-gap); }
     .grid-inline-3-tight{ display:grid; grid-template-columns: .65fr 1.1fr 1.3fr; gap:var(--field-gap); }
     .grid-inline-addr1{ display:grid; grid-template-columns: 3fr 1fr; gap:var(--field-gap); }
@@ -106,7 +103,7 @@
       gap:var(--field-gap);
     }
 
-    /* Brand area + Powered by */
+    /* Brand area */
     .brand-left{ display:flex; align-items:center; gap:12px; }
     .site-logo{ height:60px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
     @media (max-width:640px){ .site-logo{ height:56px; } }
@@ -118,7 +115,7 @@
 
     .abc-badge{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:9999px; background:var(--blue-600); color:#fff; border:none; font-weight:800; font-size:11px; line-height:1; flex-shrink:0; }
 
-    /* Browse Vehicles (with shimmer) */
+    /* Browse Vehicles */
     .bodytype-card{ overflow:hidden; border-radius:10px; border:1px solid #e5e7eb; background:#fff; transition:transform .15s,box-shadow .15s,border-color .15s; }
     .bodytype-card:hover{ transform:translateY(-1px); border-color:var(--blue-600); box-shadow:0 10px 18px -12px rgba(42,93,159,.28); }
     .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:92px; }
@@ -147,10 +144,10 @@
     .progress-note{margin-top:10px;font-size:12px;color:#64748b}
     .hidden{display:none}
 
-    /* Make login card same height as form card */
+    /* Equal height col */
     .equal-h { height: 100%; }
 
-    /* Tidy selects (esp. iOS/Safari) */
+    /* Select caret */
     .form-select{
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -168,19 +165,11 @@
       padding-right: 2.2rem;
     }
 
-    /* Numbered badges for the hero list */
+    /* Numbered badges */
     .num-badge{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      width:22px; height:22px;
-      border-radius:9999px;
-      background:var(--blue-600);
-      color:#fff;
-      font-weight:800;
-      font-size:11px;
-      line-height:1;
-      flex-shrink:0;
+      display:inline-flex; align-items:center; justify-content:center;
+      width:22px; height:22px; border-radius:9999px;
+      background:var(--blue-600); color:#fff; font-weight:800; font-size:11px; line-height:1; flex-shrink:0;
     }
   </style>
 
@@ -240,18 +229,9 @@
         <div class="vstack">
           <h1 class="h1">Get driving in 3 easy steps</h1>
           <ol class="text-[12px] text-zinc-700 space-y-2">
-            <li class="flex items-start gap-2">
-              <span class="num-badge" aria-hidden="true">1</span>
-              <span><b>Enter your info</b> — 2–3 minutes, no pressure.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="num-badge" aria-hidden="true">2</span>
-              <span><b>See options you qualify for</b> across BC.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="num-badge" aria-hidden="true">3</span>
-              <span><b>We deliver</b> to your door — fast &amp; stress-free.</span>
-            </li>
+            <li class="flex items-start gap-2"><span class="num-badge" aria-hidden="true">1</span><span><b>Enter your info</b> — 2–3 minutes, no pressure.</span></li>
+            <li class="flex items-start gap-2"><span class="num-badge" aria-hidden="true">2</span><span><b>See options you qualify for</b> across BC.</span></li>
+            <li class="flex items-start gap-2"><span class="num-badge" aria-hidden="true">3</span><span><b>We deliver</b> to your door — fast &amp; stress-free.</span></li>
           </ol>
         </div>
         <div class="vstack">
@@ -266,7 +246,7 @@
       </div>
     </section>
 
-    <!-- FORM + LOGIN (side-by-side, same height) -->
+    <!-- FORM + LOGIN -->
     <section class="grid md:grid-cols-2 gap-4">
       <!-- FORM -->
       <div class="card p-0 overflow-hidden equal-h" id="lead-form">
@@ -287,12 +267,24 @@
                 <input type="hidden" name="form-name" value="lead-form"/>
                 <input type="hidden" name="app_type" id="app_type" value="Full Application" />
                 <input type="hidden" name="appCode" id="appCode" value="" />
+                <input type="hidden" name="appIntent" id="appIntent" value="Finance" />
                 <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
 
-                <!-- 1. Vehicle condition -->
+                <!-- 1. Intent -->
                 <section class="form-step" data-step="1">
                   <div class="step-inner">
-                    <h3 class="h2">1. Vehicle condition</h3>
+                    <h3 class="h2">1. What are you looking to do?</h3>
+                    <div class="vstack mt-2">
+                      <button type="button" class="choice-rect" data-intent="Finance">I'm looking for a vehicle (Finance)</button>
+                      <button type="button" class="choice-rect" data-intent="Refinance">Refinance my current loan</button>
+                    </div>
+                  </div>
+                </section>
+
+                <!-- 2. Vehicle condition -->
+                <section class="form-step hidden" data-step="2">
+                  <div class="step-inner">
+                    <h3 class="h2">2. Vehicle condition</h3>
                     <div class="vstack mt-2">
                       <button type="button" class="choice-rect" data-cond="New">New</button>
                       <button type="button" class="choice-rect" data-cond="Used">Used</button>
@@ -302,10 +294,10 @@
                   </div>
                 </section>
 
-                <!-- 2. Bi-weekly budget (slider only) -->
-                <section class="form-step hidden" data-step="2">
+                <!-- 3. Bi-weekly budget -->
+                <section class="form-step hidden" data-step="3">
                   <div class="step-inner">
-                    <h3 class="h2">2. Bi-weekly budget <span class="muted">(starts at $120)</span></h3>
+                    <h3 class="h2">3. Bi-weekly budget <span class="muted">(starts at $120)</span></h3>
                     <div class="mt-2">
                       <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="250" class="w-full" style="accent-color: var(--blue-600);">
                       <div class="text-[12px] text-zinc-700 mt-1 text-center">Selected: <b>$<span id="biWeeklyOut">250</span></b> / bi-weekly</div>
@@ -314,10 +306,10 @@
                   </div>
                 </section>
 
-                <!-- 3. Down payment / Trade-in -->
-                <section class="form-step hidden" data-step="3" id="step-purchase">
+                <!-- 4. Purchase details (skip if Refinance) -->
+                <section class="form-step hidden" data-step="4" id="step-purchase">
                   <div class="step-inner">
-                    <h3 class="h2">3. Purchase details</h3>
+                    <h3 class="h2">4. Purchase details</h3>
                     <div class="vstack mt-2">
                       <div>
                         <label for="downPayment" class="label mb-1 block">Down payment</label>
@@ -340,10 +332,10 @@
                   </div>
                 </section>
 
-                <!-- 4. Trade-in details (only if Yes) -->
-                <section class="form-step hidden" data-step="4" id="step-tradein">
+                <!-- 5. Trade-in details (only if Yes) -->
+                <section class="form-step hidden" data-step="5" id="step-tradein">
                   <div class="step-inner">
-                    <h3 class="h2">4. Trade-in details</h3>
+                    <h3 class="h2">5. Trade-in details</h3>
                     <div class="grid-inline-3-tight mt-2">
                       <select name="tradeInYear" id="tradeInYear" class="form-select">
                         <option value="">Year</option>
@@ -358,10 +350,10 @@
                   </div>
                 </section>
 
-                <!-- 5. Employment + monthly income -->
-                <section class="form-step hidden" data-step="5" id="step-income-quick">
+                <!-- 6. Employment + monthly income -->
+                <section class="form-step hidden" data-step="6" id="step-income-quick">
                   <div class="step-inner">
-                    <h3 class="h2">5. Employment & Income</h3>
+                    <h3 class="h2">6. Employment & Income</h3>
                     <div class="vstack mt-2">
                       <div>
                         <label for="incomeSourceFull" class="label mb-1 block">Employment type <span class="text-red-500">*</span></label>
@@ -382,10 +374,10 @@
                   </div>
                 </section>
 
-                <!-- 6. Account creation + contact -->
-                <section class="form-step hidden" data-step="6" id="step-account">
+                <!-- 7. Account creation + contact -->
+                <section class="form-step hidden" data-step="7" id="step-account">
                   <div class="step-inner">
-                    <h3 class="h2">6. Account creation</h3>
+                    <h3 class="h2">7. Account creation</h3>
                     <p class="muted mt-1">You’ll receive an application code after submission — that becomes your username to log in.</p>
                     <div class="vstack mt-2">
                       <div>
@@ -409,10 +401,10 @@
                   </div>
                 </section>
 
-                <!-- 7. Names + DOB -->
-                <section class="form-step hidden" data-step="7" id="step-yourinfo">
+                <!-- 8. Names + DOB -->
+                <section class="form-step hidden" data-step="8" id="step-yourinfo">
                   <div class="step-inner">
-                    <h3 class="h2">7. Your information</h3>
+                    <h3 class="h2">8. Your information</h3>
                     <div class="vstack mt-2">
                       <div class="grid-inline-3">
                         <div>
@@ -455,10 +447,10 @@
                   </div>
                 </section>
 
-                <!-- 8. Current address -->
-                <section class="form-step hidden" data-step="8" id="step-address">
+                <!-- 9. Current address -->
+                <section class="form-step hidden" data-step="9" id="step-address">
                   <div class="step-inner">
-                    <h3 class="h2">8. Current address</h3>
+                    <h3 class="h2">9. Current address</h3>
                     <div class="grid-inline-addr1 mt-2">
                       <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" placeholder="Street address" autocomplete="street-address" maxlength="120" required/>
                       <input type="text" id="currentUnit" name="currentUnit" class="form-input" placeholder="Unit #" maxlength="10"/>
@@ -469,7 +461,6 @@
                       <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" placeholder="Postal code" autocomplete="postal-code" maxlength="7" required/>
                     </div>
 
-                    <!-- Lined up boxes: Monthly payments & Time at address -->
                     <div class="grid-inline-2 mt-2">
                       <div>
                         <label for="housingPayment" class="label">Monthly payments</label>
@@ -495,10 +486,10 @@
                   </div>
                 </section>
 
-                <!-- 9. Employer / position / time / optional additional income -->
-                <section class="form-step hidden" data-step="9" id="step-employer">
+                <!-- 10. Employment details -->
+                <section class="form-step hidden" data-step="10" id="step-employer">
                   <div class="step-inner">
-                    <h3 class="h2">9. Employment details</h3>
+                    <h3 class="h2">10. Employment details</h3>
                     <div class="grid-inline-2 mt-2">
                       <input type="text" id="currentEmployer" name="currentEmployer" class="form-input" placeholder="Employer"/>
                       <input type="text" id="jobTitle" name="jobTitle" class="form-input" placeholder="Position"/>
@@ -534,32 +525,15 @@
         </div>
       </div>
 
-      <!-- LOGIN + REFINANCE CALCULATOR (compact, fits gap) -->
+      <!-- ASIDE: Refinance Calculator (TOP) + Login (below) -->
       <aside class="equal-h">
         <div class="card p-5 h-full flex flex-col" id="login-card">
-          <h3 class="h2">Log in to view options</h3>
-          <p class="text-[12px] text-zinc-600 mt-1">Log in if you’ve submitted an application to see options you qualify for.</p>
-          <form id="login-form" class="flex flex-col gap-2 mt-3">
-            <div>
-              <label class="label mb-1 block" for="loginCode">Application number</label>
-              <input id="loginCode" type="text" class="form-input uppercase" placeholder="ABC-123456" maxlength="16" />
-            </div>
-            <div>
-              <label class="label mb-1 block" for="loginPass">Password</label>
-              <input id="loginPass" type="password" class="form-input" placeholder="••••••••" />
-            </div>
-            <button type="submit" class="cta-button mt-1">Log In</button>
-            <div class="text-[12px] mt-1">
-              <a href="#" class="text-[var(--blue-600)] hover:underline">Forgot password?</a>
-            </div>
-          </form>
-
-          <!-- Compact Refinance Calculator (fills the remaining top-to-cut line gap) -->
-          <div class="mt-4 pt-4 border-t">
+          <!-- Refinance calculator FIRST (top) -->
+          <div class="pb-4">
             <h3 class="h2">If I refinance…</h3>
-            <div class="text-[12px] text-zinc-600">Try a new rate to see savings.</div>
+            <div class="text-[12px] text-zinc-600 -mt-1 mb-2">Try a new rate to see savings.</div>
 
-            <div class="mt-2 grid" style="grid-template-columns: 2fr 1fr 1fr; gap:10px">
+            <div class="grid" style="grid-template-columns: 2fr 1fr 1fr; gap:10px">
               <div>
                 <label class="label" for="refLoanInput">Loan amount</label>
                 <input id="refLoanInput" class="form-input" placeholder="$15,000" inputmode="numeric" />
@@ -594,7 +568,27 @@
             <div class="text-[10px] text-zinc-500 mt-1">Estimated.</div>
           </div>
 
-          <div class="flex-1"></div>
+          <hr class="my-3"/>
+
+          <!-- Login SECOND (below) -->
+          <h3 class="h2">Log in to view options</h3>
+          <p class="text-[12px] text-zinc-600 mt-1">Log in if you’ve submitted an application to see options you qualify for.</p>
+          <form id="login-form" class="flex flex-col gap-2 mt-3">
+            <div>
+              <label class="label mb-1 block" for="loginCode">Application number</label>
+              <input id="loginCode" type="text" class="form-input uppercase" placeholder="ABC-123456" maxlength="16" />
+            </div>
+            <div>
+              <label class="label mb-1 block" for="loginPass">Password</label>
+              <input id="loginPass" type="password" class="form-input" placeholder="••••••••" />
+            </div>
+            <button type="submit" class="cta-button mt-1">Log In</button>
+            <div class="text-[12px] mt-1">
+              <a href="#" class="text-[var(--blue-600)] hover:underline">Forgot password?</a>
+            </div>
+
+            <div class="flex-1"></div>
+          </form>
         </div>
       </aside>
     </section>
@@ -687,7 +681,7 @@
     function bySelAll(s, root){ try { return Array.from((root||document).querySelectorAll(s)); } catch(e){ return []; } }
 
     // Currency / math helpers for refi calc
-    function fmtMoney(x){ x = isFinite(x) ? x : 0; return "$" + x.toFixed(2).replace(/\B(?=(\\d{3})+(?!\\d))/g, ","); }
+    function fmtMoney(x){ x = isFinite(x) ? x : 0; return "$" + x.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
     function calcPayment(P, annualRate, years){
       var r = (annualRate/100)/12, n = years*12;
       if (!n || n<=0) return 0;
@@ -704,13 +698,12 @@
     }
 
     // Mobile menu
-    var menuBtn = $('menuBtn');
-    if (menuBtn){
-      menuBtn.addEventListener('click', function(){ var m=$('mobileMenu'); if(m){ m.classList.toggle('hidden'); } });
-    }
+    $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
 
     // Steps
     function steps(){ return bySelAll('.form-step'); }
+
+    function isRefi(){ return ( $('appIntent')?.value || 'Finance') === 'Refinance'; }
 
     function showStep(n){
       var s = steps();
@@ -719,26 +712,29 @@
       if (t){ t.classList.remove('hidden'); window.__currentStep = n; }
 
       // progress bar + label
-      var total = 9;
-      var backBtn = $('btnBack'); if (backBtn) backBtn.disabled = (n === 1);
-      var nextBtn = $('btnNext'); if (nextBtn) nextBtn.textContent = 'Next';
+      var total = 10;
+      $('btnBack').disabled = (n === 1);
+      $('btnNext').textContent = (n >= total) ? 'Submit' : 'Next';
       var lbl = bySel('#progress-label'); if (lbl) lbl.textContent = 'Step ' + n + ' of ' + total;
       var pct = Math.round((n-1)/(total-1)*100);
-      var fill = bySel('#progress-fill'); if (fill) fill.style.width = pct + '%';
-      var endcap = bySel('#progress-endcap'); if (endcap) endcap.textContent = (n >= total) ? 'Finding matches…' : 'Let’s get you approved';
+      bySel('#progress-fill').style.width = pct + '%';
+      bySel('#progress-endcap').textContent = (n >= total) ? 'Finding matches…' : 'Let’s get you approved';
 
-      // keep viewport height stable
       setViewportHeight();
     }
 
     function computeNextStep(cur, delta){
-      var hasInput = $('hasTradeIn');
-      var hasTrade = (hasInput && hasInput.value || 'No').toLowerCase() === 'yes';
+      var hasTrade = (($('hasTradeIn')?.value)||'No').toLowerCase() === 'yes';
+
       if (delta > 0){
-        if (cur === 3 && !hasTrade) return 5; // skip 4
+        // Skip step 4 (Purchase details) entirely when refinancing
+        if (cur === 3 && isRefi()) return 5;
+        if (cur === 4 && !hasTrade) return 6; // skip trade-in details if no
         return cur + 1;
       } else {
-        if (cur === 5 && !hasTrade) return 3;
+        // Backwards over skipped steps
+        if (cur === 5 && isRefi()) return 3; // back over purchase details
+        if (cur === 6 && !hasTrade) return 4;
         return cur - 1;
       }
     }
@@ -747,332 +743,290 @@
       var cur = window.__currentStep || 1;
       if (delta>0 && !validateStep(cur)) return;
       var t = computeNextStep(cur, delta);
-      var maxStep = 9;
+      var maxStep = 10;
       if (t < 1) t = 1;
       if (t > maxStep) { submitForm(); return; }
       showStep(t);
     }
 
     // Nav
-    var nextBtn = $('btnNext'); if (nextBtn) nextBtn.addEventListener('click', function(){ next(1); });
-    var backBtn = $('btnBack'); if (backBtn) backBtn.addEventListener('click', function(){ next(-1); });
+    $('btnNext')?.addEventListener('click', ()=> next(1));
+    $('btnBack')?.addEventListener('click', ()=> next(-1));
 
-    // Step 1 tiles (select + immediate advance)
-    bySelAll('[data-cond]').forEach(function(btn){
+    // Step 1 intent
+    bySelAll('[data-intent]').forEach(function(btn){
       btn.addEventListener('click', function(){
-        bySelAll('[data-cond]').forEach(function(x){ x.classList.remove('selected','err'); });
+        bySelAll('[data-intent]').forEach(x=>x.classList.remove('selected'));
         btn.classList.add('selected');
-        var hidden = $('vehicleCondition'); if (hidden) hidden.value = btn.getAttribute('data-cond') || '';
+        $('appIntent').value = btn.getAttribute('data-intent') || 'Finance';
         showStep(2);
       });
     });
 
-    // Step 2 range (default 250)
-    var biw = $('biWeeklyRange'); var out = $('biWeeklyOut'); var br = $('budgetRange');
+    // Step 2 condition
+    bySelAll('[data-cond]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected','err'));
+        btn.classList.add('selected');
+        $('vehicleCondition').value = btn.getAttribute('data-cond') || '';
+        showStep(3);
+      });
+    });
+
+    // Step 3 range
+    const biw = $('biWeeklyRange'); const out = $('biWeeklyOut'); const br = $('budgetRange');
     if (biw && out && br){
-      function updateBudget(){ out.textContent = biw.value; br.value = '$' + biw.value + ' bi-weekly'; }
+      const updateBudget = ()=>{ out.textContent = biw.value; br.value = '$' + biw.value + ' bi-weekly'; };
       biw.addEventListener('input', updateBudget);
       updateBudget();
     }
 
-    // Step 3 trade-in tiles
+    // Step 4 trade-in tiles
     bySelAll('[data-trade]').forEach(function(btn){
       btn.addEventListener('click', function(){
-        bySelAll('[data-trade]').forEach(function(x){ x.classList.remove('selected'); });
+        bySelAll('[data-trade]').forEach(x=>x.classList.remove('selected'));
         btn.classList.add('selected');
-        var ht = $('hasTradeIn'); if (ht) ht.value = btn.getAttribute('data-trade') || 'No';
+        $('hasTradeIn').value = btn.getAttribute('data-trade') || 'No';
       });
     });
 
     // Rent/Own segmented
     function setHousing(type){
-      var h = $('housingType'); if (h) h.value = type;
-      var rent = $('btnRent'), own = $('btnOwn');
-      if (rent) rent.setAttribute('aria-pressed', String(type==='Rent'));
-      if (own) own.setAttribute('aria-pressed', String(type==='Own'));
+      $('housingType').value = type;
+      $('btnRent')?.setAttribute('aria-pressed', String(type==='Rent'));
+      $('btnOwn')?.setAttribute('aria-pressed', String(type==='Own'));
     }
-    var rentBtn = $('btnRent'); if (rentBtn) rentBtn.addEventListener('click', function(){ setHousing('Rent'); });
-    var ownBtn = $('btnOwn'); if (ownBtn) ownBtn.addEventListener('click', function(){ setHousing('Own'); });
+    $('btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
+    $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
 
     // Phone format
-    var phone = $('phone');
-    if (phone){
-      phone.addEventListener('input', function(e){
-        var d = e.target.value.replace(/\\D/g,'').slice(0,10);
-        if(d.length>6) e.target.value='(' + d.slice(0,3) + ') ' + d.slice(3,6) + '-' + d.slice(6);
-        else if(d.length>3) e.target.value='(' + d.slice(0,3) + ') ' + d.slice(3);
-        else if(d.length>0) e.target.value='(' + d;
-      });
-    }
+    $('phone')?.addEventListener('input', (e)=>{
+      const d=e.target.value.replace(/\D/g,'').slice(0,10);
+      if(d.length>6)e.target.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
+      else if(d.length>3)e.target.value=`(${d.slice(0,3)}) ${d.slice(3)}`;
+      else if(d.length>0)e.target.value=`(${d}`;
+    });
 
-    // Password match hint
+    // Password match
     function checkPassMatch(){
-      var p1 = $('accountPass'), p2 = $('accountPass2'), hint = $('passMatchHint');
-      if (!p1 || !p2 || !hint) return true;
-      var ok = p1.value && p2.value && p1.value === p2.value;
+      var p1=$('accountPass'), p2=$('accountPass2'), hint=$('passMatchHint');
+      if (!p1||!p2||!hint) return true;
+      var ok = p1.value && p2.value && p1.value===p2.value;
       hint.classList.toggle('hidden', ok);
-      if (!ok){ p1.classList.add('err'); p2.classList.add('err'); }
-      else { p1.classList.remove('err'); p2.classList.remove('err'); }
+      p1.classList.toggle('err', !ok); p2.classList.toggle('err', !ok);
       return ok;
     }
-    var p1 = $('accountPass'), p2 = $('accountPass2');
-    if (p1) p1.addEventListener('input', checkPassMatch);
-    if (p2) p2.addEventListener('input', checkPassMatch);
+    $('accountPass')?.addEventListener('input', checkPassMatch);
+    $('accountPass2')?.addEventListener('input', checkPassMatch);
 
-    // Validation (validate current step only)
+    // Validation
     function visibleRequired() {
-      var req = bySelAll('#the-form [required]');
-      return req.filter(function(el){ return !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none'; });
+      const req = bySelAll('#the-form [required]');
+      return req.filter(el => !el.closest('.hidden') && window.getComputedStyle(el).display !== 'none');
     }
     function validateStep(n){
-      if (n===1) {
-        var ok1 = !!($('vehicleCondition') && $('vehicleCondition').value);
-        bySelAll('[data-cond]').forEach(function(x){ x.classList.toggle('err', !ok1); });
-        return ok1;
+      if (n===1) { // intent
+        return !!$('appIntent').value;
       }
-      if (n===2) { return !!(br && br.value); }
+      if (n===2) { // condition
+        const ok = !!$('vehicleCondition').value;
+        bySelAll('[data-cond]').forEach(x => x.classList.toggle('err', !ok));
+        return ok;
+      }
+      if (n===3) { return !!$('budgetRange').value; }
       if (n===6) { return checkPassMatch(); }
 
-      var stepEl = steps()[n-1];
+      const stepEl = steps()[n-1];
       if(!stepEl) return true;
 
-      var ok = true;
-      var fields = visibleRequired().filter(function(el){ return stepEl.contains(el); });
-      fields.forEach(function(el){
-        var pass = (el.type==='checkbox') ? el.checked : (el.value && el.value.trim()!=='');
-        if (el.id==='phone') pass = el.value.replace(/\\D/g,'').length>=10;
+      let ok = true;
+      const fields = visibleRequired().filter(el => stepEl.contains(el));
+      fields.forEach(el => {
+        let pass = (el.type==='checkbox') ? el.checked : (el.value && el.value.trim()!=='');
+        if (el.id==='phone') pass = el.value.replace(/\D/g,'').length>=10;
         if (el.type==='email' || el.id==='email'){
-          var v = (el.value||'').trim();
-          pass = pass && /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(v);
+          const v=el.value.trim();
+          pass = pass && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
         }
         if (!pass){
           ok=false; el.classList.add('err');
-          if (el.id){
-            var lab = document.querySelector('label[for="'+el.id+'"]');
-            if (lab) lab.classList.add('err-label');
-          }
+          const lab = el.id ? document.querySelector('label[for="'+el.id+'"]') : null;
+          lab?.classList.add('err-label');
         } else {
           el.classList.remove('err');
-          if (el.id){
-            var lab2 = document.querySelector('label[for="'+el.id+'"]');
-            if (lab2) lab2.classList.remove('err-label');
-          }
+          const lab = el.id ? document.querySelector('label[for="'+el.id+'"]') : null;
+          lab?.classList.remove('err-label');
         }
       });
       return ok;
     }
     function validateAll(){
-      var ok = true;
-      for (var i=1;i<=9;i++){ if(!validateStep(i)) ok=false; }
+      let ok = true;
+      for (let i=1;i<=10;i++){ if(!validateStep(i)) ok=false; }
       return ok;
     }
 
     // Overlay runner
     function runProgressOverlay(minMs){
       if (typeof minMs!=='number') minMs = 4200;
-      var overlay = $('progress-overlay');
-      var bar = $('progress-bar');
-      var stepsEls = bySelAll('#progress-steps li');
+      const overlay = $('progress-overlay');
+      const bar = $('progress-bar');
+      const stepsEls = bySelAll('#progress-steps li');
       if (!overlay || !bar) return Promise.resolve();
 
       overlay.classList.remove('hidden');
 
-      var stages = [
+      const stages = [
         { width: 35, index: 0, ms: 900 },
         { width: 70, index: 1, ms: 1200 },
         { width: 100, index: 2, ms: 1400 }
       ];
 
-      var t0 = Date.now();
-
+      const t0 = Date.now();
       return new Promise(function(resolve){
-        var i = 0;
+        let i=0;
         function runStage(){
-          if (i >= stages.length){
-            var elapsed = Date.now() - t0;
-            var remain = Math.max(0, minMs - elapsed);
-            setTimeout(function(){
-              overlay.classList.add('hidden');
-              resolve();
-            }, remain);
+          if (i>=stages.length){
+            const elapsed = Date.now()-t0;
+            const remain = Math.max(0, minMs-elapsed);
+            setTimeout(function(){ overlay.classList.add('hidden'); resolve(); }, remain);
             return;
           }
-          var st = stages[i];
-          stepsEls.forEach(function(li,idx){ li.classList.toggle('active', idx===st.index); });
-          requestAnimationFrame(function(){ bar.style.width = st.width + '%'; });
-          setTimeout(function(){ i++; runStage(); }, st.ms);
+          const st=stages[i];
+          stepsEls.forEach((li,idx)=> li.classList.toggle('active', idx===st.index));
+          requestAnimationFrame(()=> bar.style.width = st.width + '%');
+          setTimeout(()=>{ i++; runStage(); }, st.ms);
         }
         runStage();
       });
     }
 
-    // === Submit orchestration ===
+    // Submit
     function generateAppCode(){
-      var n = Math.floor(Math.random()*1000000);
-      var s = String(n);
-      while (s.length<6) s = '0'+s;
-      return 'ABC-' + s;
+      let n = Math.floor(Math.random()*1_000_000).toString().padStart(6,'0');
+      return 'ABC-' + n;
     }
-
     function submitForm(){
       if (!validateAll()) return;
-      var form = bySel('#the-form');
-      if (form) form.requestSubmit();
+      bySel('#the-form')?.requestSubmit();
     }
+    bySel('#the-form')?.addEventListener('submit', function(e){
+      e.preventDefault();
+      const code = generateAppCode();
+      try { sessionStorage.setItem('vic_app_code', code); } catch(_){}
+      const codeInput = $('appCode'); if (codeInput) codeInput.value = code;
+      runProgressOverlay(4200).then(()=> e.target.submit());
+    });
 
-    var formEl = bySel('#the-form');
-    if (formEl){
-      formEl.addEventListener('submit', function(e){
-        e.preventDefault();
-        var code = generateAppCode();
-        try { sessionStorage.setItem('vic_app_code', code); } catch(_){}
-        var codeInput = $('appCode'); if (codeInput) codeInput.value = code;
-        runProgressOverlay(4200).then(function(){ formEl.submit(); });
-      });
-    }
-
-    // Inventory shimmer “refresh”
+    // Inventory shimmer
     function fakeRefreshCounts(){
-      var cards = bySelAll('.bodytype-card');
-      cards.forEach(function(c){ c.classList.add('loading'); });
-      setTimeout(function(){ cards.forEach(function(c){ c.classList.remove('loading'); }); }, 700);
+      bySelAll('.bodytype-card').forEach(c=> c.classList.add('loading'));
+      setTimeout(()=> bySelAll('.bodytype-card').forEach(c=> c.classList.remove('loading')), 700);
     }
-
-    // “View all” -> focus form & shimmer
-    bySelAll('.js-view-inventory').forEach(function(el){
-      el.addEventListener('click', function(e){
+    bySelAll('.js-view-inventory').forEach(el=>{
+      el.addEventListener('click', (e)=>{
         e.preventDefault();
         fakeRefreshCounts();
-        var lf = document.getElementById('lead-form');
-        if (lf && lf.scrollIntoView) lf.scrollIntoView({behavior:'smooth', block:'start'});
+        document.getElementById('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
       });
     });
 
     // Login (demo)
-    var loginForm = $('login-form');
-    if (loginForm){
-      loginForm.addEventListener('submit', function(e){
-        e.preventDefault();
-        var raw = ($('loginCode') && $('loginCode').value) || '';
-        var code = raw.toUpperCase().trim();
-        var pass = ($('loginPass') && $('loginPass').value) || '';
-        if (!code || !pass) return;
-        try { sessionStorage.setItem('vic_app_code', code); } catch(_){}
-        alert('Logged in (demo). Matching options would show here.');
-      });
-    }
+    $('login-form')?.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const raw = $('loginCode')?.value || '';
+      const code = raw.toUpperCase().trim();
+      const pass = $('loginPass')?.value || '';
+      if (!code || !pass) return;
+      try { sessionStorage.setItem('vic_app_code', code); } catch(_){}
+      alert('Logged in (demo). Matching options would show here.');
+    });
 
     // DOB & dropdown helpers
     function populateDOBYears(sel){ if(!sel) return;
-      var start=2004; sel.innerHTML = '';
-      for(var y=start; y>=1940; y--){ var o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); }
+      const start=2004; sel.innerHTML = '';
+      for(let y=start; y>=1940; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); }
     }
-
-    // Month select: show long labels in popup, short number when selected
     function populateMonths(sel){
       if(!sel) return;
-      var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
       sel.innerHTML = '<option value="">MM</option>';
-      months.forEach(function(name, i){
-        var num = String(i+1).padStart(2,'0');
-        var o = document.createElement('option');
-        o.value = (i+1);             // 1..12
-        o.dataset.num = num;         // "01"
-        o.dataset.long = name + ' ' + num; // "January 01"
-        o.textContent = num;         // default closed state: just "01"
+      months.forEach((name,i)=>{
+        const num = String(i+1).padStart(2,'0');
+        const o=document.createElement('option');
+        o.value = (i+1); o.dataset.num=num; o.dataset.long = name + ' ' + num; o.textContent=num;
         sel.appendChild(o);
       });
-
-      function setLabelsLong(){
-        Array.prototype.forEach.call(sel.options, function(opt){
-          if (!opt.value) return; // skip placeholder
-          if (opt.dataset && opt.dataset.long) opt.textContent = opt.dataset.long;
-        });
-      }
-      function setLabelsShort(){
-        Array.prototype.forEach.call(sel.options, function(opt){
-          if (!opt.value) return;
-          if (opt.dataset && opt.dataset.num) opt.textContent = opt.dataset.num;
-        });
-      }
-
+      function setLabelsLong(){ Array.from(sel.options).forEach(opt=>{ if(opt.value&&opt.dataset.long) opt.textContent=opt.dataset.long; }); }
+      function setLabelsShort(){ Array.from(sel.options).forEach(opt=>{ if(opt.value&&opt.dataset.num) opt.textContent=opt.dataset.num; }); }
       sel.addEventListener('mousedown', setLabelsLong);
       sel.addEventListener('touchstart', setLabelsLong, {passive:true});
       sel.addEventListener('focus', setLabelsLong);
-
       sel.addEventListener('change', setLabelsShort);
       sel.addEventListener('blur', setLabelsShort);
     }
-
     function updateDays(){
-      var y=parseInt(($('dobYear')&&$('dobYear').value)||'',10);
-      var m=parseInt(($('dobMonth')&&$('dobMonth').value)||'',10);
-      var selV=parseInt(($('dobDay')&&$('dobDay').value)||'',10);
-      var days=(y&&m)?new Date(y,m,0).getDate():31;
-      var daySel = $('dobDay'); if (!daySel) return;
+      const y=parseInt($('dobYear')?.value||'',10);
+      const m=parseInt($('dobMonth')?.value||'',10);
+      const selV=parseInt($('dobDay')?.value||'',10);
+      const days=(y&&m)?new Date(y,m,0).getDate():31;
+      const daySel=$('dobDay'); if(!daySel) return;
       daySel.innerHTML='<option value="">DD</option>';
-      for(var i=1;i<=days;i++){ var o=document.createElement('option'); o.value=i; o.textContent=(i<10?('0'+i):String(i)); daySel.appendChild(o); }
+      for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=(i<10?('0'+i):String(i)); daySel.appendChild(o); }
       if(selV&&selV<=days) daySel.value=selV;
     }
     function populateDropdown(sel,start,end,label,singular){
       if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>';
-      for(var i=start;i<=end;i++){ var o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o); }
+      for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o); }
     }
     function populateProvinces(sel){
-      if(!sel) return; var prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"];
-      sel.innerHTML='<option value="">Prov</option>'; prov.forEach(function(p){ var o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); });
+      if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"];
+      sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); });
     }
     function populateYears(sel, start, end){
       if(!sel) return; sel.innerHTML='<option value="">Year</option>';
-      for(var y=start; y>=end; y--){ var o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); }
+      for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); }
     }
 
-    // ---- Consistent height for all steps ----
+    // Consistent height for all steps
     function setViewportHeight(){
-      var viewport = $('step-viewport');
-      if (!viewport) return;
-
-      var s = steps();
-      var maxH = 0;
-      for (var i=0;i<s.length;i++){
-        var sec = s[i];
-        var wasHidden = sec.classList.contains('hidden');
+      const viewport = $('step-viewport'); if (!viewport) return;
+      const s = steps(); let maxH = 0;
+      for (let i=0;i<s.length;i++){
+        const sec = s[i]; const wasHidden = sec.classList.contains('hidden');
         if (wasHidden) sec.classList.remove('hidden');
-
-        var inner = sec.querySelector('.step-inner');
-        var h = inner ? inner.offsetHeight : sec.offsetHeight;
+        const inner = sec.querySelector('.step-inner');
+        const h = inner ? inner.offsetHeight : sec.offsetHeight;
         if (h > maxH) maxH = h;
-
         if (wasHidden) sec.classList.add('hidden');
       }
-      var buffer = 8;
-      viewport.style.minHeight = (maxH + buffer) + 'px';
+      viewport.style.minHeight = (maxH + 8) + 'px';
     }
 
     // Height sync between form and login card
     function syncHeights(){
-      var form = document.getElementById('lead-form');
-      var login = document.getElementById('login-card');
+      const form = document.getElementById('lead-form');
+      const login = document.getElementById('login-card');
       if (!form || !login) return;
       login.style.minHeight = form.offsetHeight + 'px';
     }
 
     // Refi calc hookups
     function setupRefiCalcInputs(){
-      var loanEl = $('refLoanInput');
-      var rateEl = $('refRateInput');
-      var termEl = $('refTermInput');
-      var newRateSlider = $('refNewRateSlider');
-      var newRateOut = $('refNewRateOut');
+      const loanEl = $('refLoanInput');
+      const rateEl = $('refRateInput');
+      const termEl = $('refTermInput');
+      const newRateSlider = $('refNewRateSlider');
+      const newRateOut = $('refNewRateOut');
 
       if (!loanEl || !rateEl || !termEl || !newRateSlider || !newRateOut) return;
 
-      loanEl.addEventListener('blur', function(){ formatMoneyField(loanEl); updateRefiInputs(); });
+      loanEl.addEventListener('blur', ()=>{ formatMoneyField(loanEl); updateRefiInputs(); });
       loanEl.addEventListener('input', updateRefiInputs);
       rateEl.addEventListener('input', updateRefiInputs);
       termEl.addEventListener('input', updateRefiInputs);
 
-      newRateSlider.addEventListener('input', function(){
+      newRateSlider.addEventListener('input', ()=>{
         newRateOut.textContent = Number(newRateSlider.value).toFixed(2);
         updateRefiInputs();
       });
@@ -1083,37 +1037,37 @@
     }
 
     function updateRefiInputs(){
-      var loan = parseMoneyInput($('refLoanInput')?.value);
-      var rate = parseFloat($('refRateInput')?.value) || 0;
-      var years = parseFloat($('refTermInput')?.value) || 0;
-      var newRate = parseFloat($('refNewRateSlider')?.value) || 0;
+      const loan = parseMoneyInput($('refLoanInput')?.value);
+      const rate = parseFloat($('refRateInput')?.value) || 0;
+      const years = parseFloat($('refTermInput')?.value) || 0;
+      const newRate = parseFloat($('refNewRateSlider')?.value) || 0;
 
-      var results = $('refResults');
-      var feeHint = $('refFeeHint');
+      const results = $('refResults');
+      const feeHint = $('refFeeHint');
       if (!results) return;
 
       if (!loan || !rate || !years){
         results.innerHTML = "<p class='text-[12px] text-zinc-600'>Enter your numbers to see your refinance scenario.</p>";
-        if (feeHint) feeHint.classList.add('hidden');
+        feeHint?.classList.add('hidden');
         return;
       }
 
-      var curPmt = calcPayment(loan, rate, years);
-      var curTotInt = curPmt*years*12 - loan;
+      const curPmt = calcPayment(loan, rate, years);
+      const curTotInt = curPmt*years*12 - loan;
 
-      // Always add $3,000 to new-loan math; only *mention* it when loan > 7000
-      var newLoan = loan + 3000;
-      var showFeeHint = loan > 7000;
+      // Add $3,000 to new-loan math; only mention if loan > 7000
+      const newLoan = loan + 3000;
+      const showFeeHint = loan > 7000;
       if (feeHint){
         feeHint.textContent = "Includes estimated fees.";
         feeHint.classList.toggle('hidden', !showFeeHint);
       }
 
-      var newPmt = calcPayment(newLoan, newRate, years);
-      var newTotInt = newPmt*years*12 - newLoan;
+      const newPmt = calcPayment(newLoan, newRate, years);
+      const newTotInt = newPmt*years*12 - newLoan;
 
-      var savePerMonth = curPmt - newPmt;
-      var saveInterest = curTotInt - newTotInt;
+      const savePerMonth = curPmt - newPmt;
+      const saveInterest = curTotInt - newTotInt;
 
       results.innerHTML =
         "<p><b>Current payment:</b> " + fmtMoney(curPmt) + "</p>" +
@@ -1125,17 +1079,20 @@
 
     // Init
     (function init(){
-      var y = new Date().getFullYear(); var yEl = bySel('#year'); if (yEl) yEl.textContent = y;
+      // year
+      const y = new Date().getFullYear(); bySel('#year')?.textContent = y;
 
-      // Default Step 1 to "Both"
-      var hiddenCond = $('vehicleCondition'); if (hiddenCond) hiddenCond.value = 'Both';
-      var bothBtn = bySel('[data-cond="Both"]'); if (bothBtn) bothBtn.classList.add('selected');
+      // Defaults
+      $('vehicleCondition') && ( $('vehicleCondition').value = 'Both' );
+      bySel('[data-cond="Both"]')?.classList.add('selected');
+      $('appIntent') && ( $('appIntent').value = 'Finance' );
+      bySel('[data-intent="Finance"]')?.classList.add('selected');
 
       // DOB
       populateDOBYears($('dobYear'));
       populateMonths($('dobMonth')); updateDays();
-      var dobMonth = $('dobMonth'); if (dobMonth) dobMonth.addEventListener('change', updateDays);
-      var dobYear = $('dobYear'); if (dobYear) dobYear.addEventListener('change', updateDays);
+      $('dobMonth')?.addEventListener('change', updateDays);
+      $('dobYear')?.addEventListener('change', updateDays);
 
       // Tenures & address helpers
       populateDropdown($('timeWithEmployerYears'), 0, 30, 'Years', 'Year');
@@ -1147,21 +1104,18 @@
       // Trade-in Years
       populateYears($('tradeInYear'), new Date().getFullYear(), 1995);
 
-      // Defaults
+      // Rent/own default
       setHousing('Rent');
+
+      // Steps
       window.__currentStep = 1;
       showStep(1);
 
-      // Initial size pass + sync
+      // Size + sync
       setViewportHeight();
-      setTimeout(function(){ syncHeights(); }, 0);
-
-      // Resize listeners
-      window.addEventListener('resize', function(){ setViewportHeight(); syncHeights(); });
-
-      // Also after nav clicks, keep heights in sync
-      var nb = $('btnNext'); if (nb) nb.addEventListener('click', function(){ setTimeout(function(){ setViewportHeight(); syncHeights(); }, 0); });
-      var bb = $('btnBack'); if (bb) bb.addEventListener('click', function(){ setTimeout(function(){ setViewportHeight(); syncHeights(); }, 0); });
+      setTimeout(()=>{ syncHeights(); }, 0);
+      window.addEventListener('resize', ()=>{ setViewportHeight(); syncHeights(); });
+      ['btnNext','btnBack'].forEach(id=> $(id)?.addEventListener('click', ()=> setTimeout(()=>{ setViewportHeight(); syncHeights(); }, 0)));
 
       // Refi calc
       setupRefiCalcInputs();
