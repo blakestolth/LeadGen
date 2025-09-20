@@ -148,7 +148,7 @@
     #refi-card .mini{ font-size:12px; color:#374151; }
     #refi-card .hint{ font-size:11px; color:#64748b; }
 
-    /* Tidy selects */
+    /* Tidy selects (iOS/Safari) */
     .form-select{
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -284,7 +284,7 @@
                   </div>
                 </section>
 
-                <!-- 2. Finance: Vehicle condition | Refinance: Vehicle details -->
+                <!-- 2. Finance: Vehicle condition | Refinance: Vehicle + Loan details (combined) -->
                 <section class="form-step hidden" data-step="2" id="step-choice">
                   <div class="step-inner">
                     <!-- Finance-only block -->
@@ -298,40 +298,40 @@
                       <input type="hidden" name="vehicleCondition" id="vehicleCondition">
                     </div>
 
-                    <!-- Refinance-only block -->
-                    <div id="block-refi" class="hidden">
-                      <h3 class="h2">2. Vehicle details</h3>
-                      <div class="grid-inline-3-tight mt-2">
-                        <select name="refiVehicleYear" id="refiVehicleYear" class="form-select">
-                          <option value="">Year</option>
-                        </select>
-                        <input type="text" name="refiVehicleMake" id="refiVehicleMake" placeholder="Make" class="form-input" maxlength="40"/>
-                        <input type="text" name="refiVehicleModel" id="refiVehicleModel" placeholder="Model" class="form-input" maxlength="50"/>
-                      </div>
-                      <div class="grid-inline-2 mt-2">
-                        <input type="number" name="refiVehicleKms" id="refiVehicleKms" placeholder="Km" class="form-input" inputmode="numeric" min="0" max="1000000"/>
-                        <input type="text" name="refiVehicleOwed" id="refiVehicleOwed" placeholder="Money owed e.g. $5,000 or None" class="form-input" maxlength="20"/>
-                      </div>
-                    </div>
-                  </div>
-                </section>
+                    <!-- Refinance-only combined block -->
+                    <div id="block-refi-combined" class="hidden">
+                      <h3 class="h2">2. Vehicle &amp; Loan details</h3>
 
-                <!-- 3. Finance: Budget | Refinance: Loan details (years left + rate) -->
-                <section class="form-step hidden" data-step="3" id="step-budget-or-refi">
-                  <div class="step-inner">
-                    <!-- Finance block -->
-                    <div id="block-budget">
-                      <h3 class="h2">3. Bi-weekly budget <span class="muted">(starts at $120)</span></h3>
-                      <div class="mt-2">
-                        <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="250" class="w-full" style="accent-color: var(--blue-600);">
-                        <div class="text-[12px] text-zinc-700 mt-1 text-center">Selected: <b>$<span id="biWeeklyOut">250</span></b> / bi-weekly</div>
-                        <input type="hidden" name="budgetRange" id="budgetRange" value="$250 bi-weekly">
+                      <!-- Vehicle details -->
+                      <div class="grid-inline-3-tight mt-2">
+                        <div>
+                          <label class="label" for="refiVehicleYear">Year</label>
+                          <select name="refiVehicleYear" id="refiVehicleYear" class="form-select">
+                            <option value="">Year</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label class="label" for="refiVehicleMake">Make</label>
+                          <input type="text" name="refiVehicleMake" id="refiVehicleMake" class="form-input" maxlength="40" placeholder="e.g., Toyota"/>
+                        </div>
+                        <div>
+                          <label class="label" for="refiVehicleModel">Model</label>
+                          <input type="text" name="refiVehicleModel" id="refiVehicleModel" class="form-input" maxlength="50" placeholder="e.g., Corolla"/>
+                        </div>
                       </div>
-                    </div>
-                    <!-- Refinance block -->
-                    <div id="block-refi-loan" class="hidden">
-                      <h3 class="h2">3. Loan details</h3>
                       <div class="grid-inline-2 mt-2">
+                        <div>
+                          <label class="label" for="refiVehicleKms">Km</label>
+                          <input type="number" name="refiVehicleKms" id="refiVehicleKms" class="form-input" inputmode="numeric" min="0" max="1000000" placeholder="e.g., 85,000"/>
+                        </div>
+                        <div>
+                          <label class="label" for="refiVehicleOwed">Money owed</label>
+                          <input type="text" name="refiVehicleOwed" id="refiVehicleOwed" class="form-input" maxlength="20" placeholder="e.g., $5,000 or None"/>
+                        </div>
+                      </div>
+
+                      <!-- Loan details -->
+                      <div class="grid-inline-2 mt-3">
                         <div>
                           <label class="label" for="refiYearsLeft">Years left on loan <span class="text-red-500">*</span></label>
                           <select id="refiYearsLeft" name="refiYearsLeft" class="form-select" required>
@@ -345,6 +345,18 @@
                           <input type="number" id="refiCurrentRate" name="refiCurrentRate" class="form-input" step="0.01" min="0" max="40" required/>
                         </div>
                       </div>
+                    </div>
+                  </div>
+                </section>
+
+                <!-- 3. Finance: Budget (Refinance skips to Step 6) -->
+                <section class="form-step hidden" data-step="3" id="step-budget">
+                  <div class="step-inner">
+                    <h3 class="h2">3. Bi-weekly budget <span class="muted">(starts at $120)</span></h3>
+                    <div class="mt-2">
+                      <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="250" class="w-full" style="accent-color: var(--blue-600);">
+                      <div class="text-[12px] text-zinc-700 mt-1 text-center">Selected: <b>$<span id="biWeeklyOut">250</span></b> / bi-weekly</div>
+                      <input type="hidden" name="budgetRange" id="budgetRange" value="$250 bi-weekly">
                     </div>
                   </div>
                 </section>
@@ -380,15 +392,30 @@
                   <div class="step-inner">
                     <h3 class="h2">5. Trade-in details</h3>
                     <div class="grid-inline-3-tight mt-2">
-                      <select name="tradeInYear" id="tradeInYear" class="form-select">
-                        <option value="">Year</option>
-                      </select>
-                      <input type="text" name="tradeInMake" id="tradeInMake" placeholder="Make" class="form-input" maxlength="40"/>
-                      <input type="text" name="tradeInModel" id="tradeInModel" placeholder="Model" class="form-input" maxlength="50"/>
+                      <div>
+                        <label class="label" for="tradeInYear">Year</label>
+                        <select name="tradeInYear" id="tradeInYear" class="form-select">
+                          <option value="">Year</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label class="label" for="tradeInMake">Make</label>
+                        <input type="text" name="tradeInMake" id="tradeInMake" class="form-input" maxlength="40"/>
+                      </div>
+                      <div>
+                        <label class="label" for="tradeInModel">Model</label>
+                        <input type="text" name="tradeInModel" id="tradeInModel" class="form-input" maxlength="50"/>
+                      </div>
                     </div>
                     <div class="grid-inline-2 mt-2">
-                      <input type="number" name="tradeInKms" id="tradeInKms" placeholder="Km" class="form-input" inputmode="numeric" min="0" max="1000000"/>
-                      <input type="text" name="tradeInOwed" id="tradeInOwed" placeholder="Money owed e.g. $5,000 or None" class="form-input" maxlength="20"/>
+                      <div>
+                        <label class="label" for="tradeInKms">Km</label>
+                        <input type="number" name="tradeInKms" id="tradeInKms" class="form-input" inputmode="numeric" min="0" max="1000000"/>
+                      </div>
+                      <div>
+                        <label class="label" for="tradeInOwed">Money owed</label>
+                        <input type="text" name="tradeInOwed" id="tradeInOwed" class="form-input" maxlength="20"/>
+                      </div>
                     </div>
                   </div>
                 </section>
@@ -727,14 +754,10 @@
 
       // Toggle blocks for finance vs refi
       if (n === 2){
-        const fin = $('block-finance'), refblk = $('block-refi');
-        if (isRefi()){ fin?.classList.add('hidden'); refblk?.classList.remove('hidden'); }
-        else { refblk?.classList.add('hidden'); fin?.classList.remove('hidden'); }
-      }
-      if (n === 3){
-        const bud = $('block-budget'), rloan = $('block-refi-loan');
-        if (isRefi()){ bud?.classList.add('hidden'); rloan?.classList.remove('hidden'); }
-        else { rloan?.classList.add('hidden'); bud?.classList.remove('hidden'); }
+        const fin = $('block-finance');
+        const refComb = $('block-refi-combined');
+        if (isRefi()){ fin?.classList.add('hidden'); refComb?.classList.remove('hidden'); }
+        else { refComb?.classList.add('hidden'); fin?.classList.remove('hidden'); }
       }
 
       // Progress
@@ -754,16 +777,14 @@
 
       if (forward){
         if (isRefi()){
-          if (cur === 2) return 3;          // Refi: vehicle details -> loan details
-          if (cur === 3) return 6;          // Refi: skip purchase + trade-in
+          if (cur === 2) return 6;          // Refi: combined step -> Employment & Income
         } else {
           if (cur === 4 && !tradeYes) return 6; // Finance: skip trade-in details if No
         }
         return cur + 1;
       } else {
         if (isRefi()){
-          if (cur === 6) return 3;          // back from Employment to loan details
-          if (cur === 3) return 2;          // back to vehicle details
+          if (cur === 6) return 2;          // back from Employment to combined
         } else {
           if (cur === 6 && !tradeYes) return 4; // back to Purchase when 5 was skipped
         }
@@ -854,24 +875,20 @@
       }
       if (n===2){
         if (isRefi()){
-          // Vehicle details optional; allow proceed
-          return true;
+          // Only require the loan detail fields here
+          const yrs = $('refiYearsLeft'), rate = $('refiCurrentRate');
+          const ok = !!(yrs && yrs.value) && !!(rate && rate.value);
+          yrs?.classList.toggle('err', !(yrs && yrs.value));
+          rate?.classList.toggle('err', !(rate && rate.value));
+          return ok;
         } else {
           const ok2 = !!($('vehicleCondition') && $('vehicleCondition').value);
           bySelAll('[data-cond]').forEach(x=>x.classList.toggle('err', !ok2));
           return ok2;
         }
       }
-      if (n===3){
-        if (isRefi()){
-          const yrs = $('refiYearsLeft'), rate = $('refiCurrentRate');
-          const o = !!(yrs && yrs.value) && !!(rate && rate.value);
-          yrs?.classList.toggle('err', !(yrs && yrs.value));
-          rate?.classList.toggle('err', !(rate && rate.value));
-          return o;
-        } else {
-          return !!($('budgetRange') && $('budgetRange').value);
-        }
+      if (n===3 && !isRefi()){
+        return !!($('budgetRange') && $('budgetRange').value);
       }
       const stepEl = steps()[n-1];
       if(!stepEl) return true;
@@ -1189,6 +1206,14 @@
       `;
     }
     setupRefiCalcInputs();
+
+    // Populate years for refi vehicle and trade-in
+    function populateYears(sel, start, end){
+      if(!sel) return; sel.innerHTML='<option value="">Year</option>';
+      for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); }
+    }
+    populateYears(document.getElementById('refiVehicleYear'), new Date().getFullYear(), 1995);
+    populateYears(document.getElementById('tradeInYear'), new Date().getFullYear(), 1995);
   });
   </script>
 </body>
