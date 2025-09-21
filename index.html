@@ -30,6 +30,7 @@
       --field-gap: 8px;
       --section-max: 720px;
 
+      /* locked viewport for consistent height look */
       --form-viewport-h: 560px;
       --form-viewport-h-sm: 520px;
 
@@ -118,7 +119,7 @@
     @media (min-width:640px){ .bodytype-img{ height:110px; } }
 
     .map-embed{ width:100%; height:150px; border:0; }
-    @media (min-width:768px){ .map-embed{ height:200px; } }
+    @media (max-width:768px){ .map-embed{ height:200px; } }
     .progress-overlay{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:50}
     .progress-card{background:#fff;border-radius:12px;box-shadow:0 20px 40px -20px rgba(0,0,0,.35);width:min(520px,92vw);padding:18px 16px}
     .progress-title{font-weight:800;font-size:16px;color:#0f172a}
@@ -145,6 +146,7 @@
       padding-right: 2.2rem;
     }
 
+    /* Refi sidebar (compact) */
     .refi-card { padding: var(--aside-pad); border-bottom:1px solid #e5e7eb; }
     .refi-title { font-size: var(--fs-h2); font-weight: 800; color:#0f172a; line-height:1.2; }
     .refi-grid{ display:grid; grid-template-columns: 1fr; gap:8px; align-items:center; }
@@ -596,7 +598,8 @@
               <div class="refi-mini">
                 <div>
                   <label class="label" for="refNewRateSlider">Try a new rate</label>
-                  <input id="refNewRateSlider" type="range" min="0.00" max="25.00" step="0.05" value="7.99" class="refi-slider">
+                  <!-- MAX NOW 8.99 -->
+                  <input id="refNewRateSlider" type="range" min="0.00" max="8.99" step="0.05" value="7.99" class="refi-slider">
                   <div class="text-[11px] text-zinc-700 mt-1">New rate: <b><span id="refNewRateOut">7.99</span>%</b></div>
                   <div id="refFeeHint" class="refi-hint hidden">Includes estimated fees.</div>
                 </div>
@@ -732,10 +735,8 @@
       const intent = $('intent')?.value || 'finance';
       const hasTrade = ($('hasTradeIn')?.value || 'No').toLowerCase()==='yes';
       if (intent==='refinance'){
-        // Refinance skips condition + budget
         return ['step-intent','step-refi-details','step-income','step-account','step-yourinfo','step-address','step-employer','step-consent'];
       }
-      // Finance path (with optional trade)
       let flow = ['step-intent','step-cond','step-budget','step-purchase'];
       if (hasTrade) flow.push('step-tradein');
       flow = flow.concat(['step-income','step-account','step-yourinfo','step-address','step-employer','step-consent']);
@@ -823,14 +824,8 @@
         bySelAll('[data-intent]').forEach(x=>x.classList.remove('selected','err'));
         btn.classList.add('selected');
         $('intent').value = btn.dataset.intent;
-
-        // Go directly to the right first step for this path
-        if (btn.dataset.intent === 'refinance'){
-          goTo('step-refi-details');
-        } else {
-          goTo('step-cond');
-        }
-        lockViewportHeight(); // ensure tallness is set for this branch
+        if (btn.dataset.intent === 'refinance'){ goTo('step-refi-details'); } else { goTo('step-cond'); }
+        lockViewportHeight();
       });
     });
 
@@ -918,8 +913,7 @@
     // Login (demo)
     $('login-form')?.addEventListener('submit', (e)=>{
       e.preventDefault();
-      const raw = $('loginCode').value || '';
-      const code = raw.toUpperCase().trim();
+      const raw = $('loginCode').value || ''; const code = raw.toUpperCase().trim();
       const pass = $('loginPass').value || '';
       if (!code || !pass) return;
       try { sessionStorage.setItem('vic_app_code', code); } catch(_){}
@@ -960,6 +954,7 @@
     function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
     function populateYears(sel, start, end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} }
 
+    // ---- Refinance Calculator ----
     function setupRefiCalcInputs(){
       const loanEl = $('refLoanInput');
       const rateEl = $('refRateInput');
@@ -978,28 +973,43 @@
         const loan = parseMoneyInput(loanEl.value);
         const rate = parseFloat(rateEl.value)||0;
         const years = parseFloat(termEl.value)||0;
-        if (!loan || !rate || !years){ results.innerHTML = "<div class='text-zinc-500'>Enter your numbers to see savings.</div>"; feeHint?.classList.add('hidden'); return; }
 
-        const desired = parseFloat(newRateSlider.value)||0;
+        if (!loan || !rate || !years){
+          results.innerHTML = "<div class='text-zinc-500'>Enter your numbers to see savings.</div>";
+          feeHint?.classList.add('hidden');
+          return;
+        }
+
+        // enforce slider ceiling 8.99 and floor 0; also keep 0.99 gap from current rate
+        const desired = Math.min(8.99, Math.max(0, parseFloat(newRateSlider.value)||0));
         const maxAllowed = Math.max(0, rate - 0.99);
         const newRate = Math.min(desired, maxAllowed);
-        if (newRate !== desired){ newRateSlider.value = newRate.toFixed(2); newRateOut.textContent = newRate.toFixed(2); }
+        if (newRate !== desired){ newRateSlider.value = newRate.toFixed(2); }
+        newRateOut.textContent = newRate.toFixed(2);
 
         const curPmt = calcPayment(loan, rate, years);
         const curTotInt = curPmt*years*12 - loan;
+
+        // Always add $3,000 to new loan math; only *mention* when loan > 7000
         const newLoan = loan + 3000;
         feeHint?.classList.toggle('hidden', !(loan>7000));
+
         const newPmt = calcPayment(newLoan, newRate, years);
         const newTotInt = newPmt*years*12 - newLoan;
-        const saveInterest = curTotInt - newTotInt;
-        results.innerHTML = `<div><span class="text-zinc-500">New payment:</span> ${fmtMoney(newPmt)}</div>
-                             <div><span class="text-zinc-500">Total interest saved:</span> ${fmtMoney(saveInterest)}</div>`;
+
+        // Clamp savings below 0 to show 0
+        const interestSaved = Math.max(0, curTotInt - newTotInt);
+
+        results.innerHTML =
+          `<div><span class="text-zinc-500">New payment:</span> ${fmtMoney(newPmt)}</div>
+           <div><span class="text-zinc-500">Total interest saved:</span> ${fmtMoney(interestSaved)}</div>`;
       }
 
       newRateOut.textContent = Number(newRateSlider.value).toFixed(2);
       update();
     }
 
+    // Lock viewport height (keeps title + buttons pinned, centers content)
     function lockViewportHeight(){
       const viewport = $('step-viewport');
       if (!viewport) return;
@@ -1016,6 +1026,7 @@
       viewport.style.height = Math.ceil(maxH + 1) + 'px';
     }
 
+    // ===== init =====
     (function init(){
       bySel('#year').textContent = new Date().getFullYear();
 
@@ -1024,28 +1035,9 @@
       bySel('[data-cond="Both"]')?.classList.add('selected');
       $('housingType') && ( $('housingType').value = 'Rent' );
 
-      function populateDOBYears(sel){ if(!sel) return; const start=2004; sel.innerHTML = ''; for(let y=start; y>=1940; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); } }
       populateDOBYears($('dobYear'));
-      function populateMonths(sel){
-        if(!sel) return;
-        const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-        sel.innerHTML = '<option value="">MM</option>';
-        months.forEach((name, i)=>{
-          const num = String(i+1).padStart(2,'0');
-          const o = document.createElement('option');
-          o.value = (i+1); o.dataset.num = num; o.dataset.long = name + ' ' + num; o.textContent = num;
-          sel.appendChild(o);
-        });
-        function setLabelsLong(){ Array.from(sel.options).forEach(opt=>{ if(opt.value && opt.dataset.long) opt.textContent = opt.dataset.long; }); }
-        function setLabelsShort(){ Array.from(sel.options).forEach(opt=>{ if(opt.value && opt.dataset.num) opt.textContent = opt.dataset.num; }); }
-        sel.addEventListener('mousedown', setLabelsLong);
-        sel.addEventListener('touchstart', setLabelsLong, {passive:true});
-        sel.addEventListener('focus', setLabelsLong);
-        sel.addEventListener('change', setLabelsShort);
-        sel.addEventListener('blur', setLabelsShort);
-      }
       populateMonths($('dobMonth'));
-      function updateDays(){
+      function updateDaysInit(){
         const y=parseInt($('dobYear')?.value||'',10);
         const m=parseInt($('dobMonth')?.value||'',10);
         const selV=parseInt($('dobDay')?.value||'',10);
@@ -1055,19 +1047,16 @@
         for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=(i<10?('0'+i):String(i)); daySel.appendChild(o); }
         if(selV&&selV<=days) daySel.value=selV;
       }
-      $('dobMonth')?.addEventListener('change', updateDays);
-      $('dobYear')?.addEventListener('change', updateDays);
-      updateDays();
+      $('dobMonth')?.addEventListener('change', updateDaysInit);
+      $('dobYear')?.addEventListener('change', updateDaysInit);
+      updateDaysInit();
 
-      function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o); } }
       populateDropdown($('timeWithEmployerYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('timeWithEmployerMonths'), 0, 11, 'Months', 'Month');
       populateDropdown($('timeAtAddressYears'), 0, 30, 'Years', 'Year');
       populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
-      function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
       populateProvinces($('currentProvince'));
 
-      function populateYears(sel, start, end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} }
       populateYears($('tradeInYear'), new Date().getFullYear(), 1995);
       populateYears($('refiYear'), new Date().getFullYear(), 1995);
 
