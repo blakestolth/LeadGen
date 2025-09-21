@@ -23,7 +23,7 @@
     :root{
       --blue-600:#2A5D9F; --blue-700:#214B80; --blue-100:#EAF1FB; --blue-grad:#4C7CC0;
 
-      /* (Kept your reduced scale) */
+      /* Site scale (unchanged) */
       --fs-h1: 20px; --fs-h2: 16px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
       --pad-y: 10px; --gap-regular: 8px; --input-py: 5px; --input-px: 10px; --radius: 10px;
       --nav-font: 14px;
@@ -31,7 +31,7 @@
       --field-gap: 8px;
       --section-max: 720px;
 
-      /* Locked form viewport height (kept) */
+      /* Locked form viewport height */
       --form-viewport-h: 560px;
       --form-viewport-h-sm: 520px;
 
@@ -41,6 +41,18 @@
 
     body{ font-family:'Inter',sans-serif; background:#f6f7fb; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
     .card{ background:#fff; border-radius:12px; border:1px solid #e5e7eb; box-shadow:0 8px 18px -10px rgb(0 0 0 / .15); }
+
+    /* Accented cards to “stick out” (refi + login) */
+    .card-accent{
+      border:2px solid rgba(42,93,159,.18);
+      box-shadow:0 14px 26px -18px rgba(42,93,159,.38);
+    }
+    .accent-header{
+      display:flex; align-items:center; justify-content:space-between;
+      border-bottom:1px solid #e5e7eb; padding:10px 12px;
+      background:linear-gradient(180deg,#f9fbff 0%, #ffffff 100%);
+      border-top-left-radius:12px; border-top-right-radius:12px;
+    }
 
     .h1{ font-size:var(--fs-h1); font-weight:800; color:#0f172a; }
     .h2{ font-size:var(--fs-h2); font-weight:800; color:#0f172a; margin-bottom:4px; }
@@ -62,6 +74,20 @@
 
     .err{ border-color:#ef4444 !important; } .err-label{ color:#ef4444 !important; }
 
+    /* ---------- FORM BOX-SPECIFIC DOWNSCALE (≈1pt smaller) ---------- */
+    #lead-form{
+      --fs-h2: 15px;          /* was 16 */
+      --fs-body: 12px;        /* was 13 */
+      --fs-label: 10px;       /* was 11 */
+      --fs-cta: 12px;         /* was 13 */
+      --control-h: 38px;      /* was 40 */
+    }
+    #lead-form .choice-rect{ padding:9px 11px; }
+    #lead-form .form-footer{ padding:10px 14px; }
+    #lead-form .sticky [id^="progress-"]{ font-size:10px !important; }
+    #lead-form .cta-button{ min-height:34px; }
+
+    /* --------------------- Form shell --------------------- */
     .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; }
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; pointer-events:none; }
 
@@ -82,16 +108,16 @@
     .vstack > * + *{ margin-top: var(--gap-regular); }
 
     .form-footer{ padding: 12px 16px; position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb; }
-    #btnBack{ min-height:36px; border-radius:10px; }
+    #btnBack{ min-height:34px; border-radius:10px; }
 
     .choice-rect{
       width:100%; text-align:left; border:1.5px solid #e5e7eb; border-radius:10px; background:#fff;
-      padding:10px 12px; font-weight:700; color:#111827; transition:all .15s ease; display:block; cursor:pointer;
+      font-weight:700; color:#111827; transition:all .15s ease; display:block; cursor:pointer;
     }
     .choice-rect:hover{ border-color:var(--blue-600); background:#f5f8ff; }
     .choice-rect.selected{ border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
 
-    .muted{ font-size:11px; color:#6b7280; }
+    .muted{ font-size:10px; color:#6b7280; }
 
     .seg{ display:inline-flex; align-items:center; gap:6px; background:#f3f4f6; border:1.5px solid #e5e7eb; border-radius:9999px; padding:4px; margin-top:4px; }
     .seg-btn{ appearance:none; border:0; background:transparent; cursor:pointer; padding:6px 12px; border-radius:9999px; font-weight:800; font-size:12px; color:#374151; transition:background .15s ease, color .15s ease, box-shadow .15s ease; }
@@ -147,7 +173,7 @@
       padding-right: 2.2rem;
     }
 
-    /* Refi calculator — now smaller */
+    /* Refi calculator — compact */
     .refi-card { padding: var(--aside-pad); }
     .refi-title { font-size: var(--fs-h2); font-weight: 800; color:#0f172a; line-height:1.2; }
     .refi-grid{ display:grid; grid-template-columns: 1fr; gap:8px; align-items:center; }
@@ -299,7 +325,7 @@
                     <div class="step-body">
                       <div class="content" style="max-width:560px;">
                         <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="250" class="w-full" style="accent-color: var(--blue-600);">
-                        <div class="text-[11px] text-zinc-700 mt-1 text-center">Selected: <b>$<span id="biWeeklyOut">250</span></b> / bi-weekly</div>
+                        <div class="text-[10px] text-zinc-700 mt-1 text-center">Selected: <b>$<span id="biWeeklyOut">250</span></b> / bi-weekly</div>
                         <input type="hidden" name="budgetRange" id="budgetRange" value="$250 bi-weekly">
                       </div>
                     </div>
@@ -568,12 +594,14 @@
         </div>
       </div>
 
-      <!-- RIGHT: Refinance Calculator (card) + Login (card) -->
+      <!-- RIGHT: Refinance Calculator (accented card) + Login (accented card) -->
       <aside class="flex flex-col gap-4">
-        <!-- Refinance Calculator (smaller, its own card) -->
-        <div class="card p-0" id="refi-card">
-          <div class="refi-card">
+        <!-- Refinance Calculator -->
+        <div class="card card-accent p-0" id="refi-card">
+          <div class="accent-header">
             <div class="refi-title">Refinance Calculator</div>
+          </div>
+          <div class="refi-card">
             <div class="refi-grid mt-2">
               <div class="refi-row">
                 <div>
@@ -608,8 +636,11 @@
           </div>
         </div>
 
-        <!-- LOGIN (its own card) -->
-        <div class="card p-0 h-full flex flex-col" id="login-card">
+        <!-- LOGIN -->
+        <div class="card card-accent p-0 h-full flex flex-col" id="login-card">
+          <div class="accent-header">
+            <h3 class="h2" style="margin:0;">Account</h3>
+          </div>
           <div style="padding: var(--aside-pad); display:flex; flex-direction:column; height:100%;">
             <h3 class="h2">Log in to view options</h3>
             <p class="text-[11px] text-zinc-600 mt-1">Log in if you’ve submitted an application to see options you qualify for.</p>
@@ -816,7 +847,7 @@
     $('btnNext')?.addEventListener('click', ()=> next(1));
     $('btnBack')?.addEventListener('click', ()=> next(-1));
 
-    // Intent click -> route to the correct first step
+    // Intent click
     bySelAll('[data-intent]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-intent]').forEach(x=>x.classList.remove('selected','err'));
@@ -953,6 +984,7 @@
     function populateYears(sel, start, end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} }
 
     // ---- Refinance Calculator ----
+    function calcPaymentLocal(P, annualRate, years){ return calcPayment(P, annualRate, years); }
     function setupRefiCalcInputs(){
       const loanEl = $('refLoanInput');
       const rateEl = $('refRateInput');
@@ -977,19 +1009,19 @@
           return;
         }
 
-        // enforce slider ceiling 8.99 and floor 0; keep 0.99 gap from current rate
+        // enforce slider ceiling 8.99 and keep 0.99 below current rate
         const desired = Math.min(8.99, Math.max(0, parseFloat(newRateSlider.value)||0));
         const maxAllowed = Math.max(0, rate - 0.99);
         const newRate = Math.min(desired, maxAllowed);
         if (newRate !== desired){ newRateSlider.value = newRate.toFixed(2); }
         newRateOut.textContent = newRate.toFixed(2);
 
-        const curPmt = calcPayment(loan, rate, years);
+        const curPmt = calcPaymentLocal(loan, rate, years);
         const curTotInt = curPmt*years*12 - loan;
 
-        // $3,000 internal add to new loan (no hint text shown)
+        // $3,000 internal add to new loan (silent)
         const newLoan = loan + 3000;
-        const newPmt = calcPayment(newLoan, newRate, years);
+        const newPmt = calcPaymentLocal(newLoan, newRate, years);
         const newTotInt = newPmt*years*12 - newLoan;
 
         const interestSaved = Math.max(0, curTotInt - newTotInt);
@@ -1003,7 +1035,7 @@
       update();
     }
 
-    // Lock viewport height (keeps title + buttons pinned, centers content)
+    // Lock viewport height
     function lockViewportHeight(){
       const viewport = $('step-viewport');
       if (!viewport) return;
@@ -1029,30 +1061,43 @@
       bySel('[data-cond="Both"]')?.classList.add('selected');
       $('housingType') && ( $('housingType').value = 'Rent' );
 
-      populateDOBYears($('dobYear'));
-      populateMonths($('dobMonth'));
-      function updateDaysInit(){
+      // DOB
+      (function(){
+        const sel=$('dobYear'); if(!sel) return; sel.innerHTML=''; for(let y=2004;y>=1940;y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); }
+      })();
+      (function(sel){
+        if(!sel) return;
+        const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        sel.innerHTML = '<option value="">MM</option>';
+        months.forEach((name, i)=>{
+          const num = String(i+1).padStart(2,'0');
+          const o = document.createElement('option'); o.value=i+1; o.dataset.num=num; o.dataset.long=name+' '+num; o.textContent=num; sel.appendChild(o);
+        });
+        function long(){ Array.from(sel.options).forEach(opt=>{ if(opt.value && opt.dataset.long) opt.textContent = opt.dataset.long; }); }
+        function short(){ Array.from(sel.options).forEach(opt=>{ if(opt.value && opt.dataset.num) opt.textContent = opt.dataset.num; }); }
+        sel.addEventListener('mousedown', long); sel.addEventListener('touchstart', long, {passive:true}); sel.addEventListener('focus', long);
+        sel.addEventListener('change', short); sel.addEventListener('blur', short);
+      })($('dobMonth'));
+      (function updateDaysInit(){
         const y=parseInt($('dobYear')?.value||'',10);
         const m=parseInt($('dobMonth')?.value||'',10);
-        const selV=parseInt($('dobDay')?.value||'',10);
-        const days=(y&&m)?new Date(y,m,0).getDate():31;
         const daySel=$('dobDay'); if(!daySel) return;
+        const days=(y&&m)?new Date(y,m,0).getDate():31;
         daySel.innerHTML='<option value="">DD</option>';
         for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=(i<10?('0'+i):String(i)); daySel.appendChild(o); }
-        if(selV&&selV<=days) daySel.value=selV;
-      }
-      $('dobMonth')?.addEventListener('change', updateDaysInit);
-      $('dobYear')?.addEventListener('change', updateDaysInit);
-      updateDaysInit();
+        $('dobMonth')?.addEventListener('change', updateDaysInit);
+        $('dobYear')?.addEventListener('change', updateDaysInit);
+      })();
 
-      populateDropdown($('timeWithEmployerYears'), 0, 30, 'Years', 'Year');
-      populateDropdown($('timeWithEmployerMonths'), 0, 11, 'Months', 'Month');
-      populateDropdown($('timeAtAddressYears'), 0, 30, 'Years', 'Year');
-      populateDropdown($('timeAtAddressMonths'), 0, 11, 'Months', 'Month');
-      populateProvinces($('currentProvince'));
+      // Tenures & address helpers
+      function pop(sel,start,end,label){ if(!sel) return; sel.innerHTML='<option value="">'+label+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o);} }
+      pop($('timeWithEmployerYears'),0,30,'Years'); pop($('timeWithEmployerMonths'),0,11,'Months');
+      pop($('timeAtAddressYears'),0,30,'Years');   pop($('timeAtAddressMonths'),0,11,'Months');
+      (function(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); })($('currentProvince'));
 
-      populateYears($('tradeInYear'), new Date().getFullYear(), 1995);
-      populateYears($('refiYear'), new Date().getFullYear(), 1995);
+      // Years for trade/refi vehicle
+      (function(sel){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=new Date().getFullYear(); y>=1995; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} })($('tradeInYear'));
+      (function(sel){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=new Date().getFullYear(); y>=1995; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} })($('refiYear'));
 
       goTo('step-intent');
 
