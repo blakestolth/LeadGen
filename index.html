@@ -172,23 +172,19 @@
       padding-right: 2.2rem;
     }
 
-    /* ------- Header login sizing (compact, professional) ------- */
-    .mini-input{ min-height: 28px !important; font-size: 11px !important; padding: 2px 8px !important; }
-    .mini-btn{ min-height: 28px !important; padding: 0 10px !important; font-size: 11px !important; border-radius: 8px !important; }
-    .login-stack{ display:flex; flex-direction:column; gap:6px; width: 9.5rem; }
-    .login-row{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
-    .login-meta{ margin-top: 2px; text-align: right; }
-    .login-meta a{ font-size:10px; }
+    /* ------- Header profile/menu icon ------- */
+    .status-dot{ width:8px; height:8px; border-radius:9999px; background:#d1d5db; } /* gray when logged out, green when in */
+    .status-dot.active{ background:#16a34a; }
 
-    /* Refi calculator — unchanged */
-    .refi-card { padding: var(--aside-pad); }
-    .refi-title { font-size: var(--fs-h2); font-weight: 800; color:#0f172a; line-height:1.2; }
-    .refi-grid{ display:grid; grid-template-columns: 1fr; gap:8px; align-items:center; }
-    .refi-row{ display:grid; grid-template-columns: 1.5fr .6fr .7fr; gap:8px; }
-    .refi-mini{ display:grid; grid-template-columns: 1fr auto; gap:10px; align-items:center; }
-    .refi-results{ font-size:12px; line-height:1.15; color:#0f172a; font-weight:600; display:grid; gap:4px; min-width:150px; }
-    .refi-slider{ width:100%; accent-color: var(--blue-600); }
-    .refi-note{ font-size:10px; color:#6b7280; margin-top:2px; text-align:right; }
+    /* ------- Login compact inputs (used in menu & account card) ------- */
+    .mini-input{ min-height: 32px !important; font-size: 12px !important; padding: 4px 10px !important; }
+    .mini-btn{ min-height: 32px !important; padding: 0 12px !important; font-size: 12px !important; border-radius: 8px !important; }
+    .tiny-link{ font-size:10px; }
+
+    /* ------- Aside layout: calculator + account box that fills to bottom ------- */
+    .aside-grid{ display:grid; grid-template-rows:auto 1fr; gap:1rem; height:100%; }
+    .account-card{ display:flex; flex-direction:column; }
+    .account-body{ padding: var(--aside-pad); display:flex; flex-direction:column; gap:10px; height:100%; }
   </style>
 
   <script type="application/ld+json">
@@ -229,9 +225,9 @@
           <a href="#contact" class="hover:text-[var(--blue-600)]">Contact</a>
         </div>
 
-        <!-- Profile + hamburger in a boxed icon (immediately left of login) -->
+        <!-- Profile + hamburger in a boxed icon -->
         <div class="relative">
-          <button id="profileMenuBtn" class="flex items-center gap-1 border border-zinc-300 rounded-md px-2 py-1.5 hover:bg-zinc-50" aria-haspopup="true" aria-expanded="false">
+          <button id="profileMenuBtn" class="flex items-center gap-2 border border-zinc-300 rounded-md px-2 py-1.5 hover:bg-zinc-50" aria-haspopup="true" aria-expanded="false">
             <!-- Profile icon -->
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -242,31 +238,35 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M4 6h16M4 12h16M4 18h16" />
             </svg>
+            <!-- Login status dot -->
+            <span id="loginStatusDot" class="status-dot"></span>
           </button>
 
-          <!-- Dropdown menu -->
-          <div id="profileMenu" class="absolute right-0 mt-2 w-44 card card-accent hidden z-20">
+          <!-- Dropdown menu (includes login form & login status) -->
+          <div id="profileMenu" class="absolute right-0 mt-2 w-56 card card-accent hidden z-20">
             <a href="#inventory" class="block px-3 py-2 hover:bg-[var(--blue-100)]">Inventory</a>
             <a href="#about" class="block px-3 py-2 hover:bg-[var(--blue-100)]">About</a>
             <a href="#contact" class="block px-3 py-2 hover:bg-[var(--blue-100)]">Contact</a>
-            <div class="border-t my-1"></div>
             <a href="#" class="block px-3 py-2 hover:bg-[var(--blue-100)]">Settings</a>
+            <div class="border-t my-1"></div>
+
+            <!-- Logged-in view -->
+            <div id="menuLoggedIn" class="hidden px-3 py-2 text-sm">
+              <div class="mb-2">Logged in as <b id="menuUserOut"></b></div>
+              <button id="menuLogout" class="w-full cta-button mini-btn">Log out</button>
+            </div>
+
+            <!-- Logged-out view (compact login) -->
+            <form id="menu-login" class="px-3 py-2 flex flex-col gap-2">
+              <input name="username" type="text" placeholder="Username" autocomplete="username" class="form-input mini-input" />
+              <input name="password" type="password" placeholder="Password" autocomplete="current-password" class="form-input mini-input" />
+              <button type="submit" class="cta-button mini-btn">Login</button>
+              <a href="#" class="text-[var(--blue-600)] hover:underline tiny-link text-right">Forgot password?</a>
+            </form>
           </div>
         </div>
 
-        <!-- LOGIN (Username above Password) -->
-        <div>
-          <form id="top-login" class="login-stack" action="#" method="post" novalidate>
-            <input id="loginTopUsername" name="username" type="text" placeholder="Username" autocomplete="username" class="form-input mini-input" />
-            <input id="loginTopPassword" name="password" type="password" placeholder="Password" autocomplete="current-password" class="form-input mini-input" />
-            <div class="login-row">
-              <button type="submit" class="cta-button mini-btn">Login</button>
-              <a href="#" class="text-[var(--blue-600)] hover:underline text-[10px] leading-none">Forgot password?</a>
-            </div>
-          </form>
-        </div>
-
-        <!-- Mobile-only menu button (kept for tiny screens) -->
+        <!-- Mobile-only menu button -->
         <button id="menuBtn" class="sm:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-zinc-200" aria-label="Open menu">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
@@ -646,11 +646,12 @@
         </div>
       </div>
 
-      <!-- RIGHT: Refinance Calculator ONLY (unchanged) -->
-      <aside class="flex flex-col gap-4">
+      <!-- RIGHT: Refinance Calculator + Account (login moved here) -->
+      <aside class="aside-grid">
+        <!-- Refinance Calculator -->
         <div class="card card-accent p-0" id="refi-card">
           <div class="accent-header">
-            <div class="refi-title">Refinance Calculator</div>
+            <div class="h2" style="margin:0;">Refinance Calculator</div>
           </div>
           <div class="refi-card">
             <div class="refi-grid mt-2">
@@ -684,6 +685,31 @@
               </div>
               <div class="refi-note">Estimated.</div>
             </div>
+          </div>
+        </div>
+
+        <!-- Account / Login card fills to bottom -->
+        <div class="card card-accent p-0 account-card">
+          <div class="accent-header">
+            <h3 class="h2" style="margin:0;">Account</h3>
+          </div>
+          <div class="account-body">
+            <!-- Logged-in view -->
+            <div id="asideLoggedIn" class="hidden">
+              <p class="text-[12px] text-zinc-700">Logged in as <b id="asideUserOut"></b></p>
+              <button id="asideLogout" class="cta-button mini-btn mt-1 w-fit">Log out</button>
+            </div>
+
+            <!-- Logged-out login form -->
+            <form id="aside-login" class="flex flex-col gap-2 max-w-xs">
+              <input name="username" type="text" placeholder="Username" autocomplete="username" class="form-input mini-input" />
+              <input name="password" type="password" placeholder="Password" autocomplete="current-password" class="form-input mini-input" />
+              <button type="submit" class="cta-button mini-btn w-fit">Login</button>
+              <a href="#" class="text-[var(--blue-600)] hover:underline tiny-link text-right">Forgot password?</a>
+            </form>
+
+            <div class="flex-1"></div>
+            <p class="text-[10px] text-zinc-500">Use the same credentials here or from the menu.</p>
           </div>
         </div>
       </aside>
@@ -779,6 +805,71 @@
   function formatMoneyField(input){ const num = parseMoneyInput(input.value); input.value = num ? num.toLocaleString('en-CA', {style:'currency', currency:'CAD', maximumFractionDigits:0}) : ''; }
   function calcPayment(P, annualRate, years){ const r=(annualRate/100)/12, n=years*12; if(!n||n<=0) return 0; if(r===0) return P/n; return P*r/(1-Math.pow(1+r,-n)); }
 
+  // ---- Basic demo login state store ----
+  const LOGIN_KEY = 'vic_login_user';
+  function getUser(){ try{return sessionStorage.getItem(LOGIN_KEY)||'';}catch(_){return '';} }
+  function setUser(u){ try{ if(u){sessionStorage.setItem(LOGIN_KEY,u);} else {sessionStorage.removeItem(LOGIN_KEY);} }catch(_){} }
+  function isLoggedIn(){ return !!getUser(); }
+
+  function updateLoginUI(){
+    const user = getUser();
+
+    // Status dot
+    const dot = $('loginStatusDot');
+    if(dot) dot.classList.toggle('active', !!user);
+
+    // Menu swap
+    const menuLoggedIn = $('menuLoggedIn');
+    const menuLogin = $('menu-login');
+    if(menuLoggedIn && menuLogin){
+      if(user){
+        bySel('#menuUserOut').textContent = user;
+        menuLoggedIn.classList.remove('hidden');
+        menuLogin.classList.add('hidden');
+      }else{
+        menuLoggedIn.classList.add('hidden');
+        menuLogin.classList.remove('hidden');
+      }
+    }
+
+    // Aside swap
+    const asideLoggedIn = $('asideLoggedIn');
+    const asideLogin = $('aside-login');
+    if(asideLoggedIn && asideLogin){
+      if(user){
+        bySel('#asideUserOut').textContent = user;
+        asideLoggedIn.classList.remove('hidden');
+        asideLogin.classList.add('hidden');
+      }else{
+        asideLoggedIn.classList.add('hidden');
+        asideLogin.classList.remove('hidden');
+      }
+    }
+  }
+
+  function handleLoginForm(form){
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const fd = new FormData(form);
+      const user = (fd.get('username')||'').toString().trim();
+      const pass = (fd.get('password')||'').toString();
+      if(!user || !pass) return;
+      setUser(user);
+      updateLoginUI();
+      // close menu if the menu form was used
+      const menu = $('profileMenu');
+      if(form.id==='menu-login' && menu){ menu.classList.add('hidden'); $('profileMenuBtn')?.setAttribute('aria-expanded','false'); }
+      form.reset();
+    });
+  }
+
+  function wireLogout(btnId){
+    $(btnId)?.addEventListener('click', ()=>{
+      setUser('');
+      updateLoginUI();
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     // Mobile menu toggle
     $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
@@ -802,6 +893,17 @@
         });
       }
     })();
+
+    // Login forms + logout buttons
+    const menuLoginForm = $('menu-login');
+    const asideLoginForm = $('aside-login');
+    if(menuLoginForm) handleLoginForm(menuLoginForm);
+    if(asideLoginForm) handleLoginForm(asideLoginForm);
+    wireLogout('menuLogout');
+    wireLogout('asideLogout');
+
+    // Initial state sync
+    updateLoginUI();
 
     // -------- FLOW MAP --------
     const stepsMap = {};
