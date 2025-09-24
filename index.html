@@ -96,7 +96,7 @@
 
     .step-inner{
       max-width: var(--section-max); margin: 0 auto; padding-top: var(--pad-y);
-      padding-bottom: var(--footer-space, 12px); /* tighter inner buffer */
+      padding-bottom: var(--footer-space, 12px);
       display:flex; flex-direction:column; min-height:100%;
     }
     .step-body{
@@ -110,7 +110,7 @@
     .form-footer{
       position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb;
       padding: 12px 16px;
-      margin-bottom: var(--footer-card-gap); /* tight to card bottom */
+      margin-bottom: var(--footer-card-gap);
     }
     #btnBack{ min-height:34px; border-radius:10px; }
 
@@ -187,17 +187,50 @@
     .refi-slider{ width:100%; accent-color: var(--blue-600); }
     .refi-note{ font-size:10px; color:#6b7280; margin-top:2px; text-align:right; }
 
-    /* --- Header dropdown menu (profile + menu) --- */
+    /* --- Header: profile + hamburger + dropdown + inline login --- */
     .menu-btn{ height:38px; width:42px; display:inline-flex; align-items:center; justify-content:center; border:1px solid #e5e7eb; border-radius:10px; background:#fff; }
     .menu-btn:hover{ background:#f8fafc; }
+    .menu-group{ display:flex; align-items:center; gap:8px; }
+
     .menu-panel{
-      position:absolute; right:0; top:calc(100% + 8px); width:min(360px, 92vw);
+      position:absolute; right:220px; /* leave space for the login area at far right */
+      top:calc(100% + 8px); width:220px;
       background:#fff; border:1px solid #e5e7eb; border-radius:12px;
-      box-shadow:0 20px 40px -20px rgba(0,0,0,.3); padding:12px;
+      box-shadow:0 20px 40px -20px rgba(0,0,0,.3); padding:10px;
+      z-index:40;
     }
-    .menu-row{ display:flex; align-items:center; gap:8px; }
-    .menu-label{ font-size:11px; color:#334155; font-weight:700; letter-spacing:.02em; text-transform:uppercase; }
-    .menu-sep{ height:1px; background:#e5e7eb; margin:8px 0; }
+    .menu-item{ display:block; padding:8px 10px; border-radius:8px; font-weight:600; color:#1f2937; }
+    .menu-item:hover{ background:#f1f5f9; }
+    .menu-title{ font-size:11px; color:#334155; font-weight:800; text-transform:uppercase; letter-spacing:.02em; padding:4px 10px 6px; }
+
+    .header-login{
+      display:flex; align-items:center; gap:8px; margin-left:12px;
+    }
+    .header-login .stack{
+      display:flex; flex-direction:column; gap:6px; width:200px;
+    }
+    .header-login .mini-input{
+      background:#f3f4f6; border:1.5px solid #e5e7eb; border-radius:10px;
+      padding:6px 10px; height:34px; font-size:12px; line-height:1.1;
+      transition:.15s; width:100%;
+    }
+    .header-login .mini-input::placeholder{ color:#6b7280; }
+    .header-login .mini-input:focus{ background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.15); outline:none; }
+    .header-login .actions{
+      display:flex; align-items:center; gap:10px; margin-left:2px;
+    }
+    .header-login .login-btn{
+      background:var(--blue-600); color:#fff; font-weight:800; border-radius:8px; padding:6px 10px; font-size:12px; height:34px;
+    }
+    .header-login .forgot{
+      font-size:12px; font-weight:700; color:var(--blue-600);
+    }
+
+    @media (max-width: 900px){
+      /* keep it desktop-first per your request; on small screens it will wrap neatly */
+      .header-login{ flex-wrap:wrap; justify-content:flex-end; }
+      .menu-panel{ right:12px; }
+    }
   </style>
 
   <script type="application/ld+json">
@@ -236,50 +269,43 @@
         <a href="#lead-form" class="cta-button !py-1.5">Apply Now</a>
       </div>
 
-      <!-- Combined Profile + Menu button -->
-      <div class="relative">
-        <button id="menuBtn" class="menu-btn" aria-label="Open menu">
-          <!-- combined profile + hamburger icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M16 11c1.657 0 3-1.79 3-4s-1.343-4-3-4-3 1.79-3 4 1.343 4 3 4zM4 20a8 8 0 0 1 16 0M4 7h6M4 11h4"/>
-          </svg>
-        </button>
-
-        <!-- Dropdown panel -->
-        <div id="menuPanel" class="menu-panel hidden">
-          <!-- Login area (shows form OR signed-in info) -->
-          <div id="loginArea">
-            <div class="menu-label mb-2">Customer Login</div>
-            <form id="header-login-form" class="grid grid-cols-1 gap-2">
-              <input id="header-username" class="form-input" placeholder="username" autocomplete="username" />
-              <input id="header-password" class="form-input" type="password" placeholder="Password" autocomplete="current-password" />
-              <button class="cta-button" type="submit">Log In</button>
-              <a href="#" class="text-[12px] text-[var(--blue-600)] hover:underline">Forgot password?</a>
-            </form>
-          </div>
-
-          <div id="signedInArea" class="hidden">
-            <div class="menu-label mb-2">Account</div>
-            <div class="menu-row">
-              <div class="h-9 w-9 rounded-full bg-[var(--blue-600)] text-white flex items-center justify-center font-extrabold">U</div>
-              <div class="text-sm">
-                <div class="font-semibold text-zinc-900">Signed in as</div>
-                <div id="signedInName" class="text-zinc-600 text-[13px]">username</div>
-              </div>
-            </div>
-            <button id="logoutBtn" class="mt-3 text-[12px] font-semibold text-red-600 hover:text-red-700">Log out</button>
-          </div>
-
-          <div class="menu-sep"></div>
-
-          <!-- Stacked menu links (for mobile/alt access) -->
-          <div class="grid gap-1 text-[14px] font-semibold">
-            <a href="#inventory" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Inventory</a>
-            <a href="#about" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">About</a>
-            <a href="#contact" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Contact</a>
-            <a href="#lead-form" class="py-2 px-2 rounded bg-[var(--blue-600)] text-white text-center">Apply Now</a>
-          </div>
+      <!-- Right side: icons (hamburger + profile) THEN inline login -->
+      <div class="flex items-center">
+        <!-- Icons group -->
+        <div class="menu-group mr-3">
+          <button id="hamburgerBtn" class="menu-btn" aria-label="Menu">
+            <!-- hamburger -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
+            </svg>
+          </button>
+          <button id="profileBtn" class="menu-btn" aria-label="Profile">
+            <!-- profile -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M16 11c1.657 0 3-1.79 3-4s-1.343-4-3-4-3 1.79-3 4 1.343 4 3 4zM4 20a8 8 0 0 1 16 0"/>
+            </svg>
+          </button>
         </div>
+
+        <!-- Dropdown: opens below icons; contains Settings + About + Contact -->
+        <div id="menuPanel" class="menu-panel hidden">
+          <div class="menu-title">Menu</div>
+          <a href="#about" class="menu-item">About</a>
+          <a href="#contact" class="menu-item">Contact</a>
+          <a href="#" class="menu-item">Settings</a>
+        </div>
+
+        <!-- Inline login on the far right -->
+        <form id="headerLoginForm" class="header-login" onsubmit="return false;">
+          <div class="stack">
+            <input id="loginUser" class="mini-input" placeholder="username" autocomplete="username" />
+            <input id="loginPass" class="mini-input" type="password" placeholder="Password" autocomplete="current-password" />
+          </div>
+          <div class="actions">
+            <button class="login-btn" type="submit">Login</button>
+            <a href="#" class="forgot hover:underline">Forgot password?</a>
+          </div>
+        </form>
       </div>
     </nav>
   </header>
@@ -646,7 +672,7 @@
         </div>
       </div>
 
-      <!-- RIGHT: Refinance Calculator (login box removed per request) -->
+      <!-- RIGHT: Refinance Calculator -->
       <aside class="flex flex-col gap-4">
         <div class="card card-accent p-0" id="refi-card">
           <div class="accent-header">
@@ -780,51 +806,30 @@
   function calcPayment(P, annualRate, years){ const r=(annualRate/100)/12, n=years*12; if(!n||n<=0) return 0; if(r===0) return P/n; return P*r/(1-Math.pow(1+r,-n)); }
 
   document.addEventListener('DOMContentLoaded', function () {
-    // ===== Header menu (profile + menu) =====
-    const menuBtn = $('menuBtn');
-    const menuPanel = $('menuPanel');
-    let open = false;
+    // ===== Header dropdown toggle (both icons trigger the same panel) =====
+    const panel = $('menuPanel');
+    const trig1 = $('hamburgerBtn');
+    const trig2 = $('profileBtn');
 
-    function closeMenu(){ menuPanel.classList.add('hidden'); open=false; document.removeEventListener('click', clickAway); }
-    function openMenu(){ menuPanel.classList.remove('hidden'); open=true; setTimeout(()=>document.addEventListener('click', clickAway)); }
-    function clickAway(e){ if (!menuPanel.contains(e.target) && e.target!==menuBtn) closeMenu(); }
-
-    menuBtn?.addEventListener('click', (e)=>{ e.stopPropagation(); open ? closeMenu() : openMenu(); });
-
-    // Demo login handling for header
-    const loginForm = $('header-login-form');
-    const loginArea = $('loginArea');
-    const signedInArea = $('signedInArea');
-    const signedInName = $('signedInName');
-
-    function setSignedIn(username){
-      try { sessionStorage.setItem('vic_logged_in','1'); sessionStorage.setItem('vic_username', username||'username'); } catch(_){}
-      signedInName.textContent = username || 'username';
-      loginArea.classList.add('hidden');
-      signedInArea.classList.remove('hidden');
+    function openPanel(){ panel.classList.remove('hidden'); document.addEventListener('click', outsideClose); }
+    function closePanel(){ panel.classList.add('hidden'); document.removeEventListener('click', outsideClose); }
+    function togglePanel(e){ e.stopPropagation(); panel.classList.contains('hidden') ? openPanel() : closePanel(); }
+    function outsideClose(e){
+      const withinPanel = panel.contains(e.target);
+      const onTrigger = e.target===trig1 || e.target===trig2 || trig1.contains?.(e.target) || trig2.contains?.(e.target);
+      if (!withinPanel && !onTrigger) closePanel();
     }
-    function setSignedOut(){
-      try { sessionStorage.removeItem('vic_logged_in'); } catch(_){}
-      loginArea.classList.remove('hidden');
-      signedInArea.classList.add('hidden');
-    }
-    // init header auth UI
-    (function initAuth(){
-      const logged = (sessionStorage.getItem('vic_logged_in')==='1');
-      const name = sessionStorage.getItem('vic_username') || 'username';
-      if (logged) setSignedIn(name); else setSignedOut();
-    })();
+    trig1?.addEventListener('click', togglePanel);
+    trig2?.addEventListener('click', togglePanel);
 
-    loginForm?.addEventListener('submit', (e)=>{
+    // (Optional) Simple demo login handler — stays inline, no redirect
+    $('headerLoginForm')?.addEventListener('submit', (e)=>{
       e.preventDefault();
-      const u = $('header-username').value.trim() || 'username';
-      const p = $('header-password').value.trim();
+      const u = $('loginUser').value.trim();
+      const p = $('loginPass').value.trim();
       if (!u || !p) return;
-      setSignedIn(u);
-      closeMenu();
-      alert('Logged in (demo). Your saved options would appear when available.');
+      alert('Logged in (demo): ' + u);
     });
-    $('logoutBtn')?.addEventListener('click', ()=>{ setSignedOut(); closeMenu(); });
 
     // -------- FLOW MAP --------
     const stepsMap = {};
@@ -1067,7 +1072,6 @@
           return;
         }
 
-        // cap at 8.99 and keep <= (current rate - 0.99)
         const desired = Math.min(8.99, Math.max(0, parseFloat(newRateSlider.value)||0));
         const maxAllowed = Math.max(0, rate - 0.99);
         const newRate = Math.min(desired, maxAllowed);
@@ -1077,7 +1081,6 @@
         const curPmt = calcPayment(loan, rate, years);
         const curTotInt = curPmt*years*12 - loan;
 
-        // $3,000 silently added to new loan
         const newLoan = loan + 3000;
         const newPmt = calcPayment(newLoan, newRate, years);
         const newTotInt = newPmt*years*12 - newLoan;
@@ -1100,7 +1103,7 @@
       if (!viewport || !footer) return;
 
       const footerH = footer.offsetHeight || 0;
-      const extra = 6; // smaller breathing space above footer content
+      const extra = 6;
       bySelAll('.step-inner').forEach(inner=>{
         inner.style.setProperty('--footer-space', (footerH + extra) + 'px');
       });
