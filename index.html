@@ -22,18 +22,10 @@
   <style>
     :root{
       --blue-600:#2A5D9F; --blue-700:#214B80; --blue-100:#EAF1FB; --blue-grad:#4C7CC0;
-
-      /* Scaled sizes you approved */
       --fs-h1: 20px; --fs-h2: 16px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
       --pad-y: 10px; --gap-regular: 8px; --input-py: 5px; --input-px: 10px; --radius: 10px;
-      --nav-font: 14px;
-      --control-h: 40px;
-      --field-gap: 8px;
-      --section-max: 720px;
-
-      --aside-pad: 16px;
-
-      --footer-card-gap: 4px;
+      --nav-font: 14px; --control-h: 40px; --field-gap: 8px; --section-max: 720px;
+      --aside-pad: 16px; --footer-card-gap: 4px;
     }
     @media (max-width:640px){ :root{ --nav-font: 13px; } }
 
@@ -73,19 +65,18 @@
 
     .err{ border-color:#ef4444 !important; } .err-label{ color:#ef4444 !important; }
 
-    /* ---------- FORM BOX-SPECIFIC TYPOGRAPHY UPGRADE ---------- */
+    /* ---------- FORM BOX-SPECIFIC DOWNSCALE ---------- */
     #lead-form{
-      --fs-h2: 16px;      /* headings retain clarity */
-      --fs-body: 14px;    /* more professional body size */
-      --fs-label: 12px;   /* clearer labels */
-      --fs-cta: 13px;     /* CTA consistent */
-      --control-h: 40px;  /* crisp control height */
+      --fs-h2: 15px;
+      --fs-body: 12px;
+      --fs-label: 10px;
+      --fs-cta: 12px;
+      --control-h: 38px;
     }
     #lead-form .choice-rect{ padding:9px 11px; }
     #lead-form .sticky [id^="progress-"]{ font-size:10px !important; }
     #lead-form .cta-button{ min-height:34px; }
 
-    /* --------------------- Form shell --------------------- */
     .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; }
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; pointer-events:none; }
 
@@ -94,21 +85,17 @@
 
     .step-inner{
       max-width: var(--section-max); margin: 0 auto; padding-top: var(--pad-y);
-      padding-bottom: var(--footer-space, 12px);
-      display:flex; flex-direction:column; min-height:100%;
+      padding-bottom: var(--footer-space, 12px); display:flex; flex-direction:column; min-height:100%;
     }
     .step-body{
-      flex:1; display:flex; align-items:center; justify-content:center;
-      padding-top:4px;
-      min-height: var(--content-min, 0px);
+      flex:1; display:flex; align-items:center; justify-content:center; padding-top:4px; min-height: var(--content-min, 0px);
     }
     .step-body > .content{ width:100%; max-width:640px; margin:0 auto; }
     .vstack > * + *{ margin-top: var(--gap-regular); }
 
     .form-footer{
       position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb;
-      padding: 12px 16px;
-      margin-bottom: var(--footer-card-gap);
+      padding: 12px 16px; margin-bottom: var(--footer-card-gap);
     }
     #btnBack{ min-height:34px; border-radius:10px; }
 
@@ -185,20 +172,39 @@
     .refi-slider{ width:100%; accent-color: var(--blue-600); }
     .refi-note{ font-size:10px; color:#6b7280; margin-top:2px; text-align:right; }
 
-    /* ---- HEADER LOGIN BOXES ---- */
-    .nav-input{
-      min-height:30px; font-size:12px; padding:4px 8px; border-radius:8px;
-      background:#f3f4f6; border:1.5px solid #e5e7eb; width:180px;
+    /* Header-right login styling (compact, professional) */
+    .header-right { display:flex; align-items:center; gap:14px; margin-left:auto; }
+    .hdr-menu { display:flex; gap:16px; align-items:center; }
+    .hdr-menu a { color:#223; font-weight:600; text-decoration:none; }
+    .hdr-login-wrap { display:flex; gap:10px; align-items:center; }
+    .hdr-avatar {
+      width:42px; height:42px; border-radius:9999px; display:inline-grid; place-items:center;
+      border:1px solid #e5e7eb; background:#fff; flex-shrink:0;
+      box-shadow:0 2px 6px rgba(15,23,42,.04);
     }
-    .nav-input:focus{ background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.15); outline:none; }
-    .nav-login-btn{ min-height:30px; padding:6px 12px; border-radius:8px; font-size:12px; font-weight:800; background:var(--blue-600); color:#fff; white-space:nowrap; }
-    .nav-login-btn:hover{ background:var(--blue-700); }
-    .nav-forgot{ font-size:11px; color:#475569; white-space:nowrap; }
-    .nav-forgot:hover{ color:var(--blue-600); text-decoration:underline; }
-    .nav-profile{
-      display:inline-flex; align-items:center; justify-content:center;
-      width:34px; height:34px; border-radius:9999px; border:1px solid #e5e7eb; background:#fff;
-      flex-shrink:0;
+    .hdr-login-form {
+      display:flex; gap:8px; align-items:center;
+      background:transparent;
+    }
+    .hdr-login-form input[type="text"], .hdr-login-form input[type="password"]{
+      background:#f3f4f6; border:1.25px solid #e5e7eb; padding:6px 9px; border-radius:8px; font-size:13px; width:170px;
+    }
+    .hdr-login-form input[type="password"]{ width:150px; }
+    .hdr-login-form input:focus { background:#fff; outline:none; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.12); }
+    .hdr-login-btn { padding:7px 12px; border-radius:8px; font-weight:800; background:var(--blue-600); color:#fff; border:0; cursor:pointer; }
+    .hdr-login-btn:hover{ background:var(--blue-700); }
+    .hdr-forgot { font-size:12px; color:#475569; display:block; text-align:center; margin-top:2px; }
+    .hdr-compact { display:flex; flex-direction:column; }
+    @media (max-width:1024px){
+      /* make header compact on narrower screens */
+      .hdr-login-form input[type="text"], .hdr-login-form input[type="password"]{ width:120px; font-size:12px; padding:6px 8px;}
+      .hdr-login-form { gap:6px; }
+      .hdr-menu a{ display:none; } /* hide menu links on smaller screens; mobile button remains */
+    }
+    @media (max-width:640px){
+      .hdr-avatar{ display:none; }
+      .hdr-login-form input{ display:none; }
+      .hdr-login-btn{ display:none; }
     }
   </style>
 
@@ -221,8 +227,8 @@
 <body>
   <!-- NAV -->
   <header class="w-full max-w-5xl mx-auto mt-4 px-4">
-    <nav class="bg-white/90 backdrop-blur card card-accent px-4 sm:px-6 py-2.5 flex items-center gap-4">
-      <!-- LEFT: Brand (unchanged sizes) -->
+    <nav class="bg-white/90 backdrop-blur card card-accent px-4 sm:px-6 py-2.5 flex items-center">
+      <!-- Brand left (unchanged) -->
       <div class="brand-left">
         <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
         <div class="brand-stack">
@@ -231,57 +237,58 @@
         </div>
       </div>
 
-      <!-- RIGHT: push to far right so login sits in the corner -->
-      <div class="hidden lg:flex flex-1 items-stretch justify-end gap-4">
-        <!-- Menu -->
-        <div class="flex items-center gap-4">
-          <a href="#inventory" class="font-semibold text-zinc-700 hover:text-[var(--blue-600)] whitespace-nowrap">Inventory</a>
-          <a href="#about" class="font-semibold text-zinc-700 hover:text-[var(--blue-600)] whitespace-nowrap">About</a>
-          <a href="#contact" class="font-semibold text-zinc-700 hover:text-[var(--blue-600)] whitespace-nowrap">Contact</a>
-          <a href="#lead-form" class="cta-button !py-1.5 whitespace-nowrap">Apply Now</a>
+      <!-- Right area: menu links, avatar, inline login (desktop) -->
+      <div class="header-right" role="navigation" aria-label="Top navigation">
+        <div class="hdr-menu" aria-hidden="false">
+          <a href="#inventory" class="hover:text-[var(--blue-600)]">Inventory</a>
+          <a href="#about" class="hover:text-[var(--blue-600)]">About</a>
+          <a href="#contact" class="hover:text-[var(--blue-600)]">Contact</a>
+          <a href="#lead-form" class="cta-button !py-1.5">Apply Now</a>
         </div>
 
-        <!-- Stacked username/password locked to the top-right corner -->
-        <form id="header-login-form" class="flex flex-col justify-center gap-1 self-center ml-4">
-          <input id="hdrUser" name="username" class="nav-input" placeholder="Username" autocomplete="username" />
-          <input id="hdrPass" name="password" class="nav-input" placeholder="Password" type="password" autocomplete="current-password" />
-        </form>
-
-        <!-- Login + forgot -->
-        <div class="flex flex-col justify-center items-start gap-1">
-          <button type="submit" form="header-login-form" class="nav-login-btn">Login</button>
-          <a href="#" class="nav-forgot">Forgot password?</a>
-        </div>
-
-        <!-- Profile icon at the far right edge -->
-        <a href="#profile" class="nav-profile ml-2" aria-label="Profile">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M5.121 17.804A9 9 0 1119.78 6.34 9 9 0 015.12 17.804z"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M15 11a3 3 0 10-6 0 3 3 0 006 0z"/>
-          </svg>
+        <!-- visual avatar/profile (no dropdown) -->
+        <a href="#profile" class="hdr-avatar" aria-label="Profile">
+          <!-- simple avatar icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#223" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </a>
+
+        <!-- Compact inline login form (Facebook-like compact top-right) -->
+        <div class="hdr-login-wrap" aria-hidden="false">
+          <form id="header-login" class="hdr-login-form" autocomplete="on" onsubmit="event.preventDefault(); headerLoginDemo();">
+            <input id="hdr_username" name="hdr_username" type="text" placeholder="Username or email" aria-label="Username or email" />
+            <input id="hdr_password" name="hdr_password" type="password" placeholder="Password" aria-label="Password" />
+            <button class="hdr-login-btn" aria-label="Login">Login</button>
+          </form>
+          <div class="hdr-compact" style="min-width:72px">
+            <a href="#" class="hdr-forgot">Forgot?</a>
+          </div>
+        </div>
       </div>
 
-      <!-- Mobile menu button only (no dropdowns inside the header itself) -->
-      <button id="menuBtn" class="lg:hidden ml-auto inline-flex items-center justify-center h-9 w-9 rounded-md border border-zinc-200" aria-label="Open menu">
+      <!-- Mobile menu toggle -->
+      <button id="menuBtn" class="lg:hidden ml-3 inline-flex items-center justify-center h-9 w-9 rounded-md border border-zinc-200" aria-label="Open menu">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
     </nav>
 
-    <!-- Simple mobile links -->
+    <!-- Mobile menu (shows on small screens) -->
     <div id="mobileMenu" class="hidden lg:hidden mt-2 card card-accent px-4 py-3">
       <div class="flex flex-col gap-2 font-semibold text-zinc-700">
         <a href="#inventory" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Inventory</a>
         <a href="#about" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">About</a>
         <a href="#contact" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Contact</a>
         <a href="#lead-form" class="mt-1 cta-button text-center">Apply Now</a>
+        <!-- put a compact mobile login spot here -->
+        <form id="mobile-login" class="mt-3 flex flex-col gap-2" onsubmit="event.preventDefault(); headerLoginDemo();">
+          <input id="m_user" class="form-input" placeholder="Username or email" />
+          <input id="m_pass" class="form-input" type="password" placeholder="Password" />
+          <button class="cta-button">Login</button>
+        </form>
       </div>
     </div>
   </header>
 
-  <!-- MAIN -->
+  <!-- MAIN (unchanged content below) -->
   <main class="w-full max-w-5xl mx-auto px-4 py-6 space-y-6">
     <!-- HERO / ABOUT -->
     <section id="about" class="card card-accent p-5">
@@ -435,7 +442,7 @@
                   </div>
                 </section>
 
-                <!-- 5. Trade-in details -->
+                <!-- 5. Trade-in details (finance only & only if Yes) -->
                 <section class="form-step hidden" data-id="step-tradein">
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">5. Trade-in details</h3></div>
@@ -767,6 +774,16 @@
   </div>
 
   <script>
+  // short helper to demo header login (replace with your real logic)
+  function headerLoginDemo(){
+    const u = document.getElementById('hdr_username')?.value || document.getElementById('m_user')?.value || '';
+    const p = document.getElementById('hdr_password')?.value || document.getElementById('m_pass')?.value || '';
+    if (!u || !p){ alert('Enter username and password (demo).'); return; }
+    // store demo code and notify
+    try { sessionStorage.setItem('vic_user_demo', u); } catch(e){}
+    alert('Demo login accepted for: ' + u);
+  }
+
   const $ = (id) => document.getElementById(id);
   const bySel = (s, root=document) => root.querySelector(s);
   const bySelAll = (s, root=document) => Array.from(root.querySelectorAll(s));
@@ -961,16 +978,9 @@
       });
     });
 
-    // Header login demo
-    $('header-login-form')?.addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const u = $('hdrUser')?.value?.trim();
-      const p = $('hdrPass')?.value?.trim();
-      if (!u || !p) return;
-      alert('Logged in (demo).');
-    });
+    // Header login demo (already handled by headerLoginDemo)
 
-    // DOB helpers
+    // DOB helpers etc...
     function populateDOBYears(sel){ if(!sel) return; const start=2004; sel.innerHTML = ''; for(let y=start; y>=1940; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); } }
     function populateMonths(sel){
       if(!sel) return;
@@ -1004,7 +1014,7 @@
     function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
     function populateYears(sel, start, end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} }
 
-    // ---- Refinance Calculator ----
+    // ---- Refinance Calculator setup (same) ----
     function setupRefiCalcInputs(){
       const loanEl = $('refLoanInput');
       const rateEl = $('refRateInput');
