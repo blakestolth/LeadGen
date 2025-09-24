@@ -96,9 +96,10 @@
 
     .step-inner{
       max-width: var(--section-max); margin: 0 auto; padding-top: var(--pad-y);
-      padding-bottom: var(--footer-space, 12px);
+      padding-bottom: var(--footer-space, 12px); /* tighter inner buffer */
       display:flex; flex-direction:column; min-height:100%;
     }
+    .step-title{}
     .step-body{
       flex:1; display:flex; align-items:center; justify-content:center;
       padding-top:4px;
@@ -186,6 +187,21 @@
     .refi-results{ font-size:12px; line-height:1.15; color:#0f172a; font-weight:600; display:grid; gap:4px; min-width:150px; }
     .refi-slider{ width:100%; accent-color: var(--blue-600); }
     .refi-note{ font-size:10px; color:#6b7280; margin-top:2px; text-align:right; }
+
+    /* ---- HEADER LOGIN INPUTS ---- */
+    .nav-input{
+      min-height:30px; font-size:12px; padding:4px 8px; border-radius:8px;
+      background:#f3f4f6; border:1.5px solid #e5e7eb; width:180px;
+    }
+    .nav-input:focus{ background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.15); outline:none; }
+    .nav-login-btn{ min-height:30px; padding:6px 12px; border-radius:8px; font-size:12px; font-weight:800; background:var(--blue-600); color:#fff; }
+    .nav-login-btn:hover{ background:var(--blue-700); }
+    .nav-forgot{ font-size:11px; color:#475569; }
+    .nav-forgot:hover{ color:var(--blue-600); text-decoration:underline; }
+    .nav-profile{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:34px; height:34px; border-radius:9999px; border:1px solid #e5e7eb; background:#fff;
+    }
   </style>
 
   <script type="application/ld+json">
@@ -205,10 +221,9 @@
   </script>
 </head>
 <body>
-  <!-- NAV (updated: links + stacked login + profile; no dropdowns) -->
+  <!-- NAV -->
   <header class="w-full max-w-5xl mx-auto mt-4 px-4">
-    <nav class="bg-white/90 backdrop-blur card card-accent px-4 sm:px-6 py-2.5 flex items-center justify-between">
-      <!-- LEFT: logo + powered by (unchanged) -->
+    <nav class="bg-white/90 backdrop-blur card card-accent px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4">
       <div class="brand-left">
         <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
         <div class="brand-stack">
@@ -217,40 +232,51 @@
         </div>
       </div>
 
-      <!-- RIGHT: links + stacked login + actions + profile -->
-      <div class="flex items-center gap-4">
-        <!-- primary links -->
-        <nav class="hidden md:flex items-center gap-4 font-semibold text-zinc-700">
-          <a href="#inventory" class="hover:text-[var(--blue-600)]">Inventory</a>
-          <a href="#about" class="hover:text-[var(--blue-600)]">About</a>
-          <a href="#contact" class="hover:text-[var(--blue-600)]">Contact</a>
-        </nav>
+      <!-- RIGHT INLINE MENU + HEADER LOGIN (no dropdowns) -->
+      <div class="hidden lg:flex items-center gap-4">
+        <a href="#inventory" class="font-semibold text-zinc-700 hover:text-[var(--blue-600)]">Inventory</a>
+        <a href="#about" class="font-semibold text-zinc-700 hover:text-[var(--blue-600)]">About</a>
+        <a href="#contact" class="font-semibold text-zinc-700 hover:text-[var(--blue-600)]">Contact</a>
+        <a href="#lead-form" class="cta-button !py-1.5">Apply Now</a>
 
-        <!-- stacked username/password (no dropdowns) -->
-        <form id="nav-login" class="hidden md:flex flex-col gap-1" onsubmit="return false;">
-          <input type="text" id="navUser" placeholder="Username"
-                 class="form-input h-8 !min-h-[32px] !py-1 !px-2 w-[180px]" autocomplete="username" />
-          <input type="password" id="navPass" placeholder="Password"
-                 class="form-input h-8 !min-h-[32px] !py-1 !px-2 w-[180px]" autocomplete="current-password" />
+        <!-- stacked username/password -->
+        <form id="header-login-form" class="flex flex-col gap-1 ml-2">
+          <input id="hdrUser" name="username" class="nav-input" placeholder="Username" autocomplete="username" />
+          <input id="hdrPass" name="password" class="nav-input" placeholder="Password" type="password" autocomplete="current-password" />
         </form>
 
-        <!-- login + forgot -->
-        <div class="hidden md:flex items-center gap-3">
-          <button id="navLoginBtn" class="cta-button !py-1.5 !px-3">Log In</button>
-          <a href="#" class="text-[12px] font-semibold text-zinc-700 hover:text-[var(--blue-600)]">Forgot password</a>
+        <!-- login + forgot, to the right -->
+        <div class="flex flex-col items-start gap-1">
+          <button type="submit" form="header-login-form" class="nav-login-btn">Login</button>
+          <a href="#" class="nav-forgot">Forgot password?</a>
         </div>
 
         <!-- profile icon -->
-        <a href="#profile" class="hidden md:inline-flex items-center justify-center h-9 w-9 rounded-full border border-zinc-200 hover:bg-zinc-50" aria-label="Profile">
+        <a href="#profile" class="nav-profile" aria-label="Profile">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M5.121 17.804A9 9 0 1119 12v0a9 9 0 01-13.879 5.804z" opacity=".15"/>
+              d="M5.121 17.804A9 9 0 1119.78 6.34 9 9 0 015.12 17.804z"/>
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0zM5.458 18.042A8.001 8.001 0 0112 16c2.137 0 4.074.84 5.542 2.042"/>
+              d="M15 11a3 3 0 10-6 0 3 3 0 006 0z"/>
           </svg>
         </a>
       </div>
+
+      <!-- Mobile menu button (kept, but no dropdowns inside header itself) -->
+      <button id="menuBtn" class="lg:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-zinc-200" aria-label="Open menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
     </nav>
+
+    <!-- Simple mobile links (no dropdown logic beyond reveal) -->
+    <div id="mobileMenu" class="hidden lg:hidden mt-2 card card-accent px-4 py-3">
+      <div class="flex flex-col gap-2 font-semibold text-zinc-700">
+        <a href="#inventory" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Inventory</a>
+        <a href="#about" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">About</a>
+        <a href="#contact" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Contact</a>
+        <a href="#lead-form" class="mt-1 cta-button text-center">Apply Now</a>
+      </div>
+    </div>
   </header>
 
   <!-- MAIN -->
@@ -615,8 +641,9 @@
         </div>
       </div>
 
-      <!-- RIGHT: Refinance Calculator (login box removed) -->
+      <!-- RIGHT: Refinance Calculator (Account box removed per your request) -->
       <aside class="flex flex-col gap-4">
+        <!-- Refinance Calculator -->
         <div class="card card-accent p-0" id="refi-card">
           <div class="accent-header">
             <div class="refi-title">Refinance Calculator</div>
@@ -749,6 +776,7 @@
   function calcPayment(P, annualRate, years){ const r=(annualRate/100)/12, n=years*12; if(!n||n<=0) return 0; if(r===0) return P/n; return P*r/(1-Math.pow(1+r,-n)); }
 
   document.addEventListener('DOMContentLoaded', function () {
+    $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
 
     // -------- FLOW MAP --------
     const stepsMap = {};
@@ -932,11 +960,12 @@
       });
     });
 
-    // Simple header login (demo only)
-    $('navLoginBtn')?.addEventListener('click', ()=>{
-      const user = ($('navUser')?.value || '').trim();
-      const pass = ($('navPass')?.value || '').trim();
-      if (!user || !pass) return alert('Enter username and password.');
+    // Header login demo
+    $('header-login-form')?.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const u = $('hdrUser')?.value?.trim();
+      const p = $('hdrPass')?.value?.trim();
+      if (!u || !p) return;
       alert('Logged in (demo).');
     });
 
@@ -1032,7 +1061,7 @@
       if (!viewport || !footer) return;
 
       const footerH = footer.offsetHeight || 0;
-      const extra = 6;
+      const extra = 6; // smaller breathing space above footer content
       bySelAll('.step-inner').forEach(inner=>{
         inner.style.setProperty('--footer-space', (footerH + extra) + 'px');
       });
