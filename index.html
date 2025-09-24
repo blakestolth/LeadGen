@@ -173,18 +173,13 @@
     }
 
     /* ------- Header profile/menu icon ------- */
-    .status-dot{ width:8px; height:8px; border-radius:9999px; background:#d1d5db; } /* gray when logged out, green when in */
+    .status-dot{ width:8px; height:8px; border-radius:9999px; background:#d1d5db; }
     .status-dot.active{ background:#16a34a; }
 
-    /* ------- Login compact inputs (used in menu & account card) ------- */
+    /* ------- Login compact inputs (menu) ------- */
     .mini-input{ min-height: 32px !important; font-size: 12px !important; padding: 4px 10px !important; }
     .mini-btn{ min-height: 32px !important; padding: 0 12px !important; font-size: 12px !important; border-radius: 8px !important; }
     .tiny-link{ font-size:10px; }
-
-    /* ------- Aside layout: calculator + account box that fills to bottom ------- */
-    .aside-grid{ display:grid; grid-template-rows:auto 1fr; gap:1rem; height:100%; }
-    .account-card{ display:flex; flex-direction:column; }
-    .account-body{ padding: var(--aside-pad); display:flex; flex-direction:column; gap:10px; height:100%; }
   </style>
 
   <script type="application/ld+json">
@@ -207,7 +202,7 @@
   <!-- NAV -->
   <header class="w-full max-w-5xl mx-auto mt-4 px-4">
     <nav class="bg-white/90 backdrop-blur card card-accent px-4 sm:px-6 py-2 flex items-center justify-between">
-      <!-- Left branding (unchanged sizes for logo + powered-by) -->
+      <!-- Left branding -->
       <div class="brand-left">
         <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
         <div class="brand-stack">
@@ -438,7 +433,7 @@
                   </div>
                 </section>
 
-                <!-- 5. Trade-in details (finance only & only if Yes) -->
+                <!-- 5. Trade-in details -->
                 <section class="form-step hidden" data-id="step-tradein">
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">5. Trade-in details</h3></div>
@@ -646,9 +641,8 @@
         </div>
       </div>
 
-      <!-- RIGHT: Refinance Calculator + Account (login moved here) -->
-      <aside class="aside-grid">
-        <!-- Refinance Calculator -->
+      <!-- RIGHT: Refinance Calculator ONLY (Account box removed) -->
+      <aside class="flex flex-col gap-4">
         <div class="card card-accent p-0" id="refi-card">
           <div class="accent-header">
             <div class="h2" style="margin:0;">Refinance Calculator</div>
@@ -685,31 +679,6 @@
               </div>
               <div class="refi-note">Estimated.</div>
             </div>
-          </div>
-        </div>
-
-        <!-- Account / Login card fills to bottom -->
-        <div class="card card-accent p-0 account-card">
-          <div class="accent-header">
-            <h3 class="h2" style="margin:0;">Account</h3>
-          </div>
-          <div class="account-body">
-            <!-- Logged-in view -->
-            <div id="asideLoggedIn" class="hidden">
-              <p class="text-[12px] text-zinc-700">Logged in as <b id="asideUserOut"></b></p>
-              <button id="asideLogout" class="cta-button mini-btn mt-1 w-fit">Log out</button>
-            </div>
-
-            <!-- Logged-out login form -->
-            <form id="aside-login" class="flex flex-col gap-2 max-w-xs">
-              <input name="username" type="text" placeholder="Username" autocomplete="username" class="form-input mini-input" />
-              <input name="password" type="password" placeholder="Password" autocomplete="current-password" class="form-input mini-input" />
-              <button type="submit" class="cta-button mini-btn w-fit">Login</button>
-              <a href="#" class="text-[var(--blue-600)] hover:underline tiny-link text-right">Forgot password?</a>
-            </form>
-
-            <div class="flex-1"></div>
-            <p class="text-[10px] text-zinc-500">Use the same credentials here or from the menu.</p>
           </div>
         </div>
       </aside>
@@ -809,7 +778,6 @@
   const LOGIN_KEY = 'vic_login_user';
   function getUser(){ try{return sessionStorage.getItem(LOGIN_KEY)||'';}catch(_){return '';} }
   function setUser(u){ try{ if(u){sessionStorage.setItem(LOGIN_KEY,u);} else {sessionStorage.removeItem(LOGIN_KEY);} }catch(_){} }
-  function isLoggedIn(){ return !!getUser(); }
 
   function updateLoginUI(){
     const user = getUser();
@@ -829,20 +797,6 @@
       }else{
         menuLoggedIn.classList.add('hidden');
         menuLogin.classList.remove('hidden');
-      }
-    }
-
-    // Aside swap
-    const asideLoggedIn = $('asideLoggedIn');
-    const asideLogin = $('aside-login');
-    if(asideLoggedIn && asideLogin){
-      if(user){
-        bySel('#asideUserOut').textContent = user;
-        asideLoggedIn.classList.remove('hidden');
-        asideLogin.classList.add('hidden');
-      }else{
-        asideLoggedIn.classList.add('hidden');
-        asideLogin.classList.remove('hidden');
       }
     }
   }
@@ -896,11 +850,8 @@
 
     // Login forms + logout buttons
     const menuLoginForm = $('menu-login');
-    const asideLoginForm = $('aside-login');
     if(menuLoginForm) handleLoginForm(menuLoginForm);
-    if(asideLoginForm) handleLoginForm(asideLoginForm);
     wireLogout('menuLogout');
-    wireLogout('asideLogout');
 
     // Initial state sync
     updateLoginUI();
@@ -1121,7 +1072,7 @@
     function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
     function populateYears(sel, start, end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} }
 
-    // ---- Refinance Calculator ----
+    // ---- Refinance Calculator (original behavior) ----
     function setupRefiCalcInputs(){
       const loanEl = $('refLoanInput');
       const rateEl = $('refRateInput');
@@ -1155,6 +1106,7 @@
         const curPmt = calcPayment(loan, rate, years);
         const curTotInt = curPmt*years*12 - loan;
 
+        // $3,000 silently added to new loan (unchanged logic)
         const newLoan = loan + 3000;
         const newPmt = calcPayment(newLoan, newRate, years);
         const newTotInt = newPmt*years*12 - newLoan;
