@@ -33,20 +33,19 @@
 
       --aside-pad: 16px;
 
-      /* Tighter gap beneath the sticky footer bar (closer to card bottom) */
-      --footer-card-gap: 2px;
+      /* No gap beneath the sticky footer bar */
+      --footer-card-gap: 0px;
     }
     @media (max-width:640px){ :root{ --nav-font: 13px; } }
 
     body{ font-family:'Inter',sans-serif; background:#f6f7fb; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
     .card{ background:#fff; border-radius:12px; border:1px solid #e5e7eb; box-shadow:0 8px 18px -10px rgb(0 0 0 / .15); }
 
-    /* Accented cards (applied to all major boxes) */
+    /* Accented cards */
     .card-accent{
       border:2px solid rgba(42,93,159,.18);
       box-shadow:0 14px 26px -18px rgba(42,93,159,.38);
-      background:
-        linear-gradient(180deg,rgba(246,248,253,0.55),rgba(255,255,255,1)) border-box;
+      background:linear-gradient(180deg,rgba(246,248,253,0.55),rgba(255,255,255,1)) border-box;
     }
     .accent-header{
       display:flex; align-items:center; justify-content:space-between;
@@ -77,17 +76,17 @@
 
     /* ---------- FORM BOX-SPECIFIC DOWNSCALE ---------- */
     #lead-form{
-      --fs-h2: 15px;          /* was 16 */
-      --fs-body: 12px;        /* was 13 */
-      --fs-label: 10px;       /* was 11 */
-      --fs-cta: 12px;         /* was 13 */
-      --control-h: 38px;      /* was 40 */
+      --fs-h2: 15px;
+      --fs-body: 12px;
+      --fs-label: 10px;
+      --fs-cta: 12px;
+      --control-h: 38px;
     }
     #lead-form .choice-rect{ padding:9px 11px; }
     #lead-form .sticky [id^="progress-"]{ font-size:10px !important; }
     #lead-form .cta-button{ min-height:34px; }
 
-    /* --------------------- Form shell (consistent footer placement) --------------------- */
+    /* --------------------- Form shell (no space under footer) --------------------- */
     .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; }
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; pointer-events:none; }
 
@@ -96,10 +95,9 @@
 
     .step-inner{
       max-width: var(--section-max); margin: 0 auto; padding-top: var(--pad-y);
-      padding-bottom: var(--footer-space, 10px);
+      padding-bottom: var(--footer-space, 0px); /* zero-gap above footer */
       display:flex; flex-direction:column; min-height:100%;
     }
-    .step-title{}
     .step-body{
       flex:1; display:flex; align-items:center; justify-content:center;
       padding-top:4px;
@@ -111,7 +109,7 @@
     .form-footer{
       position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb;
       padding: 12px 16px;
-      margin-bottom: var(--footer-card-gap);
+      margin-bottom: var(--footer-card-gap); /* 0px */
     }
     #btnBack{ min-height:34px; border-radius:10px; }
 
@@ -178,7 +176,7 @@
       padding-right: 2.2rem;
     }
 
-    /* Refi calculator — compact */
+    /* Refi calculator */
     .refi-card { padding: var(--aside-pad); }
     .refi-title { font-size: var(--fs-h2); font-weight: 800; color:#0f172a; line-height:1.2; }
     .refi-grid{ display:grid; grid-template-columns: 1fr; gap:8px; align-items:center; }
@@ -208,7 +206,7 @@
 <body>
   <!-- NAV -->
   <header class="w-full max-w-5xl mx-auto mt-4 px-4">
-    <nav class="bg-white/90 backdrop-blur card card-accent px-4 sm:px-6 py-2 flex items-center justify-between">
+    <nav class="bg-white/90 backdrop-blur card card-accent px-4 sm:px-6 py-2.5 flex items-center justify-between">
       <div class="brand-left">
         <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
         <div class="brand-stack">
@@ -217,36 +215,39 @@
         </div>
       </div>
 
-      <div class="hidden sm:flex items-center gap-6 font-semibold text-zinc-700">
+      <!-- RIGHT: nav links + compact login -->
+      <div class="hidden lg:flex items-center gap-4 font-semibold text-zinc-700">
         <a href="#inventory" class="hover:text-[var(--blue-600)]">Inventory</a>
         <a href="#about" class="hover:text-[var(--blue-600)]">About</a>
         <a href="#contact" class="hover:text-[var(--blue-600)]">Contact</a>
-
-        <!-- Profile / Log in (new) -->
-        <a href="#login-card" class="flex items-center gap-2 hover:text-[var(--blue-600)]" title="Profile / Log in">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 21a8 8 0 0 0-16 0"/>
-            <circle cx="12" cy="7" r="4"/>
-          </svg>
-          <span>Profile / Log in</span>
-        </a>
-
         <a href="#lead-form" class="cta-button !py-1.5">Apply Now</a>
+
+        <!-- Inline login -->
+        <form id="nav-login" class="ml-2 flex items-center gap-2" onsubmit="return false;">
+          <input type="text" id="navUser" placeholder="Username" class="form-input h-9 !min-h-[36px] !py-1 !px-2 w-[150px]" />
+          <input type="password" id="navPass" placeholder="Password" class="form-input h-9 !min-h-[36px] !py-1 !px-2 w-[150px]" />
+          <button type="submit" class="cta-button !py-1.5 !px-3">Log In</button>
+        </form>
       </div>
 
-      <button id="menuBtn" class="sm:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-zinc-200" aria-label="Open menu">
+      <button id="menuBtn" class="lg:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-zinc-200" aria-label="Open menu">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
     </nav>
 
-    <!-- Mobile menu -->
-    <div id="mobileMenu" class="hidden sm:hidden mt-2 card card-accent px-4 py-3">
+    <!-- Mobile menu (includes login fields) -->
+    <div id="mobileMenu" class="hidden lg:hidden mt-2 card card-accent px-4 py-3">
       <div class="flex flex-col gap-2 font-semibold text-zinc-700">
         <a href="#inventory" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Inventory</a>
         <a href="#about" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">About</a>
         <a href="#contact" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Contact</a>
-        <a href="#login-card" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Profile / Log in</a>
         <a href="#lead-form" class="mt-1 cta-button text-center">Apply Now</a>
+
+        <div class="mt-2 grid grid-cols-1 gap-2">
+          <input type="text" id="mUser" placeholder="Username" class="form-input h-9 !min-h-[36px] !py-1 !px-2" />
+          <input type="password" id="mPass" placeholder="Password" class="form-input h-9 !min-h-[36px] !py-1 !px-2" />
+          <button id="mLoginBtn" class="cta-button !py-1.5">Log In</button>
+        </div>
       </div>
     </div>
   </header>
@@ -613,14 +614,13 @@
         </div>
       </div>
 
-      <!-- RIGHT: Refinance Calculator + Login -->
-      <aside class="flex flex-col gap-4">
-        <!-- Refinance Calculator -->
-        <div class="card card-accent p-0" id="refi-card">
+      <!-- RIGHT: Refinance Calculator only (stretches to match form) -->
+      <aside class="flex flex-col">
+        <div class="card card-accent p-0 h-full flex flex-col" id="refi-card">
           <div class="accent-header">
             <div class="refi-title">Refinance Calculator</div>
           </div>
-          <div class="refi-card">
+          <div class="refi-card flex-1">
             <div class="refi-grid mt-2">
               <div class="refi-row">
                 <div>
@@ -652,32 +652,6 @@
               </div>
               <div class="refi-note">Estimated.</div>
             </div>
-          </div>
-        </div>
-
-        <!-- LOGIN -->
-        <div class="card card-accent p-0 h-full flex flex-col" id="login-card">
-          <div class="accent-header">
-            <h3 class="h2" style="margin:0;">Account</h3>
-          </div>
-          <div style="padding: var(--aside-pad); display:flex; flex-direction:column; height:100%;">
-            <h3 class="h2">Log in to view options</h3>
-            <p class="text-[11px] text-zinc-600 mt-1">Log in if you’ve submitted an application to see options you qualify for.</p>
-            <form id="login-form" class="flex flex-col gap-2 mt-3">
-              <div>
-                <label class="label mb-1 block" for="loginCode">Application number</label>
-                <input id="loginCode" type="text" class="form-input uppercase" placeholder="ABC-123456" maxlength="16" />
-              </div>
-              <div>
-                <label class="label mb-1 block" for="loginPass">Password</label>
-                <input id="loginPass" type="password" class="form-input" placeholder="••••••••" />
-              </div>
-              <button type="submit" class="cta-button mt-1">Log In</button>
-              <div class="text-[11px] mt-1">
-                <a href="#" class="text-[var(--blue-600)] hover:underline">Forgot password?</a>
-              </div>
-              <div class="flex-1"></div>
-            </form>
           </div>
         </div>
       </aside>
@@ -775,6 +749,16 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
+
+    // Mock login actions
+    function doLogin(userId, passId){
+      const u = $(userId)?.value?.trim();
+      const p = $(passId)?.value;
+      if(!u || !p){ alert('Enter username and password.'); return; }
+      alert('Logged in (demo).');
+    }
+    bySel('#nav-login')?.addEventListener('submit', ()=> doLogin('navUser','navPass'));
+    $('mLoginBtn')?.addEventListener('click', ()=> doLogin('mUser','mPass'));
 
     // -------- FLOW MAP --------
     const stepsMap = {};
@@ -958,16 +942,6 @@
       });
     });
 
-    // Login (demo)
-    $('login-form')?.addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const raw = $('loginCode').value || ''; const code = raw.toUpperCase().trim();
-      const pass = $('loginPass').value || '';
-      if (!code || !pass) return;
-      try { sessionStorage.setItem('vic_app_code', code); } catch(_){}
-      alert('Logged in (demo). Matching options would show here.');
-    });
-
     // DOB helpers
     function populateDOBYears(sel){ if(!sel) return; const start=2004; sel.innerHTML = ''; for(let y=start; y>=1940; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); } }
     function populateMonths(sel){
@@ -1027,7 +1001,6 @@
           return;
         }
 
-        // cap at 8.99 and keep <= (current rate - 0.99)
         const desired = Math.min(8.99, Math.max(0, parseFloat(newRateSlider.value)||0));
         const maxAllowed = Math.max(0, rate - 0.99);
         const newRate = Math.min(desired, maxAllowed);
@@ -1053,14 +1026,13 @@
       update();
     }
 
-    // ---------- CONSISTENT HEIGHTS ----------
+    // ---------- CONSISTENT HEIGHTS (zero gap to footer) ----------
     function ensureConsistentHeights(){
-      const viewport = $('step-viewport');
       const footer = $('form-footer');
-      if (!viewport || !footer) return;
+      if (!footer) return;
 
       const footerH = footer.offsetHeight || 0;
-      const extra = 2; // even tighter breathing space above footer
+      const extra = 0; // zero breathing space above footer
       bySelAll('.step-inner').forEach(inner=>{
         inner.style.setProperty('--footer-space', (footerH + extra) + 'px');
       });
@@ -1108,17 +1080,16 @@
       populateYears($('refiYear'),   new Date().getFullYear(), 1995);
 
       // Start
-      goTo('step-intent');
-
-      // Refi calc
-      setupRefiCalcInputs();
-
-      // Keep heights locked to tallest step
       ensureConsistentHeights();
       window.addEventListener('resize', ensureConsistentHeights);
+      bySel('#the-form')?.addEventListener('change', ()=> setTimeout(ensureConsistentHeights, 0));
+      bySel('#btnNext')?.addEventListener('click', ()=> setTimeout(ensureConsistentHeights, 0));
+      bySel('#btnBack')?.addEventListener('click', ()=> setTimeout(ensureConsistentHeights, 0));
 
-      $('btnNext')?.addEventListener('click', ()=> setTimeout(ensureConsistentHeights, 0));
-      $('btnBack')?.addEventListener('click', ()=> setTimeout(ensureConsistentHeights, 0));
+      setupRefiCalcInputs();
+      // initial step
+      const first = 'step-intent';
+      showOnly(first); updateProgress(first);
     })();
   });
   </script>
