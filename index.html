@@ -32,8 +32,6 @@
       --section-max: 720px;
 
       --aside-pad: 16px;
-
-      /* Tighter standard gap beneath footer bar (brought box bottom up) */
       --footer-card-gap: 4px;
     }
     @media (max-width:640px){ :root{ --nav-font: 13px; } }
@@ -41,12 +39,10 @@
     body{ font-family:'Inter',sans-serif; background:#f6f7fb; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
     .card{ background:#fff; border-radius:12px; border:1px solid #e5e7eb; box-shadow:0 8px 18px -10px rgb(0 0 0 / .15); }
 
-    /* Accented cards (applied to all major boxes) */
     .card-accent{
       border:2px solid rgba(42,93,159,.18);
       box-shadow:0 14px 26px -18px rgba(42,93,159,.38);
-      background:
-        linear-gradient(180deg,rgba(246,248,253,0.55),rgba(255,255,255,1)) border-box;
+      background:linear-gradient(180deg,rgba(246,248,253,0.55),rgba(255,255,255,1)) border-box;
     }
     .accent-header{
       display:flex; align-items:center; justify-content:space-between;
@@ -77,17 +73,12 @@
 
     /* ---------- FORM BOX-SPECIFIC DOWNSCALE ---------- */
     #lead-form{
-      --fs-h2: 15px;          /* was 16 */
-      --fs-body: 12px;        /* was 13 */
-      --fs-label: 10px;       /* was 11 */
-      --fs-cta: 12px;         /* was 13 */
-      --control-h: 38px;      /* was 40 */
+      --fs-h2: 15px; --fs-body: 12px; --fs-label: 10px; --fs-cta: 12px; --control-h: 38px;
     }
     #lead-form .choice-rect{ padding:9px 11px; }
     #lead-form .sticky [id^="progress-"]{ font-size:10px !important; }
     #lead-form .cta-button{ min-height:34px; }
 
-    /* --------------------- Form shell (consistent footer placement) --------------------- */
     .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; }
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; pointer-events:none; }
 
@@ -96,21 +87,18 @@
 
     .step-inner{
       max-width: var(--section-max); margin: 0 auto; padding-top: var(--pad-y);
-      padding-bottom: var(--footer-space, 12px);
-      display:flex; flex-direction:column; min-height:100%;
+      padding-bottom: var(--footer-space, 12px); display:flex; flex-direction:column; min-height:100%;
     }
     .step-body{
       flex:1; display:flex; align-items:center; justify-content:center;
-      padding-top:4px;
-      min-height: var(--content-min, 0px);
+      padding-top:4px; min-height: var(--content-min, 0px);
     }
     .step-body > .content{ width:100%; max-width:640px; margin:0 auto; }
     .vstack > * + *{ margin-top: var(--gap-regular); }
 
     .form-footer{
       position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb;
-      padding: 12px 16px;
-      margin-bottom: var(--footer-card-gap);
+      padding: 12px 16px; margin-bottom: var(--footer-card-gap);
     }
     #btnBack{ min-height:34px; border-radius:10px; }
 
@@ -177,24 +165,14 @@
       padding-right: 2.2rem;
     }
 
-    /* Refi calculator — compact */
-    .refi-card { padding: var(--aside-pad); }
-    .refi-title { font-size: var(--fs-h2); font-weight: 800; color:#0f172a; line-height:1.2; }
-    .refi-grid{ display:grid; grid-template-columns: 1fr; gap:8px; align-items:center; }
-    .refi-row{ display:grid; grid-template-columns: 1.5fr .6fr .7fr; gap:8px; }
-    .refi-mini{ display:grid; grid-template-columns: 1fr auto; gap:10px; align-items:center; }
-    .refi-results{ font-size:12px; line-height:1.15; color:#0f172a; font-weight:600; display:grid; gap:4px; min-width:150px; }
-    .refi-slider{ width:100%; accent-color: var(--blue-600); }
-    .refi-note{ font-size:10px; color:#6b7280; margin-top:2px; text-align:right; }
-
     /* --- Header: profile + hamburger + dropdown + inline login --- */
     .menu-btn{ height:38px; width:42px; display:inline-flex; align-items:center; justify-content:center; border:1px solid #e5e7eb; border-radius:10px; background:#fff; }
     .menu-btn:hover{ background:#f8fafc; }
     .menu-group{ display:flex; align-items:center; gap:8px; }
+    .menu-wrap{ position:relative; display:flex; align-items:center; }
 
     .menu-panel{
-      position:absolute; right:220px; /* leave space for the login area at far right */
-      top:calc(100% + 8px); width:220px;
+      position:absolute; right:0; top:calc(100% + 8px); width:240px;
       background:#fff; border:1px solid #e5e7eb; border-radius:12px;
       box-shadow:0 20px 40px -20px rgba(0,0,0,.3); padding:10px;
       z-index:40;
@@ -204,32 +182,25 @@
     .menu-title{ font-size:11px; color:#334155; font-weight:800; text-transform:uppercase; letter-spacing:.02em; padding:4px 10px 6px; }
 
     .header-login{
-      display:flex; align-items:center; gap:8px; margin-left:12px;
+      display:flex; align-items:flex-end; gap:10px; margin-left:12px;
     }
-    .header-login .stack{
-      display:flex; flex-direction:column; gap:6px; width:200px;
-    }
+    .header-login .stack{ display:flex; flex-direction:column; gap:6px; width:200px; }
     .header-login .mini-input{
       background:#f3f4f6; border:1.5px solid #e5e7eb; border-radius:10px;
-      padding:6px 10px; height:34px; font-size:12px; line-height:1.1;
-      transition:.15s; width:100%;
+      padding:6px 10px; height:34px; font-size:12px; line-height:1.1; transition:.15s; width:100%;
     }
     .header-login .mini-input::placeholder{ color:#6b7280; }
     .header-login .mini-input:focus{ background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.15); outline:none; }
-    .header-login .actions{
-      display:flex; align-items:center; gap:10px; margin-left:2px;
-    }
+
+    .header-login .actions{ display:flex; flex-direction:column; align-items:flex-start; gap:6px; }
     .header-login .login-btn{
-      background:var(--blue-600); color:#fff; font-weight:800; border-radius:8px; padding:6px 10px; font-size:12px; height:34px;
+      background:var(--blue-600); color:#fff; font-weight:800; border-radius:8px; padding:6px 12px; font-size:12px; height:34px;
     }
-    .header-login .forgot{
-      font-size:12px; font-weight:700; color:var(--blue-600);
-    }
+    .header-login .forgot{ font-size:12px; font-weight:700; color:var(--blue-600); line-height:1; }
 
     @media (max-width: 900px){
-      /* keep it desktop-first per your request; on small screens it will wrap neatly */
       .header-login{ flex-wrap:wrap; justify-content:flex-end; }
-      .menu-panel{ right:12px; }
+      .header-login .actions{ align-items:flex-start; }
     }
   </style>
 
@@ -269,30 +240,34 @@
         <a href="#lead-form" class="cta-button !py-1.5">Apply Now</a>
       </div>
 
-      <!-- Right side: icons (hamburger + profile) THEN inline login -->
+      <!-- Right side: icons (hamburger + profile) + inline login -->
       <div class="flex items-center">
-        <!-- Icons group -->
-        <div class="menu-group mr-3">
-          <button id="hamburgerBtn" class="menu-btn" aria-label="Menu">
-            <!-- hamburger -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
-            </svg>
-          </button>
-          <button id="profileBtn" class="menu-btn" aria-label="Profile">
-            <!-- profile -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M16 11c1.657 0 3-1.79 3-4s-1.343-4-3-4-3 1.79-3 4 1.343 4 3 4zM4 20a8 8 0 0 1 16 0"/>
-            </svg>
-          </button>
-        </div>
+        <!-- Icons group wrapped to anchor dropdown right under them -->
+        <div class="menu-wrap mr-3">
+          <div class="menu-group">
+            <button id="hamburgerBtn" class="menu-btn" aria-label="Menu">
+              <!-- Hamburger -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
+              </svg>
+            </button>
+            <button id="profileBtn" class="menu-btn" aria-label="Profile">
+              <!-- Circular avatar-style icon (AutoTrader-like) -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="12" cy="12" r="9" stroke-width="2"></circle>
+                <path d="M12 12c2.209 0 4-1.791 4-4s-1.791-4-4-4-4 1.791-4 4 1.791 4 4 4Z" stroke-width="2" />
+                <path d="M6.5 18.5c1.6-2.4 3.9-3.5 5.5-3.5s3.9 1.1 5.5 3.5" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
 
-        <!-- Dropdown: opens below icons; contains Settings + About + Contact -->
-        <div id="menuPanel" class="menu-panel hidden">
-          <div class="menu-title">Menu</div>
-          <a href="#about" class="menu-item">About</a>
-          <a href="#contact" class="menu-item">Contact</a>
-          <a href="#" class="menu-item">Settings</a>
+          <!-- Dropdown: right-aligned beneath the icons -->
+          <div id="menuPanel" class="menu-panel hidden">
+            <div class="menu-title">Menu</div>
+            <a href="#about" class="menu-item">About</a>
+            <a href="#contact" class="menu-item">Contact</a>
+            <a href="#" class="menu-item">Settings</a>
+          </div>
         </div>
 
         <!-- Inline login on the far right -->
@@ -822,7 +797,7 @@
     trig1?.addEventListener('click', togglePanel);
     trig2?.addEventListener('click', togglePanel);
 
-    // (Optional) Simple demo login handler — stays inline, no redirect
+    // Simple demo login handler
     $('headerLoginForm')?.addEventListener('submit', (e)=>{
       e.preventDefault();
       const u = $('loginUser').value.trim();
@@ -830,6 +805,8 @@
       if (!u || !p) return;
       alert('Logged in (demo): ' + u);
     });
+
+    /* ----- The rest of your original JS (form flow, etc.) stays identical ----- */
 
     // -------- FLOW MAP --------
     const stepsMap = {};
@@ -922,7 +899,6 @@
     $('btnNext')?.addEventListener('click', ()=> next(1));
     $('btnBack')?.addEventListener('click', ()=> next(-1));
 
-    // Intent click
     bySelAll('[data-intent]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-intent]').forEach(x=>x.classList.remove('selected','err'));
@@ -932,7 +908,6 @@
       });
     });
 
-    // Vehicle condition select
     bySelAll('[data-cond]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected','err'));
@@ -950,7 +925,6 @@
       });
     });
 
-    // Budget slider
     const biw = $('biWeeklyRange'); const out = $('biWeeklyOut'); const br = $('budgetRange');
     if (biw && out && br){
       const updateBudget = ()=>{ out.textContent = biw.value; br.value = '$' + biw.value + ' bi-weekly'; };
@@ -958,7 +932,6 @@
       updateBudget();
     }
 
-    // Rent/Own segmented
     function setHousing(type){
       $('housingType').value = type;
       $('btnRent')?.setAttribute('aria-pressed', String(type==='Rent'));
@@ -967,7 +940,6 @@
     $('btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
     $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
 
-    // Phone format
     $('phone')?.addEventListener('input', (e)=>{
       const d=e.target.value.replace(/\D/g,'').slice(0,10);
       if(d.length>6)e.target.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
@@ -975,7 +947,6 @@
       else if(d.length>0)e.target.value=`(${d}`;
     });
 
-    // Submit
     function generateAppCode(){ const n=Math.floor(Math.random()*1_000_000); return 'ABC-' + String(n).padStart(6,'0'); }
     async function runProgressOverlay(minMs=4200){
       const overlay = $('progress-overlay'); const bar = $('progress-bar'); const stepsEl = bySelAll('#progress-steps li');
@@ -1005,7 +976,6 @@
       e.target.submit();
     });
 
-    // Inventory “View all”
     bySelAll('.js-view-inventory').forEach(el=>{
       el.addEventListener('click', (e)=>{
         e.preventDefault();
@@ -1013,7 +983,6 @@
       });
     });
 
-    // DOB helpers
     function populateDOBYears(sel){ if(!sel) return; const start=2004; sel.innerHTML = ''; for(let y=start; y>=1940; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); } }
     function populateMonths(sel){
       if(!sel) return;
@@ -1047,7 +1016,6 @@
     function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
     function populateYears(sel, start, end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} }
 
-    // ---- Refinance Calculator ----
     function setupRefiCalcInputs(){
       const loanEl = $('refLoanInput');
       const rateEl = $('refRateInput');
@@ -1096,7 +1064,6 @@
       update();
     }
 
-    // ---------- CONSISTENT HEIGHTS ----------
     function ensureConsistentHeights(){
       const viewport = $('step-viewport');
       const footer = $('form-footer');
@@ -1123,7 +1090,6 @@
       });
     }
 
-    // ===== init =====
     (function init(){
       bySel('#year').textContent = new Date().getFullYear();
 
@@ -1132,35 +1098,32 @@
       bySel('[data-cond="Both"]')?.classList.add('selected');
       $('housingType') && ( $('housingType').value = 'Rent' );
 
-      // DOB
       populateDOBYears($('dobYear'));
       populateMonths($('dobMonth'));
       updateDays();
       $('dobMonth')?.addEventListener('change', updateDays);
       $('dobYear')?.addEventListener('change', updateDays);
 
-      // Tenures & address helpers
       populateDropdown($('timeWithEmployerYears'),0,30,'Years','Year');
       populateDropdown($('timeWithEmployerMonths'),0,11,'Months','Month');
       populateDropdown($('timeAtAddressYears'),0,30,'Years','Year');
       populateDropdown($('timeAtAddressMonths'),0,11,'Months','Month');
       populateProvinces($('currentProvince'));
 
-      // Years for trade/refi vehicle
       populateYears($('tradeInYear'), new Date().getFullYear(), 1995);
       populateYears($('refiYear'),   new Date().getFullYear(), 1995);
 
-      // Start
-      goTo('step-intent');
-
-      // Refi calc
       setupRefiCalcInputs();
 
-      // Keep heights locked to tallest step
       ensureConsistentHeights();
       window.addEventListener('resize', ensureConsistentHeights);
       $('btnNext')?.addEventListener('click', ()=> setTimeout(ensureConsistentHeights, 0));
       $('btnBack')?.addEventListener('click', ()=> setTimeout(ensureConsistentHeights, 0));
+      bySelAll('.js-view-inventory').forEach(el=>{
+        el.addEventListener('click', (e)=>{ e.preventDefault(); $('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'}); });
+      });
+      // Start
+      showOnly('step-intent'); updateProgress('step-intent');
     })();
   });
   </script>
