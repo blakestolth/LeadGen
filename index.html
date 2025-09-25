@@ -32,8 +32,6 @@
       --section-max: 720px;
 
       --aside-pad: 16px;
-
-      /* Tighter standard gap beneath footer bar (brought box bottom up) */
       --footer-card-gap: 4px;
     }
     @media (max-width:640px){ :root{ --nav-font: 13px; } }
@@ -41,12 +39,10 @@
     body{ font-family:'Inter',sans-serif; background:#f6f7fb; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
     .card{ background:#fff; border-radius:12px; border:1px solid #e5e7eb; box-shadow:0 8px 18px -10px rgb(0 0 0 / .15); }
 
-    /* Accented cards (applied to all major boxes) */
     .card-accent{
       border:2px solid rgba(42,93,159,.18);
       box-shadow:0 14px 26px -18px rgba(42,93,159,.38);
-      background:
-        linear-gradient(180deg,rgba(246,248,253,0.55),rgba(255,255,255,1)) border-box;
+      background:linear-gradient(180deg,rgba(246,248,253,0.55),rgba(255,255,255,1)) border-box;
     }
     .accent-header{
       display:flex; align-items:center; justify-content:space-between;
@@ -77,11 +73,11 @@
 
     /* ---------- FORM BOX-SPECIFIC DOWNSCALE ---------- */
     #lead-form{
-      --fs-h2: 15px;          /* was 16 */
-      --fs-body: 12px;        /* was 13 */
-      --fs-label: 10px;       /* was 11 */
-      --fs-cta: 12px;         /* was 13 */
-      --control-h: 38px;      /* was 40 */
+      --fs-h2: 15px;
+      --fs-body: 12px;
+      --fs-label: 10px;
+      --fs-cta: 12px;
+      --control-h: 38px;
     }
     #lead-form .choice-rect{ padding:9px 11px; }
     #lead-form .sticky [id^="progress-"]{ font-size:10px !important; }
@@ -96,7 +92,7 @@
 
     .step-inner{
       max-width: var(--section-max); margin: 0 auto; padding-top: var(--pad-y);
-      padding-bottom: var(--footer-space, 12px); /* tighter inner buffer */
+      padding-bottom: var(--footer-space, 12px);
       display:flex; flex-direction:column; min-height:100%;
     }
     .step-body{
@@ -110,7 +106,6 @@
     .form-footer{
       position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb;
       padding: 12px 16px;
-      /* tighter gap to card bottom */
       margin-bottom: var(--footer-card-gap);
     }
     #btnBack{ min-height:34px; border-radius:10px; }
@@ -134,6 +129,11 @@
     .grid-inline-addr1{ display:grid; grid-template-columns: 3fr 1fr; gap:var(--field-gap); }
     .grid-inline-addr2{ display:grid; grid-template-columns: 1.6fr 1fr 1fr; gap:var(--field-gap); }
     .grid-inline-dob{ display:grid; grid-template-columns: 1.2fr .9fr .9fr 1.6fr; gap:var(--field-gap); }
+
+    /* NEW: one-line current address row */
+    .grid-inline-addr3{
+      display:grid; grid-template-columns: .8fr 1.1fr auto; gap:var(--field-gap); align-items:center;
+    }
 
     .brand-left{ display:flex; align-items:center; gap:12px; }
     .site-logo{ height:60px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
@@ -163,50 +163,30 @@
     .progress-note{margin-top:10px;font-size:12px;color:#64748b}
     .hidden{display:none !important;}
 
-    /* Refi calculator — compact + unified look */
+    .form-select{
+      -webkit-appearance: none; -moz-appearance: none; appearance: none;
+      background-image:
+        linear-gradient(45deg, transparent 50%, #9ca3af 50%),
+        linear-gradient(135deg, #9ca3af 50%, transparent 50%),
+        linear-gradient(to right, transparent, transparent);
+      background-position:
+        calc(100% - 18px) calc(50% - 5px),
+        calc(100% - 13px) calc(50% - 5px),
+        calc(100% - 2.2rem) 0.4rem;
+      background-size: 7px 7px, 7px 7px, 0 0;
+      background-repeat: no-repeat;
+      padding-right: 2.2rem;
+    }
+
+    /* Refi calculator — compact */
     .refi-card { padding: var(--aside-pad); }
     .refi-title { font-size: var(--fs-h2); font-weight: 800; color:#0f172a; line-height:1.2; }
     .refi-grid{ display:grid; grid-template-columns: 1fr; gap:8px; align-items:center; }
+    .refi-row{ display:grid; grid-template-columns: 1.5fr .6fr .7fr; gap:8px; }
     .refi-mini{ display:grid; grid-template-columns: 1fr auto; gap:10px; align-items:center; }
     .refi-results{ font-size:12px; line-height:1.15; color:#0f172a; font-weight:600; display:grid; gap:4px; min-width:150px; }
     .refi-slider{ width:100%; accent-color: var(--blue-600); }
     .refi-note{ font-size:10px; color:#6b7280; margin-top:2px; text-align:right; }
-
-    /* Header controls (profile + burger) */
-    .nav-actions{
-      display:flex; align-items:center; gap:8px;
-    }
-    .icon-box{
-      display:flex; align-items:center; gap:6px;
-      border:1px solid #e5e7eb; border-radius:10px; padding:6px 8px; background:#fff;
-    }
-    .icon-btn{
-      height:30px; width:30px; display:inline-flex; align-items:center; justify-content:center;
-      border-radius:8px; border:1px solid #e5e7eb; background:#f8fafc; cursor:pointer;
-    }
-    .icon-btn:hover{ background:#eef2ff; border-color:#c7d2fe; }
-    .menu-pop{
-      position:absolute; right:0; top:calc(100% + 6px); width:260px; z-index:40;
-      background:#fff; border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 18px 40px -20px rgba(0,0,0,.3);
-      padding:10px;
-    }
-    .menu-link{
-      display:block; padding:8px 10px; border-radius:8px; color:#0f172a; font-weight:600; font-size:13px;
-    }
-    .menu-link:hover{ background:#f3f4f6; }
-
-    /* Header inline login (inside dropdown also uses these) */
-    .login-fields .form-input{ min-height:34px; }
-    .login-fields label{ font-size:10px; font-weight:700; color:#374151; }
-    .login-fields .cta-button{ min-height:32px; }
-
-    /* Sidebar login card below refi */
-    .login-card small{ font-size:10px; color:#6b7280; }
-
-    /* Make housing row align: monthly payment narrower so Rent/Own fits same line on most screens */
-    .pay-row{ display:grid; grid-template-columns: 1.2fr 1fr; gap:var(--field-gap); align-items:end; }
-    .pay-row .seg{ margin:0; justify-self:start; }
-
   </style>
 
   <script type="application/ld+json">
@@ -227,8 +207,8 @@
 </head>
 <body>
   <!-- NAV -->
-  <header class="w-full max-w-5xl mx-auto mt-4 px-4 relative">
-    <nav class="bg-white/90 backdrop-blur card card-accent px-4 sm:px-6 py-2.5 flex items-center justify-between relative">
+  <header class="w-full max-w-5xl mx-auto mt-4 px-4">
+    <nav class="bg-white/90 backdrop-blur card card-accent px-4 sm:px-6 py-2.5 flex items-center justify-between">
       <div class="brand-left">
         <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
         <div class="brand-stack">
@@ -237,57 +217,24 @@
         </div>
       </div>
 
-      <div class="hidden md:flex items-center gap-5 font-semibold text-zinc-700">
+      <div class="hidden sm:flex items-center gap-6 font-semibold text-zinc-700">
         <a href="#inventory" class="hover:text-[var(--blue-600)]">Inventory</a>
         <a href="#about" class="hover:text-[var(--blue-600)]">About</a>
         <a href="#contact" class="hover:text-[var(--blue-600)]">Contact</a>
-
-        <!-- Icon group: Profile then Hamburger inside a subtle box -->
-        <div class="icon-box relative" id="iconCluster">
-          <button id="profileBtn" class="icon-btn" aria-label="Profile">
-            <!-- Simple person icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/>
-            </svg>
-          </button>
-          <button id="menuBtn" class="icon-btn" aria-label="Menu">
-            <!-- Hamburger -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
-          </button>
-
-          <!-- Combined dropdown (appears below the box) -->
-          <div id="menuPop" class="menu-pop hidden">
-            <div class="login-fields mb-2">
-              <div class="grid grid-cols-1 gap-2">
-                <div>
-                  <label for="hdrUser" class="block">Username</label>
-                  <input id="hdrUser" class="form-input" placeholder="username" autocomplete="username">
-                </div>
-                <div>
-                  <label for="hdrPass" class="block">Password</label>
-                  <input id="hdrPass" type="password" class="form-input" placeholder="••••••••" autocomplete="current-password">
-                </div>
-                <button id="hdrLoginBtn" class="cta-button w-full mt-1" type="button">Log In</button>
-                <a id="hdrForgot" href="#" class="text-[11px] text-[var(--blue-600)] hover:underline mt-1 inline-block">Forgot password?</a>
-              </div>
-            </div>
-            <hr class="my-2 border-zinc-200">
-            <a href="#inventory" class="menu-link">Inventory</a>
-            <a href="#about" class="menu-link">About</a>
-            <a href="#contact" class="menu-link">Contact</a>
-            <a href="#lead-form" class="menu-link">Apply Now</a>
-            <div id="hdrLoginState" class="text-[11px] text-zinc-500 mt-2"></div>
-          </div>
-        </div>
+        <a href="#lead-form" class="cta-button !py-1.5">Apply Now</a>
       </div>
-
-      <!-- Mobile: only a button to open the same dropdown -->
-      <button id="mobileIcon" class="md:hidden icon-btn" aria-label="Open menu">
+      <button id="menuBtn" class="sm:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-zinc-200" aria-label="Open menu">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
     </nav>
+    <div id="mobileMenu" class="hidden sm:hidden mt-2 card card-accent px-4 py-3">
+      <div class="flex flex-col gap-2 font-semibold text-zinc-700">
+        <a href="#inventory" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Inventory</a>
+        <a href="#about" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">About</a>
+        <a href="#contact" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Contact</a>
+        <a href="#lead-form" class="mt-1 cta-button text-center">Apply Now</a>
+      </div>
+    </div>
   </header>
 
   <!-- MAIN -->
@@ -497,23 +444,27 @@
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">7. Account creation</h3></div>
                     <div class="step-body">
-                      <div class="content vstack" style="max-width:560px;">
-                        <div>
-                          <label for="email" class="label">Email <span class="text-red-500">*</span></label>
-                          <input type="email" id="email" name="email" class="form-input" autocomplete="email" maxlength="100" required/>
+                      <div class="content vstack" style="max-width:640px;">
+                        <div class="grid-inline-2">
+                          <div>
+                            <label for="email" class="label">Email <span class="text-red-500">*</span></label>
+                            <input type="email" id="email" name="email" class="form-input" autocomplete="email" maxlength="100" required/>
+                          </div>
+                          <div>
+                            <label for="phone" class="label">Phone number <span class="text-red-500">*</span></label>
+                            <input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" maxlength="14" required/>
+                          </div>
                         </div>
-                        <div>
-                          <label for="phone" class="label">Phone number <span class="text-red-500">*</span></label>
-                          <input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" maxlength="14" required/>
-                        </div>
-                        <div>
-                          <label for="accountPass" class="label">Password <span class="text-red-500">*</span></label>
-                          <input type="password" id="accountPass" name="accountPass" class="form-input" minlength="6" maxlength="64" required/>
-                        </div>
-                        <div>
-                          <label for="accountPass2" class="label">Re-enter password <span class="text-red-500">*</span></label>
-                          <input type="password" id="accountPass2" name="accountPass2" class="form-input" minlength="6" maxlength="64" required/>
-                          <div id="passMatchMsg" class="muted hidden">Passwords must match.</div>
+                        <div class="grid-inline-2">
+                          <div>
+                            <label for="accountPass" class="label">Password <span class="text-red-500">*</span></label>
+                            <input type="password" id="accountPass" name="accountPass" class="form-input" minlength="6" maxlength="64" required/>
+                          </div>
+                          <div>
+                            <label for="accountPass2" class="label">Re-enter password <span class="text-red-500">*</span></label>
+                            <input type="password" id="accountPass2" name="accountPass2" class="form-input" minlength="6" maxlength="64" required/>
+                            <div id="passMatchMsg" class="muted hidden">Passwords must match.</div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -578,18 +529,24 @@
                           <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" placeholder="Street address" autocomplete="street-address" maxlength="120" required/>
                           <input type="text" id="currentUnit" name="currentUnit" class="form-input" placeholder="Unit #" maxlength="10"/>
                         </div>
-
                         <div class="grid-inline-addr2 mt-2">
                           <input type="text" id="currentCity" name="currentCity" class="form-input" placeholder="City" autocomplete="address-level2" maxlength="60" required/>
                           <select id="currentProvince" name="currentProvince" class="form-select" required><option value="">Prov</option></select>
                           <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" placeholder="Postal code" autocomplete="postal-code" maxlength="7" required/>
                         </div>
 
-                        <!-- Monthly payment + Rent/Own on same row -->
-                        <div class="pay-row mt-2">
+                        <!-- NEW single row: payment (small), duration, rent/own -->
+                        <div class="grid-inline-addr3 mt-2">
                           <div>
-                            <label for="housingPayment" class="label">Monthly payment</label>
-                            <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1,800" inputmode="numeric" maxlength="16" required/>
+                            <label for="housingPayment" class="label">Monthly payments</label>
+                            <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1,800" inputmode="numeric" maxlength="6" required/>
+                          </div>
+                          <div>
+                            <label class="label">Time at address</label>
+                            <div class="grid-inline-2">
+                              <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
+                              <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+                            </div>
                           </div>
                           <div>
                             <label class="label">Rent or Own?</label>
@@ -600,18 +557,6 @@
                             <input type="hidden" id="housingType" name="housingType" value="Rent" />
                           </div>
                         </div>
-
-                        <div class="grid-inline-2 mt-2">
-                          <div>
-                            <label class="label">Time at address</label>
-                            <div class="grid-inline-2">
-                              <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                              <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
-                            </div>
-                          </div>
-                          <div></div>
-                        </div>
-
                       </div>
                     </div>
                   </div>
@@ -660,7 +605,7 @@
         </div>
       </div>
 
-      <!-- RIGHT: Refinance Calculator + Login Card -->
+      <!-- RIGHT: Refinance Calculator + (Blank) Account Box -->
       <aside class="flex flex-col gap-4">
         <!-- Refinance Calculator -->
         <div class="card card-accent p-0" id="refi-card">
@@ -668,9 +613,12 @@
             <div class="refi-title">Refinance Calculator</div>
           </div>
           <div class="refi-card">
-            <div class="refi-grid">
-              <!-- Amount box removed per request; we assume a compact default principal -->
-              <div class="refi-mini">
+            <div class="refi-grid mt-2">
+              <div class="refi-row">
+                <div>
+                  <label class="label" for="refLoanInput">Loan amount</label>
+                  <input id="refLoanInput" class="form-input" placeholder="$15,000" inputmode="numeric" maxlength="14" />
+                </div>
                 <div>
                   <label class="label" for="refTermInput">Years</label>
                   <select id="refTermInput" class="form-select">
@@ -678,17 +626,18 @@
                     <option>1</option><option>2</option><option>3</option><option>4</option>
                     <option>5</option><option>6</option><option>7</option><option>8</option>
                   </select>
-
-                  <label class="label mt-2 block" for="refRateInput">Current interest %</label>
-                  <input id="refRateInput" class="form-input" placeholder="9.49" inputmode="decimal" maxlength="6" />
                 </div>
-
+                <div>
+                  <label class="label" for="refRateInput">Current %</label>
+                  <input id="refRateInput" class="form-input" placeholder="8.99" inputmode="decimal" maxlength="5" />
+                </div>
+              </div>
+              <div class="refi-mini">
                 <div>
                   <label class="label" for="refNewRateSlider">Try a new rate</label>
                   <input id="refNewRateSlider" type="range" min="0.00" max="8.99" step="0.05" value="7.99" class="refi-slider">
                   <div class="text-[11px] text-zinc-700 mt-1">New rate: <b><span id="refNewRateOut">7.99</span>%</b></div>
                 </div>
-
                 <div class="refi-results" id="refResults">
                   <div class="text-zinc-500">Enter your numbers to see savings.</div>
                 </div>
@@ -698,25 +647,13 @@
           </div>
         </div>
 
-        <!-- LOGIN CARD UNDER REFI -->
-        <div class="card card-accent p-0 login-card">
+        <!-- (Blank) Account box kept, height reduced naturally -->
+        <div class="card card-accent p-0" id="login-card">
           <div class="accent-header">
             <h3 class="h2" style="margin:0;">Account</h3>
           </div>
           <div style="padding: var(--aside-pad);">
-            <div class="grid grid-cols-1 gap-2 login-fields">
-              <div>
-                <label for="sideUser" class="block">Username</label>
-                <input id="sideUser" class="form-input" placeholder="username" autocomplete="username">
-              </div>
-              <div>
-                <label for="sidePass" class="block">Password</label>
-                <input id="sidePass" type="password" class="form-input" placeholder="••••••••" autocomplete="current-password">
-              </div>
-              <button id="sideLoginBtn" class="cta-button w-full mt-1" type="button">Log In</button>
-              <a href="#" class="text-[11px] text-[var(--blue-600)] hover:underline mt-1 inline-block">Forgot password?</a>
-              <small id="sideLoginState" class="block mt-1"></small>
-            </div>
+            <!-- intentionally blank per your request -->
           </div>
         </div>
       </aside>
@@ -811,80 +748,13 @@
   function parseMoneyInput(v){ if (!v) return 0; return parseFloat(String(v).replace(/[^0-9.]/g,'')) || 0; }
   function formatMoneyField(input){
     const num = parseMoneyInput(input.value);
-    if (!num){ input.value = ''; return; }
-    // format with commas, no cents for entry fields
-    input.value = num.toLocaleString('en-CA', {style:'currency', currency:'CAD', maximumFractionDigits:0});
+    // no cents for UI entry
+    input.value = num ? num.toLocaleString('en-CA', {style:'currency', currency:'CAD', maximumFractionDigits:0}) : '';
   }
-  function calcPayment(P, annualRate, years){
-    const r=(annualRate/100)/12, n=years*12;
-    if(!n||n<=0) return 0;
-    if(r===0) return P/n;
-    return P*r/(1-Math.pow(1+r,-n));
-  }
+  function calcPayment(P, annualRate, years){ const r=(annualRate/100)/12, n=years*12; if(!n||n<=0) return 0; if(r===0) return P/n; return P*r/(1-Math.pow(1+r,-n)); }
 
   document.addEventListener('DOMContentLoaded', function () {
-    // ---------- HEADER MENU / PROFILE ----------
-    const iconCluster = $('iconCluster');
-    const menuPop = $('menuPop');
-    const profileBtn = $('profileBtn');
-    const menuBtn = $('menuBtn');
-    const mobileIcon = $('mobileIcon');
-
-    function toggleMenu(show){
-      if (!menuPop) return;
-      const willShow = (typeof show==='boolean') ? show : menuPop.classList.contains('hidden');
-      menuPop.classList.toggle('hidden', !willShow);
-    }
-    [profileBtn, menuBtn, mobileIcon].forEach(btn=>{
-      btn?.addEventListener('click', (e)=>{ e.stopPropagation(); toggleMenu(); });
-    });
-    document.addEventListener('click', (e)=>{
-      if (!iconCluster?.contains(e.target)) toggleMenu(false);
-    });
-
-    // Login handlers (header + sidebar) + state
-    function setLoggedIn(username){
-      try{
-        if (username){
-          sessionStorage.setItem('vic_logged_in','1');
-          sessionStorage.setItem('vic_user', username);
-        }else{
-          sessionStorage.removeItem('vic_logged_in');
-          sessionStorage.removeItem('vic_user');
-        }
-      }catch(_){}
-      renderLoginState();
-    }
-    function isLoggedIn(){ try{ return sessionStorage.getItem('vic_logged_in')==='1'; }catch(_){ return false; } }
-    function getUser(){ try{ return sessionStorage.getItem('vic_user') || ''; }catch(_){ return ''; } }
-    function renderLoginState(){
-      const hdrState = $('hdrLoginState');
-      const sideState = $('sideLoginState');
-      if (isLoggedIn()){
-        const name = getUser();
-        hdrState && (hdrState.textContent = 'Logged in as ' + name);
-        sideState && (sideState.textContent = 'Logged in as ' + name);
-      }else{
-        hdrState && (hdrState.textContent = 'Not logged in');
-        sideState && (sideState.textContent = 'Not logged in');
-      }
-    }
-    $('hdrLoginBtn')?.addEventListener('click', ()=>{
-      const u = $('hdrUser')?.value?.trim() || '';
-      const p = $('hdrPass')?.value?.trim() || '';
-      if (!u || !p) return;
-      setLoggedIn(u);
-      toggleMenu(false);
-      alert('Logged in (demo).');
-    });
-    $('sideLoginBtn')?.addEventListener('click', ()=>{
-      const u = $('sideUser')?.value?.trim() || '';
-      const p = $('sidePass')?.value?.trim() || '';
-      if (!u || !p) return;
-      setLoggedIn(u);
-      alert('Logged in (demo).');
-    });
-    renderLoginState();
+    $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
 
     // -------- FLOW MAP --------
     const stepsMap = {};
@@ -1022,10 +892,6 @@
     $('btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
     $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
 
-    // Currency formatting on blur
-    $('housingPayment')?.addEventListener('blur', (e)=> formatMoneyField(e.target));
-    $('avgMonthlyIncome')?.addEventListener('blur', (e)=> formatMoneyField(e.target));
-
     // Phone format
     $('phone')?.addEventListener('input', (e)=>{
       const d=e.target.value.replace(/\D/g,'').slice(0,10);
@@ -1033,6 +899,10 @@
       else if(d.length>3)e.target.value=`(${d.slice(0,3)}) ${d.slice(3)}`;
       else if(d.length>0)e.target.value=`(${d}`;
     });
+
+    // Format money-like fields on blur
+    $('avgMonthlyIncome')?.addEventListener('blur', (e)=> formatMoneyField(e.target));
+    $('housingPayment')?.addEventListener('blur', (e)=> formatMoneyField(e.target));
 
     // Submit
     function generateAppCode(){ const n=Math.floor(Math.random()*1_000_000); return 'ABC-' + String(n).padStart(6,'0'); }
@@ -1073,13 +943,7 @@
     });
 
     // DOB helpers
-    function populateDOBYears(sel){
-      if(!sel) return;
-      sel.innerHTML = '<option value="">YYYY</option>';
-      const start=2004; for(let y=start; y>=1940; y--){
-        const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);
-      }
-    }
+    function populateDOBYears(sel){ if(!sel) return; const start=2004; sel.innerHTML = '<option value=""></option>'; for(let y=start; y>=1940; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); } }
     function populateMonths(sel){
       if(!sel) return;
       const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -1113,21 +977,22 @@
     function populateYears(sel, start, end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} }
 
     // ---- Refinance Calculator ----
-    function setupRefiCalc(){
-      const DEFAULT_LOAN = 15000; // compact assumption (amount box removed)
+    function setupRefiCalcInputs(){
+      const loanEl = $('refLoanInput');
       const rateEl = $('refRateInput');
       const termEl = $('refTermInput');
       const newRateSlider = $('refNewRateSlider');
       const newRateOut = $('refNewRateOut');
       const results = $('refResults');
 
-      if (!(rateEl && termEl && newRateSlider && newRateOut && results)) return;
+      if (!(loanEl && rateEl && termEl && newRateSlider && newRateOut)) return;
 
-      [rateEl, termEl].forEach(el=> el.addEventListener('input', update));
+      loanEl.addEventListener('blur', ()=>{ formatMoneyField(loanEl); update(); });
+      [loanEl, rateEl, termEl].forEach(el=> el.addEventListener('input', update));
       newRateSlider.addEventListener('input', ()=>{ newRateOut.textContent = Number(newRateSlider.value).toFixed(2); update(); });
 
       function update(){
-        const loan = DEFAULT_LOAN; // no visible amount field per request
+        const loan = parseMoneyInput(loanEl.value);
         const rate = parseFloat(rateEl.value)||0;
         const years = parseFloat(termEl.value)||0;
 
@@ -1169,7 +1034,7 @@
       if (!viewport || !footer) return;
 
       const footerH = footer.offsetHeight || 0;
-      const extra = 6; // smaller breathing space above footer content
+      const extra = 6;
       bySelAll('.step-inner').forEach(inner=>{
         inner.style.setProperty('--footer-space', (footerH + extra) + 'px');
       });
@@ -1220,7 +1085,7 @@
       goTo('step-intent');
 
       // Refi calc
-      setupRefiCalc();
+      setupRefiCalcInputs();
 
       // Keep heights locked to tallest step
       ensureConsistentHeights();
