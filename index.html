@@ -23,30 +23,30 @@
     :root{
       --blue-600:#2A5D9F; --blue-700:#214B80; --blue-100:#EAF1FB; --blue-grad:#4C7CC0;
 
-      /* Sizes */
+      /* Scaled sizes you approved */
       --fs-h1: 20px; --fs-h2: 16px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
-      --pad-y: 8px;
-      --gap-regular: 8px; --input-py: 5px; --input-px: 10px; --radius: 10px;
+      --pad-y: 10px; --gap-regular: 8px; --input-py: 5px; --input-px: 10px; --radius: 10px;
       --nav-font: 14px;
       --control-h: 40px;
       --field-gap: 8px;
-      --section-max: 680px;
+      --section-max: 720px;
 
       --aside-pad: 16px;
-      --footer-card-gap: 4px;
 
-      /* HARD LOCK the form viewport height so it never jumps between steps */
-      --fixed-step-min: 540px;
+      /* Tighter standard gap beneath footer bar (brought box bottom up) */
+      --footer-card-gap: 4px;
     }
-    @media (max-width:640px){ :root{ --nav-font: 13px; --fixed-step-min: 560px; } }
+    @media (max-width:640px){ :root{ --nav-font: 13px; } }
 
     body{ font-family:'Inter',sans-serif; background:#f6f7fb; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
     .card{ background:#fff; border-radius:12px; border:1px solid #e5e7eb; box-shadow:0 8px 18px -10px rgb(0 0 0 / .15); }
 
+    /* Accented cards (applied to all major boxes) */
     .card-accent{
       border:2px solid rgba(42,93,159,.18);
       box-shadow:0 14px 26px -18px rgba(42,93,159,.38);
-      background:linear-gradient(180deg,rgba(246,248,253,0.55),rgba(255,255,255,1)) border-box;
+      background:
+        linear-gradient(180deg,rgba(246,248,253,0.55),rgba(255,255,255,1)) border-box;
     }
     .accent-header{
       display:flex; align-items:center; justify-content:space-between;
@@ -60,7 +60,7 @@
     .label{ font-size:var(--fs-label); color:#3f3f46; font-weight:600; display:block; margin-bottom:6px; }
 
     .form-input,.form-select,.form-textarea{
-      background:#f3f4f6; color:#0f172a; border:1.5px solid #e5e7eb; font-size:var(--fs-body); width:100%;
+      background:#f3f4f6; color:#18181b; border:1.5px solid #e5e7eb; font-size:var(--fs-body); width:100%;
       padding:var(--input-py) var(--input-px); border-radius:var(--radius); transition:all .15s ease;
       min-height: var(--control-h); line-height: 1.2;
     }
@@ -75,18 +75,19 @@
 
     .err{ border-color:#ef4444 !important; } .err-label{ color:#ef4444 !important; }
 
-    /* ---------- FORM DOWNSCALE ---------- */
+    /* ---------- FORM BOX-SPECIFIC DOWNSCALE ---------- */
     #lead-form{
-      --fs-h2: 15px;
-      --fs-body: 12px;
-      --fs-label: 10px;
-      --fs-cta: 12px;
-      --control-h: 38px;
+      --fs-h2: 15px;          /* was 16 */
+      --fs-body: 12px;        /* was 13 */
+      --fs-label: 10px;       /* was 11 */
+      --fs-cta: 12px;         /* was 13 */
+      --control-h: 38px;      /* was 40 */
     }
     #lead-form .choice-rect{ padding:9px 11px; }
     #lead-form .sticky [id^="progress-"]{ font-size:10px !important; }
     #lead-form .cta-button{ min-height:34px; }
 
+    /* --------------------- Form shell (consistent footer placement) --------------------- */
     .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; }
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; pointer-events:none; }
 
@@ -95,21 +96,22 @@
 
     .step-inner{
       max-width: var(--section-max); margin: 0 auto; padding-top: var(--pad-y);
-      padding-bottom: 10px; /* tight footer buffer */
+      padding-bottom: var(--footer-space, 12px); /* tighter inner buffer */
       display:flex; flex-direction:column; min-height:100%;
     }
     .step-body{
-      flex:1; display:flex; align-items:center; justify-content:center; padding-top:4px;
-      /* HARD-LOCKED so it NEVER resizes between steps */
-      min-height: var(--fixed-step-min) !important;
+      flex:1; display:flex; align-items:center; justify-content:center;
+      padding-top:4px;
+      min-height: var(--content-min, 0px);
     }
-    /* make all steps the same width, a touch slimmer for a centered look */
-    #lead-form .step-body > .content{ width:100%; max-width:560px !important; margin:0 auto; }
+    .step-body > .content{ width:100%; max-width:640px; margin:0 auto; }
     .vstack > * + *{ margin-top: var(--gap-regular); }
 
     .form-footer{
       position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb;
-      padding: 10px 16px; margin-bottom: var(--footer-card-gap);
+      padding: 12px 16px;
+      /* tighter gap to card bottom */
+      margin-bottom: var(--footer-card-gap);
     }
     #btnBack{ min-height:34px; border-radius:10px; }
 
@@ -122,7 +124,7 @@
 
     .muted{ font-size:10px; color:#6b7280; }
 
-    .seg{ display:inline-flex; align-items:center; gap:6px; background:#f3f4f6; border:1.5px solid #e5e7eb; border-radius:9999px; padding:4px; }
+    .seg{ display:inline-flex; align-items:center; gap:6px; background:#f3f4f6; border:1.5px solid #e5e7eb; border-radius:9999px; padding:4px; margin-top:4px; }
     .seg-btn{ appearance:none; border:0; background:transparent; cursor:pointer; padding:6px 12px; border-radius:9999px; font-weight:800; font-size:12px; color:#374151; transition:background .15s ease, color .15s ease, box-shadow .15s ease; }
     .seg-btn[aria-pressed="true"]{ background:var(--blue-600); color:#fff; box-shadow:0 1px 2px rgba(0,0,0,.06); }
 
@@ -132,7 +134,6 @@
     .grid-inline-addr1{ display:grid; grid-template-columns: 3fr 1fr; gap:var(--field-gap); }
     .grid-inline-addr2{ display:grid; grid-template-columns: 1.6fr 1fr 1fr; gap:var(--field-gap); }
     .grid-inline-dob{ display:grid; grid-template-columns: 1.2fr .9fr .9fr 1.6fr; gap:var(--field-gap); }
-    .grid-inline-pay{ display:grid; grid-template-columns: 1.1fr .9fr; gap:var(--field-gap); align-items:end; }
 
     .brand-left{ display:flex; align-items:center; gap:12px; }
     .site-logo{ height:60px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
@@ -162,35 +163,50 @@
     .progress-note{margin-top:10px;font-size:12px;color:#64748b}
     .hidden{display:none !important;}
 
-    .form-select{
-      -webkit-appearance: none; -moz-appearance: none; appearance: none;
-      background-image:
-        linear-gradient(45deg, transparent 50%, #9ca3af 50%),
-        linear-gradient(135deg, #9ca3af 50%, transparent 50%),
-        linear-gradient(to right, transparent, transparent);
-      background-position:
-        calc(100% - 18px) calc(50% - 5px),
-        calc(100% - 13px) calc(50% - 5px),
-        calc(100% - 2.2rem) 0.4rem;
-      background-size: 7px 7px, 7px 7px, 0 0;
-      background-repeat: no-repeat;
-      padding-right: 2.2rem;
+    /* Refi calculator — compact + unified look */
+    .refi-card { padding: var(--aside-pad); }
+    .refi-title { font-size: var(--fs-h2); font-weight: 800; color:#0f172a; line-height:1.2; }
+    .refi-grid{ display:grid; grid-template-columns: 1fr; gap:8px; align-items:center; }
+    .refi-mini{ display:grid; grid-template-columns: 1fr auto; gap:10px; align-items:center; }
+    .refi-results{ font-size:12px; line-height:1.15; color:#0f172a; font-weight:600; display:grid; gap:4px; min-width:150px; }
+    .refi-slider{ width:100%; accent-color: var(--blue-600); }
+    .refi-note{ font-size:10px; color:#6b7280; margin-top:2px; text-align:right; }
+
+    /* Header controls (profile + burger) */
+    .nav-actions{
+      display:flex; align-items:center; gap:8px;
     }
+    .icon-box{
+      display:flex; align-items:center; gap:6px;
+      border:1px solid #e5e7eb; border-radius:10px; padding:6px 8px; background:#fff;
+    }
+    .icon-btn{
+      height:30px; width:30px; display:inline-flex; align-items:center; justify-content:center;
+      border-radius:8px; border:1px solid #e5e7eb; background:#f8fafc; cursor:pointer;
+    }
+    .icon-btn:hover{ background:#eef2ff; border-color:#c7d2fe; }
+    .menu-pop{
+      position:absolute; right:0; top:calc(100% + 6px); width:260px; z-index:40;
+      background:#fff; border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 18px 40px -20px rgba(0,0,0,.3);
+      padding:10px;
+    }
+    .menu-link{
+      display:block; padding:8px 10px; border-radius:8px; color:#0f172a; font-weight:600; font-size:13px;
+    }
+    .menu-link:hover{ background:#f3f4f6; }
 
-    /* ------- Header status dot ------- */
-    .status-dot{ width:8px; height:8px; border-radius:9999px; background:#d1d5db; }
-    .status-dot.active{ background:#16a34a; }
+    /* Header inline login (inside dropdown also uses these) */
+    .login-fields .form-input{ min-height:34px; }
+    .login-fields label{ font-size:10px; font-weight:700; color:#374151; }
+    .login-fields .cta-button{ min-height:32px; }
 
-    /* ------- Refi calc polish (match form exactly) ------- */
-    #refi-card .refi-card{ padding: var(--aside-pad); }
-    #refi-card .label,
-    #refi-card .form-input,
-    #refi-card .form-select{ font-family:'Inter',sans-serif; }
-    #refi-card .form-input, #refi-card .form-select{ background:#f3f4f6; }
-    #refi-card .form-input:focus, #refi-card .form-select:focus{ background:#fff; }
-    #refi-card .refi-results{ font-size:12px; line-height:1.15; color:#0f172a; font-weight:600; display:grid; gap:4px; min-width:150px; }
-    #refi-card .refi-slider{ width:100%; accent-color: var(--blue-600); }
-    #refi-card .refi-note{ font-size:10px; color:#6b7280; margin-top:2px; text-align:right; }
+    /* Sidebar login card below refi */
+    .login-card small{ font-size:10px; color:#6b7280; }
+
+    /* Make housing row align: monthly payment narrower so Rent/Own fits same line on most screens */
+    .pay-row{ display:grid; grid-template-columns: 1.2fr 1fr; gap:var(--field-gap); align-items:end; }
+    .pay-row .seg{ margin:0; justify-self:start; }
+
   </style>
 
   <script type="application/ld+json">
@@ -211,9 +227,8 @@
 </head>
 <body>
   <!-- NAV -->
-  <header class="w-full max-w-5xl mx-auto mt-4 px-4">
-    <nav class="bg-white/90 backdrop-blur card card-accent px-4 sm:px-6 py-2 flex items-center justify-between">
-      <!-- Left branding -->
+  <header class="w-full max-w-5xl mx-auto mt-4 px-4 relative">
+    <nav class="bg-white/90 backdrop-blur card card-accent px-4 sm:px-6 py-2.5 flex items-center justify-between relative">
       <div class="brand-left">
         <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
         <div class="brand-stack">
@@ -222,71 +237,57 @@
         </div>
       </div>
 
-      <!-- Right cluster -->
-      <div class="flex items-center gap-2">
-        <!-- Static links -->
-        <div class="hidden md:flex items-center gap-5 font-semibold text-zinc-700">
-          <a href="#inventory" class="hover:text-[var(--blue-600)]">Inventory</a>
-          <a href="#about" class="hover:text-[var(--blue-600)]">About</a>
-          <a href="#contact" class="hover:text-[var(--blue-600)]">Contact</a>
-        </div>
+      <div class="hidden md:flex items-center gap-5 font-semibold text-zinc-700">
+        <a href="#inventory" class="hover:text-[var(--blue-600)]">Inventory</a>
+        <a href="#about" class="hover:text-[var(--blue-600)]">About</a>
+        <a href="#contact" class="hover:text-[var(--blue-600)]">Contact</a>
 
-        <!-- Boxed: hamburger first, then profile (SWAPPED as requested) -->
-        <div class="relative">
-          <button id="profileMenuBtn" class="flex items-center gap-2 border border-zinc-300 rounded-md px-2 py-1.5 hover:bg-zinc-50" aria-haspopup="true" aria-expanded="false">
-            <!-- Three lines (hamburger) FIRST -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16" />
+        <!-- Icon group: Profile then Hamburger inside a subtle box -->
+        <div class="icon-box relative" id="iconCluster">
+          <button id="profileBtn" class="icon-btn" aria-label="Profile">
+            <!-- Simple person icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/>
             </svg>
-            <!-- Profile icon SECOND -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M12 12c2.761 0 5-2.239 5-5S14.761 2 12 2 7 4.239 7 7s2.239 5 5 5zm0 2c-4.418 0-8 2.239-8 5v1h16v-1c0-2.761-3.582-5-8-5z"/>
+          </button>
+          <button id="menuBtn" class="icon-btn" aria-label="Menu">
+            <!-- Hamburger -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 6h16M4 12h16M4 18h16"/>
             </svg>
-            <span id="loginStatusDot" class="status-dot"></span>
           </button>
 
-          <!-- Dropdown menu -->
-          <div id="profileMenu" class="absolute right-0 mt-2 w-56 card card-accent hidden z-20">
-            <a href="#inventory" class="block px-3 py-2 hover:bg-[var(--blue-100)]">Inventory</a>
-            <a href="#about" class="block px-3 py-2 hover:bg-[var(--blue-100)]">About</a>
-            <a href="#contact" class="block px-3 py-2 hover:bg-[var(--blue-100)]">Contact</a>
-            <a href="#" class="block px-3 py-2 hover:bg-[var(--blue-100)]">Settings</a>
-            <div class="border-t my-1"></div>
-
-            <!-- Logged-in view -->
-            <div id="menuLoggedIn" class="hidden px-3 py-2 text-sm">
-              <div class="mb-2">Logged in as <b id="menuUserOut"></b></div>
-              <button id="menuLogout" class="w-full cta-button">Log out</button>
+          <!-- Combined dropdown (appears below the box) -->
+          <div id="menuPop" class="menu-pop hidden">
+            <div class="login-fields mb-2">
+              <div class="grid grid-cols-1 gap-2">
+                <div>
+                  <label for="hdrUser" class="block">Username</label>
+                  <input id="hdrUser" class="form-input" placeholder="username" autocomplete="username">
+                </div>
+                <div>
+                  <label for="hdrPass" class="block">Password</label>
+                  <input id="hdrPass" type="password" class="form-input" placeholder="••••••••" autocomplete="current-password">
+                </div>
+                <button id="hdrLoginBtn" class="cta-button w-full mt-1" type="button">Log In</button>
+                <a id="hdrForgot" href="#" class="text-[11px] text-[var(--blue-600)] hover:underline mt-1 inline-block">Forgot password?</a>
+              </div>
             </div>
-
-            <!-- Logged-out view (compact login) -->
-            <form id="menu-login" class="px-3 py-2 flex flex-col gap-2">
-              <input name="username" type="text" placeholder="Username" autocomplete="username" class="form-input" style="min-height:32px;font-size:12px;padding:4px 10px;" />
-              <input name="password" type="password" placeholder="Password" autocomplete="current-password" class="form-input" style="min-height:32px;font-size:12px;padding:4px 10px;" />
-              <button type="submit" class="cta-button" style="min-height:32px;font-size:12px;padding:0 12px;">Login</button>
-              <a href="#" class="text-[var(--blue-600)] hover:underline" style="font-size:10px; text-align:right;">Forgot password?</a>
-            </form>
+            <hr class="my-2 border-zinc-200">
+            <a href="#inventory" class="menu-link">Inventory</a>
+            <a href="#about" class="menu-link">About</a>
+            <a href="#contact" class="menu-link">Contact</a>
+            <a href="#lead-form" class="menu-link">Apply Now</a>
+            <div id="hdrLoginState" class="text-[11px] text-zinc-500 mt-2"></div>
           </div>
         </div>
-
-        <!-- Mobile-only menu button -->
-        <button id="menuBtn" class="sm:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-zinc-200" aria-label="Open menu">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
       </div>
+
+      <!-- Mobile: only a button to open the same dropdown -->
+      <button id="mobileIcon" class="md:hidden icon-btn" aria-label="Open menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
     </nav>
-
-    <!-- Mobile menu -->
-    <div id="mobileMenu" class="hidden sm:hidden mt-2 card card-accent px-4 py-3">
-      <div class="flex flex-col gap-2 font-semibold text-zinc-700">
-        <a href="#inventory" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Inventory</a>
-        <a href="#about" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">About</a>
-        <a href="#contact" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Contact</a>
-        <a href="#lead-form" class="mt-1 cta-button text-center">Apply Now</a>
-      </div>
-    </div>
   </header>
 
   <!-- MAIN -->
@@ -352,7 +353,7 @@
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">1. What are you looking to do?</h3></div>
                     <div class="step-body">
-                      <div class="content vstack">
+                      <div class="content vstack" style="max-width:560px;">
                         <button type="button" class="choice-rect" data-intent="finance">Finance a vehicle</button>
                         <button type="button" class="choice-rect" data-intent="refinance">Refinance current vehicle</button>
                       </div>
@@ -380,7 +381,7 @@
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">3. Bi-weekly budget <span class="muted">(starts at $120)</span></h3></div>
                     <div class="step-body">
-                      <div class="content">
+                      <div class="content" style="max-width:560px;">
                         <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="250" class="w-full" style="accent-color: var(--blue-600);">
                         <div class="text-[10px] text-zinc-700 mt-1 text-center">Selected: <b>$<span id="biWeeklyOut">250</span></b> / bi-weekly</div>
                         <input type="hidden" name="budgetRange" id="budgetRange" value="$250 bi-weekly">
@@ -394,7 +395,7 @@
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">4. Purchase details</h3></div>
                     <div class="step-body">
-                      <div class="content vstack">
+                      <div class="content vstack" style="max-width:560px;">
                         <div>
                           <label for="downPayment" class="label">Down payment</label>
                           <select id="downPayment" name="downPayment" class="form-select">
@@ -422,7 +423,7 @@
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">4. Refinance details</h3></div>
                     <div class="step-body">
-                      <div class="content vstack">
+                      <div class="content vstack" style="max-width:640px;">
                         <div class="grid-inline-3-tight">
                           <select name="refiYear" id="refiYear" class="form-select" required>
                             <option value="">Year</option>
@@ -443,7 +444,7 @@
                   </div>
                 </section>
 
-                <!-- 5. Trade-in details -->
+                <!-- 5. Trade-in details (finance only & only if Yes) -->
                 <section class="form-step hidden" data-id="step-tradein">
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">5. Trade-in details</h3></div>
@@ -457,7 +458,7 @@
                           <input type="text" name="tradeInModel" id="tradeInModel" placeholder="Model" class="form-input" maxlength="50"/>
                         </div>
                         <div class="grid-inline-2 mt-2">
-                          <input type="text" name="tradeInKms" id="tradeInKms" placeholder="Km" class="form-input" inputmode="numeric" maxlength="9"/>
+                          <input type="number" name="tradeInKms" id="tradeInKms" placeholder="Km" class="form-input" inputmode="numeric" min="0" max="1000000"/>
                           <input type="text" name="tradeInOwed" id="tradeInOwed" placeholder="Money owed e.g. $5,000 or None" class="form-input" maxlength="20"/>
                         </div>
                       </div>
@@ -470,7 +471,7 @@
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">6. Employment &amp; Income</h3></div>
                     <div class="step-body">
-                      <div class="content vstack">
+                      <div class="content vstack" style="max-width:560px;">
                         <div>
                           <label for="incomeSourceFull" class="label">Employment type <span class="text-red-500">*</span></label>
                           <select id="incomeSourceFull" name="incomeSourceFull" class="form-select" required>
@@ -496,7 +497,7 @@
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">7. Account creation</h3></div>
                     <div class="step-body">
-                      <div class="content vstack">
+                      <div class="content vstack" style="max-width:560px;">
                         <div>
                           <label for="email" class="label">Email <span class="text-red-500">*</span></label>
                           <input type="email" id="email" name="email" class="form-input" autocomplete="email" maxlength="100" required/>
@@ -524,7 +525,7 @@
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">8. Your information</h3></div>
                     <div class="step-body">
-                      <div class="content vstack">
+                      <div class="content vstack" style="max-width:640px;">
                         <div class="grid-inline-3">
                           <div>
                             <label for="firstName" class="label">First name <span class="text-red-500">*</span></label>
@@ -572,21 +573,22 @@
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">9. Current address</h3></div>
                     <div class="step-body">
-                      <div class="content">
+                      <div class="content" style="max-width:640px;">
                         <div class="grid-inline-addr1 mt-2">
                           <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" placeholder="Street address" autocomplete="street-address" maxlength="120" required/>
                           <input type="text" id="currentUnit" name="currentUnit" class="form-input" placeholder="Unit #" maxlength="10"/>
                         </div>
+
                         <div class="grid-inline-addr2 mt-2">
                           <input type="text" id="currentCity" name="currentCity" class="form-input" placeholder="City" autocomplete="address-level2" maxlength="60" required/>
                           <select id="currentProvince" name="currentProvince" class="form-select" required><option value="">Prov</option></select>
                           <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" placeholder="Postal code" autocomplete="postal-code" maxlength="7" required/>
                         </div>
 
-                        <!-- Monthly payments + Rent/Own same line -->
-                        <div class="grid-inline-pay mt-2">
+                        <!-- Monthly payment + Rent/Own on same row -->
+                        <div class="pay-row mt-2">
                           <div>
-                            <label for="housingPayment" class="label">Monthly payments</label>
+                            <label for="housingPayment" class="label">Monthly payment</label>
                             <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1,800" inputmode="numeric" maxlength="16" required/>
                           </div>
                           <div>
@@ -599,7 +601,6 @@
                           </div>
                         </div>
 
-                        <!-- Time at address -->
                         <div class="grid-inline-2 mt-2">
                           <div>
                             <label class="label">Time at address</label>
@@ -659,45 +660,62 @@
         </div>
       </div>
 
-      <!-- RIGHT: Refinance Calculator -->
+      <!-- RIGHT: Refinance Calculator + Login Card -->
       <aside class="flex flex-col gap-4">
+        <!-- Refinance Calculator -->
         <div class="card card-accent p-0" id="refi-card">
           <div class="accent-header">
-            <div class="h2" style="margin:0;">Refinance Calculator</div>
+            <div class="refi-title">Refinance Calculator</div>
           </div>
           <div class="refi-card">
-            <div class="refi-grid mt-2">
-              <div class="refi-row" style="display:grid;grid-template-columns: 1.5fr .6fr .7fr;gap:8px;">
+            <div class="refi-grid">
+              <!-- Amount box removed per request; we assume a compact default principal -->
+              <div class="refi-mini">
                 <div>
-                    <label class="label" for="refLoanInput">Loan amount</label>
-                    <input id="refLoanInput" class="form-input" placeholder="$15,000" inputmode="numeric" maxlength="14" />
-                </div>
-                <div>
-                    <label class="label" for="refTermInput">Years</label>
-                    <select id="refTermInput" class="form-select">
-                      <option value="">—</option>
-                      <option>1</option><option>2</option><option>3</option><option>4</option>
-                      <option>5</option><option>6</option><option>7</option><option>8</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="label" for="refRateInput">Current %</label>
-                    <input id="refRateInput" class="form-input" placeholder="8.99" inputmode="decimal" maxlength="5" />
-                </div>
-              </div>
+                  <label class="label" for="refTermInput">Years</label>
+                  <select id="refTermInput" class="form-select">
+                    <option value="">—</option>
+                    <option>1</option><option>2</option><option>3</option><option>4</option>
+                    <option>5</option><option>6</option><option>7</option><option>8</option>
+                  </select>
 
-              <div class="refi-mini" style="display:grid;grid-template-columns: 1fr auto;gap:10px;align-items:center;">
+                  <label class="label mt-2 block" for="refRateInput">Current interest %</label>
+                  <input id="refRateInput" class="form-input" placeholder="9.49" inputmode="decimal" maxlength="6" />
+                </div>
+
                 <div>
                   <label class="label" for="refNewRateSlider">Try a new rate</label>
                   <input id="refNewRateSlider" type="range" min="0.00" max="8.99" step="0.05" value="7.99" class="refi-slider">
                   <div class="text-[11px] text-zinc-700 mt-1">New rate: <b><span id="refNewRateOut">7.99</span>%</b></div>
                 </div>
+
                 <div class="refi-results" id="refResults">
                   <div class="text-zinc-500">Enter your numbers to see savings.</div>
                 </div>
               </div>
-
               <div class="refi-note">Estimated.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LOGIN CARD UNDER REFI -->
+        <div class="card card-accent p-0 login-card">
+          <div class="accent-header">
+            <h3 class="h2" style="margin:0;">Account</h3>
+          </div>
+          <div style="padding: var(--aside-pad);">
+            <div class="grid grid-cols-1 gap-2 login-fields">
+              <div>
+                <label for="sideUser" class="block">Username</label>
+                <input id="sideUser" class="form-input" placeholder="username" autocomplete="username">
+              </div>
+              <div>
+                <label for="sidePass" class="block">Password</label>
+                <input id="sidePass" type="password" class="form-input" placeholder="••••••••" autocomplete="current-password">
+              </div>
+              <button id="sideLoginBtn" class="cta-button w-full mt-1" type="button">Log In</button>
+              <a href="#" class="text-[11px] text-[var(--blue-600)] hover:underline mt-1 inline-block">Forgot password?</a>
+              <small id="sideLoginState" class="block mt-1"></small>
             </div>
           </div>
         </div>
@@ -791,93 +809,82 @@
 
   function fmtMoney(x){ x = isFinite(x) ? x : 0; return "$" + x.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
   function parseMoneyInput(v){ if (!v) return 0; return parseFloat(String(v).replace(/[^0-9.]/g,'')) || 0; }
-  function formatMoneyField(input){ const num = parseMoneyInput(input.value); input.value = num ? num.toLocaleString('en-CA', {style:'currency', currency:'CAD', maximumFractionDigits:0}) : ''; }
-  function calcPayment(P, annualRate, years){ const r=(annualRate/100)/12, n=years*12; if(!n||n<=0) return 0; if(r===0) return P/n; return P*r/(1-Math.pow(1+r,-n)); }
-
-  // live comma-format on typing
-  function liveComma(e){
-    const el = e.target;
-    const digits = el.value.replace(/[^\d]/g,'');
-    if(!digits){ el.value = ''; return; }
-    el.value = digits.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  function formatMoneyField(input){
+    const num = parseMoneyInput(input.value);
+    if (!num){ input.value = ''; return; }
+    // format with commas, no cents for entry fields
+    input.value = num.toLocaleString('en-CA', {style:'currency', currency:'CAD', maximumFractionDigits:0});
   }
-
-  // ---- Basic demo login state store ----
-  const LOGIN_KEY = 'vic_login_user';
-  function getUser(){ try{return sessionStorage.getItem(LOGIN_KEY)||'';}catch(_){return '';} }
-  function setUser(u){ try{ if(u){sessionStorage.setItem(LOGIN_KEY,u);} else {sessionStorage.removeItem(LOGIN_KEY);} }catch(_){} }
-
-  function updateLoginUI(){
-    const user = getUser();
-    const dot = $('loginStatusDot');
-    if(dot) dot.classList.toggle('active', !!user);
-
-    const menuLoggedIn = $('menuLoggedIn');
-    const menuLogin = $('menu-login');
-    if(menuLoggedIn && menuLogin){
-      if(user){
-        bySel('#menuUserOut').textContent = user;
-        menuLoggedIn.classList.remove('hidden');
-        menuLogin.classList.add('hidden');
-      }else{
-        menuLoggedIn.classList.add('hidden');
-        menuLogin.classList.remove('hidden');
-      }
-    }
-  }
-
-  function handleLoginForm(form){
-    form.addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const fd = new FormData(form);
-      const user = (fd.get('username')||'').toString().trim();
-      const pass = (fd.get('password')||'').toString();
-      if(!user || !pass) return;
-      setUser(user);
-      updateLoginUI();
-      const menu = $('profileMenu');
-      if(form.id==='menu-login' && menu){ menu.classList.add('hidden'); $('profileMenuBtn')?.setAttribute('aria-expanded','false'); }
-      form.reset();
-    });
-  }
-  function wireLogout(btnId){
-    $(btnId)?.addEventListener('click', ()=>{
-      setUser('');
-      updateLoginUI();
-    });
+  function calcPayment(P, annualRate, years){
+    const r=(annualRate/100)/12, n=years*12;
+    if(!n||n<=0) return 0;
+    if(r===0) return P/n;
+    return P*r/(1-Math.pow(1+r,-n));
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    // Mobile menu toggle
-    $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
+    // ---------- HEADER MENU / PROFILE ----------
+    const iconCluster = $('iconCluster');
+    const menuPop = $('menuPop');
+    const profileBtn = $('profileBtn');
+    const menuBtn = $('menuBtn');
+    const mobileIcon = $('mobileIcon');
 
-    // Profile/menu dropdown toggle
-    (function(){
-      const btn = $('profileMenuBtn');
-      const menu = $('profileMenu');
-      if(btn && menu){
-        btn.addEventListener('click', (e)=>{
-          e.stopPropagation();
-          const expanded = btn.getAttribute('aria-expanded') === 'true';
-          btn.setAttribute('aria-expanded', String(!expanded));
-          menu.classList.toggle('hidden');
-        });
-        document.addEventListener('click',(e)=>{
-          if(!btn.contains(e.target) && !menu.contains(e.target)){
-            btn.setAttribute('aria-expanded','false');
-            menu.classList.add('hidden');
-          }
-        });
+    function toggleMenu(show){
+      if (!menuPop) return;
+      const willShow = (typeof show==='boolean') ? show : menuPop.classList.contains('hidden');
+      menuPop.classList.toggle('hidden', !willShow);
+    }
+    [profileBtn, menuBtn, mobileIcon].forEach(btn=>{
+      btn?.addEventListener('click', (e)=>{ e.stopPropagation(); toggleMenu(); });
+    });
+    document.addEventListener('click', (e)=>{
+      if (!iconCluster?.contains(e.target)) toggleMenu(false);
+    });
+
+    // Login handlers (header + sidebar) + state
+    function setLoggedIn(username){
+      try{
+        if (username){
+          sessionStorage.setItem('vic_logged_in','1');
+          sessionStorage.setItem('vic_user', username);
+        }else{
+          sessionStorage.removeItem('vic_logged_in');
+          sessionStorage.removeItem('vic_user');
+        }
+      }catch(_){}
+      renderLoginState();
+    }
+    function isLoggedIn(){ try{ return sessionStorage.getItem('vic_logged_in')==='1'; }catch(_){ return false; } }
+    function getUser(){ try{ return sessionStorage.getItem('vic_user') || ''; }catch(_){ return ''; } }
+    function renderLoginState(){
+      const hdrState = $('hdrLoginState');
+      const sideState = $('sideLoginState');
+      if (isLoggedIn()){
+        const name = getUser();
+        hdrState && (hdrState.textContent = 'Logged in as ' + name);
+        sideState && (sideState.textContent = 'Logged in as ' + name);
+      }else{
+        hdrState && (hdrState.textContent = 'Not logged in');
+        sideState && (sideState.textContent = 'Not logged in');
       }
-    })();
-
-    // Login forms + logout buttons
-    const menuLoginForm = $('menu-login');
-    if(menuLoginForm) handleLoginForm(menuLoginForm);
-    wireLogout('menuLogout');
-
-    // Initial login state sync
-    updateLoginUI();
+    }
+    $('hdrLoginBtn')?.addEventListener('click', ()=>{
+      const u = $('hdrUser')?.value?.trim() || '';
+      const p = $('hdrPass')?.value?.trim() || '';
+      if (!u || !p) return;
+      setLoggedIn(u);
+      toggleMenu(false);
+      alert('Logged in (demo).');
+    });
+    $('sideLoginBtn')?.addEventListener('click', ()=>{
+      const u = $('sideUser')?.value?.trim() || '';
+      const p = $('sidePass')?.value?.trim() || '';
+      if (!u || !p) return;
+      setLoggedIn(u);
+      alert('Logged in (demo).');
+    });
+    renderLoginState();
 
     // -------- FLOW MAP --------
     const stepsMap = {};
@@ -915,7 +922,7 @@
     }
 
     let curStepId = 'step-intent';
-    function goTo(id){ curStepId=id; showOnly(id); updateProgress(id); }
+    function goTo(id){ curStepId=id; showOnly(id); updateProgress(id); ensureConsistentHeights(); }
 
     function validateCurrent(stepId){
       const stepEl = stepsMap[stepId];
@@ -1015,28 +1022,16 @@
     $('btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
     $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
 
+    // Currency formatting on blur
+    $('housingPayment')?.addEventListener('blur', (e)=> formatMoneyField(e.target));
+    $('avgMonthlyIncome')?.addEventListener('blur', (e)=> formatMoneyField(e.target));
+
     // Phone format
     $('phone')?.addEventListener('input', (e)=>{
       const d=e.target.value.replace(/\D/g,'').slice(0,10);
       if(d.length>6)e.target.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
       else if(d.length>3)e.target.value=`(${d.slice(0,3)}) ${d.slice(3)}`;
       else if(d.length>0)e.target.value=`(${d}`;
-    });
-
-    // Smart commas / $ for money + number fields
-    const moneyIds = ['avgMonthlyIncome','housingPayment','otherIncomeAmount','refLoanInput'];
-    moneyIds.forEach(id=>{
-      const el = $(id);
-      if(!el) return;
-      el.addEventListener('input', liveComma);
-      el.addEventListener('blur', ()=> formatMoneyField(el));
-      el.addEventListener('focus', ()=>{ el.value = el.value.replace(/[^\d]/g,'').replace(/\B(?=(\d{3})+(?!\d))/g, ","); });
-    });
-    const commaOnlyIds = ['tradeInKms'];
-    commaOnlyIds.forEach(id=>{
-      const el = $(id);
-      if(!el) return;
-      el.addEventListener('input', liveComma);
     });
 
     // Submit
@@ -1080,9 +1075,8 @@
     // DOB helpers
     function populateDOBYears(sel){
       if(!sel) return;
-      const start=2004;
-      sel.innerHTML = '<option value="">Year</option>';
-      for(let y=start; y>=1940; y--){
+      sel.innerHTML = '<option value="">YYYY</option>';
+      const start=2004; for(let y=start; y>=1940; y--){
         const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);
       }
     }
@@ -1118,25 +1112,22 @@
     function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
     function populateYears(sel, start, end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} }
 
-    // Refi calc wiring
-    function setupRefiCalcInputs(){
-      const loanEl = $('refLoanInput');
+    // ---- Refinance Calculator ----
+    function setupRefiCalc(){
+      const DEFAULT_LOAN = 15000; // compact assumption (amount box removed)
       const rateEl = $('refRateInput');
       const termEl = $('refTermInput');
       const newRateSlider = $('refNewRateSlider');
       const newRateOut = $('refNewRateOut');
       const results = $('refResults');
 
-      if (!(loanEl && rateEl && termEl && newRateSlider && newRateOut)) return;
-
-      loanEl.addEventListener('input', liveComma);
-      loanEl.addEventListener('blur', ()=>{ formatMoneyField(loanEl); update(); });
+      if (!(rateEl && termEl && newRateSlider && newRateOut && results)) return;
 
       [rateEl, termEl].forEach(el=> el.addEventListener('input', update));
       newRateSlider.addEventListener('input', ()=>{ newRateOut.textContent = Number(newRateSlider.value).toFixed(2); update(); });
 
       function update(){
-        const loan = parseMoneyInput(loanEl.value);
+        const loan = DEFAULT_LOAN; // no visible amount field per request
         const rate = parseFloat(rateEl.value)||0;
         const years = parseFloat(termEl.value)||0;
 
@@ -1145,6 +1136,7 @@
           return;
         }
 
+        // cap at 8.99 and keep <= (current rate - 0.99)
         const desired = Math.min(8.99, Math.max(0, parseFloat(newRateSlider.value)||0));
         const maxAllowed = Math.max(0, rate - 0.99);
         const newRate = Math.min(desired, maxAllowed);
@@ -1154,7 +1146,8 @@
         const curPmt = calcPayment(loan, rate, years);
         const curTotInt = curPmt*years*12 - loan;
 
-        const newLoan = loan + 3000; // unchanged logic
+        // $3,000 silently added to new loan
+        const newLoan = loan + 3000;
         const newPmt = calcPayment(newLoan, newRate, years);
         const newTotInt = newPmt*years*12 - newLoan;
 
@@ -1167,6 +1160,33 @@
 
       newRateOut.textContent = Number(newRateSlider.value).toFixed(2);
       update();
+    }
+
+    // ---------- CONSISTENT HEIGHTS ----------
+    function ensureConsistentHeights(){
+      const viewport = $('step-viewport');
+      const footer = $('form-footer');
+      if (!viewport || !footer) return;
+
+      const footerH = footer.offsetHeight || 0;
+      const extra = 6; // smaller breathing space above footer content
+      bySelAll('.step-inner').forEach(inner=>{
+        inner.style.setProperty('--footer-space', (footerH + extra) + 'px');
+      });
+
+      let maxContent = 0;
+      const hidden = [];
+      bySelAll('.form-step').forEach(sec=>{
+        if (sec.classList.contains('hidden')){ hidden.push(sec); sec.classList.remove('hidden'); }
+      });
+      bySelAll('.form-step .step-body > .content').forEach(c=>{
+        maxContent = Math.max(maxContent, c.offsetHeight);
+      });
+      hidden.forEach(sec=> sec.classList.add('hidden'));
+
+      bySelAll('.form-step .step-body').forEach(b=>{
+        b.style.setProperty('--content-min', maxContent + 'px');
+      });
     }
 
     // ===== init =====
@@ -1197,10 +1217,17 @@
       populateYears($('refiYear'),   new Date().getFullYear(), 1995);
 
       // Start
-      showOnly('step-intent'); updateProgress('step-intent');
+      goTo('step-intent');
 
       // Refi calc
-      setupRefiCalcInputs();
+      setupRefiCalc();
+
+      // Keep heights locked to tallest step
+      ensureConsistentHeights();
+      window.addEventListener('resize', ensureConsistentHeights);
+
+      $('btnNext')?.addEventListener('click', ()=> setTimeout(ensureConsistentHeights, 0));
+      $('btnBack')?.addEventListener('click', ()=> setTimeout(ensureConsistentHeights, 0));
     })();
   });
   </script>
