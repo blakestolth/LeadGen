@@ -1,3 +1,5 @@
+Got it — I tightened the gap above the back/next footer to 50% of the previous spacing. Everything else is unchanged.
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -33,7 +35,7 @@
 
       --aside-pad: 16px;
 
-      /* Tiny gap below footer now matches the top padding under the progress header */
+      /* Tiny gap below footer matches the top padding under the progress header */
       --footer-card-gap: var(--pad-y);
     }
     @media (max-width:640px){ :root{ --nav-font: 13px; } }
@@ -1059,11 +1061,12 @@
       const footer = $('form-footer');
       if (!viewport || !footer) return;
 
-      // Make the space above the footer equal to the top padding under the progress header
+      // Make the space above the footer equal to HALF the top padding under the progress header
       const rootStyles = getComputedStyle(document.documentElement);
       const topPad = parseInt(rootStyles.getPropertyValue('--pad-y')) || 10;
+      const halfPad = Math.max(0, Math.round(topPad * 0.5));
       bySelAll('.step-inner').forEach(inner=>{
-        inner.style.setProperty('--footer-space', topPad + 'px');
+        inner.style.setProperty('--footer-space', halfPad + 'px');
       });
 
       // Measure tallest step and lock heights so the form doesn’t jump
