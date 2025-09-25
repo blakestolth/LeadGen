@@ -96,7 +96,7 @@
 
     .step-inner{
       max-width: var(--section-max); margin: 0 auto; padding-top: var(--pad-y);
-      padding-bottom: var(--footer-space, 12px); /* we compute this in JS */
+      padding-bottom: var(--footer-space, 12px);
       display:flex; flex-direction:column; min-height:100%;
     }
     .step-title{}
@@ -135,13 +135,13 @@
     .grid-inline-addr2{ display:grid; grid-template-columns: 1.6fr 1fr 1fr; gap:var(--field-gap); }
     .grid-inline-dob{ display:grid; grid-template-columns: 1.2fr .9fr .9fr 1.6fr; gap:var(--field-gap); }
 
-    /* NEW: address line with payment, tenure, and rent/own in one row (unchanged layout you approved) */
+    /* NEW: address line with payment, tenure, and rent/own in one row */
     .grid-inline-addr3{ display:grid; grid-template-columns: .7fr .9fr .9fr 1.2fr; gap:var(--field-gap); align-items:end; }
     @media (max-width:640px){
       .grid-inline-addr3{ grid-template-columns: 1fr 1fr; }
     }
 
-    /* Header brand (unchanged) */
+    /* Header brand */
     .brand-left{ display:flex; align-items:center; gap:12px; }
     .site-logo{ height:60px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
     @media (max-width:640px){ .site-logo{ height:56px; } }
@@ -291,7 +291,26 @@
           <div class="sticky px-4 py-2 border-b">
             <div class="flex items-center justify-between">
               <div id="progress-label" class="text-[10px] font-semibold text-zinc-700">Step 1</div>
-              <div id="progress-endcap" class="text-[10px] text-[var(--blue-700)] font-semibold">Let’s get you approved</div>
+
+              <div class="flex items-center gap-2">
+                <div id="progress-endcap" class="text-[10px] text-[var(--blue-700)] font-semibold hidden sm:block">
+                  Let’s get you approved
+                </div>
+
+                <!-- Profile button (profile + three lines) -->
+                <button aria-label="Profile" class="h-7 w-7 inline-flex items-center justify-center rounded-md border border-zinc-200 hover:bg-zinc-50 pointer-events-auto">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 text-zinc-700" fill="none" stroke="currentColor" stroke-width="2">
+                    <!-- user circle -->
+                    <path d="M12 12a3.5 3.5 0 1 0-3.5-3.5A3.5 3.5 0 0 0 12 12Z"/>
+                    <path d="M5 20a7 7 0 0 1 14 0"/>
+                    <!-- three lines -->
+                    <path d="M16 6h5M16 9h5M16 12h5"/>
+                  </svg>
+                </button>
+
+                <!-- Apply Now (blue with white text) -->
+                <a href="#lead-form" class="cta-button !py-1.5 !px-3 text-[11px] pointer-events-auto">Apply Now</a>
+              </div>
             </div>
             <div class="track mt-2"><div id="progress-fill" class="fill"></div></div>
           </div>
@@ -546,7 +565,7 @@
                           <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" placeholder="Postal code" autocomplete="postal-code" maxlength="7" required/>
                         </div>
 
-                        <!-- single-row layout (kept) -->
+                        <!-- NEW single-row layout -->
                         <div class="grid-inline-addr3 mt-2">
                           <div>
                             <label for="housingPayment" class="label">Monthly payments</label>
@@ -618,7 +637,7 @@
       </div>
 
       <!-- RIGHT: Refinance Calculator + (Blank) Account box -->
-      <aside class="flex flex-col gap-4" id="right-aside">
+      <aside class="flex flex-col gap-4">
         <!-- Refinance Calculator -->
         <div class="card card-accent p-0" id="refi-card">
           <div class="accent-header">
@@ -659,12 +678,12 @@
           </div>
         </div>
 
-        <!-- BLANK ACCOUNT BOX -->
+        <!-- BLANK ACCOUNT BOX (kept as a square, no content) -->
         <div class="card card-accent p-0" id="account-card" aria-label="Account">
           <div class="accent-header">
             <h3 class="h2" style="margin:0;">Account</h3>
           </div>
-          <div class="blank-space" style="padding: var(--aside-pad);"></div>
+          <div class="blank-space" id="account-blank" style="padding: var(--aside-pad);"></div>
         </div>
       </aside>
     </section>
@@ -906,11 +925,11 @@
       else if(d.length>0)e.target.value=`(${d}`;
     });
 
-    // Monthly housing payment: keep digits during typing, pretty-format on blur (max 5 digits)
+    // Monthly housing payment: keep digits during typing, pretty-format on blur
     const hp = $('housingPayment');
     if (hp){
       hp.addEventListener('input', (e)=>{
-        e.target.value = e.target.value.replace(/\D/g,'').slice(0,5);
+        e.target.value = e.target.value.replace(/\D/g,'').slice(0,5); // max 5 digits
       });
       hp.addEventListener('blur', ()=>{
         const v = hp.value.replace(/\D/g,'');
@@ -1053,20 +1072,14 @@
       update();
     }
 
-    // ---------- CONSISTENT HEIGHTS + tighter bottom gap ----------
+    // ---------- CONSISTENT HEIGHTS & FLUSH ACCOUNT ----------
     function ensureConsistentHeights(){
-      const viewport = $('step-viewport');
-      const footer = $('form-footer');
-      if (!viewport || !footer) return;
-
-      // Set bottom inner padding to match the header’s vertical padding (your --pad-y)
-      const rootStyles = getComputedStyle(document.documentElement);
-      const padY = parseInt(rootStyles.getPropertyValue('--pad-y')) || 10;
+      // Tight, fixed bottom space to shrink the form
       bySelAll('.step-inner').forEach(inner=>{
-        inner.style.setProperty('--footer-space', padY + 'px');
+        inner.style.setProperty('--footer-space', '12px');
       });
 
-      // Lock to tallest step (unchanged logic)
+      // Keep body areas equal height to the tallest step (unchanged)
       let maxContent = 0;
       const hidden = [];
       bySelAll('.form-step').forEach(sec=>{
@@ -1076,29 +1089,28 @@
         maxContent = Math.max(maxContent, c.offsetHeight);
       });
       hidden.forEach(sec=> sec.classList.add('hidden'));
-
       bySelAll('.form-step .step-body').forEach(b=>{
         b.style.setProperty('--content-min', maxContent + 'px');
       });
 
-      // Keep right-side blank account box flush with the form bottom
-      syncAsideHeights();
-    }
-
-    // Stretch the blank account card so refi+account equals the form height
-    function syncAsideHeights(){
-      const formCard = $('lead-form');
+      // Adjust the blank account box so the right column bottom is flush with the form
+      const lead = $('lead-form');
       const refi = $('refi-card');
-      const account = $('account-card');
-      const aside = $('right-aside');
-      if (!(formCard && refi && account && aside)) return;
+      const acc = $('account-card');
+      const blank = $('account-blank');
+      if (lead && refi && acc && blank){
+        const leftH = lead.offsetHeight;
+        const refiH = refi.offsetHeight;
+        const accTotal = acc.offsetHeight;
+        const blankCurrent = blank.offsetHeight;
 
-      const gridGap = 16; // gap-4 in Tailwind (1rem)
-      const target = formCard.offsetHeight;
-      const used = refi.offsetHeight + gridGap;
-      const available = Math.max(80, target - used);
+        // Height of account card excluding the blank space:
+        const accNonBlank = accTotal - blankCurrent;
 
-      account.style.height = available + 'px';
+        let want = leftH - refiH - accNonBlank;
+        if (isNaN(want)) want = 0;
+        blank.style.minHeight = Math.max(24, want) + 'px';
+      }
     }
 
     // ===== init =====
@@ -1111,44 +1123,6 @@
       $('housingType') && ( $('housingType').value = 'Rent' );
 
       // DOB
-      function updateDays(){
-        const y=parseInt($('dobYear')?.value||'',10);
-        const m=parseInt($('dobMonth')?.value||'',10);
-        const selV=parseInt($('dobDay')?.value||'',10);
-        const days=(y&&m)?new Date(y,m,0).getDate():31;
-        const daySel=$('dobDay'); if(!daySel) return;
-        daySel.innerHTML='<option value="">DD</option>';
-        for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=(i<10?('0'+i):String(i)); daySel.appendChild(o); }
-        if(selV&&selV<=days) daySel.value=selV;
-      }
-      function populateDOBYears(sel){
-        if(!sel) return;
-        const start=2004;
-        sel.innerHTML = '';
-        for(let y=start; y>=1940; y--){
-          const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);
-        }
-        sel.insertAdjacentHTML('afterbegin','<option value="" selected>YYYY</option>');
-      }
-      function populateMonths(sel){
-        if(!sel) return;
-        const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-        sel.innerHTML = '<option value="">MM</option>';
-        months.forEach((name, i)=>{
-          const num = String(i+1).padStart(2,'0');
-          const o = document.createElement('option');
-          o.value = (i+1); o.dataset.num = num; o.dataset.long = name + ' ' + num; o.textContent = num;
-          sel.appendChild(o);
-        });
-        function setLabelsLong(){ Array.from(sel.options).forEach(opt=>{ if(opt.value && opt.dataset.long) opt.textContent = opt.dataset.long; }); }
-        function setLabelsShort(){ Array.from(sel.options).forEach(opt=>{ if(opt.value && opt.dataset.num) opt.textContent = opt.dataset.num; }); }
-        sel.addEventListener('mousedown', setLabelsLong);
-        sel.addEventListener('touchstart', setLabelsLong, {passive:true});
-        sel.addEventListener('focus', setLabelsLong);
-        sel.addEventListener('change', setLabelsShort);
-        sel.addEventListener('blur', setLabelsShort);
-      }
-
       populateDOBYears($('dobYear'));
       populateMonths($('dobMonth'));
       updateDays();
@@ -1156,10 +1130,6 @@
       $('dobYear')?.addEventListener('change', updateDays);
 
       // Tenures & address helpers
-      function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o); } }
-      function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
-      function populateYears(sel, start, end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} }
-
       populateDropdown($('timeWithEmployerYears'),0,30,'Years','Year');
       populateDropdown($('timeWithEmployerMonths'),0,11,'Months','Month');
       populateDropdown($('timeAtAddressYears'),0,30,'Years','Year');
@@ -1176,12 +1146,9 @@
       // Refi calc
       setupRefiCalcInputs();
 
-      // Keep heights locked to tallest step + align aside
+      // Keep heights locked & account box flush
       ensureConsistentHeights();
-      window.addEventListener('resize', ()=>{
-        ensureConsistentHeights();
-        syncAsideHeights();
-      });
+      window.addEventListener('resize', ensureConsistentHeights);
 
       $('btnNext')?.addEventListener('click', ()=> setTimeout(ensureConsistentHeights, 0));
       $('btnBack')?.addEventListener('click', ()=> setTimeout(ensureConsistentHeights, 0));
