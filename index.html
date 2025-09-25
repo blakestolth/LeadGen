@@ -29,9 +29,11 @@
       --nav-font: 14px;
       --control-h: 40px;
       --field-gap: 8px;
-      --section-max: 720px;
+      --section-max: 700px; /* slightly tighter to shrink the form if tallest step allows */
 
       --aside-pad: 16px;
+
+      /* Tighter standard gap beneath footer bar (brought box bottom up) */
       --footer-card-gap: 4px;
     }
     @media (max-width:640px){ :root{ --nav-font: 13px; } }
@@ -39,10 +41,12 @@
     body{ font-family:'Inter',sans-serif; background:#f6f7fb; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
     .card{ background:#fff; border-radius:12px; border:1px solid #e5e7eb; box-shadow:0 8px 18px -10px rgb(0 0 0 / .15); }
 
+    /* Accented cards (applied to all major boxes) */
     .card-accent{
       border:2px solid rgba(42,93,159,.18);
       box-shadow:0 14px 26px -18px rgba(42,93,159,.38);
-      background:linear-gradient(180deg,rgba(246,248,253,0.55),rgba(255,255,255,1)) border-box;
+      background:
+        linear-gradient(180deg,rgba(246,248,253,0.55),rgba(255,255,255,1)) border-box;
     }
     .accent-header{
       display:flex; align-items:center; justify-content:space-between;
@@ -73,11 +77,11 @@
 
     /* ---------- FORM BOX-SPECIFIC DOWNSCALE ---------- */
     #lead-form{
-      --fs-h2: 15px;
-      --fs-body: 12px;
-      --fs-label: 10px;
-      --fs-cta: 12px;
-      --control-h: 38px;
+      --fs-h2: 15px;          /* was 16 */
+      --fs-body: 12px;        /* was 13 */
+      --fs-label: 10px;       /* was 11 */
+      --fs-cta: 12px;         /* was 13 */
+      --control-h: 38px;      /* was 40 */
     }
     #lead-form .choice-rect{ padding:9px 11px; }
     #lead-form .sticky [id^="progress-"]{ font-size:10px !important; }
@@ -92,9 +96,10 @@
 
     .step-inner{
       max-width: var(--section-max); margin: 0 auto; padding-top: var(--pad-y);
-      padding-bottom: var(--footer-space, 12px);
+      padding-bottom: var(--footer-space, 12px); /* tighter inner buffer */
       display:flex; flex-direction:column; min-height:100%;
     }
+    .step-title{}
     .step-body{
       flex:1; display:flex; align-items:center; justify-content:center;
       padding-top:4px;
@@ -106,6 +111,7 @@
     .form-footer{
       position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb;
       padding: 12px 16px;
+      /* tighter gap to card bottom */
       margin-bottom: var(--footer-card-gap);
     }
     #btnBack{ min-height:34px; border-radius:10px; }
@@ -130,53 +136,9 @@
     .grid-inline-addr2{ display:grid; grid-template-columns: 1.6fr 1fr 1fr; gap:var(--field-gap); }
     .grid-inline-dob{ display:grid; grid-template-columns: 1.2fr .9fr .9fr 1.6fr; gap:var(--field-gap); }
 
-    /* NEW: one-line current address row */
-    .grid-inline-addr3{
-      display:grid; grid-template-columns: .8fr 1.1fr auto; gap:var(--field-gap); align-items:center;
-    }
-
-    .brand-left{ display:flex; align-items:center; gap:12px; }
-    .site-logo{ height:60px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
-    @media (max-width:640px){ .site-logo{ height:56px; } }
-    .brand-stack{ display:flex; flex-direction:column; gap:4px; }
-    .brand-title{ color:#0f172a; font-weight:800; letter-spacing:-0.01em; font-size:var(--nav-font); white-space:nowrap; text-decoration:none; line-height:1.1; margin-left:-2px; }
-    .powered-by-inline{ display:flex; align-items:center; gap:6px; font-size: calc(var(--nav-font) * .8); color:#475569; font-weight:700; line-height:1; }
-    .powered-by-inline img{ height: 0.9em; width:auto; object-fit:contain; position:relative; top:2px; }
-
-    .abc-badge{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:9999px; background:var(--blue-600); color:#fff; border:none; font-weight:800; font-size:11px; line-height:1; flex-shrink:0; }
-
-    .bodytype-card{ overflow:hidden; border-radius:10px; border:1px solid #e5e7eb; background:#fff; transition:transform .15s,box-shadow .15s,border-color .15s; }
-    .bodytype-card:hover{ transform:translateY(-1px); border-color:var(--blue-600); box-shadow:0 10px 18px -12px rgba(42,93,159,.28); }
-    .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:92px; }
-    @media (min-width:640px){ .bodytype-img{ height:110px; } }
-
-    .map-embed{ width:100%; height:150px; border:0; }
-    @media (max-width:768px){ .map-embed{ height:200px; } }
-    .progress-overlay{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:50}
-    .progress-card{background:#fff;border-radius:12px;box-shadow:0 20px 40px -20px rgba(0,0,0,.35);width:min(520px,92vw);padding:18px 16px}
-    .progress-title{font-weight:800;font-size:16px;color:#0f172a}
-    .progress-track{height:8px;background:#e5e7eb;border-radius:9999px;overflow:hidden;margin-top:10px}
-    .progress-bar{height:8px;width:0%;background:linear-gradient(90deg,var(--blue-600),var(--blue-grad));transition:width .6s ease}
-    .progress-steps{list-style:none;padding:0;margin:12px 0 0;font-size:13px;color:#374151}
-    .progress-steps li{display:flex;align-items:center;gap:8px;opacity:.7}
-    .progress-steps li.active{opacity:1;font-weight:700}
-    .progress-note{margin-top:10px;font-size:12px;color:#64748b}
-    .hidden{display:none !important;}
-
-    .form-select{
-      -webkit-appearance: none; -moz-appearance: none; appearance: none;
-      background-image:
-        linear-gradient(45deg, transparent 50%, #9ca3af 50%),
-        linear-gradient(135deg, #9ca3af 50%, transparent 50%),
-        linear-gradient(to right, transparent, transparent);
-      background-position:
-        calc(100% - 18px) calc(50% - 5px),
-        calc(100% - 13px) calc(50% - 5px),
-        calc(100% - 2.2rem) 0.4rem;
-      background-size: 7px 7px, 7px 7px, 0 0;
-      background-repeat: no-repeat;
-      padding-right: 2.2rem;
-    }
+    /* NEW: Single-row line for payments + duration + rent/own */
+    .grid-inline-addr3{ display:grid; grid-template-columns: .8fr .7fr .95fr auto; gap:var(--field-gap); align-items:end; }
+    .months-wider{ min-width: 110px; } /* let the word 'Months' show fully */
 
     /* Refi calculator — compact */
     .refi-card { padding: var(--aside-pad); }
@@ -187,6 +149,9 @@
     .refi-results{ font-size:12px; line-height:1.15; color:#0f172a; font-weight:600; display:grid; gap:4px; min-width:150px; }
     .refi-slider{ width:100%; accent-color: var(--blue-600); }
     .refi-note{ font-size:10px; color:#6b7280; margin-top:2px; text-align:right; }
+
+    /* NEW: Refi details second row (Mileage + Years left + Current %) */
+    .grid-refi-line2{ display:grid; grid-template-columns: 1.2fr .8fr .8fr; gap:var(--field-gap); }
   </style>
 
   <script type="application/ld+json">
@@ -371,20 +336,41 @@
                     <div class="step-title"><h3 class="h2">4. Refinance details</h3></div>
                     <div class="step-body">
                       <div class="content vstack" style="max-width:640px;">
+                        <!-- Vehicle basics with labels -->
                         <div class="grid-inline-3-tight">
-                          <select name="refiYear" id="refiYear" class="form-select" required>
-                            <option value="">Year</option>
-                          </select>
-                          <input type="text" name="refiMake" id="refiMake" placeholder="Make" class="form-input" maxlength="40" required/>
-                          <input type="text" name="refiModel" id="refiModel" placeholder="Model" class="form-input" maxlength="50" required/>
+                          <div>
+                            <label for="refiYear" class="label">Year</label>
+                            <select name="refiYear" id="refiYear" class="form-select" required>
+                              <option value="">Year</option>
+                            </select>
+                          </div>
+                          <div>
+                            <label for="refiMake" class="label">Make</label>
+                            <input type="text" name="refiMake" id="refiMake" placeholder="e.g., Toyota" class="form-input" maxlength="40" required/>
+                          </div>
+                          <div>
+                            <label for="refiModel" class="label">Model</label>
+                            <input type="text" name="refiModel" id="refiModel" placeholder="e.g., Camry" class="form-input" maxlength="50" required/>
+                          </div>
                         </div>
-                        <div class="grid-inline-2">
-                          <select id="refiRemainYears" name="refiRemainYears" class="form-select" required>
-                            <option value="">Years left</option>
-                            <option>1</option><option>2</option><option>3</option><option>4</option>
-                            <option>5</option><option>6</option><option>7</option><option>8</option>
-                          </select>
-                          <input type="text" id="refiCurrentRate" name="refiCurrentRate" class="form-input" placeholder="Current interest % (e.g., 9.49)" inputmode="decimal" maxlength="6" required/>
+                        <!-- Mileage + time left + current rate (mileage slightly bigger) -->
+                        <div class="grid-refi-line2">
+                          <div>
+                            <label for="refiMileage" class="label">Mileage (km)</label>
+                            <input type="text" id="refiMileage" name="refiMileage" class="form-input" placeholder="e.g., 95,000" inputmode="numeric" maxlength="9"/>
+                          </div>
+                          <div>
+                            <label for="refiRemainYears" class="label">Years left</label>
+                            <select id="refiRemainYears" name="refiRemainYears" class="form-select" required>
+                              <option value="">Years</option>
+                              <option>1</option><option>2</option><option>3</option><option>4</option>
+                              <option>5</option><option>6</option><option>7</option><option>8</option>
+                            </select>
+                          </div>
+                          <div>
+                            <label for="refiCurrentRate" class="label">Current interest %</label>
+                            <input type="text" id="refiCurrentRate" name="refiCurrentRate" class="form-input" placeholder="e.g., 9.49" inputmode="decimal" maxlength="6" required/>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -398,11 +384,20 @@
                     <div class="step-body">
                       <div class="content">
                         <div class="grid-inline-3-tight mt-2">
-                          <select name="tradeInYear" id="tradeInYear" class="form-select">
-                            <option value="">Year</option>
-                          </select>
-                          <input type="text" name="tradeInMake" id="tradeInMake" placeholder="Make" class="form-input" maxlength="40"/>
-                          <input type="text" name="tradeInModel" id="tradeInModel" placeholder="Model" class="form-input" maxlength="50"/>
+                          <div>
+                            <label for="tradeInYear" class="label">Year</label>
+                            <select name="tradeInYear" id="tradeInYear" class="form-select">
+                              <option value="">Year</option>
+                            </select>
+                          </div>
+                          <div>
+                            <label for="tradeInMake" class="label">Make</label>
+                            <input type="text" name="tradeInMake" id="tradeInMake" placeholder="Make" class="form-input" maxlength="40"/>
+                          </div>
+                          <div>
+                            <label for="tradeInModel" class="label">Model</label>
+                            <input type="text" name="tradeInModel" id="tradeInModel" placeholder="Model" class="form-input" maxlength="50"/>
+                          </div>
                         </div>
                         <div class="grid-inline-2 mt-2">
                           <input type="number" name="tradeInKms" id="tradeInKms" placeholder="Km" class="form-input" inputmode="numeric" min="0" max="1000000"/>
@@ -444,7 +439,8 @@
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">7. Account creation</h3></div>
                     <div class="step-body">
-                      <div class="content vstack" style="max-width:640px;">
+                      <div class="content" style="max-width:640px;">
+                        <!-- email & phone on same row -->
                         <div class="grid-inline-2">
                           <div>
                             <label for="email" class="label">Email <span class="text-red-500">*</span></label>
@@ -455,7 +451,8 @@
                             <input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" maxlength="14" required/>
                           </div>
                         </div>
-                        <div class="grid-inline-2">
+                        <!-- password & re-enter on same row -->
+                        <div class="grid-inline-2 mt-2">
                           <div>
                             <label for="accountPass" class="label">Password <span class="text-red-500">*</span></label>
                             <input type="password" id="accountPass" name="accountPass" class="form-input" minlength="6" maxlength="64" required/>
@@ -535,18 +532,19 @@
                           <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" placeholder="Postal code" autocomplete="postal-code" maxlength="7" required/>
                         </div>
 
-                        <!-- NEW single row: payment (small), duration, rent/own -->
+                        <!-- NEW: One line with smaller payments, wider Months, then Rent/Own -->
                         <div class="grid-inline-addr3 mt-2">
                           <div>
                             <label for="housingPayment" class="label">Monthly payments</label>
-                            <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1,800" inputmode="numeric" maxlength="6" required/>
+                            <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1,800" inputmode="numeric" maxlength="10" required/>
                           </div>
                           <div>
-                            <label class="label">Time at address</label>
-                            <div class="grid-inline-2">
-                              <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                              <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
-                            </div>
+                            <label class="label" for="timeAtAddressYears">Years</label>
+                            <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
+                          </div>
+                          <div>
+                            <label class="label" for="timeAtAddressMonths">Months</label>
+                            <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select months-wider"><option value="">Months</option></select>
                           </div>
                           <div>
                             <label class="label">Rent or Own?</label>
@@ -605,7 +603,7 @@
         </div>
       </div>
 
-      <!-- RIGHT: Refinance Calculator + (Blank) Account Box -->
+      <!-- RIGHT: Refinance Calculator + Login -->
       <aside class="flex flex-col gap-4">
         <!-- Refinance Calculator -->
         <div class="card card-accent p-0" id="refi-card">
@@ -647,13 +645,29 @@
           </div>
         </div>
 
-        <!-- (Blank) Account box kept, height reduced naturally -->
-        <div class="card card-accent p-0" id="login-card">
+        <!-- LOGIN BOX (unchanged content) -->
+        <div class="card card-accent p-0 h-full flex flex-col" id="login-card">
           <div class="accent-header">
             <h3 class="h2" style="margin:0;">Account</h3>
           </div>
-          <div style="padding: var(--aside-pad);">
-            <!-- intentionally blank per your request -->
+          <div style="padding: var(--aside-pad); display:flex; flex-direction:column; height:100%;">
+            <h3 class="h2">Log in to view options</h3>
+            <p class="text-[11px] text-zinc-600 mt-1">Log in if you’ve submitted an application to see options you qualify for.</p>
+            <form id="login-form" class="flex flex-col gap-2 mt-3">
+              <div>
+                <label class="label mb-1 block" for="loginCode">Application number</label>
+                <input id="loginCode" type="text" class="form-input uppercase" placeholder="ABC-123456" maxlength="16" />
+              </div>
+              <div>
+                <label class="label mb-1 block" for="loginPass">Password</label>
+                <input id="loginPass" type="password" class="form-input" placeholder="••••••••" />
+              </div>
+              <button type="submit" class="cta-button mt-1">Log In</button>
+              <div class="text-[11px] mt-1">
+                <a href="#" class="text-[var(--blue-600)] hover:underline">Forgot password?</a>
+              </div>
+              <div class="flex-1"></div>
+            </form>
           </div>
         </div>
       </aside>
@@ -746,12 +760,13 @@
 
   function fmtMoney(x){ x = isFinite(x) ? x : 0; return "$" + x.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
   function parseMoneyInput(v){ if (!v) return 0; return parseFloat(String(v).replace(/[^0-9.]/g,'')) || 0; }
-  function formatMoneyField(input){
-    const num = parseMoneyInput(input.value);
-    // no cents for UI entry
-    input.value = num ? num.toLocaleString('en-CA', {style:'currency', currency:'CAD', maximumFractionDigits:0}) : '';
-  }
+  function formatMoneyField(input){ const num = parseMoneyInput(input.value); input.value = num ? num.toLocaleString('en-CA', {style:'currency', currency:'CAD', maximumFractionDigits:0}) : ''; }
   function calcPayment(P, annualRate, years){ const r=(annualRate/100)/12, n=years*12; if(!n||n<=0) return 0; if(r===0) return P/n; return P*r/(1-Math.pow(1+r,-n)); }
+  function formatIntWithCommas(el){
+    const n = el.value.replace(/[^0-9]/g,'');
+    if(!n){ el.value=''; return; }
+    el.value = n.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
 
   document.addEventListener('DOMContentLoaded', function () {
     $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
@@ -900,9 +915,10 @@
       else if(d.length>0)e.target.value=`(${d}`;
     });
 
-    // Format money-like fields on blur
-    $('avgMonthlyIncome')?.addEventListener('blur', (e)=> formatMoneyField(e.target));
-    $('housingPayment')?.addEventListener('blur', (e)=> formatMoneyField(e.target));
+    // Currency/number niceties
+    $('housingPayment')?.addEventListener('blur', ()=> formatMoneyField($('housingPayment')));
+    $('avgMonthlyIncome')?.addEventListener('blur', ()=> formatMoneyField($('avgMonthlyIncome')));
+    $('refiMileage')?.addEventListener('blur', (e)=> formatIntWithCommas(e.target));
 
     // Submit
     function generateAppCode(){ const n=Math.floor(Math.random()*1_000_000); return 'ABC-' + String(n).padStart(6,'0'); }
@@ -940,6 +956,16 @@
         e.preventDefault();
         $('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
       });
+    });
+
+    // Login (demo)
+    $('login-form')?.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const raw = $('loginCode').value || ''; const code = raw.toUpperCase().trim();
+      const pass = $('loginPass').value || '';
+      if (!code || !pass) return;
+      try { sessionStorage.setItem('vic_app_code', code); } catch(_){}
+      alert('Logged in (demo). Matching options would show here.');
     });
 
     // DOB helpers
@@ -1034,7 +1060,7 @@
       if (!viewport || !footer) return;
 
       const footerH = footer.offsetHeight || 0;
-      const extra = 6;
+      const extra = 6; // smaller breathing space above footer content
       bySelAll('.step-inner').forEach(inner=>{
         inner.style.setProperty('--footer-space', (footerH + extra) + 'px');
       });
