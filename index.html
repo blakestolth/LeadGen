@@ -33,8 +33,8 @@
 
       --aside-pad: 16px;
 
-      /* Tighter standard gap beneath footer bar (brought box bottom up) */
-      --footer-card-gap: 4px;
+      /* Tiny gap below footer now matches the top padding under the progress header */
+      --footer-card-gap: var(--pad-y);
     }
     @media (max-width:640px){ :root{ --nav-font: 13px; } }
 
@@ -96,7 +96,7 @@
 
     .step-inner{
       max-width: var(--section-max); margin: 0 auto; padding-top: var(--pad-y);
-      padding-bottom: var(--footer-space, 12px);
+      padding-bottom: var(--footer-space, var(--pad-y));
       display:flex; flex-direction:column; min-height:100%;
     }
     .step-title{}
@@ -226,8 +226,6 @@
           <a href="#" class="brand-title" aria-label="Vancouver Island Credit — Home">Vancouver Island Credit</a>
           <div class="powered-by-inline"><span>Powered by</span><img src="Equifax.png" alt="Equifax"/></div>
         </div>
-        <!-- Apply Now beside title (as requested) -->
-        <a href="#lead-form" class="cta-button !py-1.5 !px-3 text-[11px] ml-2 hidden sm:inline-flex">Apply Now</a>
       </div>
 
       <div class="hidden sm:flex items-center gap-6 font-semibold text-zinc-700">
@@ -293,9 +291,7 @@
           <div class="sticky px-4 py-2 border-b">
             <div class="flex items-center justify-between">
               <div id="progress-label" class="text-[10px] font-semibold text-zinc-700">Step 1</div>
-              <div id="progress-endcap" class="text-[10px] text-[var(--blue-700)] font-semibold">
-                Let’s get you approved
-              </div>
+              <div id="progress-endcap" class="text-[10px] text-[var(--blue-700)] font-semibold">Let’s get you approved</div>
             </div>
             <div class="track mt-2"><div id="progress-fill" class="fill"></div></div>
           </div>
@@ -668,7 +664,7 @@
           <div class="accent-header">
             <h3 class="h2" style="margin:0;">Account</h3>
           </div>
-          <div class="blank-space" id="account-blank" style="padding: var(--aside-pad);"></div>
+          <div class="blank-space" style="padding: var(--aside-pad);"></div>
         </div>
       </aside>
     </section>
@@ -720,7 +716,7 @@
       </div>
     </section>
 
-     <!-- MAP -->
+    <!-- MAP -->
     <section id="map" class="card card-accent p-0 mt-6 overflow-hidden">
       <div class="px-4 py-3">
         <h3 class="h2">Head Office — Victoria, BC</h3>
@@ -1057,14 +1053,20 @@
       update();
     }
 
-    // ---------- CONSISTENT HEIGHTS & FLUSH ACCOUNT ----------
+    // ---------- CONSISTENT HEIGHTS ----------
     function ensureConsistentHeights(){
-      // Tight, fixed bottom space to shrink the form
+      const viewport = $('step-viewport');
+      const footer = $('form-footer');
+      if (!viewport || !footer) return;
+
+      // Make the space above the footer equal to the top padding under the progress header
+      const rootStyles = getComputedStyle(document.documentElement);
+      const topPad = parseInt(rootStyles.getPropertyValue('--pad-y')) || 10;
       bySelAll('.step-inner').forEach(inner=>{
-        inner.style.setProperty('--footer-space', '12px');
+        inner.style.setProperty('--footer-space', topPad + 'px');
       });
 
-      // Keep body areas equal height to the tallest step (unchanged)
+      // Measure tallest step and lock heights so the form doesn’t jump
       let maxContent = 0;
       const hidden = [];
       bySelAll('.form-step').forEach(sec=>{
@@ -1074,28 +1076,10 @@
         maxContent = Math.max(maxContent, c.offsetHeight);
       });
       hidden.forEach(sec=> sec.classList.add('hidden'));
+
       bySelAll('.form-step .step-body').forEach(b=>{
         b.style.setProperty('--content-min', maxContent + 'px');
       });
-
-      // Adjust the blank account box so the right column bottom is flush with the form
-      const lead = $('lead-form');
-      const refi = $('refi-card');
-      const acc = $('account-card');
-      const blank = $('account-blank');
-      if (lead && refi && acc && blank){
-        const leftH = lead.offsetHeight;
-        const refiH = refi.offsetHeight;
-        const accTotal = acc.offsetHeight;
-        const blankCurrent = blank.offsetHeight;
-
-        // Height of account card excluding the blank space:
-        const accNonBlank = accTotal - blankCurrent;
-
-        let want = leftH - refiH - accNonBlank;
-        if (isNaN(want)) want = 0;
-        blank.style.minHeight = Math.max(24, want) + 'px';
-      }
     }
 
     // ===== init =====
@@ -1131,7 +1115,7 @@
       // Refi calc
       setupRefiCalcInputs();
 
-      // Keep heights locked & account box flush
+      // Keep heights locked to tallest step
       ensureConsistentHeights();
       window.addEventListener('resize', ensureConsistentHeights);
 
