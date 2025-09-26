@@ -33,8 +33,8 @@
 
       --aside-pad: 16px;
 
-      /* Tiny gap below footer matches the top padding under the progress header */
-      --footer-card-gap: var(--pad-y);
+      /* Tighter standard gap beneath footer bar (brought box bottom up) */
+      --footer-card-gap: 4px;
     }
     @media (max-width:640px){ :root{ --nav-font: 13px; } }
 
@@ -96,7 +96,7 @@
 
     .step-inner{
       max-width: var(--section-max); margin: 0 auto; padding-top: var(--pad-y);
-      padding-bottom: var(--footer-space, var(--pad-y));
+      padding-bottom: var(--footer-space, 12px);
       display:flex; flex-direction:column; min-height:100%;
     }
     .step-title{}
@@ -198,6 +198,27 @@
 
     /* Blank account box (right column) */
     #account-card .blank-space{ min-height: 80px; }
+
+    /* ---------- Title bar: icon square + dropdown (NEW) ---------- */
+    .icon-square{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:8px; height:36px; padding:0 10px; border:1px solid #e5e7eb; border-radius:10px; background:#fff;
+      transition: box-shadow .15s ease, border-color .15s ease, background .15s ease;
+    }
+    .icon-square:hover{ border-color: var(--blue-600); background:#f9fbff; }
+    .icon-square svg{ width:18px; height:18px; color:#334155; }
+
+    .dropdown-wrap{ position:relative; }
+    .dropdown-panel{
+      position:absolute; right:0; top: calc(100% + 8px);
+      background:#fff; border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 12px 28px -14px rgba(0,0,0,.25);
+      width: 220px; padding:8px; z-index: 40;
+    }
+    .dropdown-item{
+      display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:10px; color:#111827; font-weight:600; text-decoration:none;
+    }
+    .dropdown-item:hover{ background:#f5f8ff; color:#0f172a; }
+    .dropdown-sep{ height:1px; background:#e5e7eb; margin:6px 0; }
   </style>
 
   <script type="application/ld+json">
@@ -217,9 +238,9 @@
   </script>
 </head>
 <body>
-  <!-- NAV -->
+  <!-- NAV / TITLE BAR -->
   <header class="w-full max-w-5xl mx-auto mt-4 px-4">
-    <nav class="bg-white/90 backdrop-blur card card-accent px-4 sm:px-6 py-2.5 flex items-center justify-between">
+    <nav class="relative bg-white/90 backdrop-blur card card-accent px-4 sm:px-6 py-2.5 flex items-center justify-between">
       <div class="brand-left">
         <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
         <div class="brand-stack">
@@ -228,16 +249,50 @@
         </div>
       </div>
 
-      <div class="hidden sm:flex items-center gap-6 font-semibold text-zinc-700">
-        <a href="#inventory" class="hover:text-[var(--blue-600)]">Inventory</a>
-        <a href="#about" class="hover:text-[var(--blue-600)]">About</a>
-        <a href="#contact" class="hover:text-[var(--blue-600)]">Contact</a>
-        <a href="#lead-form" class="cta-button !py-1.5">Apply Now</a>
+      <!-- Right side of title bar -->
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:flex items-center gap-6 font-semibold text-zinc-700">
+          <a href="#inventory" class="hover:text-[var(--blue-600)]">Inventory</a>
+          <a href="#about" class="hover:text-[var(--blue-600)]">About</a>
+          <a href="#contact" class="hover:text-[var(--blue-600)]">Contact</a>
+        </div>
+
+        <!-- Apply Now button (always visible on sm+) -->
+        <a href="#lead-form" class="hidden sm:inline-flex cta-button !py-1.5" id="applyNowTop">Apply Now</a>
+
+        <!-- Profile + Hamburger in a square -->
+        <div class="dropdown-wrap hidden sm:block">
+          <button id="profileMenuBtn" class="icon-square" aria-haspopup="true" aria-expanded="false" aria-controls="profileMenu">
+            <!-- profile icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5.121 17.804A7 7 0 0112 15a7 7 0 016.879 2.804M15 10a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+            <!-- hamburger icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+          <div id="profileMenu" class="dropdown-panel hidden" role="menu" aria-labelledby="profileMenuBtn">
+            <a href="#inventory" class="dropdown-item" role="menuitem">Inventory</a>
+            <a href="#about" class="dropdown-item" role="menuitem">About</a>
+            <a href="#contact" class="dropdown-item" role="menuitem">Contact</a>
+            <div class="dropdown-sep"></div>
+            <a href="#lead-form" class="dropdown-item" role="menuitem">Apply Now</a>
+          </div>
+        </div>
+
+        <!-- Mobile menu button (unchanged) -->
+        <button id="menuBtn" class="sm:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-zinc-200" aria-label="Open menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
       </div>
-      <button id="menuBtn" class="sm:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-zinc-200" aria-label="Open menu">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
     </nav>
+
+    <!-- Mobile accordion menu (unchanged) -->
     <div id="mobileMenu" class="hidden sm:hidden mt-2 card card-accent px-4 py-3">
       <div class="flex flex-col gap-2 font-semibold text-zinc-700">
         <a href="#inventory" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Inventory</a>
@@ -543,7 +598,7 @@
                         <div class="grid-inline-addr2 mt-2">
                           <input type="text" id="currentCity" name="currentCity" class="form-input" placeholder="City" autocomplete="address-level2" maxlength="60" required/>
                           <select id="currentProvince" name="currentProvince" class="form-select" required><option value="">Prov</option></select>
-                          <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" placeholder="Postal code" autocomplete="postal-code" maxlength="7" required/>
+                          <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" placeholder="Postal code" autocomplete="postal-code" maxlength=7 required/>
                         </div>
 
                         <!-- NEW single-row layout -->
@@ -761,6 +816,28 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
+
+    // Profile+menu dropdown (NEW)
+    const squareBtn = $('profileMenuBtn');
+    const panel = $('profileMenu');
+    function closePanel(){ panel?.classList.add('hidden'); squareBtn?.setAttribute('aria-expanded','false'); }
+    function togglePanel(){
+      if (!panel) return;
+      const isHidden = panel.classList.contains('hidden');
+      panel.classList.toggle('hidden');
+      squareBtn?.setAttribute('aria-expanded', String(isHidden));
+    }
+    squareBtn?.addEventListener('click', (e)=>{ e.stopPropagation(); togglePanel(); });
+    document.addEventListener('click', (e)=>{
+      if (!panel || !squareBtn) return;
+      if (!panel.contains(e.target) && !squareBtn.contains(e.target)) closePanel();
+    });
+    // Smooth scroll also for Apply Now in title bar (already has hash link)
+    $('applyNowTop')?.addEventListener('click', (e)=>{
+      e.preventDefault();
+      closePanel();
+      $('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
+    });
 
     // -------- FLOW MAP --------
     const stepsMap = {};
@@ -1059,15 +1136,12 @@
       const footer = $('form-footer');
       if (!viewport || !footer) return;
 
-      // Make the space above the footer equal to HALF the top padding under the progress header
-      const rootStyles = getComputedStyle(document.documentElement);
-      const topPad = parseInt(rootStyles.getPropertyValue('--pad-y')) || 10;
-      const halfPad = Math.max(0, Math.round(topPad * 0.5));
+      const footerH = footer.offsetHeight || 0;
+      const extra = 6;
       bySelAll('.step-inner').forEach(inner=>{
-        inner.style.setProperty('--footer-space', halfPad + 'px');
+        inner.style.setProperty('--footer-space', (footerH + extra) + 'px');
       });
 
-      // Measure tallest step and lock heights so the form doesn’t jump
       let maxContent = 0;
       const hidden = [];
       bySelAll('.form-step').forEach(sec=>{
