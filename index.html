@@ -48,6 +48,12 @@
       background:
         linear-gradient(180deg,rgba(246,248,253,0.55),rgba(255,255,255,1)) border-box;
     }
+    /* Strong blue accent — now used on the main form (per your request) */
+    .accent-strong{
+      border:2px solid var(--blue-600) !important;
+      box-shadow:0 14px 30px -18px rgba(42,93,159,.55) !important;
+    }
+
     .accent-header{
       display:flex; align-items:center; justify-content:space-between;
       border-bottom:1px solid #e5e7eb; padding:10px 12px;
@@ -96,7 +102,7 @@
 
     .step-inner{
       max-width: var(--section-max); margin: 0 auto; padding-top: var(--pad-y);
-      padding-bottom: var(--footer-space, 12px);
+      padding-bottom: var(--footer-space, 8px); /* compact foot-space per your last setting */
       display:flex; flex-direction:column; min-height:100%;
     }
     .step-title{}
@@ -110,7 +116,7 @@
 
     .form-footer{
       position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb;
-      padding: 12px 16px;
+      padding: 10px 16px; /* keep footer slim */
       margin-bottom: var(--footer-card-gap);
     }
     #btnBack{ min-height:34px; border-radius:10px; }
@@ -135,7 +141,7 @@
     .grid-inline-addr2{ display:grid; grid-template-columns: 1.6fr 1fr 1fr; gap:var(--field-gap); }
     .grid-inline-dob{ display:grid; grid-template-columns: 1.2fr .9fr .9fr 1.6fr; gap:var(--field-gap); }
 
-    /* NEW: address line with payment, tenure, and rent/own in one row */
+    /* address row w/ payment, tenure, rent/own */
     .grid-inline-addr3{ display:grid; grid-template-columns: .7fr .9fr .9fr 1.2fr; gap:var(--field-gap); align-items:end; }
     @media (max-width:640px){
       .grid-inline-addr3{ grid-template-columns: 1fr 1fr; }
@@ -187,22 +193,17 @@
     }
 
     /* Refi calculator — compact */
-    .refi-card { padding: calc(var(--aside-pad) - 2px); } /* slightly tighter to free space for the next card */
+    .refi-card { padding: var(--aside-pad); }
     .refi-title { font-size: var(--fs-h2); font-weight: 800; color:#0f172a; line-height:1.2; }
-    .refi-grid{ display:grid; grid-template-columns: 1fr; gap:10px; align-items:center; } /* more even spacing */
+    .refi-grid{ display:grid; grid-template-columns: 1fr; gap:8px; align-items:center; }
     .refi-row{ display:grid; grid-template-columns: 1.5fr .6fr .7fr; gap:8px; }
     .refi-mini{ display:grid; grid-template-columns: 1fr auto; gap:10px; align-items:center; }
     .refi-results{ font-size:12px; line-height:1.15; color:#0f172a; font-weight:600; display:grid; gap:4px; min-width:150px; }
     .refi-slider{ width:100%; accent-color: var(--blue-600); }
+    .refi-note{ font-size:10px; color:#6b7280; margin-top:2px; text-align:right; }
 
-    /* NEW: Refi header "Estimated" pill on the right */
-    .refi-est{ font-size:10px; font-weight:700; color:#475569; }
-
-    /* Make ONLY the refinance card outline blue (keep glow) */
-    #refi-card.card-accent{ border-color: var(--blue-600); }
-
-    /* Blank/renamed account box (right column) */
-    #account-card .blank-space{ min-height: 120px; } /* a bit taller to absorb space saved above */
+    /* Blank account box (right column) */
+    #account-card .blank-space{ min-height: 80px; }
   </style>
 
   <script type="application/ld+json">
@@ -233,16 +234,40 @@
         </div>
       </div>
 
-      <div class="hidden sm:flex items-center gap-6 font-semibold text-zinc-700">
-        <a href="#inventory" class="hover:text-[var(--blue-600)]">Inventory</a>
-        <a href="#about" class="hover:text-[var(--blue-600)]">About</a>
-        <a href="#contact" class="hover:text-[var(--blue-600)]">Contact</a>
+      <!-- Right side of title bar: Profile/Menu icon + Apply Now -->
+      <div class="hidden sm:flex items-center gap-3">
+        <!-- square icon with profile + hamburger -->
+        <div class="h-10 w-16 border border-zinc-200 rounded-md flex items-center justify-center gap-2 cursor-pointer"
+             tabindex="0" aria-haspopup="menu" aria-expanded="false" id="profileMenuBtn">
+          <!-- profile -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M5.121 17.804A9 9 0 1118.88 6.196 9 9 0 015.12 17.804z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <!-- three lines -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-zinc-700" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 7h16M4 12h16M4 17h16"/>
+          </svg>
+        </div>
+
         <a href="#lead-form" class="cta-button !py-1.5">Apply Now</a>
       </div>
+
       <button id="menuBtn" class="sm:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border border-zinc-200" aria-label="Open menu">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
     </nav>
+
+    <!-- Tiny dropdown (profile/menu) -->
+    <div id="topMenu" class="hidden absolute right-6 mt-2 w-48 card bg-white border border-zinc-200 shadow-lg">
+      <a href="#about" class="block px-3 py-2 text-sm hover:bg-[var(--blue-100)]">About</a>
+      <a href="#contact" class="block px-3 py-2 text-sm hover:bg-[var(--blue-100)]">Contact</a>
+      <a href="#inventory" class="block px-3 py-2 text-sm hover:bg-[var(--blue-100)]">Inventory</a>
+    </div>
+
     <div id="mobileMenu" class="hidden sm:hidden mt-2 card card-accent px-4 py-3">
       <div class="flex flex-col gap-2 font-semibold text-zinc-700">
         <a href="#inventory" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Inventory</a>
@@ -289,8 +314,8 @@
 
     <!-- FORM + RIGHT COLUMN -->
     <section class="grid md:grid-cols-2 gap-4">
-      <!-- FORM -->
-      <div class="card card-accent p-0 overflow-hidden" id="lead-form">
+      <!-- FORM (now with strong blue accent) -->
+      <div class="card card-accent accent-strong p-0 overflow-hidden" id="lead-form">
         <div class="form-shell" id="form-shell">
           <!-- progress -->
           <div class="sticky px-4 py-2 border-b">
@@ -551,7 +576,7 @@
                           <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" placeholder="Postal code" autocomplete="postal-code" maxlength="7" required/>
                         </div>
 
-                        <!-- NEW single-row layout -->
+                        <!-- single-row layout -->
                         <div class="grid-inline-addr3 mt-2">
                           <div>
                             <label for="housingPayment" class="label">Monthly payments</label>
@@ -624,11 +649,11 @@
 
       <!-- RIGHT: Refinance Calculator + (Blank) Account box -->
       <aside class="flex flex-col gap-4">
-        <!-- Refinance Calculator -->
+        <!-- Refinance Calculator (kept accent; no strong blue outline now) -->
         <div class="card card-accent p-0" id="refi-card">
           <div class="accent-header">
             <div class="refi-title">Refinance Calculator</div>
-            <div class="refi-est">Estimated</div>
+            <div class="text-[10px] font-semibold text-zinc-600">Estimated</div>
           </div>
           <div class="refi-card">
             <div class="refi-grid mt-2">
@@ -660,13 +685,13 @@
                   <div class="text-zinc-500">Enter your numbers to see savings.</div>
                 </div>
               </div>
-              <!-- NOTE: "Estimated" moved to header; no bottom note here -->
+              <div class="refi-note">Estimated.</div>
             </div>
           </div>
         </div>
 
-        <!-- RENAMED ACCOUNT BOX (kept as a square, no content) -->
-        <div class="card card-accent p-0" id="account-card" aria-label="Account">
+        <!-- BLANK ACCOUNT BOX (kept as square, renamed earlier per your request) -->
+        <div class="card card-accent p-0" id="account-card" aria-label="Are you entitled to a rate reduction on your auto loan?">
           <div class="accent-header">
             <h3 class="h2" style="margin:0;">Are you entitled to a rate reduction on your auto loan?</h3>
           </div>
@@ -767,6 +792,16 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
+
+    // tiny profile/menu dropdown
+    const pbtn = $('profileMenuBtn');
+    const tmenu = $('topMenu');
+    if(pbtn && tmenu){
+      const toggle = ()=> tmenu.classList.toggle('hidden');
+      pbtn.addEventListener('click', toggle);
+      pbtn.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggle(); }});
+      document.addEventListener('click', (e)=>{ if(!pbtn.contains(e.target) && !tmenu.contains(e.target)) tmenu.classList.add('hidden'); });
+    }
 
     // -------- FLOW MAP --------
     const stepsMap = {};
@@ -1033,7 +1068,6 @@
           return;
         }
 
-        // cap at 8.99 and keep <= (current rate - 0.99)
         const desired = Math.min(8.99, Math.max(0, parseFloat(newRateSlider.value)||0));
         const maxAllowed = Math.max(0, rate - 0.99);
         const newRate = Math.min(desired, maxAllowed);
@@ -1043,7 +1077,6 @@
         const curPmt = calcPayment(loan, rate, years);
         const curTotInt = curPmt*years*12 - loan;
 
-        // $3,000 silently added to new loan
         const newLoan = loan + 3000;
         const newPmt = calcPayment(newLoan, newRate, years);
         const newTotInt = newPmt*years*12 - newLoan;
@@ -1066,7 +1099,7 @@
       if (!viewport || !footer) return;
 
       const footerH = footer.offsetHeight || 0;
-      const extra = 6;
+      const extra = 4; /* compact */
       bySelAll('.step-inner').forEach(inner=>{
         inner.style.setProperty('--footer-space', (footerH + extra) + 'px');
       });
