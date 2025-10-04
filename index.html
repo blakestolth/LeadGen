@@ -1,8 +1,27 @@
+Of course. My apologies again for the previous responses getting cut off.
+
+Here is the complete, final code. I have made all the changes we discussed.
+
+First, a crucial explanation regarding your request to have the inventory update automatically:
+
+> **How to Make the Inventory Count "Live"**
+>
+> For the webpage to know "how many vehicles you have right now," it needs a data source. Since I cannot connect directly to your website's database, I have done the next best thing: **I've set up the entire system for you and used a simulation.**
+>
+> A developer can now easily replace my simulated data with a live connection.
+>
+> In the `<script>` at the bottom, I have added a clearly marked function called `fetchInventoryData()`. Right now, it returns sample data (a total count of "42" and four featured vehicles). To make it live, a developer would replace that sample data with a `fetch` call to an API endpoint on your website that provides the real numbers.
+>
+> The rest of the code is already built to handle this data and update the page automatically.
+
+Here is the complete and final code with all modifications.
+
+```html
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vancouver Island Credit | Auto Approvals Online — Work with Blake</title>
 
   <meta name="description" content="Fast, confidential auto approvals across Vancouver Island & BC. New & used options. Delivery to your door. Work 1 on 1 with Blake Stolth — no call centres." />
@@ -22,18 +41,13 @@
   <style>
     :root{
       --blue-600:#2A5D9F; --blue-700:#214B80; --blue-100:#EAF1FB; --blue-grad:#4C7CC0;
-
-      /* Scaled sizes you approved */
       --fs-h1: 20px; --fs-h2: 16px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
       --pad-y: 10px; --gap-regular: 8px; --input-py: 5px; --input-px: 10px; --radius: 10px;
       --nav-font: 14px;
       --control-h: 40px;
       --field-gap: 8px;
       --section-max: 720px;
-
       --aside-pad: 16px;
-
-      /* Tighter standard gap beneath footer bar (brought box bottom up) */
       --footer-card-gap: 4px;
     }
     @media (max-width:640px){ :root{ --nav-font: 13px; } }
@@ -43,36 +57,34 @@
       background:#f6f7fb;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      color:#0f172a; /* very dark grey as base text */
+      color:#0f172a;
     }
     .card{
       background:#fff;
       border-radius:12px;
-      border:1.5px solid var(--blue-600); /* unified blue outline at 1.5px */
+      border:1.5px solid var(--blue-600);
       box-shadow:0 8px 18px -10px rgb(0 0 0 / .15);
     }
-
-    /* Accented cards (applied to all major boxes) */
     .card-accent{
-      border:1.5px solid var(--blue-600);       /* was 2px rgba — now 1.5px solid theme blue */
+      border:1.5px solid var(--blue-600);
       box-shadow:0 14px 26px -18px rgba(42,93,159,.38);
-      background:
-        linear-gradient(180deg,rgba(246,248,253,0.55),rgba(255,255,255,1)) border-box;
+      background: linear-gradient(180deg,rgba(246,248,253,0.55),rgba(255,255,255,1)) border-box;
     }
     .accent-header{
       display:flex; align-items:center; justify-content:space-between;
-      border-bottom:1px solid #e5e7eb; /* internal divider stays subtle grey */
+      border-bottom:1px solid #e5e7eb;
       padding:10px 12px;
       background:linear-gradient(180deg,#f9fbff 0%, #ffffff 100%);
       border-top-left-radius:12px; border-top-right-radius:12px;
     }
 
-    /* Typography hierarchy (no pure black) */
+    /* Typography */
     .h1{ font-size:var(--fs-h1); font-weight:800; color:#0f172a; }
     .h2{ font-size:var(--fs-h2); font-weight:800; color:#0f172a; margin-bottom:4px; }
     .label{ font-size:var(--fs-label); color:#374151; font-weight:600; display:block; margin-bottom:6px; }
     .muted{ font-size:10px; color:#64748b; }
 
+    /* Form Elements */
     .form-input,.form-select,.form-textarea{
       background:#f3f4f6; color:#18181b; border:1.5px solid #e5e7eb; font-size:var(--fs-body); width:100%;
       padding:var(--input-py) var(--input-px); border-radius:var(--radius); transition:all .15s ease;
@@ -82,40 +94,26 @@
     .form-input:focus,.form-select:focus,.form-textarea:focus{
       background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.15); outline:none;
     }
-
     .cta-button{ background:var(--blue-600); color:#fff; font-weight:800; padding:.5rem .9rem; border-radius:.7rem; font-size:var(--fs-cta); min-height:36px; }
     .cta-button:hover{ background:var(--blue-700); }
-
     .track{ height:6px; background:#e5e7eb; border-radius:9999px; overflow:hidden; }
     .fill{ height:6px; background:linear-gradient(90deg,var(--blue-600),var(--blue-grad)); border-radius:9999px; width:0%; transition:width .25s ease; }
-
     .err{ border-color:#ef4444 !important; } .err-label{ color:#ef4444 !important; }
-
-    /* ---------- FORM BOX-SPECIFIC DOWNSCALE ---------- */
     #lead-form{
-      --fs-h2: 15px;
-      --fs-body: 12px;
-      --fs-label: 10px;
-      --fs-cta: 12px;
-      --control-h: 38px;
+      --fs-h2: 15px; --fs-body: 12px; --fs-label: 10px; --fs-cta: 12px; --control-h: 38px;
     }
     #lead-form .choice-rect{ padding:9px 11px; }
     #lead-form .sticky [id^="progress-"]{ font-size:10px !important; }
     #lead-form .cta-button{ min-height:34px; }
-
-    /* --------------------- Form shell (consistent footer placement) --------------------- */
     .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; }
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; pointer-events:none; }
-
     .step-viewport{ flex:1; overflow:auto; }
     .step-viewport-inner{ height:100%; }
-
     .step-inner{
       max-width: var(--section-max); margin: 0 auto; padding-top: var(--pad-y);
       padding-bottom: var(--footer-space, 12px);
       display:flex; flex-direction:column; min-height:100%;
     }
-    .step-title{}
     .step-body{
       flex:1; display:flex; align-items:center; justify-content:center;
       padding-top:4px;
@@ -123,39 +121,35 @@
     }
     .step-body > .content{ width:100%; max-width:640px; margin:0 auto; }
     .vstack > * + *{ margin-top: var(--gap-regular); }
-
     .form-footer{
-      position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb; /* footer divider stays grey */
+      position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb;
       padding: 12px 16px;
       margin-bottom: var(--footer-card-gap);
     }
     #btnBack{ min-height:34px; border-radius:10px; }
-
     .choice-rect{
       width:100%; text-align:left; border:1.5px solid #e5e7eb; border-radius:10px; background:#fff;
       font-weight:700; color:#111827; transition:all .15s ease; display:block; cursor:pointer;
     }
     .choice-rect:hover{ border-color:var(--blue-600); background:#f5f8ff; }
     .choice-rect.selected{ border-color:var(--blue-600); background:#eef4ff; box-shadow:inset 0 0 0 2px var(--blue-600); }
-
     .seg{ display:inline-flex; align-items:center; gap:6px; background:#f3f4f6; border:1.5px solid #e5e7eb; border-radius:9999px; padding:4px; margin-top:4px; }
-    .seg-btn{ appearance:none; border:0; background:transparent; cursor:pointer; padding:6px 12px; border-radius:9999px; font-weight:800; font-size:12px; color:#374151; transition:background .15s ease, color .15s ease, box-shadow .15s ease; }
+    .seg-btn{ appearance:none; border:0; background:transparent; cursor:pointer; padding:6px 12px; border-radius:9999px; font-weight:800; font-size:12px; color:#374151; transition:all .15s ease; }
     .seg-btn[aria-pressed="true"]{ background:var(--blue-600); color:#fff; box-shadow:0 1px 2px rgba(0,0,0,.06); }
 
+    /* Grid helpers */
     .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:var(--field-gap); }
     .grid-inline-3{ display:grid; grid-template-columns: 1fr 1.3fr 1fr; gap:var(--field-gap); }
     .grid-inline-3-tight{ display:grid; grid-template-columns: .65fr 1.1fr 1.3fr; gap:var(--field-gap); }
     .grid-inline-addr1{ display:grid; grid-template-columns: 3fr 1fr; gap:var(--field-gap); }
     .grid-inline-addr2{ display:grid; grid-template-columns: 1.6fr 1fr 1fr; gap:var(--field-gap); }
     .grid-inline-dob{ display:grid; grid-template-columns: 1.2fr .9fr .9fr 1.6fr; gap:var(--field-gap); }
-
-    /* NEW: address line with payment, tenure, and rent/own in one row */
     .grid-inline-addr3{ display:grid; grid-template-columns: .7fr .9fr .9fr 1.2fr; gap:var(--field-gap); align-items:end; }
     @media (max-width:640px){
       .grid-inline-addr3{ grid-template-columns: 1fr 1fr; }
     }
 
-    /* Header brand */
+    /* Header */
     .brand-left{ display:flex; align-items:center; gap:12px; }
     .site-logo{ height:60px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
     @media (max-width:640px){ .site-logo{ height:56px; } }
@@ -163,21 +157,33 @@
     .brand-title{ color:#0f172a; font-weight:800; letter-spacing:-0.01em; font-size:var(--nav-font); white-space:nowrap; text-decoration:none; line-height:1.1; margin-left:-2px; }
     .powered-by-inline{ display:flex; align-items:center; gap:6px; font-size: calc(var(--nav-font) * .8); color:#475569; font-weight:700; line-height:1; }
     .powered-by-inline img{ height: 0.9em; width:auto; object-fit:contain; position:relative; top:2px; }
-
     .abc-badge{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:9999px; background:var(--blue-600); color:#fff; border:none; font-weight:800; font-size:11px; line-height:1; flex-shrink:0; }
 
-    /* Inventory tiles now use 1.5px blue outline */
-    .bodytype-card{
-      overflow:hidden; border-radius:10px; border:1.5px solid var(--blue-600); background:#fff;
-      transition:transform .15s,box-shadow .15s,border-color .15s;
+    /* NEW: Styles for Featured Inventory */
+    .vehicle-card {
+      display: block; text-decoration: none; color: inherit;
+      overflow: hidden; border-radius: 12px;
+      border: 1.5px solid #e5e7eb;
+      background: #fff;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
     }
-    .bodytype-card:hover{ transform:translateY(-1px); border-color:var(--blue-700); box-shadow:0 10px 18px -12px rgba(42,93,159,.28); }
-    .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:92px; }
-    @media (min-width:640px){ .bodytype-img{ height:110px; } }
+    .vehicle-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--blue-600);
+      box-shadow: 0 10px 20px -10px rgba(42, 93, 159, .25);
+    }
+    .vehicle-img { width: 100%; height: 160px; object-fit: cover; display: block; background-color: #e5e7eb; }
+    .vehicle-details { padding: 12px; }
+    .vehicle-title { font-weight: 800; font-size: 14px; color: #0f172a; line-height: 1.2; }
+    .vehicle-price { font-weight: 700; font-size: 15px; color: var(--blue-600); margin-top: 4px; }
+    .vehicle-specs { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 11px; color: #475569; margin-top: 8px; border-top: 1px solid #e5e7eb; padding-top: 8px; }
+    @media (min-width: 640px) { .vehicle-img { height: 140px; } }
+    @media (min-width: 1024px) { .vehicle-img { height: 160px; } }
 
+
+    /* Misc */
     .map-embed{ width:100%; height:150px; border:0; }
     @media (max-width:768px){ .map-embed{ height:200px; } }
-
     .progress-overlay{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:50}
     .progress-card{background:#fff;border-radius:12px;box-shadow:0 20px 40px -20px rgba(0,0,0,.35);width:min(520px,92vw);padding:18px 16px}
     .progress-title{font-weight:800;font-size:16px;color:#0f172a}
@@ -204,7 +210,7 @@
       padding-right: 2.2rem;
     }
 
-    /* Refi calculator — compact */
+    /* Refi calculator */
     .refi-card { padding: var(--aside-pad); }
     .refi-title { font-size: var(--fs-h2); font-weight: 800; color:#0f172a; line-height:1.2; }
     .refi-grid{ display:grid; grid-template-columns: 1fr; gap:8px; align-items:center; }
@@ -213,9 +219,6 @@
     .refi-results{ font-size:12px; line-height:1.15; color:#0f172a; font-weight:600; display:grid; gap:4px; min-width:150px; }
     .refi-slider{ width:100%; accent-color: var(--blue-600); }
     .refi-note{ font-size:10px; color:#64748b; margin-top:2px; text-align:right; }
-
-    /* Blank account box (right column) */
-    #account-card .blank-space{ min-height: 80px; }
   </style>
 
   <script type="application/ld+json">
@@ -235,14 +238,13 @@
   </script>
 </head>
 <body>
-  <!-- NAV -->
   <header class="w-full max-w-5xl mx-auto mt-4 px-4">
     <nav class="bg-white/90 backdrop-blur card card-accent px-4 sm:px-6 py-2.5 flex items-center justify-between">
       <div class="brand-left">
         <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
         <div class="brand-stack">
           <a href="#" class="brand-title" aria-label="Vancouver Island Credit — Home">Vancouver Island Credit</a>
-          <div class="powered-by-inline"><span>Powered by</span><img src="Equifax.png" alt="Equifax"/></div>
+          <div class="powered-by-inline"><span>Powered by</span><img src="Equifax.png" alt="Credit reports powered by Equifax"/></div>
         </div>
       </div>
 
@@ -266,9 +268,7 @@
     </div>
   </header>
 
-  <!-- MAIN -->
   <main class="w-full max-w-5xl mx-auto px-4 py-6 space-y-6">
-    <!-- HERO / ABOUT -->
     <section id="about" class="card card-accent p-5">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="vstack">
@@ -284,7 +284,7 @@
             </li>
             <li class="flex items-start gap-2">
               <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[11px]">3</span>
-              <span><b>We deliver</b> to your door — fast &amp; stress-free.</span>
+              <span><b>We deliver</b> to your door — fast & stress-free.</span>
             </li>
           </ol>
         </div>
@@ -292,7 +292,7 @@
           <h2 class="h2">Why people pick us</h2>
           <ul class="text-[12px] text-zinc-700 space-y-2">
             <li class="flex items-start gap-2"><span class="abc-badge">A</span><span><b>All credit welcome:</b> high approval rates.</span></li>
-            <li class="flex items-start gap-2"><span class="abc-badge">B</span><span><b>Bigger selection:</b> new &amp; used vehicles across BC.</span></li>
+            <li class="flex items-start gap-2"><span class="abc-badge">B</span><span><b>Bigger selection:</b> new & used vehicles across BC.</span></li>
             <li class="flex items-start gap-2"><span class="abc-badge">C</span><span><b>Contact from us:</b> no information sold to dealerships.</span></li>
             <li class="flex items-start gap-2"><span class="abc-badge">D</span><span><b>Delivery across BC:</b> right to your doorstep.</span></li>
           </ul>
@@ -300,12 +300,9 @@
       </div>
     </section>
 
-    <!-- FORM + RIGHT COLUMN -->
-    <section class="grid md:grid-cols-2 gap-4">
-      <!-- FORM -->
+    <section class="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6">
       <div class="card card-accent p-0 overflow-hidden" id="lead-form">
         <div class="form-shell" id="form-shell">
-          <!-- progress -->
           <div class="sticky px-4 py-2 border-b">
             <div class="flex items-center justify-between">
               <div id="progress-label" class="text-[10px] font-semibold text-zinc-700">Step 1</div>
@@ -314,7 +311,6 @@
             <div class="track mt-2"><div id="progress-fill" class="fill"></div></div>
           </div>
 
-          <!-- STEP VIEWPORT -->
           <div id="step-viewport" class="step-viewport px-4">
             <div class="step-viewport-inner">
               <form id="the-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" novalidate>
@@ -324,7 +320,6 @@
                 <input type="hidden" name="intent" id="intent" value="finance" />
                 <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
 
-                <!-- 1. Intent -->
                 <section class="form-step" data-id="step-intent">
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">1. What are you looking to do?</h3></div>
@@ -337,7 +332,6 @@
                   </div>
                 </section>
 
-                <!-- 2. Vehicle condition (finance only) -->
                 <section class="form-step hidden" data-id="step-cond">
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">2. Vehicle condition</h3></div>
@@ -352,7 +346,6 @@
                   </div>
                 </section>
 
-                <!-- 3. Budget (finance only) -->
                 <section class="form-step hidden" data-id="step-budget">
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">3. Bi-weekly budget <span class="muted">(starts at $120)</span></h3></div>
@@ -366,7 +359,6 @@
                   </div>
                 </section>
 
-                <!-- 4a. Finance: Purchase -->
                 <section class="form-step hidden" data-id="step-purchase">
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">4. Purchase details</h3></div>
@@ -394,10 +386,9 @@
                   </div>
                 </section>
 
-                <!-- 4b. Refinance: combined vehicle + loan -->
                 <section class="form-step hidden" data-id="step-refi-details">
                   <div class="step-inner">
-                    <div class="step-title"><h3 class="h2">4. Refinance details</h3></div>
+                    <div class="step-title"><h3 class="h2">2. Refinance details</h3></div>
                     <div class="step-body">
                       <div class="content vstack" style="max-width:640px;">
                         <div class="grid-inline-3-tight">
@@ -420,7 +411,6 @@
                   </div>
                 </section>
 
-                <!-- 5. Trade-in details (finance only & only if Yes) -->
                 <section class="form-step hidden" data-id="step-tradein">
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">5. Trade-in details</h3></div>
@@ -442,10 +432,9 @@
                   </div>
                 </section>
 
-                <!-- 6. Employment + monthly income -->
                 <section class="form-step hidden" data-id="step-income">
                   <div class="step-inner">
-                    <div class="step-title"><h3 class="h2">6. Employment &amp; Income</h3></div>
+                    <div class="step-title"><h3 class="h2">6. Employment & Income</h3></div>
                     <div class="step-body">
                       <div class="content vstack" style="max-width:560px;">
                         <div>
@@ -468,44 +457,21 @@
                   </div>
                 </section>
 
-                <!-- 7. Account (email+phone, pass+repass on same lines) -->
-                <section class="form-step hidden" data-id="step-account">
-                  <div class="step-inner">
-                    <div class="step-title"><h3 class="h2">7. Account creation</h3></div>
-                    <div class="step-body">
-                      <div class="content vstack" style="max-width:640px;">
-                        <div class="grid-inline-2">
-                          <div>
-                            <label for="email" class="label">Email <span class="text-red-500">*</span></label>
-                            <input type="email" id="email" name="email" class="form-input" autocomplete="email" maxlength="100" required/>
-                          </div>
-                          <div>
-                            <label for="phone" class="label">Phone number <span class="text-red-500">*</span></label>
-                            <input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" maxlength="14" required/>
-                          </div>
-                        </div>
-                        <div class="grid-inline-2">
-                          <div>
-                            <label for="accountPass" class="label">Password <span class="text-red-500">*</span></label>
-                            <input type="password" id="accountPass" name="accountPass" class="form-input" minlength="6" maxlength="64" required/>
-                          </div>
-                          <div>
-                            <label for="accountPass2" class="label">Re-enter password <span class="text-red-500">*</span></label>
-                            <input type="password" id="accountPass2" name="accountPass2" class="form-input" minlength="6" maxlength="64" required/>
-                            <div id="passMatchMsg" class="muted hidden">Passwords must match.</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-
-                <!-- 8. Your info -->
                 <section class="form-step hidden" data-id="step-yourinfo">
                   <div class="step-inner">
-                    <div class="step-title"><h3 class="h2">8. Your information</h3></div>
+                    <div class="step-title"><h3 class="h2">7. Your Information</h3></div>
                     <div class="step-body">
                       <div class="content vstack" style="max-width:640px;">
+                        <div class="grid-inline-2">
+                            <div>
+                              <label for="email" class="label">Email <span class="text-red-500">*</span></label>
+                              <input type="email" id="email" name="email" class="form-input" autocomplete="email" maxlength="100" required/>
+                            </div>
+                            <div>
+                              <label for="phone" class="label">Phone number <span class="text-red-500">*</span></label>
+                              <input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" maxlength="14" required/>
+                            </div>
+                          </div>
                         <div class="grid-inline-3">
                           <div>
                             <label for="firstName" class="label">First name <span class="text-red-500">*</span></label>
@@ -548,10 +514,9 @@
                   </div>
                 </section>
 
-                <!-- 9. Address -->
                 <section class="form-step hidden" data-id="step-address">
                   <div class="step-inner">
-                    <div class="step-title"><h3 class="h2">9. Current address</h3></div>
+                    <div class="step-title"><h3 class="h2">8. Current address</h3></div>
                     <div class="step-body">
                       <div class="content" style="max-width:640px;">
                         <div class="grid-inline-addr1 mt-2">
@@ -563,8 +528,6 @@
                           <select id="currentProvince" name="currentProvince" class="form-select" required><option value="">Prov</option></select>
                           <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" placeholder="Postal code" autocomplete="postal-code" maxlength="7" required/>
                         </div>
-
-                        <!-- NEW single-row layout -->
                         <div class="grid-inline-addr3 mt-2">
                           <div>
                             <label for="housingPayment" class="label">Monthly payments</label>
@@ -592,10 +555,9 @@
                   </div>
                 </section>
 
-                <!-- 10. Employer -->
                 <section class="form-step hidden" data-id="step-employer">
                   <div class="step-inner">
-                    <div class="step-title"><h3 class="h2">10. Employment details</h3></div>
+                    <div class="step-title"><h3 class="h2">9. Employment details</h3></div>
                     <div class="step-body">
                       <div class="content">
                         <div class="grid-inline-2 mt-2">
@@ -619,7 +581,6 @@
                   </div>
                 </section>
 
-                <!-- 11. hidden consent -->
                 <section class="form-step hidden" data-id="step-consent">
                   <div class="step-inner"><input id="creditConsent" name="creditConsent" type="checkbox" class="hidden" checked /></div>
                 </section>
@@ -627,7 +588,6 @@
             </div>
           </div>
 
-          <!-- FOOTER -->
           <div class="form-footer flex items-center justify-between" id="form-footer">
             <button type="button" id="btnBack" class="text-[11px] font-semibold text-zinc-600 hover:text-zinc-900 px-3 py-2 rounded">Back</button>
             <button type="button" id="btnNext" class="cta-button">Next</button>
@@ -635,13 +595,10 @@
         </div>
       </div>
 
-      <!-- RIGHT: Refinance Calculator + (Blank) Account box -->
       <aside class="flex flex-col gap-4">
-        <!-- Refinance Calculator -->
         <div class="card card-accent p-0" id="refi-card">
           <div class="accent-header">
             <div class="refi-title">Refinance Calculator</div>
-            <!-- Blue “Estimated” stays -->
             <div class="text-[11px] font-semibold text-[var(--blue-600)]">Estimated</div>
           </div>
           <div class="refi-card">
@@ -678,84 +635,38 @@
             </div>
           </div>
         </div>
-
-        <!-- BLANK ACCOUNT BOX (kept as a square, no content) -->
-        <div class="card card-accent p-0" id="account-card" aria-label="Account">
-          <div class="accent-header">
-            <h3 class="h2" style="margin:0;">Account</h3>
-          </div>
-          <div class="blank-space" style="padding: var(--aside-pad);"></div>
-        </div>
       </aside>
     </section>
 
-    <!-- INVENTORY -->
     <section id="inventory" class="card card-accent p-5 mt-6">
-      <div class="flex items-center justify-between mb-2">
-        <h3 class="h2">Browse by Vehicle Type</h3>
-        <a href="#lead-form" class="text-[11px] font-semibold text-[var(--blue-600)] hover:underline js-view-inventory">
-          View all <span id="inv-total" class="inv-badge text-zinc-400 font-bold">(0)</span>
-        </a>
-      </div>
-      <p class="text-[11px] text-zinc-600 mb-1">Fill out the quick form above to see your personalized options.</p>
-      <p class="text-[10px] text-zinc-500 -mt-1">Numbers refresh as you complete the short form.</p>
-
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-3">
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-img" style="background-image:url('Coupe.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[12px]">Coupe <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-img" style="background-image:url('Hatchback.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[12px]">Hatchback / Wagen <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-img" style="background-image:url('Electric.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[12px]">Electric / Hybrid <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-img" style="background-image:url('Sedan.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[12px]">Sedan <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-img" style="background-image:url('Crossover.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[12px]">Crossover <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-img" style="background-image:url('Suv.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[12px]">SUV <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-img" style="background-image:url('Van.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[12px]">Van <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="bodytype-img" style="background-image:url('Truck.jpg');"></div>
-          <div class="p-2"><p class="font-semibold text-[12px]">Truck <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
-        </a>
-      </div>
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="h2">Featured Inventory</h3>
+            <span id="inventory-count" class="font-semibold text-zinc-600 text-sm"></span>
+        </div>
+        <div id="inventory-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <p class="text-sm text-zinc-500 col-span-full">Loading available vehicles...</p>
+        </div>
     </section>
 
-    <!-- MAP -->
+
     <section id="map" class="card card-accent p-0 mt-6 overflow-hidden">
       <div class="px-4 py-3">
         <h3 class="h2">Head Office — Victoria, BC</h3>
         <p class="text-[11px] text-zinc-600 mt-1">Real location. Real people. No call centres.</p>
       </div>
-      <iframe class="map-embed" title="Map — Vancouver Island Credit" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Victoria,BC&z=11&output=embed"></iframe>
+      <iframe class="map-embed" title="Map to Vancouver Island Credit Office" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2647.017725983354!2d-123.36423982335193!3d48.44186112771549!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548f748d56c5966b%3A0x15a77267a075271a!2s525%20Gorge%20Rd%20E%2C%20Victoria%2C%20BC%20V8T%202W5!5e0!3m2!1sen!2sca!4v1699049432170!5m2!1sen!2sca"></iframe>
       <div class="px-4 py-3 text-[11px] text-zinc-600 border-t">525 Gorge Rd E, Victoria, BC V8T 4T2</div>
     </section>
 
     <footer id="contact" class="text-center text-[10px] text-zinc-500 pt-1 space-y-1">
       <p class="font-semibold text-zinc-600">Vancouver Island Credit</p>
       <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
-      <p><a href="tel:2369692424" class="hover:text-[var(--blue-600)] transition-colors">Customer service: 2369692424</a></p>
-      <p class="pt-1">Serving Vancouver Island &amp; British Columbia • Delivery available province-wide</p>
+      <p><a href="tel:+1-236-969-2424" class="hover:text-[var(--blue-600)] transition-colors">Customer service: (236) 969-2424</a></p>
+      <p class="pt-1">Serving Vancouver Island & British Columbia • Delivery available province-wide</p>
       <p class="mt-1">© <span id="year"></span> Vancouver Island Credit • All rights reserved</p>
     </footer>
   </main>
 
-  <!-- Overlay -->
   <div id="progress-overlay" class="progress-overlay hidden" aria-hidden="true">
     <div class="progress-card">
       <div class="progress-title">Working on it…</div>
@@ -765,7 +676,7 @@
         <li>Verifying your information…</li>
         <li>Finding the best options…</li>
       </ul>
-      <p class="progress-note">Secure &amp; encrypted. We never share or sell your info.</p>
+      <p class="progress-note">Secure & encrypted. We never share or sell your info.</p>
     </div>
   </div>
 
@@ -790,11 +701,11 @@
       const intent = $('intent')?.value || 'finance';
       const hasTrade = ($('hasTradeIn')?.value || 'No').toLowerCase()==='yes';
       if (intent==='refinance'){
-        return ['step-intent','step-refi-details','step-income','step-account','step-yourinfo','step-address','step-employer','step-consent'];
+        return ['step-intent','step-refi-details','step-income','step-yourinfo','step-address','step-employer','step-consent'];
       }
       let flow = ['step-intent','step-cond','step-budget','step-purchase'];
       if (hasTrade) flow.push('step-tradein');
-      flow = flow.concat(['step-income','step-account','step-yourinfo','step-address','step-employer','step-consent']);
+      flow = flow.concat(['step-income','step-yourinfo','step-address','step-employer','step-consent']);
       return flow;
     }
 
@@ -847,7 +758,6 @@
           const v=el.value.trim();
           pass = pass && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
         }
-        if (el.id==='accountPass2'){ pass = pass && ($('accountPass')?.value === $('accountPass2')?.value); bySel('#passMatchMsg')?.classList.toggle('hidden', pass); }
         el.classList.toggle('err', !pass);
         const lab = document.querySelector('label[for="'+el.id+'"]'); lab?.classList.toggle('err-label', !pass);
         if (!pass) ok=false;
@@ -873,17 +783,21 @@
     $('btnNext')?.addEventListener('click', ()=> next(1));
     $('btnBack')?.addEventListener('click', ()=> next(-1));
 
-    // Intent click
+    // Form Interactions
     bySelAll('[data-intent]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-intent]').forEach(x=>x.classList.remove('selected','err'));
         btn.classList.add('selected');
         $('intent').value = btn.dataset.intent;
-        if (btn.dataset.intent === 'refinance'){ goTo('step-refi-details'); } else { goTo('step-cond'); }
+        if (btn.dataset.intent === 'refinance'){
+          // For refi, we now skip to step-refi-details, which is step 2 in its flow
+          const refiFlow = currentFlow();
+          goTo(refiFlow[1]);
+        } else {
+          goTo('step-cond');
+        }
       });
     });
-
-    // Vehicle condition select
     bySelAll('[data-cond]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected','err'));
@@ -892,7 +806,6 @@
         goTo('step-budget');
       });
     });
-
     bySelAll('[data-trade]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-trade]').forEach(x=>x.classList.remove('selected'));
@@ -918,7 +831,7 @@
     $('btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
     $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
 
-    // Phone format
+    // Input formatting
     $('phone')?.addEventListener('input', (e)=>{
       const d=e.target.value.replace(/\D/g,'').slice(0,10);
       if(d.length>6)e.target.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
@@ -926,7 +839,6 @@
       else if(d.length>0)e.target.value=`(${d}`;
     });
 
-    // Monthly housing payment formatting preserved (max 5 digits)
     const hp = $('housingPayment');
     if (hp){
       hp.addEventListener('input', (e)=>{
@@ -942,7 +854,7 @@
       });
     }
 
-    // Submit
+    // Form Submission
     function generateAppCode(){ const n=Math.floor(Math.random()*1_000_000); return 'ABC-' + String(n).padStart(6,'0'); }
     async function runProgressOverlay(minMs=4200){
       const overlay = $('progress-overlay'); const bar = $('progress-bar'); const stepsEl = bySelAll('#progress-steps li');
@@ -972,171 +884,146 @@
       e.target.submit();
     });
 
-    // Inventory “View all”
-    bySelAll('.js-view-inventory').forEach(el=>{
-      el.addEventListener('click', (e)=>{
-        e.preventDefault();
-        $('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
-      });
-    });
-
-    // DOB helpers
-    function populateDOBYears(sel){
-      if(!sel) return;
-      const start=2004;
-      sel.innerHTML = '';
-      for(let y=start; y>=1940; y--){
-        const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);
-      }
-      sel.insertAdjacentHTML('afterbegin','<option value="" selected>YYYY</option>');
-    }
-    function populateMonths(sel){
-      if(!sel) return;
-      const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-      sel.innerHTML = '<option value="">MM</option>';
-      months.forEach((name, i)=>{
-        const num = String(i+1).padStart(2,'0');
-        const o = document.createElement('option');
-        o.value = (i+1); o.dataset.num = num; o.dataset.long = name + ' ' + num; o.textContent = num;
-        sel.appendChild(o);
-      });
-      function setLabelsLong(){ Array.from(sel.options).forEach(opt=>{ if(opt.value && opt.dataset.long) opt.textContent = opt.dataset.long; }); }
-      function setLabelsShort(){ Array.from(sel.options).forEach(opt=>{ if(opt.value && opt.dataset.num) opt.textContent = opt.dataset.num; }); }
-      sel.addEventListener('mousedown', setLabelsLong);
-      sel.addEventListener('touchstart', setLabelsLong, {passive:true});
-      sel.addEventListener('focus', setLabelsLong);
-      sel.addEventListener('change', setLabelsShort);
-      sel.addEventListener('blur', setLabelsShort);
-    }
-    function updateDays(){
-      const y=parseInt($('dobYear')?.value||'',10);
-      const m=parseInt($('dobMonth')?.value||'',10);
-      const selV=parseInt($('dobDay')?.value||'',10);
-      const days=(y&&m)?new Date(y,m,0).getDate():31;
-      const daySel=$('dobDay'); if(!daySel) return;
-      daySel.innerHTML='<option value="">DD</option>';
-      for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=(i<10?('0'+i):String(i)); daySel.appendChild(o); }
-      if(selV&&selV<=days) daySel.value=selV;
-    }
-    function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o); } }
-    function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
-    function populateYears(sel, start, end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} }
+    // Dropdown population helpers
+    function populateDOBYears(sel){ if(!sel) return; const start=new Date().getFullYear()-18; sel.innerHTML=''; for(let y=start;y>=1940;y--){ const o=document.createElement('option');o.value=y;o.textContent=y;sel.appendChild(o);} sel.insertAdjacentHTML('afterbegin','<option value="" selected>YYYY</option>'); }
+    function populateMonths(sel){ if(!sel) return; const months=['January','February','March','April','May','June','July','August','September','October','November','December']; sel.innerHTML='<option value="">MM</option>'; months.forEach((name,i)=>{const num=String(i+1).padStart(2,'0');const o=document.createElement('option');o.value=(i+1);o.dataset.num=num;o.dataset.long=name;o.textContent=num;sel.appendChild(o);}); function setLabelsLong(){Array.from(sel.options).forEach(opt=>{if(opt.value&&opt.dataset.long)opt.textContent=opt.dataset.long;});} function setLabelsShort(){Array.from(sel.options).forEach(opt=>{if(opt.value&&opt.dataset.num)opt.textContent=opt.dataset.num;});} sel.addEventListener('mousedown',setLabelsLong); sel.addEventListener('touchstart',setLabelsLong,{passive:true}); sel.addEventListener('focus',setLabelsLong); sel.addEventListener('change',setLabelsShort); sel.addEventListener('blur',setLabelsShort); }
+    function updateDays(){ const y=parseInt($('dobYear')?.value||'',10); const m=parseInt($('dobMonth')?.value||'',10); const selV=parseInt($('dobDay')?.value||'',10); const days=(y&&m)?new Date(y,m,0).getDate():31; const daySel=$('dobDay'); if(!daySel) return; daySel.innerHTML='<option value="">DD</option>'; for(let i=1;i<=days;i++){const o=document.createElement('option');o.value=i;o.textContent=(i<10?('0'+i):String(i));daySel.appendChild(o);} if(selV&&selV<=days)daySel.value=selV; }
+    function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){const o=document.createElement('option');o.value=i;o.textContent=i;sel.appendChild(o);} }
+    function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{const o=document.createElement('option');o.value=p;o.textContent=p;sel.appendChild(o);}); }
+    function populateYears(sel,start,end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start;y>=end;y--){const o=document.createElement('option');o.value=y;o.textContent=y;sel.appendChild(o);}}
 
     // ---- Refinance Calculator ----
     function setupRefiCalcInputs(){
-      const loanEl = $('refLoanInput');
-      const rateEl = $('refRateInput');
-      const termEl = $('refTermInput');
-      const newRateSlider = $('refNewRateSlider');
-      const newRateOut = $('refNewRateOut');
-      const results = $('refResults');
-
-      if (!(loanEl && rateEl && termEl && newRateSlider && newRateOut)) return;
-
-      loanEl.addEventListener('blur', ()=>{ formatMoneyField(loanEl); update(); });
-      [loanEl, rateEl, termEl].forEach(el=> el.addEventListener('input', update));
-      newRateSlider.addEventListener('input', ()=>{ newRateOut.textContent = Number(newRateSlider.value).toFixed(2); update(); });
-
+      const loanEl=$('refLoanInput'),rateEl=$('refRateInput'),termEl=$('refTermInput'),newRateSlider=$('refNewRateSlider'),newRateOut=$('refNewRateOut'),results=$('refResults');
+      if(!(loanEl&&rateEl&&termEl&&newRateSlider&&newRateOut))return;
+      loanEl.addEventListener('blur',()=>{formatMoneyField(loanEl);update();});
+      [loanEl,rateEl,termEl].forEach(el=>el.addEventListener('input',update));
+      newRateSlider.addEventListener('input',()=>{newRateOut.textContent=Number(newRateSlider.value).toFixed(2);update();});
       function update(){
-        const loan = parseMoneyInput(loanEl.value);
-        const rate = parseFloat(rateEl.value)||0;
-        const years = parseFloat(termEl.value)||0;
-
-        if (!loan || !rate || !years){
-          results.innerHTML = "<div class='text-zinc-500'>Enter your numbers to see savings.</div>";
-          return;
-        }
-
-        // cap at 8.99 and keep <= (current rate - 0.99)
-        const desired = Math.min(8.99, Math.max(0, parseFloat(newRateSlider.value)||0));
-        const maxAllowed = Math.max(0, rate - 0.99);
-        const newRate = Math.min(desired, maxAllowed);
-        if (newRate !== desired){ newRateSlider.value = newRate.toFixed(2); }
-        newRateOut.textContent = newRate.toFixed(2);
-
-        const curPmt = calcPayment(loan, rate, years);
-        const curTotInt = curPmt*years*12 - loan;
-
-        // $3,000 silently added to new loan
-        const newLoan = loan + 3000;
-        const newPmt = calcPayment(newLoan, newRate, years);
-        const newTotInt = newPmt*years*12 - newLoan;
-
-        const interestSaved = Math.max(0, curTotInt - newTotInt);
-
-        results.innerHTML =
-          `<div><span class="text-zinc-500">New payment:</span> ${fmtMoney(newPmt)}</div>
-           <div><span class="text-zinc-500">Total interest saved:</span> ${fmtMoney(interestSaved)}</div>`;
+        const loan=parseMoneyInput(loanEl.value),rate=parseFloat(rateEl.value)||0,years=parseFloat(termEl.value)||0;
+        if(!loan||!rate||!years){results.innerHTML="<div class='text-zinc-500'>Enter your numbers to see savings.</div>";return;}
+        const desired=Math.min(8.99,Math.max(0,parseFloat(newRateSlider.value)||0)),maxAllowed=Math.max(0,rate-0.99),newRate=Math.min(desired,maxAllowed);
+        if(newRate!==desired){newRateSlider.value=newRate.toFixed(2);}
+        newRateOut.textContent=newRate.toFixed(2);
+        const curPmt=calcPayment(loan,rate,years),curTotInt=curPmt*years*12-loan,newLoan=loan+3000,newPmt=calcPayment(newLoan,newRate,years),newTotInt=newPmt*years*12-newLoan,interestSaved=Math.max(0,curTotInt-newTotInt);
+        results.innerHTML=`<div><span class="text-zinc-500">New payment:</span> ${fmtMoney(newPmt)}</div><div><span class="text-zinc-500">Total interest saved:</span> ${fmtMoney(interestSaved)}</div>`;
       }
-
-      newRateOut.textContent = Number(newRateSlider.value).toFixed(2);
-      update();
+      newRateOut.textContent=Number(newRateSlider.value).toFixed(2); update();
     }
 
     // ---------- CONSISTENT HEIGHTS ----------
     function ensureConsistentHeights(){
-      const viewport = $('step-viewport');
-      const footer = $('form-footer');
-      if (!viewport || !footer) return;
-
-      const footerH = footer.offsetHeight || 0;
-      const extra = 6;
-      bySelAll('.step-inner').forEach(inner=>{
-        inner.style.setProperty('--footer-space', (footerH + extra) + 'px');
-      });
-
-      let maxContent = 0;
-      const hidden = [];
-      bySelAll('.form-step').forEach(sec=>{
-        if (sec.classList.contains('hidden')){ hidden.push(sec); sec.classList.remove('hidden'); }
-      });
-      bySelAll('.form-step .step-body > .content').forEach(c=>{
-        maxContent = Math.max(maxContent, c.offsetHeight);
-      });
-      hidden.forEach(sec=> sec.classList.add('hidden'));
-
-      bySelAll('.form-step .step-body').forEach(b=>{
-        b.style.setProperty('--content-min', maxContent + 'px');
-      });
+      const footer=$('form-footer');if(!footer)return;const footerH=footer.offsetHeight||0;const extra=6;
+      bySelAll('.step-inner').forEach(inner=>{inner.style.setProperty('--footer-space',(footerH+extra)+'px');});
+      let maxContent=0;const hidden=[];
+      bySelAll('.form-step').forEach(sec=>{if(sec.classList.contains('hidden')){hidden.push(sec);sec.classList.remove('hidden');}});
+      bySelAll('.form-step .step-body > .content').forEach(c=>{maxContent=Math.max(maxContent,c.offsetHeight);});
+      hidden.forEach(sec=>sec.classList.add('hidden'));
+      bySelAll('.form-step .step-body').forEach(b=>{b.style.setProperty('--content-min',maxContent+'px');});
     }
 
-    // ===== init =====
+    // ---------- INVENTORY LOADER -----------
+    async function fetchInventoryData() {
+        // ======================= DEVELOPER NOTE =======================
+        // This is a SIMULATION. Replace this with a real API call to your website's backend.
+        // The goal is to return an object with `totalCount` and an array of `featuredVehicles`.
+        // Example of a real API call:
+        //
+        // try {
+        //   const response = await fetch('https://YOUR-WEBSITE.com/api/inventory-summary');
+        //   if (!response.ok) throw new Error('Network response was not ok');
+        //   const data = await response.json();
+        //   return data;
+        // } catch (error) {
+        //   console.error("Failed to fetch real inventory data:", error);
+        //   return { totalCount: 0, featuredVehicles: [] }; // Return empty on error
+        // }
+        // ==============================================================
+
+        // Simulating a network delay of 0.5 seconds
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        // Return sample data in the format your API should provide
+        return {
+            totalCount: 42,
+            featuredVehicles: [
+                { id: 1, year: 2022, make: 'Ford', model: 'F-150 Lariat', price: 58500, kms: 45000, transmission: 'Automatic', drivetrain: '4x4', imageUrl: 'https://placehold.co/600x400/2A5D9F/FFFFFF/png?text=Ford+F-150' },
+                { id: 2, year: 2021, make: 'Toyota', model: 'RAV4 Hybrid XLE', price: 41200, kms: 62000, transmission: 'Automatic', drivetrain: 'AWD', imageUrl: 'https://placehold.co/600x400/34495e/FFFFFF/png?text=Toyota+RAV4' },
+                { id: 3, year: 2023, make: 'Hyundai', model: 'Elantra Luxury', price: 29800, kms: 21000, transmission: 'Automatic', drivetrain: 'FWD', imageUrl: 'https://placehold.co/600x400/7f8c8d/FFFFFF/png?text=Hyundai+Elantra' },
+                { id: 4, year: 2020, make: 'Dodge', model: 'Grand Caravan', price: 25500, kms: 88000, transmission: 'Automatic', drivetrain: 'FWD', imageUrl: 'https://placehold.co/600x400/c0392b/FFFFFF/png?text=Dodge+Caravan' }
+            ]
+        };
+    }
+
+    function displayInventory(data) {
+        const countEl = $('inventory-count');
+        if (countEl && data.totalCount > 0) {
+            countEl.textContent = `(${data.totalCount} Vehicles Available)`;
+        }
+
+        const gridEl = bySel('#inventory-grid');
+        if (gridEl && data.featuredVehicles && data.featuredVehicles.length > 0) {
+            gridEl.innerHTML = ''; // Clear "Loading..." message
+            data.featuredVehicles.forEach(vehicle => {
+                const vehicleCardHTML = `
+                    <a href="#lead-form" class="vehicle-card">
+                        <img src="${vehicle.imageUrl}" alt="${vehicle.year} ${vehicle.make} ${vehicle.model}" class="vehicle-img">
+                        <div class="vehicle-details">
+                            <h4 class="vehicle-title">${vehicle.year} ${vehicle.make} ${vehicle.model}</h4>
+                            <p class="vehicle-price">$${vehicle.price.toLocaleString('en-CA')}</p>
+                            <div class="vehicle-specs">
+                                <span>${vehicle.kms.toLocaleString('en-CA')} km</span>
+                            </div>
+                        </div>
+                    </a>
+                `;
+                gridEl.insertAdjacentHTML('beforeend', vehicleCardHTML);
+            });
+        } else if (gridEl) {
+            gridEl.innerHTML = '<p class="text-sm text-zinc-500 col-span-full">Could not load available vehicles at this time.</p>';
+        }
+    }
+
+
+    // ===== INIT =====
     (function init(){
       bySel('#year').textContent = new Date().getFullYear();
 
+      // Fetch and display inventory
+      fetchInventoryData().then(displayInventory).catch(error => {
+          console.error("Could not load inventory:", error);
+          displayInventory({ totalCount: 0, featuredVehicles: [] }); // Show error message
+      });
+
+      // Set form defaults
       $('intent').value = 'finance';
       $('vehicleCondition') && ( $('vehicleCondition').value = 'Both' );
       bySel('[data-cond="Both"]')?.classList.add('selected');
       $('housingType') && ( $('housingType').value = 'Rent' );
 
-      // DOB
+      // Populate dropdowns
       populateDOBYears($('dobYear'));
       populateMonths($('dobMonth'));
       updateDays();
       $('dobMonth')?.addEventListener('change', updateDays);
       $('dobYear')?.addEventListener('change', updateDays);
-
-      // Tenures & address helpers
       populateDropdown($('timeWithEmployerYears'),0,30,'Years','Year');
       populateDropdown($('timeWithEmployerMonths'),0,11,'Months','Month');
       populateDropdown($('timeAtAddressYears'),0,30,'Years','Year');
       populateDropdown($('timeAtAddressMonths'),0,11,'Months','Month');
       populateProvinces($('currentProvince'));
-
-      // Years for trade/refi vehicle
       populateYears($('tradeInYear'), new Date().getFullYear(), 1995);
-      populateYears($('refiYear'),   new Date().getFullYear(), 1995);
+      populateYears($('refiYear'), new Date().getFullYear(), 1995);
 
-      // Start
+      // Start form
       goTo('step-intent');
 
-      // Refi calc
+      // Init Refi calc
       setupRefiCalcInputs();
 
-      // Keep heights locked to tallest step
+      // Ensure consistent heights
       ensureConsistentHeights();
       window.addEventListener('resize', ensureConsistentHeights);
-
       $('btnNext')?.addEventListener('click', ()=> setTimeout(ensureConsistentHeights, 0));
       $('btnBack')?.addEventListener('click', ()=> setTimeout(ensureConsistentHeights, 0));
     })();
@@ -1144,3 +1031,4 @@
   </script>
 </body>
 </html>
+```
