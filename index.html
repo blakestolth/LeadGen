@@ -166,23 +166,14 @@
 
     .abc-badge{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:9999px; background:var(--blue-600); color:#fff; border:none; font-weight:800; font-size:11px; line-height:1; flex-shrink:0; }
 
-    /* NEW: Styles for Featured Inventory */
-    .vehicle-card {
-      display: block; text-decoration: none; color: inherit;
-      overflow: hidden; border-radius: 12px;
-      border: 1.5px solid #e5e7eb;
-      background: #fff;
-      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    /* Inventory tiles now use 1.5px blue outline */
+    .bodytype-card{
+      overflow:hidden; border-radius:10px; border:1.5px solid var(--blue-600); background:#fff;
+      transition:transform .15s,box-shadow .15s,border-color .15s;
     }
-    .vehicle-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--blue-600);
-      box-shadow: 0 10px 20px -10px rgba(42, 93, 159, .25);
-    }
-    .vehicle-img { width: 100%; height: 160px; object-fit: cover; display: block; background-color: #e5e7eb; }
-    .vehicle-details { padding: 12px; }
-    .vehicle-title { font-weight: 800; font-size: 14px; color: #0f172a; line-height: 1.2; }
-    .vehicle-price { font-weight: 700; font-size: 15px; color: var(--blue-600); margin-top: 4px; }
+    .bodytype-card:hover{ transform:translateY(-1px); border-color:var(--blue-700); box-shadow:0 10px 18px -12px rgba(42,93,159,.28); }
+    .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:92px; }
+    @media (min-width:640px){ .bodytype-img{ height:110px; } }
 
     .map-embed{ width:100%; height:150px; border:0; }
     @media (max-width:768px){ .map-embed{ height:200px; } }
@@ -223,6 +214,8 @@
     .refi-slider{ width:100%; accent-color: var(--blue-600); }
     .refi-note{ font-size:10px; color:#64748b; margin-top:2px; text-align:right; }
 
+    /* Blank account box (right column) */
+    #account-card .blank-space{ min-height: 80px; }
   </style>
 
   <script type="application/ld+json">
@@ -392,7 +385,7 @@
 
                 <section class="form-step hidden" data-id="step-refi-details">
                   <div class="step-inner">
-                    <div class="step-title"><h3 class="h2">2. Refinance details</h3></div>
+                    <div class="step-title"><h3 class="h2">4. Refinance details</h3></div>
                     <div class="step-body">
                       <div class="content vstack" style="max-width:640px;">
                         <div class="grid-inline-3-tight">
@@ -490,6 +483,7 @@
                             <input type="text" id="lastName" name="lastName" class="form-input" autocomplete="family-name" maxlength="50" required/>
                           </div>
                         </div>
+
                         <div class="grid-inline-dob mt-1">
                           <div>
                             <label class="label">DOB Year <span class="text-red-500">*</span></label>
@@ -531,6 +525,7 @@
                           <select id="currentProvince" name="currentProvince" class="form-select" required><option value="">Prov</option></select>
                           <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" placeholder="Postal code" autocomplete="postal-code" maxlength="7" required/>
                         </div>
+
                         <div class="grid-inline-addr3 mt-2">
                           <div>
                             <label for="housingPayment" class="label">Monthly payments</label>
@@ -642,15 +637,50 @@
     </section>
 
     <section id="inventory" class="card card-accent p-5 mt-6">
-        <div class="flex items-center justify-between mb-4">
-            <h3 class="h2">Featured Inventory</h3>
-            <span id="inventory-count" class="font-semibold text-zinc-600 text-sm"></span>
-        </div>
-        <div id="inventory-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <p class="text-sm text-zinc-500 col-span-full">Loading available vehicles...</p>
-        </div>
-    </section>
+      <div class="flex items-center justify-between mb-2">
+        <h3 class="h2">Browse by Vehicle Type</h3>
+        <a href="#lead-form" class="text-[11px] font-semibold text-[var(--blue-600)] hover:underline js-view-inventory">
+          View all <span id="inv-total" class="inv-badge text-zinc-400 font-bold">(769)</span>
+        </a>
+      </div>
+      <p class="text-[11px] text-zinc-600 mb-1">Fill out the quick form above to see your personalized options.</p>
+      <p class="text-[10px] text-zinc-500 -mt-1">Numbers are updated regularly.</p>
 
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-3">
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('Coupe.jpg');"></div>
+          <div class="p-2"><p class="font-semibold text-[12px]">Coupe <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
+        </a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('Hatchback.jpg');"></div>
+          <div class="p-2"><p class="font-semibold text-[12px]">Hatchback / Wagen <span class="inv-badge text-zinc-400 font-semibold">(40)</span></p></div>
+        </a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('Electric.jpg');"></div>
+          <div class="p-2"><p class="font-semibold text-[12px]">Electric / Hybrid <span class="inv-badge text-zinc-400 font-semibold">(118)</span></p></div>
+        </a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('Sedan.jpg');"></div>
+          <div class="p-2"><p class="font-semibold text-[12px]">Sedan <span class="inv-badge text-zinc-400 font-semibold">(163)</span></p></div>
+        </a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('Crossover.jpg');"></div>
+          <div class="p-2"><p class="font-semibold text-[12px]">Crossover <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
+        </a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('Suv.jpg');"></div>
+          <div class="p-2"><p class="font-semibold text-[12px]">SUV <span class="inv-badge text-zinc-400 font-semibold">(486)</span></p></div>
+        </a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('Van.jpg');"></div>
+          <div class="p-2"><p class="font-semibold text-[12px]">Van <span class="inv-badge text-zinc-400 font-semibold">(0)</span></p></div>
+        </a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="bodytype-img" style="background-image:url('Truck.jpg');"></div>
+          <div class="p-2"><p class="font-semibold text-[12px]">Truck <span class="inv-badge text-zinc-400 font-semibold">(86)</span></p></div>
+        </a>
+      </div>
+    </section>
 
     <section id="map" class="card card-accent p-0 mt-6 overflow-hidden">
       <div class="px-4 py-3">
@@ -786,20 +816,17 @@
     $('btnNext')?.addEventListener('click', ()=> next(1));
     $('btnBack')?.addEventListener('click', ()=> next(-1));
 
-    // Form Interactions
+    // Intent click
     bySelAll('[data-intent]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-intent]').forEach(x=>x.classList.remove('selected','err'));
         btn.classList.add('selected');
         $('intent').value = btn.dataset.intent;
-        if (btn.dataset.intent === 'refinance'){
-          const refiFlow = currentFlow();
-          goTo(refiFlow[1]);
-        } else {
-          goTo('step-cond');
-        }
+        if (btn.dataset.intent === 'refinance'){ goTo(currentFlow()[1]); } else { goTo('step-cond'); }
       });
     });
+
+    // Vehicle condition select
     bySelAll('[data-cond]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-cond]').forEach(x=>x.classList.remove('selected','err'));
@@ -808,6 +835,7 @@
         goTo('step-budget');
       });
     });
+
     bySelAll('[data-trade]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-trade]').forEach(x=>x.classList.remove('selected'));
@@ -833,7 +861,7 @@
     $('btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
     $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
 
-    // Input formatting
+    // Phone format
     $('phone')?.addEventListener('input', (e)=>{
       const d=e.target.value.replace(/\D/g,'').slice(0,10);
       if(d.length>6)e.target.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
@@ -841,6 +869,7 @@
       else if(d.length>0)e.target.value=`(${d}`;
     });
 
+    // Monthly housing payment formatting preserved (max 5 digits)
     const hp = $('housingPayment');
     if (hp){
       hp.addEventListener('input', (e)=>{
@@ -856,7 +885,7 @@
       });
     }
 
-    // Form Submission
+    // Submit
     function generateAppCode(){ const n=Math.floor(Math.random()*1_000_000); return 'ABC-' + String(n).padStart(6,'0'); }
     async function runProgressOverlay(minMs=4200){
       const overlay = $('progress-overlay'); const bar = $('progress-bar'); const stepsEl = bySelAll('#progress-steps li');
@@ -886,143 +915,137 @@
       e.target.submit();
     });
 
-    // Dropdown population helpers
-    function populateDOBYears(sel){ if(!sel) return; const start=new Date().getFullYear()-18; sel.innerHTML=''; for(let y=start;y>=1940;y--){ const o=document.createElement('option');o.value=y;o.textContent=y;sel.appendChild(o);} sel.insertAdjacentHTML('afterbegin','<option value="" selected>YYYY</option>'); }
-    function populateMonths(sel){ if(!sel) return; const months=['January','February','March','April','May','June','July','August','September','October','November','December']; sel.innerHTML='<option value="">MM</option>'; months.forEach((name,i)=>{const num=String(i+1).padStart(2,'0');const o=document.createElement('option');o.value=(i+1);o.dataset.num=num;o.dataset.long=name;o.textContent=num;sel.appendChild(o);}); function setLabelsLong(){Array.from(sel.options).forEach(opt=>{if(opt.value&&opt.dataset.long)opt.textContent=opt.dataset.long;});} function setLabelsShort(){Array.from(sel.options).forEach(opt=>{if(opt.value&&opt.dataset.num)opt.textContent=opt.dataset.num;});} sel.addEventListener('mousedown',setLabelsLong); sel.addEventListener('touchstart',setLabelsLong,{passive:true}); sel.addEventListener('focus',setLabelsLong); sel.addEventListener('change',setLabelsShort); sel.addEventListener('blur',setLabelsShort); }
-    function updateDays(){ const y=parseInt($('dobYear')?.value||'',10); const m=parseInt($('dobMonth')?.value||'',10); const selV=parseInt($('dobDay')?.value||'',10); const days=(y&&m)?new Date(y,m,0).getDate():31; const daySel=$('dobDay'); if(!daySel) return; daySel.innerHTML='<option value="">DD</option>'; for(let i=1;i<=days;i++){const o=document.createElement('option');o.value=i;o.textContent=(i<10?('0'+i):String(i));daySel.appendChild(o);} if(selV&&selV<=days)daySel.value=selV; }
-    function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){const o=document.createElement('option');o.value=i;o.textContent=i;sel.appendChild(o);} }
-    function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{const o=document.createElement('option');o.value=p;o.textContent=p;sel.appendChild(o);}); }
-    function populateYears(sel,start,end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start;y>=end;y--){const o=document.createElement('option');o.value=y;o.textContent=y;sel.appendChild(o);}}
+    // Inventory “View all”
+    bySelAll('.js-view-inventory').forEach(el=>{
+      el.addEventListener('click', (e)=>{
+        e.preventDefault();
+        $('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    // DOB helpers
+    function populateDOBYears(sel){ if(!sel) return; const start=new Date().getFullYear() - 18; sel.innerHTML=''; for(let y=start;y>=1940;y--){ const o=document.createElement('option');o.value=y;o.textContent=y;sel.appendChild(o);} sel.insertAdjacentHTML('afterbegin','<option value="" selected>YYYY</option>');}
+    function populateMonths(sel){ if(!sel) return; const months = ['January','February','March','April','May','June','July','August','September','October','November','December']; sel.innerHTML = '<option value="">MM</option>'; months.forEach((name, i)=>{ const num = String(i+1).padStart(2,'0'); const o = document.createElement('option'); o.value = (i+1); o.dataset.num = num; o.dataset.long = name + ' ' + num; o.textContent = num; sel.appendChild(o); }); function setLabelsLong(){ Array.from(sel.options).forEach(opt=>{ if(opt.value && opt.dataset.long) opt.textContent = opt.dataset.long; }); } function setLabelsShort(){ Array.from(sel.options).forEach(opt=>{ if(opt.value && opt.dataset.num) opt.textContent = opt.dataset.num; }); } sel.addEventListener('mousedown', setLabelsLong); sel.addEventListener('touchstart', setLabelsLong, {passive:true}); sel.addEventListener('focus', setLabelsLong); sel.addEventListener('change', setLabelsShort); sel.addEventListener('blur', setLabelsShort); }
+    function updateDays(){ const y=parseInt($('dobYear')?.value||'',10); const m=parseInt($('dobMonth')?.value||'',10); const selV=parseInt($('dobDay')?.value||'',10); const days=(y&&m)?new Date(y,m,0).getDate():31; const daySel=$('dobDay'); if(!daySel) return; daySel.innerHTML='<option value="">DD</option>'; for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=(i<10?('0'+i):String(i)); daySel.appendChild(o); } if(selV&&selV<=days) daySel.value=selV; }
+    function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o); } }
+    function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
+    function populateYears(sel, start, end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} }
 
     // ---- Refinance Calculator ----
     function setupRefiCalcInputs(){
-      const loanEl=$('refLoanInput'),rateEl=$('refRateInput'),termEl=$('refTermInput'),newRateSlider=$('refNewRateSlider'),newRateOut=$('refNewRateOut'),results=$('refResults');
-      if(!(loanEl&&rateEl&&termEl&&newRateSlider&&newRateOut))return;
-      loanEl.addEventListener('blur',()=>{formatMoneyField(loanEl);update();});
-      [loanEl,rateEl,termEl].forEach(el=>el.addEventListener('input',update));
-      newRateSlider.addEventListener('input',()=>{newRateOut.textContent=Number(newRateSlider.value).toFixed(2);update();});
+      const loanEl = $('refLoanInput');
+      const rateEl = $('refRateInput');
+      const termEl = $('refTermInput');
+      const newRateSlider = $('refNewRateSlider');
+      const newRateOut = $('refNewRateOut');
+      const results = $('refResults');
+
+      if (!(loanEl && rateEl && termEl && newRateSlider && newRateOut)) return;
+
+      loanEl.addEventListener('blur', ()=>{ formatMoneyField(loanEl); update(); });
+      [loanEl, rateEl, termEl].forEach(el=> el.addEventListener('input', update));
+      newRateSlider.addEventListener('input', ()=>{ newRateOut.textContent = Number(newRateSlider.value).toFixed(2); update(); });
+
       function update(){
-        const loan=parseMoneyInput(loanEl.value),rate=parseFloat(rateEl.value)||0,years=parseFloat(termEl.value)||0;
-        if(!loan||!rate||!years){results.innerHTML="<div class='text-zinc-500'>Enter your numbers to see savings.</div>";return;}
-        const desired=Math.min(8.99,Math.max(0,parseFloat(newRateSlider.value)||0)),maxAllowed=Math.max(0,rate-0.99),newRate=Math.min(desired,maxAllowed);
-        if(newRate!==desired){newRateSlider.value=newRate.toFixed(2);}
-        newRateOut.textContent=newRate.toFixed(2);
-        const curPmt=calcPayment(loan,rate,years),curTotInt=curPmt*years*12-loan,newLoan=loan+3000,newPmt=calcPayment(newLoan,newRate,years),newTotInt=newPmt*years*12-newLoan,interestSaved=Math.max(0,curTotInt-newTotInt);
-        results.innerHTML=`<div><span class="text-zinc-500">New payment:</span> ${fmtMoney(newPmt)}</div><div><span class="text-zinc-500">Total interest saved:</span> ${fmtMoney(interestSaved)}</div>`;
+        const loan = parseMoneyInput(loanEl.value);
+        const rate = parseFloat(rateEl.value)||0;
+        const years = parseFloat(termEl.value)||0;
+
+        if (!loan || !rate || !years){
+          results.innerHTML = "<div class='text-zinc-500'>Enter your numbers to see savings.</div>";
+          return;
+        }
+
+        // cap at 8.99 and keep <= (current rate - 0.99)
+        const desired = Math.min(8.99, Math.max(0, parseFloat(newRateSlider.value)||0));
+        const maxAllowed = Math.max(0, rate - 0.99);
+        const newRate = Math.min(desired, maxAllowed);
+        if (newRate !== desired){ newRateSlider.value = newRate.toFixed(2); }
+        newRateOut.textContent = newRate.toFixed(2);
+
+        const curPmt = calcPayment(loan, rate, years);
+        const curTotInt = curPmt*years*12 - loan;
+
+        // $3,000 silently added to new loan
+        const newLoan = loan + 3000;
+        const newPmt = calcPayment(newLoan, newRate, years);
+        const newTotInt = newPmt*years*12 - newLoan;
+
+        const interestSaved = Math.max(0, curTotInt - newTotInt);
+
+        results.innerHTML =
+          `<div><span class="text-zinc-500">New payment:</span> ${fmtMoney(newPmt)}</div>
+           <div><span class="text-zinc-500">Total interest saved:</span> ${fmtMoney(interestSaved)}</div>`;
       }
-      newRateOut.textContent=Number(newRateSlider.value).toFixed(2); update();
+
+      newRateOut.textContent = Number(newRateSlider.value).toFixed(2);
+      update();
     }
 
     // ---------- CONSISTENT HEIGHTS ----------
     function ensureConsistentHeights(){
-      const footer=$('form-footer');if(!footer)return;const footerH=footer.offsetHeight||0;const extra=6;
-      bySelAll('.step-inner').forEach(inner=>{inner.style.setProperty('--footer-space',(footerH+extra)+'px');});
-      let maxContent=0;const hidden=[];
-      bySelAll('.form-step').forEach(sec=>{if(sec.classList.contains('hidden')){hidden.push(sec);sec.classList.remove('hidden');}});
-      bySelAll('.form-step .step-body > .content').forEach(c=>{maxContent=Math.max(maxContent,c.offsetHeight);});
-      hidden.forEach(sec=>sec.classList.add('hidden'));
-      bySelAll('.form-step .step-body').forEach(b=>{b.style.setProperty('--content-min',maxContent+'px');});
+      const viewport = $('step-viewport');
+      const footer = $('form-footer');
+      if (!viewport || !footer) return;
+
+      const footerH = footer.offsetHeight || 0;
+      const extra = 6;
+      bySelAll('.step-inner').forEach(inner=>{
+        inner.style.setProperty('--footer-space', (footerH + extra) + 'px');
+      });
+
+      let maxContent = 0;
+      const hidden = [];
+      bySelAll('.form-step').forEach(sec=>{
+        if (sec.classList.contains('hidden')){ hidden.push(sec); sec.classList.remove('hidden'); }
+      });
+      bySelAll('.form-step .step-body > .content').forEach(c=>{
+        maxContent = Math.max(maxContent, c.offsetHeight);
+      });
+      hidden.forEach(sec=> sec.classList.add('hidden'));
+
+      bySelAll('.form-step .step-body').forEach(b=>{
+        b.style.setProperty('--content-min', maxContent + 'px');
+      });
     }
 
-    // ---------- INVENTORY LOADER -----------
-    async function fetchInventoryData() {
-        // ======================= DEVELOPER NOTE =======================
-        // This is a SIMULATION. Replace this with a real API call to your website's backend.
-        // The goal is to return an object with `totalCount` and an array of `featuredVehicles`.
-        // Example of a real API call:
-        //
-        // try {
-        //   const response = await fetch('https://YOUR-WEBSITE.com/api/inventory-summary');
-        //   if (!response.ok) throw new Error('Network response was not ok');
-        //   const data = await response.json();
-        //   return data;
-        // } catch (error) {
-        //   console.error("Failed to fetch real inventory data:", error);
-        //   return { totalCount: 0, featuredVehicles: [] }; // Return empty on error
-        // }
-        // ==============================================================
-
-        // Simulating a network delay of 0.5 seconds
-        await new Promise(resolve => setTimeout(resolve, 500));
-
-        // Return sample data in the format your API should provide
-        return {
-            totalCount: 42,
-            featuredVehicles: [
-                { id: 1, year: 2022, make: 'Ford', model: 'F-150 Lariat', price: 58500, kms: 45000, imageUrl: 'https://placehold.co/600x400/2A5D9F/FFFFFF/png?text=Ford+F-150' },
-                { id: 2, year: 2021, make: 'Toyota', model: 'RAV4 Hybrid XLE', price: 41200, kms: 62000, imageUrl: 'https://placehold.co/600x400/34495e/FFFFFF/png?text=Toyota+RAV4' },
-                { id: 3, year: 2023, make: 'Hyundai', model: 'Elantra Luxury', price: 29800, kms: 21000, imageUrl: 'https://placehold.co/600x400/7f8c8d/FFFFFF/png?text=Hyundai+Elantra' },
-                { id: 4, year: 2020, make: 'Dodge', model: 'Grand Caravan', price: 25500, kms: 88000, imageUrl: 'https://placehold.co/600x400/c0392b/FFFFFF/png?text=Dodge+Caravan' }
-            ]
-        };
-    }
-
-    function displayInventory(data) {
-        const countEl = $('inventory-count');
-        if (countEl && data.totalCount > 0) {
-            countEl.textContent = `(${data.totalCount} Vehicles Available)`;
-        }
-
-        const gridEl = bySel('#inventory-grid');
-        if (gridEl && data.featuredVehicles && data.featuredVehicles.length > 0) {
-            gridEl.innerHTML = ''; // Clear "Loading..." message
-            data.featuredVehicles.forEach(vehicle => {
-                const vehicleCardHTML = `
-                    <a href="#lead-form" class="vehicle-card">
-                        <img src="${vehicle.imageUrl}" alt="${vehicle.year} ${vehicle.make} ${vehicle.model}" class="vehicle-img">
-                        <div class="vehicle-details">
-                            <h4 class="vehicle-title">${vehicle.year} ${vehicle.make} ${vehicle.model}</h4>
-                            <p class="vehicle-price">$${vehicle.price.toLocaleString('en-CA')}</p>
-                        </div>
-                    </a>
-                `;
-                gridEl.insertAdjacentHTML('beforeend', vehicleCardHTML);
-            });
-        } else if (gridEl) {
-            gridEl.innerHTML = '<p class="text-sm text-zinc-500 col-span-full">Could not load available vehicles at this time.</p>';
-        }
-    }
-
-
-    // ===== INIT =====
+    // ===== init =====
     (function init(){
       bySel('#year').textContent = new Date().getFullYear();
 
-      // Fetch and display inventory
-      fetchInventoryData().then(displayInventory).catch(error => {
-          console.error("Could not load inventory:", error);
-          displayInventory({ totalCount: 0, featuredVehicles: [] }); // Show error message
-      });
-
-      // Set form defaults
       $('intent').value = 'finance';
       $('vehicleCondition') && ( $('vehicleCondition').value = 'Both' );
       bySel('[data-cond="Both"]')?.classList.add('selected');
       $('housingType') && ( $('housingType').value = 'Rent' );
 
-      // Populate dropdowns
+      // DOB
       populateDOBYears($('dobYear'));
       populateMonths($('dobMonth'));
       updateDays();
       $('dobMonth')?.addEventListener('change', updateDays);
       $('dobYear')?.addEventListener('change', updateDays);
+
+      // Tenures & address helpers
       populateDropdown($('timeWithEmployerYears'),0,30,'Years','Year');
       populateDropdown($('timeWithEmployerMonths'),0,11,'Months','Month');
       populateDropdown($('timeAtAddressYears'),0,30,'Years','Year');
       populateDropdown($('timeAtAddressMonths'),0,11,'Months','Month');
       populateProvinces($('currentProvince'));
-      populateYears($('tradeInYear'), new Date().getFullYear(), 1995);
-      populateYears($('refiYear'), new Date().getFullYear(), 1995);
 
-      // Start form
+      // Years for trade/refi vehicle
+      populateYears($('tradeInYear'), new Date().getFullYear(), 1995);
+      populateYears($('refiYear'),   new Date().getFullYear(), 1995);
+
+      // Start
       goTo('step-intent');
 
-      // Init Refi calc
+      // Refi calc
       setupRefiCalcInputs();
 
-      // Ensure consistent heights
+      // Keep heights locked to tallest step
       ensureConsistentHeights();
       window.addEventListener('resize', ensureConsistentHeights);
+
       $('btnNext')?.addEventListener('click', ()=> setTimeout(ensureConsistentHeights, 0));
       $('btnBack')?.addEventListener('click', ()=> setTimeout(ensureConsistentHeights, 0));
     })();
