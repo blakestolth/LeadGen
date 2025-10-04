@@ -48,13 +48,13 @@
     .card{
       background:#fff;
       border-radius:12px;
-      border:1.5px solid var(--blue-600); /* unified blue outline at 1.5px */
+      border:1px solid #e5e7eb; /* CHANGED from blue to grey */
       box-shadow:0 8px 18px -10px rgb(0 0 0 / .15);
     }
 
     /* Accented cards (applied to all major boxes) */
     .card-accent{
-      border:1.5px solid var(--blue-600);      /* was 2px rgba — now 1.5px solid theme blue */
+      border:2px solid rgba(42,93,159,.18); /* CHANGED from blue to subtle blue-grey */
       box-shadow:0 14px 26px -18px rgba(42,93,159,.38);
       background:
         linear-gradient(180deg,rgba(246,248,253,0.55),rgba(255,255,255,1)) border-box;
@@ -168,10 +168,10 @@
 
     /* Inventory tiles now use 1.5px blue outline */
     .bodytype-card{
-      overflow:hidden; border-radius:10px; border:1.5px solid var(--blue-600); background:#fff;
+      overflow:hidden; border-radius:10px; border:1px solid #e5e7eb; background:#fff; /* CHANGED */
       transition:transform .15s,box-shadow .15s,border-color .15s;
     }
-    .bodytype-card:hover{ transform:translateY(-1px); border-color:var(--blue-700); box-shadow:0 10px 18px -12px rgba(42,93,159,.28); }
+    .bodytype-card:hover{ transform:translateY(-1px); border-color:var(--blue-600); box-shadow:0 10px 18px -12px rgba(42,93,159,.28); }
     .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:92px; }
     @media (min-width:640px){ .bodytype-img{ height:110px; } }
 
