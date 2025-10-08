@@ -617,7 +617,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-2 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M9 17l-2 2-2-2m4-4h6l2 2-2 2H9l-2-2 2-2zM5 15l-2 2-2-2m18-4l2 2-2 2M5 7l2-2 2 2M19 7l2-2 2 2m-4 4l-2 2-2-2m4-4h6l2 2-2 2H13l-2-2 2-2z"/>
                         </svg>
-                        <span class="text-xs leading-tight">Qualifies for newer rates.</span>
+                        <span class="text-xs leading-tight">Vehicle's model year qualifies for new rates.</span>
                       </li>
                       <li class="flex flex-col items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-2 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -808,7 +808,7 @@
     }
 
     let curStepId = 'step-intent';
-    function goTo(id){ curStepId=id; showOnly(id); updateProgress(id); ensureConsistentHeights(); }
+    function goTo(id){ curStepId=id; showOnly(id); updateProgress(id); /*ensureConsistentHeights();*/ }
 
     function validateCurrent(stepId){
       const stepEl = stepsMap[stepId];
@@ -1017,27 +1017,7 @@
     }
 
     function ensureConsistentHeights(){
-      const footer = $('form-footer');
-      if (!footer) return;
-      const footerH = footer.offsetHeight || 0;
-      const extra = 6;
-      bySelAll('.step-inner').forEach(inner => {
-        inner.style.setProperty('--footer-space', (footerH + extra) + 'px');
-      });
-
-      let maxContent = 0;
-      const hidden = [];
-      bySelAll('.form-step').forEach(sec => {
-        if (sec.classList.contains('hidden')) { hidden.push(sec); sec.classList.remove('hidden'); }
-      });
-      bySelAll('.form-step .step-body > .content').forEach(c => {
-        maxContent = Math.max(maxContent, c.offsetHeight);
-      });
-      hidden.forEach(sec => sec.classList.add('hidden'));
-
-      bySelAll('.form-step .step-body').forEach(b => {
-        b.style.setProperty('--content-min', maxContent + 'px');
-      });
+      // This function is now disabled to allow each step to have its natural height.
     }
 
     (function init(){
@@ -1066,10 +1046,6 @@
       goTo('step-intent');
       setupRefiCalcInputs();
 
-      ensureConsistentHeights();
-      window.addEventListener('resize', ensureConsistentHeights);
-      $('btnNext')?.addEventListener('click', ()=> setTimeout(ensureConsistentHeights, 0));
-      $('btnBack')?.addEventListener('click', ()=> setTimeout(ensureConsistentHeights, 0));
     })();
   });
   </script>
