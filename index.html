@@ -22,6 +22,7 @@
   <style>
     :root{
       --blue-600:#2A5D9F; --blue-700:#214B80; --blue-100:#EAF1FB; --blue-grad:#4C7CC0;
+      --red-equifax: #D9232D;
 
       /* Scaled sizes you approved */
       --fs-h1: 20px; --fs-h2: 16px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
@@ -82,6 +83,23 @@
     .form-input:focus,.form-select:focus,.form-textarea:focus{
       background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.15); outline:none;
     }
+
+    /* NEW: Smaller inputs for calculator */
+    .form-input-sm, .form-select-sm {
+      min-height: 34px;
+      font-size: 12px;
+      padding-top: 4px;
+      padding-bottom: 4px;
+    }
+    .form-select-sm {
+      background-position:
+        calc(100% - 16px) calc(50% - 4px),
+        calc(100% - 11px) calc(50% - 4px),
+        calc(100% - 2rem) 0.4rem;
+      background-size: 6px 6px, 6px 6px, 0 0;
+      padding-right: 2rem;
+    }
+
 
     .cta-button{ background:var(--blue-600); color:#fff; font-weight:800; padding:.5rem .9rem; border-radius:.7rem; font-size:var(--fs-cta); min-height:36px; }
     .cta-button:hover{ background:var(--blue-700); }
@@ -166,6 +184,7 @@
     .abc-badge{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:9999px; background:var(--blue-600); color:#fff; border:none; font-weight:800; font-size:11px; line-height:1; flex-shrink:0; }
 
     .inv-badge { color: var(--blue-600); }
+    .text-equifax-red { color: var(--red-equifax); }
 
     /* Inventory tiles */
     .bodytype-card{
@@ -206,8 +225,8 @@
     }
 
     /* Refi calculator — compact */
-    .refi-card { padding: var(--aside-pad); }
-    .refi-grid{ display:grid; grid-template-columns: 1fr; gap:12px; align-items:center; } /* Increased gap */
+    .refi-card { padding: 12px; }
+    .refi-grid{ display:grid; grid-template-columns: 1fr; gap:12px; align-items:center; }
     .refi-row{ display:grid; grid-template-columns: 1.5fr .6fr .7fr; gap:8px; }
     .refi-mini{ display:grid; grid-template-columns: 1fr auto; gap:10px; align-items:center; }
     .refi-results{ font-size:12px; line-height:1.15; color:#0f172a; font-weight:600; display:grid; gap:4px; min-width:150px; }
@@ -590,8 +609,8 @@
         </div>
       </div>
 
-      <aside class="flex flex-col">
-        <div class="card card-accent p-0 overflow-hidden flex flex-col flex-1">
+      <aside>
+        <div class="card card-accent p-0 overflow-hidden">
             <div>
                 <div class="accent-header">
                     <h3 class="h2" style="margin:0;">You may be entitled to a rate reduction</h3>
@@ -599,25 +618,25 @@
                 <div class="p-4">
                     <ul class="space-y-3 text-sm text-zinc-700">
                       <li class="flex items-start gap-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 text-[var(--blue-600)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M9 17l-2 2-2-2m4-4h6l2 2-2 2H9l-2-2 2-2zM5 15l-2 2-2-2m18-4l2 2-2 2M5 7l2-2 2 2M19 7l2-2 2 2m-4 4l-2 2-2-2m4-4h6l2 2-2 2H13l-2-2 2-2z"/>
                         </svg>
                         <span>Your vehicle qualifies for newer, lower rates.</span>
                       </li>
                       <li class="flex items-start gap-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 text-[var(--blue-600)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                         <span>You have had your current auto loan for at least one year.</span>
                       </li>
                       <li class="flex items-start gap-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 text-[var(--blue-600)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                         </svg>
                         <span>Your credit score has improved since your last approval.</span>
                       </li>
                       <li class="flex items-start gap-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 text-[var(--blue-600)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         <span>You have a history of making consistent, on-time payments.</span>
@@ -628,20 +647,20 @@
 
             <div class="border-t border-gray-200 mx-4"></div>
 
-            <div class="refi-card flex-1 flex flex-col justify-center">
+            <div class="refi-card">
                  <div class="refi-grid">
-                  <div class="flex justify-between items-baseline mb-3">
+                  <div class="flex justify-between items-baseline mb-2">
                       <h4 class="text-base font-bold text-slate-800">Refinance Calculator</h4>
                       <span class="text-xs font-semibold text-[var(--blue-600)]">Estimated</span>
                   </div>
                   <div class="refi-row">
                     <div>
                       <label class="label" for="refLoanInput">Loan amount</label>
-                      <input id="refLoanInput" class="form-input" placeholder="$15,000" inputmode="numeric" maxlength="14" />
+                      <input id="refLoanInput" class="form-input form-input-sm" placeholder="$15,000" inputmode="numeric" maxlength="14" />
                     </div>
                     <div>
                       <label class="label" for="refTermInput">Years</label>
-                      <select id="refTermInput" class="form-select">
+                      <select id="refTermInput" class="form-select form-select-sm">
                         <option value="">—</option>
                         <option>1</option><option>2</option><option>3</option><option>4</option>
                         <option>5</option><option>6</option><option>7</option><option>8</option>
@@ -649,7 +668,7 @@
                     </div>
                     <div>
                       <label class="label" for="refRateInput">Current %</label>
-                      <input id="refRateInput" class="form-input" placeholder="8.99" inputmode="decimal" maxlength="5" />
+                      <input id="refRateInput" class="form-input form-input-sm" placeholder="8.99" inputmode="decimal" maxlength="5" />
                     </div>
                   </div>
                   <div class="refi-mini">
