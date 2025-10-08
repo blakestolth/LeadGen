@@ -22,7 +22,7 @@
   <style>
     :root{
       --blue-600:#2A5D9F; --blue-700:#214B80; --blue-100:#EAF1FB; --blue-grad:#4C7CC0;
-      --red-equifax: #D9232D;
+      --red-equifax: #A8202A; /* Updated to match the Equifax logo */
 
       /* Scaled sizes you approved */
       --fs-h1: 20px; --fs-h2: 16px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
@@ -977,7 +977,7 @@
     // DOB helpers
     function populateDOBYears(sel){ if(!sel) return; const start=new Date().getFullYear() - 18; sel.innerHTML=''; for(let y=start;y>=1940;y--){ const o=document.createElement('option');o.value=y;o.textContent=y;sel.appendChild(o);} sel.insertAdjacentHTML('afterbegin','<option value="" selected>YYYY</option>');}
     function populateMonths(sel){ if(!sel) return; const months = ['January','February','March','April','May','June','July','August','September','October','November','December']; sel.innerHTML = '<option value="">MM</option>'; months.forEach((name, i)=>{ const num = String(i+1).padStart(2,'0'); const o = document.createElement('option'); o.value = (i+1); o.dataset.num = num; o.dataset.long = name + ' ' + num; o.textContent = num; sel.appendChild(o); }); function setLabelsLong(){ Array.from(sel.options).forEach(opt=>{ if(opt.value && opt.dataset.long) opt.textContent = opt.dataset.long; }); } function setLabelsShort(){ Array.from(sel.options).forEach(opt=>{ if(opt.value && opt.dataset.num) opt.textContent = opt.dataset.num; }); } sel.addEventListener('mousedown', setLabelsLong); sel.addEventListener('touchstart', setLabelsLong, {passive:true}); sel.addEventListener('focus', setLabelsLong); sel.addEventListener('change', setLabelsShort); sel.addEventListener('blur', setLabelsShort); }
-    function updateDays(){ const y=parseInt($('dobYear')?.value||'',10); const m=parseInt($('dobMonth')?.value||'',10); const selV=parseInt($('dobDay')?.value||'',10); const days=(y&&m)?new Date(y,m,0).getDate():31; const daySel=$('dobDay'); if(!daySel) return; daySel.innerHTML='<option value="">DD</option>'; for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=(i<10?('0'+i):String(i)); daySel.appendChild(o); } if(selV&&selV<=days) daySel.value=selV; }
+    function updateDays(){ const y=parseInt($('dobYear')?.value||'',10); const m=parseInt($('dobMonth')?.value||'',10); const selV=parseInt($('dobDay')?.value||'',10); const days=(y&&m)?new Date(y,m,0).getDate():31; const daySel=$('dobDay'); if(!daySel) return; daySel.innerHTML='<option value="">DD</option'; for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=(i<10?('0'+i):String(i)); daySel.appendChild(o); } if(selV&&selV<=days) daySel.value=selV; }
     function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o); } }
     function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
     function populateYears(sel, start, end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} }
