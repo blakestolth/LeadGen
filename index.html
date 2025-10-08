@@ -149,7 +149,6 @@
     .grid-inline-addr2{ display:grid; grid-template-columns: 1.6fr 1fr 1fr; gap:var(--field-gap); }
     .grid-inline-dob{ display:grid; grid-template-columns: 1.2fr .9fr .9fr 1.6fr; gap:var(--field-gap); }
 
-    /* NEW: address line with payment, tenure, and rent/own in one row */
     .grid-inline-addr3{ display:grid; grid-template-columns: .7fr .9fr .9fr 1.2fr; gap:var(--field-gap); align-items:end; }
     @media (max-width:640px){
       .grid-inline-addr3{ grid-template-columns: 1fr 1fr; }
@@ -168,7 +167,7 @@
 
     .inv-badge { color: var(--blue-600); }
 
-    /* Inventory tiles now use 1.5px blue outline */
+    /* Inventory tiles */
     .bodytype-card{
       overflow:hidden; border-radius:10px; border:1px solid #e5e7eb; background:#fff;
       transition:transform .15s,box-shadow .15s,border-color .15s;
@@ -206,18 +205,9 @@
       padding-right: 2.2rem;
     }
 
-    /* Refi calculator — compact */
-    .refi-card { padding: var(--aside-pad); }
-    .refi-title { font-size: var(--fs-h2); font-weight: 800; color:#0f172a; line-height:1.2; }
-    .refi-grid{ display:grid; grid-template-columns: 1fr; gap:8px; align-items:center; }
-    .refi-row{ display:grid; grid-template-columns: 1.5fr .6fr .7fr; gap:8px; }
-    .refi-mini{ display:grid; grid-template-columns: 1fr auto; gap:10px; align-items:center; }
-    .refi-results{ font-size:12px; line-height:1.15; color:#0f172a; font-weight:600; display:grid; gap:4px; min-width:150px; }
+    /* Refi calculator — slider */
     .refi-slider{ width:100%; accent-color: var(--blue-600); }
-    .refi-note{ font-size:10px; color:#64748b; margin-top:2px; text-align:right; }
 
-    /* Blank account box (right column) */
-    #account-card .blank-space{ min-height: 80px; }
   </style>
 
   <script type="application/ld+json">
@@ -299,7 +289,7 @@
       </div>
     </section>
 
-    <section class="grid md:grid-cols-2 gap-4">
+    <section>
       <div class="card card-accent p-0 overflow-hidden" id="lead-form">
         <div class="form-shell" id="form-shell">
           <div class="sticky px-4 py-2 border-b">
@@ -387,7 +377,7 @@
 
                 <section class="form-step hidden" data-id="step-refi-details">
                   <div class="step-inner">
-                    <div class="step-title"><h3 class="h2">4. Refinance details</h3></div>
+                    <div class="step-title"><h3 class="h2">2. Refinance Details</h3></div>
                     <div class="step-body">
                       <div class="content vstack" style="max-width:640px;">
                         <div class="grid-inline-3-tight">
@@ -408,6 +398,44 @@
                       </div>
                     </div>
                   </div>
+                </section>
+                
+                <section class="form-step hidden" data-id="step-refi-calculator">
+                    <div class="step-inner">
+                        <div class="step-title"><h3 class="h2">3. Calculate Your Potential Savings</h3></div>
+                        <div class="step-body">
+                            <div class="content grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                                <div class="vstack">
+                                    <div class="grid grid-cols-3 gap-2">
+                                        <div class="col-span-3">
+                                            <label class="label" for="refLoanInput">Current Loan Amount</label>
+                                            <input id="refLoanInput" class="form-input" placeholder="$25,000" inputmode="numeric" maxlength="14" />
+                                        </div>
+                                        <div>
+                                            <label class="label" for="refTermInput">Years Left</label>
+                                            <select id="refTermInput" class="form-select">
+                                                <option value="">—</option>
+                                                <option>1</option><option>2</option><option>3</option><option>4</option>
+                                                <option>5</option><option>6</option><option>7</option><option>8</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-span-2">
+                                            <label class="label" for="refRateInput">Current Interest Rate %</label>
+                                            <input id="refRateInput" class="form-input" placeholder="e.g., 8.99" inputmode="decimal" maxlength="5" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="label" for="refNewRateSlider">Explore New Rates</label>
+                                        <input id="refNewRateSlider" type="range" min="0.00" max="8.99" step="0.05" value="7.99" class="refi-slider">
+                                        <div class="text-[11px] text-zinc-700 mt-1">New rate: <b><span id="refNewRateOut">7.99</span>%</b></div>
+                                    </div>
+                                </div>
+                                <div id="refResults" class="bg-slate-50 rounded-lg p-4 h-full flex flex-col justify-center text-center">
+                                    <div class="text-zinc-500 text-sm">Enter your loan details to see potential savings.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </section>
 
                 <section class="form-step hidden" data-id="step-tradein">
@@ -433,7 +461,7 @@
 
                 <section class="form-step hidden" data-id="step-income">
                   <div class="step-inner">
-                    <div class="step-title"><h3 class="h2">6. Employment & Income</h3></div>
+                    <div class="step-title"><h3 class="h2">4. Employment & Income</h3></div>
                     <div class="step-body">
                       <div class="content vstack" style="max-width:560px;">
                         <div>
@@ -458,7 +486,7 @@
 
                 <section class="form-step hidden" data-id="step-yourinfo">
                   <div class="step-inner">
-                    <div class="step-title"><h3 class="h2">7. Your information</h3></div>
+                    <div class="step-title"><h3 class="h2">5. Your information</h3></div>
                     <div class="step-body">
                       <div class="content vstack" style="max-width:640px;">
                         <div class="grid-inline-2">
@@ -515,7 +543,7 @@
 
                 <section class="form-step hidden" data-id="step-address">
                   <div class="step-inner">
-                    <div class="step-title"><h3 class="h2">8. Current address</h3></div>
+                    <div class="step-title"><h3 class="h2">6. Current address</h3></div>
                     <div class="step-body">
                       <div class="content" style="max-width:640px;">
                         <div class="grid-inline-addr1 mt-2">
@@ -557,7 +585,7 @@
 
                 <section class="form-step hidden" data-id="step-employer">
                   <div class="step-inner">
-                    <div class="step-title"><h3 class="h2">9. Employment details</h3></div>
+                    <div class="step-title"><h3 class="h2">7. Employment details</h3></div>
                     <div class="step-body">
                       <div class="content">
                         <div class="grid-inline-2 mt-2">
@@ -594,9 +622,10 @@
           </div>
         </div>
       </div>
+    </section>
 
-      <aside class="flex flex-col gap-4">
-        <div class="card card-accent">
+    <section>
+        <div class="card card-accent max-w-2xl mx-auto">
           <div class="accent-header">
             <h3 class="h2" style="margin:0;">You may be entitled to a rate reduction</h3>
           </div>
@@ -626,55 +655,9 @@
                 </svg>
                 <span>You have a history of making consistent, on-time payments.</span>
               </li>
-              <li class="flex items-start gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 text-[var(--blue-600)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
-                </svg>
-                <span>You have lowered your overall debt-to-income ratio.</span>
-              </li>
             </ul>
           </div>
         </div>
-        <div class="card card-accent p-0" id="refi-card">
-          <div class="accent-header">
-            <div class="refi-title">Refinance Calculator</div>
-            <div class="text-[11px] font-semibold text-[var(--blue-600)]">Estimated</div>
-          </div>
-          <div class="refi-card">
-            <div class="refi-grid mt-2">
-              <div class="refi-row">
-                <div>
-                  <label class="label" for="refLoanInput">Loan amount</label>
-                  <input id="refLoanInput" class="form-input" placeholder="$15,000" inputmode="numeric" maxlength="14" />
-                </div>
-                <div>
-                  <label class="label" for="refTermInput">Years</label>
-                  <select id="refTermInput" class="form-select">
-                    <option value="">—</option>
-                    <option>1</option><option>2</option><option>3</option><option>4</option>
-                    <option>5</option><option>6</option><option>7</option><option>8</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="label" for="refRateInput">Current %</label>
-                  <input id="refRateInput" class="form-input" placeholder="8.99" inputmode="decimal" maxlength="5" />
-                </div>
-              </div>
-              <div class="refi-mini">
-                <div>
-                  <label class="label" for="refNewRateSlider">Try a new rate</label>
-                  <input id="refNewRateSlider" type="range" min="0.00" max="8.99" step="0.05" value="7.99" class="refi-slider">
-                  <div class="text-[11px] text-zinc-700 mt-1">New rate: <b><span id="refNewRateOut">7.99</span>%</b></div>
-                </div>
-                <div class="refi-results" id="refResults">
-                  <div class="text-zinc-500">Enter your numbers to see savings.</div>
-                </div>
-              </div>
-              <div class="refi-note">Estimated.</div>
-            </div>
-          </div>
-        </div>
-      </aside>
     </section>
 
     <section id="inventory" class="card card-accent p-5 mt-6">
@@ -728,7 +711,7 @@
         <h3 class="h2">Head Office — Victoria, BC</h3>
         <p class="text-[11px] text-zinc-600 mt-1">Real location. Real people. No call centres.</p>
       </div>
-      <iframe class="map-embed" title="Map — Vancouver Island Credit" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Victoria,BC&z=11&output=embed"></iframe>
+      <iframe class="map-embed" title="Map — Vancouver Island Credit" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="http://googleusercontent.com/maps/google.com/0"></iframe>
       <div class="px-4 py-3 text-[11px] text-zinc-600 border-t">525 Gorge Rd E, Victoria, BC V8T 4T2</div>
     </section>
 
@@ -775,7 +758,7 @@
       const intent = $('intent')?.value || 'finance';
       const hasTrade = ($('hasTradeIn')?.value || 'No').toLowerCase()==='yes';
       if (intent==='refinance'){
-        return ['step-intent','step-refi-details','step-income','step-yourinfo','step-address','step-employer','step-consent'];
+        return ['step-intent','step-refi-details','step-refi-calculator','step-income','step-yourinfo','step-address','step-employer','step-consent'];
       }
       let flow = ['step-intent','step-cond','step-budget','step-purchase'];
       if (hasTrade) flow.push('step-tradein');
@@ -993,7 +976,7 @@
         const years = parseFloat(termEl.value)||0;
 
         if (!loan || !rate || !years){
-          results.innerHTML = "<div class='text-zinc-500'>Enter your numbers to see savings.</div>";
+          results.innerHTML = `<div class="text-zinc-500 text-sm">Enter your loan details to see potential savings.</div>`;
           return;
         }
 
@@ -1005,18 +988,25 @@
 
         const curPmt = calcPayment(loan, rate, years);
         const curTotInt = curPmt*years*12 - loan;
-
         const newLoan = loan + 3000;
         const newPmt = calcPayment(newLoan, newRate, years);
         const newTotInt = newPmt*years*12 - newLoan;
-
         const interestSaved = Math.max(0, curTotInt - newTotInt);
 
-        results.innerHTML =
-          `<div><span class="text-zinc-500">New payment:</span> ${fmtMoney(newPmt)}</div>
-           <div><span class="text-zinc-500">Total interest saved:</span> ${fmtMoney(interestSaved)}</div>`;
+        results.innerHTML =`
+            <div class="space-y-2">
+                <div>
+                    <div class="text-sm font-bold text-zinc-600">New Monthly Payment</div>
+                    <div class="text-3xl font-bold text-zinc-800">${fmtMoney(newPmt)}</div>
+                </div>
+                <div>
+                    <div class="text-sm font-bold text-zinc-600">Total Interest Saved</div>
+                    <div class="text-3xl font-bold text-[var(--blue-600)]">${fmtMoney(interestSaved)}</div>
+                </div>
+            </div>
+            <div class="text-xs text-zinc-500 mt-3">*Includes an estimated $3,000 to cover fees & existing loan differences. For illustrative purposes only.</div>
+        `;
       }
-
       newRateOut.textContent = Number(newRateSlider.value).toFixed(2);
       update();
     }
@@ -1077,7 +1067,7 @@
       // Start
       goTo('step-intent');
 
-      // Refi calc
+      // Init Refi calc
       setupRefiCalcInputs();
 
       // Keep heights locked to tallest step
