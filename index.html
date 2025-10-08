@@ -125,7 +125,7 @@
     .vstack > * + *{ margin-top: var(--gap-regular); }
 
     .form-footer{
-      position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb; /* footer divider stays grey */
+      position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb; /* footer divider stays subtle grey */
       padding: 12px 16px;
       margin-bottom: var(--footer-card-gap);
     }
@@ -596,6 +596,45 @@
       </div>
 
       <aside class="flex flex-col gap-4">
+        <div class="card card-accent">
+          <div class="accent-header">
+            <h3 class="h2" style="margin:0;">You may be entitled to a rate reduction</h3>
+          </div>
+          <div class="p-4">
+            <ul class="space-y-3 text-sm text-zinc-700">
+              <li class="flex items-start gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 text-[var(--blue-600)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 17l-2 2-2-2m4-4h6l2 2-2 2H9l-2-2 2-2zM5 15l-2 2-2-2m18-4l2 2-2 2M5 7l2-2 2 2M19 7l2-2 2 2m-4 4l-2 2-2-2m4-4h6l2 2-2 2H13l-2-2 2-2z"/>
+                </svg>
+                <span>Your vehicle qualifies for newer, lower rates.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 text-[var(--blue-600)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span>You have had your current auto loan for at least one year.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 text-[var(--blue-600)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+                <span>Your credit score has improved since your last approval.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 text-[var(--blue-600)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>You have a history of making consistent, on-time payments.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 text-[var(--blue-600)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+                </svg>
+                <span>You have lowered your overall debt-to-income ratio.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
         <div class="card card-accent p-0" id="refi-card">
           <div class="accent-header">
             <div class="refi-title">Refinance Calculator</div>
