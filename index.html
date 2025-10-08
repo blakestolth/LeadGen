@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <title>Vancouver Island Credit | Auto Approvals Online — Work with Blake</title>
 
   <meta name="description" content="Fast, confidential auto approvals across Vancouver Island & BC. New & used options. Delivery to your door. Work 1 on 1 with Blake Stolth — no call centres." />
@@ -24,18 +24,17 @@
       --blue-600:#2A5D9F; --blue-700:#214B80; --blue-100:#EAF1FB; --blue-grad:#4C7CC0;
       --red-equifax: #A8202A;
 
-      /* Polished Sizing & Spacing */
+      /* Scaled sizes you approved */
       --fs-h1: 20px; --fs-h2: 16px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
-      --pad-y: 12px;
-      --gap-regular: 8px;
-      --input-py: 6px;
-      --input-px: 12px;
-      --radius: 8px;
+      --pad-y: 8px; --gap-regular: 8px; --input-py: 5px; --input-px: 10px; --radius: 10px;
       --nav-font: 14px;
       --control-h: 40px;
       --field-gap: 8px;
       --section-max: 720px;
+
       --aside-pad: 16px;
+
+      /* Tighter standard gap beneath footer bar (brought box bottom up) */
       --footer-card-gap: 4px;
     }
     @media (max-width:640px){ :root{ --nav-font: 13px; } }
@@ -45,8 +44,7 @@
       background:#f6f7fb;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      color: #334155; /* Polished base text color */
-      line-height: 1.6; /* Polished line height for readability */
+      color:#0f172a; /* very dark grey as base text */
     }
     .card{
       background:#fff;
@@ -55,6 +53,7 @@
       box-shadow:0 8px 18px -10px rgb(0 0 0 / .15);
     }
 
+    /* Accented cards (applied to all major boxes) */
     .card-accent{
       border:2px solid rgba(42,93,159,.18);
       box-shadow:0 14px 26px -18px rgba(42,93,159,.38);
@@ -63,28 +62,29 @@
     }
     .accent-header{
       display:flex; align-items:center; justify-content:space-between;
-      border-bottom:1px solid #e5e7eb;
+      border-bottom:1px solid #e5e7eb; /* internal divider stays subtle grey */
       padding:10px 12px;
       background:linear-gradient(180deg,#f9fbff 0%, #ffffff 100%);
       border-top-left-radius:12px; border-top-right-radius:12px;
     }
 
-    /* Polished Typographic Palette */
-    .h1{ font-size:var(--fs-h1); font-weight:800; color:#1e293b; }
-    .h2{ font-size:var(--fs-h2); font-weight:800; color:#1e293b; margin-bottom:4px; }
-    .label{ font-size:var(--fs-label); color:#475569; font-weight:600; display:block; margin-bottom:6px; }
+    /* Typography hierarchy (no pure black) */
+    .h1{ font-size:var(--fs-h1); font-weight:800; color:#0f172a; }
+    .h2{ font-size:var(--fs-h2); font-weight:800; color:#0f172a; margin-bottom:4px; }
+    .label{ font-size:var(--fs-label); color:#374151; font-weight:600; display:block; margin-bottom:6px; }
     .muted{ font-size:10px; color:#64748b; }
 
     .form-input,.form-select,.form-textarea{
       background:#f3f4f6; color:#18181b; border:1.5px solid #e5e7eb; font-size:var(--fs-body); width:100%;
-      padding:var(--input-py) var(--input-px); border-radius:var(--radius); transition:all .2s ease;
+      padding:var(--input-py) var(--input-px); border-radius:var(--radius); transition:all .15s ease;
       min-height: var(--control-h); line-height: 1.2;
     }
     .form-input::placeholder{ color:#6b7280; }
     .form-input:focus,.form-select:focus,.form-textarea:focus{
-      background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.15), 0 1px 4px rgba(0,0,0,.07); outline:none;
+      background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.15); outline:none;
     }
 
+    /* NEW: Smaller inputs for calculator */
     .form-input-sm, .form-select-sm {
       min-height: 34px;
       font-size: 12px;
@@ -100,45 +100,16 @@
       padding-right: 2rem;
     }
 
-    .cta-button{
-      background: linear-gradient(180deg, var(--blue-grad), var(--blue-600));
-      color: #fff;
-      font-weight: 800;
-      padding: .5rem .9rem;
-      border-radius:.7rem;
-      font-size: var(--fs-cta);
-      min-height: 36px;
-      border: 1px solid var(--blue-700);
-      box-shadow: 0 2px 4px rgba(0,0,0,.08), inset 0 1px 1px rgba(255,255,255,.25);
-      transition: all .2s ease;
-      text-shadow: 0 -1px 0 rgba(0,0,0,.2);
-    }
-    .cta-button:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 5px 10px rgba(42,93,159,.25), inset 0 1px 1px rgba(255,255,255,.25);
-    }
+
+    .cta-button{ background:var(--blue-600); color:#fff; font-weight:800; padding:.5rem .9rem; border-radius:.7rem; font-size:var(--fs-cta); min-height:36px; }
+    .cta-button:hover{ background:var(--blue-700); }
 
     .track{ height:6px; background:#e5e7eb; border-radius:9999px; overflow:hidden; }
-    .fill {
-      position: relative;
-      overflow: hidden;
-      height: 6px;
-      background: linear-gradient(90deg, var(--blue-600), var(--blue-grad));
-      border-radius: 9999px;
-      width: 0%;
-      transition: width .25s ease;
-    }
-    .fill::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.35) 50%, rgba(255,255,255,0) 100%);
-    }
-
+    .fill{ height:6px; background:linear-gradient(90deg,var(--blue-600),var(--blue-grad)); border-radius:9999px; width:0%; transition:width .25s ease; }
 
     .err{ border-color:#ef4444 !important; } .err-label{ color:#ef4444 !important; }
 
+    /* ---------- FORM BOX-SPECIFIC DOWNSCALE ---------- */
     #lead-form{
       --fs-h2: 15px;
       --fs-body: 12px;
@@ -150,6 +121,7 @@
     #lead-form .sticky [id^="progress-"]{ font-size:10px !important; }
     #lead-form .cta-button{ min-height:34px; }
 
+    /* --------------------- Form shell (consistent footer placement) --------------------- */
     .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; }
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background:#fff; pointer-events:none; }
 
@@ -157,11 +129,13 @@
     .step-viewport-inner{ height:100%; }
 
     .step-inner{
-      max-width: var(--section-max); margin: 0 auto; padding-top: var(--pad-y);
+      max-width: var(--section-max); margin: 0 auto; padding-top: 4px;
       padding-bottom: var(--footer-space, 12px);
       display:flex; flex-direction:column; min-height:100%;
     }
-    .step-title{}
+    .step-title{
+      text-align: center;
+    }
     .step-body{
       flex:1; display:flex; align-items:center; justify-content:center;
       padding-top:2px;
@@ -171,14 +145,14 @@
     .vstack > * + *{ margin-top: var(--gap-regular); }
 
     .form-footer{
-      position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb;
+      position: sticky; bottom: 0; background:#fff; border-top:1px solid #e5e7eb; /* footer divider stays subtle grey */
       padding: 12px 16px;
       margin-bottom: var(--footer-card-gap);
     }
     #btnBack{ min-height:34px; border-radius:10px; }
 
     .choice-rect{
-      width:100%; text-align:left; border:1.5px solid #e5e7eb; border-radius:var(--radius); background:#fff;
+      width:100%; text-align:left; border:1.5px solid #e5e7eb; border-radius:10px; background:#fff;
       font-weight:700; color:#111827; transition:all .15s ease; display:block; cursor:pointer;
     }
     .choice-rect:hover{ border-color:var(--blue-600); background:#f5f8ff; }
@@ -216,14 +190,10 @@
 
     /* Inventory tiles */
     .bodytype-card{
-      overflow:hidden; border-radius:var(--radius); border:1px solid #e5e7eb; background:#fff;
-      transition:transform .2s,box-shadow .2s,border-color .15s;
+      overflow:hidden; border-radius:10px; border:1px solid #e5e7eb; background:#fff;
+      transition:transform .15s,box-shadow .15s,border-color .15s;
     }
-    .bodytype-card:hover{
-      transform: translateY(-5px);
-      border-color: var(--blue-600);
-      box-shadow: 0 15px 25px -10px rgba(42,93,159,.3);
-    }
+    .bodytype-card:hover{ transform:translateY(-1px); border-color:var(--blue-600); box-shadow:0 10px 18px -12px rgba(42,93,159,.28); }
     .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:92px; }
     @media (min-width:640px){ .bodytype-img{ height:110px; } }
 
@@ -263,6 +233,7 @@
     .refi-mini{ display:grid; grid-template-columns: 1fr auto; gap:10px; align-items:center; }
     .refi-results{ font-size:12px; line-height:1.15; color:#0f172a; font-weight:600; display:grid; gap:4px; min-width:150px; }
     .refi-slider{ width:100%; accent-color: var(--blue-600); }
+
   </style>
 
   <script type="application/ld+json">
@@ -288,7 +259,7 @@
         <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
         <div class="brand-stack">
           <a href="#" class="brand-title" aria-label="Vancouver Island Credit — Home">Vancouver Island Credit</a>
-          <div class="powered-by-inline"><span>Powered by</span><img src="Equifax.png" alt="Credit reports powered by Equifax"/></div>
+          <div class="powered-by-inline"><span>Powered by</span><img src="Equifax.png" alt="Equifax"/></div>
         </div>
       </div>
 
@@ -769,14 +740,14 @@
         <h3 class="h2">Head Office — Victoria, BC</h3>
         <p class="text-[11px] text-zinc-600 mt-1">Real location. Real people. No call centres.</p>
       </div>
-      <iframe class="map-embed" title="Map — Vancouver Island Credit" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2647.545763321455!2d-123.36435368434!3d48.4357599792476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548f748f5a5e5e5b%3A0x27248b6c72d5c4f2!2s525%20Gorge%20Rd%20E%2C%20Victoria%2C%20BC%20V8T%202W5!5e0!3m2!1sen!2sca!4v1665000000000!5m2!1sen!2sca"></iframe>
+      <iframe class="map-embed" title="Map — Vancouver Island Credit" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="http://googleusercontent.com/maps.google.com/3"></iframe>
       <div class="px-4 py-3 text-[11px] text-zinc-600 border-t">525 Gorge Rd E, Victoria, BC V8T 4T2</div>
     </section>
 
     <footer id="contact" class="text-center text-[10px] text-zinc-500 pt-1 space-y-1">
       <p class="font-semibold text-zinc-600">Vancouver Island Credit</p>
       <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
-      <p><a href="tel:+1-236-969-2424" class="hover:text-[var(--blue-600)] transition-colors">Customer service: (236) 969-2424</a></p>
+      <p><a href="tel:2369692424" class="hover:text-[var(--blue-600)] transition-colors">Customer service: 2369692424</a></p>
       <p class="pt-1">Serving Vancouver Island & British Columbia • Delivery available province-wide</p>
       <p class="mt-1">© <span id="year"></span> Vancouver Island Credit • All rights reserved</p>
     </footer>
