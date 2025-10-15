@@ -37,14 +37,14 @@
       --fs-h1: 34px; --fs-h2: 22px; --fs-body: 14px; --fs-label: 12px; --fs-cta: 14px;
       
       /* Spacing: More breathable layout */
-      --pad-y: 12px; --gap-regular: 8px; --input-py: 8px; --input-px: 12px; 
+      --pad-y: 12px; --gap-regular: 6px; --input-py: 8px; --input-px: 12px; 
       
       /* Borders & Radius: Softer, modern corners */
       --radius: 12px;
       
       --nav-font: 14px;
       --control-h: 42px;
-      --field-gap: 12px;
+      --field-gap: 8px;
       --section-max: 720px;
       --aside-pad: 16px;
       --footer-card-gap: 8px;
@@ -134,7 +134,7 @@
     .step-viewport-inner{ height:100%; }
 
     .step-inner{
-      max-width: var(--section-max); margin: 0 auto; padding-top: 8px;
+      max-width: var(--section-max); margin: 0 auto; padding-top: 4px;
       padding-bottom: var(--footer-space, 16px);
       display:flex; flex-direction:column; min-height:100%;
     }
@@ -230,7 +230,7 @@
     }
 
     /* Refi calculator — compact */
-    .refi-card { padding: 16px; }
+    .refi-card { padding: 8px 12px; }
     .refi-grid{ display:grid; grid-template-columns: 1fr; gap:12px; align-items:center; }
     .refi-row{ display:grid; grid-template-columns: 1.5fr .6fr .7fr; gap:8px; }
     .refi-mini{ display:grid; grid-template-columns: 1fr auto; gap:10px; align-items:center; }
@@ -287,7 +287,7 @@
   </header>
 
   <main class="w-full max-w-5xl mx-auto px-4 py-8 space-y-8">
-    <section id="about">
+    <section id="about" class="pt-6 md:pt-12">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10 text-center md:text-left">
         <div class="vstack">
           <h1 class="h1">Get driving in 3 easy steps</h1>
