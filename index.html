@@ -308,7 +308,7 @@
         </div>
         <div class="vstack">
           <h2 class="h2">Why people pick us</h2>
-          <ul class="text-base space-y-4 mt-4 max-w-md mx-auto md:mx-0">
+          <ul class="text-sm space-y-4 mt-4 max-w-md mx-auto md:mx-0">
             <li class="flex items-start gap-4"><span class="abc-badge mt-0.5">A</span><span class="text-left"><b>All credit welcome:</b> high approval rates.</span></li>
             <li class="flex items-start gap-4"><span class="abc-badge mt-0.5">B</span><span class="text-left"><b>Bigger selection:</b> new & used vehicles across BC.</span></li>
             <li class="flex items-start gap-4"><span class="abc-badge mt-0.5">C</span><span class="text-left"><b>Contact from us:</b> no information sold to dealerships.</span></li>
@@ -650,36 +650,35 @@
               <div class="flex justify-between items-baseline mb-2">
                   <h4 class="text-base font-bold text-slate-800">Refinance Calculator</h4>
                   <span class="text-xs font-semibold text-[var(--blue-600)]">Estimated</span>
-                  </div>
-                  <div class="refi-row">
-                    <div>
-                      <label class="label" for="refLoanInput">Loan amount</label>
-                      <input id="refLoanInput" class="form-input form-input-sm" placeholder="$15,000" inputmode="numeric" maxlength="14" />
-                    </div>
-                    <div>
-                      <label class="label" for="refTermInput">Years</label>
-                      <select id="refTermInput" class="form-select form-select-sm">
-                        <option value="">—</option>
-                        <option>1</option><option>2</option><option>3</option><option>4</option>
-                        <option>5</option><option>6</option><option>7</option><option>8</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label class="label" for="refRateInput">Current %</label>
-                      <input id="refRateInput" class="form-input form-input-sm" placeholder="8.99" inputmode="decimal" maxlength="5" />
-                    </div>
-                  </div>
-                  <div class="refi-mini">
-                    <div>
-                      <label class="label" for="refNewRateSlider">Try a new rate</label>
-                      <input id="refNewRateSlider" type="range" min="0.00" max="8.99" step="0.05" value="7.99" class="refi-slider">
-                      <div class="text-[11px] text-zinc-700 mt-1">New rate: <b><span id="refNewRateOut">7.99</span>%</b></div>
-                    </div>
-                    <div class="refi-results" id="refResults">
-                      <div class="text-zinc-500">Enter your numbers to see savings.</div>
-                    </div>
-                  </div>
+              </div>
+              <div class="refi-row">
+                <div>
+                  <label class="label" for="refLoanInput">Loan amount</label>
+                  <input id="refLoanInput" class="form-input form-input-sm" placeholder="$15,000" inputmode="numeric" maxlength="14" />
                 </div>
+                <div>
+                  <label class="label" for="refTermInput">Years</label>
+                  <select id="refTermInput" class="form-select form-select-sm">
+                    <option value="">—</option>
+                    <option>1</option><option>2</option><option>3</option><option>4</option>
+                    <option>5</option><option>6</option><option>7</option><option>8</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="label" for="refRateInput">Current %</label>
+                  <input id="refRateInput" class="form-input form-input-sm" placeholder="8.99" inputmode="decimal" maxlength="5" />
+                </div>
+              </div>
+              <div class="refi-mini">
+                <div>
+                  <label class="label" for="refNewRateSlider">Try a new rate</label>
+                  <input id="refNewRateSlider" type="range" min="0.00" max="8.99" step="0.05" value="7.99" class="refi-slider">
+                  <div class="text-[11px] text-zinc-700 mt-1">New rate: <b><span id="refNewRateOut">7.99</span>%</b></div>
+                </div>
+                <div class="refi-results" id="refResults">
+                  <div class="text-zinc-500">Enter your numbers to see savings.</div>
+                </div>
+              </div>
             </div>
         </div>
       </aside>
