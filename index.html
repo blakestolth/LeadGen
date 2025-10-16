@@ -35,17 +35,17 @@
       /* Typography */
       --fs-h1: 34px; --fs-h2: 22px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
       
-      /* Spacing (TIGHTER) */
-      --pad-y: 8px; --gap-regular: 4px; --input-py: 6px; --input-px: 10px; 
+      /* Spacing (ULTRA TIGHT) */
+      --pad-y: 6px; --gap-regular: 2px; --input-py: 5px; --input-px: 10px; 
       
       /* Borders & Radius */
       --radius: 10px;
       
       --nav-font: 14px;
-      --control-h: 38px;
-      --field-gap: 8px;
+      --control-h: 36px; /* TIGHTER */
+      --field-gap: 6px; /* TIGHTER */
       --section-max: 720px;
-      --aside-pad: 16px;
+      --aside-pad: 12px;
       --footer-card-gap: 4px;
     }
     @media (max-width:640px){ :root{ --nav-font: 13px; --fs-h1: 28px; } }
@@ -88,7 +88,7 @@
     }
 
     .form-input-sm, .form-select-sm {
-      min-height: 34px;
+      min-height: 32px;
       font-size: 12px;
       padding-top: 4px;
       padding-bottom: 4px;
@@ -115,7 +115,7 @@
       --fs-body: 12px;
       --fs-label: 10px;
       --fs-cta: 12px;
-      --control-h: 36px;
+      --control-h: 34px;
     }
     #lead-form .choice-rect{ padding:8px 10px; }
     #lead-form .sticky [id^="progress-"]{ font-size:10px !important; }
@@ -132,7 +132,7 @@
       padding-bottom: var(--footer-space, 12px);
       display:flex; flex-direction:column; min-height:100%;
     }
-    .step-title{ text-align: center; }
+    .step-title{ text-align: center; margin-bottom: 2px; }
     .step-body{
       flex:1; display:flex; align-items:center; justify-content:center;
       padding-top:2px;
@@ -143,7 +143,7 @@
 
     .form-footer{
       position: sticky; bottom: 0; background:rgba(255,255,255,0.85); backdrop-filter: blur(8px); border-top:1px solid var(--slate-200);
-      padding: 10px 14px;
+      padding: 8px 12px;
       margin-bottom: var(--footer-card-gap);
     }
     #btnBack{ min-height:34px; border-radius:10px; font-size:11px; }
@@ -213,7 +213,7 @@
     }
 
     /* Refi calculator — compact */
-    .refi-grid{ display:grid; grid-template-columns: 1fr; gap:8px; align-items:center; }
+    .refi-grid{ display:grid; grid-template-columns: 1fr; gap:6px; align-items:center; }
     .refi-row{ display:grid; grid-template-columns: 1fr 80px 110px; gap:var(--field-gap); }
     .refi-mini{ display:grid; grid-template-columns: 1fr auto; gap:8px; align-items:center; }
     .refi-results{ font-size:12px; line-height:1.2; color:var(--slate-800); font-weight:600; display:grid; gap:2px; min-width:150px; }
@@ -330,7 +330,7 @@
                     </div>
                   </div>
                 </section>
-
+                
                 <section class="form-step hidden" data-id="step-vehicle-type">
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">2. What type of vehicle are you looking for?</h3></div>
