@@ -32,14 +32,13 @@
       --slate-700: #334155;
       --slate-800: #1e293b;
 
-      /* --- Professional UI Tweaks --- */
-      /* Typography: Increased hierarchy and readability */
+      /* Typography */
       --fs-h1: 34px; --fs-h2: 22px; --fs-body: 14px; --fs-label: 12px; --fs-cta: 14px;
       
-      /* Spacing: More breathable layout */
-      --pad-y: 12px; --gap-regular: 6px; --input-py: 8px; --input-px: 12px; 
+      /* Spacing */
+      --pad-y: 12px; --gap-regular: 4px; --input-py: 8px; --input-px: 12px; 
       
-      /* Borders & Radius: Softer, modern corners */
+      /* Borders & Radius */
       --radius: 12px;
       
       --nav-font: 14px;
@@ -53,20 +52,20 @@
 
     body{
       font-family:'Work Sans',sans-serif;
-      background: var(--slate-50); /* Softer background color */
+      background: var(--slate-50);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      color: var(--slate-700); /* Slightly softer body text */
+      color: var(--slate-700);
     }
     .card{
       background:#fff;
-      border-radius:16px; /* Softer radius */
+      border-radius:16px;
       border:1px solid var(--slate-200);
-      box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.06); /* Softer, modern shadow */
+      box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.06);
     }
 
     .card-accent{
-      border: 1px solid var(--slate-200); /* Simplified border */
+      border: 1px solid var(--slate-200);
       box-shadow:0 10px 15px -3px rgb(42 93 159 / 0.1), 0 4px 6px -4px rgb(42 93 159 / 0.1);
       background: linear-gradient(180deg,rgba(255,255,255,1),rgba(250,252,255,0.85)) border-box;
     }
@@ -79,7 +78,7 @@
     }
 
     .h1{ font-size:var(--fs-h1); font-weight:800; color:var(--slate-800); }
-    .h2{ font-size:var(--fs-h2); font-weight:700; color:var(--slate-800); margin-bottom:4px; } /* Slightly lighter weight for balance */
+    .h2{ font-size:var(--fs-h2); font-weight:700; color:var(--slate-800); margin-bottom:4px; }
     .label{ font-size:var(--fs-label); color:var(--slate-700); font-weight:600; display:block; margin-bottom:6px; }
     .muted{ font-size:11px; color:var(--slate-500); }
 
@@ -230,7 +229,6 @@
     }
 
     /* Refi calculator — compact */
-    .refi-card { padding: 8px 12px; }
     .refi-grid{ display:grid; grid-template-columns: 1fr; gap:12px; align-items:center; }
     .refi-row{ display:grid; grid-template-columns: 1.5fr .6fr .7fr; gap:8px; }
     .refi-mini{ display:grid; grid-template-columns: 1fr auto; gap:10px; align-items:center; }
@@ -287,11 +285,11 @@
   </header>
 
   <main class="w-full max-w-5xl mx-auto px-4 py-8 space-y-8">
-    <section id="about" class="pt-6 md:pt-12">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10 text-center md:text-left">
+    <section id="about" class="card card-accent p-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
         <div class="vstack">
           <h1 class="h1">Get driving in 3 easy steps</h1>
-          <ol class="text-base space-y-4 mt-4 max-w-md mx-auto md:mx-0">
+          <ol class="text-base space-y-4 mt-4">
             <li class="flex items-start gap-4">
               <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[13px]">1</span>
               <span class="text-left"><b>Enter your info</b> — 2–3 minutes, no pressure.</span>
@@ -308,7 +306,7 @@
         </div>
         <div class="vstack">
           <h2 class="h2">Why people pick us</h2>
-          <ul class="text-sm space-y-4 mt-4 max-w-md mx-auto md:mx-0">
+          <ul class="text-sm space-y-4 mt-4">
             <li class="flex items-start gap-4"><span class="abc-badge mt-0.5">A</span><span class="text-left"><b>All credit welcome:</b> high approval rates.</span></li>
             <li class="flex items-start gap-4"><span class="abc-badge mt-0.5">B</span><span class="text-left"><b>Bigger selection:</b> new & used vehicles across BC.</span></li>
             <li class="flex items-start gap-4"><span class="abc-badge mt-0.5">C</span><span class="text-left"><b>Contact from us:</b> no information sold to dealerships.</span></li>
@@ -614,38 +612,38 @@
         </div>
       </div>
 
-      <aside class="flex flex-col gap-6">
+      <aside class="card card-accent p-6 flex flex-col gap-4">
         <div>
-            <h2 class="h2 text-center">You may be entitled to a rate reduction</h2>
-            <ul class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-slate-700 mt-4">
-              <li class="flex flex-col items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 17l-2 2-2-2m4-4h6l2 2-2 2H9l-2-2 2-2zM5 15l-2 2-2-2m18-4l2 2-2 2M5 7l2-2 2 2M19 7l2-2 2 2m-4 4l-2 2-2-2m4-4h6l2 2-2 2H13l-2-2 2-2z"/>
-                </svg>
-                <span class="text-sm leading-tight">Vehicle's model year qualifies for new rates.</span>
-              </li>
-              <li class="flex flex-col items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span class="text-sm leading-tight">Loan is over one year old.</span>
-              </li>
-              <li class="flex flex-col items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
-                <span class="text-sm leading-tight">Credit score has improved.</span>
-              </li>
-              <li class="flex flex-col items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span class="text-sm leading-tight">Consistent payment history.</span>
-              </li>
-            </ul>
+          <h2 class="h2 text-xl text-center">You may be entitled to a rate reduction</h2>
+          <ul class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-slate-700 mt-4">
+            <li class="flex flex-col items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 17l-2 2-2-2m4-4h6l2 2-2 2H9l-2-2 2-2zM5 15l-2 2-2-2m18-4l2 2-2 2M5 7l2-2 2 2M19 7l2-2 2 2m-4 4l-2 2-2-2m4-4h6l2 2-2 2H13l-2-2 2-2z"/>
+              </svg>
+              <span class="text-xs leading-tight">Vehicle's model year qualifies for new rates.</span>
+            </li>
+            <li class="flex flex-col items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="text-xs leading-tight">Loan is over one year old.</span>
+            </li>
+            <li class="flex flex-col items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+              </svg>
+              <span class="text-xs leading-tight">Credit score has improved.</span>
+            </li>
+            <li class="flex flex-col items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="text-xs leading-tight">Consistent payment history.</span>
+            </li>
+          </ul>
         </div>
 
-        <div class="card card-accent refi-card flex-1 flex flex-col justify-center">
+        <div class="refi-card pt-4 border-t border-slate-200">
              <div class="refi-grid">
               <div class="flex justify-between items-baseline mb-2">
                   <h4 class="text-base font-bold text-slate-800">Refinance Calculator</h4>
