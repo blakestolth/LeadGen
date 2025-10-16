@@ -160,19 +160,13 @@
     .seg-btn[aria-pressed="true"]{ background:var(--blue-600); color:#fff; box-shadow:0 1px 3px rgba(0,0,0,.1); }
 
     .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:var(--field-gap); }
-    .grid-inline-3{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap:var(--field-gap); }
-    .grid-inline-4{ display:grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap:var(--field-gap); }
-    .grid-inline-refi-details { display:grid; grid-template-columns: 90px 1fr 1fr; gap:var(--field-gap); }
-    .grid-inline-refi-details-2 { display:grid; grid-template-columns: 1fr 150px; gap:var(--field-gap); }
-    .grid-inline-trade-1 { display:grid; grid-template-columns: 90px 1fr 1fr; gap:var(--field-gap); }
-    .grid-inline-trade-2 { display:grid; grid-template-columns: 1fr 1fr; gap:var(--field-gap); }
-    .grid-inline-yourinfo-2{ display:grid; grid-template-columns: 1fr 1fr; gap:var(--field-gap); }
-    .grid-inline-yourinfo-3{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap:var(--field-gap); }
-    .grid-inline-dob{ display:grid; grid-template-columns: 90px 80px 80px 1fr; gap:var(--field-gap); }
-    .grid-inline-addr1{ display:grid; grid-template-columns: 1fr 80px; gap:var(--field-gap); }
-    .grid-inline-addr2{ display:grid; grid-template-columns: 1fr 90px 120px; gap:var(--field-gap); }
-    .grid-inline-addr3{ display:grid; grid-template-columns: 130px 90px 90px 1fr; gap:var(--field-gap); align-items:end; }
-    .grid-inline-employer-2{ display:grid; grid-template-columns: 1fr 1fr; gap:var(--field-gap); }
+    .grid-inline-refi-details { display:grid; grid-template-columns: .7fr 1.5fr 1.5fr; gap:var(--field-gap); }
+    .grid-inline-refi-details-2 { display:grid; grid-template-columns: 1fr .8fr; gap:var(--field-gap); }
+    .grid-inline-trade-1 { display:grid; grid-template-columns: .7fr 1.5fr 1.5fr; gap:var(--field-gap); }
+    .grid-inline-dob{ display:grid; grid-template-columns: .8fr .7fr .7fr 1.2fr; gap:var(--field-gap); }
+    .grid-inline-addr1{ display:grid; grid-template-columns: 1fr .5fr; gap:var(--field-gap); }
+    .grid-inline-addr2{ display:grid; grid-template-columns: 1.5fr .6fr .8fr; gap:var(--field-gap); }
+    .grid-inline-addr3{ display:grid; grid-template-columns: 1fr .7fr .7fr 1fr; gap:var(--field-gap); align-items:end; }
     
     @media (max-width:640px){
       .grid-inline-addr3{ grid-template-columns: 1fr 1fr; }
@@ -449,7 +443,7 @@
                             <input type="text" name="tradeInModel" id="tradeInModel" class="form-input" maxlength="50"/>
                           </div>
                         </div>
-                        <div class="grid-inline-trade-2">
+                        <div class="grid-inline-2">
                            <div>
                              <label for="tradeInKms" class="label">Kilometres (approx.)</label>
                             <input type="number" name="tradeInKms" id="tradeInKms" class="form-input" inputmode="numeric" min="0" max="1000000"/>
@@ -496,7 +490,7 @@
                     <div class="step-title"><h3 class="h2">7. Your information</h3></div>
                     <div class="step-body">
                       <div class="content vstack" style="max-width:640px;">
-                        <div class="grid-inline-yourinfo-2">
+                        <div class="grid-inline-2">
                             <div>
                               <label for="email" class="label">Email <span class="text-red-500">*</span></label>
                               <input type="email" id="email" name="email" class="form-input" autocomplete="email" maxlength="100" required/>
@@ -506,14 +500,10 @@
                               <input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" maxlength="14" required/>
                             </div>
                         </div>
-                         <div class="grid-inline-yourinfo-3">
+                         <div class="grid-inline-2">
                           <div>
                             <label for="firstName" class="label">First name <span class="text-red-500">*</span></label>
                             <input type="text" id="firstName" name="firstName" class="form-input" autocomplete="given-name" maxlength="50" required/>
-                          </div>
-                          <div>
-                            <label for="middleName" class="label">Middle name(s)</label>
-                            <input type="text" id="middleName" name="middleName" class="form-input" autocomplete="additional-name" maxlength="100"/>
                           </div>
                           <div>
                             <label for="lastName" class="label">Last name <span class="text-red-500">*</span></label>
@@ -609,7 +599,7 @@
                     <div class="step-title"><h3 class="h2">9. Employment details</h3></div>
                     <div class="step-body">
                       <div class="content vstack">
-                        <div class="grid-inline-employer-2">
+                        <div class="grid-inline-2">
                            <div>
                             <label for="currentEmployer" class="label">Employer</label>
                             <input type="text" id="currentEmployer" name="currentEmployer" class="form-input"/>
@@ -704,7 +694,7 @@
                 </div>
                 <div>
                   <label class="label" for="refTermInput">Years</label>
-                  <select id="refTermInput" class="form-select form-select-sm">
+                  <select id="refTermInput" class="form-select form-input-sm">
                     <option value="">—</option>
                     <option>1</option><option>2</option><option>3</option><option>4</option>
                     <option>5</option><option>6</option><option>7</option><option>8</option>
@@ -885,7 +875,7 @@
           pass = pass && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
         }
         el.classList.toggle('err', !pass);
-        const lab = el.closest('.form-field')?.querySelector('label'); 
+        const lab = el.closest('div')?.querySelector('label'); 
         lab?.classList.toggle('err-label', !pass);
         if (!pass) ok=false;
       });
