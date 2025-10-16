@@ -175,6 +175,14 @@
       .grid-inline-dob, .grid-inline-refi-details, .grid-inline-trade-1, .grid-inline-addr2, .grid-inline-addr3 { grid-template-columns: 1fr 1fr; }
     }
 
+    /* Header brand */
+    .brand-left{ display:flex; align-items:center; gap:12px; }
+    .site-logo{ height:60px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
+    @media (max-width:640px){ .site-logo{ height:56px; } }
+    .brand-stack{ display:flex; flex-direction:column; gap:4px; }
+    .brand-title{ color:var(--slate-800); font-weight:800; letter-spacing:-0.01em; font-size:var(--nav-font); white-space:nowrap; text-decoration:none; line-height:1.1; margin-left:-2px; }
+    .powered-by-inline{ display:flex; align-items:center; gap:6px; font-size: calc(var(--nav-font) * .8); color:var(--slate-600); font-weight:700; line-height:1; }
+    .powered-by-inline img{ height: 0.9em; width:auto; object-fit:contain; position:relative; top:2px; }
 
     /* Inventory tiles */
     .bodytype-card{
