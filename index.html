@@ -160,6 +160,7 @@
     .seg-btn[aria-pressed="true"]{ background:var(--blue-600); color:#fff; box-shadow:0 1px 3px rgba(0,0,0,.1); }
 
     .abc-badge{ display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:9999px; background:var(--blue-600); color:#fff; border:none; font-weight:800; font-size:12px; line-height:1; flex-shrink:0; }
+    .inv-badge { color: var(--blue-600); }
 
     .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:var(--field-gap); }
     .grid-inline-refi-details { display:grid; grid-template-columns: .7fr 1.5fr 1.5fr; gap:var(--field-gap); }
@@ -281,7 +282,7 @@
     <section id="about" class="card card-accent p-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
         <div>
-          <h1 class="h1">See qualified options in three easy steps</h1>
+          <h1 class="h1">See options in three easy steps</h1>
           <ol class="text-base space-y-4 mt-4">
             <li class="flex items-start gap-4">
               <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[13px]">1</span>
@@ -733,8 +734,8 @@
     <section id="inventory" class="card card-accent p-6">
       <div class="flex items-center justify-between mb-2">
         <h3 class="h2">Browse by Vehicle Type</h3>
-        <a href="#lead-form" class="text-sm font-semibold text-[var(--blue-600)] hover:underline js-view-inventory">
-          All Vehicles <span id="inv-total" class="inv-badge font-bold">(769)</span>
+        <a href="#lead-form" class="text-sm font-semibold text-slate-600 hover:text-[var(--blue-600)] hover:underline js-view-inventory">
+          All Vehicles <span class="text-slate-500">(<span id="inv-total" class="inv-badge font-bold">1571</span>)</span>
         </a>
       </div>
       <p class="text-sm text-slate-600 mb-1">Fill out the quick form above to see your personalized options.</p>
@@ -743,35 +744,35 @@
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Coupe.jpg');"></div>
-          <div class="p-3"><p class="font-semibold text-sm">Coupe <span class="inv-badge font-semibold">(0)</span></p></div>
+          <div class="p-3"><p class="font-semibold text-sm">Coupe <span class="text-slate-500">(<span class="inv-badge font-semibold">168</span>)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Hatchback.jpg');"></div>
-          <div class="p-3"><p class="font-semibold text-sm">Hatchback / Wagen <span class="inv-badge font-semibold">(40)</span></p></div>
+          <div class="p-3"><p class="font-semibold text-sm">Hatchback / Wagen <span class="text-slate-500">(<span class="inv-badge font-semibold">138</span>)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Electric.jpg');"></div>
-          <div class="p-3"><p class="font-semibold text-sm">Electric / Hybrid <span class="inv-badge font-semibold">(118)</span></p></div>
+          <div class="p-3"><p class="font-semibold text-sm">Electric / Hybrid <span class="text-slate-500">(<span class="inv-badge font-semibold">421</span>)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Sedan.jpg');"></div>
-          <div class="p-3"><p class="font-semibold text-sm">Sedan <span class="inv-badge font-semibold">(163)</span></p></div>
+          <div class="p-3"><p class="font-semibold text-sm">Sedan <span class="text-slate-500">(<span class="inv-badge font-semibold">349</span>)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Crossover.jpg');"></div>
-          <div class="p-3"><p class="font-semibold text-sm">Crossover <span class="inv-badge font-semibold">(0)</span></p></div>
+          <div class="p-3"><p class="font-semibold text-sm">Crossover <span class="text-slate-500">(<span class="inv-badge font-semibold">307</span>)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Suv.jpg');"></div>
-          <div class="p-3"><p class="font-semibold text-sm">SUV <span class="inv-badge font-semibold">(486)</span></p></div>
+          <div class="p-3"><p class="font-semibold text-sm">SUV <span class="inv-badge font-semibold">486</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Van.jpg');"></div>
-          <div class="p-3"><p class="font-semibold text-sm">Van <span class="inv-badge font-semibold">(0)</span></p></div>
+          <div class="p-3"><p class="font-semibold text-sm">Van <span class="text-slate-500">(<span class="inv-badge font-semibold">102</span>)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Truck.jpg');"></div>
-          <div class="p-3"><p class="font-semibold text-sm">Truck <span class="inv-badge font-semibold">(86)</span></p></div>
+          <div class="p-3"><p class="font-semibold text-sm">Truck <span class="text-slate-500">(<span class="inv-badge font-semibold">86</span>)</span></p></div>
         </a>
       </div>
     </section>
