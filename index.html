@@ -33,7 +33,7 @@
       --slate-800: #1e293b;
 
       /* Typography */
-      --fs-h1: 34px; --fs-h2: 22px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
+      --fs-h1: 24px; --fs-h2: 22px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
       
       /* Spacing (ULTRA TIGHT) */
       --pad-y: 6px; --gap-regular: 2px; --input-py: 5px; --input-px: 10px; 
@@ -48,7 +48,7 @@
       --aside-pad: 12px;
       --footer-card-gap: 4px;
     }
-    @media (max-width:640px){ :root{ --nav-font: 13px; --fs-h1: 28px; } }
+    @media (max-width:640px){ :root{ --nav-font: 13px; --fs-h1: 22px; } }
 
     body{
       font-family:'Work Sans',sans-serif;
@@ -70,7 +70,7 @@
       background: linear-gradient(180deg, #ffffff, #f8fafc);
     }
     
-    .h1{ font-size:var(--fs-h1); font-weight:800; color:var(--slate-800); }
+    .h1{ font-size:var(--fs-h1); font-weight:700; color:var(--slate-800); }
     .h2{ font-size:var(--fs-h2); font-weight:700; color:var(--slate-800); margin-bottom:4px; }
     .label{ font-size:var(--fs-label); color:var(--slate-700); font-weight:600; display:block; margin-bottom:4px; }
     .muted{ font-size:10px; color:var(--slate-500); }
@@ -161,6 +161,7 @@
 
     .abc-badge{ display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:9999px; background:var(--blue-600); color:#fff; border:none; font-weight:800; font-size:12px; line-height:1; flex-shrink:0; }
     .inv-badge { color: var(--blue-600); }
+    .text-equifax-red { color: var(--red-equifax); }
 
     .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:var(--field-gap); }
     .grid-inline-refi-details { display:grid; grid-template-columns: .7fr 1.5fr 1.5fr; gap:var(--field-gap); }
@@ -764,7 +765,7 @@
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Suv.jpg');"></div>
-          <div class="p-3"><p class="font-semibold text-sm">SUV <span class="inv-badge font-semibold">486</span></p></div>
+          <div class="p-3"><p class="font-semibold text-sm">SUV <span class="text-slate-500">(<span class="inv-badge font-semibold">486</span>)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
           <div class="bodytype-img" style="background-image:url('Van.jpg');"></div>
@@ -1122,3 +1123,4 @@
   </script>
 </body>
 </html>
+
