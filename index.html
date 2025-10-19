@@ -36,7 +36,7 @@
       --fs-h1: 30px; --fs-h2: 22px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
       
       /* Spacing (ULTRA TIGHTEST) */
-      --pad-y: 2px; --gap-regular: 2px; --input-py: 2px; --input-px: 10px; 
+      --pad-y: 2px; --gap-regular: 3px; --input-py: 2px; --input-px: 10px; 
       
       /* Borders & Radius */
       --radius: 10px;
@@ -165,12 +165,12 @@
     .text-equifax-red { color: var(--red-equifax); }
 
     .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:var(--field-gap); }
-    .grid-inline-refi-details { display:grid; grid-template-columns: 90px 1fr 1fr; gap:var(--field-gap); }
-    .grid-inline-refi-details-2 { display:grid; grid-template-columns: 1fr 150px; gap:var(--field-gap); }
-    .grid-inline-trade-1 { display:grid; grid-template-columns: 90px 1fr 1fr; gap:var(--field-gap); }
-    .grid-inline-dob{ display:grid; grid-template-columns: .8fr .7fr .7fr 1fr; gap:var(--field-gap); }
-    .grid-inline-addr1{ display:grid; grid-template-columns: 1fr 80px; gap:var(--field-gap); }
-    .grid-inline-addr2{ display:grid; grid-template-columns: 1fr 90px 120px; gap:var(--field-gap); }
+    .grid-inline-refi-details { display:grid; grid-template-columns: .7fr 1.5fr 1.5fr; gap:var(--field-gap); }
+    .grid-inline-refi-details-2 { display:grid; grid-template-columns: 1fr .8fr; gap:var(--field-gap); }
+    .grid-inline-trade-1 { display:grid; grid-template-columns: .7fr 1.5fr 1.5fr; gap:var(--field-gap); }
+    .grid-inline-dob{ display:grid; grid-template-columns: .8fr .7fr .7fr 1.2fr; gap:var(--field-gap); }
+    .grid-inline-addr1{ display:grid; grid-template-columns: 1fr .5fr; gap:var(--field-gap); }
+    .grid-inline-addr2{ display:grid; grid-template-columns: 1.5fr .6fr .8fr; gap:var(--field-gap); }
     .grid-inline-addr3{ display:grid; grid-template-columns: 1fr .7fr .7fr 1fr; gap:var(--field-gap); align-items:end; }
     
     @media (max-width:640px){
@@ -228,7 +228,7 @@
     .refi-grid{ display:grid; grid-template-columns: 1fr; gap:6px; align-items:center; }
     .refi-row{ display:grid; grid-template-columns: 1fr 80px 110px; gap:var(--field-gap); }
     .refi-mini{ display:grid; grid-template-columns: 1fr auto; gap:8px; align-items:center; }
-    .refi-results{ font-size:12px; line-height:1.2; color:var(--slate-800); font-weight:600; display:grid; gap:2px; min-width:150px; }
+    .refi-results{ font-family: monospace, monospace; font-size:13px; line-height:1.2; color:var(--slate-800); font-weight:600; display:grid; gap:4px; min-width:150px; }
     .refi-slider{ width:100%; accent-color: var(--blue-600); cursor: pointer;}
   </style>
 
@@ -283,7 +283,7 @@
     <section id="about" class="card card-accent p-4">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
         <div>
-          <h1 class="h1">Get driving in three easy steps</h1>
+          <h1 class="h1">See options in three easy steps</h1>
           <ol class="text-sm space-y-3 mt-3">
             <li class="flex items-start gap-3">
               <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[12px]">1</span>
@@ -694,11 +694,10 @@
             </ul>
           </div>
         </div>
-        <div class="card card-accent p-4 flex-1 flex flex-col">
+        <div class="card card-accent p-4 flex-1 flex flex-col relative">
            <div class="refi-grid flex-1 flex flex-col justify-around">
             <div class="flex justify-between items-baseline">
                 <h4 class="text-base font-bold text-slate-800">Refinance Calculator</h4>
-                <span style="font-size: 11px;" class="font-semibold text-slate-500">Estimated</span>
             </div>
             <div class="refi-row">
               <div>
@@ -730,6 +729,7 @@
               </div>
             </div>
           </div>
+          <span style="font-size: 11px; top:1rem; right: 1rem;" class="absolute font-semibold text-slate-500">Estimated</span>
         </div>
       </aside>
     </section>
