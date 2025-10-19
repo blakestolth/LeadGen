@@ -1,4 +1,4 @@
-<html lang="en" class="scroll-smooth">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,7 +16,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 
   <style>
     :root{
@@ -66,7 +66,7 @@
 
     .card-accent{
       border: 1px solid var(--slate-200);
-      box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+      box-shadow: 0 10px 25px -5px rgba(30, 41, 59, 0.1), 0 8px 10px -6px rgba(30, 41, 59, 0.1);
       background: linear-gradient(180deg, #ffffff, #f8fafc);
     }
     
@@ -104,6 +104,8 @@
 
     .cta-button{ background:var(--blue-600); color:#fff; font-weight:700; padding:.5rem .9rem; border-radius: var(--radius); font-size:var(--fs-cta); min-height:36px; transition: all .2s ease; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
     .cta-button:hover{ background:var(--blue-700); transform: translateY(-1px); box-shadow: 0 7px 10px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+    .cta-button:active{ transform: scale(0.98); }
+
 
     .track{ height:6px; background:var(--slate-200); border-radius:9999px; overflow:hidden; }
     .fill{ height:6px; background:linear-gradient(90deg,var(--blue-600),var(--blue-grad)); border-radius:9999px; width:0%; transition:width .25s ease; }
@@ -147,11 +149,12 @@
       padding: 6px 12px;
       margin-bottom: var(--footer-card-gap);
     }
-    #btnBack{ min-height:30px; border-radius:10px; font-size:11px; }
+    #btnBack{ min-height:30px; border-radius:10px; font-size:11px; transition: transform 0.1s ease; }
+    #btnBack:active { transform: scale(0.98); }
 
     .choice-rect{
       width:100%; text-align:left; border:1.5px solid var(--slate-300); border-radius:var(--radius); background:#fff;
-      font-weight:600; color: var(--slate-800); transition:all .15s ease; display:block; cursor:pointer; padding: 10px 12px;
+      font-weight:500; color: var(--slate-800); transition:all .15s ease; display:block; cursor:pointer; padding: 10px 12px;
     }
     .choice-rect:hover{ border-color:var(--blue-600); background: #f7f9fc; transform: translateY(-1px); }
     .choice-rect.selected{ border-color:var(--blue-600); background:var(--blue-100); box-shadow: 0 0 0 2px var(--blue-600); }
@@ -283,11 +286,11 @@
     <section id="about" class="card card-accent p-4">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
         <div>
-          <h1 class="h1">Get driving in three easy steps</h1>
+          <h1 class="h1">See options in three easy steps</h1>
           <ol class="text-sm space-y-3 mt-3">
             <li class="flex items-start gap-3">
               <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[12px]">1</span>
-              <span class="text-left"><b>Enter your info</b> — 2–3 minutes, no pressure.</span>
+              <span class="text-left"><b>Enter your info</b> — 2–3 minutes.</span>
             </li>
             <li class="flex items-start gap-3">
               <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[12px]">2</span>
