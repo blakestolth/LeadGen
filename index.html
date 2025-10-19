@@ -33,22 +33,22 @@
       --slate-800: #1e293b;
 
       /* Typography */
-      --fs-h1: 24px; --fs-h2: 22px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
+      --fs-h1: 28px; --fs-h2: 20px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
       
       /* Spacing (ULTRA TIGHT) */
-      --pad-y: 6px; --gap-regular: 2px; --input-py: 5px; --input-px: 10px; 
+      --pad-y: 4px; --gap-regular: 3px; --input-py: 4px; --input-px: 10px; 
       
       /* Borders & Radius */
       --radius: 10px;
       
       --nav-font: 14px;
-      --control-h: 36px; /* TIGHTER */
+      --control-h: 32px; /* TIGHTER */
       --field-gap: 6px; /* TIGHTER */
       --section-max: 720px;
       --aside-pad: 12px;
       --footer-card-gap: 4px;
     }
-    @media (max-width:640px){ :root{ --nav-font: 13px; --fs-h1: 22px; } }
+    @media (max-width:640px){ :root{ --nav-font: 13px; --fs-h1: 24px; } }
 
     body{
       font-family:'Work Sans',sans-serif;
@@ -70,9 +70,9 @@
       background: linear-gradient(180deg, #ffffff, #f8fafc);
     }
     
-    .h1{ font-size:var(--fs-h1); font-weight:700; color:var(--slate-800); }
+    .h1{ font-size:var(--fs-h1); font-weight:800; color:var(--slate-800); }
     .h2{ font-size:var(--fs-h2); font-weight:700; color:var(--slate-800); margin-bottom:4px; }
-    .label{ font-size:var(--fs-label); color:var(--slate-700); font-weight:600; display:block; margin-bottom:4px; }
+    .label{ font-size:var(--fs-label); color:var(--slate-700); font-weight:600; display:block; margin-bottom:3px; }
     .muted{ font-size:10px; color:var(--slate-500); }
 
     .form-input,.form-select,.form-textarea{
@@ -115,11 +115,11 @@
       --fs-body: 12px;
       --fs-label: 10px;
       --fs-cta: 12px;
-      --control-h: 34px;
+      --control-h: 32px;
     }
-    #lead-form .choice-rect{ padding:8px 10px; }
+    #lead-form .choice-rect{ padding:6px 10px; }
     #lead-form .sticky [id^="progress-"]{ font-size:10px !important; }
-    #lead-form .cta-button{ min-height:34px; }
+    #lead-form .cta-button{ min-height:32px; }
 
     .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; height: 100%; }
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); pointer-events:none; }
@@ -146,7 +146,7 @@
       padding: 8px 12px;
       margin-bottom: var(--footer-card-gap);
     }
-    #btnBack{ min-height:34px; border-radius:10px; font-size:11px; }
+    #btnBack{ min-height:32px; border-radius:10px; font-size:11px; }
 
     .choice-rect{
       width:100%; text-align:left; border:1.5px solid var(--slate-300); border-radius:var(--radius); background:#fff;
@@ -159,7 +159,7 @@
     .seg-btn{ appearance:none; border:0; background:transparent; cursor:pointer; padding:6px 14px; border-radius:9999px; font-weight:600; font-size:12px; color:var(--slate-600); transition:background .15s ease, color .15s ease, box-shadow .15s ease; }
     .seg-btn[aria-pressed="true"]{ background:var(--blue-600); color:#fff; box-shadow:0 1px 3px rgba(0,0,0,.1); }
 
-    .abc-badge{ display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:9999px; background:var(--blue-600); color:#fff; border:none; font-weight:800; font-size:12px; line-height:1; flex-shrink:0; }
+    .abc-badge{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:9999px; background:var(--blue-600); color:#fff; border:none; font-weight:800; font-size:11px; line-height:1; flex-shrink:0; }
     .inv-badge { color: var(--blue-600); }
     .text-equifax-red { color: var(--red-equifax); }
 
@@ -280,32 +280,32 @@
   </header>
 
   <main class="w-full max-w-5xl mx-auto px-4 py-8 space-y-8">
-    <section id="about" class="card card-accent p-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
+    <section id="about" class="card card-accent p-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
         <div>
           <h1 class="h1">See options in three easy steps</h1>
-          <ol class="text-base space-y-4 mt-4">
-            <li class="flex items-start gap-4">
-              <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[13px]">1</span>
+          <ol class="text-sm space-y-3 mt-3">
+            <li class="flex items-start gap-3">
+              <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[12px]">1</span>
               <span class="text-left"><b>Enter your info</b> — 2–3 minutes, no pressure.</span>
             </li>
-            <li class="flex items-start gap-4">
-              <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[13px]">2</span>
+            <li class="flex items-start gap-3">
+              <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[12px]">2</span>
               <span class="text-left"><b>See options you qualify for</b> across BC.</span>
             </li>
-            <li class="flex items-start gap-4">
-              <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[13px]">3</span>
+            <li class="flex items-start gap-3">
+              <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[12px]">3</span>
               <span class="text-left"><b>We deliver</b> to your door — fast & stress-free.</span>
             </li>
           </ol>
         </div>
         <div>
           <h2 class="h2">Why people pick us</h2>
-          <ul class="text-sm space-y-4 mt-4">
-            <li class="flex items-start gap-4"><span class="abc-badge mt-0.5">A</span><span class="text-left"><b>All credit welcome:</b> high approval rates.</span></li>
-            <li class="flex items-start gap-4"><span class="abc-badge mt-0.5">B</span><span class="text-left"><b>Bigger selection:</b> new & used vehicles across BC.</span></li>
-            <li class="flex items-start gap-4"><span class="abc-badge mt-0.5">C</span><span class="text-left"><b>Contact from us:</b> no information sold to dealerships.</span></li>
-            <li class="flex items-start gap-4"><span class="abc-badge mt-0.5">D</span><span class="text-left"><b>Delivery across BC:</b> right to your doorstep.</span></li>
+          <ul class="text-sm space-y-3 mt-3">
+            <li class="flex items-start gap-3"><span class="abc-badge mt-0.5">A</span><span class="text-left"><b>All credit welcome:</b> high approval rates.</span></li>
+            <li class="flex items-start gap-3"><span class="abc-badge mt-0.5">B</span><span class="text-left"><b>Bigger selection:</b> new & used vehicles across BC.</span></li>
+            <li class="flex items-start gap-3"><span class="abc-badge mt-0.5">C</span><span class="text-left"><b>Contact from us:</b> no information sold to dealerships.</span></li>
+            <li class="flex items-start gap-3"><span class="abc-badge mt-0.5">D</span><span class="text-left"><b>Delivery across BC:</b> right to your doorstep.</span></li>
           </ul>
         </div>
       </div>
