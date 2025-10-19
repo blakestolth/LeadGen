@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vancouver Island Credit | Auto Approvals Online — Work with Blake</title>
+  <title>Vancouver Island Credit | Auto Approvals Online</title>
 
   <meta name="description" content="Fast, confidential auto approvals across Vancouver Island & BC. New & used options. Delivery to your door. Work 1 on 1 with Blake Stolth — no call centres." />
   <link rel="canonical" href="https://vancouverislandcredit.ca/"/>
@@ -36,7 +36,7 @@
       --fs-h1: 30px; --fs-h2: 22px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
       
       /* Spacing (ULTRA TIGHTEST) */
-      --pad-y: 2px; --gap-regular: 3px; --input-py: 2px; --input-px: 10px; 
+      --pad-y: 2px; --gap-regular: 2px; --input-py: 2px; --input-px: 10px; 
       
       /* Borders & Radius */
       --radius: 10px;
@@ -165,12 +165,12 @@
     .text-equifax-red { color: var(--red-equifax); }
 
     .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:var(--field-gap); }
-    .grid-inline-refi-details { display:grid; grid-template-columns: .7fr 1.5fr 1.5fr; gap:var(--field-gap); }
-    .grid-inline-refi-details-2 { display:grid; grid-template-columns: 1fr .8fr; gap:var(--field-gap); }
-    .grid-inline-trade-1 { display:grid; grid-template-columns: .7fr 1.5fr 1.5fr; gap:var(--field-gap); }
-    .grid-inline-dob{ display:grid; grid-template-columns: .8fr .7fr .7fr 1.2fr; gap:var(--field-gap); }
-    .grid-inline-addr1{ display:grid; grid-template-columns: 1fr .5fr; gap:var(--field-gap); }
-    .grid-inline-addr2{ display:grid; grid-template-columns: 1.5fr .6fr .8fr; gap:var(--field-gap); }
+    .grid-inline-refi-details { display:grid; grid-template-columns: 90px 1fr 1fr; gap:var(--field-gap); }
+    .grid-inline-refi-details-2 { display:grid; grid-template-columns: 1fr 150px; gap:var(--field-gap); }
+    .grid-inline-trade-1 { display:grid; grid-template-columns: 90px 1fr 1fr; gap:var(--field-gap); }
+    .grid-inline-dob{ display:grid; grid-template-columns: .8fr .7fr .7fr 1fr; gap:var(--field-gap); }
+    .grid-inline-addr1{ display:grid; grid-template-columns: 1fr 80px; gap:var(--field-gap); }
+    .grid-inline-addr2{ display:grid; grid-template-columns: 1fr 90px 120px; gap:var(--field-gap); }
     .grid-inline-addr3{ display:grid; grid-template-columns: 1fr .7fr .7fr 1fr; gap:var(--field-gap); align-items:end; }
     
     @media (max-width:640px){
@@ -181,7 +181,7 @@
     .brand-left{ display:flex; align-items:center; gap:12px; }
     .site-logo{ height:60px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
     @media (max-width:640px){ .site-logo{ height:56px; } }
-    .brand-stack{ display:flex; flex-direction:column; gap:4px; }
+    .brand-stack{ display:flex; flex-direction:column; justify-content: center; gap:4px; }
     .brand-title{ color:var(--slate-800); font-weight:800; letter-spacing:-0.01em; font-size:var(--nav-font); white-space:nowrap; text-decoration:none; line-height:1.1; margin-left:-2px; }
     .powered-by-inline{ display:flex; align-items:center; gap:6px; font-size: calc(var(--nav-font) * .8); color:var(--slate-600); font-weight:700; line-height:1; }
     .powered-by-inline img{ height: 0.9em; width:auto; object-fit:contain; position:relative; top:2px; }
@@ -254,8 +254,7 @@
       <div class="brand-left">
         <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
         <div class="brand-stack">
-          <a href="#" class="brand-title" aria-label="Vancouver Island Credit — Home">Vancouver Island Credit</a>
-          <div class="powered-by-inline"><span>Powered by</span><img src="Equifax.png" alt="Credit reports powered by Equifax"/></div>
+          <div class="brand-title">Powered by Equifax</div>
         </div>
       </div>
 
@@ -266,7 +265,9 @@
         <a href="#lead-form" class="cta-button ml-2">Apply Now</a>
       </div>
       <button id="menuBtn" class="sm:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 transition-colors" aria-label="Open menu">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-slate-700">
+          <path fill-rule="evenodd" d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" clip-rule="evenodd" />
+        </svg>
       </button>
     </nav>
     <div id="mobileMenu" class="hidden sm:hidden mt-2 card card-accent px-4 py-3">
@@ -410,11 +411,11 @@
                           </div>
                           <div>
                             <label for="refiMake" class="label">Make</label>
-                            <input type="text" name="refiMake" id="refiMake" class="form-input" maxlength="40" required/>
+                            <input type="text" name="refiMake" id="refiMake" class="form-input" list="makes-list" required/>
                           </div>
                            <div>
                             <label for="refiModel" class="label">Model</label>
-                            <input type="text" name="refiModel" id="refiModel" class="form-input" maxlength="50" required/>
+                            <input type="text" name="refiModel" id="refiModel" class="form-input" list="models-list-refi" required/>
                           </div>
                         </div>
                         <div class="grid-inline-refi-details-2">
@@ -448,11 +449,11 @@
                           </div>
                           <div>
                             <label for="tradeInMake" class="label">Make</label>
-                            <input type="text" name="tradeInMake" id="tradeInMake" class="form-input" maxlength="40"/>
+                            <input type="text" name="tradeInMake" id="tradeInMake" class="form-input" list="makes-list" />
                           </div>
                            <div>
                             <label for="tradeInModel" class="label">Model</label>
-                            <input type="text" name="tradeInModel" id="tradeInModel" class="form-input" maxlength="50"/>
+                            <input type="text" name="tradeInModel" id="tradeInModel" class="form-input" list="models-list-trade"/>
                           </div>
                         </div>
                         <div class="grid-inline-2">
@@ -652,6 +653,9 @@
                   <div class="step-inner"><input id="creditConsent" name="creditConsent" type="checkbox" class="hidden" checked /></div>
                 </section>
               </form>
+              <datalist id="makes-list"></datalist>
+              <datalist id="models-list-refi"></datalist>
+              <datalist id="models-list-trade"></datalist>
             </div>
           </div>
 
@@ -729,7 +733,7 @@
               </div>
             </div>
           </div>
-          <span style="font-size: 11px; top:1rem; right: 1rem;" class="absolute font-semibold text-slate-500">Estimated</span>
+          <span style="font-size: 11px; top: 1rem; right: 1rem;" class="absolute font-semibold text-slate-500">Estimated</span>
         </div>
       </aside>
     </section>
