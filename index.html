@@ -1,4 +1,4 @@
-
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -725,8 +725,8 @@
                 <div class="text-[11px] text-zinc-700 mt-1">New rate: <b><span id="refNewRateOut">7.99</span>%</b></div>
               </div>
               <div class="refi-results" id="refResults">
-                <div><span class="text-zinc-500">New Payment (Bi-weekly):</span> $0.00</div>
-                <div><span class="text-zinc-500">Total Interest Saved:</span> $0.00</div>
+                <div><span class="text-zinc-500">New payment:</span> $0.00</div>
+                <div><span class="text-zinc-500">Interest saved:</span> $0.00</div>
               </div>
             </div>
           </div>
@@ -1040,8 +1040,8 @@
         const years = parseFloat(termEl.value)||0;
 
         if (!loan || !rate || !years){
-          results.innerHTML = `<div><span class="text-zinc-500">New Payment (Bi-weekly):</span> $0.00</div>
-                           <div><span class="text-zinc-500">Total Interest Saved:</span> $0.00</div>`;
+          results.innerHTML = `<div><span class="text-zinc-500">New payment:</span> $0.00</div>
+                           <div><span class="text-zinc-500">Interest saved:</span> $0.00</div>`;
           return;
         }
 
@@ -1063,10 +1063,11 @@
         const interestSaved = Math.max(0, curTotInt - newTotInt);
 
         results.innerHTML =
-          `<div><span class="text-zinc-500">New Payment (Bi-weekly):</span> ${fmtMoney(newPmtBiWeekly)}</div>
-           <div><span class="text-zinc-500">Total interest saved:</span> ${fmtMoney(interestSaved)}</div>`;
+          `<div><span class="text-zinc-500">New payment:</span> ${fmtMoney(newPmtBiWeekly)}</div>
+           <div><span class="text-zinc-500">Interest saved:</span> ${fmtMoney(interestSaved)}</div>`;
       }
-
+      
+      update();
       newRateOut.textContent = Number(newRateSlider.value).toFixed(2);
     }
 
