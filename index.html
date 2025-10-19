@@ -33,22 +33,22 @@
       --slate-800: #1e293b;
 
       /* Typography */
-      --fs-h1: 28px; --fs-h2: 20px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
+      --fs-h1: 30px; --fs-h2: 22px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
       
-      /* Spacing (ULTRA TIGHT) */
-      --pad-y: 4px; --gap-regular: 3px; --input-py: 4px; --input-px: 10px; 
+      /* Spacing (ULTRA TIGHTER) */
+      --pad-y: 4px; --gap-regular: 4px; --input-py: 4px; --input-px: 10px; 
       
       /* Borders & Radius */
       --radius: 10px;
       
       --nav-font: 14px;
-      --control-h: 32px; /* TIGHTER */
-      --field-gap: 6px; /* TIGHTER */
+      --control-h: 32px; /* TIGHTEST */
+      --field-gap: 6px; /* TIGHTEST */
       --section-max: 720px;
       --aside-pad: 12px;
       --footer-card-gap: 4px;
     }
-    @media (max-width:640px){ :root{ --nav-font: 13px; --fs-h1: 24px; } }
+    @media (max-width:640px){ :root{ --nav-font: 13px; --fs-h1: 26px; } }
 
     body{
       font-family:'Work Sans',sans-serif;
@@ -662,7 +662,7 @@
         </div>
       </div>
 
-      <aside class="card card-accent p-3 flex flex-col gap-2">
+      <aside class="card card-accent p-2 flex flex-col gap-2">
         <div class="pt-2">
           <h2 class="h2 text-lg text-center">You may be entitled to a rate reduction</h2>
           <ul class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center text-slate-700 mt-3">
@@ -697,7 +697,6 @@
              <div class="refi-grid">
               <div class="flex justify-between items-baseline">
                   <h4 class="text-base font-bold text-slate-800">Refinance Calculator</h4>
-                  <span class="text-xs font-semibold text-[var(--blue-600)]">Estimated</span>
               </div>
               <div class="refi-row">
                 <div>
@@ -726,6 +725,9 @@
                 <div class="refi-results" id="refResults">
                   <div class="text-zinc-500">Enter your numbers to see savings.</div>
                 </div>
+              </div>
+              <div class="text-right">
+                <span class="text-[10px] text-slate-500">Estimated</span>
               </div>
             </div>
         </div>
@@ -1123,4 +1125,3 @@
   </script>
 </body>
 </html>
-
