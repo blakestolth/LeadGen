@@ -36,7 +36,7 @@
       --fs-h1: 30px; --fs-h2: 22px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
       
       /* Spacing (ULTRA TIGHTEST) */
-      --pad-y: 2px; --gap-regular: 3px; --input-py: 2px; --input-px: 10px; 
+      --pad-y: 2px; --gap-regular: 3px; --input-py: 3px; --input-px: 10px; 
       
       /* Borders & Radius */
       --radius: 10px;
@@ -250,7 +250,7 @@
 </head>
 <body>
   <header class="w-full max-w-5xl mx-auto mt-4 px-4">
-    <nav class="bg-white/80 backdrop-blur-lg card card-accent px-4 sm:px-6 py-2.5 flex items-center justify-between">
+    <nav class="bg-white/80 backdrop-blur-lg card card-accent px-4 sm:px-6 py-2 flex items-center justify-between">
       <div class="brand-left">
         <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
         <div class="brand-stack">
@@ -662,72 +662,73 @@
         </div>
       </div>
 
-      <aside class="card card-accent p-2 flex flex-col gap-1 pb-1">
-        <div class="pt-2">
-          <h2 class="h2 text-lg text-center">You may be entitled to a rate reduction</h2>
-          <ul class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center text-slate-700 mt-3">
-            <li class="flex flex-col items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 17l-2 2-2-2m4-4h6l2 2-2 2H9l-2-2 2-2zM5 15l-2 2-2-2m18-4l2 2-2 2M5 7l2-2 2 2M19 7l2-2 2 2m-4 4l-2 2-2-2m4-4h6l2 2-2 2H13l-2-2 2-2z"/>
-              </svg>
-              <span class="text-xs leading-tight">Vehicle's model year qualifies for new rates.</span>
-            </li>
-            <li class="flex flex-col items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="text-xs leading-tight">Loan is over one year old.</span>
-            </li>
-            <li class="flex flex-col items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-              </svg>
-              <span class="text-xs leading-tight">Credit score has improved.</span>
-            </li>
-            <li class="flex flex-col items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span class="text-xs leading-tight">Consistent payment history.</span>
-            </li>
-          </ul>
+      <aside class="flex flex-col gap-6">
+        <div class="card card-accent p-2">
+          <div class="pt-2">
+            <h2 class="h2 text-lg text-center">You may be entitled to a rate reduction</h2>
+            <ul class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center text-slate-700 mt-3">
+              <li class="flex flex-col items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 17l-2 2-2-2m4-4h6l2 2-2 2H9l-2-2 2-2zM5 15l-2 2-2-2m18-4l2 2-2 2M5 7l2-2 2 2M19 7l2-2 2 2m-4 4l-2 2-2-2m4-4h6l2 2-2 2H13l-2-2 2-2z"/>
+                </svg>
+                <span class="text-xs leading-tight">Vehicle's model year qualifies for new rates.</span>
+              </li>
+              <li class="flex flex-col items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span class="text-xs leading-tight">Loan is over one year old.</span>
+              </li>
+              <li class="flex flex-col items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+                <span class="text-xs leading-tight">Credit score has improved.</span>
+              </li>
+              <li class="flex flex-col items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span class="text-xs leading-tight">Consistent payment history.</span>
+              </li>
+            </ul>
+          </div>
         </div>
-
-        <div class="pt-2 mt-2 border-t border-slate-200">
-             <div class="refi-grid">
-              <div class="flex justify-between items-baseline">
-                  <h4 class="text-base font-bold text-slate-800">Refinance Calculator</h4>
-                  <span style="font-size: 11px;" class="font-semibold text-slate-500">Estimated</span>
+        <div class="card card-accent p-4 flex-1 flex flex-col">
+           <div class="refi-grid flex-1 flex flex-col justify-center">
+            <div class="flex justify-between items-baseline">
+                <h4 class="text-base font-bold text-slate-800">Refinance Calculator</h4>
+                <span style="font-size: 11px;" class="font-semibold text-slate-500">Estimated</span>
+            </div>
+            <div class="refi-row">
+              <div>
+                <label class="label" for="refLoanInput">Loan amount</label>
+                <input id="refLoanInput" class="form-input form-input-sm" placeholder="$15,000" inputmode="numeric" maxlength="14" />
               </div>
-              <div class="refi-row">
-                <div>
-                  <label class="label" for="refLoanInput">Loan amount</label>
-                  <input id="refLoanInput" class="form-input form-input-sm" placeholder="$15,000" inputmode="numeric" maxlength="14" />
-                </div>
-                <div>
-                  <label class="label" for="refTermInput">Years</label>
-                  <select id="refTermInput" class="form-select form-input-sm">
-                    <option value="">—</option>
-                    <option>1</option><option>2</option><option>3</option><option>4</option>
-                    <option>5</option><option>6</option><option>7</option><option>8</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="label" for="refRateInput">Current %</label>
-                  <input id="refRateInput" class="form-input form-input-sm" placeholder="8.99" inputmode="decimal" maxlength="5" />
-                </div>
+              <div>
+                <label class="label" for="refTermInput">Years</label>
+                <select id="refTermInput" class="form-select form-input-sm">
+                  <option value="">—</option>
+                  <option>1</option><option>2</option><option>3</option><option>4</option>
+                  <option>5</option><option>6</option><option>7</option><option>8</option>
+                </select>
               </div>
-              <div class="refi-mini">
-                <div>
-                  <label class="label" for="refNewRateSlider">Try a new rate</label>
-                  <input id="refNewRateSlider" type="range" min="0.00" max="8.99" step="0.05" value="7.99" class="refi-slider">
-                  <div class="text-[11px] text-zinc-700 mt-1">New rate: <b><span id="refNewRateOut">7.99</span>%</b></div>
-                </div>
-                <div class="refi-results" id="refResults">
-                  <div class="text-zinc-500">Enter your numbers to see savings.</div>
-                </div>
+              <div>
+                <label class="label" for="refRateInput">Current %</label>
+                <input id="refRateInput" class="form-input form-input-sm" placeholder="8.99" inputmode="decimal" maxlength="5" />
               </div>
             </div>
+            <div class="refi-mini">
+              <div>
+                <label class="label" for="refNewRateSlider">Try a new rate</label>
+                <input id="refNewRateSlider" type="range" min="0.00" max="8.99" step="0.05" value="7.99" class="refi-slider">
+                <div class="text-[11px] text-zinc-700 mt-1">New rate: <b><span id="refNewRateOut">7.99</span>%</b></div>
+              </div>
+              <div class="refi-results" id="refResults">
+                <div class="text-zinc-500">Enter your numbers to see savings.</div>
+              </div>
+            </div>
+          </div>
         </div>
       </aside>
     </section>
