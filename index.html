@@ -1,4 +1,4 @@
-
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -36,16 +36,16 @@
       --fs-h1: 30px; --fs-h2: 22px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
       
       /* Spacing (ULTRA TIGHTEST) */
-      --pad-y: 2px; --gap-regular: 2px; --input-py: 3px; --input-px: 10px; 
+      --pad-y: 2px; --gap-regular: 3px; --input-py: 3px; --input-px: 10px; 
       
       /* Borders & Radius */
       --radius: 10px;
       
       --nav-font: 14px;
-      --control-h: 30px; /* TIGHTEST */
+      --control-h: 32px; /* TIGHTEST */
       --field-gap: 5px; /* TIGHTEST */
       --section-max: 720px;
-      --aside-pad: 12px;
+      --aside-pad: 10px;
       --footer-card-gap: 4px;
     }
     @media (max-width:640px){ :root{ --nav-font: 13px; --fs-h1: 26px; } }
@@ -88,7 +88,7 @@
     }
 
     .form-input-sm, .form-select-sm {
-      min-height: 30px;
+      min-height: 32px;
       font-size: 12px;
       padding-top: 4px;
       padding-bottom: 4px;
@@ -115,11 +115,11 @@
       --fs-body: 12px;
       --fs-label: 10px;
       --fs-cta: 12px;
-      --control-h: 30px;
+      --control-h: 32px;
     }
     #lead-form .choice-rect{ padding:6px 10px; }
     #lead-form .sticky [id^="progress-"]{ font-size:10px !important; }
-    #lead-form .cta-button{ min-height:30px; }
+    #lead-form .cta-button{ min-height:32px; }
 
     .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; height: 100%; }
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); pointer-events:none; }
@@ -146,7 +146,7 @@
       padding: 8px 12px;
       margin-bottom: var(--footer-card-gap);
     }
-    #btnBack{ min-height:30px; border-radius:10px; font-size:11px; }
+    #btnBack{ min-height:32px; border-radius:10px; font-size:11px; }
 
     .choice-rect{
       width:100%; text-align:left; border:1.5px solid var(--slate-300); border-radius:var(--radius); background:#fff;
@@ -662,8 +662,8 @@
         </div>
       </div>
 
-      <aside class="card card-accent px-2 pt-2 pb-1 flex flex-col gap-1">
-        <div class="pt-1">
+      <aside class="card card-accent p-2 flex flex-col">
+        <div class="pt-2">
           <h2 class="h2 text-lg text-center">You may be entitled to a rate reduction</h2>
           <ul class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center text-slate-700 mt-3">
             <li class="flex flex-col items-center gap-2">
@@ -693,11 +693,11 @@
           </ul>
         </div>
 
-        <div class="pt-1 border-t border-slate-200">
+        <div class="pt-2 mt-2 border-t border-slate-200">
              <div class="refi-grid">
               <div class="flex justify-between items-baseline">
                   <h4 class="text-base font-bold text-slate-800">Refinance Calculator</h4>
-                  <span style="font-size: 12px;" class="font-semibold text-slate-500">Estimated</span>
+                  <span style="font-size: 13px;" class="font-semibold text-slate-500">Estimated</span>
               </div>
               <div class="refi-row">
                 <div>
@@ -1123,4 +1123,3 @@
   </script>
 </body>
 </html>
-
