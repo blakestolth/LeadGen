@@ -196,12 +196,17 @@
 
     /* Inventory tiles */
     .bodytype-card{
+      position: relative;
       overflow:hidden; border-radius:12px; border:1px solid var(--slate-200); background:#fff;
       transition:transform .2s,box-shadow .2s,border-color .2s;
     }
     .bodytype-card:hover{ transform:translateY(-3px); border-color:var(--blue-600); box-shadow:0 12px 20px -10px rgba(42,93,159,.3); }
     .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:92px; }
     @media (min-width:640px){ .bodytype-img{ height:110px; } }
+    
+    /* Inventory Overlay */
+    .inv-overlay { position: absolute; inset: 0; background: rgba(42,93,159,0.9); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s ease; color: white; font-weight: 700; font-size: 14px; z-index: 5; border-radius: 11px;}
+    .bodytype-card:hover .inv-overlay { opacity: 1; }
 
     .map-embed{ width:100%; height:150px; border:0; border-radius: inherit; }
     @media (max-width:768px){ .map-embed{ height:200px; } }
@@ -291,7 +296,13 @@
     <section id="about" class="card card-accent p-4">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
         <div>
-          <h1 class="h1">See options in three easy steps</h1>
+          <div class="flex items-center gap-4 mb-4">
+             <img src="Untitled Project.jpg" alt="Blake Stolth" class="w-14 h-14 rounded-full border-2 border-[var(--blue-600)] object-cover">
+             <div>
+                <h1 class="h1 text-xl">See options in three easy steps</h1>
+                <p class="text-xs text-slate-500">Your application is reviewed personally by Blake.</p>
+             </div>
+          </div>
           <ol class="text-sm space-y-3 mt-3">
             <li class="flex items-start gap-3">
               <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[12px]">1</span>
@@ -563,52 +574,52 @@
                     <div class="step-title"><h3 class="h2">8. Current address</h3></div>
                     <div class="step-body">
                       <div class="content vstack" style="max-width:640px;">
-                         <div class="grid-inline-addr1">
-                           <div>
-                            <label for="currentStreetAddress" class="label">Street address</label>
-                            <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" autocomplete="street-address" maxlength="120" required/>
-                           </div>
-                           <div>
-                             <label for="currentUnit" class="label">Unit #</label>
-                            <input type="text" id="currentUnit" name="currentUnit" class="form-input" maxlength="10"/>
-                           </div>
-                         </div>
-                         <div class="grid-inline-addr2">
-                           <div>
-                            <label for="currentCity" class="label">City</label>
-                            <input type="text" id="currentCity" name="currentCity" class="form-input" autocomplete="address-level2" maxlength="60" required/>
-                           </div>
-                           <div>
-                            <label for="currentProvince" class="label">Prov</label>
-                            <select id="currentProvince" name="currentProvince" class="form-select" required></select>
-                           </div>
-                           <div>
-                            <label for="currentPostalCode" class="label">Postal Code</label>
-                            <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" autocomplete="postal-code" maxlength="7" required/>
-                           </div>
-                         </div>
-                         <div class="grid-inline-addr3">
-                           <div>
-                            <label for="housingPayment" class="label">Monthly payments</label>
-                            <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1800" inputmode="numeric" maxlength="5" required/>
-                           </div>
-                           <div>
-                            <label class="label">Years at address</label>
-                            <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
-                           </div>
-                           <div>
-                            <label class="label">Months</label>
-                            <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
-                           </div>
-                           <div>
-                            <label class="label">Rent or Own?</label>
-                            <div class="seg">
-                              <button type="button" class="seg-btn flex-1" id="btnRent" aria-pressed="true">Rent</button>
-                              <button type="button" class="seg-btn flex-1" id="btnOwn" aria-pressed="false">Own</button>
+                          <div class="grid-inline-addr1">
+                            <div>
+                             <label for="currentStreetAddress" class="label">Street address</label>
+                             <input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" autocomplete="street-address" maxlength="120" required/>
                             </div>
-                            <input type="hidden" id="housingType" name="housingType" value="Rent" />
-                           </div>
-                         </div>
+                            <div>
+                             <label for="currentUnit" class="label">Unit #</label>
+                             <input type="text" id="currentUnit" name="currentUnit" class="form-input" maxlength="10"/>
+                            </div>
+                          </div>
+                          <div class="grid-inline-addr2">
+                            <div>
+                             <label for="currentCity" class="label">City</label>
+                             <input type="text" id="currentCity" name="currentCity" class="form-input" autocomplete="address-level2" maxlength="60" required/>
+                            </div>
+                            <div>
+                             <label for="currentProvince" class="label">Prov</label>
+                             <select id="currentProvince" name="currentProvince" class="form-select" required></select>
+                            </div>
+                            <div>
+                             <label for="currentPostalCode" class="label">Postal Code</label>
+                             <input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" autocomplete="postal-code" maxlength="7" required/>
+                            </div>
+                          </div>
+                          <div class="grid-inline-addr3">
+                            <div>
+                             <label for="housingPayment" class="label">Monthly payments</label>
+                             <input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1800" inputmode="numeric" maxlength="5" required/>
+                            </div>
+                            <div>
+                             <label class="label">Years at address</label>
+                             <select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select>
+                            </div>
+                            <div>
+                             <label class="label">Months</label>
+                             <select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select>
+                            </div>
+                            <div>
+                             <label class="label">Rent or Own?</label>
+                             <div class="seg">
+                               <button type="button" class="seg-btn flex-1" id="btnRent" aria-pressed="true">Rent</button>
+                               <button type="button" class="seg-btn flex-1" id="btnOwn" aria-pressed="false">Own</button>
+                             </div>
+                             <input type="hidden" id="housingType" name="housingType" value="Rent" />
+                            </div>
+                          </div>
                       </div>
                     </div>
                   </div>
@@ -650,14 +661,19 @@
                             </div>
                           </div>
                         </div>
-                        <p class="muted mt-3">By selecting Next, you give Vancouver Island Credit permission to review your credit to find exact matches.</p>
+                        <label class="flex items-start gap-3 mt-4 p-3 border border-slate-200 rounded-lg bg-slate-50 cursor-pointer hover:bg-white transition-colors">
+                          <input type="checkbox" name="creditConsent" id="creditConsent" class="mt-1 accent-[var(--blue-600)]" checked required>
+                          <span class="text-xs text-slate-600 leading-snug">
+                            I confirm I am the person named above and I consent to Vancouver Island Credit obtaining credit reports to facilitate my application. (VSA #41114)
+                          </span>
+                        </label>
                       </div>
                     </div>
                   </div>
                 </section>
 
                 <section class="form-step hidden" data-id="step-consent">
-                  <div class="step-inner"><input id="creditConsent" name="creditConsent" type="checkbox" class="hidden" checked /></div>
+                  <div class="step-inner"></div>
                 </section>
               </form>
             </div>
@@ -754,34 +770,42 @@
 
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
         <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="inv-overlay">Check Approval</div>
           <div class="bodytype-img" style="background-image:url('Coupe.jpg');"></div>
           <div class="p-3"><p class="font-semibold text-sm">Coupe <span class="text-slate-500">(<span class="inv-badge font-semibold">168</span>)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="inv-overlay">Check Approval</div>
           <div class="bodytype-img" style="background-image:url('Hatchback.jpg');"></div>
           <div class="p-3"><p class="font-semibold text-sm">Hatchback / Wagen <span class="text-slate-500">(<span class="inv-badge font-semibold">138</span>)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="inv-overlay">Check Approval</div>
           <div class="bodytype-img" style="background-image:url('Electric.jpg');"></div>
           <div class="p-3"><p class="font-semibold text-sm">Electric / Hybrid <span class="text-slate-500">(<span class="inv-badge font-semibold">421</span>)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="inv-overlay">Check Approval</div>
           <div class="bodytype-img" style="background-image:url('Sedan.jpg');"></div>
           <div class="p-3"><p class="font-semibold text-sm">Sedan <span class="text-slate-500">(<span class="inv-badge font-semibold">349</span>)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="inv-overlay">Check Approval</div>
           <div class="bodytype-img" style="background-image:url('Crossover.jpg');"></div>
           <div class="p-3"><p class="font-semibold text-sm">Crossover <span class="text-slate-500">(<span class="inv-badge font-semibold">307</span>)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="inv-overlay">Check Approval</div>
           <div class="bodytype-img" style="background-image:url('Suv.jpg');"></div>
           <div class="p-3"><p class="font-semibold text-sm">SUV <span class="text-slate-500">(<span class="inv-badge font-semibold">486</span>)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="inv-overlay">Check Approval</div>
           <div class="bodytype-img" style="background-image:url('Van.jpg');"></div>
           <div class="p-3"><p class="font-semibold text-sm">Van <span class="text-slate-500">(<span class="inv-badge font-semibold">102</span>)</span></p></div>
         </a>
         <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="inv-overlay">Check Approval</div>
           <div class="bodytype-img" style="background-image:url('Truck.jpg');"></div>
           <div class="p-3"><p class="font-semibold text-sm">Truck <span class="text-slate-500">(<span class="inv-badge font-semibold">86</span>)</span></p></div>
         </a>
@@ -798,11 +822,18 @@
     </section>
 
     <footer id="contact" class="text-center text-xs text-slate-500 pt-2 space-y-1.5">
+      <div class="flex justify-center gap-4 text-xs text-slate-400 mb-2 underline">
+        <a href="/privacy-policy.html" target="_blank">Privacy Policy</a>
+        <a href="/terms.html" target="_blank">Terms of Service</a>
+      </div>
       <p class="font-semibold text-slate-600 text-sm">Vancouver Island Credit</p>
       <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
       <p><a href="tel:+1-236-969-2424" class="hover:text-[var(--blue-600)] transition-colors">Customer service: (236) 969-2424</a></p>
       <p class="pt-1">Serving Vancouver Island & British Columbia • Delivery available province-wide</p>
-      <p class="mt-2 text-slate-400">© <span id="year"></span> Vancouver Island Credit • All rights reserved</p>
+      <p class="mt-2 text-slate-400">
+        © <span id="year"></span> Vancouver Island Credit • All rights reserved • 
+        <span class="block sm:inline">VSA Dealer #41114</span>
+      </p>
     </footer>
   </main>
 
@@ -1049,7 +1080,7 @@
 
         if (!loan || !rate || !years){
           results.innerHTML = `<div><span class="text-zinc-500">New payment:</span> $0.00</div>
-                           <div><span class="text-zinc-500">Interest saved:</span> $0.00</div>`;
+                               <div><span class="text-zinc-500">Interest saved:</span> $0.00</div>`;
           return;
         }
 
