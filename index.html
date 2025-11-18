@@ -39,7 +39,7 @@
       
       /* Spacing (ULTRA TIGHTEST) - REDUCED HEIGHT */
       --pad-y: 2px; --gap-regular: 2px;
-      --input-py: 0px; /* ZERO INPUT PADDING */
+      --input-py: 1px; /* RESTORED MINIMAL INPUT PADDING FOR SAFETY */
       --input-px: 10px; 
       
       /* Borders & Radius */
@@ -76,8 +76,8 @@
       background: linear-gradient(180deg, #ffffff, #f8fafc);
     }
     
-    .h1{ font-size:var(--fs-h1); font-weight:800; color:var(--slate-800); }
-    .h2{ font-size:var(--fs-h2); font-weight:700; color:var(--slate-800); margin-bottom:4px; }
+    .h1{ font-size:var(--fs-h1); font-weight:800; color:var(--slate-800); white-space: nowrap; } /* FIX: Prevent title wrapping */
+    .h2{ font-size:var(--fs-h2); font-weight:700; color:var(--slate-800); margin-bottom:4px; white-space: nowrap; } /* FIX: Prevent title wrapping */
     .label{ font-size:var(--fs-label); color:var(--slate-700); font-weight:600; display:block; margin-bottom:3px; }
     .muted{ font-size:10px; color:var(--slate-500); }
 
@@ -651,9 +651,9 @@
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">9. Employment details</h3></div>
                     <div class="step-body">
-                      <div class="content vstack">
+                      <div class="content vstack" style="max-width:560px;">
                         <div class="grid-inline-2">
-                           <div>
+                          <div>
                             <label for="currentEmployer" class="label">Employer</label>
                             <input type="text" id="currentEmployer" name="currentEmployer" class="form-input"/>
                            </div>
