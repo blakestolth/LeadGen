@@ -106,8 +106,8 @@
     }
     .form-select-sm {
       background-position:
-        calc(100% - 18px) calc(50% - 4px),
-        calc(100% - 13px) calc(50% - 4px),
+        calc(100% - 18px) calc(50% - 5px), /* Adjusted for better vertical centering */
+        calc(100% - 13px) calc(50% - 5px), /* Adjusted for better vertical centering */
         calc(100% - 2rem) 0.4rem;
       background-size: 7px 7px, 7px 7px, 0 0;
       padding-right: 2.2rem;
@@ -960,6 +960,18 @@
         modelSelect.innerHTML = '<option value="" selected>Select Make First</option>';
     }
   }
+
+  // NEW FUNCTION: Populates 1 to 8 years for refi term
+  function populateRefiYearsLeft(sel) {
+      if (!sel) return;
+      sel.innerHTML = '<option value="" selected>Select</option>';
+      for (let i = 1; i <= 8; i++) {
+          const option = document.createElement('option');
+          option.value = i;
+          option.textContent = i;
+          sel.appendChild(option);
+      }
+  }
   
   document.addEventListener('DOMContentLoaded', function () {
     $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
@@ -1275,6 +1287,9 @@
 
       populateYears($('tradeInYear'), new Date().getFullYear(), 1995);
       populateYears($('refiYear'),   new Date().getFullYear(), 1995);
+
+      // FUNCTIONAL FIX: Populate refi years left
+      populateRefiYearsLeft($('refiRemainYears'));
 
       // Initialize Make/Model dropdowns
       populateMakes('refiMake', 'refiModel');
