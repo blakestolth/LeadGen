@@ -106,11 +106,11 @@
     }
     .form-select-sm {
       background-position:
-        calc(100% - 16px) calc(50% - 4px),
-        calc(100% - 11px) calc(50% - 4px),
+        calc(100% - 18px) calc(50% - 4px),
+        calc(100% - 13px) calc(50% - 4px),
         calc(100% - 2rem) 0.4rem;
-      background-size: 6px 6px, 6px 6px, 0 0;
-      padding-right: 2rem;
+      background-size: 7px 7px, 7px 7px, 0 0;
+      padding-right: 2.2rem;
     }
 
     .cta-button{ background:var(--blue-600); color:#fff; font-weight:700; padding:.5rem .9rem; border-radius: var(--radius); font-size:var(--fs-cta); min-height:36px; transition: all .2s ease; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
@@ -453,11 +453,11 @@
                           </div>
                           <div>
                             <label for="refiMake" class="label">Make</label>
-                            <input type="text" name="refiMake" id="refiMake" class="form-input" list="makes-list" required/>
+                            <select name="refiMake" id="refiMake" class="form-select" required></select>
                           </div>
                            <div>
                             <label for="refiModel" class="label">Model</label>
-                            <input type="text" name="refiModel" id="refiModel" class="form-input" list="models-list-refi" required/>
+                            <select name="refiModel" id="refiModel" class="form-select" required><option value="">Select Make First</option></select>
                           </div>
                         </div>
                         <div class="grid-inline-refi-details-2">
@@ -487,11 +487,11 @@
                           </div>
                           <div>
                             <label for="tradeInMake" class="label">Make</label>
-                            <input type="text" name="tradeInMake" id="tradeInMake" class="form-input" list="makes-list" />
+                            <select name="tradeInMake" id="tradeInMake" class="form-select"></select>
                           </div>
                            <div>
                             <label for="tradeInModel" class="label">Model</label>
-                            <input type="text" name="tradeInModel" id="tradeInModel" class="form-input" list="models-list-trade"/>
+                            <select name="tradeInModel" id="tradeInModel" class="form-select"><option value="">Select Make First</option></select>
                           </div>
                         </div>
                         <div class="grid-inline-2">
@@ -873,6 +873,30 @@
   </div>
 
   <script>
+  // Vehicle Data for dropdowns
+  const vehicleData = {
+    Acura: ["ILX", "MDX", "RDX", "TLX", "Integra", "ZDX"],
+    Audi: ["A3", "A4", "A5", "A6", "Q3", "Q5", "Q7", "e-tron"],
+    BMW: ["3 Series", "5 Series", "X1", "X3", "X5", "i4", "iX"],
+    Chevrolet: ["Equinox", "Malibu", "Silverado", "Traverse", "Tahoe"],
+    Chrysler: ["Pacifica", "300"],
+    Dodge: ["Challenger", "Charger", "Durango", "Grand Caravan"],
+    Ford: ["Escape", "Explorer", "F-150", "Mustang", "Edge", "Ranger"],
+    GMC: ["Acadia", "Sierra", "Terrain", "Yukon"],
+    Honda: ["Accord", "Civic", "CR-V", "HR-V", "Odyssey", "Pilot"],
+    Hyundai: ["Elantra", "Kona", "Santa Fe", "Sonata", "Tucson", "Palisade"],
+    Jeep: ["Cherokee", "Grand Cherokee", "Wrangler", "Compass", "Renegade"],
+    Kia: ["Forte", "Sorento", "Soul", "Sportage", "Telluride", "K5"],
+    Lexus: ["ES", "IS", "NX", "RX", "UX"],
+    Mazda: ["Mazda3", "Mazda6", "CX-30", "CX-5", "CX-9"],
+    MercedesBenz: ["C-Class", "E-Class", "GLA", "GLC", "GLE", "S-Class"],
+    Nissan: ["Altima", "Kicks", "Murano", "Rogue", "Sentra", "Titan", "Qashqai"],
+    Subaru: ["Crosstrek", "Forester", "Impreza", "Outback", "Ascent", "WRX"],
+    Toyota: ["Camry", "Corolla", "RAV4", "Tacoma", "Sienna", "Highlander", "Tundra"],
+    Volkswagen: ["Golf", "Jetta", "Passat", "Tiguan", "Atlas", "ID.4"],
+    Volvo: ["S60", "S90", "XC40", "XC60", "XC90"]
+  };
+
   const $ = (id) => document.getElementById(id);
   const bySel = (s, root=document) => root.querySelector(s);
   const bySelAll = (s, root=document) => Array.from(root.querySelectorAll(s));
@@ -882,6 +906,52 @@
   function formatMoneyField(input){ const num = parseMoneyInput(input.value); input.value = num ? num.toLocaleString('en-CA', {style:'currency', currency:'CAD', maximumFractionDigits:0}) : ''; }
   function calcPayment(P, annualRate, years){ const r=(annualRate/100)/12, n=years*12; if(!n||n<=0) return 0; if(r===0) return P/n; return P*r/(1-Math.pow(1+r,-n)); }
 
+  // New functions for dynamic Make/Model dropdowns
+  function populateMakes(makeSelectId, modelSelectId) {
+    const makeSelect = $(makeSelectId);
+    if (!makeSelect) return;
+
+    // Clear existing options
+    makeSelect.innerHTML = '<option value="" selected>Select Make</option>';
+
+    const makes = Object.keys(vehicleData).sort();
+
+    makes.forEach(make => {
+        const option = document.createElement('option');
+        option.value = make;
+        option.textContent = make;
+        makeSelect.appendChild(option);
+    });
+
+    // Add listener to update models when make changes
+    makeSelect.addEventListener('change', () => updateModels(makeSelectId, modelSelectId));
+  }
+
+  function updateModels(makeSelectId, modelSelectId) {
+    const makeSelect = $(makeSelectId);
+    const modelSelect = $(modelSelectId);
+    if (!modelSelect) return;
+
+    const selectedMake = makeSelect.value;
+    modelSelect.innerHTML = '';
+    modelSelect.disabled = true;
+
+    if (selectedMake && vehicleData[selectedMake]) {
+        const models = vehicleData[selectedMake].sort();
+        
+        modelSelect.innerHTML = '<option value="" selected>Select Model</option>';
+        models.forEach(model => {
+            const option = document.createElement('option');
+            option.value = model;
+            option.textContent = model;
+            modelSelect.appendChild(option);
+        });
+        modelSelect.disabled = false;
+    } else {
+        modelSelect.innerHTML = '<option value="" selected>Select Make First</option>';
+    }
+  }
+  
   document.addEventListener('DOMContentLoaded', function () {
     $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
 
@@ -1177,6 +1247,10 @@
 
       populateYears($('tradeInYear'), new Date().getFullYear(), 1995);
       populateYears($('refiYear'),   new Date().getFullYear(), 1995);
+
+      // Initialize Make/Model dropdowns
+      populateMakes('refiMake', 'refiModel');
+      populateMakes('tradeInMake', 'tradeInModel');
 
       goTo('step-intent');
       setupRefiCalcInputs();
