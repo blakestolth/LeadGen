@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8" />
   
-  <meta name="viewport" content="width=720, initial-scale=0.52, user-scalable=yes" />
+  <meta name="viewport" content="width=720, initial-scale=0.8, user-scalable=yes" />
   
   <title>Vancouver Island Credit | Auto Approvals Online</title>
 
@@ -161,17 +161,18 @@
       margin-bottom: var(--footer-card-gap);
     }
     #btnBack{ min-height:30px; border-radius:10px; font-size:11px; transition: transform 0.1s ease; }
+    .cta-button{ min-height:44px; } /* Increased CTA min-height for better mobile tapping */
     #btnBack:active { transform: scale(0.98); }
 
     .choice-rect{
       width:100%; text-align:left; border:1.5px solid var(--slate-300); border-radius:var(--radius); background:#fff;
       font-weight:500; color: var(--slate-800); transition:all .15s ease; display:flex; align-items:center; cursor:pointer; 
       padding: 0 var(--input-px);
-      min-height: var(--control-h);
+      min-height: 38px; /* Increased min-height for easier tapping */
       font-size: var(--fs-body);
     }
     #lead-form .choice-rect {
-        min-height: var(--control-h);
+        min-height: 38px; /* Increased min-height for easier tapping */
         font-size: var(--fs-body);
     }
     .choice-rect:hover{ border-color:var(--blue-600); background: #f7f9fc; transform: translateY(-1px); }
@@ -1094,7 +1095,7 @@
     $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
 
     // Money field events to apply auto-formatting on blur/focus
-    const moneyFields = ['avgMonthlyIncome', 'housingPayment', 'otherIncomeAmount', 'refLoanInput'];
+    const moneyFields = ['avgMonthlyIncome', 'otherIncomeAmount', 'refLoanInput'];
     moneyFields.forEach(id => {
       const el = $(id);
       if (el) {
@@ -1116,14 +1117,9 @@
       hp.addEventListener('input', (e)=>{
         e.target.value = e.target.value.replace(/\D/g,'').slice(0,5);
       });
-      hp.addEventListener('blur', ()=>{
-        const v = hp.value.replace(/\D/g,'');
-        if (!v){ hp.value=''; return; }
-        hp.value = Number(v).toLocaleString('en-CA');
-      });
-      hp.addEventListener('focus', ()=>{
-        hp.value = hp.value.replace(/[^0-9]/g,'');
-      });
+      // Added blur/focus handlers for housingPayment
+      hp.addEventListener('blur', (e) => formatMoneyField(e.target));
+      hp.addEventListener('focus', (e) => { e.target.value = e.target.value.replace(/[^0-9]/g,''); });
     }
 
     function generateAppCode(){ const n=Math.floor(Math.random()*1_000_000); return 'ABC-' + String(n).padStart(6,'0'); }
