@@ -39,7 +39,7 @@
       
       /* Spacing (ULTRA TIGHTEST) - REDUCED HEIGHT */
       --pad-y: 2px; --gap-regular: 2px;
-      --input-py: 0px; /* AGGRESSIVELY REDUCED INPUT PADDING */
+      --input-py: 0px; /* ZERO INPUT PADDING */
       --input-px: 10px; 
       
       /* Borders & Radius */
@@ -141,14 +141,15 @@
     .step-viewport-inner{ height:100%; }
 
     .step-inner{
-      max-width: var(--section-max); margin: 0 auto; padding-top: 2px;
-      padding-bottom: var(--footer-space, 12px);
+      max-width: var(--section-max); margin: 0 auto; 
+      padding-top: 0px; /* REMOVED TOP PADDING */
+      padding-bottom: var(--footer-space, 6px); /* REDUCED FALLBACK PADDING */
       display:flex; flex-direction:column; min-height:100%;
     }
     .step-title{ text-align: center; margin-bottom: 2px; }
     .step-body{
       flex:1; display:flex; align-items:center; justify-content:center;
-      padding-top:2px;
+      padding-top:0px; /* REMOVED TOP PADDING */
       min-height: var(--content-min, 0px);
     }
     .step-body > .content{ width:100%; max-width:640px; margin:0 auto; }
@@ -389,7 +390,7 @@
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">2. What type of vehicle are you looking for?</h3></div>
                     <div class="step-body">
-                      <div class="content grid grid-cols-2 gap-2" style="max-width:480px;">
+                      <div class="content vstack" style="max-width:480px;">
                         <button type="button" class="choice-rect" data-type="Car">Car</button>
                         <button type="button" class="choice-rect" data-type="SUV">SUV</button>
                         <button type="button" class="choice-rect" data-type="Truck">Truck</button>
@@ -478,7 +479,7 @@
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">5. Trade-in details</h3></div>
                     <div class="step-body">
-                      <div class="content vstack">
+                      <div class="content vstack" style="max-width:640px;">
                         <div class="grid-inline-trade-1">
                           <div>
                             <label for="tradeInYear" class="label">Year</label>
@@ -740,11 +741,11 @@
           </div>
         </div>
         <div class="card card-accent p-0 flex-1 flex flex-col relative">
-           <div class="refi-grid flex-1 flex flex-col justify-around px-4 pb-4">
+           <div class="refi-grid flex-1 flex flex-col justify-around px-4 pb-2">
             <div class="flex justify-between items-baseline pt-2">
                 <h4 class="text-base font-bold text-slate-800">Refinance Calculator</h4>
             </div>
-            <span style="font-size: 11px; top: 10px; right: 1rem;" class="absolute font-semibold text-slate-500">Estimated</span>
+            <span style="font-size: 11px; top: 5px; right: 1rem;" class="absolute font-semibold text-slate-500">Estimated</span>
             <div class="refi-row">
               <div>
                 <label class="label" for="refLoanInput">Loan amount</label>
@@ -1135,7 +1136,8 @@
       const footer = $('form-footer');
       if (!footer) return;
       const footerH = footer.offsetHeight || 0;
-      const extra = 6;
+      // Reduced extra padding
+      const extra = 3;
       bySelAll('.step-inner').forEach(inner => {
         inner.style.setProperty('--footer-space', (footerH + extra) + 'px');
       });
