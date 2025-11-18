@@ -186,10 +186,12 @@
     .text-equifax-red { color: var(--red-equifax); }
 
     .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:var(--field-gap); }
-    .grid-inline-refi-details { display:grid; grid-template-columns: 90px 1fr 1fr; gap:var(--field-gap); }
-    /* LOGICAL SIZING FIX - Constrain column 1 for 'Years left on loan' */
-    .grid-inline-refi-details-2 { display:grid; grid-template-columns: 180px 150px; gap:var(--field-gap); } 
-    .grid-inline-trade-1 { display:grid; grid-template-columns: 90px 1fr 1fr; gap:var(--field-gap); }
+    /* CHANGED: Year is now 1fr */
+    .grid-inline-refi-details { display:grid; grid-template-columns: 1fr 1fr 1fr; gap:var(--field-gap); }
+    /* CHANGED: Interest Rate reduced to 110px */
+    .grid-inline-refi-details-2 { display:grid; grid-template-columns: 180px 110px; gap:var(--field-gap); } 
+    /* CHANGED: Year is now 1fr */
+    .grid-inline-trade-1 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap:var(--field-gap); }
     /* LOGICAL SIZING - FIXED COLUMNS FOR SHORT FIELDS */
     .grid-inline-dob{ display:grid; grid-template-columns: 100px 80px 80px 1fr; gap:var(--field-gap); }
     .grid-inline-addr1{ display:grid; grid-template-columns: 1fr 80px; gap:var(--field-gap); }
