@@ -113,7 +113,7 @@
       padding-right: 2.2rem;
     }
 
-    .cta-button{ background:var(--blue-600); color:#fff; font-weight:700; padding:.5rem .9rem; border-radius: var(--radius); font-size:var(--fs-cta); min-height:36px; transition: all .2s ease; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
+    .cta-button{ background:var(--blue-600); color:#fff; font-weight:700; padding:.5rem .9rem; border-radius: var(--radius); font-size:var(--fs-cta); min-height:44px; transition: all .2s ease; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
     .cta-button:hover{ background:var(--blue-700); transform: translateY(-1px); box-shadow: 0 7px 10px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
     .cta-button:active{ transform: scale(0.98); }
 
@@ -161,18 +161,17 @@
       margin-bottom: var(--footer-card-gap);
     }
     #btnBack{ min-height:30px; border-radius:10px; font-size:11px; transition: transform 0.1s ease; }
-    .cta-button{ min-height:44px; } /* Increased CTA min-height for better mobile tapping */
     #btnBack:active { transform: scale(0.98); }
 
     .choice-rect{
       width:100%; text-align:left; border:1.5px solid var(--slate-300); border-radius:var(--radius); background:#fff;
       font-weight:500; color: var(--slate-800); transition:all .15s ease; display:flex; align-items:center; cursor:pointer; 
       padding: 0 var(--input-px);
-      min-height: 38px; /* Increased min-height for easier tapping */
+      min-height: 44px; /* INCREASED TAP TARGET HEIGHT */
       font-size: var(--fs-body);
     }
     #lead-form .choice-rect {
-        min-height: 38px; /* Increased min-height for easier tapping */
+        min-height: 44px; /* INCREASED TAP TARGET HEIGHT */
         font-size: var(--fs-body);
     }
     .choice-rect:hover{ border-color:var(--blue-600); background: #f7f9fc; transform: translateY(-1px); }
@@ -966,17 +965,43 @@
     const stepsMap = {};
     bySelAll('.form-step').forEach(sec => stepsMap[sec.getAttribute('data-id')] = sec);
 
-    function currentFlow(){
-      const intent = $('intent')?.value || 'finance';
-      const hasTrade = ($('hasTradeIn')?.value || 'No').toLowerCase()==='yes';
-      if (intent==='refinance'){
-        return ['step-intent','step-refi-details','step-income','step-yourinfo','step-address','step-employer','step-consent'];
+    // Modified next function to include delay for visual feedback
+    function next(delta){
+      const flow = currentFlow();
+      let i = flow.indexOf(curStepId);
+      if (i<0) i=0;
+      if (delta>0 && !validateCurrent(curStepId)) return;
+      i += delta;
+
+      const visible = flow.filter(x=>x!=='step-consent');
+      const lastIdx = visible.length-1;
+
+      // DELAYED EXECUTION FOR FEEDBACK
+      if (delta > 0 && i <= lastIdx) {
+          // If moving forward and not on the final step, proceed after delay
+          setTimeout(() => {
+              goTo(visible[i]);
+          }, 200);
+      } else if (delta > 0 && i > lastIdx) {
+          // If submitting, proceed after delay
+          setTimeout(submitForm, 200);
+      } else if (delta < 0 && i >= 0) {
+          // If moving back, proceed immediately (no feedback flash needed)
+          goTo(visible[i]);
+      } else if (delta < 0 && i < 0) {
+          // Stay on first step
+          goTo(visible[0]);
       }
-      let flow = ['step-intent','step-vehicle-type','step-budget','step-purchase'];
-      if (hasTrade) flow.push('step-tradein');
-      flow = flow.concat(['step-income','step-yourinfo','step-address','step-employer','step-consent']);
-      return flow;
     }
+
+    // Overriding the default next button listener to use the delayed function
+    $('btnNext')?.addEventListener('click', (e) => {
+        // Prevent default navigation until delay is complete
+        e.preventDefault(); 
+        next(1);
+    });
+    $('btnBack')?.addEventListener('click', ()=> next(-1));
+
 
     function showOnly(id){
       Object.values(stepsMap).forEach(sec=> sec.classList.add('hidden'));
@@ -1035,30 +1060,15 @@
       return ok;
     }
 
-    function next(delta){
-      const flow = currentFlow();
-      let i = flow.indexOf(curStepId);
-      if (i<0) i=0;
-      if (delta>0 && !validateCurrent(curStepId)) return;
-      i += delta;
-
-      const visible = flow.filter(x=>x!=='step-consent');
-      const lastIdx = visible.length-1;
-
-      if (i > lastIdx){ submitForm(); return; }
-      if (i < 0) i = 0;
-      goTo(visible[i]);
-    }
-
-    $('btnNext')?.addEventListener('click', ()=> next(1));
-    $('btnBack')?.addEventListener('click', ()=> next(-1));
-
+    // Listeners for click feedback
     bySelAll('[data-intent]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-intent]').forEach(x=>x.classList.remove('selected','err'));
         btn.classList.add('selected');
         $('intent').value = btn.dataset.intent;
-        if (btn.dataset.intent === 'refinance'){ goTo(currentFlow()[1]); } else { goTo('step-vehicle-type'); }
+        
+        // Use next function for delayed transition
+        next(1);
       });
     });
 
@@ -1067,7 +1077,9 @@
         bySelAll('[data-type]').forEach(x=>x.classList.remove('selected','err'));
         btn.classList.add('selected');
         $('vehicleType').value = btn.dataset.type || '';
-        goTo('step-budget');
+        
+        // Use next function for delayed transition
+        next(1);
       });
     });
 
