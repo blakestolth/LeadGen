@@ -1,7 +1,9 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <meta name="viewport" content="width=1100, user-scalable=yes" />
+  
   <title>Vancouver Island Credit | Auto Approvals Online</title>
 
   <meta name="description" content="Fast, confidential auto approvals across Vancouver Island & BC. New & used options. Delivery to your door. Work 1 on 1 with Blake Stolth — no call centres." />
@@ -56,6 +58,8 @@
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       color: var(--slate-700);
+      /* CHANGED: Forces desktop width so layout doesn't break/stack */
+      min-width: 1100px;
     }
     .card{
       background:#fff;
@@ -273,6 +277,11 @@
       </div>
 
       <div class="hidden sm:flex items-center gap-2 font-semibold text-zinc-700">
+        <div class="mr-2 flex items-center gap-1.5 text-slate-500 bg-slate-100 px-2 py-1 rounded border border-slate-200">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" /></svg>
+          <span class="text-[10px] font-bold uppercase tracking-wide">SSL Secure</span>
+        </div>
+        
         <a href="#inventory" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-[var(--blue-600)] transition-colors">Inventory</a>
         <a href="#about" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-[var(--blue-600)] transition-colors">About</a>
         <a href="#contact" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-[var(--blue-600)] transition-colors">Contact</a>
