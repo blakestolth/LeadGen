@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8" />
   
-  <meta name="viewport" content="width=800, initial-scale=0.8, user-scalable=yes" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Vancouver Island Credit | Auto Approvals Online</title>
 
@@ -60,8 +60,7 @@
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       color: var(--slate-700);
-      /* Forces desktop width so layout doesn't break/stack */
-      min-width: 800px; /* Matches new viewport width */
+      /* REMOVED: min-width: 800px; */
     }
     .card{
       background:#fff;
@@ -76,8 +75,8 @@
       background: linear-gradient(180deg, #ffffff, #f8fafc);
     }
     
-    .h1{ font-size:var(--fs-h1); font-weight:800; color:var(--slate-800); white-space: nowrap; } /* FIX: Prevent title wrapping */
-    .h2{ font-size:var(--fs-h2); font-weight:700; color:var(--slate-800); margin-bottom:4px; white-space: nowrap; } /* FIX: Prevent title wrapping */
+    .h1{ font-size:var(--fs-h1); font-weight:800; color:var(--slate-800); } /* Removed white-space: nowrap; */
+    .h2{ font-size:var(--fs-h2); font-weight:700; color:var(--slate-800); margin-bottom:4px; } /* Removed white-space: nowrap; */
     .label{ font-size:var(--fs-label); color:var(--slate-700); font-weight:600; display:block; margin-bottom:3px; }
     .muted{ font-size:10px; color:var(--slate-500); }
 
@@ -913,7 +912,7 @@
       input.value = num > 0 ? num.toLocaleString('en-CA', {style:'currency', currency:'CAD', maximumFractionDigits:0}) : '';
   }
 
-  function calcPayment(P, annualRate, years){ const r=(annualRate/100)/12, n=years*12; if(!n||n<=0) return 0; if(r===0) return P/n; return P*r/(1-Math.pow(1+r,-n)); }
+  function calcPayment(P, annualRate, years){ const r=(annualRate/100)/12, n=years*12; if(!n||n<=0) return 0; if(r===0) return P*r/(1-Math.pow(1+r,-n)); }
 
   // New functions for dynamic Make/Model dropdowns
   function populateMakes(makeSelectId, modelSelectId) {
