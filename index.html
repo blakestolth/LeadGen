@@ -37,8 +37,10 @@
       /* Typography */
       --fs-h1: 30px; --fs-h2: 22px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
       
-      /* Spacing (ULTRA TIGHTEST) - REDUCED GAP */
-      --pad-y: 2px; --gap-regular: 0px; --input-py: 2px; --input-px: 10px; 
+      /* Spacing (ULTRA TIGHTEST) - REDUCED HEIGHT */
+      --pad-y: 2px; --gap-regular: 2px; /* Restored slight vertical separation */
+      --input-py: 1px; /* Reduced input padding */
+      --input-px: 10px; 
       
       /* Borders & Radius */
       --radius: 10px;
@@ -117,12 +119,12 @@
     .text-theme-red { color: var(--red-equifax); }
 
     #lead-form{
-      /* INCREASED FONT SIZES */
-      --fs-h2: 17px;
-      --fs-body: 13px;
+      /* INCREASED FONT SIZES AND REDUCED CONTROL HEIGHT */
+      --fs-h2: 18px; 
+      --fs-body: 14px;
       --fs-label: 11px;
-      --fs-cta: 13px;
-      --control-h: 30px;
+      --fs-cta: 13px; 
+      --control-h: 28px; /* Reduced input height */
     }
     #lead-form .sticky [id^="progress-"]{ font-size:10px !important; }
     #lead-form .cta-button{ min-height:30px; }
@@ -181,10 +183,12 @@
     .grid-inline-refi-details { display:grid; grid-template-columns: 90px 1fr 1fr; gap:var(--field-gap); }
     .grid-inline-refi-details-2 { display:grid; grid-template-columns: 1fr 150px; gap:var(--field-gap); }
     .grid-inline-trade-1 { display:grid; grid-template-columns: 90px 1fr 1fr; gap:var(--field-gap); }
-    .grid-inline-dob{ display:grid; grid-template-columns: .8fr .7fr .7fr 1fr; gap:var(--field-gap); }
+    /* LOGICAL SIZING - FIXED COLUMNS FOR SHORT FIELDS */
+    .grid-inline-dob{ display:grid; grid-template-columns: 100px 80px 80px 1fr; gap:var(--field-gap); }
     .grid-inline-addr1{ display:grid; grid-template-columns: 1fr 80px; gap:var(--field-gap); }
     .grid-inline-addr2{ display:grid; grid-template-columns: 1fr 90px 120px; gap:var(--field-gap); }
-    .grid-inline-addr3{ display:grid; grid-template-columns: 1fr .7fr .7fr 1fr; gap:var(--field-gap); align-items:end; }
+    /* LOGICAL SIZING - FIXED COLUMNS FOR YEARS/MONTHS */
+    .grid-inline-addr3{ display:grid; grid-template-columns: 1fr 80px 80px 1fr; gap:var(--field-gap); align-items:end; }
     
     @media (max-width:640px){
       .grid-inline-addr3, .grid-inline-dob, .grid-inline-refi-details, .grid-inline-trade-1, .grid-inline-addr2, .grid-inline-addr3 { grid-template-columns: 1fr 1fr; }
@@ -307,7 +311,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
         <div>
           <div class="flex items-center gap-4 mb-4">
-             <img src="Untitled Project.jpg" alt="Blake Stolth" class="w-14 h-14 rounded-full border-2 border-[var(--blue-600)] object-cover">
+             <img src="Untitled Project.jpg" alt="Blake Stolth" class="w-14 h-14 rounded-full border-2 border-[var(--blue-600)] object-cover"/>
              <div>
                 <h1 class="h1 text-xl">See options in three easy steps</h1>
                 <p class="text-xs text-slate-500">Your application is reviewed personally by Blake.</p>
