@@ -38,7 +38,7 @@
       --fs-h1: 30px; --fs-h2: 22px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
       
       /* Spacing (ULTRA TIGHTEST) - REDUCED HEIGHT */
-      --pad-y: 2px; --gap-regular: 2px; /* Restored slight vertical separation */
+      --pad-y: 2px; --gap-regular: 2px;
       --input-py: 1px; /* Reduced input padding */
       --input-px: 10px; 
       
@@ -181,7 +181,8 @@
 
     .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:var(--field-gap); }
     .grid-inline-refi-details { display:grid; grid-template-columns: 90px 1fr 1fr; gap:var(--field-gap); }
-    .grid-inline-refi-details-2 { display:grid; grid-template-columns: 1fr 150px; gap:var(--field-gap); }
+    /* LOGICAL SIZING FIX - Constrain column 1 for 'Years left on loan' */
+    .grid-inline-refi-details-2 { display:grid; grid-template-columns: 180px 150px; gap:var(--field-gap); } 
     .grid-inline-trade-1 { display:grid; grid-template-columns: 90px 1fr 1fr; gap:var(--field-gap); }
     /* LOGICAL SIZING - FIXED COLUMNS FOR SHORT FIELDS */
     .grid-inline-dob{ display:grid; grid-template-columns: 100px 80px 80px 1fr; gap:var(--field-gap); }
@@ -453,11 +454,7 @@
                         <div class="grid-inline-refi-details-2">
                            <div>
                             <label for="refiRemainYears" class="label">Years left on loan</label>
-                            <select id="refiRemainYears" name="refiRemainYears" class="form-select" required>
-                              <option value="">Select</option>
-                              <option>1</option><option>2</option><option>3</option><option>4</option>
-                              <option>5</option><option>6</option><option>7</option><option>8</option>
-                            </select>
+                            <select id="refiRemainYears" name="refiRemainYears" class="form-select" required></select>
                            </div>
                            <div>
                              <label for="refiCurrentRate" class="label">Current interest %</label>
@@ -734,11 +731,12 @@
             </ul>
           </div>
         </div>
-        <div class="card card-accent p-4 flex-1 flex flex-col relative">
-           <div class="refi-grid flex-1 flex flex-col justify-around">
-            <div class="flex justify-between items-baseline">
+        <div class="card card-accent p-0 flex-1 flex flex-col relative">
+           <div class="refi-grid flex-1 flex flex-col justify-around px-4 pb-4">
+            <div class="flex justify-between items-baseline pt-2">
                 <h4 class="text-base font-bold text-slate-800">Refinance Calculator</h4>
             </div>
+            <span style="font-size: 11px; top: 10px; right: 1rem;" class="absolute font-semibold text-slate-500">Estimated</span>
             <div class="refi-row">
               <div>
                 <label class="label" for="refLoanInput">Loan amount</label>
@@ -769,7 +767,6 @@
               </div>
             </div>
           </div>
-          <span style="font-size: 11px; top: 1rem; right: 1rem;" class="absolute font-semibold text-slate-500">Estimated</span>
         </div>
       </aside>
     </section>
