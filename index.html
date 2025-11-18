@@ -186,12 +186,12 @@
     .text-equifax-red { color: var(--red-equifax); }
 
     .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:var(--field-gap); }
-    /* CHANGED: Year, Make, Model are equal width (1fr) */
-    .grid-inline-refi-details { display:grid; grid-template-columns: 1fr 1fr 1fr; gap:var(--field-gap); }
-    /* CHANGED: Interest Rate reduced to 110px. Loan amount constrained to 180px */
+    /* CHANGED: Year is now fixed 100px, Make/Model are proportional */
+    .grid-inline-refi-details { display:grid; grid-template-columns: 100px 140px 1fr; gap:var(--field-gap); }
+    /* CHANGED: Loan amount (180px) and Interest Rate (110px) fixed width */
     .grid-inline-refi-details-2 { display:grid; grid-template-columns: 180px 110px; gap:var(--field-gap); } 
-    /* CHANGED: Year, Make, Model are equal width (1fr) */
-    .grid-inline-trade-1 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap:var(--field-gap); }
+    /* CHANGED: Year is now fixed 100px, Make/Model are proportional */
+    .grid-inline-trade-1 { display:grid; grid-template-columns: 100px 140px 1fr; gap:var(--field-gap); }
     /* LOGICAL SIZING - FIXED COLUMNS FOR SHORT FIELDS */
     .grid-inline-dob{ display:grid; grid-template-columns: 100px 80px 80px 1fr; gap:var(--field-gap); }
     .grid-inline-addr1{ display:grid; grid-template-columns: 1fr 80px; gap:var(--field-gap); }
@@ -260,7 +260,7 @@
 
     /* Refi calculator — compact */
     .refi-grid{ display:grid; grid-template-columns: 1fr; gap:6px; align-items:center; }
-    .refi-row{ display:grid; grid-template-columns: 140px 100px 100px; gap:var(--field-gap); } /* Loan amount constrained to 140px, others 100px */
+    .refi-row{ display:grid; grid-template-columns: 130px 90px 90px; gap:var(--field-gap); } /* Loan amount constrained to 130px, others 90px */
     .refi-mini{ display:grid; grid-template-columns: 1fr auto; gap:8px; align-items:center; }
     .refi-results{ font-family: monospace, monospace; font-size:13px; line-height:1.2; color:var(--slate-800); font-weight:600; display:grid; gap:4px; min-width:150px; }
     .refi-slider{ width:100%; accent-color: var(--blue-600); cursor: pointer;}
