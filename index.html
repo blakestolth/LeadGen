@@ -979,44 +979,19 @@
     const stepsMap = {};
     bySelAll('.form-step').forEach(sec => stepsMap[sec.getAttribute('data-id')] = sec);
 
-    // Modified next function to include delay for visual feedback
-    function next(delta){
-      const flow = currentFlow();
-      let i = flow.indexOf(curStepId);
-      if (i<0) i=0;
-      if (delta>0 && !validateCurrent(curStepId)) return;
-      i += delta;
-
-      const visible = flow.filter(x=>x!=='step-consent');
-      const lastIdx = visible.length-1;
-
-      // DELAYED EXECUTION FOR FEEDBACK
-      if (delta > 0 && i <= lastIdx) {
-          // If moving forward and not on the final step, proceed after delay
-          setTimeout(() => {
-              goTo(visible[i]);
-          }, 200);
-      } else if (delta > 0 && i > lastIdx) {
-          // If submitting, proceed after delay
-          setTimeout(submitForm, 200);
-      } else if (delta < 0 && i >= 0) {
-          // If moving back, proceed immediately (no feedback flash needed)
-          goTo(visible[i]);
-      } else if (delta < 0 && i < 0) {
-          // Stay on first step
-          goTo(visible[0]);
+    function currentFlow(){
+      const intent = $('intent')?.value || 'finance';
+      const hasTrade = ($('hasTradeIn')?.value || 'No').toLowerCase()==='yes';
+      if (intent==='refinance'){
+        return ['step-intent','step-refi-details','step-income','step-yourinfo','step-address','step-employer','step-consent'];
       }
+      let flow = ['step-intent','step-vehicle-type','step-budget','step-purchase'];
+      if (hasTrade) flow.push('step-tradein');
+      flow = flow.concat(['step-income','step-yourinfo','step-address','step-employer','step-consent']);
+      return flow;
     }
 
-    // Overriding the default next button listener to use the delayed function
-    $('btnNext')?.addEventListener('click', (e) => {
-        // Prevent default navigation until delay is complete
-        e.preventDefault(); 
-        next(1);
-    });
-    $('btnBack')?.addEventListener('click', ()=> next(-1));
-
-
+    // Function definitions placed outside the handler scopes for correct flow
     function showOnly(id){
       Object.values(stepsMap).forEach(sec=> sec.classList.add('hidden'));
       stepsMap[id]?.classList.remove('hidden');
@@ -1037,18 +1012,21 @@
     }
 
     let curStepId = 'step-intent';
-    function goTo(id){ curStepId=id; showOnly(id); updateProgress(id); ensureConsistentHeights(); }
+    // Removed ensureConsistentHeights() from goTo to prevent stability issues
+    function goTo(id){ curStepId=id; showOnly(id); updateProgress(id); } 
 
     function validateCurrent(stepId){
       const stepEl = stepsMap[stepId];
       if (!stepEl) return true;
 
+      // Special validation logic for Step 1 (intent)
       if (stepId==='step-intent'){
         const v = $('intent').value;
         const ok = (v==='finance' || v==='refinance');
         bySelAll('[data-intent]').forEach(x=>x.classList.toggle('err', !ok));
         return ok;
       }
+      // Special validation logic for Step 2 (vehicle type)
       if (stepId==='step-vehicle-type'){
         const ok = !!$('vehicleType').value;
         bySelAll('[data-type]').forEach(x => x.classList.toggle('err', !ok));
@@ -1056,6 +1034,7 @@
       }
       if (stepId==='step-budget'){ return !!$('budgetRange').value; }
 
+      // General required field validation for other steps
       let ok = true;
       const fields = Array.from(stepEl.querySelectorAll('[required]'));
       fields.forEach(el=>{
@@ -1073,29 +1052,72 @@
       });
       return ok;
     }
+    
+    // --- BEGIN NAVIGATION FIX ---
 
-    // Listeners for click feedback
+    // Generic navigation handler for the 'Next' and 'Back' buttons
+    function handleNavigation(delta){
+      const flow = currentFlow();
+      let i = flow.indexOf(curStepId);
+      if (i<0) i=0;
+      
+      if (delta > 0 && !validateCurrent(curStepId)) return;
+      i += delta;
+
+      const visible = flow.filter(x=>x!=='step-consent');
+      const lastIdx = visible.length-1;
+
+      if (delta > 0 && i > lastIdx) {
+          // Final submission
+          setTimeout(submitForm, 200);
+      } else if (i >= 0) {
+          // Standard step change
+          const delay = (delta > 0) ? 200 : 0; // Only delay moving forward
+          setTimeout(() => {
+              goTo(visible[i]);
+          }, delay);
+      } else {
+          // Stay on first step
+          goTo(visible[0]);
+      }
+    }
+    
+    // 1. Fixing Next/Back buttons to use the new navigation handler
+    $('btnNext')?.addEventListener('click', () => handleNavigation(1));
+    $('btnBack')?.addEventListener('click', () => handleNavigation(-1));
+
+    // 2. Fixing selection buttons (Intent) to explicitly control their flow
     bySelAll('[data-intent]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-intent]').forEach(x=>x.classList.remove('selected','err'));
         btn.classList.add('selected');
         $('intent').value = btn.dataset.intent;
         
-        // Use next function for delayed transition
-        next(1);
+        const targetStep = (btn.dataset.intent === 'refinance') ? currentFlow()[1] : 'step-vehicle-type';
+        
+        // 200ms visual flash before changing step
+        setTimeout(() => {
+          goTo(targetStep);
+        }, 200);
       });
     });
 
+    // 3. Fixing selection buttons (Vehicle Type) to explicitly control their flow
     bySelAll('[data-type]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         bySelAll('[data-type]').forEach(x=>x.classList.remove('selected','err'));
         btn.classList.add('selected');
         $('vehicleType').value = btn.dataset.type || '';
         
-        // Use next function for delayed transition
-        next(1);
+        // 200ms visual flash before changing step
+        setTimeout(() => {
+          goTo('step-budget'); // Always moves to step-budget
+        }, 200);
       });
     });
+    
+    // --- END NAVIGATION FIX ---
+
 
     bySelAll('[data-trade]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
@@ -1243,6 +1265,7 @@
     }
 
     function ensureConsistentHeights(){
+      // NOTE: This function is removed from the critical path (goTo) for stability.
       const footer = $('form-footer');
       if (!footer) return;
       const footerH = footer.offsetHeight || 0;
@@ -1298,10 +1321,10 @@
       goTo('step-intent');
       setupRefiCalcInputs();
 
-      ensureConsistentHeights();
-      window.addEventListener('resize', ensureConsistentHeights);
-      $('btnNext')?.addEventListener('click', ()=> setTimeout(ensureConsistentHeights, 0));
-      $('btnBack')?.addEventListener('click', ()=> setTimeout(ensureConsistentHeights, 0));
+      // Original calls removed:
+      // window.addEventListener('resize', ensureConsistentHeights);
+      // $('btnNext')?.addEventListener('click', ()=> setTimeout(ensureConsistentHeights, 0));
+      // $('btnBack')?.addEventListener('click', ()=> setTimeout(ensureConsistentHeights, 0));
     })();
   });
   </script>
