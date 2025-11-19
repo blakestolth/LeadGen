@@ -84,6 +84,7 @@
     .h2{ font-size:var(--fs-h2); font-weight:700; color:var(--slate-800); margin-bottom:4px; white-space: nowrap; }
     @media(max-width: 640px) { .h2 { white-space: normal; } }
 
+    /* Centered Labels */
     .label{ font-size:var(--fs-label); color:var(--slate-700); font-weight:600; display:block; margin-bottom:4px; text-transform: uppercase; letter-spacing: 0.02em; text-align: center; }
     .muted{ font-size:10px; color:var(--slate-500); }
 
@@ -135,6 +136,14 @@
     .err-label{ color:var(--red-equifax) !important; }
     .text-theme-red { color: var(--red-equifax); }
 
+    /* ERROR SHAKE ANIMATION */
+    @keyframes shake {
+      10%, 90% { transform: translate3d(-1px, 0, 0); }
+      20%, 80% { transform: translate3d(2px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+      40%, 60% { transform: translate3d(4px, 0, 0); }
+    }
+
     #lead-form{
       --fs-h2: 20px; 
       --fs-body: 14px;
@@ -145,34 +154,37 @@
     #lead-form .sticky [id^="progress-"]{ font-size:11px !important; }
     #lead-form .cta-button{ min-height:40px; }
 
-    /* FORM LAYOUT ENGINE */
-    .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; height: 100%; min-height: 400px; }
+    /* FORM LAYOUT ENGINE - VERTICAL CENTER FIX */
+    .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; height: 100%; min-height: 420px; }
     
-    /* REDUCED TITLE BOX HEIGHT (Padding reduced from py-2 to py-1.5) */
-    .form-shell .sticky{ position:sticky; top:0; z-index:10; background: rgba(255,255,255,0.95); backdrop-filter: blur(4px); pointer-events:none; padding-top: 6px; padding-bottom: 6px; }
+    /* RESTORED PADDING TO TITLE BOX */
+    .form-shell .sticky{ position:sticky; top:0; z-index:10; background: rgba(255,255,255,0.95); backdrop-filter: blur(4px); pointer-events:none; padding: 12px 16px; border-bottom: 1px solid var(--slate-200); }
 
+    /* Flex column to allow vertical centering */
     .step-viewport{ flex:1; overflow:auto; display: flex; flex-direction: column; }
-    .step-viewport-inner{ flex: 1; display: flex; flex-direction: column; }
+    .step-viewport-inner{ flex-grow: 1; display: flex; flex-direction: column; justify-content: center; min-height: 100%; }
 
     .step-inner{
       width: 100%; max-width: var(--section-max); margin: 0 auto; 
-      flex: 1;
-      display:flex; flex-direction:column; justify-content: center; /* VERTICAL CENTER */
-      padding: 10px 10px; 
+      padding: 20px 10px;
+      display:flex; flex-direction:column; justify-content: center;
     }
-    .step-title{ text-align: center; margin-bottom: 10px; } /* REDUCED GAP */
+    
+    .step-title{ text-align: center; margin-bottom: 16px; }
+    
+    /* CENTERED CONTENT CONTAINER */
     .step-body{
       width: 100%;
       display:flex; align-items:center; justify-content:center;
     }
-    
-    /* CENTERED CONTENT: 85% WIDTH TO CENTER IN BOX */
+    /* Constrain width for better centering look, but allow full width on mobile */
     .step-body > .content{ width:85%; max-width:480px; margin:0 auto; text-align: center; }
     
-    /* Text inside inputs stays left, but the block is centered */
+    /* Keep input text aligned left even though block is centered */
     .content input, .content select, .content .grid-inline-2 { text-align: left; } 
-    .vstack > * + *{ margin-top: 10px; }
+    .vstack > * + *{ margin-top: 12px; }
 
+    /* Footer - Buttons Separated */
     .form-footer{
       position: sticky; 
       bottom: 0;
@@ -191,7 +203,7 @@
       padding: 0 16px;
       min-height: 46px; 
       font-size: 15px;
-      justify-content: center; /* CENTER TEXT */
+      justify-content: center; /* Center text in button */
     }
     .choice-rect:hover{ border-color:var(--blue-600); background: #f8fafc; transform: translateY(-1px); }
     .choice-rect.selected{ border-color:var(--blue-600); background:var(--blue-100); color: var(--blue-700); box-shadow: 0 0 0 1px var(--blue-600); }
@@ -204,7 +216,8 @@
     .inv-badge { color: var(--blue-600); }
     .text-equifax-red { color: var(--red-equifax); }
 
-    /* --- SPECIFIC GRID SIZING (Logic Restored) --- */
+    /* --- SPECIFIC GRID SIZING RESTORED --- */
+    /* These ensure the Years/Make/Model fields have correct relative widths */
     .grid-inline-2 { display: grid; grid-template-columns: 1fr; gap: var(--field-gap); }
     @media(min-width: 640px) { .grid-inline-2 { grid-template-columns: 1fr 1fr; } }
 
@@ -376,7 +389,7 @@
           <h2 class="h2 text-base mb-3">Why people pick us</h2>
           <ul class="text-sm space-y-2.5">
             <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">A</span><span class="text-left leading-tight pt-0.5"><b>All credit welcome</b> high approval rates</span></li>
-            <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">B</span><span class="text-left leading-tight pt-0.5"><b>Massive selection</b> New & Used across BC</span></li>
+            <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">B</span><span class="text-left leading-tight pt-0.5"><b>Bigger selection</b> New & Used across BC</span></li>
             <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">C</span><span class="text-left leading-tight pt-0.5"><b>Confidential</b> No data sold to dealerships</span></li>
             <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">D</span><span class="text-left leading-tight pt-0.5"><b>Free delivery</b> Right to your driveway</span></li>
           </ul>
