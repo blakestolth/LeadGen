@@ -33,29 +33,28 @@
       --slate-800: #1e293b;
 
       /* Typography */
-      --fs-h1: 28px; --fs-h2: 20px; --fs-body: 14px; --fs-label: 12px; --fs-cta: 14px;
+      --fs-h1: 26px; --fs-h2: 18px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
       
       /* Spacing */
-      --pad-y: 2px; --gap-regular: 6px;
-      --input-py: 1px; 
+      --pad-y: 2px; --gap-regular: 8px;
+      --input-py: 0px; 
       --input-px: 12px; 
       
       /* Borders & Radius */
       --radius: 8px;
       
       --nav-font: 14px;
-      --control-h: 40px; 
+      --control-h: 42px; /* Height for all inputs */
       --field-gap: 8px; 
       --section-max: 720px;
       --aside-pad: 10px;
-      --footer-card-gap: 0px;
     }
     @media (max-width:640px){ 
         :root{ 
             --nav-font: 13px; 
             --fs-h1: 24px; 
             --fs-h2: 18px;
-            --control-h: 38px;
+            --control-h: 42px; 
         } 
     }
 
@@ -69,7 +68,7 @@
     }
     .card{
       background:#fff;
-      border-radius:16px;
+      border-radius:12px;
       border:1px solid var(--slate-200);
       box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
     }
@@ -87,18 +86,20 @@
     .label{ font-size:var(--fs-label); color:var(--slate-700); font-weight:600; display:block; margin-bottom:4px; text-transform: uppercase; letter-spacing: 0.02em; text-align: center; }
     .muted{ font-size:10px; color:var(--slate-500); }
 
-    /* INPUT STYLING */
+    /* INPUT STYLING - STANDARDIZED */
     .form-input,.form-select,.form-textarea{
       background: var(--slate-50); 
       color:var(--slate-800); 
       border:1px solid var(--slate-300);
       font-size:var(--fs-body); width:100%;
-      padding:var(--input-py) var(--input-px); border-radius:var(--radius); 
+      padding: 0 var(--input-px); 
+      border-radius: var(--radius); 
       transition:all .15s ease;
       height: var(--control-h) !important; 
       line-height: var(--control-h); 
       font-weight: 500;
       display: block;
+      box-sizing: border-box;
     }
 
     .form-input::placeholder{ color:var(--slate-400); }
@@ -111,14 +112,14 @@
     .form-select {
       -webkit-appearance: none; -moz-appearance: none; appearance: none;
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-      background-position: right 0.5rem center;
-      background-size: 1.5em 1.5em;
+      background-position: right 0.8rem center;
+      background-size: 1.2em 1.2em;
       background-repeat: no-repeat;
       padding-right: 2.5rem;
       padding-top: 0; padding-bottom: 0;
     }
 
-    .form-input-sm, .form-select-sm { min-height: 30px; font-size: 12px; padding-top: 1px; padding-bottom: 1px; }
+    .form-input-sm, .form-select-sm { min-height: 30px; font-size: 12px; }
 
     .cta-button{ background:var(--blue-600); color:#fff; font-weight:700; padding:.5rem 1.2rem; border-radius: var(--radius); font-size:var(--fs-cta); min-height:42px; transition: all .2s ease; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
     .cta-button:hover{ background:var(--blue-700); transform: translateY(-1px); box-shadow: 0 6px 8px -2px rgb(0 0 0 / 0.15); }
@@ -137,47 +138,76 @@
     #lead-form .sticky [id^="progress-"]{ font-size:11px !important; }
     #lead-form .cta-button{ min-height:40px; }
 
-    /* === FORM LAYOUT ENGINE === */
-    .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; height: 100%; min-height: 450px; }
-    .form-shell .sticky{ position:sticky; top:0; z-index:10; background: rgba(255,255,255,0.95); backdrop-filter: blur(4px); pointer-events:none; padding: 12px 16px; border-bottom: 1px solid var(--slate-200); flex-shrink: 0; }
+    /* =========================================
+       CRITICAL LAYOUT FIX: VERTICAL CENTERING
+       ========================================= */
+    /* 1. Fixed height container */
+    .form-shell{ 
+        position:relative; 
+        overflow:hidden; 
+        display:flex; 
+        flex-direction:column; 
+        height: 460px; /* Fixed Height ensures we have space to center within */
+    }
+    @media(min-width: 640px) { .form-shell { height: 480px; } }
+    
+    /* 2. Sticky Header (Pinned Top) */
+    .form-shell .sticky{ 
+        position:sticky; top:0; z-index:10; 
+        background: rgba(255,255,255,0.98); 
+        padding: 14px 20px; 
+        border-bottom: 1px solid var(--slate-200); 
+        flex-shrink: 0; 
+    }
 
-    .step-viewport{ flex:1; overflow:auto; display: flex; flex-direction: column; }
-    .step-viewport-inner{ flex: 1; display: flex; flex-direction: column; height: 100%; }
-
-    .step-inner{
+    /* 3. Flex Chain Down to Content */
+    .step-viewport { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+    .step-viewport-inner { flex: 1; display: flex; flex-direction: column; height: 100%; }
+    #the-form { display: flex; flex-direction: column; height: 100%; width: 100%; }
+    
+    /* 4. Step Wrapper: Flex Column */
+    .step-inner {
       width: 100%; max-width: var(--section-max); margin: 0 auto; 
-      flex: 1;
-      display:flex; flex-direction:column; 
-      justify-content: flex-start; 
-      padding: 0 16px; 
+      height: 100%;
+      display: flex; 
+      flex-direction: column; 
+      padding: 0 20px; /* Side padding */
     }
     
-    .step-title{ text-align: center; margin-top: 25px; flex-shrink: 0; }
+    /* 5. Title: Pushed to top with margin */
+    .step-title { 
+        text-align: center; 
+        margin-top: 25px; /* Space from sticky header */
+        flex-shrink: 0; 
+    }
     
-    /* --- VERTICAL POSITIONING --- */
-    .step-body{
+    /* 6. Body: Takes remaining space and CENTERS vertically */
+    .step-body {
       flex-grow: 1; 
       display: flex; 
-      align-items: center; 
-      justify-content: center;
-      /* PADDING BOTTOM pushes the content UP visually */
-      padding-bottom: 60px; 
+      flex-direction: column;
+      align-items: center; /* Horizontal Center */
+      justify-content: center; /* VERTICAL CENTER */
+      padding-bottom: 60px; /* Visual offset for footer */
     }
     
-    .step-body > .content{ width:85%; max-width:500px; margin:0 auto; text-align: center; }
+    /* 7. Content Width */
+    .step-body > .content { width: 100%; max-width: 500px; text-align: center; }
+    
     .content input, .content select, .content .grid-inline-2 { text-align: left; } 
-    .vstack > * + *{ margin-top: 10px; }
+    .vstack > * + *{ margin-top: 12px; }
 
-    .form-footer{
+    /* 8. Footer: Absolute Bottom */
+    .form-footer {
       position: absolute; bottom: 0; left: 0; right: 0;
-      background:rgba(255,255,255,0.95); 
-      border-top:1px solid var(--slate-200);
-      padding: 12px 24px;
+      background: rgba(255,255,255,0.98); 
+      border-top: 1px solid var(--slate-200);
+      padding: 14px 24px;
       z-index: 20;
-      display: flex; align-items: center; justify-content: center; 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; /* Buttons split left/right */
     }
-    
-    .form-footer-inner { display: flex; justify-content: space-between; width: 100%; max-width: 500px; align-items: center; }
 
     #btnBack{ min-height:36px; border-radius:8px; font-size:13px; color: var(--slate-500); padding: 0 16px; font-weight: 700; }
     #btnBack:hover { background: var(--slate-100); color: var(--slate-800); }
@@ -188,7 +218,7 @@
       padding: 0 16px;
       min-height: 46px; 
       font-size: 15px;
-      justify-content: center; 
+      justify-content: center; /* Center text in button */
     }
     .choice-rect:hover{ border-color:var(--blue-600); background: #f8fafc; transform: translateY(-1px); }
     .choice-rect.selected{ border-color:var(--blue-600); background:var(--blue-100); color: var(--blue-700); box-shadow: 0 0 0 1px var(--blue-600); }
@@ -201,11 +231,10 @@
     .inv-badge { color: var(--blue-600); }
     .text-equifax-red { color: var(--red-equifax); }
 
-    /* --- GRIDS --- */
-    /* STEP 1: FORCE 2 COLUMNS FOR FINANCE/REFI BUTTONS */
+    /* --- GRID SIZING: FORCE 2 COLS ALWAYS --- */
     .grid-inline-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--field-gap); }
-    @media(min-width: 640px) { .grid-inline-2 { grid-template-columns: 1fr 1fr; } }
 
+    /* Complex Grids: Mobile Friendly fallbacks */
     .grid-inline-refi-details { display: grid; grid-template-columns: 90px 1fr 1fr; gap: var(--field-gap); }
     .grid-inline-refi-details-2 { display: grid; grid-template-columns: 1fr 140px; gap: var(--field-gap); }
     .grid-inline-trade-1 { display: grid; grid-template-columns: 90px 1fr 1fr; gap: var(--field-gap); }
@@ -216,9 +245,10 @@
     
     @media(max-width: 640px) { 
         .grid-inline-refi-details, .grid-inline-trade-1, .grid-inline-addr2, .grid-inline-dob, .grid-inline-addr3 { 
-             display: flex; flex-direction: column; gap: 6px;
+             display: flex; flex-direction: column; gap: 8px;
         }
-        .grid-inline-2 { display: grid; grid-template-columns: 1fr 1fr; } /* Force 2 cols on mobile */
+        /* Ensure buttons stay 2-up on mobile */
+        .grid-inline-2 { display: grid; grid-template-columns: 1fr 1fr; } 
     }
 
     /* Header brand */
@@ -495,10 +525,8 @@
           </div>
 
           <div class="form-footer">
-            <div class="form-footer-inner">
-                <button type="button" id="btnBack">Back</button>
-                <button type="button" id="btnNext" class="cta-button">Next</button>
-            </div>
+            <button type="button" id="btnBack">Back</button>
+            <button type="button" id="btnNext" class="cta-button">Next</button>
           </div>
         </div>
       </div>
