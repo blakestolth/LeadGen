@@ -33,28 +33,25 @@
       --slate-800: #1e293b;
 
       /* Typography */
-      --fs-h1: 26px; --fs-h2: 18px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
+      --fs-h1: 28px; --fs-h2: 20px; --fs-body: 14px; --fs-label: 12px; --fs-cta: 14px;
       
       /* Spacing */
-      --pad-y: 2px; --gap-regular: 8px;
-      --input-py: 0px; 
       --input-px: 12px; 
       
       /* Borders & Radius */
       --radius: 8px;
       
       --nav-font: 14px;
-      --control-h: 42px; /* Height for all inputs */
-      --field-gap: 8px; 
+      --control-h: 44px; /* Taller, Modern Height */
+      --field-gap: 10px; 
       --section-max: 720px;
-      --aside-pad: 10px;
     }
     @media (max-width:640px){ 
         :root{ 
             --nav-font: 13px; 
             --fs-h1: 24px; 
             --fs-h2: 18px;
-            --control-h: 42px; 
+            --control-h: 44px; 
         } 
     }
 
@@ -83,11 +80,12 @@
     .h2{ font-size:var(--fs-h2); font-weight:700; color:var(--slate-800); margin-bottom:4px; white-space: nowrap; }
     @media(max-width: 640px) { .h2 { white-space: normal; } }
 
-    .label{ font-size:var(--fs-label); color:var(--slate-700); font-weight:600; display:block; margin-bottom:4px; text-transform: uppercase; letter-spacing: 0.02em; text-align: center; }
+    /* Centered Labels */
+    .label{ font-size:var(--fs-label); color:var(--slate-700); font-weight:600; display:block; margin-bottom:5px; text-transform: uppercase; letter-spacing: 0.02em; text-align: center; }
     .muted{ font-size:10px; color:var(--slate-500); }
 
-    /* INPUT STYLING - STANDARDIZED */
-    .form-input,.form-select,.form-textarea{
+    /* INPUT STYLING */
+    .form-input, .form-select, .form-textarea{
       background: var(--slate-50); 
       color:var(--slate-800); 
       border:1px solid var(--slate-300);
@@ -109,6 +107,7 @@
       outline:none;
     }
 
+    /* Dropdown Alignment Fix */
     .form-select {
       -webkit-appearance: none; -moz-appearance: none; appearance: none;
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
@@ -116,12 +115,13 @@
       background-size: 1.2em 1.2em;
       background-repeat: no-repeat;
       padding-right: 2.5rem;
-      padding-top: 0; padding-bottom: 0;
+      padding-top: 0 !important; 
+      padding-bottom: 0 !important;
+      display: flex;
+      align-items: center;
     }
 
-    .form-input-sm, .form-select-sm { min-height: 30px; font-size: 12px; }
-
-    .cta-button{ background:var(--blue-600); color:#fff; font-weight:700; padding:.5rem 1.2rem; border-radius: var(--radius); font-size:var(--fs-cta); min-height:42px; transition: all .2s ease; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+    .cta-button{ background:var(--blue-600); color:#fff; font-weight:700; padding:.5rem 1.5rem; border-radius: var(--radius); font-size:var(--fs-cta); min-height:42px; transition: all .2s ease; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
     .cta-button:hover{ background:var(--blue-700); transform: translateY(-1px); box-shadow: 0 6px 8px -2px rgb(0 0 0 / 0.15); }
     .cta-button:active{ transform: scale(0.98); }
 
@@ -134,25 +134,21 @@
 
     @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
 
-    #lead-form{ --fs-h2: 20px; --fs-body: 14px; --fs-label: 11px; --fs-cta: 14px; --control-h: 42px; }
+    #lead-form{ --fs-h2: 20px; --fs-body: 14px; --fs-label: 11px; --fs-cta: 14px; --control-h: 44px; }
     #lead-form .sticky [id^="progress-"]{ font-size:11px !important; }
-    #lead-form .cta-button{ min-height:40px; }
+    #lead-form .cta-button{ min-height:42px; }
 
-    /* =========================================
-       CRITICAL LAYOUT FIX: VERTICAL CENTERING
-       ========================================= */
-    /* 1. Fixed height container */
-    .form-shell{ 
+    /* === FORM LAYOUT ENGINE (The Fix) === */
+    .form-shell { 
         position:relative; 
         overflow:hidden; 
         display:flex; 
         flex-direction:column; 
-        height: 460px; /* Fixed Height ensures we have space to center within */
+        height: 500px; /* Taller to allow centering space */
     }
-    @media(min-width: 640px) { .form-shell { height: 480px; } }
     
-    /* 2. Sticky Header (Pinned Top) */
-    .form-shell .sticky{ 
+    /* 1. TITLE BAR (Pinned Top) */
+    .form-shell .sticky { 
         position:sticky; top:0; z-index:10; 
         background: rgba(255,255,255,0.98); 
         padding: 14px 20px; 
@@ -160,65 +156,61 @@
         flex-shrink: 0; 
     }
 
-    /* 3. Flex Chain Down to Content */
     .step-viewport { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
     .step-viewport-inner { flex: 1; display: flex; flex-direction: column; height: 100%; }
-    #the-form { display: flex; flex-direction: column; height: 100%; width: 100%; }
-    
-    /* 4. Step Wrapper: Flex Column */
+
+    /* 2. STEP CONTAINER */
     .step-inner {
       width: 100%; max-width: var(--section-max); margin: 0 auto; 
       height: 100%;
       display: flex; 
       flex-direction: column; 
-      padding: 0 20px; /* Side padding */
+      padding: 0 20px;
     }
     
-    /* 5. Title: Pushed to top with margin */
+    /* 3. TITLE (Top) */
     .step-title { 
         text-align: center; 
-        margin-top: 25px; /* Space from sticky header */
-        flex-shrink: 0; 
+        margin-top: 25px; 
+        flex-shrink: 0; /* Don't shrink */
     }
     
-    /* 6. Body: Takes remaining space and CENTERS vertically */
+    /* 4. CONTENT (Middle - Vertically Centered) */
     .step-body {
       flex-grow: 1; 
       display: flex; 
       flex-direction: column;
-      align-items: center; /* Horizontal Center */
-      justify-content: center; /* VERTICAL CENTER */
-      padding-bottom: 60px; /* Visual offset for footer */
+      align-items: center; 
+      justify-content: center; /* THIS IS THE VERTICAL CENTER */
+      padding-bottom: 60px; /* Offset for footer */
     }
     
-    /* 7. Content Width */
-    .step-body > .content { width: 100%; max-width: 500px; text-align: center; }
-    
+    .step-body > .content { width: 85%; max-width: 500px; margin: 0 auto; text-align: center; }
     .content input, .content select, .content .grid-inline-2 { text-align: left; } 
-    .vstack > * + *{ margin-top: 12px; }
+    .vstack > * + * { margin-top: 12px; }
 
-    /* 8. Footer: Absolute Bottom */
+    /* 5. FOOTER (Pinned Bottom - Even Padding) */
     .form-footer {
       position: absolute; bottom: 0; left: 0; right: 0;
       background: rgba(255,255,255,0.98); 
       border-top: 1px solid var(--slate-200);
-      padding: 14px 24px;
+      padding: 15px 25px; /* EVEN PADDING */
       z-index: 20;
       display: flex; 
       align-items: center; 
-      justify-content: space-between; /* Buttons split left/right */
+      justify-content: space-between; 
     }
 
     #btnBack{ min-height:36px; border-radius:8px; font-size:13px; color: var(--slate-500); padding: 0 16px; font-weight: 700; }
     #btnBack:hover { background: var(--slate-100); color: var(--slate-800); }
 
-    .choice-rect{
+    .choice-rect {
       width:100%; text-align:left; border:1.5px solid var(--slate-300); border-radius:var(--radius); background:#fff;
       font-weight:600; color: var(--slate-700); transition:all .15s ease; display:flex; align-items:center; cursor:pointer; 
       padding: 0 16px;
-      min-height: 46px; 
+      min-height: 50px; /* Taller buttons */
       font-size: 15px;
-      justify-content: center; /* Center text in button */
+      justify-content: center; 
     }
     .choice-rect:hover{ border-color:var(--blue-600); background: #f8fafc; transform: translateY(-1px); }
     .choice-rect.selected{ border-color:var(--blue-600); background:var(--blue-100); color: var(--blue-700); box-shadow: 0 0 0 1px var(--blue-600); }
@@ -231,23 +223,23 @@
     .inv-badge { color: var(--blue-600); }
     .text-equifax-red { color: var(--red-equifax); }
 
-    /* --- GRID SIZING: FORCE 2 COLS ALWAYS --- */
+    /* --- GRID SIZING --- */
     .grid-inline-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--field-gap); }
-
-    /* Complex Grids: Mobile Friendly fallbacks */
-    .grid-inline-refi-details { display: grid; grid-template-columns: 90px 1fr 1fr; gap: var(--field-gap); }
+    
+    /* Refi Step 2 Specifics */
+    .grid-inline-refi-details { display: grid; grid-template-columns: 100px 1fr 1fr; gap: var(--field-gap); }
     .grid-inline-refi-details-2 { display: grid; grid-template-columns: 1fr 140px; gap: var(--field-gap); }
-    .grid-inline-trade-1 { display: grid; grid-template-columns: 90px 1fr 1fr; gap: var(--field-gap); }
+    .grid-inline-trade-1 { display: grid; grid-template-columns: 100px 1fr 1fr; gap: var(--field-gap); }
     .grid-inline-dob { display: grid; grid-template-columns: 100px 80px 80px 1fr; gap: var(--field-gap); }
-    .grid-inline-addr1 { display: grid; grid-template-columns: 1fr 90px; gap: var(--field-gap); }
-    .grid-inline-addr2 { display: grid; grid-template-columns: 1fr 90px 120px; gap: var(--field-gap); }
+    .grid-inline-addr1 { display: grid; grid-template-columns: 1fr 100px; gap: var(--field-gap); }
+    .grid-inline-addr2 { display: grid; grid-template-columns: 1fr 100px 120px; gap: var(--field-gap); }
     .grid-inline-addr3 { display: grid; grid-template-columns: 1fr 80px 80px 1fr; gap: var(--field-gap); align-items: end; }
     
     @media(max-width: 640px) { 
         .grid-inline-refi-details, .grid-inline-trade-1, .grid-inline-addr2, .grid-inline-dob, .grid-inline-addr3 { 
              display: flex; flex-direction: column; gap: 8px;
         }
-        /* Ensure buttons stay 2-up on mobile */
+        /* Keep main buttons 2-up on mobile */
         .grid-inline-2 { display: grid; grid-template-columns: 1fr 1fr; } 
     }
 
@@ -524,8 +516,8 @@
             </div>
           </div>
 
-          <div class="form-footer">
-            <button type="button" id="btnBack">Back</button>
+          <div class="form-footer flex items-center justify-between" id="form-footer">
+            <button type="button" id="btnBack" class="font-semibold text-slate-600 hover:text-slate-900 px-4 py-2 rounded-lg hover:bg-slate-100 transition-colors">Back</button>
             <button type="button" id="btnNext" class="cta-button">Next</button>
           </div>
         </div>
