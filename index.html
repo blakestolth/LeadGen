@@ -104,12 +104,13 @@
       padding-top: 2px;
       padding-bottom: 2px;
     }
-    .form-select-sm {
-      background-position:
-        calc(100% - 18px) calc(50% - 5px), /* Adjusted for better vertical centering */
-        calc(100% - 13px) calc(50% - 5px), /* Adjusted for better vertical centering */
-        calc(100% - 2rem) 0.4rem;
-      background-size: 7px 7px, 7px 7px, 0 0;
+    /* FINAL FIX: Simplified dropdown arrow to single chevron to eliminate rendering pattern issue */
+    .form-select-sm, .form-select {
+      background-image:
+        linear-gradient(135deg, #94a3b8 50%, transparent 50%);
+      background-position: calc(100% - 15px) calc(50% + 2px); 
+      background-size: 10px 10px;
+      background-repeat: no-repeat;
       padding-right: 2.2rem;
     }
 
