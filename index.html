@@ -44,7 +44,7 @@
       --radius: 10px;
       
       --nav-font: 14px;
-      --control-h: 32px; /* Slightly taller for cleaner look */
+      --control-h: 32px;
       --field-gap: 5px; 
       --section-max: 720px;
       --aside-pad: 10px;
@@ -272,13 +272,33 @@
       padding-right: 2.2rem;
     }
 
-    /* Refi calculator — compact */
-    .refi-grid{ display:grid; grid-template-columns: 1fr; gap:6px; align-items:center; }
-    .refi-row{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap:var(--field-gap); } 
-    @media (min-width: 640px) { .refi-row{ grid-template-columns: 130px 90px 90px; } }
-
-    .refi-mini{ display:grid; grid-template-columns: 1fr auto; gap:8px; align-items:center; }
-    .refi-results{ font-family: monospace, monospace; font-size:13px; line-height:1.2; color:var(--slate-800); font-weight:600; display:grid; gap:4px; min-width:150px; }
+    /* Refi calculator — Modern & Clean */
+    .refi-box {
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: relative;
+    }
+    .refi-inputs-area {
+        background: var(--slate-50);
+        padding: 16px;
+        flex: 1;
+    }
+    .refi-input-group {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    .refi-input-group > div { flex: 1; }
+    .refi-results-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px -2px rgba(0,0,0,0.08);
+        padding: 12px;
+        margin-top: 12px;
+        border: 1px solid var(--slate-200);
+    }
     .refi-slider{ width:100%; accent-color: var(--blue-600); cursor: pointer;}
   </style>
 
@@ -309,12 +329,12 @@
         </div>
       </div>
 
+      <div class="hidden sm:flex flex-col items-end text-right mr-4">
+          <span class="text-[13px] font-extrabold text-slate-800 uppercase tracking-tight leading-none">Personalized Vehicle Search</span>
+          <span class="text-[11px] font-medium text-slate-500 leading-none mt-1">Finance & Refinancing</span>
+      </div>
+
       <div class="hidden sm:flex items-center gap-2 font-semibold text-zinc-700">
-        <div class="mr-2 flex items-center gap-1.5 text-slate-500 bg-slate-100 px-2 py-1 rounded border border-slate-200">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" /></svg>
-          <span class="text-[10px] font-bold uppercase tracking-wide">Secure</span>
-        </div>
-        
         <a href="#inventory" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-[var(--blue-600)] transition-colors">Inventory</a>
         <a href="#about" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-[var(--blue-600)] transition-colors">About</a>
         <a href="#lead-form" class="cta-button ml-2">Apply Now</a>
@@ -346,7 +366,7 @@
           <ol class="text-sm space-y-3 mt-3">
             <li class="flex items-start gap-3">
               <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[12px]">1</span>
-              <span class="text-left"><b>Enter info</b> (2 mins).</span>
+              <span class="text-left"><b>Enter info</b> — 2 mins</span>
             </li>
             <li class="flex items-start gap-3">
               <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-extrabold text-[12px]">2</span>
@@ -733,13 +753,13 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span class="text-xs leading-tight">Newer Model Year</span>
+                <span class="text-xs leading-tight">Model Year Qualifies</span>
               </li>
               <li class="flex flex-col items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                <span class="text-xs leading-tight">Loan > 1 Year Old</span>
+                <span class="text-xs leading-tight">Owned 1 Year</span>
               </li>
               <li class="flex flex-col items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -751,47 +771,59 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span class="text-xs leading-tight">Solid History</span>
+                <span class="text-xs leading-tight">Payment History</span>
               </li>
             </ul>
           </div>
         </div>
-        <div class="card card-accent p-0 flex-1 flex flex-col relative">
-           <div class="flex items-center justify-between px-4 py-1">
-               <h4 class="text-base font-bold text-slate-800">Refinance Calc</h4>
-               <span class="text-[11px] font-semibold text-slate-500">Est.</span>
+        
+        <div class="card card-accent p-0 flex-1 overflow-hidden refi-box">
+           <div class="bg-white px-4 py-3 border-b border-slate-100">
+               <h4 class="text-base font-bold text-slate-800">Refinance Calculator</h4>
+               <p class="text-[11px] text-slate-500">Estimate your potential savings</p>
            </div>
-           <div class="refi-grid flex-1 flex flex-col justify-around px-4 pb-2">
-            <div class="refi-row">
-              <div>
-                <label class="label" for="refLoanInput">Loan Bal.</label>
-                <input type="text" id="refLoanInput" class="form-input form-input-sm" placeholder="$15,000" inputmode="numeric" maxlength="14" />
+           
+           <div class="refi-inputs-area flex flex-col justify-between">
+              <div class="space-y-4">
+                <div class="refi-input-group">
+                  <div>
+                    <label class="label" for="refLoanInput">Loan Bal.</label>
+                    <input type="text" id="refLoanInput" class="form-input form-input-sm bg-white" placeholder="$15,000" inputmode="numeric" maxlength="14" />
+                  </div>
+                  <div>
+                    <label class="label" for="refRateInput">Current %</label>
+                    <input type="text" id="refRateInput" class="form-input form-input-sm bg-white" placeholder="8.99" inputmode="decimal" maxlength="5" />
+                  </div>
+                </div>
+                
+                <div>
+                   <div class="flex justify-between mb-1">
+                      <label class="label" for="refTermInput">Loan Term</label>
+                      <span class="text-[11px] font-bold text-[var(--blue-600)]"><span id="termDisplay">5</span> Years</span>
+                   </div>
+                   <input id="refTermInput" type="range" min="1" max="8" step="1" value="5" class="refi-slider">
+                </div>
+
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <label class="label" for="refNewRateSlider">New Rate</label>
+                    <span class="text-[11px] font-bold text-[var(--blue-600)]"><span id="refNewRateOut">7.99</span>%</span>
+                  </div>
+                  <input id="refNewRateSlider" type="range" min="0.00" max="8.99" step="0.05" value="7.99" class="refi-slider">
+                </div>
               </div>
-              <div>
-                <label class="label" for="refTermInput">Years</label>
-                <select id="refTermInput" class="form-select form-input-sm">
-                  <option value="">—</option>
-                  <option>1</option><option>2</option><option>3</option><option>4</option>
-                  <option>5</option><option>6</option><option>7</option><option>8</option>
-                </select>
+
+              <div class="refi-results-card" id="refResults">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-xs text-zinc-500 font-medium">New Payment</span>
+                    <span class="text-sm font-bold text-slate-800">$0.00<span class="text-[10px] font-normal text-slate-400">/bi-w</span></span>
+                </div>
+                <div class="flex justify-between items-center border-t border-slate-100 pt-1 mt-1">
+                    <span class="text-xs text-zinc-500 font-medium">Total Savings</span>
+                    <span class="text-sm font-bold text-green-600">$0.00</span>
+                </div>
               </div>
-              <div>
-                <label class="label" for="refRateInput">Current %</label>
-                <input type="text" id="refRateInput" class="form-input form-input-sm" placeholder="8.99" inputmode="decimal" maxlength="5" />
-              </div>
-            </div>
-            <div class="refi-mini">
-              <div>
-                <label class="label" for="refNewRateSlider">New Rate</label>
-                <input id="refNewRateSlider" type="range" min="0.00" max="8.99" step="0.05" value="7.99" class="refi-slider">
-                <div class="text-[11px] text-zinc-700 mt-1"><b><span id="refNewRateOut">7.99</span>%</b></div>
-              </div>
-              <div class="refi-results" id="refResults">
-                <div><span class="text-zinc-500">New pmt:</span> $0.00</div>
-                <div><span class="text-zinc-500">Saved:</span> $0.00</div>
-              </div>
-            </div>
-          </div>
+           </div>
         </div>
       </aside>
     </section>
@@ -1024,7 +1056,6 @@
     }
 
     let curStepId = 'step-intent';
-    // Removed ensureConsistentHeights() from goTo to prevent stability issues
     function goTo(id){ curStepId=id; showOnly(id); updateProgress(id); } 
 
     function validateCurrent(stepId){
@@ -1232,11 +1263,18 @@
       const newRateSlider = $('refNewRateSlider');
       const newRateOut = $('refNewRateOut');
       const results = $('refResults');
+      const termDisplay = $('termDisplay');
 
       if (!(loanEl && rateEl && termEl && newRateSlider && newRateOut)) return;
 
       loanEl.addEventListener('blur', ()=>{ formatMoneyField(loanEl); update(); });
-      [loanEl, rateEl, termEl].forEach(el=> el.addEventListener('input', update));
+      [loanEl, rateEl].forEach(el=> el.addEventListener('input', update));
+      
+      termEl.addEventListener('input', ()=>{
+          if(termDisplay) termDisplay.textContent = termEl.value;
+          update();
+      });
+      
       newRateSlider.addEventListener('input', ()=>{ newRateOut.textContent = Number(newRateSlider.value).toFixed(2); update(); });
 
       function update(){
@@ -1245,8 +1283,15 @@
         const years = parseFloat(termEl.value)||0;
 
         if (!loan || !rate || !years){
-          results.innerHTML = `<div><span class="text-zinc-500">New pmt:</span> $0.00</div>
-                               <div><span class="text-zinc-500">Saved:</span> $0.00</div>`;
+          results.innerHTML = `
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-xs text-zinc-500 font-medium">New Payment</span>
+                    <span class="text-sm font-bold text-slate-800">$0.00<span class="text-[10px] font-normal text-slate-400">/bi-w</span></span>
+                </div>
+                <div class="flex justify-between items-center border-t border-slate-100 pt-1 mt-1">
+                    <span class="text-xs text-zinc-500 font-medium">Total Savings</span>
+                    <span class="text-sm font-bold text-green-600">$0.00</span>
+                </div>`;
           return;
         }
 
@@ -1267,39 +1312,19 @@
 
         const interestSaved = Math.max(0, curTotInt - newTotInt);
 
-        results.innerHTML =
-          `<div><span class="text-zinc-500">New pmt:</span> ${fmtMoney(newPmtBiWeekly)}</div>
-           <div><span class="text-zinc-500">Saved:</span> ${fmtMoney(interestSaved)}</div>`;
+        results.innerHTML = `
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-xs text-zinc-500 font-medium">New Payment</span>
+                    <span class="text-sm font-bold text-slate-800">${fmtMoney(newPmtBiWeekly)}<span class="text-[10px] font-normal text-slate-400">/bi-w</span></span>
+                </div>
+                <div class="flex justify-between items-center border-t border-slate-100 pt-1 mt-1">
+                    <span class="text-xs text-zinc-500 font-medium">Total Savings</span>
+                    <span class="text-sm font-bold text-green-600">${fmtMoney(interestSaved)}</span>
+                </div>`;
       }
       
       update();
       newRateOut.textContent = Number(newRateSlider.value).toFixed(2);
-    }
-
-    function ensureConsistentHeights(){
-      // NOTE: This function is removed from the critical path (goTo) for stability.
-      const footer = $('form-footer');
-      if (!footer) return;
-      const footerH = footer.offsetHeight || 0;
-      // Reduced extra padding
-      const extra = 3;
-      bySelAll('.step-inner').forEach(inner => {
-        inner.style.setProperty('--footer-space', (footerH + extra) + 'px');
-      });
-
-      let maxContent = 0;
-      const hidden = [];
-      bySelAll('.form-step').forEach(sec => {
-        if (sec.classList.contains('hidden')) { hidden.push(sec); sec.classList.remove('hidden'); }
-      });
-      bySelAll('.form-step .step-body > .content').forEach(c => {
-        maxContent = Math.max(maxContent, c.offsetHeight);
-      });
-      hidden.forEach(sec => sec.classList.add('hidden'));
-
-      bySelAll('.form-step .step-body').forEach(b => {
-        b.style.setProperty('--content-min', maxContent + 'px');
-      });
     }
 
     (function init(){
@@ -1323,10 +1348,8 @@
       populateYears($('tradeInYear'), new Date().getFullYear(), 1995);
       populateYears($('refiYear'),    new Date().getFullYear(), 1995);
 
-      // FUNCTIONAL FIX: Populate refi years left
       populateRefiYearsLeft($('refiRemainYears'));
 
-      // Initialize Make/Model dropdowns
       populateMakes('refiMake', 'refiModel');
       populateMakes('tradeInMake', 'tradeInModel');
 
