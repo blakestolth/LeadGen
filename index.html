@@ -125,8 +125,17 @@
     .track{ height:6px; background:var(--slate-200); border-radius:9999px; overflow:hidden; }
     .fill{ height:6px; background:linear-gradient(90deg,var(--blue-600),var(--blue-grad)); border-radius:9999px; width:0%; transition:width .25s ease; }
 
-    .err{ border-color:var(--red-equifax) !important; } .err-label{ color:var(--red-equifax) !important; }
+    .err{ border-color:var(--red-equifax) !important; animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; } 
+    .err-label{ color:var(--red-equifax) !important; }
     .text-theme-red { color: var(--red-equifax); }
+
+    /* ERROR SHAKE ANIMATION */
+    @keyframes shake {
+      10%, 90% { transform: translate3d(-1px, 0, 0); }
+      20%, 80% { transform: translate3d(2px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+      40%, 60% { transform: translate3d(4px, 0, 0); }
+    }
 
     #lead-form{
       --fs-h2: 18px; 
@@ -381,10 +390,10 @@
         <div>
           <h2 class="h2">Why people pick us</h2>
           <ul class="text-sm space-y-3 mt-3">
-            <li class="flex items-start gap-3"><span class="abc-badge mt-0.5">A</span><span class="text-left"><b>All credit welcome.</b> High approval rates.</span></li>
-            <li class="flex items-start gap-3"><span class="abc-badge mt-0.5">B</span><span class="text-left"><b>Massive selection.</b> New & Used across BC.</span></li>
-            <li class="flex items-start gap-3"><span class="abc-badge mt-0.5">C</span><span class="text-left"><b>Private.</b> No data sold to dealerships.</span></li>
-            <li class="flex items-start gap-3"><span class="abc-badge mt-0.5">D</span><span class="text-left"><b>Free delivery.</b> Right to your driveway.</span></li>
+            <li class="flex items-start gap-3"><span class="abc-badge mt-0.5">A</span><span class="text-left"><b>All credit welcome</b> high approval rates.</span></li>
+            <li class="flex items-start gap-3"><span class="abc-badge mt-0.5">B</span><span class="text-left"><b>Massive selection</b> New & Used across BC.</span></li>
+            <li class="flex items-start gap-3"><span class="abc-badge mt-0.5">C</span><span class="text-left"><b>Private</b> No data sold to dealerships.</span></li>
+            <li class="flex items-start gap-3"><span class="abc-badge mt-0.5">D</span><span class="text-left"><b>Free delivery</b> Right to your driveway.</span></li>
           </ul>
         </div>
       </div>
@@ -1079,7 +1088,9 @@
 
       // General required field validation for other steps
       let ok = true;
+      let firstError = null; // Track the first error for scrolling
       const fields = Array.from(stepEl.querySelectorAll('[required]'));
+      
       fields.forEach(el=>{
         if (window.getComputedStyle(el).display==='none' || !el.closest('.form-step') || el.closest('.form-step').classList.contains('hidden')) return;
         let pass = (el.type==='checkbox') ? el.checked : (el.value && el.value.trim()!=='');
@@ -1088,11 +1099,25 @@
           const v=el.value.trim();
           pass = pass && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
         }
-        el.classList.toggle('err', !pass);
+        
+        if (!pass) {
+            el.classList.add('err');
+            if(!firstError) firstError = el;
+        } else {
+            el.classList.remove('err');
+        }
+        
         const lab = el.closest('div')?.querySelector('label'); 
         lab?.classList.toggle('err-label', !pass);
         if (!pass) ok=false;
       });
+
+      // UX Improvement: Auto-scroll to the first error if one exists
+      if (firstError) {
+          firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          firstError.focus({ preventScroll: true }); // focus without jumping, let smooth scroll handle it
+      }
+
       return ok;
     }
     
