@@ -1,8 +1,7 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  
-  <meta name="viewport" content="width=800, initial-scale=0.47, user-scalable=yes" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   
   <title>Vancouver Island Credit | Auto Approvals Online</title>
 
@@ -52,7 +51,13 @@
       --aside-pad: 10px;
       --footer-card-gap: 4px;
     }
-    @media (max-width:640px){ :root{ --nav-font: 13px; --fs-h1: 26px; } }
+    @media (max-width:640px){ 
+        :root{ 
+            --nav-font: 13px; 
+            --fs-h1: 24px; /* Slightly smaller for mobile */
+            --fs-h2: 18px;
+        } 
+    }
 
     body{
       font-family:'Work Sans',sans-serif;
@@ -60,8 +65,8 @@
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       color: var(--slate-700);
-      /* Forces desktop width so layout doesn't break/stack */
-      min-width: 800px; /* Matches new viewport width */
+      /* FIX: Removed min-width: 800px to allow responsiveness */
+      overflow-x: hidden; /* Prevent side scrolling */
     }
     .card{
       background:#fff;
@@ -76,8 +81,11 @@
       background: linear-gradient(180deg, #ffffff, #f8fafc);
     }
     
-    .h1{ font-size:var(--fs-h1); font-weight:800; color:var(--slate-800); white-space: nowrap; } /* FIX: Prevent title wrapping */
-    .h2{ font-size:var(--fs-h2); font-weight:700; color:var(--slate-800); margin-bottom:4px; white-space: nowrap; } /* FIX: Prevent title wrapping */
+    .h1{ font-size:var(--fs-h1); font-weight:800; color:var(--slate-800); line-height: 1.2; } /* FIX: Allowed wrapping for mobile */
+    .h2{ font-size:var(--fs-h2); font-weight:700; color:var(--slate-800); margin-bottom:4px; white-space: nowrap; }
+    /* Mobile override for H2 to wrap if needed */
+    @media(max-width: 640px) { .h2 { white-space: normal; } }
+
     .label{ font-size:var(--fs-label); color:var(--slate-700); font-weight:600; display:block; margin-bottom:3px; }
     .muted{ font-size:10px; color:var(--slate-500); }
 
@@ -88,7 +96,6 @@
       padding:var(--input-py) var(--input-px); border-radius:var(--radius); transition:all .15s ease;
       min-height: var(--control-h); line-height: 1.3;
     }
-    /* ADDED: Force minimum height on select tags to respect control height */
     .form-select {
         height: var(--control-h);
         line-height: var(--control-h);
@@ -99,12 +106,11 @@
     }
 
     .form-input-sm, .form-select-sm {
-      min-height: 26px; /* Reduced for calculator */
+      min-height: 26px; 
       font-size: 12px;
       padding-top: 2px;
       padding-bottom: 2px;
     }
-    /* FINAL FIX: Simplified dropdown arrow to single chevron to eliminate rendering pattern issue */
     .form-select-sm, .form-select {
       background-image:
         linear-gradient(135deg, #94a3b8 50%, transparent 50%);
@@ -125,12 +131,11 @@
     .text-theme-red { color: var(--red-equifax); }
 
     #lead-form{
-      /* INCREASED FONT SIZES AND REDUCED CONTROL HEIGHT */
       --fs-h2: 18px; 
       --fs-body: 14px;
       --fs-label: 11px;
       --fs-cta: 13px; 
-      --control-h: 26px; /* AGGRESSIVELY REDUCED INPUT HEIGHT */
+      --control-h: 26px; 
     }
     #lead-form .sticky [id^="progress-"]{ font-size:10px !important; }
     #lead-form .cta-button{ min-height:30px; }
@@ -143,21 +148,19 @@
 
     .step-inner{
       max-width: var(--section-max); margin: 0 auto; 
-      padding-top: 5px; /* Final subtle top padding */
-      padding-bottom: var(--footer-space, 20px); /* Increased padding for visual anchoring */
+      padding-top: 5px; 
+      padding-bottom: var(--footer-space, 20px); 
       display:flex; flex-direction:column; min-height:100%;
     }
     .step-title{ text-align: center; margin-bottom: 2px; }
     .step-body{
       flex:1; display:flex; align-items:center; justify-content:center;
-      padding-top: 5px; /* Final subtle top padding */
-      /* REMOVED: min-height: var(--content-min, 0px); */
+      padding-top: 5px; 
     }
     .step-body > .content{ width:100%; max-width:640px; margin:0 auto; }
     .vstack > * + *{ margin-top: var(--gap-regular); }
 
     .form-footer{
-      /* CRITICAL FIX: Restored STICKY positioning to keep buttons INSIDE the form card */
       position: sticky; 
       bottom: 0;
       background:rgba(255,255,255,0.85); 
@@ -165,6 +168,7 @@
       border-top:1px solid var(--slate-200);
       padding: 6px 12px;
       margin-bottom: var(--footer-card-gap);
+      z-index: 20; /* FIX: Ensure footer stays on top */
     }
     #btnBack{ min-height:30px; border-radius:10px; font-size:11px; transition: transform 0.1s ease; }
     #btnBack:active { transform: scale(0.98); }
@@ -173,47 +177,57 @@
       width:100%; text-align:left; border:1.5px solid var(--slate-300); border-radius:var(--radius); background:#fff;
       font-weight:500; color: var(--slate-800); transition:all .15s ease; display:flex; align-items:center; cursor:pointer; 
       padding: 0 var(--input-px);
-      min-height: 44px; /* INCREASED TAP TARGET HEIGHT */
+      min-height: 44px; 
       font-size: var(--fs-body);
     }
     #lead-form .choice-rect {
-        min-height: 44px; /* INCREASED TAP TARGET HEIGHT */
+        min-height: 44px; 
         font-size: var(--fs-body);
     }
     .choice-rect:hover{ border-color:var(--blue-600); background: #f7f9fc; transform: translateY(-1px); }
     .choice-rect.selected{ border-color:var(--blue-600); background:var(--blue-100); box-shadow: 0 0 0 2px var(--blue-600); }
 
-    .seg{ display:inline-flex; align-items:center; gap:6px; background:var(--slate-100); border:1.5px solid var(--slate-200); border-radius:9999px; padding:4px; margin-top:4px; }
-    .seg-btn{ appearance:none; border:0; background:transparent; cursor:pointer; padding:6px 14px; border-radius:9999px; font-weight:600; font-size:12px; color:var(--slate-600); transition:background .15s ease, color .15s ease, box-shadow .15s ease; }
+    .seg{ display:inline-flex; align-items:center; gap:6px; background:var(--slate-100); border:1.5px solid var(--slate-200); border-radius:9999px; padding:4px; margin-top:4px; width: 100%; }
+    .seg-btn{ flex: 1; appearance:none; border:0; background:transparent; cursor:pointer; padding:6px 14px; border-radius:9999px; font-weight:600; font-size:12px; color:var(--slate-600); transition:background .15s ease, color .15s ease, box-shadow .15s ease; }
     .seg-btn[aria-pressed="true"]{ background:var(--blue-600); color:#fff; box-shadow:0 1px 3px rgba(0,0,0,.1); }
 
     .abc-badge{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:9999px; background:var(--blue-600); color:#fff; border:none; font-weight:800; font-size:11px; line-height:1; flex-shrink:0; }
     .inv-badge { color: var(--blue-600); }
     .text-equifax-red { color: var(--red-equifax); }
 
-    .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:var(--field-gap); }
-    /* CHANGED: Year is fixed 100px, Make/Model are proportional */
-    .grid-inline-refi-details { display:grid; grid-template-columns: 100px 140px 1fr; gap:var(--field-gap); }
-    /* CHANGED: Loan amount constrained to 180px, Interest Rate to 110px */
-    .grid-inline-refi-details-2 { display:grid; grid-template-columns: 180px 110px; gap:var(--field-gap); } 
-    /* CHANGED: Year is fixed 100px, Make/Model are proportional */
-    .grid-inline-trade-1 { display:grid; grid-template-columns: 100px 140px 1fr; gap:var(--field-gap); }
-    /* LOGICAL SIZING - FIXED COLUMNS FOR SHORT FIELDS */
-    .grid-inline-dob{ display:grid; grid-template-columns: 100px 80px 80px 1fr; gap:var(--field-gap); }
-    .grid-inline-addr1{ display:grid; grid-template-columns: 1fr 80px; gap:var(--field-gap); }
-    .grid-inline-addr2{ display:grid; grid-template-columns: 1fr 90px 120px; gap:var(--field-gap); }
-    /* LOGICAL SIZING - FIXED COLUMNS FOR YEARS/MONTHS */
-    .grid-inline-addr3{ display:grid; grid-template-columns: 1fr 80px 80px 1fr; gap:var(--field-gap); align-items:end; }
-    
-    @media (max-width:640px){
-      .grid-inline-addr3, .grid-inline-dob, .grid-inline-refi-details, .grid-inline-trade-1, .grid-inline-addr2, .grid-inline-addr3 { grid-template-columns: 1fr 1fr; }
-    }
+    /* --- RESPONSIVE GRID FIXES --- */
+    /* Default to single column (mobile), switch to multi-column on Desktop (sm) */
+    .grid-inline-2 { display: grid; grid-template-columns: 1fr; gap: var(--field-gap); }
+    @media(min-width: 640px) { .grid-inline-2 { grid-template-columns: 1fr 1fr; } }
+
+    .grid-inline-refi-details { display: grid; grid-template-columns: 1fr; gap: var(--field-gap); }
+    @media(min-width: 640px) { .grid-inline-refi-details { grid-template-columns: 100px 140px 1fr; } }
+
+    .grid-inline-refi-details-2 { display: grid; grid-template-columns: 1fr; gap: var(--field-gap); }
+    @media(min-width: 640px) { .grid-inline-refi-details-2 { grid-template-columns: 180px 110px; } }
+
+    .grid-inline-trade-1 { display: grid; grid-template-columns: 1fr; gap: var(--field-gap); }
+    @media(min-width: 640px) { .grid-inline-trade-1 { grid-template-columns: 100px 140px 1fr; } }
+
+    .grid-inline-dob { display: grid; grid-template-columns: 1fr 1fr; gap: var(--field-gap); }
+    @media(min-width: 640px) { .grid-inline-dob { grid-template-columns: 100px 80px 80px 1fr; } }
+
+    .grid-inline-addr1 { display: grid; grid-template-columns: 1fr; gap: var(--field-gap); }
+    @media(min-width: 640px) { .grid-inline-addr1 { grid-template-columns: 1fr 80px; } }
+
+    .grid-inline-addr2 { display: grid; grid-template-columns: 1fr; gap: var(--field-gap); }
+    @media(min-width: 640px) { .grid-inline-addr2 { grid-template-columns: 1fr 90px 120px; } }
+
+    .grid-inline-addr3 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--field-gap); align-items: end; }
+    @media(min-width: 640px) { .grid-inline-addr3 { grid-template-columns: 1fr 80px 80px 1fr; } }
+
 
     /* Header brand */
     .brand-left{ display:flex; align-items:center; gap:12px; }
-    .site-logo{ height:60px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
-    @media (max-width:640px){ .site-logo{ height:56px; } }
-    .brand-stack{ display:flex; flex-direction:column; justify-content: center; gap:4px; }
+    .site-logo{ height:45px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
+    @media (min-width:640px){ .site-logo{ height:60px; } }
+    
+    .brand-stack{ display:flex; flex-direction:column; justify-content: center; gap:2px; }
     .brand-title{ color:var(--slate-800); font-weight:800; letter-spacing:-0.01em; font-size:var(--nav-font); white-space:nowrap; text-decoration:none; line-height:1.1; margin-left:-2px; }
     .powered-by-inline{ display:flex; align-items:center; gap:6px; font-size: calc(var(--nav-font) * .8); color:var(--slate-600); font-weight:700; line-height:1; }
     .powered-by-inline img{ height: 0.9em; width:auto; object-fit:contain; position:relative; top:2px; }
@@ -232,8 +246,8 @@
     .inv-overlay { position: absolute; inset: 0; background: rgba(42,93,159,0.9); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s ease; color: white; font-weight: 700; font-size: 14px; z-index: 5; border-radius: 11px;}
     .bodytype-card:hover .inv-overlay { opacity: 1; }
 
-    .map-embed{ width:100%; height:150px; border:0; border-radius: inherit; }
-    @media (max-width:768px){ .map-embed{ height:200px; } }
+    .map-embed{ width:100%; height:250px; border:0; border-radius: inherit; }
+    @media (min-width:640px){ .map-embed{ height:150px; } }
 
     .progress-overlay{position:fixed;inset:0;background:rgba(15,23,42,.6);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:50}
     .progress-card{background:#fff;border-radius:16px;box-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);width:min(520px,92vw);padding:24px 20px}
@@ -265,7 +279,9 @@
 
     /* Refi calculator — compact */
     .refi-grid{ display:grid; grid-template-columns: 1fr; gap:6px; align-items:center; }
-    .refi-row{ display:grid; grid-template-columns: 130px 90px 90px; gap:var(--field-gap); } /* Loan amount constrained to 130px, others 90px */
+    .refi-row{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap:var(--field-gap); } 
+    @media (min-width: 640px) { .refi-row{ grid-template-columns: 130px 90px 90px; } }
+
     .refi-mini{ display:grid; grid-template-columns: 1fr auto; gap:8px; align-items:center; }
     .refi-results{ font-family: monospace, monospace; font-size:13px; line-height:1.2; color:var(--slate-800); font-weight:600; display:grid; gap:4px; min-width:150px; }
     .refi-slider{ width:100%; accent-color: var(--blue-600); cursor: pointer;}
@@ -289,7 +305,7 @@
 </head>
 <body>
   <header class="w-full max-w-5xl mx-auto mt-4 px-4">
-    <nav class="bg-white/80 backdrop-blur-lg card card-accent px-4 sm:px-6 py-1 flex items-center justify-between">
+    <nav class="bg-white/80 backdrop-blur-lg card card-accent px-4 sm:px-6 py-2 flex items-center justify-between">
       <div class="brand-left">
         <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
         <div class="brand-stack">
@@ -361,8 +377,8 @@
       </div>
     </section>
 
-    <section class="grid md:grid-cols-2 gap-6">
-      <div class="card card-accent p-0 overflow-hidden" id="lead-form">
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="card card-accent p-0 overflow-hidden h-auto" id="lead-form">
         <div class="form-shell" id="form-shell">
           <div class="sticky px-4 py-2 border-b border-slate-200">
             <div class="flex items-center justify-between">
@@ -385,7 +401,7 @@
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">1. What are you looking to do?</h3></div>
                     <div class="step-body">
-                      <div class="content grid grid-cols-2 gap-2">
+                      <div class="content grid grid-cols-1 sm:grid-cols-2 gap-2">
                         <button type="button" class="choice-rect text-left" data-intent="finance">Finance</button>
                         <button type="button" class="choice-rect text-left" data-intent="refinance">Refinance</button>
                       </div>
@@ -784,7 +800,7 @@
             </div>
           </div>
         </div>
-        </aside>
+      </aside>
     </section>
 
     <section id="inventory" class="card card-accent p-6">
@@ -846,7 +862,7 @@
         <h3 class="h2">Head Office — Victoria, BC</h3>
         <p class="text-sm text-slate-600 mt-1">Real location. Real people. No call centres.</p>
       </div>
-      <iframe class="map-embed" title="Map — Vancouver Island Credit" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2647.781123955684!2d-123.3719446843408!3d48.4357779792476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548f749a904b7979%3A0x29ab3436a56e7275!2s525%20Gorge%20Rd%20E%2C%20Victoria%2C%20BC%20V8T%202W5!5e0!3m2!1sen!2sca!4v1672533333333!5m2!1sen!2sca"></iframe>
+      <iframe class="map-embed" title="Map — Vancouver Island Credit" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2647.612610356825!2d-123.3816246843408!3d48.44991197924958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548f73877c401593%3A0x2361245276764503!2s525%20Gorge%20Rd%20E%2C%20Victoria%2C%20BC%20V8T%202W5!5e0!3m2!1sen!2sca!4v1677000000000!5m2!1sen!2sca"></iframe>
       <div class="px-4 py-3 text-sm text-slate-600 border-t border-slate-200">525 Gorge Rd E, Victoria, BC V8T 4T2</div>
     </section>
 
