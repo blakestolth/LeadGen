@@ -143,7 +143,7 @@
         overflow: hidden; 
         display: flex; 
         flex-direction: column; 
-        height: 390px; /* Compact and consistent */
+        height: 380px; /* Even smaller to be compact */
         background: #fff;
     }
     
@@ -539,39 +539,38 @@
         </div>
       </div>
 
-      <aside class="flex flex-col gap-4">
-        
-        <div class="card card-accent p-4">
-          <h2 class="h2 text-base mb-3 text-center">Rate Reduction Eligibility</h2>
-          <ul class="grid grid-cols-2 gap-3 text-center text-slate-700 mt-3">
-            <li class="flex flex-col items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span class="text-xs leading-tight">2016 and Newer</span>
-            </li>
-            <li class="flex flex-col items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="text-xs leading-tight">Owned 1 Year</span>
-            </li>
-            <li class="flex flex-col items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-              </svg>
-              <span class="text-xs leading-tight">Improved Credit</span>
-            </li>
-            <li class="flex flex-col items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span class="text-xs leading-tight">Payment History</span>
-            </li>
-          </ul>
-        </div>
-        
+      <aside class="flex flex-col">
         <div class="card card-accent p-0 flex-1 overflow-hidden refi-box">
+           <div class="p-3 border-b border-slate-200 bg-slate-50">
+             <h4 class="text-[11px] font-bold text-center text-slate-600 mb-2 uppercase tracking-wider">Rate Reduction Eligibility</h4>
+             <ul class="flex justify-around items-start text-center">
+                <li class="flex flex-col items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span class="text-[9px] leading-tight text-slate-600 font-semibold">2016+</span>
+                </li>
+                <li class="flex flex-col items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span class="text-[9px] leading-tight text-slate-600 font-semibold">1 Yr Own</span>
+                </li>
+                <li class="flex flex-col items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
+                  <span class="text-[9px] leading-tight text-slate-600 font-semibold">Better Credit</span>
+                </li>
+                <li class="flex flex-col items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span class="text-[9px] leading-tight text-slate-600 font-semibold">Pay History</span>
+                </li>
+             </ul>
+           </div>
+
            <div class="bg-white px-4 py-2.5 border-b border-slate-200 flex items-center justify-between">
                <h4 class="text-sm font-bold text-slate-800">Refinance Calculator</h4>
                <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full font-bold">Estimate</span>
