@@ -84,12 +84,11 @@
     .h2{ font-size:var(--fs-h2); font-weight:700; color:var(--slate-800); margin-bottom:4px; white-space: nowrap; }
     @media(max-width: 640px) { .h2 { white-space: normal; } }
 
-    /* Centered Labels */
     .label{ font-size:var(--fs-label); color:var(--slate-700); font-weight:600; display:block; margin-bottom:4px; text-transform: uppercase; letter-spacing: 0.02em; text-align: center; }
     .muted{ font-size:10px; color:var(--slate-500); }
 
     .form-input,.form-select,.form-textarea{
-      background: var(--slate-50); 
+      background: #fff; /* White background for clearer input */
       color:var(--slate-800); 
       border:1px solid var(--slate-300);
       font-size:var(--fs-body); width:100%;
@@ -109,20 +108,21 @@
       outline:none;
     }
 
+    /* DROPDOWN FIX: CLEAN SVG CHEVRON */
+    .form-select {
+      -webkit-appearance: none; -moz-appearance: none; appearance: none;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 0.5rem center;
+      background-size: 1.5em 1.5em;
+      background-repeat: no-repeat;
+      padding-right: 2.5rem;
+    }
+
     .form-input-sm, .form-select-sm {
       min-height: 30px; 
       font-size: 12px;
       padding-top: 1px;
       padding-bottom: 1px;
-    }
-    .form-select-sm, .form-select {
-      background-image:
-        linear-gradient(45deg, transparent 50%, #64748b 50%),
-        linear-gradient(135deg, #64748b 50%, transparent 50%);
-      background-position: calc(100% - 18px) calc(50%), calc(100% - 13px) calc(50%);
-      background-size: 5px 5px, 5px 5px;
-      background-repeat: no-repeat;
-      padding-right: 2.2rem;
     }
 
     .cta-button{ background:var(--blue-600); color:#fff; font-weight:700; padding:.5rem 1.2rem; border-radius: var(--radius); font-size:var(--fs-cta); min-height:42px; transition: all .2s ease; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
@@ -154,37 +154,36 @@
     #lead-form .sticky [id^="progress-"]{ font-size:11px !important; }
     #lead-form .cta-button{ min-height:40px; }
 
-    /* FORM LAYOUT ENGINE - VERTICAL CENTER FIX */
-    .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; height: 100%; min-height: 420px; }
+    /* FORM LAYOUT ENGINE - TOP TITLE / CENTERED CONTENT */
+    .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; height: 100%; min-height: 400px; }
     
-    /* RESTORED PADDING TO TITLE BOX */
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background: rgba(255,255,255,0.95); backdrop-filter: blur(4px); pointer-events:none; padding: 12px 16px; border-bottom: 1px solid var(--slate-200); }
 
-    /* Flex column to allow vertical centering */
     .step-viewport{ flex:1; overflow:auto; display: flex; flex-direction: column; }
-    .step-viewport-inner{ flex-grow: 1; display: flex; flex-direction: column; justify-content: center; min-height: 100%; }
+    .step-viewport-inner{ flex: 1; display: flex; flex-direction: column; }
 
     .step-inner{
       width: 100%; max-width: var(--section-max); margin: 0 auto; 
-      padding: 20px 10px;
-      display:flex; flex-direction:column; justify-content: center;
+      flex: 1;
+      display:flex; flex-direction:column; 
+      justify-content: flex-start; /* START AT TOP FOR TITLE */
+      padding: 20px 10px; 
     }
     
-    .step-title{ text-align: center; margin-bottom: 16px; }
+    .step-title{ text-align: center; margin-bottom: 20px; margin-top: 10px; }
     
-    /* CENTERED CONTENT CONTAINER */
+    /* PUSH CONTENT TO CENTER VERTICALLY */
     .step-body{
-      width: 100%;
+      flex: 1; /* Takes remaining space */
       display:flex; align-items:center; justify-content:center;
+      padding-bottom: 20px;
     }
-    /* Constrain width for better centering look, but allow full width on mobile */
+    
     .step-body > .content{ width:85%; max-width:480px; margin:0 auto; text-align: center; }
     
-    /* Keep input text aligned left even though block is centered */
     .content input, .content select, .content .grid-inline-2 { text-align: left; } 
-    .vstack > * + *{ margin-top: 12px; }
+    .vstack > * + *{ margin-top: 10px; }
 
-    /* Footer - Buttons Separated */
     .form-footer{
       position: sticky; 
       bottom: 0;
@@ -203,7 +202,7 @@
       padding: 0 16px;
       min-height: 46px; 
       font-size: 15px;
-      justify-content: center; /* Center text in button */
+      justify-content: center; 
     }
     .choice-rect:hover{ border-color:var(--blue-600); background: #f8fafc; transform: translateY(-1px); }
     .choice-rect.selected{ border-color:var(--blue-600); background:var(--blue-100); color: var(--blue-700); box-shadow: 0 0 0 1px var(--blue-600); }
@@ -216,19 +215,19 @@
     .inv-badge { color: var(--blue-600); }
     .text-equifax-red { color: var(--red-equifax); }
 
-    /* --- SPECIFIC GRID SIZING RESTORED --- */
-    /* These ensure the Years/Make/Model fields have correct relative widths */
+    /* --- FIXED GRID SIZING (Step 2 Fix) --- */
     .grid-inline-2 { display: grid; grid-template-columns: 1fr; gap: var(--field-gap); }
     @media(min-width: 640px) { .grid-inline-2 { grid-template-columns: 1fr 1fr; } }
 
+    /* YEAR SMALLER, MAKE/MODEL EQUAL */
     .grid-inline-refi-details { display: grid; grid-template-columns: 1fr; gap: var(--field-gap); }
-    @media(min-width: 640px) { .grid-inline-refi-details { grid-template-columns: 100px 140px 1fr; } }
+    @media(min-width: 640px) { .grid-inline-refi-details { grid-template-columns: 85px 1fr 1fr; } }
 
     .grid-inline-refi-details-2 { display: grid; grid-template-columns: 1fr; gap: var(--field-gap); }
     @media(min-width: 640px) { .grid-inline-refi-details-2 { grid-template-columns: 1fr 140px; } }
 
     .grid-inline-trade-1 { display: grid; grid-template-columns: 1fr; gap: var(--field-gap); }
-    @media(min-width: 640px) { .grid-inline-trade-1 { grid-template-columns: 100px 140px 1fr; } }
+    @media(min-width: 640px) { .grid-inline-trade-1 { grid-template-columns: 85px 1fr 1fr; } }
 
     .grid-inline-dob { display: grid; grid-template-columns: 1fr 1fr; gap: var(--field-gap); }
     @media(min-width: 640px) { .grid-inline-dob { grid-template-columns: 100px 80px 80px 1fr; } }
@@ -486,11 +485,11 @@
                 </section>
 
                 <section class="form-step hidden" data-id="step-refi-details">
-                  <div class="step-inner"><div class="step-title"><h3 class="h2">Current Loan</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-refi-details"><div><label for="refiYear" class="label">Year</label><select name="refiYear" id="refiYear" class="form-select" required></select></div><div><label for="refiMake" class="label">Make</label><select name="refiMake" id="refiMake" class="form-select" required></select></div><div><label for="refiModel" class="label">Model</label><select name="refiModel" id="refiModel" class="form-select" required><option value="">Select Make First</option></select></div></div><div class="grid-inline-refi-details-2"><div><label for="refiRemainYears" class="label">Years Left</label><select id="refiRemainYears" name="refiRemainYears" class="form-select" required></select></div><div><label for="refiCurrentRate" class="label">Current Rate %</label><input type="text" id="refiCurrentRate" name="refiCurrentRate" class="form-input" placeholder="e.g., 9.49" inputmode="decimal" maxlength="6" required/></div></div></div></div></div>
+                  <div class="step-inner"><div class="step-title"><h3 class="h2">Current Loan</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-refi-details"><div><label for="refiYear" class="label">Year</label><select name="refiYear" id="refiYear" class="form-select" required></select></div><div><label for="refiMake" class="label">Make</label><select name="refiMake" id="refiMake" class="form-select" required></select></div><div><label for="refiModel" class="label">Model</label><select name="refiModel" id="refiModel" class="form-select" required><option value="">Select</option></select></div></div><div class="grid-inline-refi-details-2"><div><label for="refiRemainYears" class="label">Years Left</label><select id="refiRemainYears" name="refiRemainYears" class="form-select" required></select></div><div><label for="refiCurrentRate" class="label">Current Rate %</label><input type="text" id="refiCurrentRate" name="refiCurrentRate" class="form-input" placeholder="e.g., 9.49" inputmode="decimal" maxlength="6" required/></div></div></div></div></div>
                 </section>
 
                 <section class="form-step hidden" data-id="step-tradein">
-                  <div class="step-inner"><div class="step-title"><h3 class="h2">Trade-in Vehicle</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-trade-1"><div><label for="tradeInYear" class="label">Year</label><select name="tradeInYear" id="tradeInYear" class="form-select"></select></div><div><label for="tradeInMake" class="label">Make</label><select name="tradeInMake" id="tradeInMake" class="form-select"></select></div><div><label for="tradeInModel" class="label">Model</label><select name="tradeInModel" id="tradeInModel" class="form-select"><option value="">Select Make First</option></select></div></div><div class="grid-inline-2"><div><label for="tradeInKms" class="label">Kilometres</label><input type="number" name="tradeInKms" id="tradeInKms" class="form-input" inputmode="numeric" min="0" max="1000000"/></div><div><label for="tradeInOwed" class="label">Lien Amount</label><input type="text" id="tradeInOwed" name="tradeInOwed" placeholder="e.g. $5,000" class="form-input" maxlength="20"/></div></div></div></div></div>
+                  <div class="step-inner"><div class="step-title"><h3 class="h2">Trade-in Vehicle</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-trade-1"><div><label for="tradeInYear" class="label">Year</label><select name="tradeInYear" id="tradeInYear" class="form-select"></select></div><div><label for="tradeInMake" class="label">Make</label><select name="tradeInMake" id="tradeInMake" class="form-select"></select></div><div><label for="tradeInModel" class="label">Model</label><select name="tradeInModel" id="tradeInModel" class="form-select"><option value="">Select</option></select></div></div><div class="grid-inline-2"><div><label for="tradeInKms" class="label">Kilometres</label><input type="number" name="tradeInKms" id="tradeInKms" class="form-input" inputmode="numeric" min="0" max="1000000"/></div><div><label for="tradeInOwed" class="label">Lien Amount</label><input type="text" id="tradeInOwed" name="tradeInOwed" placeholder="e.g. $5,000" class="form-input" maxlength="20"/></div></div></div></div></div>
                 </section>
 
                 <section class="form-step hidden" data-id="step-income">
@@ -736,7 +735,7 @@
   function populateMakes(makeSelectId, modelSelectId) {
     const makeSelect = $(makeSelectId);
     if (!makeSelect) return;
-    makeSelect.innerHTML = '<option value="" selected>Select Make</option>';
+    makeSelect.innerHTML = '<option value="" selected>Make</option>';
     const makes = Object.keys(vehicleData).sort();
     makes.forEach(make => {
         const option = document.createElement('option');
@@ -757,7 +756,7 @@
 
     if (selectedMake && vehicleData[selectedMake]) {
         const models = vehicleData[selectedMake].sort();
-        modelSelect.innerHTML = '<option value="" selected>Select Model</option>';
+        modelSelect.innerHTML = '<option value="" selected>Select</option>';
         models.forEach(model => {
             const option = document.createElement('option');
             option.value = model;
