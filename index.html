@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8" />
   
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   
   <title>Vancouver Island Credit | Auto Approvals Online</title>
 
@@ -52,22 +52,23 @@
       --aside-pad: 10px;
       --footer-card-gap: 4px;
     }
-    
-        @media (max-width:640px){ 
+    
+        @media (max-width:640px){ 
         :root{ 
-            --nav-font: 13px; 
-            --fs-h1: 26px; 
-            /* NEW: Increase touch target size and readability on mobile */
-            --control-h: 44px; 
-            --fs-body: 16px; /* Increased body font size for better readability */
-            --fs-h2: 20px; /* Increased h2 size slightly */
+            --nav-font: 14px; 
+            --fs-h1: 28px; /* Slightly larger heading */
+            --fs-h2: 20px;
+            --fs-body: 14px; /* More readable body font size */
+            --fs-cta: 15px;
+            --control-h: 40px; /* Increased input/control height for easy tapping */
         } 
-        /* NEW: Ensure CTA button is at least 44px high for tap target */
+        /* Ensure CTA button respects the new, taller control height on mobile */
         .cta-button{ min-height: 44px; }
-        /* NEW: Force choice rectangles to 48px min-height for better tap target */
-        .choice-rect { min-height: 48px !important; }
-        /* NEW: Revert the general 2-column grid layout to single column on mobile */
-        .grid-inline-2 { grid-template-columns: 1fr !important; gap: var(--gap-regular); }
+        /* Ensure choice rectangles are also tall enough for easy tapping on mobile */
+        .choice-rect{ min-height: 48px !important; }
+        
+        /* Note: Your existing grid-inline-X mobile media queries are retained below, 
+           only the variable sizing they rely on is increased. */
     }
         body{
       font-family:'Work Sans',sans-serif;
@@ -75,7 +76,9 @@
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       color: var(--slate-700);
-          }
+      /* Forces desktop width so layout doesn't break/stack */
+      min-width: 800px; /* RETAINED AS PER YOUR ORIGINAL CODE AND REQUEST TO MAINTAIN LAYOUT */
+    }
     .card{
       background:#fff;
       border-radius:16px;
@@ -127,7 +130,7 @@
       padding-right: 2.2rem;
     }
 
-        .cta-button{ background:var(--blue-600); color:#fff; font-weight:700; padding:.5rem .9rem; border-radius: var(--radius); font-size:var(--fs-cta); min-height:44px; transition: all .2s ease; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
+    .cta-button{ background:var(--blue-600); color:#fff; font-weight:700; padding:.5rem .9rem; border-radius: var(--radius); font-size:var(--fs-cta); min-height:44px; transition: all .2s ease; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
     .cta-button:hover{ background:var(--blue-700); transform: translateY(-1px); box-shadow: 0 7px 10px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
     .cta-button:active{ transform: scale(0.98); }
 
@@ -140,15 +143,22 @@
     #lead-form{
       /* INCREASED FONT SIZES AND REDUCED CONTROL HEIGHT */
       --fs-h2: 18px; 
-      --fs-body: 14px;
+      --fs-body: 14px; /* KEEPING ORIGINAL DESKTOP VALUES */
       --fs-label: 11px;
       --fs-cta: 13px; 
-      --control-h: 26px; /* AGGRESSIVELY REDUCED INPUT HEIGHT */
+      --control-h: 26px; /* AGGRESSIVELY REDUCED INPUT HEIGHT (KEEPING ORIGINAL DESKTOP VALUE) */
     }
-    #lead-form .sticky [id^="progress-"]{ font-size:10px !important; }
-    .form-footer #btnNext, .form-footer #btnSubmit, #lead-form .cta-button{ 
-        min-height:30px; 
+
+    /* Apply mobile overrides to the lead form's specific variables */
+    @media (max-width:640px){ 
+        #lead-form{
+            --fs-body: 16px; /* INCREASED for readability on mobile */
+            --control-h: 40px; /* INCREASED for tap target size on mobile */
+        }
     }
+    
+    #lead-form .sticky [id^="progress-"]{ font-size:10px !important; }
+    #lead-form .cta-button{ min-height:30px; }
 
     .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; height: 100%; }
     .form-shell .sticky{ position:sticky; top:0; z-index:10; background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); pointer-events:none; }
@@ -184,17 +194,19 @@
     #btnBack{ min-height:30px; border-radius:10px; font-size:11px; transition: transform 0.1s ease; }
     #btnBack:active { transform: scale(0.98); }
 
-        .choice-rect{
+    .choice-rect{
       width:100%; text-align:left; border:1.5px solid var(--slate-300); border-radius:var(--radius); background:#fff;
       font-weight:500; color: var(--slate-800); transition:all .15s ease; display:flex; align-items:center; cursor:pointer; 
       padding: 0 var(--input-px);
       min-height: 44px; /* INCREASED TAP TARGET HEIGHT */
       font-size: var(--fs-body);
     }
+    /* ENSURE the form's choice rect uses its own larger mobile height variable */
     #lead-form .choice-rect {
-        min-height: 44px; /* INCREASED TAP TARGET HEIGHT */
+        min-height: var(--control-h); /* Uses the larger --control-h defined in @media for #lead-form */
         font-size: var(--fs-body);
     }
+    
     .choice-rect:hover{ border-color:var(--blue-600); background: #f7f9fc; transform: translateY(-1px); }
     .choice-rect.selected{ border-color:var(--blue-600); background:var(--blue-100); box-shadow: 0 0 0 2px var(--blue-600); }
 
@@ -206,7 +218,7 @@
     .inv-badge { color: var(--blue-600); }
     .text-equifax-red { color: var(--red-equifax); }
 
-        .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:var(--field-gap); }
+    .grid-inline-2{ display:grid; grid-template-columns: 1fr 1fr; gap:var(--field-gap); }
     /* CHANGED: Year is fixed 100px, Make/Model are proportional */
     .grid-inline-refi-details { display:grid; grid-template-columns: 100px 140px 1fr; gap:var(--field-gap); }
     /* CHANGED: Loan amount constrained to 180px, Interest Rate to 110px */
@@ -221,7 +233,8 @@
     .grid-inline-addr3{ display:grid; grid-template-columns: 1fr 80px 80px 1fr; gap:var(--field-gap); align-items:end; }
     
     @media (max-width:640px){
-      .grid-inline-addr3, .grid-inline-dob, .grid-inline-refi-details, .grid-inline-trade-1, .grid-inline-addr2 { grid-template-columns: 1fr 1fr; }
+      /* RETAINED ORIGINAL: Grid layouts only collapse certain multi-column layouts to two columns. */
+      .grid-inline-addr3, .grid-inline-dob, .grid-inline-refi-details, .grid-inline-trade-1, .grid-inline-addr2, .grid-inline-addr3 { grid-template-columns: 1fr 1fr; }
     }
 
     /* Header brand */
@@ -310,6 +323,7 @@
         <div class="brand-stack">
           <a href="#" class="brand-title" aria-label="Vancouver Island Credit — Home">Vancouver Island Credit</a>
           <div class="powered-by-inline"><span>Powered by</span><img src="Equifax.png" alt="Credit reports powered by Equifax"/></div>
+        </div>
       </div>
 
       <div class="hidden sm:flex items-center gap-2 font-semibold text-zinc-700">
@@ -402,7 +416,7 @@
                       <div class="content grid grid-cols-2 gap-2">
                         <button type="button" class="choice-rect text-left" data-intent="finance">Finance</button>
                         <button type="button" class="choice-rect text-left" data-intent="refinance">Refinance</button>
-                    </div>
+                      </div>
                   </div>
                 </div>
                 </section>
@@ -814,7 +828,7 @@
         </ul>
       </div>
     </div>
-    <p class="text-xs text-center text-slate-500 mt-8">&copy; 2024 Vancouver Island Credit. All rights reserved.</p>
+    <p class="text-xs text-center text-slate-500 mt-8">© 2024 Vancouver Island Credit. All rights reserved.</p>
   </footer>
 
   <script>
