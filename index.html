@@ -33,11 +33,11 @@
       --slate-800: #1e293b;
 
       /* Typography */
-      --fs-h1: 28px; --fs-h2: 20px; --fs-body: 14px; --fs-label: 12px; --fs-cta: 14px;
+      --fs-h1: 26px; --fs-h2: 18px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
       
       /* Spacing */
       --pad-y: 2px; --gap-regular: 6px;
-      --input-py: 1px; 
+      --input-py: 0px; 
       --input-px: 12px; 
       
       /* Borders & Radius */
@@ -54,8 +54,8 @@
         :root{ 
             --nav-font: 13px; 
             --fs-h1: 24px; 
-            --fs-h2: 18px;
-            --control-h: 38px;
+            --fs-h2: 16px;
+            --control-h: 40px; /* Keep consistent height */
         } 
     }
 
@@ -69,9 +69,9 @@
     }
     .card{
       background:#fff;
-      border-radius:16px;
+      border-radius:12px;
       border:1px solid var(--slate-200);
-      box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+      box-shadow:0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
     }
 
     .card-accent{
@@ -84,31 +84,33 @@
     .h2{ font-size:var(--fs-h2); font-weight:700; color:var(--slate-800); margin-bottom:4px; white-space: nowrap; }
     @media(max-width: 640px) { .h2 { white-space: normal; } }
 
-    /* Centered Labels */
     .label{ font-size:var(--fs-label); color:var(--slate-700); font-weight:600; display:block; margin-bottom:4px; text-transform: uppercase; letter-spacing: 0.02em; text-align: center; }
     .muted{ font-size:10px; color:var(--slate-500); }
 
-    .form-input,.form-select,.form-textarea{
+    /* INPUT STYLING */
+    .form-input, .form-select, .form-textarea {
       background: var(--slate-50); 
-      color:var(--slate-800); 
-      border:1px solid var(--slate-300);
-      font-size:var(--fs-body); width:100%;
-      padding:var(--input-py) var(--input-px); border-radius:var(--radius); 
-      transition:all .15s ease;
-      height: var(--control-h) !important; /* Force Exact Height */
-      line-height: calc(var(--control-h) - 2px); /* Vertically Center Text accounting for border */
+      color: var(--slate-800); 
+      border: 1px solid var(--slate-300);
+      font-size: var(--fs-body); 
+      width: 100%;
+      padding: 0 var(--input-px); 
+      border-radius: var(--radius); 
+      transition: all .15s ease;
+      height: var(--control-h) !important; /* FORCE HEIGHT */
+      line-height: var(--control-h); 
       font-weight: 500;
       display: block;
     }
 
-    .form-input::placeholder{ color:var(--slate-400); }
-    .form-input:focus,.form-select:focus,.form-textarea:focus{
-      background:#fff; border-color:var(--blue-600); 
-      box-shadow:0 0 0 3px rgba(42,93,159,.15); 
-      outline:none;
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      background: #fff; 
+      border-color: var(--blue-600); 
+      box-shadow: 0 0 0 3px rgba(42,93,159,.15); 
+      outline: none;
     }
 
-    /* DROPDOWN FIX: CLEAN SVG CHEVRON & ALIGNMENT */
+    /* SVG DROPDOWN ARROW */
     .form-select {
       -webkit-appearance: none; -moz-appearance: none; appearance: none;
       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
@@ -116,16 +118,10 @@
       background-size: 1.5em 1.5em;
       background-repeat: no-repeat;
       padding-right: 2.5rem;
-      padding-top: 0 !important;
-      padding-bottom: 0 !important;
+      padding-top: 0; padding-bottom: 0; /* Fix alignment */
     }
 
-    .form-input-sm, .form-select-sm {
-      min-height: 30px; 
-      font-size: 12px;
-      padding-top: 1px;
-      padding-bottom: 1px;
-    }
+    .form-input-sm, .form-select-sm { min-height: 30px; font-size: 12px; padding-top: 1px; padding-bottom: 1px; }
 
     .cta-button{ background:var(--blue-600); color:#fff; font-weight:700; padding:.5rem 1.2rem; border-radius: var(--radius); font-size:var(--fs-cta); min-height:42px; transition: all .2s ease; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
     .cta-button:hover{ background:var(--blue-700); transform: translateY(-1px); box-shadow: 0 6px 8px -2px rgb(0 0 0 / 0.15); }
@@ -134,81 +130,70 @@
     .track{ height:5px; background:var(--slate-200); border-radius:9999px; overflow:hidden; }
     .fill{ height:5px; background:var(--blue-600); border-radius:9999px; width:0%; transition:width .3s ease; }
 
-    .err{ border-color:var(--red-equifax) !important; background-color: #fff5f5; } 
+    .err{ border-color:var(--red-equifax) !important; background-color: #fff5f5; animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; } 
     .err-label{ color:var(--red-equifax) !important; }
     .text-theme-red { color: var(--red-equifax); }
 
-    /* ERROR SHAKE ANIMATION */
-    @keyframes shake {
-      10%, 90% { transform: translate3d(-1px, 0, 0); }
-      20%, 80% { transform: translate3d(2px, 0, 0); }
-      30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-      40%, 60% { transform: translate3d(4px, 0, 0); }
-    }
+    @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
 
-    #lead-form{
-      --fs-h2: 20px; 
-      --fs-body: 14px;
-      --fs-label: 11px;
-      --fs-cta: 14px; 
-      --control-h: 42px; 
-    }
+    #lead-form{ --fs-h2: 20px; --fs-body: 14px; --fs-label: 11px; --fs-cta: 14px; --control-h: 42px; }
     #lead-form .sticky [id^="progress-"]{ font-size:11px !important; }
     #lead-form .cta-button{ min-height:40px; }
 
-    /* FORM LAYOUT ENGINE - VERTICAL CENTER FIX */
-    .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; height: 100%; min-height: 450px; }
+    /* === VERTICAL CENTERING FIX === */
+    /* 1. Set specific height on shell so children can expand */
+    .form-shell{ position:relative; overflow:hidden; display:flex; flex-direction:column; height: 450px; /* Fixed height ensures centering works */ }
+    @media(min-width: 640px) { .form-shell { height: 480px; } }
     
-    .form-shell .sticky{ position:sticky; top:0; z-index:10; background: rgba(255,255,255,0.95); backdrop-filter: blur(4px); pointer-events:none; padding: 12px 16px; border-bottom: 1px solid var(--slate-200); }
+    .form-shell .sticky{ position:sticky; top:0; z-index:10; background: rgba(255,255,255,0.95); backdrop-filter: blur(4px); pointer-events:none; padding: 12px 16px; border-bottom: 1px solid var(--slate-200); flex-shrink: 0; }
 
-    .step-viewport{ flex:1; overflow:auto; display: flex; flex-direction: column; }
-    
-    /* This ensures the inner container takes full height to allow centering */
-    .step-viewport-inner{ flex: 1; display: flex; flex-direction: column; height: 100%; }
+    .step-viewport{ flex:1; overflow:hidden; position: relative; }
+    .step-viewport-inner{ height: 100%; width: 100%; }
 
-    .form-step { display: flex; flex-direction: column; flex: 1; height: 100%; }
-
+    /* 2. Flex column structure */
     .step-inner{
-      width: 100%; max-width: var(--section-max); margin: 0 auto; 
-      flex: 1;
-      display:flex; flex-direction:column; 
-      height: 100%;
-      padding: 0 10px; 
+      width: 100%; height: 100%; 
+      margin: 0 auto; 
+      padding: 0 16px; 
+      display: flex; 
+      flex-direction: column;
     }
     
+    /* 3. Title pinned to top with some margin */
     .step-title{ 
         text-align: center; 
-        margin-top: 25px; /* Pin to top area */
+        margin-top: 24px; 
         flex-shrink: 0; 
     }
     
-    /* KEY FIX: VERTICAL CENTERING */
+    /* 4. Body fills remaining space and CENTERS content vertically */
     .step-body{
-      flex: 1; 
-      display:flex; 
-      flex-direction: column;
-      align-items:center; 
-      justify-content:center; /* Center Vertically */
-      padding-bottom: 40px; /* Visual optical center */
+      flex-grow: 1; 
+      display: flex; 
+      align-items: center; /* Vertical Center */
+      justify-content: center; /* Horizontal Center */
+      padding-bottom: 20px; 
     }
     
-    /* HORIZONTAL CENTERING OF CONTENT */
-    .step-body > .content{ width:85%; max-width:520px; margin:0 auto; text-align: center; }
+    .step-body > .content{ width: 100%; max-width: 480px; text-align: center; }
     
-    /* Text inside inputs stays left, but the block is centered */
     .content input, .content select, .content .grid-inline-2 { text-align: left; } 
-    .vstack > * + *{ margin-top: 12px; }
+    .vstack > * + *{ margin-top: 10px; }
 
-    /* Footer - Buttons Separated */
     .form-footer{
-      position: sticky; 
-      bottom: 0;
+      position: absolute; /* Pin to bottom */
+      bottom: 0; left: 0; right: 0;
       background:rgba(255,255,255,0.95); 
       border-top:1px solid var(--slate-200);
       padding: 12px 24px;
       z-index: 20;
-      display: flex; align-items: center; justify-content: space-between; 
+      display: flex; align-items: center; justify-content: center; /* Center the button group */
+      gap: 20px;
     }
+    
+    /* Button Container to fix "justify-between" while being centered */
+    .form-footer-inner { display: flex; justify-content: space-between; width: 100%; max-width: 480px; align-items: center; }
+
     #btnBack{ min-height:36px; border-radius:8px; font-size:13px; color: var(--slate-500); padding: 0 16px; font-weight: 700; }
     #btnBack:hover { background: var(--slate-100); color: var(--slate-800); }
 
@@ -218,7 +203,7 @@
       padding: 0 16px;
       min-height: 46px; 
       font-size: 15px;
-      justify-content: center; /* Center text in button */
+      justify-content: center; 
     }
     .choice-rect:hover{ border-color:var(--blue-600); background: #f8fafc; transform: translateY(-1px); }
     .choice-rect.selected{ border-color:var(--blue-600); background:var(--blue-100); color: var(--blue-700); box-shadow: 0 0 0 1px var(--blue-600); }
@@ -231,32 +216,26 @@
     .inv-badge { color: var(--blue-600); }
     .text-equifax-red { color: var(--red-equifax); }
 
-    /* --- SPECIFIC GRID SIZING --- */
-    .grid-inline-2 { display: grid; grid-template-columns: 1fr; gap: var(--field-gap); }
-    @media(min-width: 640px) { .grid-inline-2 { grid-template-columns: 1fr 1fr; } }
-
-    /* Refi Step 2 */
-    .grid-inline-refi-details { display: grid; grid-template-columns: 1fr; gap: var(--field-gap); }
-    @media(min-width: 640px) { .grid-inline-refi-details { grid-template-columns: 100px 1fr 1fr; } }
-
-    .grid-inline-refi-details-2 { display: grid; grid-template-columns: 1fr; gap: var(--field-gap); }
-    @media(min-width: 640px) { .grid-inline-refi-details-2 { grid-template-columns: 1fr 140px; } }
-
-    .grid-inline-trade-1 { display: grid; grid-template-columns: 1fr; gap: var(--field-gap); }
-    @media(min-width: 640px) { .grid-inline-trade-1 { grid-template-columns: 100px 1fr 1fr; } }
-
-    .grid-inline-dob { display: grid; grid-template-columns: 1fr 1fr; gap: var(--field-gap); }
-    @media(min-width: 640px) { .grid-inline-dob { grid-template-columns: 100px 80px 80px 1fr; } }
-
-    .grid-inline-addr1 { display: grid; grid-template-columns: 1fr; gap: var(--field-gap); }
-    @media(min-width: 640px) { .grid-inline-addr1 { grid-template-columns: 1fr 90px; } }
-
-    .grid-inline-addr2 { display: grid; grid-template-columns: 1fr; gap: var(--field-gap); }
-    @media(min-width: 640px) { .grid-inline-addr2 { grid-template-columns: 1fr 90px 120px; } }
-
-    .grid-inline-addr3 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--field-gap); align-items: end; }
-    @media(min-width: 640px) { .grid-inline-addr3 { grid-template-columns: 1fr 80px 80px 1fr; } }
-
+    /* --- GRID SIZING --- */
+    /* Force 2 columns everywhere for "Split Width" look */
+    .grid-inline-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--field-gap); }
+    
+    .grid-inline-refi-details { display: grid; grid-template-columns: 90px 1fr 1fr; gap: var(--field-gap); }
+    .grid-inline-refi-details-2 { display: grid; grid-template-columns: 1fr 140px; gap: var(--field-gap); }
+    .grid-inline-trade-1 { display: grid; grid-template-columns: 90px 1fr 1fr; gap: var(--field-gap); }
+    .grid-inline-dob { display: grid; grid-template-columns: 100px 80px 80px 1fr; gap: var(--field-gap); }
+    .grid-inline-addr1 { display: grid; grid-template-columns: 1fr 90px; gap: var(--field-gap); }
+    .grid-inline-addr2 { display: grid; grid-template-columns: 1fr 90px 120px; gap: var(--field-gap); }
+    .grid-inline-addr3 { display: grid; grid-template-columns: 1fr 80px 80px 1fr; gap: var(--field-gap); align-items: end; }
+    
+    /* Mobile Adjustments for complex grids to prevent breaking */
+    @media(max-width: 640px) { 
+        .grid-inline-refi-details, .grid-inline-trade-1, .grid-inline-addr2, .grid-inline-dob, .grid-inline-addr3 { 
+             display: flex; flex-direction: column; gap: 6px;
+        }
+        /* Keep these side-by-side on mobile */
+        .grid-inline-2 { display: grid; grid-template-columns: 1fr 1fr; }
+    }
 
     /* Header brand */
     .brand-left{ display:flex; align-items:center; gap:12px; }
@@ -437,7 +416,7 @@
                   <div class="step-inner">
                     <div class="step-title"><h3 class="h2">Select Goal</h3></div>
                     <div class="step-body">
-                      <div class="content grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div class="content grid grid-cols-2 gap-3">
                         <button type="button" class="choice-rect" data-intent="finance">Finance</button>
                         <button type="button" class="choice-rect" data-intent="refinance">Refinance</button>
                       </div>
@@ -531,9 +510,11 @@
             </div>
           </div>
 
-          <div class="form-footer flex items-center justify-between" id="form-footer">
-            <button type="button" id="btnBack" class="font-semibold text-slate-600 hover:text-slate-900 px-4 py-2 rounded-lg hover:bg-slate-100 transition-colors">Back</button>
-            <button type="button" id="btnNext" class="cta-button">Next</button>
+          <div class="form-footer">
+            <div class="form-footer-inner">
+                <button type="button" id="btnBack">Back</button>
+                <button type="button" id="btnNext" class="cta-button">Next</button>
+            </div>
           </div>
         </div>
       </div>
