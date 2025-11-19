@@ -78,7 +78,9 @@
     @media(max-width: 640px) { .h2 { white-space: normal; } }
 
     .label{ font-size:var(--fs-label); color:var(--slate-700); font-weight:600; display:block; margin-bottom:4px; text-transform: uppercase; letter-spacing: 0.02em; text-align: center; }
+    .muted{ font-size:10px; color:var(--slate-500); }
 
+    /* INPUT STYLING */
     .form-input,.form-select,.form-textarea{
       background: var(--slate-50); 
       color:var(--slate-800); 
@@ -127,76 +129,80 @@
 
     @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
 
-    #lead-form{ --fs-h2: 20px; --fs-body: 14px; --fs-label: 11px; --fs-cta: 14px; --control-h: 42px; }
+    #lead-form{ --fs-h2: 20px; --fs-body: 14px; --fs-label: 11px; --fs-cta: 14px; --control-h: 40px; }
     #lead-form .sticky [id^="progress-"]{ font-size:11px !important; }
     #lead-form .cta-button{ min-height:40px; }
 
-    /* === FORM LAYOUT ENGINE: TITLE TOP / CONTENT MIDDLE / BUTTONS BOTTOM === */
-    .form-shell { 
-        position:relative; 
-        overflow:hidden; 
-        display:flex; 
-        flex-direction:column; 
-        height: 380px; /* Compact Height */
-        min-height: 380px;
-    }
-    @media(min-width: 640px) { .form-shell { height: 400px; min-height: 400px; } }
+    /* =========================================
+       FLEXBOX LAYOUT - THE FIX
+       ========================================= */
     
-    /* 1. HEADER (Pinned Top) */
+    /* Main Container */
+    .form-shell { 
+        display: flex; 
+        flex-direction: column; 
+        /* Set a reasonable minimum height so it doesn't look squashed */
+        min-height: 340px; 
+        height: 100%; 
+        position: relative;
+        background: #fff;
+    }
+    
+    /* Top Bar (Progress) - Stays at Top */
     .form-shell .sticky { 
-        position:sticky; top:0; z-index:10; 
-        background: rgba(255,255,255,0.98); 
+        flex-shrink: 0; /* Never shrink */
         padding: 12px 20px; 
         border-bottom: 1px solid var(--slate-200); 
-        flex-shrink: 0; 
+        background: #fff;
     }
 
-    .step-viewport { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
-    .step-viewport-inner { flex: 1; display: flex; flex-direction: column; height: 100%; }
+    /* Viewport Area */
+    .step-viewport { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
+    .step-viewport-inner { flex: 1; display: flex; flex-direction: column; }
+    #the-form { flex: 1; display: flex; flex-direction: column; }
 
-    /* 2. CONTAINER */
+    /* Step Container */
     .step-inner {
-      width: 100%; max-width: var(--section-max); margin: 0 auto; 
-      height: 100%;
+      flex: 1; /* Takes all available vertical space */
       display: flex; 
       flex-direction: column; 
-      padding: 0 20px;
-      position: relative;
+      width: 100%; 
+      max-width: var(--section-max); 
+      margin: 0 auto; 
+      padding: 15px 20px 0 20px; /* Top padding for Title */
     }
     
-    /* 3. TITLE (Pinned to TOP of content area with slight margin) */
+    /* Title: Stays at Top of content area */
     .step-title { 
         text-align: center; 
-        margin-top: 15px; 
-        margin-bottom: 0;
+        margin-bottom: 10px; 
         flex-shrink: 0; 
     }
     
-    /* 4. CONTENT (Takes all available space and centers ITSELF) */
+    /* Content Body: Forced to CENTER Vertically */
     .step-body {
       flex-grow: 1; 
       display: flex; 
       flex-direction: column;
-      align-items: center; 
-      justify-content: center; /* THIS PLACES IT EXACTLY MIDDLE */
-      /* Padding bottom ensures visual center excludes footer area */
-      padding-bottom: 60px; 
+      justify-content: center; /* Vertical Center */
+      align-items: center; /* Horizontal Center */
+      width: 100%;
     }
     
-    .step-body > .content { width: 90%; max-width: 500px; margin: 0 auto; text-align: center; }
+    .step-body > .content { width: 90%; max-width: 500px; text-align: center; }
     .content input, .content select, .content .grid-inline-2 { text-align: left; } 
     .vstack > * + * { margin-top: 10px; }
 
-    /* 5. FOOTER (Pinned Bottom - Style Restored) */
+    /* Footer: Pushed to Bottom */
     .form-footer {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      background: rgba(255,255,255,0.98); 
+      margin-top: auto; /* Pushes to bottom of flex container */
+      background: rgba(255,255,255,0.95); 
       border-top: 1px solid var(--slate-200);
-      padding: 12px 20px; /* Original Padding */
-      z-index: 20;
+      padding: 12px 20px;
       display: flex; 
       align-items: center; 
-      justify-content: space-between; /* Back Left, Next Right */
+      justify-content: space-between; 
+      flex-shrink: 0;
     }
 
     #btnBack{ min-height:36px; border-radius:8px; font-size:13px; color: var(--slate-500); padding: 0 16px; font-weight: 700; }
@@ -236,6 +242,7 @@
         .grid-inline-refi-details, .grid-inline-trade-1, .grid-inline-addr2, .grid-inline-dob, .grid-inline-addr3 { 
              display: flex; flex-direction: column; gap: 8px;
         }
+        /* Ensure buttons stay 2-up on mobile */
         .grid-inline-2 { display: grid; grid-template-columns: 1fr 1fr; } 
     }
 
