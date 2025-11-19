@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8" />
   
-  <meta name="viewport" content="width=800, initial-scale=0.47, user-scalable=yes" />
+  <meta name="viewport" content="width=800, initial-scale=1.0, user-scalable=yes" />
   
   <title>Vancouver Island Credit | Auto Approvals Online</title>
 
@@ -156,9 +156,19 @@
     .vstack > * + *{ margin-top: var(--gap-regular); }
 
     .form-footer{
-      position: sticky; bottom: 0; background:rgba(255,255,255,0.85); backdrop-filter: blur(8px); border-top:1px solid var(--slate-200);
+      /* CRITICAL FIX: Forces fixed positioning to prevent shifting when keyboard appears */
+      position: fixed !important;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px; /* Aligns with global min-width */
+      z-index: 99;
+      
+      background: rgba(255,255,255,0.95);
+      border-top: 1px solid var(--slate-200);
       padding: 6px 12px;
-      margin-bottom: var(--footer-card-gap);
+      margin-bottom: 0;
+      
     }
     #btnBack{ min-height:30px; border-radius:10px; font-size:11px; transition: transform 0.1s ease; }
     #btnBack:active { transform: scale(0.98); }
@@ -254,7 +264,6 @@
         calc(100% - 13px) calc(50% - 5px),
         calc(100% - 2.2rem) 0.4rem;
       background-size: 7px 7px, 7px 7px, 0 0;
-      background-repeat: no-repeat;
       padding-right: 2.2rem;
     }
 
