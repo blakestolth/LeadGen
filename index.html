@@ -1,8 +1,8 @@
-<html lang="en" class="scroll-smooth">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-   
+    
   <title>Vancouver Island Credit | Auto Approvals Online</title>
 
   <meta name="description" content="Fast, confidential auto approvals across Vancouver Island & BC. New & used options. Delivery to your door. Work 1 on 1 with Blake Stolth." />
@@ -116,7 +116,7 @@
       align-items: center;
     }
 
-    .cta-button{ background:var(--blue-600); color:#fff; font-weight:700; padding:.5rem 1.2rem; border-radius: var(--radius); font-size:var(--fs-cta); min-height:42px; transition: all .2s ease; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+    .cta-button{ background:var(--blue-600); color:#fff; font-weight:700; padding:.5rem 1.2rem; border-radius: var(--radius); font-size:var(--fs-cta); min-height:42px; transition: all .2s ease; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; border: none;}
     .cta-button:hover{ background:var(--blue-700); transform: translateY(-1px); box-shadow: 0 6px 8px -2px rgb(0 0 0 / 0.15); }
     .cta-button:active{ transform: scale(0.98); }
 
@@ -145,6 +145,7 @@
         flex-direction: column; 
         height: 380px; /* Even smaller to be compact */
         background: #fff;
+        transition: height 0.3s ease;
     }
     
     /* 2. Header pinned to top */
@@ -321,380 +322,601 @@
         border: 1px solid var(--slate-200);
     }
     .refi-slider{ width:100%; accent-color: var(--blue-600); cursor: pointer; height: 4px; margin-top: 4px;}
-  </style>
 
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"AutoDealer",
-    "name":"Vancouver Island Credit",
-    "telephone":"+1-236-969-2424",
-    "address":{"@type":"PostalAddress","streetAddress":"525 Gorge Rd E","addressLocality":"Victoria","addressRegion":"BC","postalCode":"V8T 4T2","addressCountry":"CA"},
-    "areaServed":"British Columbia, Canada",
-    "image":"https://vancouverislandcredit.ca/0041B99D-D49A-4024-AA7A-2786A4605342.jpg",
-    "url":"https://vancouverislandcredit.ca",
-    "slogan":"Get approved online. Delivery across BC. Work directly with Blake.",
-    "founder":{"@type":"Person","name":"Blake Stolth"},
-    "makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Auto Financing (New & Used)"}}]
-  }
-  </script>
+    /* --- FOCUS MODE STYLES --- */
+    .form-backdrop {
+      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.3); backdrop-filter: blur(8px);
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 40;
+    }
+    .form-backdrop.active { opacity: 1; pointer-events: auto; }
+
+    .form-focused {
+      position: fixed !important;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 95%; max-width: 500px;
+      z-index: 50;
+      height: auto; max-height: 90vh;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    }
+    
+    .form-close-btn {
+      position: absolute; top: 10px; right: 10px;
+      width: 32px; height: 32px;
+      background: #f1f5f9; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: #64748b;
+      transition: all 0.2s;
+      z-index: 60;
+      border: 1px solid #e2e8f0;
+    }
+    .form-close-btn:hover { background: #e2e8f0; color: #334155; transform: rotate(90deg); }
+    .form-close-btn svg { width: 20px; height: 20px; }
+    
+    /* Overlay to capture first click */
+    .form-trigger-overlay {
+      position: absolute; inset: 0; z-index: 30; cursor: pointer;
+    }
+
+  </style>
 </head>
 <body>
-  <header class="w-full max-w-5xl mx-auto mt-4 px-4">
-    <nav class="bg-white/90 backdrop-blur-lg card card-accent px-4 sm:px-6 py-3 flex items-center justify-between">
-      <div class="flex items-center gap-6 w-full">
-          <div class="brand-left flex-shrink-0">
-            <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
-            <div class="brand-stack">
-              <a href="#" class="brand-title" aria-label="Vancouver Island Credit — Home">Vancouver Island Credit</a>
-              <div class="powered-by-inline"><span>Powered by</span><img src="Equifax.png" alt="Equifax"/></div>
+
+  <div id="main-content" class="transition-all duration-300">
+    <header class="w-full max-w-5xl mx-auto mt-4 px-4">
+      <nav class="bg-white/90 backdrop-blur-lg card card-accent px-4 sm:px-6 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-6 w-full">
+            <div class="brand-left flex-shrink-0">
+              <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
+              <div class="brand-stack">
+                <a href="#" class="brand-title" aria-label="Vancouver Island Credit — Home">Vancouver Island Credit</a>
+                <div class="powered-by-inline"><span>Powered by</span><img src="Equifax.png" alt="Equifax"/></div>
+              </div>
             </div>
-          </div>
 
-          <div class="hidden md:flex flex-col items-end ml-auto mr-6 text-right">
-              <div class="text-[14px] font-extrabold text-slate-800 uppercase tracking-tight leading-none">Personalized Vehicle Search</div>
-              <div class="text-[11px] font-bold text-[var(--blue-600)] leading-none mt-1.5 tracking-wide">Financing & Refinancing</div>
-          </div>
-      </div>
-
-      <div class="hidden sm:flex items-center gap-2 font-semibold text-zinc-700 flex-shrink-0">
-        <a href="#inventory" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-[var(--blue-600)] transition-colors text-sm">Inventory</a>
-        <a href="#about" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-[var(--blue-600)] transition-colors text-sm">About</a>
-        <a href="#lead-form" class="cta-button ml-2 text-sm">Apply Now</a>
-      </div>
-      <button id="menuBtn" class="sm:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 transition-colors" aria-label="Open menu">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
-    </nav>
-    <div id="mobileMenu" class="hidden sm:hidden mt-2 card card-accent px-4 py-3">
-      <div class="flex flex-col gap-2 font-semibold text-zinc-700">
-        <a href="#inventory" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Inventory</a>
-        <a href="#about" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">About</a>
-        <a href="#lead-form" class="mt-2 cta-button text-center">Apply Now</a>
-      </div>
-    </div>
-  </header>
-
-  <main class="w-full max-w-5xl mx-auto px-4 py-4 space-y-4">
-    <section id="about" class="card card-accent p-5">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
-        <div>
-          <div class="flex items-center gap-4 mb-3">
-             <img src="Untitled Project.jpg" alt="Blake Stolth" class="w-12 h-12 rounded-full border-2 border-[var(--blue-600)] object-cover"/>
-             <div>
-                <h1 class="h1 text-lg">Get Approved in 3 Steps</h1>
-                <p class="text-[11px] text-slate-500 font-medium">Personally reviewed by Blake</p>
-             </div>
-          </div>
-          <ol class="text-sm space-y-2.5 mt-2">
-            <li class="flex items-start gap-3">
-              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-bold text-[11px]">1</span>
-              <span class="text-left leading-tight pt-0.5"><b>Enter info</b> — 2 mins</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-bold text-[11px]">2</span>
-              <span class="text-left leading-tight pt-0.5"><b>See options</b> you qualify for</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-bold text-[11px]">3</span>
-              <span class="text-left leading-tight pt-0.5"><b>Doorstep delivery</b> anywhere in BC</span>
-            </li>
-          </ol>
+            <div class="hidden md:flex flex-col items-end ml-auto mr-6 text-right">
+                <div class="text-[14px] font-extrabold text-slate-800 uppercase tracking-tight leading-none">Personalized Vehicle Search</div>
+                <div class="text-[11px] font-bold text-[var(--blue-600)] leading-none mt-1.5 tracking-wide">Financing & Refinancing</div>
+            </div>
         </div>
-        <div>
-          <h2 class="h2 text-base mb-3">Why people pick us</h2>
-          <ul class="text-sm space-y-2.5">
-            <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">A</span><span class="text-left leading-tight pt-0.5"><b>All credit welcome</b> high approval rates</span></li>
-            <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">B</span><span class="text-left leading-tight pt-0.5"><b>Bigger selection</b> New & Used across BC</span></li>
-            <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">C</span><span class="text-left leading-tight pt-0.5"><b>Confidential</b> No data sold to dealerships</span></li>
-            <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">D</span><span class="text-left leading-tight pt-0.5"><b>Free delivery</b> Right to your driveway</span></li>
-          </ul>
+
+        <div class="hidden sm:flex items-center gap-2 font-semibold text-zinc-700 flex-shrink-0">
+          <a href="#inventory" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-[var(--blue-600)] transition-colors text-sm">Inventory</a>
+          <a href="#about" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-[var(--blue-600)] transition-colors text-sm">About</a>
+          <button type="button" id="navApplyBtn" class="cta-button ml-2 text-sm">Apply Now</button>
+        </div>
+        <button id="menuBtn" class="sm:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 transition-colors" aria-label="Open menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </nav>
+      <div id="mobileMenu" class="hidden sm:hidden mt-2 card card-accent px-4 py-3">
+        <div class="flex flex-col gap-2 font-semibold text-zinc-700">
+          <a href="#inventory" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Inventory</a>
+          <a href="#about" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">About</a>
+          <button type="button" id="mobileApplyBtn" class="mt-2 cta-button text-center w-full">Apply Now</button>
         </div>
       </div>
-    </section>
+    </header>
 
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      
-      <div class="card card-accent p-0 overflow-hidden h-auto" id="lead-form">
-        <div class="form-shell" id="form-shell">
-          <div class="sticky px-4 border-b border-slate-200">
-            <div class="flex items-center justify-between">
-              <div id="progress-label" class="text-[10px] uppercase tracking-wider font-bold text-slate-500">Step 1</div>
-              <div id="progress-endcap" class="text-[10px] font-bold text-[var(--blue-700)]">Start</div>
+    <main class="w-full max-w-5xl mx-auto px-4 py-4 space-y-4">
+      <section id="about" class="card card-accent p-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
+          <div>
+            <div class="flex items-center gap-4 mb-3">
+               <img src="Untitled Project.jpg" alt="Blake Stolth" class="w-12 h-12 rounded-full border-2 border-[var(--blue-600)] object-cover"/>
+               <div>
+                 <h1 class="h1 text-lg">Get Approved in 3 Steps</h1>
+                 <p class="text-[11px] text-slate-500 font-medium">Personally reviewed by Blake</p>
+               </div>
             </div>
-            <div class="track mt-1.5"><div id="progress-fill" class="fill"></div></div>
+            <ol class="text-sm space-y-2.5 mt-2">
+              <li class="flex items-start gap-3">
+                <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-bold text-[11px]">1</span>
+                <span class="text-left leading-tight pt-0.5"><b>Enter info</b> — 2 mins</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-bold text-[11px]">2</span>
+                <span class="text-left leading-tight pt-0.5"><b>See options</b> you qualify for</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-bold text-[11px]">3</span>
+                <span class="text-left leading-tight pt-0.5"><b>Doorstep delivery</b> anywhere in BC</span>
+              </li>
+            </ol>
           </div>
+          <div>
+            <h2 class="h2 text-base mb-3">Why people pick us</h2>
+            <ul class="text-sm space-y-2.5">
+              <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">A</span><span class="text-left leading-tight pt-0.5"><b>All credit welcome</b> high approval rates</span></li>
+              <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">B</span><span class="text-left leading-tight pt-0.5"><b>Bigger selection</b> New & Used across BC</span></li>
+              <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">C</span><span class="text-left leading-tight pt-0.5"><b>Confidential</b> No data sold to dealerships</span></li>
+              <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">D</span><span class="text-left leading-tight pt-0.5"><b>Free delivery</b> Right to your driveway</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-          <div id="step-viewport" class="step-viewport px-4">
-            <div class="step-viewport-inner">
-              <form id="the-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" novalidate>
-                <input type="hidden" name="form-name" value="lead-form"/>
-                <input type="hidden" name="app_type" id="app_type" value="Full Application" />
-                <input type="hidden" name="appCode" id="appCode" value="" />
-                <input type="hidden" name="intent" id="intent" value="finance" />
-                <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
+      <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <div class="card card-accent p-0 overflow-hidden h-auto" id="lead-form-card">
+          <!-- Placeholder to hold space when fixed -->
+          <div id="form-spacer" class="hidden h-[380px]"></div>
+          
+          <div class="form-shell" id="form-shell">
+            <!-- Overlay trigger for first click interaction -->
+            <div id="form-trigger" class="form-trigger-overlay"></div>
+            
+            <!-- Close button for focus mode -->
+            <button id="form-close" class="form-close-btn hidden" aria-label="Close form">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
 
-                <section class="form-step" data-id="step-intent">
-                  <div class="step-inner">
-                    <div class="step-title"><h3 class="h2">Select Goal</h3></div>
-                    <div class="step-body">
-                      <div class="content grid grid-cols-2 gap-3">
-                        <button type="button" class="choice-rect" data-intent="finance">Finance</button>
-                        <button type="button" class="choice-rect" data-intent="refinance">Refinance</button>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-                
-                <section class="form-step hidden" data-id="step-vehicle-type">
-                  <div class="step-inner">
-                    <div class="step-title"><h3 class="h2">Vehicle Type</h3></div>
-                    <div class="step-body">
-                      <div class="content grid grid-cols-2 gap-3">
-                        <button type="button" class="choice-rect" data-type="Car">Car</button>
-                        <button type="button" class="choice-rect" data-type="SUV">SUV</button>
-                        <button type="button" class="choice-rect" data-type="Truck">Truck</button>
-                        <button type="button" class="choice-rect" data-type="Van">Van</button>
-                        <input type="hidden" name="vehicleType" id="vehicleType">
-                      </div>
-                    </div>
-                  </div>
-                </section>
+            <div class="sticky px-4 border-b border-slate-200">
+              <div class="flex items-center justify-between">
+                <div id="progress-label" class="text-[10px] uppercase tracking-wider font-bold text-slate-500">Step 1</div>
+                <div id="progress-endcap" class="text-[10px] font-bold text-[var(--blue-700)]">Start</div>
+              </div>
+              <div class="track mt-1.5"><div id="progress-fill" class="fill"></div></div>
+            </div>
 
-                <section class="form-step hidden" data-id="step-budget">
-                  <div class="step-inner">
-                    <div class="step-title"><h3 class="h2">Target Budget</h3></div>
-                    <div class="step-body">
-                      <div class="content" style="max-width:560px;">
-                        <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="250" class="w-full cursor-pointer" style="accent-color: var(--blue-600);">
-                        <div class="text-sm text-slate-800 mt-3 text-center font-medium">Selected: <b>$<span id="biWeeklyOut">250</span></b> / bi-weekly</div>
-                        <input type="hidden" name="budgetRange" id="budgetRange" value="$250 bi-weekly">
-                      </div>
-                    </div>
-                  </div>
-                </section>
+            <div id="step-viewport" class="step-viewport px-4">
+              <div class="step-viewport-inner">
+                <form id="the-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" novalidate>
+                  <input type="hidden" name="form-name" value="lead-form"/>
+                  <input type="hidden" name="app_type" id="app_type" value="Full Application" />
+                  <input type="hidden" name="appCode" id="appCode" value="" />
+                  <input type="hidden" name="intent" id="intent" value="finance" />
+                  <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
 
-                <section class="form-step hidden" data-id="step-purchase">
-                  <div class="step-inner">
-                    <div class="step-title"><h3 class="h2">Purchase Details</h3></div>
-                    <div class="step-body">
-                      <div class="content vstack" style="max-width:560px;">
-                        <div>
-                          <label for="downPayment" class="label">Down Payment</label>
-                          <select id="downPayment" name="downPayment" class="form-select">
-                            <option value="">Select amount…</option>
-                            <option>$3,000+</option>
-                            <option>$1,000–$3,000</option>
-                            <option>$0–$1,000</option>
-                          </select>
+                  <section class="form-step" data-id="step-intent">
+                    <div class="step-inner">
+                      <div class="step-title"><h3 class="h2">Select Goal</h3></div>
+                      <div class="step-body">
+                        <div class="content grid grid-cols-2 gap-3">
+                          <button type="button" class="choice-rect" data-intent="finance">Finance</button>
+                          <button type="button" class="choice-rect" data-intent="refinance">Refinance</button>
                         </div>
-                        <div>
-                          <label class="label">Do you have a trade-in?</label>
-                          <div class="grid-inline-2">
-                            <button type="button" class="choice-rect" data-trade="No">No</button>
-                            <button type="button" class="choice-rect" data-trade="Yes">Yes</button>
+                      </div>
+                    </div>
+                  </section>
+                  
+                  <section class="form-step hidden" data-id="step-vehicle-type">
+                    <div class="step-inner">
+                      <div class="step-title"><h3 class="h2">Vehicle Type</h3></div>
+                      <div class="step-body">
+                        <div class="content grid grid-cols-2 gap-3">
+                          <button type="button" class="choice-rect" data-type="Car">Car</button>
+                          <button type="button" class="choice-rect" data-type="SUV">SUV</button>
+                          <button type="button" class="choice-rect" data-type="Truck">Truck</button>
+                          <button type="button" class="choice-rect" data-type="Van">Van</button>
+                          <input type="hidden" name="vehicleType" id="vehicleType">
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="form-step hidden" data-id="step-budget">
+                    <div class="step-inner">
+                      <div class="step-title"><h3 class="h2">Target Budget</h3></div>
+                      <div class="step-body">
+                        <div class="content" style="max-width:560px;">
+                          <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="250" class="w-full cursor-pointer" style="accent-color: var(--blue-600);">
+                          <div class="text-sm text-slate-800 mt-3 text-center font-medium">Selected: <b>$<span id="biWeeklyOut">250</span></b> / bi-weekly</div>
+                          <input type="hidden" name="budgetRange" id="budgetRange" value="$250 bi-weekly">
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="form-step hidden" data-id="step-purchase">
+                    <div class="step-inner">
+                      <div class="step-title"><h3 class="h2">Purchase Details</h3></div>
+                      <div class="step-body">
+                        <div class="content vstack" style="max-width:560px;">
+                          <div>
+                            <label for="downPayment" class="label">Down Payment</label>
+                            <select id="downPayment" name="downPayment" class="form-select">
+                              <option value="">Select amount…</option>
+                              <option value="$3,000+">$3,000+</option>
+                              <option value="$1,000–$3,000">$1,000–$3,000</option>
+                              <option value="$0–$1,000">$0–$1,000</option>
+                            </select>
                           </div>
-                          <input type="hidden" id="hasTradeIn" name="hasTradeIn" value="No">
+                          <div>
+                            <label class="label">Do you have a trade-in?</label>
+                            <div class="grid-inline-2">
+                              <button type="button" class="choice-rect" data-trade="No">No</button>
+                              <button type="button" class="choice-rect" data-trade="Yes">Yes</button>
+                            </div>
+                            <input type="hidden" id="hasTradeIn" name="hasTradeIn" value="No">
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </section>
+                  </section>
 
-                <section class="form-step hidden" data-id="step-refi-details">
-                  <div class="step-inner"><div class="step-title"><h3 class="h2">Current Loan</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-refi-details"><div><label for="refiYear" class="label">Year</label><select name="refiYear" id="refiYear" class="form-select" required></select></div><div><label for="refiMake" class="label">Make</label><select name="refiMake" id="refiMake" class="form-select" required></select></div><div><label for="refiModel" class="label">Model</label><select name="refiModel" id="refiModel" class="form-select" required><option value="">Select</option></select></div></div><div class="grid-inline-refi-details-2"><div><label for="refiRemainYears" class="label">Years Left</label><select id="refiRemainYears" name="refiRemainYears" class="form-select" required></select></div><div><label for="refiCurrentRate" class="label">Current Rate %</label><input type="text" id="refiCurrentRate" name="refiCurrentRate" class="form-input" placeholder="e.g., 9.49" inputmode="decimal" maxlength="6" required/></div></div></div></div></div>
-                </section>
+                  <section class="form-step hidden" data-id="step-refi-details">
+                    <div class="step-inner"><div class="step-title"><h3 class="h2">Current Loan</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-refi-details"><div><label for="refiYear" class="label">Year</label><select name="refiYear" id="refiYear" class="form-select" required></select></div><div><label for="refiMake" class="label">Make</label><select name="refiMake" id="refiMake" class="form-select" required></select></div><div><label for="refiModel" class="label">Model</label><select name="refiModel" id="refiModel" class="form-select" required><option value="">Select</option></select></div></div><div class="grid-inline-refi-details-2"><div><label for="refiRemainYears" class="label">Years Left</label><select id="refiRemainYears" name="refiRemainYears" class="form-select" required></select></div><div><label for="refiCurrentRate" class="label">Current Rate %</label><input type="text" id="refiCurrentRate" name="refiCurrentRate" class="form-input" placeholder="e.g., 9.49" inputmode="decimal" maxlength="6" required/></div></div></div></div></div>
+                  </section>
 
-                <section class="form-step hidden" data-id="step-tradein">
-                  <div class="step-inner"><div class="step-title"><h3 class="h2">Trade-in Vehicle</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-trade-1"><div><label for="tradeInYear" class="label">Year</label><select name="tradeInYear" id="tradeInYear" class="form-select"></select></div><div><label for="tradeInMake" class="label">Make</label><select name="tradeInMake" id="tradeInMake" class="form-select"></select></div><div><label for="tradeInModel" class="label">Model</label><select name="tradeInModel" id="tradeInModel" class="form-select"><option value="">Select</option></select></div></div><div class="grid-inline-2"><div><label for="tradeInKms" class="label">Kilometres</label><input type="number" name="tradeInKms" id="tradeInKms" class="form-input" inputmode="numeric" min="0" max="1000000"/></div><div><label for="tradeInOwed" class="label">Lien Amount</label><input type="text" id="tradeInOwed" name="tradeInOwed" placeholder="e.g. $5,000" class="form-input" maxlength="20"/></div></div></div></div></div>
-                </section>
+                  <section class="form-step hidden" data-id="step-tradein">
+                    <div class="step-inner"><div class="step-title"><h3 class="h2">Trade-in Vehicle</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-trade-1"><div><label for="tradeInYear" class="label">Year</label><select name="tradeInYear" id="tradeInYear" class="form-select"></select></div><div><label for="tradeInMake" class="label">Make</label><select name="tradeInMake" id="tradeInMake" class="form-select"></select></div><div><label for="tradeInModel" class="label">Model</label><select name="tradeInModel" id="tradeInModel" class="form-select"><option value="">Select</option></select></div></div><div class="grid-inline-2"><div><label for="tradeInKms" class="label">Kilometres</label><input type="number" name="tradeInKms" id="tradeInKms" class="form-input" inputmode="numeric" min="0" max="1000000"/></div><div><label for="tradeInOwed" class="label">Lien Amount</label><input type="text" id="tradeInOwed" name="tradeInOwed" placeholder="e.g. $5,000" class="form-input" maxlength="20"/></div></div></div></div></div>
+                  </section>
 
-                <section class="form-step hidden" data-id="step-income">
-                  <div class="step-inner"><div class="step-title"><h3 class="h2">Income Details</h3></div><div class="step-body"><div class="content vstack" style="max-width:560px;"><div class="grid-inline-2"><div><label for="incomeSourceFull" class="label">Employment Type <span class="text-theme-red">*</span></label><select id="incomeSourceFull" name="incomeSourceFull" class="form-select" required><option value="">Select…</option><option value="Full-Time">Full-Time</option><option value="Part-Time">Part-Time</option><option value="Self-Employed">Self-Employed</option><option value="Disability">Disability</option><option value="Other">Other</option></select></div><div><label for="avgMonthlyIncome" class="label">Monthly Income (Gross) <span class="text-theme-red">*</span></label><input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric" maxlength="16" required/></div></div></div></div></div>
-                </section>
+                  <section class="form-step hidden" data-id="step-income">
+                    <div class="step-inner"><div class="step-title"><h3 class="h2">Income Details</h3></div><div class="step-body"><div class="content vstack" style="max-width:560px;"><div class="grid-inline-2"><div><label for="incomeSourceFull" class="label">Employment Type <span class="text-theme-red">*</span></label><select id="incomeSourceFull" name="incomeSourceFull" class="form-select" required><option value="">Select…</option><option value="Full-Time">Full-Time</option><option value="Part-Time">Part-Time</option><option value="Self-Employed">Self-Employed</option><option value="Disability">Disability</option><option value="Other">Other</option></select></div><div><label for="avgMonthlyIncome" class="label">Monthly Income (Gross) <span class="text-theme-red">*</span></label><input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric" maxlength="16" required/></div></div></div></div></div>
+                  </section>
 
-                <section class="form-step hidden" data-id="step-yourinfo">
-                  <div class="step-inner"><div class="step-title"><h3 class="h2">Contact Info</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-2"><div><label for="email" class="label">Email <span class="text-theme-red">*</span></label><input type="email" id="email" name="email" class="form-input" autocomplete="email" maxlength="100" required/></div><div><label for="phone" class="label">Cell Phone <span class="text-theme-red">*</span></label><input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" maxlength="14" required/></div></div><div class="grid-inline-2"><div><label for="firstName" class="label">First Name <span class="text-theme-red">*</span></label><input type="text" id="firstName" name="firstName" class="form-input" autocomplete="given-name" maxlength="50" required/></div><div><label for="lastName" class="label">Last Name <span class="text-theme-red">*</span></label><input type="text" id="lastName" name="lastName" class="form-input" autocomplete="family-name" maxlength="50" required/></div></div><div class="grid-inline-dob"><div><label class="label">Birth Year <span class="text-theme-red">*</span></label><select id="dobYear" name="dobYear" class="form-select" required></select></div><div><label class="label">Month <span class="text-theme-red">*</span></label><select id="dobMonth" name="dobMonth" class="form-select" required><option value="">MM</option></select></div><div><label class="label">Day <span class="text-theme-red">*</span></label><select id="dobDay" name="dobDay" class="form-select" required><option value="">DD</option></select></div><div><label for="maritalStatus" class="label">Marital Status</label><select id="maritalStatus" name="maritalStatus" class="form-select"><option value="">Select</option><option>Single</option><option>Married</option><option>Common-Law</option><option>Divorced</option><option>Separated</option><option>Widowed</option></select></div></div></div></div></div>
-                </section>
+                  <section class="form-step hidden" data-id="step-yourinfo">
+                    <div class="step-inner"><div class="step-title"><h3 class="h2">Contact Info</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-2"><div><label for="email" class="label">Email <span class="text-theme-red">*</span></label><input type="email" id="email" name="email" class="form-input" autocomplete="email" maxlength="100" required/></div><div><label for="phone" class="label">Cell Phone <span class="text-theme-red">*</span></label><input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" maxlength="14" required/></div></div><div class="grid-inline-2"><div><label for="firstName" class="label">First Name <span class="text-theme-red">*</span></label><input type="text" id="firstName" name="firstName" class="form-input" autocomplete="given-name" maxlength="50" required/></div><div><label for="lastName" class="label">Last Name <span class="text-theme-red">*</span></label><input type="text" id="lastName" name="lastName" class="form-input" autocomplete="family-name" maxlength="50" required/></div></div><div class="grid-inline-dob"><div><label class="label">Birth Year <span class="text-theme-red">*</span></label><select id="dobYear" name="dobYear" class="form-select" required></select></div><div><label class="label">Month <span class="text-theme-red">*</span></label><select id="dobMonth" name="dobMonth" class="form-select" required><option value="">MM</option></select></div><div><label class="label">Day <span class="text-theme-red">*</span></label><select id="dobDay" name="dobDay" class="form-select" required><option value="">DD</option></select></div><div><label for="maritalStatus" class="label">Marital Status</label><select id="maritalStatus" name="maritalStatus" class="form-select"><option value="">Select</option><option>Single</option><option>Married</option><option>Common-Law</option><option>Divorced</option><option>Separated</option><option>Widowed</option></select></div></div></div></div></div>
+                  </section>
 
-                <section class="form-step hidden" data-id="step-address">
-                  <div class="step-inner"><div class="step-title"><h3 class="h2">Current Address</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-addr1"><div><label for="currentStreetAddress" class="label">Street Address</label><input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" autocomplete="street-address" maxlength="120" required/></div><div><label for="currentUnit" class="label">Unit #</label><input type="text" id="currentUnit" name="currentUnit" class="form-input" maxlength="10"/></div></div><div class="grid-inline-addr2"><div><label for="currentCity" class="label">City</label><input type="text" id="currentCity" name="currentCity" class="form-input" autocomplete="address-level2" maxlength="60" required/></div><div><label for="currentProvince" class="label">Prov</label><select id="currentProvince" name="currentProvince" class="form-select" required></select></div><div><label for="currentPostalCode" class="label">Postal Code</label><input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" autocomplete="postal-code" maxlength="7" required/></div></div><div class="grid-inline-addr3"><div><label for="housingPayment" class="label">Monthly Payment</label><input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1800" inputmode="numeric" maxlength="5" required/></div><div><label class="label">Time at addr.</label><select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select></div><div><label class="label">Months</label><select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select></div><div><label class="label">Status</label><div class="seg"><button type="button" class="seg-btn flex-1" id="btnRent" aria-pressed="true">Rent</button><button type="button" class="seg-btn flex-1" id="btnOwn" aria-pressed="false">Own</button></div><input type="hidden" id="housingType" name="housingType" value="Rent" /></div></div></div></div></div>
-                </section>
+                  <section class="form-step hidden" data-id="step-address">
+                    <div class="step-inner"><div class="step-title"><h3 class="h2">Current Address</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-addr1"><div><label for="currentStreetAddress" class="label">Street Address</label><input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" autocomplete="street-address" maxlength="120" required/></div><div><label for="currentUnit" class="label">Unit #</label><input type="text" id="currentUnit" name="currentUnit" class="form-input" maxlength="10"/></div></div><div class="grid-inline-addr2"><div><label for="currentCity" class="label">City</label><input type="text" id="currentCity" name="currentCity" class="form-input" autocomplete="address-level2" maxlength="60" required/></div><div><label for="currentProvince" class="label">Prov</label><select id="currentProvince" name="currentProvince" class="form-select" required></select></div><div><label for="currentPostalCode" class="label">Postal Code</label><input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" autocomplete="postal-code" maxlength="7" required/></div></div><div class="grid-inline-addr3"><div><label for="housingPayment" class="label">Monthly Payment</label><input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1800" inputmode="numeric" maxlength="5" required/></div><div><label class="label">Time at addr.</label><select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select></div><div><label class="label">Months</label><select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select></div><div><label class="label">Status</label><div class="seg"><button type="button" class="seg-btn flex-1" id="btnRent" aria-pressed="true">Rent</button><button type="button" class="seg-btn flex-1" id="btnOwn" aria-pressed="false">Own</button></div><input type="hidden" id="housingType" name="housingType" value="Rent" /></div></div></div></div></div>
+                  </section>
 
-                <section class="form-step hidden" data-id="step-employer">
-                  <div class="step-inner"><div class="step-title"><h3 class="h2">Work History</h3></div><div class="step-body"><div class="content vstack" style="max-width:560px;"><div class="grid-inline-2"><div><label for="currentEmployer" class="label">Employer Name</label><input type="text" id="currentEmployer" name="currentEmployer" class="form-input"/></div><div><label for="jobTitle" class="label">Job Title</label><input type="text" id="jobTitle" name="jobTitle" class="form-input"/></div></div><div class="grid-inline-2"><div><label class="label">Time at Job</label><select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select></div><div><label class="label">Months</label><select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select></div></div><div class="vstack"><p class="label">Additional Income (Optional)</p><div class="grid-inline-2"><div><input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Source (e.g. Child Tax)"/></div><div><input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="Amount ($)" inputmode="numeric" maxlength="16"/></div></div></div><label class="flex items-start gap-3 mt-4 p-3 border border-slate-200 rounded-lg bg-slate-50 cursor-pointer hover:bg-white transition-colors"><input type="checkbox" name="creditConsent" id="creditConsent" class="mt-1 accent-[var(--blue-600)]" checked required><span class="text-xs text-slate-600 leading-snug text-left">I confirm I am the person named above and consent to Vancouver Island Credit obtaining credit reports. (VSA #41114)</span></label></div></div></div>
-                </section>
+                  <section class="form-step hidden" data-id="step-employer">
+                    <div class="step-inner"><div class="step-title"><h3 class="h2">Work History</h3></div><div class="step-body"><div class="content vstack" style="max-width:560px;"><div class="grid-inline-2"><div><label for="currentEmployer" class="label">Employer Name</label><input type="text" id="currentEmployer" name="currentEmployer" class="form-input"/></div><div><label for="jobTitle" class="label">Job Title</label><input type="text" id="jobTitle" name="jobTitle" class="form-input"/></div></div><div class="grid-inline-2"><div><label class="label">Time at Job</label><select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select></div><div><label class="label">Months</label><select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select></div></div><div class="vstack"><p class="label">Additional Income (Optional)</p><div class="grid-inline-2"><div><input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Source (e.g. Child Tax)"/></div><div><input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="Amount ($)" inputmode="numeric" maxlength="16"/></div></div></div><label class="flex items-start gap-3 mt-4 p-3 border border-slate-200 rounded-lg bg-slate-50 cursor-pointer hover:bg-white transition-colors"><input type="checkbox" name="creditConsent" id="creditConsent" class="mt-1 accent-[var(--blue-600)]" checked required><span class="text-xs text-slate-600 leading-snug text-left">I confirm I am the person named above and consent to Vancouver Island Credit obtaining credit reports. (VSA #41114)</span></label></div></div></div>
+                  </section>
 
-                <section class="form-step hidden" data-id="step-consent">
-                  <div class="step-inner"></div>
-                </section>
-              </form>
+                  <section class="form-step hidden" data-id="step-consent">
+                    <div class="step-inner"></div>
+                  </section>
+                </form>
+              </div>
+            </div>
+
+            <div class="form-footer flex items-center justify-between" id="form-footer">
+              <button type="button" id="btnBack" class="font-semibold text-slate-600 hover:text-slate-900 px-4 py-2 rounded-lg hover:bg-slate-100 transition-colors">Back</button>
+              <button type="button" id="btnNext" class="cta-button">Next</button>
             </div>
           </div>
+        </div>
 
-          <div class="form-footer flex items-center justify-between" id="form-footer">
-            <button type="button" id="btnBack" class="font-semibold text-slate-600 hover:text-slate-900 px-4 py-2 rounded-lg hover:bg-slate-100 transition-colors">Back</button>
-            <button type="button" id="btnNext" class="cta-button">Next</button>
+        <aside class="flex flex-col">
+          <div class="card card-accent p-0 flex-1 overflow-hidden refi-box">
+             <div class="p-3 border-b border-slate-200 bg-slate-50">
+               <h4 class="text-[11px] font-bold text-center text-slate-600 mb-2 uppercase tracking-wider">Rate Reduction Eligibility</h4>
+               <ul class="flex justify-around items-start text-center">
+                 <li class="flex flex-col items-center gap-1">
+                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                   </svg>
+                   <span class="text-[9px] leading-tight text-slate-600 font-semibold">2016+</span>
+                 </li>
+                 <li class="flex flex-col items-center gap-1">
+                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                     <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                   </svg>
+                   <span class="text-[9px] leading-tight text-slate-600 font-semibold">1 Yr Own</span>
+                 </li>
+                 <li class="flex flex-col items-center gap-1">
+                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                     <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                   </svg>
+                   <span class="text-[9px] leading-tight text-slate-600 font-semibold">Better Credit</span>
+                 </li>
+                 <li class="flex flex-col items-center gap-1">
+                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                   </svg>
+                   <span class="text-[9px] leading-tight text-slate-600 font-semibold">Pay History</span>
+                 </li>
+               </ul>
+             </div>
+
+             <div class="bg-white px-4 py-2.5 border-b border-slate-200 flex items-center justify-between">
+                 <h4 class="text-sm font-bold text-slate-800">Refinance Calculator</h4>
+                 <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full font-bold">Estimate</span>
+             </div>
+             
+             <div class="refi-inputs-area">
+               <div class="refi-row">
+                 <div>
+                   <label class="label">Loan Bal.</label>
+                   <input type="text" id="refLoanInput" class="form-input form-input-sm" placeholder="$15,000" inputmode="numeric" maxlength="14" />
+                 </div>
+                 <div>
+                   <label class="label">Current %</label>
+                   <input type="text" id="refRateInput" class="form-input form-input-sm" placeholder="8.99" inputmode="decimal" maxlength="5" />
+                 </div>
+               </div>
+               
+               <div>
+                   <div class="flex justify-between mb-1">
+                     <label class="label">Loan Term</label>
+                     <span class="text-[11px] font-bold text-slate-600"><span id="termDisplay">5</span> Years</span>
+                   </div>
+                   <input id="refTermInput" type="range" min="1" max="8" step="1" value="5" class="refi-slider">
+               </div>
+
+               <div>
+                 <div class="flex justify-between mb-1">
+                   <label class="label">New Rate</label>
+                   <span class="text-[11px] font-bold text-[var(--blue-600)]"><span id="refNewRateOut">7.99</span>%</span>
+                 </div>
+                 <input id="refNewRateSlider" type="range" min="0.00" max="8.99" step="0.05" value="7.99" class="refi-slider">
+               </div>
+
+               <div class="refi-results-clean" id="refResults">
+                 <div class="flex justify-between items-center mb-1">
+                     <span class="text-xs text-slate-500 font-semibold">New Payment</span>
+                     <span class="text-sm font-bold text-slate-800">$0.00<span class="text-[10px] font-normal text-slate-400 ml-1">/bi-w</span></span>
+                 </div>
+                 <div class="flex justify-between items-center">
+                     <span class="text-xs text-slate-500 font-semibold">Savings</span>
+                     <span class="text-sm font-bold text-green-600">$0.00</span>
+                 </div>
+               </div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- START: DECISION WEB SECTION                -->
+      <!-- ========================================== -->
+      <section class="card card-accent p-6 overflow-hidden mt-6">
+        <!-- Section Header with Flex Layout -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 border-b border-slate-100 pb-4">
+            <div class="text-left">
+              <h2 class="h2 text-xl">The Financing Logic Web</h2>
+              <p class="text-xs text-slate-500 mt-1">Logic-based structure based on Equity & Credit.</p>
+            </div>
+            <!-- The "Top Box to the Very Right" Button -->
+            <button type="button" id="btnGetStarted" class="cta-button px-6 py-2 text-xs uppercase tracking-wide h-auto min-h-0 shadow-md hover:shadow-lg transition-shadow">
+                Get Started <span class="ml-2 text-base">→</span>
+            </button>
+        </div>
+
+        <div class="tree-wrapper overflow-x-auto pb-4">
+          <div class="tree min-w-[800px] mx-auto">
+            <ul>
+              <li>
+                <!-- ROOT NODE -->
+                <div class="tree-card root-card">
+                  <div class="font-extrabold text-sm uppercase tracking-wider text-white">Financing A Vehicle</div>
+                </div>
+
+                <ul>
+                  <!-- BRANCH 1: NEGATIVE EQUITY -->
+                  <li>
+                    <div class="tree-card border-t-4 border-amber-500">
+                      <div class="text-[10px] font-bold text-amber-600 uppercase mb-1">Situation</div>
+                      <div class="font-bold text-slate-800 text-sm">Negative Equity</div>
+                      <div class="text-[10px] text-slate-400 mt-0.5">Loan Balance > Car Value</div>
+                    </div>
+
+                    <ul>
+                      <!-- NEG EQUITY + GOOD CREDIT -->
+                      <li>
+                        <div class="tree-card relative group hover:border-[var(--blue-600)] transition-colors">
+                          <div class="inline-block px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-bold text-[10px] uppercase mb-2">Good Credit (700+)</div>
+                          <div class="text-xs font-bold text-slate-800 mb-2">Strategy: Consolidation</div>
+                          
+                          <div class="text-left bg-slate-50 rounded p-2 border border-slate-100">
+                            <div class="text-[10px] font-bold text-slate-500 uppercase mb-1">The Outcome</div>
+                            <ul class="space-y-1">
+                              <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
+                                <span class="text-green-600 font-bold">✓</span> <span><b>Lower Rate:</b> Trade high interest for Prime rates.</span>
+                              </li>
+                              <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
+                                <span class="text-green-600 font-bold">✓</span> <span><b>Better Fit:</b> Get a vehicle that suits your needs.</span>
+                              </li>
+                              <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
+                                <span class="text-amber-600 font-bold">!</span> <span><b>Trade-off:</b> Higher loan balance.</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </li>
+
+                      <!-- NEG EQUITY + BAD CREDIT -->
+                      <li>
+                        <div class="tree-card relative group hover:border-[var(--blue-600)] transition-colors">
+                          <div class="inline-block px-2 py-0.5 rounded bg-red-50 text-red-700 font-bold text-[10px] uppercase mb-2">Building Credit</div>
+                          <div class="text-xs font-bold text-slate-800 mb-2">Strategy: The "Book Out"</div>
+                          
+                          <div class="text-left bg-slate-50 rounded p-2 border border-slate-100">
+                            <div class="text-[10px] font-bold text-slate-500 uppercase mb-1">The Outcome</div>
+                            <ul class="space-y-1">
+                              <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
+                                <span class="text-green-600 font-bold">✓</span> <span><b>Fresh Start:</b> Escape a bad loan structure.</span>
+                              </li>
+                              <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
+                                <span class="text-green-600 font-bold">✓</span> <span><b>Reliability:</b> Move into warranty coverage.</span>
+                              </li>
+                              <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
+                                <span class="text-amber-600 font-bold">!</span> <span><b>Trade-off:</b> Limited vehicle choice.</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <!-- BRANCH 2: POSITIVE EQUITY -->
+                  <li>
+                    <div class="tree-card border-t-4 border-green-500">
+                      <div class="text-[10px] font-bold text-green-600 uppercase mb-1">Situation</div>
+                      <div class="font-bold text-slate-800 text-sm">Positive / Zero Equity</div>
+                      <div class="text-[10px] text-slate-400 mt-0.5">Car Value > Loan Balance</div>
+                    </div>
+
+                    <ul>
+                      <!-- POS EQUITY + GOOD CREDIT -->
+                      <li>
+                        <div class="tree-card relative group hover:border-[var(--blue-600)] transition-colors">
+                          <div class="inline-block px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-bold text-[10px] uppercase mb-2">Good Credit (700+)</div>
+                          <div class="text-xs font-bold text-slate-800 mb-2">Strategy: Total Control</div>
+                          
+                          <div class="text-left bg-slate-50 rounded p-2 border border-slate-100">
+                            <div class="text-[10px] font-bold text-slate-500 uppercase mb-1">The Outcome</div>
+                            <ul class="space-y-1">
+                              <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
+                                <span class="text-green-600 font-bold">✓</span> <span><b>Lowest Payment:</b> Use equity as down payment.</span>
+                              </li>
+                              <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
+                                <span class="text-green-600 font-bold">✓</span> <span><b>Flexibility:</b> Buy Older (Cheaper) or Newer.</span>
+                              </li>
+                              <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
+                                <span class="text-green-600 font-bold">✓</span> <span><b>Tax Savings:</b> Save 12-15% on trade.</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </li>
+
+                      <!-- POS EQUITY + BAD CREDIT -->
+                      <li>
+                        <div class="tree-card relative group hover:border-[var(--blue-600)] transition-colors">
+                          <div class="inline-block px-2 py-0.5 rounded bg-red-50 text-red-700 font-bold text-[10px] uppercase mb-2">Building Credit</div>
+                          <div class="text-xs font-bold text-slate-800 mb-2">Strategy: Foundation</div>
+                          
+                          <div class="text-left bg-slate-50 rounded p-2 border border-slate-100">
+                            <div class="text-[10px] font-bold text-slate-500 uppercase mb-1">The Outcome</div>
+                            <ul class="space-y-1">
+                              <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
+                                <span class="text-green-600 font-bold">✓</span> <span><b>Approval:</b> Equity secures the bank approval.</span>
+                              </li>
+                              <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
+                                <span class="text-green-600 font-bold">✓</span> <span><b>The Plan:</b> Refinance in 12 months.</span>
+                              </li>
+                              <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
+                                <span class="text-amber-600 font-bold">!</span> <span><b>Trade-off:</b> Must be 2018+ model.</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
 
-      <aside class="flex flex-col">
-        <div class="card card-accent p-0 flex-1 overflow-hidden refi-box">
-           <div class="p-3 border-b border-slate-200 bg-slate-50">
-             <h4 class="text-[11px] font-bold text-center text-slate-600 mb-2 uppercase tracking-wider">Rate Reduction Eligibility</h4>
-             <ul class="flex justify-around items-start text-center">
-                <li class="flex flex-col items-center gap-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span class="text-[9px] leading-tight text-slate-600 font-semibold">2016+</span>
-                </li>
-                <li class="flex flex-col items-center gap-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                  <span class="text-[9px] leading-tight text-slate-600 font-semibold">1 Yr Own</span>
-                </li>
-                <li class="flex flex-col items-center gap-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                  </svg>
-                  <span class="text-[9px] leading-tight text-slate-600 font-semibold">Better Credit</span>
-                </li>
-                <li class="flex flex-col items-center gap-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span class="text-[9px] leading-tight text-slate-600 font-semibold">Pay History</span>
-                </li>
-             </ul>
-           </div>
+        <!-- Internal CSS for the Tree (Scoped) -->
+        <style>
+          .tree ul {
+            padding-top: 20px; position: relative; transition: all 0.5s; display: flex; justify-content: center;
+          }
+          .tree li {
+            float: left; text-align: center; list-style-type: none; position: relative; padding: 20px 10px 0 10px; transition: all 0.5s;
+          }
+          /* Connecting Lines */
+          .tree li::before, .tree li::after {
+            content: ''; position: absolute; top: 0; right: 50%; border-top: 2px solid var(--slate-300); width: 50%; height: 20px;
+          }
+          .tree li::after { right: auto; left: 50%; border-left: 2px solid var(--slate-300); }
+          .tree li:only-child::after, .tree li:only-child::before { display: none; }
+          .tree li:only-child { padding-top: 0; }
+          .tree li:first-child::before, .tree li:last-child::after { border: 0 none; }
+          .tree li:last-child::before { border-right: 2px solid var(--slate-300); border-radius: 0 5px 0 0; }
+          .tree li:first-child::after { border-radius: 5px 0 0 0; }
+          .tree ul ul::before {
+            content: ''; position: absolute; top: 0; left: 50%; border-left: 2px solid var(--slate-300); width: 0; height: 20px;
+          }
+          /* Card Styles */
+          .tree-card {
+            background: #fff; border: 1px solid var(--slate-200); padding: 12px; border-radius: 8px;
+            display: inline-block; width: 210px; text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); position: relative; z-index: 10;
+          }
+          .root-card {
+            background: var(--blue-600); border: none; padding: 12px 24px; width: auto;
+            border-radius: 50px; box-shadow: 0 10px 15px -3px rgba(42, 93, 159, 0.3);
+          }
+        </style>
+      </section>
+      <!-- ========================================== -->
+      <!-- END: DECISION WEB SECTION                  -->
+      <!-- ========================================== -->
 
-           <div class="bg-white px-4 py-2.5 border-b border-slate-200 flex items-center justify-between">
-               <h4 class="text-sm font-bold text-slate-800">Refinance Calculator</h4>
-               <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full font-bold">Estimate</span>
-           </div>
-           
-           <div class="refi-inputs-area">
-              <div class="refi-row">
-                <div>
-                  <label class="label">Loan Bal.</label>
-                  <input type="text" id="refLoanInput" class="form-input form-input-sm" placeholder="$15,000" inputmode="numeric" maxlength="14" />
-                </div>
-                <div>
-                  <label class="label">Current %</label>
-                  <input type="text" id="refRateInput" class="form-input form-input-sm" placeholder="8.99" inputmode="decimal" maxlength="5" />
-                </div>
-              </div>
-              
-              <div>
-                 <div class="flex justify-between mb-1">
-                    <label class="label">Loan Term</label>
-                    <span class="text-[11px] font-bold text-slate-600"><span id="termDisplay">5</span> Years</span>
-                 </div>
-                 <input id="refTermInput" type="range" min="1" max="8" step="1" value="5" class="refi-slider">
-              </div>
-
-              <div>
-                <div class="flex justify-between mb-1">
-                  <label class="label">New Rate</label>
-                  <span class="text-[11px] font-bold text-[var(--blue-600)]"><span id="refNewRateOut">7.99</span>%</span>
-                </div>
-                <input id="refNewRateSlider" type="range" min="0.00" max="8.99" step="0.05" value="7.99" class="refi-slider">
-              </div>
-
-              <div class="refi-results-clean" id="refResults">
-                <div class="flex justify-between items-center mb-1">
-                    <span class="text-xs text-slate-500 font-semibold">New Payment</span>
-                    <span class="text-sm font-bold text-slate-800">$0.00<span class="text-[10px] font-normal text-slate-400 ml-1">/bi-w</span></span>
-                </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-xs text-slate-500 font-semibold">Savings</span>
-                    <span class="text-sm font-bold text-green-600">$0.00</span>
-                </div>
-              </div>
-           </div>
+      <section id="inventory" class="card card-accent p-5">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="h2">Browse Inventory</h3>
+          <a href="#lead-form" class="text-xs font-bold uppercase tracking-wide text-[var(--blue-600)] hover:underline js-view-inventory">
+            View All (<span id="inv-total">1571</span>)
+          </a>
         </div>
-      </aside>
-    </section>
 
-    <section id="inventory" class="card card-accent p-5">
-      <div class="flex items-center justify-between mb-3">
-        <h3 class="h2">Browse Inventory</h3>
-        <a href="#lead-form" class="text-xs font-bold uppercase tracking-wide text-[var(--blue-600)] hover:underline js-view-inventory">
-          View All (<span id="inv-total">1571</span>)
-        </a>
-      </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <a href="#lead-form" class="bodytype-card js-view-inventory">
+            <div class="inv-overlay">Check Approval</div>
+            <div class="bodytype-img" style="background-image:url('Coupe.jpg');"></div>
+            <div class="p-2"><p class="font-bold text-xs text-center">Coupe <span class="text-slate-400 font-normal">(168)</span></p></div>
+          </a>
+          <a href="#lead-form" class="bodytype-card js-view-inventory">
+            <div class="inv-overlay">Check Approval</div>
+            <div class="bodytype-img" style="background-image:url('Hatchback.jpg');"></div>
+            <div class="p-2"><p class="font-bold text-xs text-center">Hatchback <span class="text-slate-400 font-normal">(138)</span></p></div>
+          </a>
+          <a href="#lead-form" class="bodytype-card js-view-inventory">
+            <div class="inv-overlay">Check Approval</div>
+            <div class="bodytype-img" style="background-image:url('Electric.jpg');"></div>
+            <div class="p-2"><p class="font-bold text-xs text-center">EV / Hybrid <span class="text-slate-400 font-normal">(421)</span></p></div>
+          </a>
+          <a href="#lead-form" class="bodytype-card js-view-inventory">
+            <div class="inv-overlay">Check Approval</div>
+            <div class="bodytype-img" style="background-image:url('Sedan.jpg');"></div>
+            <div class="p-2"><p class="font-bold text-xs text-center">Sedan <span class="text-slate-400 font-normal">(349)</span></p></div>
+          </a>
+          <a href="#lead-form" class="bodytype-card js-view-inventory">
+            <div class="inv-overlay">Check Approval</div>
+            <div class="bodytype-img" style="background-image:url('Crossover.jpg');"></div>
+            <div class="p-2"><p class="font-bold text-xs text-center">Crossover <span class="text-slate-400 font-normal">(307)</span></p></div>
+          </a>
+          <a href="#lead-form" class="bodytype-card js-view-inventory">
+            <div class="inv-overlay">Check Approval</div>
+            <div class="bodytype-img" style="background-image:url('Suv.jpg');"></div>
+            <div class="p-2"><p class="font-bold text-xs text-center">SUV <span class="text-slate-400 font-normal">(486)</span></p></div>
+          </a>
+          <a href="#lead-form" class="bodytype-card js-view-inventory">
+            <div class="inv-overlay">Check Approval</div>
+            <div class="bodytype-img" style="background-image:url('Van.jpg');"></div>
+            <div class="p-2"><p class="font-bold text-xs text-center">Van <span class="text-slate-400 font-normal">(102)</span></p></div>
+          </a>
+          <a href="#lead-form" class="bodytype-card js-view-inventory">
+            <div class="inv-overlay">Check Approval</div>
+            <div class="bodytype-img" style="background-image:url('Truck.jpg');"></div>
+            <div class="p-2"><p class="font-bold text-xs text-center">Truck <span class="text-slate-400 font-normal">(86)</span></p></div>
+          </a>
+        </div>
+      </section>
 
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="inv-overlay">Check Approval</div>
-          <div class="bodytype-img" style="background-image:url('Coupe.jpg');"></div>
-          <div class="p-2"><p class="font-bold text-xs text-center">Coupe <span class="text-slate-400 font-normal">(168)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="inv-overlay">Check Approval</div>
-          <div class="bodytype-img" style="background-image:url('Hatchback.jpg');"></div>
-          <div class="p-2"><p class="font-bold text-xs text-center">Hatchback <span class="text-slate-400 font-normal">(138)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="inv-overlay">Check Approval</div>
-          <div class="bodytype-img" style="background-image:url('Electric.jpg');"></div>
-          <div class="p-2"><p class="font-bold text-xs text-center">EV / Hybrid <span class="text-slate-400 font-normal">(421)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="inv-overlay">Check Approval</div>
-          <div class="bodytype-img" style="background-image:url('Sedan.jpg');"></div>
-          <div class="p-2"><p class="font-bold text-xs text-center">Sedan <span class="text-slate-400 font-normal">(349)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="inv-overlay">Check Approval</div>
-          <div class="bodytype-img" style="background-image:url('Crossover.jpg');"></div>
-          <div class="p-2"><p class="font-bold text-xs text-center">Crossover <span class="text-slate-400 font-normal">(307)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="inv-overlay">Check Approval</div>
-          <div class="bodytype-img" style="background-image:url('Suv.jpg');"></div>
-          <div class="p-2"><p class="font-bold text-xs text-center">SUV <span class="text-slate-400 font-normal">(486)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="inv-overlay">Check Approval</div>
-          <div class="bodytype-img" style="background-image:url('Van.jpg');"></div>
-          <div class="p-2"><p class="font-bold text-xs text-center">Van <span class="text-slate-400 font-normal">(102)</span></p></div>
-        </a>
-        <a href="#lead-form" class="bodytype-card js-view-inventory">
-          <div class="inv-overlay">Check Approval</div>
-          <div class="bodytype-img" style="background-image:url('Truck.jpg');"></div>
-          <div class="p-2"><p class="font-bold text-xs text-center">Truck <span class="text-slate-400 font-normal">(86)</span></p></div>
-        </a>
-      </div>
-    </section>
+      <section id="map" class="card card-accent p-0 mt-6 overflow-hidden">
+        <div class="p-4">
+          <h3 class="h2">Head Office — Victoria, BC</h3>
+          <p class="text-xs text-slate-600 mt-1">Real location. Real people.</p>
+        </div>
+        <iframe class="map-embed" title="Map — Vancouver Island Credit" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2647.612610356825!2d-123.3816246843408!3d48.44991197924958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548f73877c401593!2s525%20Gorge%20Rd%20E%2C%20Victoria%2C%20BC%20V8T%202W5!5e0!3m2!1sen!2sca!4v1677000000000!5m2!1sen!2sca"></iframe>
+        <div class="px-4 py-3 text-xs text-slate-600 border-t border-slate-200">525 Gorge Rd E, Victoria, BC V8T 4T2</div>
+      </section>
 
-    <section id="map" class="card card-accent p-0 mt-6 overflow-hidden">
-      <div class="p-4">
-        <h3 class="h2">Head Office — Victoria, BC</h3>
-        <p class="text-xs text-slate-600 mt-1">Real location. Real people.</p>
-      </div>
-      <iframe class="map-embed" title="Map — Vancouver Island Credit" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2647.612610356825!2d-123.3816246843408!3d48.44991197924958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548f73877c401593%3A0x2361245276764503!2s525%20Gorge%20Rd%20E%2C%20Victoria%2C%20BC%20V8T%202W5!5e0!3m2!1sen!2sca!4v1677000000000!5m2!1sen!2sca"></iframe>
-      <div class="px-4 py-3 text-xs text-slate-600 border-t border-slate-200">525 Gorge Rd E, Victoria, BC V8T 4T2</div>
-    </section>
+      <footer id="contact" class="text-center text-xs text-slate-500 pt-2 space-y-1.5">
+        <div class="flex justify-center gap-4 text-xs text-slate-400 mb-2 underline">
+          <a href="/privacy-policy.html" target="_blank">Privacy Policy</a>
+          <a href="/terms.html" target="_blank">Terms of Service</a>
+        </div>
+        <p class="font-bold text-slate-600">Vancouver Island Credit</p>
+        <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
+        <p><a href="tel:+1-236-969-2424" class="hover:text-[var(--blue-600)] transition-colors">Customer service: (236) 969-2424</a></p>
+        <p class="pt-1">Serving Vancouver Island & British Columbia • Delivery available province-wide</p>
+        <p class="mt-2 text-slate-400">
+          © <span id="year"></span> Vancouver Island Credit • All rights reserved • 
+          <span class="block sm:inline">VSA Dealer #41114</span>
+        </p>
+      </footer>
+    </main>
 
-    <footer id="contact" class="text-center text-xs text-slate-500 pt-2 space-y-1.5">
-      <div class="flex justify-center gap-4 text-xs text-slate-400 mb-2 underline">
-        <a href="/privacy-policy.html" target="_blank">Privacy Policy</a>
-        <a href="/terms.html" target="_blank">Terms of Service</a>
-      </div>
-      <p class="font-bold text-slate-600">Vancouver Island Credit</p>
-      <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
-      <p><a href="tel:+1-236-969-2424" class="hover:text-[var(--blue-600)] transition-colors">Customer service: (236) 969-2424</a></p>
-      <p class="pt-1">Serving Vancouver Island & British Columbia • Delivery available province-wide</p>
-      <p class="mt-2 text-slate-400">
-        © <span id="year"></span> Vancouver Island Credit • All rights reserved • 
-        <span class="block sm:inline">VSA Dealer #41114</span>
-      </p>
-    </footer>
-  </main>
+    <div id="form-backdrop" class="form-backdrop"></div>
+
+  </div>
 
   <div id="progress-overlay" class="progress-overlay hidden" aria-hidden="true">
     <div class="progress-card">
@@ -740,7 +962,7 @@
 
   function fmtMoney(x){ x = isFinite(x) ? x : 0; return "$" + x.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
   function parseMoneyInput(v){ if (!v) return 0; return parseFloat(String(v).replace(/[^0-9.]/g,'')) || 0; }
-  
+   
   function formatMoneyField(input){ 
       const num = parseMoneyInput(input.value); 
       input.value = num > 0 ? num.toLocaleString('en-CA', {style:'currency', currency:'CAD', maximumFractionDigits:0}) : '';
@@ -795,7 +1017,7 @@
           sel.appendChild(option);
       }
   }
-  
+   
   document.addEventListener('DOMContentLoaded', function () {
     $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
 
@@ -1092,6 +1314,63 @@
       update();
       newRateOut.textContent = Number(newRateSlider.value).toFixed(2);
     }
+    
+    // --- FOCUS MODE LOGIC ---
+    const formShell = $('form-shell');
+    const formSpacer = $('form-spacer');
+    const formBackdrop = $('form-backdrop');
+    const formClose = $('form-close');
+    const formTrigger = $('form-trigger');
+    
+    function expandForm() {
+        if (formShell.classList.contains('form-focused')) return;
+        
+        formSpacer.classList.remove('hidden');
+        formShell.classList.add('form-focused');
+        formBackdrop.classList.add('active');
+        formClose.classList.remove('hidden');
+        formTrigger.classList.add('hidden'); // Hide trigger so inputs work
+        
+        // Blur background content
+        const main = $('main-content');
+        if(main) main.style.filter = "blur(5px)";
+    }
+    
+    function collapseForm() {
+        formShell.classList.remove('form-focused');
+        formBackdrop.classList.remove('active');
+        formClose.classList.add('hidden');
+        formTrigger.classList.remove('hidden'); // Re-enable trigger
+        
+        // Wait for transition to finish before hiding spacer
+        setTimeout(() => {
+             formSpacer.classList.add('hidden');
+        }, 300);
+
+        // Unblur
+        const main = $('main-content');
+        if(main) main.style.filter = "none";
+    }
+
+    // Triggers
+    $('btnGetStarted')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        expandForm();
+    });
+    
+    $('navApplyBtn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        expandForm();
+    });
+
+    $('mobileApplyBtn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        expandForm();
+    });
+    
+    formTrigger?.addEventListener('click', expandForm);
+    formClose?.addEventListener('click', collapseForm);
+    formBackdrop?.addEventListener('click', collapseForm);
 
     (function init(){
       bySel('#year').textContent = new Date().getFullYear();
