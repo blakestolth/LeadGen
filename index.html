@@ -1,165 +1,1129 @@
-<section class="w-full overflow-x-auto py-8 px-4 bg-slate-50 border-t border-b border-slate-200 mt-8">
-  
-  <div class="text-center mb-8 min-w-[800px]">
-    <h2 class="h2 text-xl text-slate-800">The Financing Logic Web</h2>
-    <p class="text-xs text-slate-500 mt-1">Find your situation below to see the strategy and benefits.</p>
-  </div>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+   
+  <title>Vancouver Island Credit | Auto Approvals Online</title>
 
-  <div class="tree-wrapper min-w-[800px] flex justify-center">
-    <div class="tree">
-      <ul>
-        <li>
-          <div class="node-card root-node">
-            <div class="font-extrabold text-sm uppercase tracking-wider">Financing a Vehicle</div>
+  <meta name="description" content="Fast, confidential auto approvals across Vancouver Island & BC. New & used options. Delivery to your door. Work 1 on 1 with Blake Stolth." />
+  <link rel="canonical" href="https://vancouverislandcredit.ca/"/>
+  <meta property="og:title" content="Vancouver Island Credit — Auto Approvals Online"/>
+  <meta property="og:description" content="Get approved online. New & used inventory across Vancouver Island & BC. Delivery to your door."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:image" content="https://vancouverislandcredit.ca/0041B99D-D49A-4024-AA7A-2786A4605342.jpg"/>
+  <meta name="theme-color" content="#2A5D9F"/>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root{
+      --blue-600:#2A5D9F; --blue-700:#214B80; --blue-100:#EAF1FB; --blue-grad:#4C7CC0;
+      --red-equifax: #A8202A;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+
+      /* Typography */
+      --fs-h1: 26px; --fs-h2: 18px; --fs-body: 13px; --fs-label: 11px; --fs-cta: 13px;
+      
+      /* Spacing */
+      --input-px: 12px; 
+      --radius: 8px;
+      --nav-font: 14px;
+      --control-h: 44px;
+      --field-gap: 8px; 
+      --section-max: 720px;
+    }
+    @media (max-width:640px){ 
+        :root{ 
+            --nav-font: 13px; 
+            --fs-h1: 24px; 
+            --fs-h2: 16px;
+            --control-h: 44px; 
+        } 
+    }
+
+    body{
+      font-family:'Work Sans',sans-serif;
+      background: var(--slate-100);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      color: var(--slate-700);
+      overflow-x: hidden;
+    }
+    .card{
+      background:#fff;
+      border-radius:12px;
+      border:1px solid var(--slate-200);
+      box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+    }
+
+    .card-accent{
+      border: 1px solid var(--slate-300);
+      box-shadow: 0 10px 25px -5px rgba(30, 41, 59, 0.05);
+      background: #fff;
+    }
+    
+    .h1{ font-size:var(--fs-h1); font-weight:800; color:var(--slate-800); line-height: 1.1; letter-spacing: -0.5px; }
+    .h2{ font-size:var(--fs-h2); font-weight:700; color:var(--slate-800); margin-bottom:4px; white-space: nowrap; }
+    @media(max-width: 640px) { .h2 { white-space: normal; } }
+
+    .label{ font-size:var(--fs-label); color:var(--slate-700); font-weight:600; display:block; margin-bottom:4px; text-transform: uppercase; letter-spacing: 0.02em; text-align: center; }
+    .muted{ font-size:10px; color:var(--slate-500); }
+
+    /* INPUT STYLING */
+    .form-input,.form-select,.form-textarea{
+      background: var(--slate-50); 
+      color:var(--slate-800); 
+      border:1px solid var(--slate-300);
+      font-size:var(--fs-body); width:100%;
+      padding: 0 var(--input-px); 
+      border-radius: var(--radius); 
+      transition:all .15s ease;
+      height: var(--control-h) !important; 
+      line-height: var(--control-h); 
+      font-weight: 500;
+      display: block;
+      box-sizing: border-box;
+    }
+
+    .form-input::placeholder{ color:var(--slate-400); }
+    .form-input:focus,.form-select:focus,.form-textarea:focus{
+      background:#fff; border-color:var(--blue-600); 
+      box-shadow:0 0 0 3px rgba(42,93,159,.15); 
+      outline:none;
+    }
+
+    .form-select {
+      -webkit-appearance: none; -moz-appearance: none; appearance: none;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 0.8rem center;
+      background-size: 1.2em 1.2em;
+      background-repeat: no-repeat;
+      padding-right: 2.5rem;
+      padding-top: 0 !important; 
+      padding-bottom: 0 !important;
+      display: flex;
+      align-items: center;
+    }
+
+    .cta-button{ background:var(--blue-600); color:#fff; font-weight:700; padding:.5rem 1.2rem; border-radius: var(--radius); font-size:var(--fs-cta); min-height:42px; transition: all .2s ease; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+    .cta-button:hover{ background:var(--blue-700); transform: translateY(-1px); box-shadow: 0 6px 8px -2px rgb(0 0 0 / 0.15); }
+    .cta-button:active{ transform: scale(0.98); }
+
+    .track{ height:5px; background:var(--slate-200); border-radius:9999px; overflow:hidden; }
+    .fill{ height:5px; background:var(--blue-600); border-radius:9999px; width:0%; transition:width .3s ease; }
+
+    .err{ border-color:var(--red-equifax) !important; background-color: #fff5f5; animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; } 
+    .err-label{ color:var(--red-equifax) !important; }
+    .text-theme-red { color: var(--red-equifax); }
+
+    @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
+
+    #lead-form{ --fs-h2: 20px; --fs-body: 14px; --fs-label: 11px; --fs-cta: 14px; --control-h: 44px; }
+    #lead-form .sticky [id^="progress-"]{ font-size:11px !important; }
+    #lead-form .cta-button{ min-height:40px; }
+
+    /* =================================================================
+       LAYOUT ENGINE: FIXED HEIGHT / ABSOLUTE FOOTER / FLEX CENTER BODY
+       ================================================================= */
+    
+    /* 1. The Box itself has a fixed height to allow calculations */
+    .form-shell { 
+        position: relative; 
+        overflow: hidden; 
+        display: flex; 
+        flex-direction: column; 
+        height: 380px; /* Even smaller to be compact */
+        background: #fff;
+    }
+    
+    /* 2. Header pinned to top */
+    .form-shell .sticky { 
+        position: relative;
+        z-index: 10; 
+        background: rgba(255,255,255,0.98); 
+        padding: 10px 20px; 
+        border-bottom: 1px solid var(--slate-200); 
+        flex-shrink: 0; 
+        height: 50px; /* Explicit height for math */
+    }
+
+    /* 3. Viewport for steps - Sits exactly between Header and Footer */
+    .step-viewport { 
+        position: absolute;
+        top: 50px; /* Matches Header height */
+        bottom: 50px; /* Matches Footer height */
+        left: 0; right: 0;
+        overflow-y: auto; 
+        overflow-x: hidden;
+    }
+    
+    .step-viewport-inner, #the-form { height: 100%; }
+
+    /* 4. Step Container: Flex Column */
+    .step-inner {
+      width: 100%; 
+      max-width: var(--section-max); 
+      margin: 0 auto; 
+      height: 100%;
+      display: flex; 
+      flex-direction: column; 
+      padding: 0 20px;
+    }
+    
+    /* 5. TITLE: Pushed to top */
+    .step-title { 
+        text-align: center; 
+        margin-top: 10px; 
+        flex-shrink: 0; 
+        padding-bottom: 4px;
+    }
+    
+    /* 6. CONTENT BODY: VERTICAL CENTER */
+    /* content fills the space between the Title and the Footer */
+    .step-body {
+      flex-grow: 1; 
+      display: flex; 
+      flex-direction: column;
+      align-items: center; 
+      justify-content: center; /* CENTERED VERTICALLY */
+      width: 100%;
+      padding-bottom: 5px;
+    }
+    
+    .step-body > .content { width: 95%; max-width: 500px; margin: 0 auto; text-align: center; }
+    .content input, .content select, .content .grid-inline-2 { text-align: left; } 
+    .vstack > * + * { margin-top: 10px; }
+
+    /* 7. FOOTER: Absolute Bottom - TIGHT */
+    .form-footer {
+      position: absolute; 
+      bottom: 0; left: 0; right: 0;
+      background: rgba(255,255,255,0.98); 
+      border-top: 1px solid var(--slate-200);
+      padding: 0 20px; /* Zero vertical padding, use Flex to align */
+      height: 50px; /* Fixed height */
+      z-index: 20;
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+    }
+
+    #btnBack{ min-height:36px; border-radius:8px; font-size:13px; color: var(--slate-500); padding: 0 16px; font-weight: 700; }
+    #btnBack:hover { background: var(--slate-100); color: var(--slate-800); }
+
+    .choice-rect {
+      width:100%; text-align:left; border:1.5px solid var(--slate-300); border-radius:var(--radius); background:#fff;
+      font-weight:600; color: var(--slate-700); transition:all .15s ease; display:flex; align-items:center; cursor:pointer; 
+      padding: 0 16px;
+      min-height: 50px; 
+      font-size: 15px;
+      justify-content: center; 
+    }
+    .choice-rect:hover{ border-color:var(--blue-600); background: #f8fafc; transform: translateY(-1px); }
+    .choice-rect.selected{ border-color:var(--blue-600); background:var(--blue-100); color: var(--blue-700); box-shadow: 0 0 0 1px var(--blue-600); }
+
+    .seg{ display:inline-flex; align-items:center; gap:4px; background:var(--slate-100); border:1.5px solid var(--slate-200); border-radius:8px; padding:4px; width: 100%; }
+    .seg-btn{ flex: 1; appearance:none; border:0; background:transparent; cursor:pointer; padding:6px 10px; border-radius:6px; font-weight:700; font-size:13px; color:var(--slate-500); transition:all .15s ease; }
+    .seg-btn[aria-pressed="true"]{ background:#fff; color:var(--blue-600); box-shadow:0 1px 3px rgba(0,0,0,.1); }
+
+    .abc-badge{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:9999px; background:var(--blue-600); color:#fff; border:none; font-weight:800; font-size:11px; line-height:1; flex-shrink:0; }
+    .inv-badge { color: var(--blue-600); }
+    .text-equifax-red { color: var(--red-equifax); }
+
+    /* --- GRID SIZING --- */
+    .grid-inline-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--field-gap); }
+    
+    .grid-inline-refi-details { display: grid; grid-template-columns: 100px 1fr 1fr; gap: var(--field-gap); }
+    .grid-inline-refi-details-2 { display: grid; grid-template-columns: 1fr 140px; gap: var(--field-gap); }
+    .grid-inline-trade-1 { display: grid; grid-template-columns: 100px 1fr 1fr; gap: var(--field-gap); }
+    .grid-inline-dob { display: grid; grid-template-columns: 100px 80px 80px 1fr; gap: var(--field-gap); }
+    .grid-inline-addr1 { display: grid; grid-template-columns: 1fr 100px; gap: var(--field-gap); }
+    .grid-inline-addr2 { display: grid; grid-template-columns: 1fr 100px 120px; gap: var(--field-gap); }
+    .grid-inline-addr3 { display: grid; grid-template-columns: 1fr 80px 80px 1fr; gap: var(--field-gap); align-items: end; }
+    
+    @media(max-width: 640px) { 
+        .grid-inline-refi-details, .grid-inline-trade-1, .grid-inline-addr2, .grid-inline-dob, .grid-inline-addr3 { 
+             display: flex; flex-direction: column; gap: 8px;
+        }
+        .grid-inline-2 { display: grid; grid-template-columns: 1fr 1fr; } 
+    }
+
+    /* Header brand */
+    .brand-left{ display:flex; align-items:center; gap:12px; }
+    .site-logo{ height:45px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
+    @media (min-width:640px){ .site-logo{ height:60px; } }
+    
+    .brand-stack{ display:flex; flex-direction:column; justify-content: center; gap:2px; }
+    .brand-title{ color:var(--slate-800); font-weight:800; letter-spacing:-0.02em; font-size:var(--nav-font); white-space:nowrap; text-decoration:none; line-height:1; margin-left:-2px; }
+    .powered-by-inline{ display:flex; align-items:center; gap:6px; font-size: 11px; color:var(--slate-500); font-weight:600; line-height:1; margin-top:2px; }
+    .powered-by-inline img{ height: 11px; width:auto; object-fit:contain; position:relative; top:1px; opacity: 0.8; }
+
+    /* Inventory tiles */
+    .bodytype-card{
+      position: relative;
+      overflow:hidden; border-radius:12px; border:1px solid var(--slate-200); background:#fff;
+      transition:transform .2s,box-shadow .2s,border-color .2s;
+    }
+    .bodytype-card:hover{ transform:translateY(-3px); border-color:var(--blue-600); box-shadow:0 12px 20px -5px rgba(42,93,159,.2); }
+    .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:90px; }
+    @media (min-width:640px){ .bodytype-img{ height:100px; } }
+    
+    .inv-overlay { position: absolute; inset: 0; background: rgba(42,93,159,0.9); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s ease; color: white; font-weight: 700; font-size: 14px; z-index: 5; border-radius: 11px;}
+    .bodytype-card:hover .inv-overlay { opacity: 1; }
+
+    .map-embed{ width:100%; height:200px; border:0; border-radius: inherit; }
+    @media (min-width:640px){ .map-embed{ height:150px; } }
+
+    .progress-overlay{position:fixed;inset:0;background:rgba(15,23,42,.6);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:50}
+    .progress-card{background:#fff;border-radius:16px;box-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);width:min(520px,92vw);padding:24px 20px}
+    .progress-title{font-weight:800;font-size:18px;color:var(--slate-800)}
+    .progress-track{height:8px;background:var(--slate-200);border-radius:9999px;overflow:hidden;margin-top:12px}
+    .progress-bar{height:8px;width:0%;background:linear-gradient(90deg,var(--blue-600),var(--blue-grad));transition:width .6s ease}
+    .progress-steps{list-style:none;padding:0;margin:16px 0 0;font-size:14px;color:var(--slate-600); space-y-2}
+    .progress-steps li{display:flex;align-items:center;gap:10px;opacity:.7; transition: all .3s ease;}
+    .progress-steps li.active{opacity:1;font-weight:700; color: var(--slate-800);}
+    .progress-note{margin-top:12px;font-size:12px;color:var(--slate-500)}
+    .hidden{display:none !important;}
+
+    /* Refi calculator — Compact & Clean */
+    .refi-box {
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    .refi-inputs-area {
+        padding: 12px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 8px;
+    }
+    .refi-row { display: flex; gap: 8px; }
+    .refi-row > div { flex: 1; }
+    
+    .refi-results-clean {
+        background: var(--slate-50);
+        border-radius: 6px;
+        padding: 10px;
+        border: 1px solid var(--slate-200);
+    }
+    .refi-slider{ width:100%; accent-color: var(--blue-600); cursor: pointer; height: 4px; margin-top: 4px;}
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"AutoDealer",
+    "name":"Vancouver Island Credit",
+    "telephone":"+1-236-969-2424",
+    "address":{"@type":"PostalAddress","streetAddress":"525 Gorge Rd E","addressLocality":"Victoria","addressRegion":"BC","postalCode":"V8T 4T2","addressCountry":"CA"},
+    "areaServed":"British Columbia, Canada",
+    "image":"https://vancouverislandcredit.ca/0041B99D-D49A-4024-AA7A-2786A4605342.jpg",
+    "url":"https://vancouverislandcredit.ca",
+    "slogan":"Get approved online. Delivery across BC. Work directly with Blake.",
+    "founder":{"@type":"Person","name":"Blake Stolth"},
+    "makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Auto Financing (New & Used)"}}]
+  }
+  </script>
+</head>
+<body>
+  <header class="w-full max-w-5xl mx-auto mt-4 px-4">
+    <nav class="bg-white/90 backdrop-blur-lg card card-accent px-4 sm:px-6 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-6 w-full">
+          <div class="brand-left flex-shrink-0">
+            <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
+            <div class="brand-stack">
+              <a href="#" class="brand-title" aria-label="Vancouver Island Credit — Home">Vancouver Island Credit</a>
+              <div class="powered-by-inline"><span>Powered by</span><img src="Equifax.png" alt="Equifax"/></div>
+            </div>
           </div>
 
-          <ul>
-            <li>
-              <div class="node-card situation-neg">
-                <div class="node-label text-amber-600">Situation</div>
-                <div class="font-bold text-slate-800 text-sm">Negative Equity</div>
-                <div class="text-[10px] text-slate-500 leading-tight mt-1">Loan Balance > Car Value</div>
-              </div>
+          <div class="hidden md:flex flex-col items-end ml-auto mr-6 text-right">
+              <div class="text-[14px] font-extrabold text-slate-800 uppercase tracking-tight leading-none">Personalized Vehicle Search</div>
+              <div class="text-[11px] font-bold text-[var(--blue-600)] leading-none mt-1.5 tracking-wide">Financing & Refinancing</div>
+          </div>
+      </div>
 
-              <ul>
-                <li>
-                  <div class="node-card">
-                    <div class="node-label text-blue-600">Good Credit (700+)</div>
-                    <div class="font-bold text-xs text-slate-700 mb-2">Strategy: Consolidation</div>
-                    
-                    <div class="outcome-box">
-                      <div class="outcome-title">Why do it?</div>
-                      <ul class="outcome-list">
-                        <li class="pro"><strong>Lower Interest Rate:</strong> Trade a high-rate loan for a lower prime rate.</li>
-                        <li class="pro"><strong>Better Fit:</strong> Get a vehicle that actually suits your current needs.</li>
-                        <li class="con"><strong>Trade-off:</strong> Higher loan balance.</li>
-                      </ul>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="node-card">
-                    <div class="node-label text-red-600">Building Credit (<650)</div>
-                    <div class="font-bold text-xs text-slate-700 mb-2">Strategy: The "Book Out"</div>
-                    
-                    <div class="outcome-box">
-                      <div class="outcome-title">Why do it?</div>
-                      <ul class="outcome-list">
-                        <li class="pro"><strong>Fresh Start:</strong> Exit a bad loan structure.</li>
-                        <li class="pro"><strong>Reliability:</strong> Move into a vehicle with warranty.</li>
-                        <li class="con"><strong>Trade-off:</strong> Limited vehicle choice (Must have high book value).</li>
-                      </ul>
-                    </div>
-                  </div>
-                </li>
-              </ul>
+      <div class="hidden sm:flex items-center gap-2 font-semibold text-zinc-700 flex-shrink-0">
+        <a href="#inventory" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-[var(--blue-600)] transition-colors text-sm">Inventory</a>
+        <a href="#about" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-[var(--blue-600)] transition-colors text-sm">About</a>
+        <a href="#lead-form" class="cta-button ml-2 text-sm">Apply Now</a>
+      </div>
+      <button id="menuBtn" class="sm:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 transition-colors" aria-label="Open menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </nav>
+    <div id="mobileMenu" class="hidden sm:hidden mt-2 card card-accent px-4 py-3">
+      <div class="flex flex-col gap-2 font-semibold text-zinc-700">
+        <a href="#inventory" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Inventory</a>
+        <a href="#about" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">About</a>
+        <a href="#lead-form" class="mt-2 cta-button text-center">Apply Now</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="w-full max-w-5xl mx-auto px-4 py-4 space-y-4">
+    <section id="about" class="card card-accent p-5">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
+        <div>
+          <div class="flex items-center gap-4 mb-3">
+             <img src="Untitled Project.jpg" alt="Blake Stolth" class="w-12 h-12 rounded-full border-2 border-[var(--blue-600)] object-cover"/>
+             <div>
+                <h1 class="h1 text-lg">Get Approved in 3 Steps</h1>
+                <p class="text-[11px] text-slate-500 font-medium">Personally reviewed by Blake</p>
+             </div>
+          </div>
+          <ol class="text-sm space-y-2.5 mt-2">
+            <li class="flex items-start gap-3">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-bold text-[11px]">1</span>
+              <span class="text-left leading-tight pt-0.5"><b>Enter info</b> — 2 mins</span>
             </li>
-
-            <li>
-              <div class="node-card situation-pos">
-                <div class="node-label text-green-600">Situation</div>
-                <div class="font-bold text-slate-800 text-sm">Positive / Zero Equity</div>
-                <div class="text-[10px] text-slate-500 leading-tight mt-1">Car Value > Loan Balance</div>
-              </div>
-
-              <ul>
-                <li>
-                  <div class="node-card">
-                    <div class="node-label text-blue-600">Good Credit (700+)</div>
-                    <div class="font-bold text-xs text-slate-700 mb-2">Strategy: Total Control</div>
-                    
-                    <div class="outcome-box">
-                      <div class="outcome-title">Why do it?</div>
-                      <ul class="outcome-list">
-                        <li class="pro"><strong>Lowest Payment:</strong> Use equity as down payment.</li>
-                        <li class="pro"><strong>Flexibility:</strong> Buy Older (Cheaper) or Newer.</li>
-                        <li class="pro"><strong>Tax Savings:</strong> Save 12-15% on trade value.</li>
-                      </ul>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="node-card">
-                    <div class="node-label text-red-600">Building Credit (<650)</div>
-                    <div class="font-bold text-xs text-slate-700 mb-2">Strategy: Foundation</div>
-                    
-                    <div class="outcome-box">
-                      <div class="outcome-title">Why do it?</div>
-                      <ul class="outcome-list">
-                        <li class="pro"><strong>Approval:</strong> Equity helps secure the bank approval.</li>
-                        <li class="pro"><strong>Refinance Plan:</strong> Re-rate in 12 months.</li>
-                        <li class="con"><strong>Trade-off:</strong> Restricted to newer models (2018+).</li>
-                      </ul>
-                    </div>
-                  </div>
-                </li>
-              </ul>
+            <li class="flex items-start gap-3">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-bold text-[11px]">2</span>
+              <span class="text-left leading-tight pt-0.5"><b>See options</b> you qualify for</span>
             </li>
-            
+            <li class="flex items-start gap-3">
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-bold text-[11px]">3</span>
+              <span class="text-left leading-tight pt-0.5"><b>Doorstep delivery</b> anywhere in BC</span>
+            </li>
+          </ol>
+        </div>
+        <div>
+          <h2 class="h2 text-base mb-3">Why people pick us</h2>
+          <ul class="text-sm space-y-2.5">
+            <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">A</span><span class="text-left leading-tight pt-0.5"><b>All credit welcome</b> high approval rates</span></li>
+            <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">B</span><span class="text-left leading-tight pt-0.5"><b>Bigger selection</b> New & Used across BC</span></li>
+            <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">C</span><span class="text-left leading-tight pt-0.5"><b>Confidential</b> No data sold to dealerships</span></li>
+            <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">D</span><span class="text-left leading-tight pt-0.5"><b>Free delivery</b> Right to your driveway</span></li>
           </ul>
-        </li>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      
+      <div class="card card-accent p-0 overflow-hidden h-auto" id="lead-form">
+        <div class="form-shell" id="form-shell">
+          <div class="sticky px-4 border-b border-slate-200">
+            <div class="flex items-center justify-between">
+              <div id="progress-label" class="text-[10px] uppercase tracking-wider font-bold text-slate-500">Step 1</div>
+              <div id="progress-endcap" class="text-[10px] font-bold text-[var(--blue-700)]">Start</div>
+            </div>
+            <div class="track mt-1.5"><div id="progress-fill" class="fill"></div></div>
+          </div>
+
+          <div id="step-viewport" class="step-viewport px-4">
+            <div class="step-viewport-inner">
+              <form id="the-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" novalidate>
+                <input type="hidden" name="form-name" value="lead-form"/>
+                <input type="hidden" name="app_type" id="app_type" value="Full Application" />
+                <input type="hidden" name="appCode" id="appCode" value="" />
+                <input type="hidden" name="intent" id="intent" value="finance" />
+                <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
+
+                <section class="form-step" data-id="step-intent">
+                  <div class="step-inner">
+                    <div class="step-title"><h3 class="h2">Select Goal</h3></div>
+                    <div class="step-body">
+                      <div class="content grid grid-cols-2 gap-3">
+                        <button type="button" class="choice-rect" data-intent="finance">Finance</button>
+                        <button type="button" class="choice-rect" data-intent="refinance">Refinance</button>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                
+                <section class="form-step hidden" data-id="step-vehicle-type">
+                  <div class="step-inner">
+                    <div class="step-title"><h3 class="h2">Vehicle Type</h3></div>
+                    <div class="step-body">
+                      <div class="content grid grid-cols-2 gap-3">
+                        <button type="button" class="choice-rect" data-type="Car">Car</button>
+                        <button type="button" class="choice-rect" data-type="SUV">SUV</button>
+                        <button type="button" class="choice-rect" data-type="Truck">Truck</button>
+                        <button type="button" class="choice-rect" data-type="Van">Van</button>
+                        <input type="hidden" name="vehicleType" id="vehicleType">
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="form-step hidden" data-id="step-budget">
+                  <div class="step-inner">
+                    <div class="step-title"><h3 class="h2">Target Budget</h3></div>
+                    <div class="step-body">
+                      <div class="content" style="max-width:560px;">
+                        <input id="biWeeklyRange" type="range" min="120" max="600" step="10" value="250" class="w-full cursor-pointer" style="accent-color: var(--blue-600);">
+                        <div class="text-sm text-slate-800 mt-3 text-center font-medium">Selected: <b>$<span id="biWeeklyOut">250</span></b> / bi-weekly</div>
+                        <input type="hidden" name="budgetRange" id="budgetRange" value="$250 bi-weekly">
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="form-step hidden" data-id="step-purchase">
+                  <div class="step-inner">
+                    <div class="step-title"><h3 class="h2">Purchase Details</h3></div>
+                    <div class="step-body">
+                      <div class="content vstack" style="max-width:560px;">
+                        <div>
+                          <label for="downPayment" class="label">Down Payment</label>
+                          <select id="downPayment" name="downPayment" class="form-select">
+                            <option value="">Select amount…</option>
+                            <option>$3,000+</option>
+                            <option>$1,000–$3,000</option>
+                            <option>$0–$1,000</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label class="label">Do you have a trade-in?</label>
+                          <div class="grid-inline-2">
+                            <button type="button" class="choice-rect" data-trade="No">No</button>
+                            <button type="button" class="choice-rect" data-trade="Yes">Yes</button>
+                          </div>
+                          <input type="hidden" id="hasTradeIn" name="hasTradeIn" value="No">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="form-step hidden" data-id="step-refi-details">
+                  <div class="step-inner"><div class="step-title"><h3 class="h2">Current Loan</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-refi-details"><div><label for="refiYear" class="label">Year</label><select name="refiYear" id="refiYear" class="form-select" required></select></div><div><label for="refiMake" class="label">Make</label><select name="refiMake" id="refiMake" class="form-select" required></select></div><div><label for="refiModel" class="label">Model</label><select name="refiModel" id="refiModel" class="form-select" required><option value="">Select</option></select></div></div><div class="grid-inline-refi-details-2"><div><label for="refiRemainYears" class="label">Years Left</label><select id="refiRemainYears" name="refiRemainYears" class="form-select" required></select></div><div><label for="refiCurrentRate" class="label">Current Rate %</label><input type="text" id="refiCurrentRate" name="refiCurrentRate" class="form-input" placeholder="e.g., 9.49" inputmode="decimal" maxlength="6" required/></div></div></div></div></div>
+                </section>
+
+                <section class="form-step hidden" data-id="step-tradein">
+                  <div class="step-inner"><div class="step-title"><h3 class="h2">Trade-in Vehicle</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-trade-1"><div><label for="tradeInYear" class="label">Year</label><select name="tradeInYear" id="tradeInYear" class="form-select"></select></div><div><label for="tradeInMake" class="label">Make</label><select name="tradeInMake" id="tradeInMake" class="form-select"></select></div><div><label for="tradeInModel" class="label">Model</label><select name="tradeInModel" id="tradeInModel" class="form-select"><option value="">Select</option></select></div></div><div class="grid-inline-2"><div><label for="tradeInKms" class="label">Kilometres</label><input type="number" name="tradeInKms" id="tradeInKms" class="form-input" inputmode="numeric" min="0" max="1000000"/></div><div><label for="tradeInOwed" class="label">Lien Amount</label><input type="text" id="tradeInOwed" name="tradeInOwed" placeholder="e.g. $5,000" class="form-input" maxlength="20"/></div></div></div></div></div>
+                </section>
+
+                <section class="form-step hidden" data-id="step-income">
+                  <div class="step-inner"><div class="step-title"><h3 class="h2">Income Details</h3></div><div class="step-body"><div class="content vstack" style="max-width:560px;"><div class="grid-inline-2"><div><label for="incomeSourceFull" class="label">Employment Type <span class="text-theme-red">*</span></label><select id="incomeSourceFull" name="incomeSourceFull" class="form-select" required><option value="">Select…</option><option value="Full-Time">Full-Time</option><option value="Part-Time">Part-Time</option><option value="Self-Employed">Self-Employed</option><option value="Disability">Disability</option><option value="Other">Other</option></select></div><div><label for="avgMonthlyIncome" class="label">Monthly Income (Gross) <span class="text-theme-red">*</span></label><input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric" maxlength="16" required/></div></div></div></div></div>
+                </section>
+
+                <section class="form-step hidden" data-id="step-yourinfo">
+                  <div class="step-inner"><div class="step-title"><h3 class="h2">Contact Info</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-2"><div><label for="email" class="label">Email <span class="text-theme-red">*</span></label><input type="email" id="email" name="email" class="form-input" autocomplete="email" maxlength="100" required/></div><div><label for="phone" class="label">Cell Phone <span class="text-theme-red">*</span></label><input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" maxlength="14" required/></div></div><div class="grid-inline-2"><div><label for="firstName" class="label">First Name <span class="text-theme-red">*</span></label><input type="text" id="firstName" name="firstName" class="form-input" autocomplete="given-name" maxlength="50" required/></div><div><label for="lastName" class="label">Last Name <span class="text-theme-red">*</span></label><input type="text" id="lastName" name="lastName" class="form-input" autocomplete="family-name" maxlength="50" required/></div></div><div class="grid-inline-dob"><div><label class="label">Birth Year <span class="text-theme-red">*</span></label><select id="dobYear" name="dobYear" class="form-select" required></select></div><div><label class="label">Month <span class="text-theme-red">*</span></label><select id="dobMonth" name="dobMonth" class="form-select" required><option value="">MM</option></select></div><div><label class="label">Day <span class="text-theme-red">*</span></label><select id="dobDay" name="dobDay" class="form-select" required><option value="">DD</option></select></div><div><label for="maritalStatus" class="label">Marital Status</label><select id="maritalStatus" name="maritalStatus" class="form-select"><option value="">Select</option><option>Single</option><option>Married</option><option>Common-Law</option><option>Divorced</option><option>Separated</option><option>Widowed</option></select></div></div></div></div></div>
+                </section>
+
+                <section class="form-step hidden" data-id="step-address">
+                  <div class="step-inner"><div class="step-title"><h3 class="h2">Current Address</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-addr1"><div><label for="currentStreetAddress" class="label">Street Address</label><input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" autocomplete="street-address" maxlength="120" required/></div><div><label for="currentUnit" class="label">Unit #</label><input type="text" id="currentUnit" name="currentUnit" class="form-input" maxlength="10"/></div></div><div class="grid-inline-addr2"><div><label for="currentCity" class="label">City</label><input type="text" id="currentCity" name="currentCity" class="form-input" autocomplete="address-level2" maxlength="60" required/></div><div><label for="currentProvince" class="label">Prov</label><select id="currentProvince" name="currentProvince" class="form-select" required></select></div><div><label for="currentPostalCode" class="label">Postal Code</label><input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" autocomplete="postal-code" maxlength="7" required/></div></div><div class="grid-inline-addr3"><div><label for="housingPayment" class="label">Monthly Payment</label><input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1800" inputmode="numeric" maxlength="5" required/></div><div><label class="label">Time at addr.</label><select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select></div><div><label class="label">Months</label><select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select></div><div><label class="label">Status</label><div class="seg"><button type="button" class="seg-btn flex-1" id="btnRent" aria-pressed="true">Rent</button><button type="button" class="seg-btn flex-1" id="btnOwn" aria-pressed="false">Own</button></div><input type="hidden" id="housingType" name="housingType" value="Rent" /></div></div></div></div></div>
+                </section>
+
+                <section class="form-step hidden" data-id="step-employer">
+                  <div class="step-inner"><div class="step-title"><h3 class="h2">Work History</h3></div><div class="step-body"><div class="content vstack" style="max-width:560px;"><div class="grid-inline-2"><div><label for="currentEmployer" class="label">Employer Name</label><input type="text" id="currentEmployer" name="currentEmployer" class="form-input"/></div><div><label for="jobTitle" class="label">Job Title</label><input type="text" id="jobTitle" name="jobTitle" class="form-input"/></div></div><div class="grid-inline-2"><div><label class="label">Time at Job</label><select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select></div><div><label class="label">Months</label><select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select></div></div><div class="vstack"><p class="label">Additional Income (Optional)</p><div class="grid-inline-2"><div><input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Source (e.g. Child Tax)"/></div><div><input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="Amount ($)" inputmode="numeric" maxlength="16"/></div></div></div><label class="flex items-start gap-3 mt-4 p-3 border border-slate-200 rounded-lg bg-slate-50 cursor-pointer hover:bg-white transition-colors"><input type="checkbox" name="creditConsent" id="creditConsent" class="mt-1 accent-[var(--blue-600)]" checked required><span class="text-xs text-slate-600 leading-snug text-left">I confirm I am the person named above and consent to Vancouver Island Credit obtaining credit reports. (VSA #41114)</span></label></div></div></div>
+                </section>
+
+                <section class="form-step hidden" data-id="step-consent">
+                  <div class="step-inner"></div>
+                </section>
+              </form>
+            </div>
+          </div>
+
+          <div class="form-footer flex items-center justify-between" id="form-footer">
+            <button type="button" id="btnBack" class="font-semibold text-slate-600 hover:text-slate-900 px-4 py-2 rounded-lg hover:bg-slate-100 transition-colors">Back</button>
+            <button type="button" id="btnNext" class="cta-button">Next</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="flex flex-col">
+        <div class="card card-accent p-0 flex-1 overflow-hidden refi-box">
+           <div class="p-3 border-b border-slate-200 bg-slate-50">
+             <h4 class="text-[11px] font-bold text-center text-slate-600 mb-2 uppercase tracking-wider">Rate Reduction Eligibility</h4>
+             <ul class="flex justify-around items-start text-center">
+                <li class="flex flex-col items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span class="text-[9px] leading-tight text-slate-600 font-semibold">2016+</span>
+                </li>
+                <li class="flex flex-col items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span class="text-[9px] leading-tight text-slate-600 font-semibold">1 Yr Own</span>
+                </li>
+                <li class="flex flex-col items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
+                  <span class="text-[9px] leading-tight text-slate-600 font-semibold">Better Credit</span>
+                </li>
+                <li class="flex flex-col items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-equifax-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span class="text-[9px] leading-tight text-slate-600 font-semibold">Pay History</span>
+                </li>
+             </ul>
+           </div>
+
+           <div class="bg-white px-4 py-2.5 border-b border-slate-200 flex items-center justify-between">
+               <h4 class="text-sm font-bold text-slate-800">Refinance Calculator</h4>
+               <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full font-bold">Estimate</span>
+           </div>
+           
+           <div class="refi-inputs-area">
+              <div class="refi-row">
+                <div>
+                  <label class="label">Loan Bal.</label>
+                  <input type="text" id="refLoanInput" class="form-input form-input-sm" placeholder="$15,000" inputmode="numeric" maxlength="14" />
+                </div>
+                <div>
+                  <label class="label">Current %</label>
+                  <input type="text" id="refRateInput" class="form-input form-input-sm" placeholder="8.99" inputmode="decimal" maxlength="5" />
+                </div>
+              </div>
+              
+              <div>
+                 <div class="flex justify-between mb-1">
+                    <label class="label">Loan Term</label>
+                    <span class="text-[11px] font-bold text-slate-600"><span id="termDisplay">5</span> Years</span>
+                 </div>
+                 <input id="refTermInput" type="range" min="1" max="8" step="1" value="5" class="refi-slider">
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1">
+                  <label class="label">New Rate</label>
+                  <span class="text-[11px] font-bold text-[var(--blue-600)]"><span id="refNewRateOut">7.99</span>%</span>
+                </div>
+                <input id="refNewRateSlider" type="range" min="0.00" max="8.99" step="0.05" value="7.99" class="refi-slider">
+              </div>
+
+              <div class="refi-results-clean" id="refResults">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-xs text-slate-500 font-semibold">New Payment</span>
+                    <span class="text-sm font-bold text-slate-800">$0.00<span class="text-[10px] font-normal text-slate-400 ml-1">/bi-w</span></span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-xs text-slate-500 font-semibold">Savings</span>
+                    <span class="text-sm font-bold text-green-600">$0.00</span>
+                </div>
+              </div>
+           </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="inventory" class="card card-accent p-5">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="h2">Browse Inventory</h3>
+        <a href="#lead-form" class="text-xs font-bold uppercase tracking-wide text-[var(--blue-600)] hover:underline js-view-inventory">
+          View All (<span id="inv-total">1571</span>)
+        </a>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="inv-overlay">Check Approval</div>
+          <div class="bodytype-img" style="background-image:url('Coupe.jpg');"></div>
+          <div class="p-2"><p class="font-bold text-xs text-center">Coupe <span class="text-slate-400 font-normal">(168)</span></p></div>
+        </a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="inv-overlay">Check Approval</div>
+          <div class="bodytype-img" style="background-image:url('Hatchback.jpg');"></div>
+          <div class="p-2"><p class="font-bold text-xs text-center">Hatchback <span class="text-slate-400 font-normal">(138)</span></p></div>
+        </a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="inv-overlay">Check Approval</div>
+          <div class="bodytype-img" style="background-image:url('Electric.jpg');"></div>
+          <div class="p-2"><p class="font-bold text-xs text-center">EV / Hybrid <span class="text-slate-400 font-normal">(421)</span></p></div>
+        </a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="inv-overlay">Check Approval</div>
+          <div class="bodytype-img" style="background-image:url('Sedan.jpg');"></div>
+          <div class="p-2"><p class="font-bold text-xs text-center">Sedan <span class="text-slate-400 font-normal">(349)</span></p></div>
+        </a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="inv-overlay">Check Approval</div>
+          <div class="bodytype-img" style="background-image:url('Crossover.jpg');"></div>
+          <div class="p-2"><p class="font-bold text-xs text-center">Crossover <span class="text-slate-400 font-normal">(307)</span></p></div>
+        </a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="inv-overlay">Check Approval</div>
+          <div class="bodytype-img" style="background-image:url('Suv.jpg');"></div>
+          <div class="p-2"><p class="font-bold text-xs text-center">SUV <span class="text-slate-400 font-normal">(486)</span></p></div>
+        </a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="inv-overlay">Check Approval</div>
+          <div class="bodytype-img" style="background-image:url('Van.jpg');"></div>
+          <div class="p-2"><p class="font-bold text-xs text-center">Van <span class="text-slate-400 font-normal">(102)</span></p></div>
+        </a>
+        <a href="#lead-form" class="bodytype-card js-view-inventory">
+          <div class="inv-overlay">Check Approval</div>
+          <div class="bodytype-img" style="background-image:url('Truck.jpg');"></div>
+          <div class="p-2"><p class="font-bold text-xs text-center">Truck <span class="text-slate-400 font-normal">(86)</span></p></div>
+        </a>
+      </div>
+    </section>
+
+    <section id="map" class="card card-accent p-0 mt-6 overflow-hidden">
+      <div class="p-4">
+        <h3 class="h2">Head Office — Victoria, BC</h3>
+        <p class="text-xs text-slate-600 mt-1">Real location. Real people.</p>
+      </div>
+      <iframe class="map-embed" title="Map — Vancouver Island Credit" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2647.612610356825!2d-123.3816246843408!3d48.44991197924958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548f73877c401593%3A0x2361245276764503!2s525%20Gorge%20Rd%20E%2C%20Victoria%2C%20BC%20V8T%202W5!5e0!3m2!1sen!2sca!4v1677000000000!5m2!1sen!2sca"></iframe>
+      <div class="px-4 py-3 text-xs text-slate-600 border-t border-slate-200">525 Gorge Rd E, Victoria, BC V8T 4T2</div>
+    </section>
+
+    <footer id="contact" class="text-center text-xs text-slate-500 pt-2 space-y-1.5">
+      <div class="flex justify-center gap-4 text-xs text-slate-400 mb-2 underline">
+        <a href="/privacy-policy.html" target="_blank">Privacy Policy</a>
+        <a href="/terms.html" target="_blank">Terms of Service</a>
+      </div>
+      <p class="font-bold text-slate-600">Vancouver Island Credit</p>
+      <p>525 Gorge Rd E, Victoria, BC V8T 4T2</p>
+      <p><a href="tel:+1-236-969-2424" class="hover:text-[var(--blue-600)] transition-colors">Customer service: (236) 969-2424</a></p>
+      <p class="pt-1">Serving Vancouver Island & British Columbia • Delivery available province-wide</p>
+      <p class="mt-2 text-slate-400">
+        © <span id="year"></span> Vancouver Island Credit • All rights reserved • 
+        <span class="block sm:inline">VSA Dealer #41114</span>
+      </p>
+    </footer>
+  </main>
+
+  <div id="progress-overlay" class="progress-overlay hidden" aria-hidden="true">
+    <div class="progress-card">
+      <div class="progress-title">Working on it…</div>
+      <div class="progress-track"><div id="progress-bar" class="progress-bar"></div></div>
+      <ul id="progress-steps" class="progress-steps">
+        <li class="active">Submitting your application…</li>
+        <li>Verifying your information…</li>
+        <li>Finding the best options…</li>
       </ul>
+      <p class="progress-note">Secure & encrypted. We never share or sell your info.</p>
     </div>
   </div>
 
-  <style>
-    /* Tree Structure */
-    .tree ul {
-      padding-top: 20px; position: relative;
-      transition: all 0.5s;
-      display: flex; justify-content: center;
+  <script>
+  // Vehicle Data for dropdowns
+  const vehicleData = {
+    Acura: ["ILX", "MDX", "RDX", "TLX", "Integra", "ZDX"],
+    Audi: ["A3", "A4", "A5", "A6", "Q3", "Q5", "Q7", "e-tron"],
+    BMW: ["3 Series", "5 Series", "X1", "X3", "X5", "i4", "iX"],
+    Chevrolet: ["Equinox", "Malibu", "Silverado", "Traverse", "Tahoe"],
+    Chrysler: ["Pacifica", "300"],
+    Dodge: ["Challenger", "Charger", "Durango", "Grand Caravan"],
+    Ford: ["Escape", "Explorer", "F-150", "Mustang", "Edge", "Ranger"],
+    GMC: ["Acadia", "Sierra", "Terrain", "Yukon"],
+    Honda: ["Accord", "Civic", "CR-V", "HR-V", "Odyssey", "Pilot"],
+    Hyundai: ["Elantra", "Kona", "Santa Fe", "Sonata", "Tucson", "Palisade"],
+    Jeep: ["Cherokee", "Grand Cherokee", "Wrangler", "Compass", "Renegade"],
+    Kia: ["Forte", "Sorento", "Soul", "Sportage", "Telluride", "K5"],
+    Lexus: ["ES", "IS", "NX", "RX", "UX"],
+    Mazda: ["Mazda3", "Mazda6", "CX-30", "CX-5", "CX-9"],
+    MercedesBenz: ["C-Class", "E-Class", "GLA", "GLC", "GLE", "S-Class"],
+    Nissan: ["Altima", "Kicks", "Murano", "Rogue", "Sentra", "Titan", "Qashqai"],
+    Subaru: ["Crosstrek", "Forester", "Impreza", "Outback", "Ascent", "WRX"],
+    Toyota: ["Camry", "Corolla", "RAV4", "Tacoma", "Sienna", "Highlander", "Tundra"],
+    Volkswagen: ["Golf", "Jetta", "Passat", "Tiguan", "Atlas", "ID.4"],
+    Volvo: ["S60", "S90", "XC40", "XC60", "XC90"]
+  };
+
+  const $ = (id) => document.getElementById(id);
+  const bySel = (s, root=document) => root.querySelector(s);
+  const bySelAll = (s, root=document) => Array.from(root.querySelectorAll(s));
+
+  function fmtMoney(x){ x = isFinite(x) ? x : 0; return "$" + x.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+  function parseMoneyInput(v){ if (!v) return 0; return parseFloat(String(v).replace(/[^0-9.]/g,'')) || 0; }
+  
+  function formatMoneyField(input){ 
+      const num = parseMoneyInput(input.value); 
+      input.value = num > 0 ? num.toLocaleString('en-CA', {style:'currency', currency:'CAD', maximumFractionDigits:0}) : '';
+  }
+
+  function calcPayment(P, annualRate, years){ const r=(annualRate/100)/12, n=years*12; if(!n||n<=0) return 0; if(r===0) return P/n; return P*r/(1-Math.pow(1+r,-n)); }
+
+  function populateMakes(makeSelectId, modelSelectId) {
+    const makeSelect = $(makeSelectId);
+    if (!makeSelect) return;
+    makeSelect.innerHTML = '<option value="" selected>Make</option>';
+    const makes = Object.keys(vehicleData).sort();
+    makes.forEach(make => {
+        const option = document.createElement('option');
+        option.value = make;
+        option.textContent = make;
+        makeSelect.appendChild(option);
+    });
+    makeSelect.addEventListener('change', () => updateModels(makeSelectId, modelSelectId));
+  }
+
+  function updateModels(makeSelectId, modelSelectId) {
+    const makeSelect = $(makeSelectId);
+    const modelSelect = $(modelSelectId);
+    if (!modelSelect) return;
+    const selectedMake = makeSelect.value;
+    modelSelect.innerHTML = '';
+    modelSelect.disabled = true;
+
+    if (selectedMake && vehicleData[selectedMake]) {
+        const models = vehicleData[selectedMake].sort();
+        modelSelect.innerHTML = '<option value="" selected>Select</option>';
+        models.forEach(model => {
+            const option = document.createElement('option');
+            option.value = model;
+            option.textContent = model;
+            modelSelect.appendChild(option);
+        });
+        modelSelect.disabled = false;
+    } else {
+        modelSelect.innerHTML = '<option value="" selected>Select Make First</option>';
     }
-    .tree li {
-      float: left; text-align: center;
-      list-style-type: none;
-      position: relative;
-      padding: 20px 10px 0 10px;
-    }
-    /* Connecting Lines */
-    .tree li::before, .tree li::after {
-      content: ''; position: absolute; top: 0; right: 50%;
-      border-top: 2px solid #cbd5e1; width: 50%; height: 20px;
-    }
-    .tree li::after { right: auto; left: 50%; border-left: 2px solid #cbd5e1; }
-    .tree li:only-child::after, .tree li:only-child::before { display: none; }
-    .tree li:only-child { padding-top: 0; }
-    .tree li:first-child::before, .tree li:last-child::after { border: 0 none; }
-    .tree li:last-child::before { border-right: 2px solid #cbd5e1; border-radius: 0 5px 0 0; }
-    .tree li:first-child::after { border-radius: 5px 0 0 0; }
-    .tree ul ul::before {
-      content: ''; position: absolute; top: 0; left: 50%;
-      border-left: 2px solid #cbd5e1; width: 0; height: 20px;
+  }
+
+  function populateRefiYearsLeft(sel) {
+      if (!sel) return;
+      sel.innerHTML = '<option value="" selected>Select</option>';
+      for (let i = 1; i <= 8; i++) {
+          const option = document.createElement('option');
+          option.value = i;
+          option.textContent = i;
+          sel.appendChild(option);
+      }
+  }
+  
+  document.addEventListener('DOMContentLoaded', function () {
+    $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
+
+    const stepsMap = {};
+    bySelAll('.form-step').forEach(sec => stepsMap[sec.getAttribute('data-id')] = sec);
+
+    function currentFlow(){
+      const intent = $('intent')?.value || 'finance';
+      const hasTrade = ($('hasTradeIn')?.value || 'No').toLowerCase()==='yes';
+      if (intent==='refinance'){
+        return ['step-intent','step-refi-details','step-income','step-yourinfo','step-address','step-employer','step-consent'];
+      }
+      let flow = ['step-intent','step-vehicle-type','step-budget','step-purchase'];
+      if (hasTrade) flow.push('step-tradein');
+      flow = flow.concat(['step-income','step-yourinfo','step-address','step-employer','step-consent']);
+      return flow;
     }
 
-    /* Node Cards */
-    .node-card {
-      background: #fff; border: 1px solid #e2e8f0; padding: 12px; border-radius: 8px;
-      display: inline-block; width: 220px; text-align: left;
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-      position: relative; z-index: 10;
+    function showOnly(id){
+      Object.values(stepsMap).forEach(sec=> sec.classList.add('hidden'));
+      stepsMap[id]?.classList.remove('hidden');
     }
-    .root-node {
-      background: var(--blue-600); color: white; text-align: center;
-      width: auto; padding: 10px 30px; border: none;
-      box-shadow: 0 10px 15px -3px rgba(42, 93, 159, 0.3);
-    }
-    
-    /* Situation Accents */
-    .situation-neg { border-top: 4px solid #d97706; }
-    .situation-pos { border-top: 4px solid #16a34a; }
+    function updateProgress(curId){
+      const flow = currentFlow();
+      const i = Math.max(0, flow.indexOf(curId));
+      const visible = flow.filter(x=>x!=='step-consent');
+      const total = visible.length;
+      const stepNumber = Math.min(i+1, total);
+      const pct = Math.round((i)/(Math.max(1,total-1))*100);
 
-    /* Typography */
-    .node-label { font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px; }
+      $('btnBack').disabled = (i===0);
+      $('btnNext').textContent = (i >= total-1) ? 'Submit Application' : 'Next';
+      bySel('#progress-label').textContent = 'Step ' + stepNumber + ' of ' + total;
+      bySel('#progress-fill').style.width = (total>1 ? pct : 0) + '%';
+      bySel('#progress-endcap').textContent = (i >= total-1) ? 'Almost Done' : 'Start';
+    }
+
+    let curStepId = 'step-intent';
+    function goTo(id){ curStepId=id; showOnly(id); updateProgress(id); } 
+
+    function validateCurrent(stepId){
+      const stepEl = stepsMap[stepId];
+      if (!stepEl) return true;
+
+      if (stepId==='step-intent'){
+        const v = $('intent').value;
+        const ok = (v==='finance' || v==='refinance');
+        bySelAll('[data-intent]').forEach(x=>x.classList.toggle('err', !ok));
+        return ok;
+      }
+      if (stepId==='step-vehicle-type'){
+        const ok = !!$('vehicleType').value;
+        bySelAll('[data-type]').forEach(x => x.classList.toggle('err', !ok));
+        return ok;
+      }
+      if (stepId==='step-budget'){ return !!$('budgetRange').value; }
+
+      let ok = true;
+      let firstError = null; 
+      const fields = Array.from(stepEl.querySelectorAll('[required]'));
+      
+      fields.forEach(el=>{
+        if (window.getComputedStyle(el).display==='none' || !el.closest('.form-step') || el.closest('.form-step').classList.contains('hidden')) return;
+        let pass = (el.type==='checkbox') ? el.checked : (el.value && el.value.trim()!=='');
+        if (el.id==='phone') pass = el.value.replace(/\D/g,'').length>=10;
+        if (el.type==='email' || el.id==='email'){
+          const v=el.value.trim();
+          pass = pass && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+        }
+        
+        if (!pass) {
+            el.classList.add('err');
+            if(!firstError) firstError = el;
+        } else {
+            el.classList.remove('err');
+        }
+        
+        const lab = el.closest('div')?.querySelector('label'); 
+        lab?.classList.toggle('err-label', !pass);
+        if (!pass) ok=false;
+      });
+
+      if (firstError) {
+          firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          firstError.focus({ preventScroll: true }); 
+      }
+
+      return ok;
+    }
     
-    /* Outcome Box */
-    .outcome-box { background: #f8fafc; border-radius: 6px; padding: 8px; border: 1px dashed #cbd5e1; }
-    .outcome-title { font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 4px; }
+    function handleNavigation(delta){
+      const flow = currentFlow();
+      let i = flow.indexOf(curStepId);
+      if (i<0) i=0;
+      
+      if (delta > 0 && !validateCurrent(curStepId)) return;
+      i += delta;
+
+      const visible = flow.filter(x=>x!=='step-consent');
+      const lastIdx = visible.length-1;
+
+      if (delta > 0 && i > lastIdx) {
+          setTimeout(submitForm, 200);
+      } else if (i >= 0) {
+          const delay = (delta > 0) ? 200 : 0; 
+          setTimeout(() => {
+              goTo(visible[i]);
+          }, delay);
+      } else {
+          goTo(visible[0]);
+      }
+    }
     
-    .outcome-list { list-style: none; padding: 0; margin: 0; }
-    .outcome-list li { font-size: 10px; margin-bottom: 3px; padding-left: 12px; position: relative; color: #334155; line-height: 1.3; }
-    .outcome-list li::before { content: '•'; position: absolute; left: 0; font-weight: bold; color: var(--blue-600); }
+    $('btnNext')?.addEventListener('click', () => handleNavigation(1));
+    $('btnBack')?.addEventListener('click', () => handleNavigation(-1));
+
+    bySelAll('[data-intent]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        bySelAll('[data-intent]').forEach(x=>x.classList.remove('selected','err'));
+        btn.classList.add('selected');
+        $('intent').value = btn.dataset.intent;
+        const targetStep = (btn.dataset.intent === 'refinance') ? currentFlow()[1] : 'step-vehicle-type';
+        setTimeout(() => { goTo(targetStep); }, 200);
+      });
+    });
+
+    bySelAll('[data-type]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        bySelAll('[data-type]').forEach(x=>x.classList.remove('selected','err'));
+        btn.classList.add('selected');
+        $('vehicleType').value = btn.dataset.type || '';
+        setTimeout(() => { goTo('step-budget'); }, 200);
+      });
+    });
     
-    .outcome-list li.pro::before { content: '✓'; color: #16a34a; }
-    .outcome-list li.con::before { content: '!'; color: #d97706; }
-  </style>
-</section>
+    bySelAll('[data-trade]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        bySelAll('[data-trade]').forEach(x=>x.classList.remove('selected'));
+        btn.classList.add('selected');
+        $('hasTradeIn').value = btn.dataset.trade || 'No';
+      });
+    });
+
+    const biw = $('biWeeklyRange'); const out = $('biWeeklyOut'); const br = $('budgetRange');
+    if (biw && out && br){
+      const updateBudget = ()=>{ out.textContent = biw.value; br.value = '$' + biw.value + ' bi-weekly'; };
+      biw.addEventListener('input', updateBudget);
+      updateBudget();
+    }
+
+    function setHousing(type){
+      $('housingType').value = type;
+      $('btnRent')?.setAttribute('aria-pressed', String(type==='Rent'));
+      $('btnOwn')?.setAttribute('aria-pressed', String(type==='Own'));
+    }
+    $('btnRent')?.addEventListener('click', ()=> setHousing('Rent'));
+    $('btnOwn')?.addEventListener('click', ()=> setHousing('Own'));
+
+    const moneyFields = ['avgMonthlyIncome', 'otherIncomeAmount', 'refLoanInput'];
+    moneyFields.forEach(id => {
+      const el = $(id);
+      if (el) {
+          el.addEventListener('blur', (e) => formatMoneyField(e.target));
+          el.addEventListener('focus', (e) => { e.target.value = e.target.value.replace(/[^0-9]/g,''); });
+      }
+    });
+
+    $('phone')?.addEventListener('input', (e)=>{
+      const d=e.target.value.replace(/\D/g,'').slice(0,10);
+      if(d.length>6)e.target.value=`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
+      else if(d.length>3)e.target.value=`(${d.slice(0,3)}) ${d.slice(3)}`;
+      else if(d.length>0)e.target.value=`(${d}`;
+    });
+
+    const hp = $('housingPayment');
+    if (hp){
+      hp.addEventListener('input', (e)=>{
+        e.target.value = e.target.value.replace(/\D/g,'').slice(0,5);
+      });
+      hp.addEventListener('blur', (e) => formatMoneyField(e.target));
+      hp.addEventListener('focus', (e) => { e.target.value = e.target.value.replace(/[^0-9]/g,''); });
+    }
+
+    function generateAppCode(){ const n=Math.floor(Math.random()*1_000_000); return 'ABC-' + String(n).padStart(6,'0'); }
+    async function runProgressOverlay(minMs=4200){
+      const overlay = $('progress-overlay'); const bar = $('progress-bar'); const stepsEl = bySelAll('#progress-steps li');
+      if (!overlay || !bar) return;
+      overlay.classList.remove('hidden');
+      const stages = [{width:35,index:0,ms:900},{width:70,index:1,ms:1200},{width:100,index:2,ms:1400}];
+      const t0=Date.now();
+      for (const st of stages){
+        stepsEl.forEach((li,i)=> li.classList.toggle('active', i===st.index));
+        requestAnimationFrame(()=> bar.style.width = st.width + '%');
+        await new Promise(r=>setTimeout(r, st.ms));
+      }
+      const elapsed=Date.now()-t0; if (elapsed<minMs) await new Promise(r=>setTimeout(r, minMs-elapsed));
+      overlay.classList.add('hidden');
+    }
+    function submitForm(){
+      const flow = currentFlow().filter(id=>id!=='step-consent');
+      for (const id of flow){ if(!validateCurrent(id)){ goTo(id); return; } }
+      bySel('#the-form').requestSubmit();
+    }
+    bySel('#the-form')?.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const code = generateAppCode();
+      try { sessionStorage.setItem('vic_app_code', code); } catch(_){}
+      const codeInput = $('appCode'); if (codeInput) codeInput.value = code;
+      await runProgressOverlay(4200);
+      e.target.submit();
+    });
+
+    bySelAll('.js-view-inventory').forEach(el=>{
+      el.addEventListener('click', (e)=>{
+        e.preventDefault();
+        $('lead-form')?.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    function populateDOBYears(sel){ if(!sel) return; const start=new Date().getFullYear() - 18; sel.innerHTML=''; for(let y=start;y>=1940;y--){ const o=document.createElement('option');o.value=y;o.textContent=y;sel.appendChild(o);} sel.insertAdjacentHTML('afterbegin','<option value="" selected>YYYY</option>');}
+    function populateMonths(sel){ if(!sel) return; const months = ['January','February','March','April','May','June','July','August','September','October','November','December']; sel.innerHTML = '<option value="">MM</option>'; months.forEach((name, i)=>{ const num = String(i+1).padStart(2,'0'); const o = document.createElement('option'); o.value = (i+1); o.dataset.num = num; o.dataset.long = name; o.textContent = num; sel.appendChild(o); }); }
+    function updateDays(){ const y=parseInt($('dobYear')?.value||'',10); const m=parseInt($('dobMonth')?.value||'',10); const selV=parseInt($('dobDay')?.value||'',10); const days=(y&&m)?new Date(y,m,0).getDate():31; const daySel=$('dobDay'); if(!daySel) return; daySel.innerHTML='<option value="">DD</option>'; for(let i=1;i<=days;i++){ const o=document.createElement('option'); o.value=i; o.textContent=(i<10?('0'+i):String(i)); daySel.appendChild(o); } if(selV&&selV<=days) daySel.value=selV; }
+    function populateDropdown(sel,start,end,label,singular){ if(!sel) return; sel.innerHTML='<option value="">'+(singular||label)+'</option>'; for(let i=start;i<=end;i++){ const o=document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o); } }
+    function populateProvinces(sel){ if(!sel) return; const prov=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"]; sel.innerHTML='<option value="">Prov</option>'; prov.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o); }); }
+    function populateYears(sel, start, end){ if(!sel) return; sel.innerHTML='<option value="">Year</option>'; for(let y=start; y>=end; y--){ const o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o);} }
+
+    function setupRefiCalcInputs(){
+      const loanEl = $('refLoanInput');
+      const rateEl = $('refRateInput');
+      const termEl = $('refTermInput');
+      const newRateSlider = $('refNewRateSlider');
+      const newRateOut = $('refNewRateOut');
+      const results = $('refResults');
+      const termDisplay = $('termDisplay');
+
+      if (!(loanEl && rateEl && termEl && newRateSlider && newRateOut)) return;
+
+      loanEl.addEventListener('blur', ()=>{ formatMoneyField(loanEl); update(); });
+      [loanEl, rateEl].forEach(el=> el.addEventListener('input', update));
+      
+      termEl.addEventListener('input', ()=>{
+          if(termDisplay) termDisplay.textContent = termEl.value;
+          update();
+      });
+      
+      newRateSlider.addEventListener('input', ()=>{ newRateOut.textContent = Number(newRateSlider.value).toFixed(2); update(); });
+
+      function update(){
+        const loan = parseMoneyInput(loanEl.value);
+        const rate = parseFloat(rateEl.value)||0;
+        const years = parseFloat(termEl.value)||0;
+
+        if (!loan || !rate || !years){
+          results.innerHTML = `
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-xs text-slate-500 font-semibold">New Payment</span>
+                    <span class="text-sm font-bold text-slate-800">$0.00<span class="text-[10px] font-normal text-slate-400 ml-1">/bi-w</span></span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-xs text-slate-500 font-semibold">Savings</span>
+                    <span class="text-sm font-bold text-green-600">$0.00</span>
+                </div>`;
+          return;
+        }
+
+        const desired = Math.min(8.99, Math.max(0, parseFloat(newRateSlider.value)||0));
+        const maxAllowed = Math.max(0, rate - 0.99);
+        const newRate = Math.min(desired, maxAllowed);
+        if (newRate !== desired){ newRateSlider.value = newRate.toFixed(2); }
+        newRateOut.textContent = newRate.toFixed(2);
+
+        const curPmtMonthly = calcPayment(loan, rate, years);
+        const curTotInt = curPmtMonthly * years * 12 - loan;
+
+        const newLoan = loan + 3000;
+        const newPmtMonthly = calcPayment(newLoan, newRate, years);
+        const newTotInt = newPmtMonthly * years * 12 - newLoan;
+        
+        const newPmtBiWeekly = newPmtMonthly / 2;
+
+        const interestSaved = Math.max(0, curTotInt - newTotInt);
+
+        results.innerHTML = `
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-xs text-slate-500 font-semibold">New Payment</span>
+                    <span class="text-sm font-bold text-slate-800">${fmtMoney(newPmtBiWeekly)}<span class="text-[10px] font-normal text-slate-400 ml-1">/bi-w</span></span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-xs text-slate-500 font-semibold">Savings</span>
+                    <span class="text-sm font-bold text-green-600">${fmtMoney(interestSaved)}</span>
+                </div>`;
+      }
+      
+      update();
+      newRateOut.textContent = Number(newRateSlider.value).toFixed(2);
+    }
+
+    (function init(){
+      bySel('#year').textContent = new Date().getFullYear();
+
+      $('intent').value = 'finance';
+      $('housingType') && ( $('housingType').value = 'Rent' );
+
+      populateDOBYears($('dobYear'));
+      populateMonths($('dobMonth'));
+      updateDays();
+      $('dobMonth')?.addEventListener('change', updateDays);
+      $('dobYear')?.addEventListener('change', updateDays);
+
+      populateDropdown($('timeWithEmployerYears'),0,30,'Years','Year');
+      populateDropdown($('timeWithEmployerMonths'),0,11,'Months','Month');
+      populateDropdown($('timeAtAddressYears'),0,30,'Years','Year');
+      populateDropdown($('timeAtAddressMonths'),0,11,'Months','Month');
+      populateProvinces($('currentProvince'));
+
+      populateYears($('tradeInYear'), new Date().getFullYear(), 1995);
+      populateYears($('refiYear'),    new Date().getFullYear(), 1995);
+
+      populateRefiYearsLeft($('refiRemainYears'));
+
+      populateMakes('refiMake', 'refiModel');
+      populateMakes('tradeInMake', 'tradeInModel');
+
+      goTo('step-intent');
+      setupRefiCalcInputs();
+
+    })();
+  });
+  </script>
+</body>
+</html>
