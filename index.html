@@ -3,170 +3,201 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Outcome-Based Decision Web</title>
+<title>Financing Decision Web</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --blue-600: #2A5D9F; --slate-50: #f8fafc; --slate-200: #e2e8f0; --slate-800: #1e293b;
-    --green-dark: #15803d; --red-dark: #b91c1c; --yellow-dark: #a16207;
+    --line-color: #94a3b8;
+    --blue-primary: #2A5D9F;
+    --slate-800: #1e293b;
   }
-  body { font-family: 'Work Sans', sans-serif; background: #fff; color: var(--slate-800); padding: 20px; }
+  body { font-family: 'Work Sans', sans-serif; background: #f8fafc; padding: 40px; overflow-x: auto; }
 
-  .web-container { max-width: 1000px; margin: 0 auto; }
-  
-  .web-header { text-align: center; margin-bottom: 40px; }
-  .web-title { font-size: 22px; font-weight: 800; text-transform: uppercase; letter-spacing: -0.5px; }
-
-  /* THE WEB LAYOUT */
-  .web-split { display: flex; flex-direction: column; gap: 40px; }
-  @media(min-width: 768px) { .web-split { flex-direction: row; align-items: flex-start; } }
-
-  .web-col { flex: 1; background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 12px; padding: 20px; position: relative; }
-  
-  /* Column Header */
-  .col-header { text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid var(--slate-200); }
-  .col-h-title { font-size: 18px; font-weight: 800; color: var(--blue-600); text-transform: uppercase; }
-  
-  /* SITUATION BLOCKS */
-  .sit-block { margin-bottom: 25px; }
-  .sit-title { font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--slate-800); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-  .sit-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--slate-400); }
-  .sit-pos .sit-dot { background: var(--green-dark); }
-  .sit-neg .sit-dot { background: var(--yellow-dark); }
-  .sit-bad .sit-dot { background: var(--red-dark); }
-  .sit-good .sit-dot { background: var(--blue-600); }
-
-  /* GOAL CARDS (The "How To") */
-  .goal-card { 
-    background: #fff; border: 1px solid var(--slate-200); border-radius: 8px; 
-    padding: 12px; margin-bottom: 8px; 
-    transition: all 0.2s; 
+  /* --- TREE CSS (The Web Structure) --- */
+  .tree {
+    display: flex; justify-content: center;
+    min-width: 1100px; /* Ensures web shape holds */
   }
-  .goal-card:hover { border-color: var(--blue-600); transform: translateX(4px); }
+  .tree ul {
+    padding-top: 20px; position: relative;
+    display: flex; justify-content: center;
+  }
+  .tree li {
+    float: left; text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 20px 10px 0 10px;
+  }
 
-  .goal-head { font-size: 11px; font-weight: 700; color: var(--slate-500); text-transform: uppercase; margin-bottom: 4px; }
-  .goal-method { font-size: 13px; font-weight: 600; color: var(--slate-800); margin-bottom: 4px; }
-  .goal-mechanic { font-size: 11px; color: #475569; line-height: 1.4; border-left: 2px solid var(--slate-200); padding-left: 8px; margin-top: 6px; }
+  /* Drawing Lines */
+  .tree li::before, .tree li::after {
+    content: ''; position: absolute; top: 0; right: 50%;
+    border-top: 2px solid var(--line-color);
+    width: 50%; height: 20px;
+  }
+  .tree li::after { right: auto; left: 50%; border-left: 2px solid var(--line-color); }
+  .tree li:only-child::after, .tree li:only-child::before { display: none; }
+  .tree li:only-child { padding-top: 0; }
+  .tree li:first-child::before, .tree li:last-child::after { border: 0 none; }
+  .tree li:last-child::before { border-right: 2px solid var(--line-color); border-radius: 0 5px 0 0; }
+  .tree li:first-child::after { border-radius: 5px 0 0 0; }
+  .tree ul ul::before {
+    content: ''; position: absolute; top: 0; left: 50%;
+    border-left: 2px solid var(--line-color);
+    width: 0; height: 20px;
+  }
+
+  /* --- CARD STYLES --- */
+  .card {
+    background: #fff; border: 1px solid #cbd5e1; border-radius: 8px;
+    padding: 16px; width: 240px; text-align: left;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    position: relative; z-index: 10;
+    transition: transform 0.2s;
+  }
+  .card:hover { transform: translateY(-3px); border-color: var(--blue-primary); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+
+  .c-label { font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px; }
+  .c-title { font-size: 14px; font-weight: 800; color: var(--slate-800); margin-bottom: 6px; line-height: 1.2; }
+  .c-desc { font-size: 11px; color: #64748b; line-height: 1.4; margin-bottom: 10px; }
   
-  /* VETTING FOOTER */
-  .vet-bar { margin-top: 30px; padding-top: 20px; border-top: 1px dashed var(--slate-300); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
-  .vet-item { font-size: 10px; font-weight: 700; color: var(--slate-500); text-transform: uppercase; background: #fff; padding: 4px 10px; border: 1px solid var(--slate-200); border-radius: 4px; }
+  .c-result { background: #f1f5f9; border-radius: 4px; padding: 8px; border-left: 3px solid var(--blue-primary); }
+  .res-title { font-size: 10px; font-weight: 800; color: var(--slate-800); text-transform: uppercase; margin-bottom: 4px; }
+  .res-list { list-style: none; padding: 0; margin: 0; }
+  .res-list li { font-size: 10px; color: #334155; margin-bottom: 2px; position: relative; padding-left: 10px; }
+  .res-list li::before { content: '•'; position: absolute; left: 0; color: var(--blue-primary); font-weight: bold; }
+
+  /* Main Title Button */
+  .root-node {
+    background: var(--blue-primary); color: white;
+    padding: 15px 30px; border-radius: 50px;
+    font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+    box-shadow: 0 10px 20px -5px rgba(42, 93, 159, 0.4);
+    display: inline-block;
+  }
+
+  /* Color Themes */
+  .border-neg { border-top: 4px solid #d97706; }
+  .text-neg { color: #d97706; }
+  .border-pos { border-top: 4px solid #16a34a; }
+  .text-pos { color: #16a34a; }
+  .border-good { border-top: 4px solid #2563eb; }
+  .text-good { color: #2563eb; }
+  .border-bad { border-top: 4px solid #64748b; }
+  .text-bad { color: #64748b; }
 
 </style>
 </head>
 <body>
 
-<div class="web-container">
-  <div class="web-header">
-    <h1 class="web-title">How to Achieve Your Goal</h1>
-    <p class="text-xs text-slate-500 mt-2">Find your Situation below → See how we structure the deal to get your Result.</p>
-  </div>
+<div class="text-center mb-12">
+  <h1 class="text-3xl font-extrabold text-slate-900">Financing Logic Web</h1>
+  <p class="text-sm text-slate-500 mt-2">Follow the path to see how your Equity and Credit determine your vehicle options.</p>
+</div>
 
-  <div class="web-split">
-
-    <div class="web-col">
-      <div class="col-header">
-        <div class="col-h-title">1. Trading In</div>
-      </div>
-
-      <div class="sit-block sit-pos">
-        <div class="sit-title"><span class="sit-dot"></span>Situation: Value > Loan Amount</div>
+<div class="tree">
+  <ul>
+    <li>
+      <div class="root-node">Financing A Vehicle</div>
+      
+      <ul>
         
-        <div class="goal-card">
-          <div class="goal-head">How to Achieve: Lowest Monthly Payment</div>
-          <div class="goal-method">Apply All Equity as Down Payment</div>
-          <div class="goal-mechanic">
-            <strong>Mechanic:</strong> The equity reduces the new loan amount directly. It also lowers the tax base (saving 12-15% tax on the trade value).
+        <li>
+          <div class="card border-neg">
+            <div class="c-label text-neg">Situation</div>
+            <div class="c-title">Negative Equity</div>
+            <div class="c-desc">
+              You owe more on the loan than the car is currently worth.
+            </div>
           </div>
-        </div>
+          
+          <ul>
+            <li>
+              <div class="card border-good">
+                <div class="c-label text-good">Credit Profile</div>
+                <div class="c-title">Good Credit</div>
+                <div class="c-desc">Score 700+</div>
+                
+                <div class="c-result">
+                  <div class="res-title">The Strategy: Roll It Over</div>
+                  <ul class="res-list">
+                    <li><strong>Vehicle:</strong> Must carry "High Book Value" (Truck/SUV).</li>
+                    <li><strong>Bank:</strong> Will approve the extra debt.</li>
+                    <li><strong>Result:</strong> Clean exit from old loan. Higher payment.</li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            
+            <li>
+              <div class="card border-bad">
+                <div class="c-label text-bad">Credit Profile</div>
+                <div class="c-title">New / Bad Credit</div>
+                <div class="c-desc">Score < 650</div>
+                
+                <div class="c-result">
+                  <div class="res-title">The Strategy: Bank Cap</div>
+                  <ul class="res-list">
+                    <li><strong>Restriction:</strong> Banks cap how much we can lend (LTV).</li>
+                    <li><strong>Solution:</strong> Need Cash Down OR a vehicle with massive rebates.</li>
+                    <li><strong>Result:</strong> Limited vehicle choices.</li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </li>
 
-        <div class="goal-card">
-          <div class="goal-head">How to Achieve: Maximum Cash Flow</div>
-          <div class="goal-method">"Cash Back" Refinance</div>
-          <div class="goal-mechanic">
-            <strong>Mechanic:</strong> We finance 100% of the new car and cut you a cheque for your trade's equity value to put in your bank.
+        <li>
+          <div class="card border-pos">
+            <div class="c-label text-pos">Situation</div>
+            <div class="c-title">Zero / Positive Equity</div>
+            <div class="c-desc">
+              You have no trade-in, OR your trade-in is worth more than the loan.
+            </div>
           </div>
-        </div>
-      </div>
+          
+          <ul>
+            <li>
+              <div class="card border-good">
+                <div class="c-label text-good">Credit Profile</div>
+                <div class="c-title">Good Credit</div>
+                <div class="c-desc">Score 700+</div>
+                
+                <div class="c-result">
+                  <div class="res-title">The Strategy: Total Control</div>
+                  <ul class="res-list">
+                    <li><strong>Vehicle:</strong> Can buy Older (Cheaper) or Newer.</li>
+                    <li><strong>Term:</strong> Extended terms allowed (84mo+).</li>
+                    <li><strong>Result:</strong> Lowest possible monthly payment.</li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            
+            <li>
+              <div class="card border-bad">
+                <div class="c-label text-bad">Credit Profile</div>
+                <div class="c-title">New / Bad Credit</div>
+                <div class="c-desc">Score < 650</div>
+                
+                <div class="c-result">
+                  <div class="res-title">The Strategy: Stepping Stone</div>
+                  <ul class="res-list">
+                    <li><strong>Vehicle:</strong> Must be Newer (2018+) for warranty.</li>
+                    <li><strong>Term:</strong> Capped at 72 months.</li>
+                    <li><strong>Result:</strong> Higher payment, but high approval success.</li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </li>
 
-      <div class="sit-block sit-neg">
-        <div class="sit-title"><span class="sit-dot"></span>Situation: Loan Amount > Value</div>
-        
-        <div class="goal-card">
-          <div class="goal-head">How to Achieve: Escape the Old Loan</div>
-          <div class="goal-method">The "Rebate Absorption" Method</div>
-          <div class="goal-mechanic">
-            <strong>Mechanic:</strong> We select a vehicle (EV or Truck) with large manufacturer rebates ($5k-$9k). The rebate money pays off your negative equity.
-          </div>
-        </div>
-
-        <div class="goal-card">
-          <div class="goal-head">How to Achieve: Keep Payment Same</div>
-          <div class="goal-method">Rate Blending & Term Extension</div>
-          <div class="goal-mechanic">
-            <strong>Mechanic:</strong> We roll the debt into a new loan but extend the term (e.g., to 84/96 months) to suppress the monthly payment increase.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="web-col">
-      <div class="col-header">
-        <div class="col-h-title">2. Buying</div>
-      </div>
-
-      <div class="sit-block sit-good">
-        <div class="sit-title"><span class="sit-dot"></span>Situation: Prime Credit (700+)</div>
-        
-        <div class="goal-card">
-          <div class="goal-head">How to Achieve: Lowest Total Cost</div>
-          <div class="goal-method">Short Term Finance (36-60 Mo)</div>
-          <div class="goal-mechanic">
-            <strong>Mechanic:</strong> You pay higher monthly payments, but drastically reduce interest paid over the life of the loan.
-          </div>
-        </div>
-
-        <div class="goal-card">
-          <div class="goal-head">How to Achieve: Lowest Monthly Payment</div>
-          <div class="goal-method">"Budget Buy" (Older Vehicle + Long Term)</div>
-          <div class="goal-mechanic">
-            <strong>Mechanic:</strong> Because of your score, banks allow us to finance older, cheaper cars (2014-2018) over long terms (84mo).
-          </div>
-        </div>
-      </div>
-
-      <div class="sit-block sit-bad">
-        <div class="sit-title"><span class="sit-dot"></span>Situation: Building Credit (<650)</div>
-        
-        <div class="goal-card">
-          <div class="goal-head">How to Achieve: Best Approval Odds</div>
-          <div class="goal-method">The "Structure First" Approach</div>
-          <div class="goal-mechanic">
-            <strong>Mechanic:</strong> We must select a Newer Vehicle (2019+) with Book Value. Banks approve the <em>Asset</em>, not just the person.
-          </div>
-        </div>
-
-        <div class="goal-card">
-          <div class="goal-head">How to Achieve: Lower Rate</div>
-          <div class="goal-method">The "12-Month Plan"</div>
-          <div class="goal-mechanic">
-            <strong>Mechanic:</strong> Take the "Subprime" rate now on a reliable car. Make 12 perfect payments. Then we refinance you to a Prime rate.
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="vet-bar">
-    <span class="vet-item">Required: Clean History / Rebuilt Disclosure</span>
-    <span class="vet-item">Required: No "Salt Belt" Rust</span>
-    <span class="vet-item">Required: Flood/Waterline Inspection</span>
-    <span class="vet-item">Required: Lien Clearance</span>
-    <span class="vet-item">Required: Accident Severity Check</span>
-  </div>
-  
+      </ul>
+    </li>
+  </ul>
 </div>
 
 </body>
