@@ -130,7 +130,7 @@
     .step-viewport { 
         position: absolute;
         top: 50px; 
-        bottom: 55px; /* Leave room for footer */
+        bottom: 50px; /* Matches new footer height to remove gap */
         left: 0; right: 0;
         overflow-y: auto; 
         overflow-x: hidden;
@@ -162,12 +162,12 @@
       background: rgba(255,255,255,0.98); 
       border-top: 1px solid var(--slate-200);
       padding: 0 20px; 
-      height: 55px; /* Taller to hold buttons */
+      height: 50px; /* Shortened height */
       z-index: 20;
       display: flex; 
-      align-items: flex-end; /* Push items to bottom */
+      align-items: center; /* Centers items vertically */
       justify-content: space-between; 
-      padding-bottom: 10px; /* Buffer from very bottom edge */
+      padding-bottom: 0; /* Removed extra padding to lower buttons */
     }
 
     #btnBack{ min-height:36px; border-radius:8px; font-size:13px; color: var(--slate-500); padding: 0 16px; font-weight: 700; }
@@ -1241,7 +1241,7 @@
         document.body.classList.remove('modal-open'); // Re-enable scroll
     }
 
-    // Triggers
+    // Triggers - Verified IDs
     $('btnGetStarted')?.addEventListener('click', (e) => {
         e.preventDefault();
         expandForm();
