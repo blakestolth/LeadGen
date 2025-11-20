@@ -104,7 +104,6 @@
         z-index: 1;
     }
 
-    /* The "Clipper" wraps the content to ensure rounded corners inside the shell */
     .form-clipper {
         position: relative;
         width: 100%;
@@ -116,7 +115,7 @@
         overflow: hidden; 
     }
     
-    /* HEADER - Pinned Top */
+    /* HEADER */
     .form-header { 
         position: absolute; top: 0; left: 0; right: 0;
         z-index: 10; 
@@ -126,11 +125,11 @@
         height: 50px; 
     }
 
-    /* VIEWPORT - Middle */
+    /* VIEWPORT */
     .step-viewport { 
         position: absolute;
         top: 50px; 
-        bottom: 50px; /* UPDATED: Matched to footer height */
+        bottom: 60px; /* Matches footer height */
         left: 0; right: 0;
         overflow-y: auto; 
         overflow-x: hidden;
@@ -143,7 +142,6 @@
       height: 100%; display: flex; flex-direction: column; padding: 0 20px;
     }
     
-    /* Centering */
     .step-title { text-align: center; margin-top: 12px; flex-shrink: 0; padding-bottom: 4px; }
     
     .step-body {
@@ -155,19 +153,20 @@
     .content input, .content select, .content .grid-inline-2 { text-align: left; } 
     .vstack > * + * { margin-top: 10px; }
 
-    /* FOOTER - Fixed Bottom - COMPACT AND LOW */
+    /* FOOTER - Pinned Bottom */
     .form-footer {
       position: absolute; 
       bottom: 0; left: 0; right: 0;
       background: rgba(255,255,255,0.98); 
       border-top: 1px solid var(--slate-200);
       padding: 0 20px; 
-      height: 50px; /* TIGHTER HEIGHT */
+      height: 60px;
       z-index: 20;
       display: flex; 
-      align-items: center; /* CENTERED VERTICALLY */
+      /* Align to bottom with padding */
+      align-items: flex-end;
       justify-content: space-between; 
-      /* No bottom padding - buttons will sit as low as possible within the 50px bar */
+      padding-bottom: 12px; 
     }
 
     #btnBack{ min-height:36px; border-radius:8px; font-size:13px; color: var(--slate-500); padding: 0 16px; font-weight: 700; }
@@ -184,17 +183,21 @@
       position: fixed !important;
       top: 50% !important; left: 50% !important;
       transform: translate(-50%, -50%) !important;
-      width: 95vw !important; max-width: 500px !important;
-      height: 85vh !important; 
-      max-height: 700px !important;
-      z-index: 9999 !important; 
+      
+      /* UPDATED: Wider and taller desktop size */
+      width: 95vw !important; 
+      max-width: 800px !important; /* Wider */
+      height: 600px !important;    /* Fixed larger height */
+      max-height: 90vh !important;
+      
+      z-index: 9999 !important;
       box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
       border-radius: 12px;
       margin: 0 !important;
       overflow: visible !important;
     }
     
-    /* Small Grey Circle Close Button - Off Center */
+    /* Close Button */
     .form-close-btn {
       position: absolute; 
       top: -12px; 
