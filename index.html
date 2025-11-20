@@ -3,174 +3,170 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Compact Decision Map</title>
+<title>Outcome-Based Decision Web</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --blue-600: #2A5D9F; --slate-100: #f1f5f9; --slate-200: #e2e8f0; --slate-800: #1e293b;
-    --green-100: #dcfce7; --green-700: #15803d;
-    --red-100: #fee2e2; --red-700: #b91c1c;
-    --yellow-100: #fef9c3; --yellow-700: #a16207;
+    --blue-600: #2A5D9F; --slate-50: #f8fafc; --slate-200: #e2e8f0; --slate-800: #1e293b;
+    --green-dark: #15803d; --red-dark: #b91c1c; --yellow-dark: #a16207;
   }
   body { font-family: 'Work Sans', sans-serif; background: #fff; color: var(--slate-800); padding: 20px; }
 
-  /* CONTAINER */
-  .map-container { max-width: 900px; margin: 0 auto; }
-
-  /* HEADER */
-  .map-header { text-align: center; margin-bottom: 30px; }
-  .map-title { font-size: 24px; font-weight: 800; color: var(--slate-800); text-transform: uppercase; letter-spacing: -0.5px; }
-
-  /* SPLIT LAYOUT */
-  .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+  .web-container { max-width: 1000px; margin: 0 auto; }
   
-  /* COLUMN STYLES */
-  .col-box { background: var(--slate-100); border-radius: 12px; padding: 16px; border: 1px solid var(--slate-200); }
-  .col-title { font-size: 16px; font-weight: 800; text-align: center; margin-bottom: 16px; color: var(--blue-600); text-transform: uppercase; }
+  .web-header { text-align: center; margin-bottom: 40px; }
+  .web-title { font-size: 22px; font-weight: 800; text-transform: uppercase; letter-spacing: -0.5px; }
 
-  /* SITUATION CARDS */
-  .situation-card { 
+  /* THE WEB LAYOUT */
+  .web-split { display: flex; flex-direction: column; gap: 40px; }
+  @media(min-width: 768px) { .web-split { flex-direction: row; align-items: flex-start; } }
+
+  .web-col { flex: 1; background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 12px; padding: 20px; position: relative; }
+  
+  /* Column Header */
+  .col-header { text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid var(--slate-200); }
+  .col-h-title { font-size: 18px; font-weight: 800; color: var(--blue-600); text-transform: uppercase; }
+  
+  /* SITUATION BLOCKS */
+  .sit-block { margin-bottom: 25px; }
+  .sit-title { font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--slate-800); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .sit-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--slate-400); }
+  .sit-pos .sit-dot { background: var(--green-dark); }
+  .sit-neg .sit-dot { background: var(--yellow-dark); }
+  .sit-bad .sit-dot { background: var(--red-dark); }
+  .sit-good .sit-dot { background: var(--blue-600); }
+
+  /* GOAL CARDS (The "How To") */
+  .goal-card { 
     background: #fff; border: 1px solid var(--slate-200); border-radius: 8px; 
-    padding: 12px; margin-bottom: 12px; position: relative;
-    transition: transform 0.15s;
+    padding: 12px; margin-bottom: 8px; 
+    transition: all 0.2s; 
   }
-  .situation-card:hover { transform: translateY(-2px); border-color: var(--blue-600); box-shadow: 0 4px 6px -2px rgba(0,0,0,0.05); }
+  .goal-card:hover { border-color: var(--blue-600); transform: translateX(4px); }
 
-  /* TAGS & LABELS */
-  .tag { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; margin-bottom: 4px; }
-  .tag-green { background: var(--green-100); color: var(--green-700); }
-  .tag-red { background: var(--red-100); color: var(--red-700); }
-  .tag-yellow { background: var(--yellow-100); color: var(--yellow-700); }
-  .tag-blue { background: #dbeafe; color: var(--blue-600); }
-
-  .card-head { font-size: 13px; font-weight: 700; margin-bottom: 2px; color: var(--slate-800); }
-  .card-desc { font-size: 11px; color: #64748b; margin-bottom: 8px; line-height: 1.3; }
+  .goal-head { font-size: 11px; font-weight: 700; color: var(--slate-500); text-transform: uppercase; margin-bottom: 4px; }
+  .goal-method { font-size: 13px; font-weight: 600; color: var(--slate-800); margin-bottom: 4px; }
+  .goal-mechanic { font-size: 11px; color: #475569; line-height: 1.4; border-left: 2px solid var(--slate-200); padding-left: 8px; margin-top: 6px; }
   
-  /* CONNECTORS */
-  .arrow-down { text-align: center; color: #cbd5e1; margin: -8px 0 4px 0; font-size: 14px; }
+  /* VETTING FOOTER */
+  .vet-bar { margin-top: 30px; padding-top: 20px; border-top: 1px dashed var(--slate-300); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  .vet-item { font-size: 10px; font-weight: 700; color: var(--slate-500); text-transform: uppercase; background: #fff; padding: 4px 10px; border: 1px solid var(--slate-200); border-radius: 4px; }
 
-  /* RESULTS BOX */
-  .result-box { background: #f8fafc; border-top: 1px dashed var(--slate-200); margin-top: 8px; padding-top: 8px; }
-  .res-list { list-style: none; padding: 0; margin: 0; }
-  .res-list li { font-size: 10px; margin-bottom: 3px; padding-left: 12px; position: relative; color: #475569; }
-  .res-list li::before { content: '•'; position: absolute; left: 0; font-weight: bold; color: var(--blue-600); }
-  .res-list li.pro::before { content: '✓'; color: var(--green-700); }
-  .res-list li.con::before { content: '!'; color: var(--red-700); }
-
-  @media (max-width: 640px) {
-    .split-grid { grid-template-columns: 1fr; }
-  }
 </style>
 </head>
 <body>
 
-<div class="map-container">
-  <div class="map-header">
-    <h1 class="map-title">Find Your Path</h1>
-    <p class="text-xs text-slate-500 mt-1">Identify your situation below to see your best options.</p>
+<div class="web-container">
+  <div class="web-header">
+    <h1 class="web-title">How to Achieve Your Goal</h1>
+    <p class="text-xs text-slate-500 mt-2">Find your Situation below → See how we structure the deal to get your Result.</p>
   </div>
 
-  <div class="split-grid">
-    
-    <div class="col-box">
-      <div class="col-title">1. Trading In</div>
-      
-      <div class="situation-card" style="border-left: 4px solid var(--green-700)">
-        <span class="tag tag-green">Positive Equity</span>
-        <div class="card-head">Car Value > Loan Balance</div>
-        <div class="card-desc">You have extra value ("found money") in your car.</div>
+  <div class="web-split">
+
+    <div class="web-col">
+      <div class="col-header">
+        <div class="col-h-title">1. Trading In</div>
+      </div>
+
+      <div class="sit-block sit-pos">
+        <div class="sit-title"><span class="sit-dot"></span>Situation: Value > Loan Amount</div>
         
-        <div class="result-box">
-          <div class="font-bold text-[10px] uppercase text-slate-400 mb-1">Best Strategy: Down Payment</div>
-          <ul class="res-list">
-            <li class="pro">Lowers monthly payment instantly</li>
-            <li class="pro"><strong>Tax Savings:</strong> Pay tax only on difference</li>
-          </ul>
+        <div class="goal-card">
+          <div class="goal-head">How to Achieve: Lowest Monthly Payment</div>
+          <div class="goal-method">Apply All Equity as Down Payment</div>
+          <div class="goal-mechanic">
+            <strong>Mechanic:</strong> The equity reduces the new loan amount directly. It also lowers the tax base (saving 12-15% tax on the trade value).
+          </div>
+        </div>
+
+        <div class="goal-card">
+          <div class="goal-head">How to Achieve: Maximum Cash Flow</div>
+          <div class="goal-method">"Cash Back" Refinance</div>
+          <div class="goal-mechanic">
+            <strong>Mechanic:</strong> We finance 100% of the new car and cut you a cheque for your trade's equity value to put in your bank.
+          </div>
         </div>
       </div>
 
-      <div class="arrow-down">↓</div>
-
-      <div class="situation-card" style="border-left: 4px solid var(--yellow-700)">
-        <span class="tag tag-yellow">Negative Equity</span>
-        <div class="card-head">Loan Balance > Car Value</div>
-        <div class="card-desc">You owe more than the vehicle is worth.</div>
+      <div class="sit-block sit-neg">
+        <div class="sit-title"><span class="sit-dot"></span>Situation: Loan Amount > Value</div>
         
-        <div class="result-box">
-          <div class="font-bold text-[10px] uppercase text-slate-400 mb-1">Best Strategy: "The Trapdoor"</div>
-          <ul class="res-list">
-            <li class="pro">Buy EV or Truck with huge rebates</li>
-            <li class="pro">Rebates "pay off" the negative equity</li>
-            <li class="con">Restricts vehicle choice</li>
-          </ul>
+        <div class="goal-card">
+          <div class="goal-head">How to Achieve: Escape the Old Loan</div>
+          <div class="goal-method">The "Rebate Absorption" Method</div>
+          <div class="goal-mechanic">
+            <strong>Mechanic:</strong> We select a vehicle (EV or Truck) with large manufacturer rebates ($5k-$9k). The rebate money pays off your negative equity.
+          </div>
+        </div>
+
+        <div class="goal-card">
+          <div class="goal-head">How to Achieve: Keep Payment Same</div>
+          <div class="goal-method">Rate Blending & Term Extension</div>
+          <div class="goal-mechanic">
+            <strong>Mechanic:</strong> We roll the debt into a new loan but extend the term (e.g., to 84/96 months) to suppress the monthly payment increase.
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="col-box">
-      <div class="col-title">2. Buying</div>
-      
-      <div class="situation-card" style="border-left: 4px solid var(--blue-600)">
-        <span class="tag tag-blue">Prime Credit (700+)</span>
-        <div class="card-head">Goal: Lowest Possible Payment</div>
+    <div class="web-col">
+      <div class="col-header">
+        <div class="col-h-title">2. Buying</div>
+      </div>
+
+      <div class="sit-block sit-good">
+        <div class="sit-title"><span class="sit-dot"></span>Situation: Prime Credit (700+)</div>
         
-        <div class="result-box">
-          <div class="font-bold text-[10px] uppercase text-slate-400 mb-1">Strategy: The "Budget" Buy</div>
-          <ul class="res-list">
-            <li><strong>Vehicle:</strong> Older Models (2014-2018)</li>
-            <li class="pro">Cheaper price + Long term (84mo)</li>
-            <li class="pro">Total budget control</li>
-          </ul>
+        <div class="goal-card">
+          <div class="goal-head">How to Achieve: Lowest Total Cost</div>
+          <div class="goal-method">Short Term Finance (36-60 Mo)</div>
+          <div class="goal-mechanic">
+            <strong>Mechanic:</strong> You pay higher monthly payments, but drastically reduce interest paid over the life of the loan.
+          </div>
+        </div>
+
+        <div class="goal-card">
+          <div class="goal-head">How to Achieve: Lowest Monthly Payment</div>
+          <div class="goal-method">"Budget Buy" (Older Vehicle + Long Term)</div>
+          <div class="goal-mechanic">
+            <strong>Mechanic:</strong> Because of your score, banks allow us to finance older, cheaper cars (2014-2018) over long terms (84mo).
+          </div>
         </div>
       </div>
 
-      <div class="arrow-down">↓</div>
-
-      <div class="situation-card" style="border-left: 4px solid var(--red-700)">
-        <span class="tag tag-red">Building Credit (<650)</span>
-        <div class="card-head">Goal: Approval & Reliability</div>
+      <div class="sit-block sit-bad">
+        <div class="sit-title"><span class="sit-dot"></span>Situation: Building Credit (<650)</div>
         
-        <div class="result-box">
-          <div class="font-bold text-[10px] uppercase text-slate-400 mb-1">Strategy: "The Stepping Stone"</div>
-          <ul class="res-list">
-            <li><strong>Vehicle:</strong> Newer Models (2019+) required</li>
-            <li class="con">Higher payment (Short term + New car)</li>
-            <li class="pro"><strong>Plan:</strong> Refinance in 12 months</li>
-          </ul>
+        <div class="goal-card">
+          <div class="goal-head">How to Achieve: Best Approval Odds</div>
+          <div class="goal-method">The "Structure First" Approach</div>
+          <div class="goal-mechanic">
+            <strong>Mechanic:</strong> We must select a Newer Vehicle (2019+) with Book Value. Banks approve the <em>Asset</em>, not just the person.
+          </div>
+        </div>
+
+        <div class="goal-card">
+          <div class="goal-head">How to Achieve: Lower Rate</div>
+          <div class="goal-method">The "12-Month Plan"</div>
+          <div class="goal-mechanic">
+            <strong>Mechanic:</strong> Take the "Subprime" rate now on a reliable car. Make 12 perfect payments. Then we refinance you to a Prime rate.
+          </div>
         </div>
       </div>
-
-      <div class="arrow-down">↓</div>
-
-      <div class="situation-card" style="border-left: 4px solid #64748b">
-        <span class="tag bg-slate-200 text-slate-600">Cash Buyer</span>
-        <div class="card-head">Goal: Maximize Value</div>
-        
-        <div class="result-box">
-          <div class="font-bold text-[10px] uppercase text-slate-400 mb-1">Strategy: "The Conversion"</div>
-          <ul class="res-list">
-            <li class="pro">Finance temporarily to get $2,000 Rebate</li>
-            <li class="pro">Pay off loan immediately</li>
-            <li class="pro">Result: Cheaper than paying cash upfront</li>
-          </ul>
-        </div>
-      </div>
-
     </div>
+
   </div>
 
-  <div class="mt-6 pt-6 border-t border-slate-200 text-center">
-    <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Every car must pass:</div>
-    <div class="flex flex-wrap justify-center gap-2">
-      <span class="bg-white border border-slate-200 px-3 py-1 rounded-full text-[10px] font-bold text-slate-600">1. History Check</span>
-      <span class="bg-white border border-slate-200 px-3 py-1 rounded-full text-[10px] font-bold text-slate-600">2. No "Salt Belt" Rust</span>
-      <span class="bg-white border border-slate-200 px-3 py-1 rounded-full text-[10px] font-bold text-slate-600">3. Flood Inspection</span>
-      <span class="bg-white border border-slate-200 px-3 py-1 rounded-full text-[10px] font-bold text-slate-600">4. Lien Search</span>
-      <span class="bg-white border border-slate-200 px-3 py-1 rounded-full text-[10px] font-bold text-slate-600">5. Accident Severity</span>
-    </div>
+  <div class="vet-bar">
+    <span class="vet-item">Required: Clean History / Rebuilt Disclosure</span>
+    <span class="vet-item">Required: No "Salt Belt" Rust</span>
+    <span class="vet-item">Required: Flood/Waterline Inspection</span>
+    <span class="vet-item">Required: Lien Clearance</span>
+    <span class="vet-item">Required: Accident Severity Check</span>
   </div>
-
+  
 </div>
 
 </body>
