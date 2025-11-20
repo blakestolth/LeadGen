@@ -3,201 +3,211 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Financing Decision Web</title>
+<title>Financing Clarity Web</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --line-color: #94a3b8;
-    --blue-primary: #2A5D9F;
-    --slate-800: #1e293b;
+    --primary-blue: #2A5D9F;
+    --neutral-gray: #e2e8f0;
+    --text-dark: #1e293b;
+    --text-mid: #475569;
+    --success-green: #16a34a;
+    --warning-orange: #d97706;
+    --info-blue: #2563eb;
+    --danger-red: #b91c1c;
+    --bg-light: #f8fafc;
   }
-  body { font-family: 'Work Sans', sans-serif; background: #f8fafc; padding: 40px; overflow-x: auto; }
+  body { font-family: 'Work Sans', sans-serif; background: #fff; color: var(--text-dark); padding: 20px; }
 
-  /* --- TREE CSS (The Web Structure) --- */
-  .tree {
-    display: flex; justify-content: center;
-    min-width: 1100px; /* Ensures web shape holds */
+  .container { max-width: 700px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 30px; }
+  .title { font-size: 24px; font-weight: 800; text-transform: uppercase; letter-spacing: -0.5px; color: var(--text-dark); }
+  .subtitle { font-size: 14px; color: var(--text-mid); margin-top: 5px; }
+
+  /* Main Flow Line */
+  .flow-line {
+    width: 2px; height: 30px; background: var(--neutral-gray); margin: 0 auto;
   }
-  .tree ul {
-    padding-top: 20px; position: relative;
-    display: flex; justify-content: center;
+
+  /* Core Node */
+  .node-core {
+    background: var(--primary-blue); color: white; padding: 12px 25px; border-radius: 50px;
+    font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+    box-shadow: 0 5px 15px rgba(42, 93, 159, 0.3);
+    display: block; width: fit-content; margin: 0 auto;
   }
-  .tree li {
-    float: left; text-align: center;
-    list-style-type: none;
+
+  /* Split Branches */
+  .split-point {
+    display: flex; justify-content: space-between; gap: 20px; margin-top: 20px;
     position: relative;
-    padding: 20px 10px 0 10px;
+  }
+  .split-point::before {
+    content: ''; position: absolute; top: -10px; left: 50%; width: 2px; height: 10px; background: var(--neutral-gray);
+    transform: translateX(-50%);
+  }
+  .split-point::after {
+    content: ''; position: absolute; top: -10px; left: 0; right: 0; height: 2px; background: var(--neutral-gray);
+    width: calc(100% - 40px); margin: 0 20px; /* Adjusts width to fit between cards */
   }
 
-  /* Drawing Lines */
-  .tree li::before, .tree li::after {
-    content: ''; position: absolute; top: 0; right: 50%;
-    border-top: 2px solid var(--line-color);
-    width: 50%; height: 20px;
+  .branch-card {
+    flex: 1; background: var(--bg-light); border: 1px solid var(--neutral-gray); border-radius: 10px;
+    padding: 15px; text-align: center; position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   }
-  .tree li::after { right: auto; left: 50%; border-left: 2px solid var(--line-color); }
-  .tree li:only-child::after, .tree li:only-child::before { display: none; }
-  .tree li:only-child { padding-top: 0; }
-  .tree li:first-child::before, .tree li:last-child::after { border: 0 none; }
-  .tree li:last-child::before { border-right: 2px solid var(--line-color); border-radius: 0 5px 0 0; }
-  .tree li:first-child::after { border-radius: 5px 0 0 0; }
-  .tree ul ul::before {
-    content: ''; position: absolute; top: 0; left: 50%;
-    border-left: 2px solid var(--line-color);
-    width: 0; height: 20px;
+  .branch-card::before {
+    content: ''; position: absolute; top: -10px; left: 50%; width: 2px; height: 10px; background: var(--neutral-gray);
+    transform: translateX(-50%);
   }
 
-  /* --- CARD STYLES --- */
-  .card {
-    background: #fff; border: 1px solid #cbd5e1; border-radius: 8px;
-    padding: 16px; width: 240px; text-align: left;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-    position: relative; z-index: 10;
-    transition: transform 0.2s;
+  /* Branch Headings */
+  .branch-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;
   }
-  .card:hover { transform: translateY(-3px); border-color: var(--blue-primary); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+  .branch-desc {
+    font-size: 12px; color: var(--text-mid); line-height: 1.4; margin-bottom: 15px;
+  }
 
-  .c-label { font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px; }
-  .c-title { font-size: 14px; font-weight: 800; color: var(--slate-800); margin-bottom: 6px; line-height: 1.2; }
-  .c-desc { font-size: 11px; color: #64748b; line-height: 1.4; margin-bottom: 10px; }
+  /* Sub-branch Cards (Credit Profile) */
+  .credit-split {
+    display: flex; flex-direction: column; gap: 15px; margin-top: 20px;
+  }
+  .credit-card {
+    background: #fff; border: 1px solid var(--neutral-gray); border-radius: 8px;
+    padding: 12px; text-align: left;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    position: relative;
+  }
+  .credit-card::before {
+    content: ''; position: absolute; top: -10px; left: 50%; width: 2px; height: 10px; background: var(--neutral-gray);
+    transform: translateX(-50%);
+  }
+
+  .credit-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;
+  }
+  .credit-title {
+    font-size: 13px; font-weight: 800; margin-bottom: 8px;
+  }
+  .credit-strategy {
+    background: var(--bg-light); border-left: 3px solid var(--primary-blue); border-radius: 4px;
+    padding: 8px; font-size: 11px; color: var(--text-mid); line-height: 1.4;
+  }
+  .credit-strategy ul { list-style: none; padding: 0; margin: 5px 0 0 0; }
+  .credit-strategy li { padding-left: 10px; position: relative; margin-bottom: 3px; }
+  .credit-strategy li::before { content: '•'; position: absolute; left: 0; color: var(--primary-blue); font-weight: bold; }
+
+  /* Color Codes */
+  .eq-neg .branch-label { color: var(--warning-orange); }
+  .eq-neg .branch-card { border-color: var(--warning-orange); }
+  .eq-pos .branch-label { color: var(--success-green); }
+  .eq-pos .branch-card { border-color: var(--success-green); }
+
+  .cred-good .credit-label { color: var(--info-blue); }
+  .cred-good .credit-title { color: var(--info-blue); }
+  .cred-good .credit-card { border-color: var(--info-blue); }
+  .cred-bad .credit-label { color: var(--danger-red); }
+  .cred-bad .credit-title { color: var(--danger-red); }
+  .cred-bad .credit-card { border-color: var(--danger-red); }
   
-  .c-result { background: #f1f5f9; border-radius: 4px; padding: 8px; border-left: 3px solid var(--blue-primary); }
-  .res-title { font-size: 10px; font-weight: 800; color: var(--slate-800); text-transform: uppercase; margin-bottom: 4px; }
-  .res-list { list-style: none; padding: 0; margin: 0; }
-  .res-list li { font-size: 10px; color: #334155; margin-bottom: 2px; position: relative; padding-left: 10px; }
-  .res-list li::before { content: '•'; position: absolute; left: 0; color: var(--blue-primary); font-weight: bold; }
-
-  /* Main Title Button */
-  .root-node {
-    background: var(--blue-primary); color: white;
-    padding: 15px 30px; border-radius: 50px;
-    font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
-    box-shadow: 0 10px 20px -5px rgba(42, 93, 159, 0.4);
-    display: inline-block;
+  /* Responsive Adjustments */
+  @media (max-width: 640px) {
+    .split-point { flex-direction: column; align-items: center; }
+    .split-point::after { display: none; } /* Hide horizontal line on small screens */
+    .branch-card { width: 100%; margin-bottom: 20px; }
+    .branch-card::before { display: none; } /* Hide top connector for individual branch cards */
+    .flow-line { height: 20px; }
   }
-
-  /* Color Themes */
-  .border-neg { border-top: 4px solid #d97706; }
-  .text-neg { color: #d97706; }
-  .border-pos { border-top: 4px solid #16a34a; }
-  .text-pos { color: #16a34a; }
-  .border-good { border-top: 4px solid #2563eb; }
-  .text-good { color: #2563eb; }
-  .border-bad { border-top: 4px solid #64748b; }
-  .text-bad { color: #64748b; }
-
 </style>
 </head>
 <body>
 
-<div class="text-center mb-12">
-  <h1 class="text-3xl font-extrabold text-slate-900">Financing Logic Web</h1>
-  <p class="text-sm text-slate-500 mt-2">Follow the path to see how your Equity and Credit determine your vehicle options.</p>
-</div>
+<div class="container">
+  <div class="header">
+    <h1 class="title">Financing Your Vehicle</h1>
+    <p class="subtitle">Your path is determined by your Equity Position & Credit Profile.</p>
+  </div>
 
-<div class="tree">
-  <ul>
-    <li>
-      <div class="root-node">Financing A Vehicle</div>
+  <div class="flow-line"></div>
+  <div class="node-core">Start Here</div>
+  <div class="flow-line"></div>
+
+  <div class="split-point">
+    
+    <div class="branch-card eq-neg">
+      <div class="branch-label">Equity Position</div>
+      <h2 class="branch-title text-warning-orange">Negative Equity</h2>
+      <div class="branch-desc">Your loan amount is HIGHER than your vehicle's value.</div>
       
-      <ul>
-        
-        <li>
-          <div class="card border-neg">
-            <div class="c-label text-neg">Situation</div>
-            <div class="c-title">Negative Equity</div>
-            <div class="c-desc">
-              You owe more on the loan than the car is currently worth.
-            </div>
+      <div class="flow-line mt-4"></div>
+      
+      <div class="credit-split">
+        <div class="credit-card cred-good">
+          <div class="credit-label">Credit Profile</div>
+          <h3 class="credit-title">Good Credit (700+)</h3>
+          <div class="credit-strategy">
+            <strong>Strategy: Work with Banks to "Book Out"</strong>
+            <ul>
+              <li>Find a vehicle that banks value highly (e.g., specific Trucks/SUVs).</li>
+              <li>Banks are more flexible with strong credit, allowing debt consolidation.</li>
+              <li>Aim for a payment within your budget by adjusting terms.</li>
+            </ul>
           </div>
-          
-          <ul>
-            <li>
-              <div class="card border-good">
-                <div class="c-label text-good">Credit Profile</div>
-                <div class="c-title">Good Credit</div>
-                <div class="c-desc">Score 700+</div>
-                
-                <div class="c-result">
-                  <div class="res-title">The Strategy: Roll It Over</div>
-                  <ul class="res-list">
-                    <li><strong>Vehicle:</strong> Must carry "High Book Value" (Truck/SUV).</li>
-                    <li><strong>Bank:</strong> Will approve the extra debt.</li>
-                    <li><strong>Result:</strong> Clean exit from old loan. Higher payment.</li>
-                  </ul>
-                </div>
-              </div>
-            </li>
-            
-            <li>
-              <div class="card border-bad">
-                <div class="c-label text-bad">Credit Profile</div>
-                <div class="c-title">New / Bad Credit</div>
-                <div class="c-desc">Score < 650</div>
-                
-                <div class="c-result">
-                  <div class="res-title">The Strategy: Bank Cap</div>
-                  <ul class="res-list">
-                    <li><strong>Restriction:</strong> Banks cap how much we can lend (LTV).</li>
-                    <li><strong>Solution:</strong> Need Cash Down OR a vehicle with massive rebates.</li>
-                    <li><strong>Result:</strong> Limited vehicle choices.</li>
-                  </ul>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <div class="card border-pos">
-            <div class="c-label text-pos">Situation</div>
-            <div class="c-title">Zero / Positive Equity</div>
-            <div class="c-desc">
-              You have no trade-in, OR your trade-in is worth more than the loan.
-            </div>
+        </div>
+        <div class="credit-card cred-bad">
+          <div class="credit-label">Credit Profile</div>
+          <h3 class="credit-title">Bad / New Credit (<650)</h3>
+          <div class="credit-strategy">
+            <strong>Strategy: Down Payment is KEY</strong>
+            <ul>
+              <li>Banks have strict limits on how much they'll lend.</li>
+              <li>A significant down payment reduces the loan amount to meet bank rules.</li>
+              <li>Limited vehicle options until equity position is balanced.</li>
+            </ul>
           </div>
-          
-          <ul>
-            <li>
-              <div class="card border-good">
-                <div class="c-label text-good">Credit Profile</div>
-                <div class="c-title">Good Credit</div>
-                <div class="c-desc">Score 700+</div>
-                
-                <div class="c-result">
-                  <div class="res-title">The Strategy: Total Control</div>
-                  <ul class="res-list">
-                    <li><strong>Vehicle:</strong> Can buy Older (Cheaper) or Newer.</li>
-                    <li><strong>Term:</strong> Extended terms allowed (84mo+).</li>
-                    <li><strong>Result:</strong> Lowest possible monthly payment.</li>
-                  </ul>
-                </div>
-              </div>
-            </li>
-            
-            <li>
-              <div class="card border-bad">
-                <div class="c-label text-bad">Credit Profile</div>
-                <div class="c-title">New / Bad Credit</div>
-                <div class="c-desc">Score < 650</div>
-                
-                <div class="c-result">
-                  <div class="res-title">The Strategy: Stepping Stone</div>
-                  <ul class="res-list">
-                    <li><strong>Vehicle:</strong> Must be Newer (2018+) for warranty.</li>
-                    <li><strong>Term:</strong> Capped at 72 months.</li>
-                    <li><strong>Result:</strong> Higher payment, but high approval success.</li>
-                  </ul>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </li>
+        </div>
+      </div>
+    </div>
 
-      </ul>
-    </li>
-  </ul>
+    <div class="branch-card eq-pos">
+      <div class="branch-label">Equity Position</div>
+      <h2 class="branch-title text-success-green">Zero / Positive Equity</h2>
+      <div class="branch-desc">No trade-in, OR your trade-in is worth MORE than the loan.</div>
+      
+      <div class="flow-line mt-4"></div>
+      
+      <div class="credit-split">
+        <div class="credit-card cred-good">
+          <div class="credit-label">Credit Profile</div>
+          <h3 class="credit-title">Good Credit (700+)</h3>
+          <div class="credit-strategy">
+            <strong>Strategy: You Have Control</strong>
+            <ul>
+              <li>Access to the lowest interest rates and longest terms.</li>
+              <li>Can choose almost any vehicle type that fits your budget.</li>
+              <li>Focus on achieving the lowest monthly payment or lowest total cost.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="credit-card cred-bad">
+          <div class="credit-label">Credit Profile</div>
+          <h3 class="credit-title">Bad / New Credit (<650)</h3>
+          <div class="credit-strategy">
+            <strong>Strategy: Build Your Foundation</strong>
+            <ul>
+              <li>Focus on vehicles that "Book Well" with the bank (typically newer models).</li>
+              <li>Slightly higher interest rates are common, but approval is the goal.</li>
+              <li>Aim to make 12 on-time payments, then we can refinance for a better rate.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
 </div>
 
 </body>
