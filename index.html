@@ -272,7 +272,7 @@
         background: #fff; 
         display: flex; 
         flex-direction: column; 
-        height: 380px !important; /* FIXED HEIGHT to prevent jumping */
+        /* Height is controlled inline on element, but flex props here ensure content stretches */
     }
     .refi-inputs-area { 
         padding: 12px; 
@@ -283,8 +283,6 @@
         gap: 8px; 
     }
     .refi-row { display: flex; gap: 8px; } .refi-row > div { flex: 1; }
-    .refi-results-clean { background: var(--slate-50); border-radius: 6px; padding: 10px; border: 1px solid var(--slate-200); margin-top: auto; }
-    .refi-slider{ width:100%; accent-color: var(--blue-600); cursor: pointer; height: 4px; margin-top: 4px;}
     .text-equifax-red { color: var(--red-equifax); }
     .border-theme-gold { border-color: var(--theme-gold); }
     .text-theme-gold { color: var(--theme-gold); }
@@ -301,6 +299,7 @@
       <nav class="bg-white/90 backdrop-blur-lg card card-accent px-6 py-4">
         <div class="flex items-center justify-between">
           
+          <!-- Logo Area -->
           <div class="flex items-center gap-4 flex-shrink-0">
             <div class="brand-left">
               <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
@@ -311,6 +310,7 @@
             </div>
           </div>
 
+          <!-- Desktop Nav -->
           <div class="hidden md:flex items-center gap-6 font-bold text-slate-600 text-xs mt-1">
              <div class="relative group h-full flex items-center">
                 <button class="hover:text-[var(--blue-600)] transition-colors flex items-center gap-1 cursor-pointer py-2">
@@ -329,11 +329,13 @@
             <a href="#inventory" class="hover:text-[var(--blue-600)] transition-colors">Inventory</a>
           </div>
 
+          <!-- Desktop CTA -->
           <div class="hidden md:flex items-center gap-5 flex-shrink-0">
             <a href="tel:+12369692424" class="font-bold text-slate-800 text-[13px] hover:text-[var(--blue-600)] transition-colors">(236) 969-2424</a>
             <button type="button" id="navApplyBtn" class="cta-button text-xs shadow-md">Get Started</button>
           </div>
 
+          <!-- Mobile Hamburger Button -->
           <button id="menuBtn" class="md:hidden text-slate-700 p-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
@@ -341,6 +343,7 @@
           </button>
         </div>
 
+        <!-- Mobile Menu Dropdown (Hidden by default) -->
         <div id="mobileMenu" class="hidden md:hidden border-t border-slate-200 mt-4 pt-4 space-y-4">
             <div class="grid grid-cols-1 gap-3 text-sm font-bold text-slate-600">
               <a href="#finance-guide" class="block py-2">Financing Guide</a>
@@ -393,15 +396,18 @@
         </div>
       </section>
 
-      <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="card card-accent p-0 overflow-hidden h-auto" id="lead-form-card" style="min-height: 382px;">
+      <section class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+        
+        <!-- LEFT CARD: LEAD FORM -->
+        <div class="card card-accent p-0 overflow-hidden relative" id="lead-form-card" style="height: 452px;"> 
           <div id="form-spacer" class="hidden h-[380px]"></div>
           
-          <div class="form-shell" id="form-shell">
+          <div class="form-shell" id="form-shell" style="height: 100%;">
             
             <div class="form-clipper">
                 <div id="form-trigger" class="form-trigger-overlay"></div>
                 
+                <!-- Form Header: 50px Height -->
                 <div class="form-header">
                   <div class="flex items-center justify-between mb-1.5">
                     <div id="progress-label" class="text-[10px] uppercase tracking-wider font-bold text-slate-500">Step 1</div>
@@ -410,6 +416,7 @@
                   <div class="track mt-1.5"><div id="progress-fill" class="fill"></div></div>
                 </div>
 
+                <!-- Form Viewport -->
                 <div id="step-viewport" class="step-viewport px-4">
                   <div class="step-viewport-inner">
                     <form id="the-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" novalidate>
@@ -419,6 +426,7 @@
                       <input type="hidden" name="intent" id="intent" value="finance" />
                       <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
 
+                      <!-- STEP: INTENT -->
                       <section class="form-step" data-id="step-intent">
                         <div class="step-inner">
                           <div class="step-title"><h3 class="h2">Select Goal</h3></div>
@@ -431,6 +439,7 @@
                         </div>
                       </section>
                       
+                      <!-- STEP: VEHICLE TYPE -->
                       <section class="form-step hidden" data-id="step-vehicle-type">
                         <div class="step-inner">
                           <div class="step-title"><h3 class="h2">Vehicle Type</h3></div>
@@ -446,6 +455,7 @@
                         </div>
                       </section>
 
+                      <!-- STEP: BUDGET -->
                       <section class="form-step hidden" data-id="step-budget">
                         <div class="step-inner">
                           <div class="step-title"><h3 class="h2">Target Budget</h3></div>
@@ -459,6 +469,7 @@
                         </div>
                       </section>
 
+                      <!-- STEP: PURCHASE DETAILS -->
                       <section class="form-step hidden" data-id="step-purchase">
                         <div class="step-inner">
                           <div class="step-title"><h3 class="h2">Purchase Details</h3></div>
@@ -486,30 +497,37 @@
                         </div>
                       </section>
 
+                      <!-- STEP: REFI DETAILS -->
                       <section class="form-step hidden" data-id="step-refi-details">
                         <div class="step-inner"><div class="step-title"><h3 class="h2">Current Loan</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-refi-details"><div><label for="refiYear" class="label">Year</label><select name="refiYear" id="refiYear" class="form-select" required></select></div><div><label for="refiMake" class="label">Make</label><select name="refiMake" id="refiMake" class="form-select" required></select></div><div><label for="refiModel" class="label">Model</label><select name="refiModel" id="refiModel" class="form-select" required><option value="">Select</option></select></div></div><div class="grid-inline-refi-details-2"><div><label for="refiRemainYears" class="label">Years Left</label><select id="refiRemainYears" name="refiRemainYears" class="form-select" required></select></div><div><label for="refiCurrentRate" class="label">Current Rate %</label><input type="text" id="refiCurrentRate" name="refiCurrentRate" class="form-input" placeholder="e.g., 9.49" inputmode="decimal" maxlength="6" required/></div></div></div></div></div>
                       </section>
 
+                      <!-- STEP: TRADE IN DETAILS -->
                       <section class="form-step hidden" data-id="step-tradein">
                         <div class="step-inner"><div class="step-title"><h3 class="h2">Trade-in Vehicle</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-trade-1"><div><label for="tradeInYear" class="label">Year</label><select name="tradeInYear" id="tradeInYear" class="form-select"></select></div><div><label for="tradeInMake" class="label">Make</label><select name="tradeInMake" id="tradeInMake" class="form-select"></select></div><div><label for="tradeInModel" class="label">Model</label><select name="tradeInModel" id="tradeInModel" class="form-select"><option value="">Select</option></select></div></div><div class="grid-inline-2"><div><label for="tradeInKms" class="label">Kilometres</label><input type="number" name="tradeInKms" id="tradeInKms" class="form-input" inputmode="numeric" min="0" max="1000000"/></div><div><label for="tradeInOwed" class="label">Lien Amount</label><input type="text" id="tradeInOwed" name="tradeInOwed" placeholder="e.g. $5,000" class="form-input" maxlength="20"/></div></div></div></div></div>
                       </section>
 
+                      <!-- STEP: INCOME -->
                       <section class="form-step hidden" data-id="step-income">
                         <div class="step-inner"><div class="step-title"><h3 class="h2">Income Details</h3></div><div class="step-body"><div class="content vstack" style="max-width:560px;"><div class="grid-inline-2"><div><label for="incomeSourceFull" class="label">Employment Type <span class="text-theme-red">*</span></label><select id="incomeSourceFull" name="incomeSourceFull" class="form-select" required><option value="">Select…</option><option value="Full-Time">Full-Time</option><option value="Part-Time">Part-Time</option><option value="Self-Employed">Self-Employed</option><option value="Disability">Disability</option><option value="Other">Other</option></select></div><div><label for="avgMonthlyIncome" class="label">Monthly Income (Gross) <span class="text-theme-red">*</span></label><input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric" maxlength="16" required/></div></div></div></div></div>
                       </section>
 
+                      <!-- STEP: PERSONAL INFO -->
                       <section class="form-step hidden" data-id="step-yourinfo">
                         <div class="step-inner"><div class="step-title"><h3 class="h2">Contact Info</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-2"><div><label for="email" class="label">Email <span class="text-theme-red">*</span></label><input type="email" id="email" name="email" class="form-input" autocomplete="email" maxlength="100" required/></div><div><label for="phone" class="label">Cell Phone <span class="text-theme-red">*</span></label><input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" maxlength="14" required/></div></div><div class="grid-inline-2"><div><label for="firstName" class="label">First Name <span class="text-theme-red">*</span></label><input type="text" id="firstName" name="firstName" class="form-input" autocomplete="given-name" maxlength="50" required/></div><div><label for="lastName" class="label">Last Name <span class="text-theme-red">*</span></label><input type="text" id="lastName" name="lastName" class="form-input" autocomplete="family-name" maxlength="50" required/></div></div><div class="grid-inline-dob"><div><label class="label">Birth Year <span class="text-theme-red">*</span></label><select id="dobYear" name="dobYear" class="form-select" required></select></div><div><label class="label">Month <span class="text-theme-red">*</span></label><select id="dobMonth" name="dobMonth" class="form-select" required><option value="">MM</option></select></div><div><label class="label">Day <span class="text-theme-red">*</span></label><select id="dobDay" name="dobDay" class="form-select" required><option value="">DD</option></select></div><div><label for="maritalStatus" class="label">Marital Status</label><select id="maritalStatus" name="maritalStatus" class="form-select"><option value="">Select</option><option>Single</option><option>Married</option><option>Common-Law</option><option>Divorced</option><option>Separated</option><option>Widowed</option></select></div></div></div></div></div>
                       </section>
 
+                      <!-- STEP: ADDRESS -->
                       <section class="form-step hidden" data-id="step-address">
                         <div class="step-inner"><div class="step-title"><h3 class="h2">Current Address</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-addr1"><div><label for="currentStreetAddress" class="label">Street Address</label><input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" autocomplete="street-address" maxlength="120" required/></div><div><label for="currentUnit" class="label">Unit #</label><input type="text" id="currentUnit" name="currentUnit" class="form-input" maxlength="10"/></div></div><div class="grid-inline-addr2"><div><label for="currentCity" class="label">City</label><input type="text" id="currentCity" name="currentCity" class="form-input" autocomplete="address-level2" maxlength="60" required/></div><div><label for="currentProvince" class="label">Prov</label><select id="currentProvince" name="currentProvince" class="form-select" required></select></div><div><label for="currentPostalCode" class="label">Postal Code</label><input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" autocomplete="postal-code" maxlength="7" required/></div></div><div class="grid-inline-addr3"><div><label for="housingPayment" class="label">Monthly Payment</label><input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1800" inputmode="numeric" maxlength="5" required/></div><div><label class="label">Time at addr.</label><select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select></div><div><label class="label">Months</label><select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select></div><div><label class="label">Status</label><div class="seg"><button type="button" class="seg-btn flex-1" id="btnRent" aria-pressed="true">Rent</button><button type="button" class="seg-btn flex-1" id="btnOwn" aria-pressed="false">Own</button></div><input type="hidden" id="housingType" name="housingType" value="Rent" /></div></div></div></div></div>
                       </section>
 
+                      <!-- STEP: EMPLOYER -->
                       <section class="form-step hidden" data-id="step-employer">
                         <div class="step-inner"><div class="step-title"><h3 class="h2">Work History</h3></div><div class="step-body"><div class="content vstack" style="max-width:560px;"><div class="grid-inline-2"><div><label for="currentEmployer" class="label">Employer Name</label><input type="text" id="currentEmployer" name="currentEmployer" class="form-input"/></div><div><label for="jobTitle" class="label">Job Title</label><input type="text" id="jobTitle" name="jobTitle" class="form-input"/></div></div><div class="grid-inline-2"><div><label class="label">Time at Job</label><select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select></div><div><label class="label">Months</label><select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select></div></div><div class="vstack"><p class="label">Additional Income (Optional)</p><div class="grid-inline-2"><div><input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Source (e.g. Child Tax)"/></div><div><input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="Amount ($)" inputmode="numeric" maxlength="16"/></div></div></div><label class="flex items-start gap-3 mt-4 p-3 border border-slate-200 rounded-lg bg-slate-50 cursor-pointer hover:bg-white transition-colors"><input type="checkbox" name="creditConsent" id="creditConsent" class="mt-1 accent-[var(--blue-600)]" checked required><span class="text-xs text-slate-600 leading-snug text-left">I confirm I am the person named above and consent to Vancouver Island Credit obtaining credit reports. (VSA #41114)</span></label></div></div></div>
                       </section>
 
+                      <!-- STEP: CONSENT (Hidden) -->
                       <section class="form-step hidden" data-id="step-consent">
                         <div class="step-inner"></div>
                       </section>
@@ -517,33 +535,37 @@
                   </div>
                 </div>
 
+                <!-- Form Footer: 70px Height -->
                 <div class="form-footer flex items-center justify-between" id="form-footer">
                   <button type="button" id="btnBack" class="font-semibold text-slate-600 hover:text-slate-900 px-4 py-2 rounded-lg hover:bg-slate-100 transition-colors">Back</button>
                   <button type="button" id="btnNext" class="cta-button">Next</button>
                 </div>
                 
-            </div> <button id="form-close" class="form-close-btn hidden" aria-label="Close form">
+            </div> 
+            <button id="form-close" class="form-close-btn hidden" aria-label="Close form">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
-
           </div>
         </div>
 
+        <!-- RIGHT CARD: REFINANCE CALCULATOR -->
         <aside class="flex flex-col h-full">
-            <div class="card card-accent p-0 flex-1 overflow-hidden refi-box flex flex-col">
+            <div class="card card-accent p-0 flex-1 overflow-hidden relative flex flex-col" style="height: 452px;">
               
-              <div class="px-5 py-4 border-b border-slate-100 bg-white flex justify-between items-center">
+              <!-- Refi Header: 50px Height (Matches Form Header) -->
+              <div class="h-[50px] px-5 border-b border-slate-100 bg-white flex justify-between items-center flex-shrink-0">
                 <div>
                   <h4 class="text-sm font-bold text-slate-800">Refinance Calculator</h4>
-                  <p class="text-[11px] text-slate-500 mt-0.5">See how much you could save.</p>
                 </div>
                 <div class="abc-badge text-[10px] bg-[var(--blue-100)] text-[var(--blue-700)] px-2 w-auto">
                   Estimate
                 </div>
               </div>
 
-              <div class="p-5 flex-1 flex flex-col justify-center gap-6">
+              <!-- Refi Content: Matches Form Body Area -->
+              <div class="flex-1 p-5 flex flex-col justify-center gap-4 overflow-y-auto">
                 
+                <!-- Row 1 -->
                 <div class="grid grid-cols-2 gap-4">
                   <div class="space-y-1">
                     <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Loan Balance</label>
@@ -561,7 +583,8 @@
                   </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4 pt-2">
+                <!-- Row 2 -->
+                <div class="grid grid-cols-2 gap-4">
                   <div class="space-y-1">
                     <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide">New Term</label>
                     <div class="flex items-center justify-between bg-slate-50 border border-slate-200 rounded-lg px-3 h-[44px]">
@@ -577,25 +600,26 @@
                   </div>
                 </div>
 
-                <div class="pt-1">
-                  <div class="flex justify-between mb-2">
+                <!-- New Payment Display -->
+                 <div class="flex justify-between items-center bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
+                   <span class="text-xs text-slate-600 font-bold uppercase tracking-wide">New Payment</span>
+                   <span class="text-sm font-bold text-slate-800" id="refNewPmtOut">$0.00<span class="text-[10px] font-normal text-slate-500 ml-1">/bi-w</span></span>
+                 </div>
+
+                <!-- Slider Row -->
+                <div>
+                  <div class="flex justify-between mb-1">
                     <label class="text-[11px] font-bold text-slate-400 uppercase">Adjust Rate</label>
                   </div>
                   <input id="refNewRateSlider" type="range" min="0.00" max="12.99" step="0.05" value="7.99" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[var(--blue-600)]">
-                  <div class="flex justify-between text-[10px] text-slate-400 mt-1 font-medium">
-                    <span>0%</span>
-                    <span>13%</span>
-                  </div>
                 </div>
 
               </div>
 
-              <div class="bg-slate-50 border-t border-slate-200 p-5" id="refResults">
-                <div class="flex justify-between items-center mb-2">
-                   <span class="text-xs text-slate-500 font-medium">New Bi-Weekly Payment</span>
-                   <span class="text-sm font-bold text-slate-800">$0.00</span>
-                </div>
-                <div class="flex justify-between items-center pt-2 border-t border-slate-200 mt-2">
+              <!-- Refi Footer: 70px Height (Matches Form Footer) -->
+              <div class="h-[70px] bg-slate-50 border-t border-slate-200 px-5 flex flex-col justify-center" id="refResults">
+                <!-- JS Populated -->
+                <div class="flex justify-between items-center">
                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">Total Interest Savings</span>
                    <span class="text-lg font-extrabold text-[var(--theme-green)]">$0.00</span>
                 </div>
@@ -1194,6 +1218,7 @@
       const newRateOut = $('refNewRateOut');
       const results = $('refResults');
       const termDisplay = $('termDisplay');
+      const refNewPmtOut = $('refNewPmtOut');
 
       if (!(loanEl && rateEl && termEl && newRateSlider && newRateOut)) return;
 
@@ -1214,11 +1239,7 @@
 
         if (!loan || !rate || !years){
             results.innerHTML = `
-                <div class="flex justify-between items-center mb-2">
-                   <span class="text-xs text-slate-500 font-medium">New Bi-Weekly Payment</span>
-                   <span class="text-sm font-bold text-slate-800">$0.00</span>
-                </div>
-                <div class="flex justify-between items-center pt-2 border-t border-slate-200 mt-2">
+                <div class="flex justify-between items-center">
                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">Total Interest Savings</span>
                    <span class="text-lg font-extrabold text-slate-300">$0.00</span>
                 </div>`;
@@ -1228,9 +1249,6 @@
         const desired = Math.min(parseFloat(rateEl.value) || 8.99, Math.max(0, parseFloat(newRateSlider.value)||0));
         const newRate = desired; 
         
-        if(newRate !== Number(newRateSlider.value)) {
-             // Optional: Sync slider visually if logic forces a cap, but we'll let them slide freely for now
-        }
         newRateOut.textContent = newRate.toFixed(2);
 
         const curPmtMonthly = calcPayment(loan, rate, years);
@@ -1243,12 +1261,12 @@
         const newPmtBiWeekly = newPmtMonthly * 12 / 26;
         const interestSaved = Math.max(0, curTotInt - newTotInt);
 
+        // Update the body payment display
+        if(refNewPmtOut) refNewPmtOut.innerHTML = `${fmtMoney(newPmtBiWeekly)}<span class="text-[10px] font-normal text-slate-500 ml-1">/bi-w</span>`;
+
+        // Update the Footer Savings
         results.innerHTML = `
-           <div class="flex justify-between items-center mb-2">
-              <span class="text-xs text-slate-500 font-medium">New Bi-Weekly Payment</span>
-              <span class="text-sm font-bold text-slate-800">${fmtMoney(newPmtBiWeekly)}</span>
-           </div>
-           <div class="flex justify-between items-center pt-2 border-t border-slate-200 mt-2">
+           <div class="flex justify-between items-center">
               <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">Total Interest Savings</span>
               <span class="text-lg font-extrabold text-[var(--theme-green)]">${fmtMoney(interestSaved)}</span>
            </div>`;
