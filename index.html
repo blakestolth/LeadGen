@@ -94,6 +94,9 @@
        LAYOUT ENGINE
        ================================================================= */
     
+    /* LOCK PARENT HEIGHT TO PREVENT JUMPING */
+    #lead-form-card { min-height: 382px; position: relative; }
+
     .form-shell { 
         position: relative; 
         overflow: hidden; 
@@ -146,7 +149,7 @@
     .content input, .content select, .content .grid-inline-2 { text-align: left; } 
     .vstack > * + * { margin-top: 10px; }
 
-    /* FOOTER - Pinned Bottom - UPDATED ALIGNMENT */
+    /* FOOTER - Pinned Bottom */
     .form-footer {
       position: absolute; 
       bottom: 0; left: 0; right: 0;
@@ -156,30 +159,30 @@
       height: 70px;
       z-index: 20;
       display: flex; 
-      align-items: center; /* FIXED: Centers buttons vertically */
+      align-items: center; 
       justify-content: space-between; 
     }
 
     #btnBack{ min-height:36px; border-radius:8px; font-size:13px; color: var(--slate-500); padding: 0 16px; font-weight: 700; }
     #btnBack:hover { background: var(--slate-100); color: var(--slate-800); }
 
-    /* --- FOCUS MODE (POPUP) - UPDATED ANIMATION --- */
+    /* --- FOCUS MODE (POPUP) --- */
     .form-backdrop {
       position: fixed; inset: 0; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(6px);
       opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 9990;
     }
     .form-backdrop.active { opacity: 1; pointer-events: auto; }
 
-    /* Pop Animation (Open) */
+    /* Pop Animation (Open) - Starts from full opacity to prevent flash */
     @keyframes modalPop {
-        0% { opacity: 0; transform: translate(-50%, -45%) scale(0.95); }
-        100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        0% { transform: translate(-50%, -45%) scale(0.8); }
+        100% { transform: translate(-50%, -50%) scale(1); }
     }
 
     /* Pop Animation (Close/Reverse) */
     @keyframes modalPopReverse {
-        0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        100% { opacity: 0; transform: translate(-50%, -45%) scale(0.95); }
+        0% { transform: translate(-50%, -50%) scale(1); }
+        100% { transform: translate(-50%, -45%) scale(0.8); }
     }
 
     .form-focused {
@@ -197,7 +200,6 @@
       animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     }
 
-    /* Add this class when closing to trigger reverse animation */
     .form-focused.form-closing {
         animation: modalPopReverse 0.3s ease-in forwards !important;
     }
@@ -375,7 +377,7 @@
       </section>
 
       <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="card card-accent p-0 overflow-hidden h-auto" id="lead-form-card">
+        <div class="card card-accent p-0 overflow-hidden h-auto" id="lead-form-card" style="min-height: 382px;">
           <div id="form-spacer" class="hidden h-[380px]"></div>
           
           <div class="form-shell" id="form-shell">
