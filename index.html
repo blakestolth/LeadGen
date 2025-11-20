@@ -290,6 +290,23 @@
     .border-theme-green { border-color: var(--theme-green); }
     .text-theme-green { color: var(--theme-green); }
     .bg-theme-green-50 { background-color: var(--theme-green-bg); }
+
+    /* NEW STYLES FOR POLISHED SECTIONS */
+    .pro-tile {
+      background: #fff; border: 1px solid var(--slate-200); border-radius: 12px;
+      padding: 20px; position: relative; transition: all 0.3s ease;
+      display: flex; flex-direction: column; height: 100%;
+    }
+    .pro-tile:hover { border-color: var(--blue-600); transform: translateY(-4px); box-shadow: 0 15px 30px -5px rgba(0,0,0,0.1); }
+    .badge-pill {
+      display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 99px;
+      font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    .check-list { list-style: none; padding: 0; margin: 12px 0 0; }
+    .check-item { display: flex; align-items: start; gap: 10px; font-size: 12px; color: var(--slate-600); margin-bottom: 8px; line-height: 1.4; }
+    .check-icon { color: var(--theme-green); flex-shrink: 0; width: 16px; height: 16px; margin-top: 1px; }
+
   </style>
 </head>
 <body>
@@ -299,7 +316,6 @@
       <nav class="bg-white/90 backdrop-blur-lg card card-accent px-6 py-4">
         <div class="flex items-center justify-between">
           
-          <!-- Logo Area -->
           <div class="flex items-center gap-4 flex-shrink-0">
             <div class="brand-left">
               <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
@@ -310,9 +326,8 @@
             </div>
           </div>
 
-          <!-- Desktop Nav -->
           <div class="hidden md:flex items-center gap-6 font-bold text-slate-600 text-xs mt-1">
-             <div class="relative group h-full flex items-center">
+              <div class="relative group h-full flex items-center">
                 <button class="hover:text-[var(--blue-600)] transition-colors flex items-center gap-1 cursor-pointer py-2">
                     Tools
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
@@ -329,13 +344,11 @@
             <a href="#inventory" class="hover:text-[var(--blue-600)] transition-colors">Inventory</a>
           </div>
 
-          <!-- Desktop CTA -->
           <div class="hidden md:flex items-center gap-5 flex-shrink-0">
             <a href="tel:+12369692424" class="font-bold text-slate-800 text-[13px] hover:text-[var(--blue-600)] transition-colors">(236) 969-2424</a>
             <button type="button" id="navApplyBtn" class="cta-button text-xs shadow-md">Get Started</button>
           </div>
 
-          <!-- Mobile Hamburger Button -->
           <button id="menuBtn" class="md:hidden text-slate-700 p-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
@@ -343,7 +356,6 @@
           </button>
         </div>
 
-        <!-- Mobile Menu Dropdown (Hidden by default) -->
         <div id="mobileMenu" class="hidden md:hidden border-t border-slate-200 mt-4 pt-4 space-y-4">
             <div class="grid grid-cols-1 gap-3 text-sm font-bold text-slate-600">
               <a href="#finance-guide" class="block py-2">Financing Guide</a>
@@ -398,7 +410,6 @@
 
       <section class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
         
-        <!-- LEFT CARD: LEAD FORM -->
         <div class="card card-accent p-0 overflow-hidden relative" id="lead-form-card" style="height: 452px;"> 
           <div id="form-spacer" class="hidden h-[380px]"></div>
           
@@ -407,7 +418,6 @@
             <div class="form-clipper">
                 <div id="form-trigger" class="form-trigger-overlay"></div>
                 
-                <!-- Form Header: 50px Height -->
                 <div class="form-header">
                   <div class="flex items-center justify-between mb-1.5">
                     <div id="progress-label" class="text-[10px] uppercase tracking-wider font-bold text-slate-500">Step 1</div>
@@ -416,7 +426,6 @@
                   <div class="track mt-1.5"><div id="progress-fill" class="fill"></div></div>
                 </div>
 
-                <!-- Form Viewport -->
                 <div id="step-viewport" class="step-viewport px-4">
                   <div class="step-viewport-inner">
                     <form id="the-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" novalidate>
@@ -426,7 +435,6 @@
                       <input type="hidden" name="intent" id="intent" value="finance" />
                       <p class="hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
 
-                      <!-- STEP: INTENT -->
                       <section class="form-step" data-id="step-intent">
                         <div class="step-inner">
                           <div class="step-title"><h3 class="h2">Select Goal</h3></div>
@@ -439,7 +447,6 @@
                         </div>
                       </section>
                       
-                      <!-- STEP: VEHICLE TYPE -->
                       <section class="form-step hidden" data-id="step-vehicle-type">
                         <div class="step-inner">
                           <div class="step-title"><h3 class="h2">Vehicle Type</h3></div>
@@ -455,7 +462,6 @@
                         </div>
                       </section>
 
-                      <!-- STEP: BUDGET -->
                       <section class="form-step hidden" data-id="step-budget">
                         <div class="step-inner">
                           <div class="step-title"><h3 class="h2">Target Budget</h3></div>
@@ -469,7 +475,6 @@
                         </div>
                       </section>
 
-                      <!-- STEP: PURCHASE DETAILS -->
                       <section class="form-step hidden" data-id="step-purchase">
                         <div class="step-inner">
                           <div class="step-title"><h3 class="h2">Purchase Details</h3></div>
@@ -497,37 +502,30 @@
                         </div>
                       </section>
 
-                      <!-- STEP: REFI DETAILS -->
                       <section class="form-step hidden" data-id="step-refi-details">
                         <div class="step-inner"><div class="step-title"><h3 class="h2">Current Loan</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-refi-details"><div><label for="refiYear" class="label">Year</label><select name="refiYear" id="refiYear" class="form-select" required></select></div><div><label for="refiMake" class="label">Make</label><select name="refiMake" id="refiMake" class="form-select" required></select></div><div><label for="refiModel" class="label">Model</label><select name="refiModel" id="refiModel" class="form-select" required><option value="">Select</option></select></div></div><div class="grid-inline-refi-details-2"><div><label for="refiRemainYears" class="label">Years Left</label><select id="refiRemainYears" name="refiRemainYears" class="form-select" required></select></div><div><label for="refiCurrentRate" class="label">Current Rate %</label><input type="text" id="refiCurrentRate" name="refiCurrentRate" class="form-input" placeholder="e.g., 9.49" inputmode="decimal" maxlength="6" required/></div></div></div></div></div>
                       </section>
 
-                      <!-- STEP: TRADE IN DETAILS -->
                       <section class="form-step hidden" data-id="step-tradein">
                         <div class="step-inner"><div class="step-title"><h3 class="h2">Trade-in Vehicle</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-trade-1"><div><label for="tradeInYear" class="label">Year</label><select name="tradeInYear" id="tradeInYear" class="form-select"></select></div><div><label for="tradeInMake" class="label">Make</label><select name="tradeInMake" id="tradeInMake" class="form-select"></select></div><div><label for="tradeInModel" class="label">Model</label><select name="tradeInModel" id="tradeInModel" class="form-select"><option value="">Select</option></select></div></div><div class="grid-inline-2"><div><label for="tradeInKms" class="label">Kilometres</label><input type="number" name="tradeInKms" id="tradeInKms" class="form-input" inputmode="numeric" min="0" max="1000000"/></div><div><label for="tradeInOwed" class="label">Lien Amount</label><input type="text" id="tradeInOwed" name="tradeInOwed" placeholder="e.g. $5,000" class="form-input" maxlength="20"/></div></div></div></div></div>
                       </section>
 
-                      <!-- STEP: INCOME -->
                       <section class="form-step hidden" data-id="step-income">
                         <div class="step-inner"><div class="step-title"><h3 class="h2">Income Details</h3></div><div class="step-body"><div class="content vstack" style="max-width:560px;"><div class="grid-inline-2"><div><label for="incomeSourceFull" class="label">Employment Type <span class="text-theme-red">*</span></label><select id="incomeSourceFull" name="incomeSourceFull" class="form-select" required><option value="">Select…</option><option value="Full-Time">Full-Time</option><option value="Part-Time">Part-Time</option><option value="Self-Employed">Self-Employed</option><option value="Disability">Disability</option><option value="Other">Other</option></select></div><div><label for="avgMonthlyIncome" class="label">Monthly Income (Gross) <span class="text-theme-red">*</span></label><input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric" maxlength="16" required/></div></div></div></div></div>
                       </section>
 
-                      <!-- STEP: PERSONAL INFO -->
                       <section class="form-step hidden" data-id="step-yourinfo">
                         <div class="step-inner"><div class="step-title"><h3 class="h2">Contact Info</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-2"><div><label for="email" class="label">Email <span class="text-theme-red">*</span></label><input type="email" id="email" name="email" class="form-input" autocomplete="email" maxlength="100" required/></div><div><label for="phone" class="label">Cell Phone <span class="text-theme-red">*</span></label><input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" maxlength="14" required/></div></div><div class="grid-inline-2"><div><label for="firstName" class="label">First Name <span class="text-theme-red">*</span></label><input type="text" id="firstName" name="firstName" class="form-input" autocomplete="given-name" maxlength="50" required/></div><div><label for="lastName" class="label">Last Name <span class="text-theme-red">*</span></label><input type="text" id="lastName" name="lastName" class="form-input" autocomplete="family-name" maxlength="50" required/></div></div><div class="grid-inline-dob"><div><label class="label">Birth Year <span class="text-theme-red">*</span></label><select id="dobYear" name="dobYear" class="form-select" required></select></div><div><label class="label">Month <span class="text-theme-red">*</span></label><select id="dobMonth" name="dobMonth" class="form-select" required><option value="">MM</option></select></div><div><label class="label">Day <span class="text-theme-red">*</span></label><select id="dobDay" name="dobDay" class="form-select" required><option value="">DD</option></select></div><div><label for="maritalStatus" class="label">Marital Status</label><select id="maritalStatus" name="maritalStatus" class="form-select"><option value="">Select</option><option>Single</option><option>Married</option><option>Common-Law</option><option>Divorced</option><option>Separated</option><option>Widowed</option></select></div></div></div></div></div>
                       </section>
 
-                      <!-- STEP: ADDRESS -->
                       <section class="form-step hidden" data-id="step-address">
                         <div class="step-inner"><div class="step-title"><h3 class="h2">Current Address</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-addr1"><div><label for="currentStreetAddress" class="label">Street Address</label><input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" autocomplete="street-address" maxlength="120" required/></div><div><label for="currentUnit" class="label">Unit #</label><input type="text" id="currentUnit" name="currentUnit" class="form-input" maxlength="10"/></div></div><div class="grid-inline-addr2"><div><label for="currentCity" class="label">City</label><input type="text" id="currentCity" name="currentCity" class="form-input" autocomplete="address-level2" maxlength="60" required/></div><div><label for="currentProvince" class="label">Prov</label><select id="currentProvince" name="currentProvince" class="form-select" required></select></div><div><label for="currentPostalCode" class="label">Postal Code</label><input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" autocomplete="postal-code" maxlength="7" required/></div></div><div class="grid-inline-addr3"><div><label for="housingPayment" class="label">Monthly Payment</label><input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1800" inputmode="numeric" maxlength="5" required/></div><div><label class="label">Time at addr.</label><select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select></div><div><label class="label">Months</label><select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select></div><div><label class="label">Status</label><div class="seg"><button type="button" class="seg-btn flex-1" id="btnRent" aria-pressed="true">Rent</button><button type="button" class="seg-btn flex-1" id="btnOwn" aria-pressed="false">Own</button></div><input type="hidden" id="housingType" name="housingType" value="Rent" /></div></div></div></div></div>
                       </section>
 
-                      <!-- STEP: EMPLOYER -->
                       <section class="form-step hidden" data-id="step-employer">
                         <div class="step-inner"><div class="step-title"><h3 class="h2">Work History</h3></div><div class="step-body"><div class="content vstack" style="max-width:560px;"><div class="grid-inline-2"><div><label for="currentEmployer" class="label">Employer Name</label><input type="text" id="currentEmployer" name="currentEmployer" class="form-input"/></div><div><label for="jobTitle" class="label">Job Title</label><input type="text" id="jobTitle" name="jobTitle" class="form-input"/></div></div><div class="grid-inline-2"><div><label class="label">Time at Job</label><select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select></div><div><label class="label">Months</label><select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select></div></div><div class="vstack"><p class="label">Additional Income (Optional)</p><div class="grid-inline-2"><div><input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Source (e.g. Child Tax)"/></div><div><input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="Amount ($)" inputmode="numeric" maxlength="16"/></div></div></div><label class="flex items-start gap-3 mt-4 p-3 border border-slate-200 rounded-lg bg-slate-50 cursor-pointer hover:bg-white transition-colors"><input type="checkbox" name="creditConsent" id="creditConsent" class="mt-1 accent-[var(--blue-600)]" checked required><span class="text-xs text-slate-600 leading-snug text-left">I confirm I am the person named above and consent to Vancouver Island Credit obtaining credit reports. (VSA #41114)</span></label></div></div></div>
                       </section>
 
-                      <!-- STEP: CONSENT (Hidden) -->
                       <section class="form-step hidden" data-id="step-consent">
                         <div class="step-inner"></div>
                       </section>
@@ -535,7 +533,6 @@
                   </div>
                 </div>
 
-                <!-- Form Footer: 70px Height -->
                 <div class="form-footer flex items-center justify-between" id="form-footer">
                   <button type="button" id="btnBack" class="font-semibold text-slate-600 hover:text-slate-900 px-4 py-2 rounded-lg hover:bg-slate-100 transition-colors">Back</button>
                   <button type="button" id="btnNext" class="cta-button">Next</button>
@@ -548,11 +545,9 @@
           </div>
         </div>
 
-        <!-- RIGHT CARD: REFINANCE CALCULATOR -->
         <aside class="flex flex-col h-full">
             <div class="card card-accent p-0 flex-1 overflow-hidden relative flex flex-col" style="height: 452px;">
               
-              <!-- Refi Header: 50px Height (Matches Form Header) -->
               <div class="h-[50px] px-5 border-b border-slate-100 bg-white flex justify-between items-center flex-shrink-0">
                 <div>
                   <h4 class="text-sm font-bold text-slate-800">Refinance Calculator</h4>
@@ -562,10 +557,8 @@
                 </div>
               </div>
 
-              <!-- Refi Content: Matches Form Body Area -->
               <div class="flex-1 p-5 flex flex-col justify-center gap-4 overflow-y-auto">
                 
-                <!-- Row 1 -->
                 <div class="grid grid-cols-2 gap-4">
                   <div class="space-y-1">
                     <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Loan Balance</label>
@@ -583,7 +576,6 @@
                   </div>
                 </div>
 
-                <!-- Row 2 -->
                 <div class="grid grid-cols-2 gap-4">
                   <div class="space-y-1">
                     <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide">New Term</label>
@@ -600,13 +592,11 @@
                   </div>
                 </div>
 
-                <!-- New Payment Display -->
-                 <div class="flex justify-between items-center bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
+                <div class="flex justify-between items-center bg-blue-50 rounded-lg px-3 py-2 border border-blue-100">
                    <span class="text-xs text-slate-600 font-bold uppercase tracking-wide">New Payment</span>
                    <span class="text-sm font-bold text-slate-800" id="refNewPmtOut">$0.00<span class="text-[10px] font-normal text-slate-500 ml-1">/bi-w</span></span>
                  </div>
 
-                <!-- Slider Row -->
                 <div>
                   <div class="flex justify-between mb-1">
                     <label class="text-[11px] font-bold text-slate-400 uppercase">Adjust Rate</label>
@@ -616,9 +606,7 @@
 
               </div>
 
-              <!-- Refi Footer: 70px Height (Matches Form Footer) -->
               <div class="h-[70px] bg-slate-50 border-t border-slate-200 px-5 flex flex-col justify-center" id="refResults">
-                <!-- JS Populated -->
                 <div class="flex justify-between items-center">
                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">Total Interest Savings</span>
                    <span class="text-lg font-extrabold text-[var(--theme-green)]">$0.00</span>
@@ -629,170 +617,160 @@
         </aside>
       </section>
 
-      <section id="finance-guide" class="card card-accent p-6 overflow-hidden mt-6">
-        <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4 border-b border-slate-100 pb-4">
-            <div class="text-left">
-              <h2 class="h2 text-xl">Financing Guide</h2>
-              <p class="text-xs text-slate-500 mt-1">Pick your pathway to see likely options and strategies.</p>
+      <section id="finance-guide" class="mt-8 mb-8">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-6 px-2">
+            <div>
+              <h2 class="h1 text-2xl text-slate-800">Your Finance Pathways</h2>
+              <p class="text-sm text-slate-500 mt-2 max-w-lg">I structure approvals based on your long-term goals. Select the situation that matches yours to see the strategy.</p>
             </div>
-            <button type="button" id="btnGetStarted" class="cta-button px-6 py-2 text-xs uppercase tracking-wide h-auto min-h-0 shadow-md hover:shadow-lg transition-shadow">
-                Get Started <span class="ml-2 text-base">→</span>
+            <button type="button" class="cta-button px-6 py-2 text-xs uppercase tracking-wide h-10 shadow-lg shadow-blue-900/10 mt-4 md:mt-0" onclick="document.getElementById('lead-form-card').scrollIntoView({behavior: 'smooth'});">
+                Get Approved <span class="ml-2">→</span>
             </button>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="relative">
-                <div class="bg-theme-gold-50 border border-theme-gold/30 rounded-t-lg p-3 text-center">
-                    <div class="text-xs font-bold text-theme-gold uppercase tracking-wider mb-1">Situation A</div>
-                    <div class="text-sm font-extrabold text-slate-800">Negative Equity</div>
-                    <div class="text-[10px] text-slate-500">"I owe more than my trade is worth."</div>
-                </div>
-                <div class="absolute left-1/2 top-[60px] bottom-4 w-px border-l-2 border-dashed border-slate-200 -translate-x-1/2 z-0"></div>
-                <div class="space-y-4 mt-4 relative z-10">
-                    <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm hover:border-theme-gold transition-colors relative">
-                         <div class="absolute -left-[6px] top-1/2 -translate-y-1/2 w-3 h-3 bg-theme-gold rounded-full border-2 border-white"></div>
-                         <div class="flex justify-between items-center mb-2">
-                            <span class="text-[10px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded uppercase">Good Credit</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
-                         </div>
-                         <p class="text-xs font-bold text-slate-800 mb-1">"The Consolidation"</p>
-                         <ul class="text-[10px] space-y-1.5 text-slate-600">
-                             <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Must be 2018+ to hide debt.</span></li>
-                             <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> Stretch term to 96mo.</span></li>
-                             <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Cash down covers the gap.</span></li>
-                         </ul>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            
+            <div class="pro-tile border-t-4 border-t-amber-500">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="badge-pill bg-amber-50 text-amber-700 border border-amber-100">Pathway A</span>
+                        <h3 class="text-lg font-extrabold text-slate-800">The "Reset" Strategy</h3>
+                        <p class="text-xs text-slate-500 font-medium mt-1">Negative Equity / Rebuilding Credit</p>
                     </div>
-                    <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm hover:border-theme-gold transition-colors relative">
-                         <div class="absolute -left-[6px] top-1/2 -translate-y-1/2 w-3 h-3 bg-theme-gold rounded-full border-2 border-white"></div>
-                         <div class="flex justify-between items-center mb-2">
-                            <span class="text-[10px] font-bold bg-red-50 text-red-700 px-2 py-0.5 rounded uppercase">Building Credit</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-600" viewBox="0 0 20 20" fill="currentColor"><path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" /></svg>
-                         </div>
-                         <p class="text-xs font-bold text-slate-800 mb-1">"The Structure"</p>
-                         <ul class="text-[10px] space-y-1.5 text-slate-600">
-                             <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Limited "Book-Out" units only.</span></li>
-                             <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> Max term on cheapest SUV.</span></li>
-                             <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Lateral trade to equal value.</span></li>
-                         </ul>
+                    <div class="h-10 w-10 rounded-full bg-amber-50 flex items-center justify-center text-amber-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                     </div>
                 </div>
+
+                <div class="my-4 p-3 bg-slate-50 rounded-lg border border-slate-100">
+                    <p class="text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">The Goal</p>
+                    <p class="text-xs text-slate-600 leading-relaxed">Absorb old debt into a reliable vehicle, lower interest costs, and set a 12-24 month timeline to refinance at a prime rate.</p>
+                </div>
+
+                <ul class="check-list">
+                    <li class="check-item">
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        <span><b>Consolidation:</b> Trade in your high-interest loan.</span>
+                    </li>
+                    <li class="check-item">
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        <span><b>Structure:</b> Extended terms (up to 96mo) to lower payments.</span>
+                    </li>
+                    <li class="check-item">
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        <span><b>Vehicle:</b> "Book-out" units that hide negative equity.</span>
+                    </li>
+                </ul>
             </div>
-            <div class="relative">
-                <div class="bg-theme-green-50 border border-theme-green/30 rounded-t-lg p-3 text-center">
-                    <div class="text-xs font-bold text-theme-green uppercase tracking-wider mb-1">Situation B</div>
-                    <div class="text-sm font-extrabold text-slate-800">Positive / Zero Equity</div>
-                    <div class="text-[10px] text-slate-500">"I have equity or no trade-in."</div>
-                </div>
-                <div class="absolute left-1/2 top-[60px] bottom-4 w-px border-l-2 border-dashed border-slate-200 -translate-x-1/2 z-0"></div>
-                <div class="space-y-4 mt-4 relative z-10">
-                    <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm hover:border-theme-green transition-colors relative">
-                         <div class="absolute -right-[6px] top-1/2 -translate-y-1/2 w-3 h-3 bg-theme-green rounded-full border-2 border-white"></div>
-                         <div class="flex justify-between items-center mb-2">
-                            <span class="text-[10px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded uppercase">Good Credit</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
-                         </div>
-                         <p class="text-xs font-bold text-slate-800 mb-1">"Total Control"</p>
-                         <ul class="text-[10px] space-y-1.5 text-slate-600">
-                             <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Unlimited choice. Old or New.</span></li>
-                             <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> Use equity as down pymt.</span></li>
-                             <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Short term on older car.</span></li>
-                         </ul>
+
+            <div class="pro-tile border-t-4 border-t-emerald-500">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="badge-pill bg-emerald-50 text-emerald-700 border border-emerald-100">Pathway B</span>
+                        <h3 class="text-lg font-extrabold text-slate-800">The "Advantage" Strategy</h3>
+                        <p class="text-xs text-slate-500 font-medium mt-1">Positive Equity / Good Credit</p>
                     </div>
-                    <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm hover:border-theme-green transition-colors relative">
-                         <div class="absolute -right-[6px] top-1/2 -translate-y-1/2 w-3 h-3 bg-theme-green rounded-full border-2 border-white"></div>
-                         <div class="flex justify-between items-center mb-2">
-                            <span class="text-[10px] font-bold bg-red-50 text-red-700 px-2 py-0.5 rounded uppercase">Building Credit</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-600" viewBox="0 0 20 20" fill="currentColor"><path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" /></svg>
-                         </div>
-                         <p class="text-xs font-bold text-slate-800 mb-1">"The Foundation"</p>
-                         <ul class="text-[10px] space-y-1.5 text-slate-600">
-                             <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Reliable (2015+, <160k km).</span></li>
-                             <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> "Credit Builder" 84mo term.</span></li>
-                             <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Cheapest reliable car ($18k).</span></li>
-                         </ul>
+                    <div class="h-10 w-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     </div>
                 </div>
+
+                <div class="my-4 p-3 bg-slate-50 rounded-lg border border-slate-100">
+                    <p class="text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">The Goal</p>
+                    <p class="text-xs text-slate-600 leading-relaxed">Leverage your credit score to minimize Cost of Borrowing (COB) and maximize resale value.</p>
+                </div>
+
+                <ul class="check-list">
+                    <li class="check-item">
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        <span><b>Rates:</b> Access to prime bank rates (O.A.C).</span>
+                    </li>
+                    <li class="check-item">
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        <span><b>Freedom:</b> Shop any inventory (New, Used, EV, Truck).</span>
+                    </li>
+                    <li class="check-item">
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        <span><b>Cash Back:</b> Utilize equity for cash-back options.</span>
+                    </li>
+                </ul>
             </div>
+
         </div>
       </section>
 
-      <section id="personalized-search" class="card card-accent p-6 mt-6">
-        <div class="mb-6">
-            <h2 class="h2 text-xl">Personalized Search</h2>
-            
-            <div class="mt-4 mb-4 pt-4 border-t border-slate-100">
-                <h4 class="text-sm font-bold text-slate-800 mb-2">Why it matters</h4>
-                <p class="text-xs text-slate-600 leading-relaxed">
-                    Where are you at in your job? How long do you plan on keeping the vehicle? Do you need to build credit first? 
-                    <br><br>
-                    Every vehicle situation is unique. There are lots of different options for different people at different points in life. My goal is to match the <b>right vehicle</b> to your <b>real life situation</b>.
-                </p>
-            </div>
-
-            <p class="text-xs text-slate-600 mt-2 leading-relaxed max-w-2xl">
-                Buying a car isn’t as simple as picking a color. With years of knowledge in the BC market, I help you navigate the pros and cons of every option. Every situation is different—you need a trustworthy partner to help you hunt for the right vehicle, not just any vehicle.
-            </p>
-        </div>
-
-        <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wide mb-4 border-b border-slate-100 pb-2">My Used Car Guide: What I Look For</h3>
+      <section id="personalized-search" class="card border-none bg-slate-800 text-white p-0 overflow-hidden mt-8 shadow-2xl rounded-2xl relative">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500 rounded-full mix-blend-overlay filter blur-3xl opacity-20 pointer-events-none"></div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            
-            <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                <div class="flex items-center gap-2 mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[var(--blue-600)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    <h4 class="font-bold text-sm text-slate-800">Vehicle History</h4>
-                </div>
-                <ul class="text-xs text-slate-600 space-y-2">
-                    <li>• <b>Service History:</b> The #1 most important factor.</li>
-                    <li>• <b>Accident Reports:</b> Claims amount & type of damage.</li>
-                    <li>• <b>Lien Check:</b> Crucial for private sales in BC. Buying a car with a lien can become a massive legal headache.</li>
-                    <li class="text-red-700 bg-red-50 p-2 rounded border border-red-100 text-[11px]">
-                        <b>🚩 Red Flag:</b> Avoid vehicles from Ontario or places with heavy salt/snow. Rust issues are common, even if "preventative measures" were taken.
-                    </li>
-                </ul>
-            </div>
+        <div class="p-6 md:p-10 relative z-10">
+            <div class="flex flex-col md:flex-row gap-8 items-start">
+                
+                <div class="flex-1">
+                    <div class="inline-block bg-blue-600/20 border border-blue-500/30 rounded-lg px-3 py-1 text-[10px] font-bold tracking-widest uppercase text-blue-200 mb-4">Concierge Service</div>
+                    <h2 class="h1 text-2xl text-white mb-4">The "Vetted" Search.</h2>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                        Buying a car isn’t about picking a color. It's about avoiding the lemons. With years of mechanical knowledge in the BC market, I don't just sell you a car—I help you hunt for the <i>right</i> one.
+                    </p>
+                    
+                    <div class="bg-slate-700/50 rounded-xl p-5 border border-slate-600 mb-6">
+                        <p class="text-xs font-bold text-white uppercase tracking-wide mb-3 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+                            My Promise
+                        </p>
+                        <p class="text-[13px] text-slate-200 italic">"I treat every search as if I were buying the car for my own mother. If the service history is spotty or the engine sounds off, we walk away."</p>
+                        <div class="mt-3 flex items-center gap-3">
+                            <img src="Untitled Project.jpg" alt="Blake" class="w-8 h-8 rounded-full border border-slate-500">
+                            <span class="text-[11px] font-bold text-slate-400">— Blake Stolth</span>
+                        </div>
+                    </div>
 
-            <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                <div class="flex items-center gap-2 mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[var(--blue-600)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                    <h4 class="font-bold text-sm text-slate-800">Mechanical Condition</h4>
+                    <button type="button" class="cta-button w-full md:w-auto justify-center bg-white text-blue-900 hover:bg-blue-50" onclick="document.getElementById('lead-form-card').scrollIntoView({behavior: 'smooth'});">
+                        Start A Custom Search
+                    </button>
                 </div>
-                <ul class="text-xs text-slate-600 space-y-2">
-                    <li>• <b>Private Sale:</b> ALWAYS get a mechanic to inspect it first.</li>
-                    <li>• <b>Dealership:</b> Ensure they have a full service report (inspection). This holds them accountable if anything goes wrong shortly after purchase.</li>
-                    <li>• <b>Accountability:</b> Buying without a report is gambling with your wallet.</li>
-                </ul>
-            </div>
 
-            <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                <div class="flex items-center gap-2 mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[var(--blue-600)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
-                    <h4 class="font-bold text-sm text-slate-800">Cosmetic Signs</h4>
+                <div class="flex-1 w-full">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        
+                        <div class="bg-slate-700/40 backdrop-blur-sm p-4 rounded-lg border border-slate-600/50 hover:bg-slate-700/60 transition-colors">
+                            <div class="h-8 w-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400 mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                            </div>
+                            <h4 class="text-sm font-bold text-white mb-1">Service History</h4>
+                            <p class="text-[11px] text-slate-400 leading-snug">The #1 factor. We verify oil change intervals and shop reports to ensure long-term life.</p>
+                        </div>
+
+                        <div class="bg-slate-700/40 backdrop-blur-sm p-4 rounded-lg border border-slate-600/50 hover:bg-slate-700/60 transition-colors">
+                            <div class="h-8 w-8 rounded-lg bg-green-500/20 flex items-center justify-center text-green-400 mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            </div>
+                            <h4 class="text-sm font-bold text-white mb-1">Lien Checks</h4>
+                            <p class="text-[11px] text-slate-400 leading-snug">Crucial in BC. We guarantee clean titles with zero hidden debts or legal headaches.</p>
+                        </div>
+
+                        <div class="bg-slate-700/40 backdrop-blur-sm p-4 rounded-lg border border-slate-600/50 hover:bg-slate-700/60 transition-colors">
+                            <div class="h-8 w-8 rounded-lg bg-red-500/20 flex items-center justify-center text-red-400 mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                            </div>
+                            <h4 class="text-sm font-bold text-white mb-1">Rust & Body</h4>
+                            <p class="text-[11px] text-slate-400 leading-snug">We check for Eastern cars (salt damage) and "Headliner" status—a true sign of neglect.</p>
+                        </div>
+
+                        <div class="bg-slate-700/40 backdrop-blur-sm p-4 rounded-lg border border-slate-600/50 hover:bg-slate-700/60 transition-colors">
+                            <div class="h-8 w-8 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400 mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+                            </div>
+                            <h4 class="text-sm font-bold text-white mb-1">Model Specifics</h4>
+                            <p class="text-[11px] text-slate-400 leading-snug">We know the "Bad Years." Avoiding specific transmissions and engines saves you thousands.</p>
+                        </div>
+
+                    </div>
                 </div>
-                <ul class="text-xs text-slate-600 space-y-2">
-                    <li>• <b>Rim Damage:</b> Scuffed rims usually mean careless driving. If they didn't care for the outside, they likely didn't care for the engine.</li>
-                    <li>• <b>Multiple Scratches:</b> The more cosmetic issues, the higher the mechanical risk.</li>
-                    <li class="bg-yellow-50 text-yellow-800 p-2 rounded border border-yellow-200 text-[11px]">
-                        <b>💡 Pro Tip:</b> Check the <b>Headliner</b> (roof fabric). Stains or tears here show true neglect. It's the #1 sign of how someone really treated their car.
-                    </li>
-                </ul>
-            </div>
 
-            <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                <div class="flex items-center gap-2 mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[var(--blue-600)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-                    <h4 class="font-bold text-sm text-slate-800">Specific Model Knowledge</h4>
-                </div>
-                <ul class="text-xs text-slate-600 space-y-2">
-                    <li>• <b>Every Brand is Different:</b> Every manufacturer has "Golden Years" and "bad years."</li>
-                    <li>• <b>Model Specifics:</b> Knowing specifically what usually breaks on a 2016 Model X vs a 2019 Model Y is critical.</li>
-                    <li>• <b>Tailored Advice:</b> I don't sell you a car; I help you avoid the bad ones.</li>
-                </ul>
             </div>
-
         </div>
       </section>
+
       <section id="inventory" class="card card-accent p-5">
         <div class="flex items-center justify-between mb-3">
           <h3 class="h2">Browse Inventory</h3>
