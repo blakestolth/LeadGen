@@ -3,263 +3,380 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Decision Web | Vancouver Island Credit</title>
+<title>The Automotive Decision Web</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --blue-600: #2A5D9F;
-    --slate-800: #1e293b;
-    --green-600: #16a34a;
-    --amber-600: #d97706;
-    --line-color: #cbd5e1;
+    --line-color: #94a3b8;
+    --card-bg: #ffffff;
+    --blue-primary: #2A5D9F;
+    --green-success: #16a34a;
+    --red-danger: #dc2626;
+    --yellow-warn: #d97706;
   }
-  body { font-family: 'Work Sans', sans-serif; background: #f8fafc; color: var(--slate-800); }
+  body { font-family: 'Work Sans', sans-serif; background: #f1f5f9; color: #1e293b; overflow-x: auto; }
 
-  /* --- TREE ARCHITECTURE (The Map Logic) --- */
-  .tree-container {
-    display: flex; flex-direction: column; align-items: center;
-    max-width: 1280px; margin: 0 auto; padding: 40px 20px;
+  /* TREE STRUCTURE CSS */
+  .tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    min-width: 1200px; /* Ensures web doesn't crush on small screens */
   }
-  
-  /* The Grid Layout for the Main Branches */
-  .branch-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    width: 100%;
+
+  /* Connector Lines */
+  .tree ul {
+    padding-top: 20px; position: relative;
+    transition: all 0.5s;
+    display: flex; justify-content: center;
+    margin: 0; padding-left: 0;
+  }
+
+  .tree li {
+    float: left; text-align: center;
+    list-style-type: none;
     position: relative;
-    margin-top: 40px;
+    padding: 20px 10px 0 10px;
+    transition: all 0.5s;
   }
 
-  /* NODES (The Cards) */
-  .node {
-    background: #fff; border: 1px solid #e2e8f0; padding: 16px; border-radius: 10px;
-    position: relative; z-index: 10;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-    transition: transform 0.2s ease;
-  }
-  .node:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
-
-  /* TEXT STYLES */
-  .n-head { font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 6px; line-height: 1.2; }
-  .n-sub { font-size: 12px; font-weight: 600; color: #64748b; margin-bottom: 8px; text-transform: uppercase;}
-  .n-body { font-size: 13px; color: #475569; line-height: 1.5; }
-  .n-list { list-style: none; padding: 0; margin-top: 8px; }
-  .n-list li { font-size: 12px; margin-bottom: 4px; padding-left: 14px; position: relative; color: #334155; }
-  .n-list li::before { content: '•'; position: absolute; left: 0; font-weight: bold; }
-  .check li::before { content: '✓'; color: var(--green-600); }
-  .warn li::before { content: '!'; color: var(--amber-600); }
-
-  /* CONNECTING LINES (The Web) */
-  .branch-col { display: flex; flex-direction: column; align-items: center; position: relative; }
-  
   /* Vertical Lines */
-  .v-line::before {
-    content: ''; position: absolute; top: -40px; left: 50%; width: 2px; height: 40px; background: var(--line-color);
+  .tree li::before, .tree li::after {
+    content: ''; position: absolute; top: 0; right: 50%;
+    border-top: 2px solid var(--line-color);
+    width: 50%; height: 20px;
   }
-  .v-line-down::after {
-    content: ''; position: absolute; bottom: -40px; left: 50%; width: 2px; height: 40px; background: var(--line-color);
+  .tree li::after { right: auto; left: 50%; border-left: 2px solid var(--line-color); }
+
+  /* Remove connectors from single children */
+  .tree li:only-child::after, .tree li:only-child::before { display: none; }
+  .tree li:only-child { padding-top: 0; }
+
+  /* Remove connectors from first/last children */
+  .tree li:first-child::before { border: 0 none; }
+  .tree li:last-child::after { border: 0 none; }
+  .tree li:last-child::before { border-right: 2px solid var(--line-color); border-radius: 0 5px 0 0; }
+  .tree li:first-child::after { border-radius: 5px 0 0 0; }
+
+  /* Downward Connector */
+  .tree ul ul::before {
+    content: ''; position: absolute; top: 0; left: 50%;
+    border-left: 2px solid var(--line-color);
+    width: 0; height: 20px;
   }
 
-  /* Horizontal Bridge (Top Level) */
-  .top-bridge {
-    position: absolute; top: -20px; left: 25%; right: 25%; height: 2px; background: var(--line-color);
+  /* THE NODE CARDS */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid #cbd5e1;
+    padding: 12px;
+    border-radius: 8px;
+    display: inline-block;
+    width: 240px;
+    text-align: left;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
   }
-  .mid-connector::before {
-    content: ''; position: absolute; top: -20px; left: 50%; width: 2px; height: 20px; background: var(--line-color);
+  .card:hover { transform: scale(1.02); z-index: 20; border-color: var(--blue-primary); }
+
+  /* Card Styles */
+  .c-title { font-size: 13px; font-weight: 800; text-transform: uppercase; margin-bottom: 6px; line-height: 1.2; color: #0f172a; }
+  .c-sub { font-size: 11px; font-weight: 700; color: var(--blue-primary); text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px; }
+  .c-body { font-size: 11px; color: #475569; line-height: 1.4; }
+  
+  .c-list { margin-top: 8px; padding-left: 0; list-style: none; }
+  .c-list li { padding: 2px 0 2px 14px; text-align: left; font-size: 10px; font-weight: 500; border: none; }
+  .c-list li::before, .c-list li::after { border: none; content: '•'; position: absolute; left: 0; top: 2px; font-weight: bold; width: auto; height: auto; }
+  
+  /* Status Colors */
+  .good li::before { color: var(--green-success); content: '✓'; }
+  .bad li::before { color: var(--red-danger); content: '✕'; }
+  .warn li::before { color: var(--yellow-warn); content: '!'; }
+
+  /* ROOT TITLES */
+  .root-title {
+    background: var(--blue-primary); color: white;
+    padding: 12px 20px; border-radius: 6px;
+    font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+    box-shadow: 0 10px 15px -3px rgba(42, 93, 159, 0.3);
+    margin-bottom: 10px; display: inline-block;
   }
 
-  /* COLOR THEMES */
-  .theme-trade { border-top: 4px solid var(--blue-600); }
-  .theme-buy { border-top: 4px solid #64748b; }
-  .theme-pos { border-left: 4px solid var(--green-600); }
-  .theme-neg { border-left: 4px solid var(--amber-600); }
-  .theme-prime { border-left: 4px solid var(--blue-600); }
-  .theme-build { border-left: 4px solid #ef4444; }
-
-  /* MOBILE RESPONSIVE */
-  @media (max-width: 1024px) {
-    .branch-grid { grid-template-columns: 1fr; gap: 40px; }
-    .top-bridge, .v-line::before, .v-line-down::after { display: none; }
-    .node { width: 100%; margin-bottom: 15px; }
-    .branch-col { align-items: stretch; }
-  }
-
-  /* Vetting Icons */
-  .vet-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; margin-top: 40px; width: 100%; }
-  @media (max-width: 768px) { .vet-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
 
-<div class="tree-container">
-  
-  <div class="text-center max-w-3xl mb-10">
-    <h1 class="text-3xl font-extrabold text-slate-900 mb-3">The Decision Web</h1>
-    <p class="text-sm text-slate-600 leading-relaxed">
-      Buying a vehicle isn't a straight line; it's a web of variables. Traditional dealerships force you into a box. We use a <strong>Decision Web</strong> to diagnose your Equity, Credit, and Goals to find the only path that makes mathematical sense.
-    </p>
-  </div>
+<div class="text-center pt-10">
+  <h1 class="text-3xl font-extrabold text-slate-800">The Automotive Decision Web</h1>
+  <p class="text-slate-500 text-sm mt-2">Follow the lines to find your financial reality.</p>
+</div>
 
-  <div class="node v-line-down bg-slate-900 text-white border-none text-center px-10 py-4 shadow-lg">
-    <div class="n-head text-white mb-0">START: YOUR SITUATION</div>
-  </div>
+<div class="tree">
+  <ul>
+    
+    <li>
+      <div class="root-title bg-blue-900">1. TRADING A VEHICLE</div>
+      
+      <ul>
+        <li>
+          <div class="card" style="border-top: 4px solid var(--green-success);">
+            <div class="c-sub text-green-600">Situation</div>
+            <div class="c-title">Positive Equity</div>
+            <div class="c-body">Value > Loan Payoff<br>(Found Money)</div>
+          </div>
+          <ul>
+             <li>
+               <div class="card bg-slate-50">
+                 <div class="c-sub">Your Goal</div>
+                 <div class="c-title">"Lower My Monthly"</div>
+               </div>
+               <ul>
+                 <li>
+                   <div class="card border-green-200 bg-green-50">
+                     <div class="c-title">STRATEGY: Down Payment</div>
+                     <ul class="c-list good">
+                       <li>Use equity as cash down</li>
+                       <li>Reduces Tax (Save 12-15%)</li>
+                       <li>Result: Lowest Payment</li>
+                     </ul>
+                   </div>
+                 </li>
+               </ul>
+             </li>
+             <li>
+               <div class="card bg-slate-50">
+                 <div class="c-sub">Your Goal</div>
+                 <div class="c-title">"I Need Cash Now"</div>
+               </div>
+               <ul>
+                 <li>
+                   <div class="card border-blue-200 bg-blue-50">
+                     <div class="c-title">STRATEGY: Cash Back</div>
+                     <ul class="c-list warn">
+                       <li>We cut you a cheque</li>
+                       <li>Zero Down on new car</li>
+                       <li>Result: Higher Payment</li>
+                     </ul>
+                   </div>
+                 </li>
+               </ul>
+             </li>
+          </ul>
+        </li>
 
-  <div class="branch-grid">
-    <div class="top-bridge"></div> <div class="branch-col v-line">
-      <div class="node theme-trade w-full text-center mb-8">
-        <div class="n-head text-blue-800">Path 1: Trading A Vehicle</div>
-        <div class="n-body">Managing your Equity Position</div>
-      </div>
+        <li>
+          <div class="card" style="border-top: 4px solid var(--yellow-warn);">
+            <div class="c-sub text-yellow-600">Situation</div>
+            <div class="c-title">Negative Equity</div>
+            <div class="c-body">Loan > Car Value<br>(Under Water)</div>
+          </div>
+          <ul>
+            <li>
+              <div class="card bg-slate-50">
+                <div class="c-sub">Your Goal</div>
+                <div class="c-title">"Get Me Out"</div>
+              </div>
+              <ul>
+                <li>
+                  <div class="card border-yellow-200 bg-yellow-50">
+                     <div class="c-title">STRATEGY: The "Trapdoor"</div>
+                     <div class="c-body mt-1 mb-2">Using Rebates to erase debt</div>
+                     <div class="c-sub">Vehicle Choice</div>
+                     <div class="c-body font-bold">MUST BE: EV or Truck</div>
+                     <ul class="c-list good">
+                       <li>Rebate kills the negative</li>
+                       <li>Fresh Start</li>
+                     </ul>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <div class="card bg-slate-50">
+                <div class="c-sub">Your Goal</div>
+                <div class="c-title">"Keep Payment Same"</div>
+              </div>
+              <ul>
+                 <li>
+                   <div class="card border-red-200 bg-red-50">
+                     <div class="c-title">STRATEGY: Roll Over</div>
+                     <div class="c-body mt-1 mb-2">Consolidating debt</div>
+                     <div class="c-sub">Vehicle Choice</div>
+                     <div class="c-body font-bold">MUST BE: High Book Value</div>
+                     <ul class="c-list bad">
+                       <li>Longer Term Required</li>
+                       <li>Interest on Interest</li>
+                     </ul>
+                   </div>
+                 </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+    <li>
+      <div class="root-title">2. BUYING A VEHICLE</div>
+      <ul>
         
-        <div class="flex flex-col gap-4">
-          <div class="node theme-pos">
-            <div class="n-head text-green-700">Positive Equity</div>
-            <div class="n-sub">Value > Loan Payoff</div>
-            <div class="n-body">You have "Found Money." How do you want to use it?</div>
+        <li>
+          <div class="card" style="border-top: 4px solid var(--blue-primary);">
+             <div class="c-sub">Method</div>
+             <div class="c-title">Financing</div>
+             <div class="c-body">Monthly Payments</div>
           </div>
-          <div class="node bg-green-50 border-green-100">
-            <div class="n-sub text-green-800">Option A: The Down Payment</div>
-            <ul class="n-list check">
-              <li><strong>Lowers Payment:</strong> Reduces amount financed.</li>
-              <li><strong>Tax Credit:</strong> You only pay tax on the difference (BC 12-15% Savings).</li>
-            </ul>
-          </div>
-          <div class="node bg-green-50 border-green-100">
-            <div class="n-sub text-green-800">Option B: Cash Out</div>
-            <ul class="n-list check">
-              <li><strong>Liquidity:</strong> We write you a cheque for the equity.</li>
-              <li><strong>Pros:</strong> Zero down, keep cash for emergencies.</li>
-              <li><strong>Cons:</strong> Higher monthly payment.</li>
-            </ul>
-          </div>
-        </div>
+          <ul>
+            <li>
+               <div class="card bg-slate-50">
+                 <div class="c-sub">Assessment</div>
+                 <div class="c-title">Your Credit Score?</div>
+               </div>
+               <ul>
+                 <li>
+                   <div class="card border-blue-200">
+                      <div class="c-title text-blue-700">Prime (700+)</div>
+                      <div class="c-body">Banks trust YOU.</div>
+                   </div>
+                   <ul>
+                      <li>
+                        <div class="card bg-slate-50">
+                           <div class="c-sub">Your Want</div>
+                           <div class="c-title">"Cheapest Payment"</div>
+                        </div>
+                        <ul>
+                           <li>
+                              <div class="card border-green-200 bg-green-50">
+                                <div class="c-title">Option: The "Budget" Buy</div>
+                                <div class="c-sub mt-2">Vehicle Year</div>
+                                <div class="c-body font-bold">Older (2014-2018)</div>
+                                <ul class="c-list good">
+                                  <li>Depreciation is gone</li>
+                                  <li>Extended terms (84mo)</li>
+                                  <li><strong>Result: Lowest Cost</strong></li>
+                                </ul>
+                              </div>
+                           </li>
+                        </ul>
+                      </li>
+                   </ul>
+                 </li>
 
-        <div class="flex flex-col gap-4">
-          <div class="node theme-neg">
-            <div class="n-head text-amber-700">Negative Equity</div>
-            <div class="n-sub">Loan Payoff > Value</div>
-            <div class="n-body">The "Waterline" is underwater. We need a strategy.</div>
-          </div>
-          <div class="node bg-amber-50 border-amber-100">
-            <div class="n-sub text-amber-800">Option A: The "Trapdoor"</div>
-            <ul class="n-list warn">
-              <li><strong>Strategy:</strong> Buy an EV or High-Rebate vehicle.</li>
-              <li><strong>Why:</strong> Use the $5k-$9k Rebate to "erase" your negative equity instantly.</li>
-              <li><strong>Pros:</strong> Fresh start. <strong>Cons:</strong> Limited vehicle choice.</li>
-            </ul>
-          </div>
-          <div class="node bg-amber-50 border-amber-100">
-            <div class="n-sub text-amber-800">Option B: The Roll Over</div>
-            <ul class="n-list warn">
-              <li><strong>Strategy:</strong> Consolidate debt into new loan.</li>
-              <li><strong>Vehicle Requirement:</strong> Must buy "High Book Value" (Truck/SUV) to absorb the debt.</li>
-              <li><strong>Result:</strong> Higher payment, but you exit the old loan.</li>
-            </ul>
-          </div>
-        </div>
+                 <li>
+                    <div class="card border-red-200">
+                       <div class="c-title text-red-600">Building (<650)</div>
+                       <div class="c-body">Banks trust the ASSET.</div>
+                    </div>
+                    <ul>
+                       <li>
+                          <div class="card bg-slate-50">
+                             <div class="c-sub">Your Want</div>
+                             <div class="c-title">"Reliability"</div>
+                          </div>
+                          <ul>
+                             <li>
+                                <div class="card border-red-200 bg-red-50">
+                                   <div class="c-title">Option: The "Stepping Stone"</div>
+                                   <div class="c-sub mt-2">Vehicle Year</div>
+                                   <div class="c-body font-bold">Newer (2019-2024)</div>
+                                   <div class="c-body italic text-[10px] mt-1">Required for Warranty</div>
+                                   <ul class="c-list bad">
+                                      <li>Higher Purchase Price</li>
+                                      <li>Capped Term (72mo)</li>
+                                      <li><strong>Result: Higher Pmt</strong></li>
+                                   </ul>
+                                </div>
+                             </li>
+                          </ul>
+                       </li>
+                    </ul>
+                 </li>
+               </ul>
+            </li>
+          </ul>
+        </li>
 
-      </div>
+        <li>
+           <div class="card" style="border-top: 4px solid #64748b;">
+              <div class="c-sub">Method</div>
+              <div class="c-title">Paying Cash</div>
+              <div class="c-body">Simple Transaction</div>
+           </div>
+           <ul>
+              <li>
+                 <div class="card bg-slate-50">
+                    <div class="c-sub">Assessment</div>
+                    <div class="c-title">Is there a Rebate?</div>
+                 </div>
+                 <ul>
+                    <li>
+                       <div class="card border-blue-200 bg-blue-50">
+                          <div class="c-title">YES: The Conversion</div>
+                          <div class="c-body">Finance to get the $2,000 rebate.</div>
+                          <div class="c-sub mt-2">The Strategy</div>
+                          <ul class="c-list good">
+                             <li>Take the loan</li>
+                             <li>Get the discount</li>
+                             <li>Pay off loan in month 6</li>
+                             <li><strong>Save $1,500+ net</strong></li>
+                          </ul>
+                       </div>
+                    </li>
+                    <li>
+                       <div class="card border-slate-200">
+                          <div class="c-title">NO: Pure Cash</div>
+                          <div class="c-body">Pay draft/Certified Chq.</div>
+                          <div class="c-sub mt-2">The Result</div>
+                          <ul class="c-list good">
+                             <li>0% Interest Cost</li>
+                             <li>Full Title Ownership</li>
+                             <li class="text-red-600 !font-bold">Uses all liquid cash</li>
+                          </ul>
+                       </div>
+                    </li>
+                 </ul>
+              </li>
+           </ul>
+        </li>
+
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<div class="max-w-5xl mx-auto mt-4 mb-20 px-6">
+  <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+    <div class="text-center mb-6">
+      <h2 class="text-lg font-extrabold text-slate-800 uppercase">The Quality Gate</h2>
+      <p class="text-xs text-slate-500">No matter where you land on the web above, every car must pass this test.</p>
     </div>
-
-    <div class="branch-col v-line">
-      <div class="node theme-buy w-full text-center mb-8">
-        <div class="n-head text-slate-700">Path 2: Buying (No Trade)</div>
-        <div class="n-body">Structuring the Ownership</div>
-      </div>
-
-      <div class="flex flex-col gap-6 w-full">
-
-        <div class="border-l-2 border-dashed border-slate-200 pl-4 md:pl-0 md:border-none">
-          <div class="bg-slate-100 rounded px-3 py-1 text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 text-center">Financing (Variable: Credit Score)</div>
-          
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            
-            <div class="flex flex-col gap-3">
-              <div class="node theme-prime">
-                <div class="n-head text-blue-700">Prime Credit (700+)</div>
-                <div class="n-body text-xs">Banks trust the <strong>Borrower</strong>.</div>
-              </div>
-              <div class="node">
-                <div class="n-sub">The "Budget" Buy</div>
-                <p class="text-xs mb-2">We can look at <strong>Older Vehicles</strong> (2014-2018).</p>
-                <div class="n-head text-sm">Result: LOWEST PAYMENT</div>
-                <ul class="n-list check">
-                  <li>Cheaper Price + Long Term (84mo).</li>
-                  <li>Total budget control.</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="flex flex-col gap-3">
-              <div class="node theme-build">
-                <div class="n-head text-red-600">Building Credit (<650)</div>
-                <div class="n-body text-xs">Banks trust the <strong>Asset</strong>.</div>
-              </div>
-              <div class="node">
-                <div class="n-sub">The "Stepping Stone"</div>
-                <p class="text-xs mb-2">Must buy <strong>Newer Vehicles</strong> (2019-2024) for warranty.</p>
-                <div class="n-head text-sm">Result: HIGHER PAYMENT</div>
-                <ul class="n-list warn">
-                  <li>Higher Price + Capped Term (72mo).</li>
-                  <li><strong>Goal:</strong> Refinance in 12 months.</li>
-                </ul>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="node border-slate-300 bg-slate-50">
-          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div>
-              <div class="n-head text-slate-700">The Cash Buyer</div>
-              <div class="n-body text-xs">Don't just write a cheque. Look for <strong>Arbitrage</strong>.</div>
-            </div>
-            <div class="bg-white border border-slate-200 p-3 rounded text-xs w-full md:w-auto">
-              <div class="font-bold text-slate-800">Strategy: "The Conversion"</div>
-              <p class="mt-1">If there is a $2,000 Finance Rebate, we finance the car to get the discount, then pay it off in 6 months. You save money vs paying cash upfront.</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
+       <div class="p-2">
+          <div class="text-blue-600 font-bold text-xs uppercase mb-1">1. History</div>
+          <p class="text-[10px] text-slate-500">Clean vs Rebuilt Titles<br>Value Analysis</p>
+       </div>
+       <div class="p-2">
+          <div class="text-blue-600 font-bold text-xs uppercase mb-1">2. Geography</div>
+          <p class="text-[10px] text-slate-500">Salt Belt Check<br>(No Rust)</p>
+       </div>
+       <div class="p-2">
+          <div class="text-blue-600 font-bold text-xs uppercase mb-1">3. Ownership</div>
+          <p class="text-[10px] text-slate-500">Rental vs Private<br>Maintenance Records</p>
+       </div>
+       <div class="p-2">
+          <div class="text-blue-600 font-bold text-xs uppercase mb-1">4. Waterlines</div>
+          <p class="text-[10px] text-slate-500">Flood Inspection<br>Silt Check</p>
+       </div>
+       <div class="p-2">
+          <div class="text-blue-600 font-bold text-xs uppercase mb-1">5. Liens</div>
+          <p class="text-[10px] text-slate-500">Registration Check<br>Debt Clearance</p>
+       </div>
     </div>
   </div>
-
-  <div class="w-full mt-16 pt-10 border-t border-slate-200">
-    <div class="text-center mb-8">
-      <h2 class="text-xl font-extrabold text-slate-800 uppercase tracking-tight">The Quality Gate: Vehicle Vetting</h2>
-      <p class="text-sm text-slate-500">Regardless of the financial path, the vehicle must pass the forensic analysis.</p>
-    </div>
-
-    <div class="vet-grid">
-      <div class="node text-center hover:border-blue-500">
-        <div class="n-head text-xs">1. History</div>
-        <p class="text-[11px] text-slate-500 leading-tight mt-1"><strong>Rebuilt vs Clean?</strong><br>Rebuilt offers 30% savings but harder to finance.</p>
-      </div>
-      <div class="node text-center hover:border-blue-500">
-        <div class="n-head text-xs">2. Geography</div>
-        <p class="text-[11px] text-slate-500 leading-tight mt-1"><strong>Salt Belt Check</strong><br>Avoid cars from ON/QC/East Coast to prevent hidden frame rust.</p>
-      </div>
-      <div class="node text-center hover:border-blue-500">
-        <div class="n-head text-xs">3. Ownership</div>
-        <p class="text-[11px] text-slate-500 leading-tight mt-1"><strong>Rental vs Private</strong><br>Rentals have perfect maintenance; Private owners have "pride of ownership."</p>
-      </div>
-      <div class="node text-center hover:border-blue-500">
-        <div class="n-head text-xs">4. Waterlines</div>
-        <p class="text-[11px] text-slate-500 leading-tight mt-1"><strong>Flood Forensics</strong><br>Checking seat rails and carpets for silt from storm damage.</p>
-      </div>
-      <div class="node text-center hover:border-blue-500">
-        <div class="n-head text-xs">5. Market Value</div>
-        <p class="text-[11px] text-slate-500 leading-tight mt-1"><strong>Book Value</strong><br>Ensuring the car has the LTV structure to support your loan.</p>
-      </div>
-    </div>
-  </div>
-
 </div>
 
 </body>
