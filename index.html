@@ -588,132 +588,91 @@
             </button>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            
-            <div class="border-l-4 border-theme-gold bg-slate-50 rounded-r-lg p-4 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
-                <div class="absolute top-0 right-0 p-2 opacity-10">
-                   <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-theme-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <div class="relative">
+                <div class="bg-theme-gold-50 border border-theme-gold/30 rounded-t-lg p-3 text-center">
+                    <div class="text-xs font-bold text-theme-gold uppercase tracking-wider mb-1">Situation A</div>
+                    <div class="text-sm font-extrabold text-slate-800">Negative Equity</div>
+                    <div class="text-[10px] text-slate-500">"I owe more than my trade is worth."</div>
                 </div>
-                <div class="flex items-center gap-2 mb-3">
-                    <span class="bg-theme-gold-50 text-theme-gold text-[10px] font-bold px-2 py-1 rounded uppercase border border-theme-gold/20">Negative Equity</span>
-                    <span class="bg-blue-50 text-[var(--blue-700)] text-[10px] font-bold px-2 py-1 rounded uppercase border border-blue-200">Good Credit</span>
-                </div>
-                <h3 class="text-sm font-extrabold text-slate-800 mb-2">The "Consolidation"</h3>
-                <p class="text-[11px] text-slate-600 mb-3 italic leading-snug">
-                    "I owe more than my car is worth, but my credit is strong."
-                </p>
-                <div class="space-y-3">
-                    <div class="bg-white p-2 rounded border border-slate-200">
-                        <div class="text-[10px] font-bold text-slate-400 uppercase mb-1 flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" /><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0014 7z" /></svg> Vehicle Options</div>
-                        <p class="text-xs text-slate-700 font-semibold">Must be 2018 or Newer.</p>
-                        <p class="text-[10px] text-slate-500 leading-tight mt-0.5">High book value needed to hide old debt.</p>
-                    </div>
+                
+                <div class="absolute left-1/2 top-[60px] bottom-4 w-px border-l-2 border-dashed border-slate-200 -translate-x-1/2 z-0"></div>
+
+                <div class="space-y-4 mt-4 relative z-10">
                     
-                    <div>
-                        <div class="text-[10px] font-bold text-[var(--blue-600)] uppercase mb-1 flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" /></svg> Lowest Payment</div>
-                        <p class="text-[11px] text-slate-700 leading-snug"><b>"The Stretch":</b> Roll negative equity into a new loan up to 96 months. Drops the payment by spreading the debt.</p>
+                    <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm hover:border-theme-gold transition-colors relative">
+                         <div class="absolute -left-[6px] top-1/2 -translate-y-1/2 w-3 h-3 bg-theme-gold rounded-full border-2 border-white"></div>
+                         <div class="flex justify-between items-center mb-2">
+                            <span class="text-[10px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded uppercase">Good Credit</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                         </div>
+                         <p class="text-xs font-bold text-slate-800 mb-1">"The Consolidation"</p>
+                         <ul class="text-[10px] space-y-1.5 text-slate-600">
+                             <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Must be 2018+ to hide debt.</span></li>
+                             <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> Stretch term to 96mo.</span></li>
+                             <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Cash down covers the gap.</span></li>
+                         </ul>
                     </div>
-                    
-                     <div>
-                        <div class="text-[10px] font-bold text-[var(--theme-green)] uppercase mb-1 flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg> Lowest Cost</div>
-                        <p class="text-[11px] text-slate-700 leading-snug"><b>Better Rate / Better Car:</b> Even with negative equity, trading a high-rate old car for a Prime-rate new car can lower your total cost of borrowing.</p>
+
+                    <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm hover:border-theme-gold transition-colors relative">
+                         <div class="absolute -left-[6px] top-1/2 -translate-y-1/2 w-3 h-3 bg-theme-gold rounded-full border-2 border-white"></div>
+                         <div class="flex justify-between items-center mb-2">
+                            <span class="text-[10px] font-bold bg-red-50 text-red-700 px-2 py-0.5 rounded uppercase">Building Credit</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-600" viewBox="0 0 20 20" fill="currentColor"><path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" /></svg>
+                         </div>
+                         <p class="text-xs font-bold text-slate-800 mb-1">"The Structure"</p>
+                         <ul class="text-[10px] space-y-1.5 text-slate-600">
+                             <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Limited "Book-Out" units only.</span></li>
+                             <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> Max term on cheapest SUV.</span></li>
+                             <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Lateral trade to equal value.</span></li>
+                         </ul>
                     </div>
+
                 </div>
             </div>
 
-            <div class="border-l-4 border-theme-gold bg-slate-50 rounded-r-lg p-4 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
-                 <div class="absolute top-0 right-0 p-2 opacity-10">
-                   <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-red-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            <div class="relative">
+                <div class="bg-theme-green-50 border border-theme-green/30 rounded-t-lg p-3 text-center">
+                    <div class="text-xs font-bold text-theme-green uppercase tracking-wider mb-1">Situation B</div>
+                    <div class="text-sm font-extrabold text-slate-800">Positive / Zero Equity</div>
+                    <div class="text-[10px] text-slate-500">"I have equity or no trade-in."</div>
                 </div>
-                <div class="flex items-center gap-2 mb-3">
-                    <span class="bg-theme-gold-50 text-theme-gold text-[10px] font-bold px-2 py-1 rounded uppercase border border-theme-gold/20">Negative Equity</span>
-                    <span class="bg-red-50 text-red-700 text-[10px] font-bold px-2 py-1 rounded uppercase border border-red-200">Building Credit</span>
-                </div>
-                <h3 class="text-sm font-extrabold text-slate-800 mb-2">The "Structure"</h3>
-                <p class="text-[11px] text-slate-600 mb-3 italic leading-snug">
-                    "I'm trapped in a bad loan on a car that needs repairs."
-                </p>
-                <div class="space-y-3">
-                    <div class="bg-white p-2 rounded border border-slate-200">
-                         <div class="text-[10px] font-bold text-slate-400 uppercase mb-1 flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" /><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0014 7z" /></svg> Vehicle Options</div>
-                        <p class="text-xs text-slate-700 font-semibold">Specific "Book-Out" Units.</p>
-                        <p class="text-[10px] text-slate-500 leading-tight mt-0.5">Usually 2017+ SUVs/Trucks with high rebates.</p>
-                    </div>
-                    
-                    <div>
-                        <div class="text-[10px] font-bold text-[var(--blue-600)] uppercase mb-1 flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" /></svg> Lowest Payment</div>
-                        <p class="text-[11px] text-slate-700 leading-snug"><b>"Max Term":</b> We find the cheapest vehicle the bank allows and stretch the term to keep payments survivable.</p>
-                    </div>
-                    
-                     <div>
-                        <div class="text-[10px] font-bold text-[var(--theme-green)] uppercase mb-1 flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg> Lowest Cost</div>
-                        <p class="text-[11px] text-slate-700 leading-snug"><b>"The Escape":</b> Get out of a high-mileage "money pit" into a reliable car with warranty. Stops the repair bills.</p>
-                    </div>
-                </div>
-            </div>
+                
+                <div class="absolute left-1/2 top-[60px] bottom-4 w-px border-l-2 border-dashed border-slate-200 -translate-x-1/2 z-0"></div>
 
-            <div class="border-l-4 border-theme-green bg-slate-50 rounded-r-lg p-4 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
-                <div class="absolute top-0 right-0 p-2 opacity-10">
-                   <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-theme-green" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                </div>
-                <div class="flex items-center gap-2 mb-3">
-                    <span class="bg-theme-green-50 text-theme-green text-[10px] font-bold px-2 py-1 rounded uppercase border border-theme-green/20">Positive Equity</span>
-                    <span class="bg-blue-50 text-[var(--blue-700)] text-[10px] font-bold px-2 py-1 rounded uppercase border border-blue-200">Good Credit</span>
-                </div>
-                <h3 class="text-sm font-extrabold text-slate-800 mb-2">The "Control"</h3>
-                <p class="text-[11px] text-slate-600 mb-3 italic leading-snug">
-                    "No baggage. Great history. Total freedom."
-                </p>
-                <div class="space-y-3">
-                    <div class="bg-white p-2 rounded border border-slate-200">
-                         <div class="text-[10px] font-bold text-slate-400 uppercase mb-1 flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" /><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0014 7z" /></svg> Vehicle Options</div>
-                        <p class="text-xs text-slate-700 font-semibold">Unlimited Selection.</p>
-                        <p class="text-[10px] text-slate-500 leading-tight mt-0.5">Buy Older (Cheap) or Brand New. Your choice.</p>
-                    </div>
+                <div class="space-y-4 mt-4 relative z-10">
                     
-                    <div>
-                        <div class="text-[10px] font-bold text-[var(--blue-600)] uppercase mb-1 flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" /></svg> Lowest Payment</div>
-                        <p class="text-[11px] text-slate-700 leading-snug"><b>"Use the Equity":</b> Use trade-in value as a massive down payment on a 2020+ model. Result = Micro payments.</p>
+                    <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm hover:border-theme-green transition-colors relative">
+                         <div class="absolute -right-[6px] top-1/2 -translate-y-1/2 w-3 h-3 bg-theme-green rounded-full border-2 border-white"></div>
+                         <div class="flex justify-between items-center mb-2">
+                            <span class="text-[10px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded uppercase">Good Credit</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                         </div>
+                         <p class="text-xs font-bold text-slate-800 mb-1">"Total Control"</p>
+                         <ul class="text-[10px] space-y-1.5 text-slate-600">
+                             <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Unlimited choice. Old or New.</span></li>
+                             <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> Use equity as down pymt.</span></li>
+                             <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Short term on older car.</span></li>
+                         </ul>
                     </div>
-                    
-                     <div>
-                        <div class="text-[10px] font-bold text-[var(--theme-green)] uppercase mb-1 flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg> Lowest Cost</div>
-                        <p class="text-[11px] text-slate-700 leading-snug"><b>"The Commuter":</b> Buy an older 2012-2016 vehicle for cheap ($15k) and pay it off in 36 months. Minimal interest.</p>
-                    </div>
-                </div>
-            </div>
 
-            <div class="border-l-4 border-theme-green bg-slate-50 rounded-r-lg p-4 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
-                 <div class="absolute top-0 right-0 p-2 opacity-10">
-                   <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-red-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                </div>
-                <div class="flex items-center gap-2 mb-3">
-                    <span class="bg-theme-green-50 text-theme-green text-[10px] font-bold px-2 py-1 rounded uppercase border border-theme-green/20">Positive Equity</span>
-                    <span class="bg-red-50 text-red-700 text-[10px] font-bold px-2 py-1 rounded uppercase border border-red-200">Building Credit</span>
-                </div>
-                <h3 class="text-sm font-extrabold text-slate-800 mb-2">The "Foundation"</h3>
-                <p class="text-[11px] text-slate-600 mb-3 italic leading-snug">
-                    "First-time buyer or rebuilding. No trade-in debt."
-                </p>
-                <div class="space-y-3">
-                    <div class="bg-white p-2 rounded border border-slate-200">
-                         <div class="text-[10px] font-bold text-slate-400 uppercase mb-1 flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" /><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0014 7z" /></svg> Vehicle Options</div>
-                        <p class="text-xs text-slate-700 font-semibold">Reliability Focus.</p>
-                        <p class="text-[10px] text-slate-500 leading-tight mt-0.5">Bank requires 2015+, under 160k kms. No luxury brands.</p>
+                    <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm hover:border-theme-green transition-colors relative">
+                         <div class="absolute -right-[6px] top-1/2 -translate-y-1/2 w-3 h-3 bg-theme-green rounded-full border-2 border-white"></div>
+                         <div class="flex justify-between items-center mb-2">
+                            <span class="text-[10px] font-bold bg-red-50 text-red-700 px-2 py-0.5 rounded uppercase">Building Credit</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-600" viewBox="0 0 20 20" fill="currentColor"><path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" /></svg>
+                         </div>
+                         <p class="text-xs font-bold text-slate-800 mb-1">"The Foundation"</p>
+                         <ul class="text-[10px] space-y-1.5 text-slate-600">
+                             <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Reliable (2015+, <160k km).</span></li>
+                             <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> "Credit Builder" 84mo term.</span></li>
+                             <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Cheapest reliable car ($18k).</span></li>
+                         </ul>
                     </div>
-                    
-                    <div>
-                        <div class="text-[10px] font-bold text-[var(--blue-600)] uppercase mb-1 flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" /></svg> Lowest Payment</div>
-                        <p class="text-[11px] text-slate-700 leading-snug"><b>"The Credit Builder":</b> Secure a 2018+ model to qualify for 72-84 month terms. Keeps payments low while you rebuild.</p>
-                    </div>
-                    
-                     <div>
-                        <div class="text-[10px] font-bold text-[var(--theme-green)] uppercase mb-1 flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg> Lowest Cost</div>
-                        <p class="text-[11px] text-slate-700 leading-snug"><b>"Budget Buy":</b> Ignore flashy cars. Buy the cheapest reliable car approved (e.g., $18k Civic) to keep total debt low.</p>
-                    </div>
+
                 </div>
             </div>
-            
         </div>
       </section>
       <section id="inventory" class="card card-accent p-5">
@@ -809,7 +768,7 @@
       <p class="progress-note">Secure & encrypted. We never share or sell your info.</p>
     </div>
   </div>
-
+  
   <script>
   // Vehicle Data for dropdowns
   const vehicleData = {
@@ -1284,3 +1243,4 @@
   });
   </script>
 </body>
+</html>
