@@ -158,7 +158,6 @@
       display: flex; 
       align-items: center; /* FIXED: Centers buttons vertically */
       justify-content: space-between; 
-      /* Removed padding-bottom to fix height issue */
     }
 
     #btnBack{ min-height:36px; border-radius:8px; font-size:13px; color: var(--slate-500); padding: 0 16px; font-weight: 700; }
@@ -171,16 +170,21 @@
     }
     .form-backdrop.active { opacity: 1; pointer-events: auto; }
 
-    /* New Pop Animation */
+    /* Pop Animation (Open) */
     @keyframes modalPop {
         0% { opacity: 0; transform: translate(-50%, -45%) scale(0.95); }
         100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
     }
 
+    /* Pop Animation (Close/Reverse) */
+    @keyframes modalPopReverse {
+        0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        100% { opacity: 0; transform: translate(-50%, -45%) scale(0.95); }
+    }
+
     .form-focused {
       position: fixed !important;
       top: 50% !important; left: 50% !important;
-      /* Transform handled by animation */
       width: 95vw !important; 
       max-width: 800px !important;
       height: 600px !important; 
@@ -190,7 +194,12 @@
       border-radius: 12px;
       margin: 0 !important;
       overflow: visible !important;
-      animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; /* ADDED: Expanding animation */
+      animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    /* Add this class when closing to trigger reverse animation */
+    .form-focused.form-closing {
+        animation: modalPopReverse 0.3s ease-in forwards !important;
     }
     
     .form-close-btn {
@@ -1237,12 +1246,21 @@
     }
     
     function collapseForm() {
-        formShell.classList.remove('form-focused');
-        formBackdrop.classList.remove('active');
-        formClose.classList.add('hidden');
-        formTrigger.classList.remove('hidden');
-        formSpacer.classList.add('hidden'); // Hide immediately to prevent jump
-        document.body.classList.remove('modal-open'); // Re-enable scroll
+        if (!formShell.classList.contains('form-focused')) return;
+
+        // Add closing class to trigger reverse animation
+        formShell.classList.add('form-closing');
+        formBackdrop.classList.remove('active'); // Fade out backdrop immediately
+
+        // Wait for animation to finish
+        formShell.addEventListener('animationend', function() {
+            formShell.classList.remove('form-focused');
+            formShell.classList.remove('form-closing');
+            formSpacer.classList.add('hidden'); // Now hide the spacer
+            document.body.classList.remove('modal-open');
+            formClose.classList.add('hidden');
+            formTrigger.classList.remove('hidden');
+        }, { once: true });
     }
 
     // Triggers - Verified IDs
