@@ -21,6 +21,7 @@
 
   <style>
     :root{
+      /* COLORS */
       --blue-600:#2A5D9F; 
       --blue-700:#214B80; 
       --blue-100:#EAF1FB; 
@@ -39,6 +40,7 @@
       --slate-700: #334155;
       --slate-800: #1e293b;
 
+      /* Typography & Spacing */
       --fs-h1: 26px; --fs-h2: 18px; --fs-body: 13px; --fs-label: 11px; 
       --radius: 8px;
       --control-h: 44px;
@@ -53,6 +55,9 @@
       overflow-x: hidden;
     }
     
+    /* Prevent scrolling when modal is open */
+    body.modal-open { overflow: hidden !important; }
+
     .h1{ font-size:var(--fs-h1); font-weight:800; color:var(--slate-800); line-height: 1.1; letter-spacing: -0.5px; }
     .h2{ font-size:var(--fs-h2); font-weight:700; color:var(--slate-800); margin-bottom:4px; white-space: nowrap; }
     @media(max-width: 640px) { .h2 { white-space: normal; } }
@@ -86,21 +91,20 @@
     @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
 
     /* =================================================================
-       LAYOUT ENGINE: FIXED HEIGHT / ABSOLUTE FOOTER
+       LAYOUT ENGINE
        ================================================================= */
     
-    /* 1. The Container */
     .form-shell { 
         position: relative; 
-        /* Default state is overflow hidden to clip corners */
-        overflow: hidden;
+        overflow: hidden; 
         height: 380px; 
         background: #fff;
         transition: height 0.3s ease;
+        /* Ensure stacking context for z-index */
+        z-index: 1;
     }
 
-    /* 2. Inner Clipper: This is the white box content that holds everything */
-    /* Crucial: height 100% ensures it fills the shell */
+    /* The "Clipper" wraps the content to ensure rounded corners inside the shell */
     .form-clipper {
         position: relative;
         width: 100%;
@@ -109,10 +113,10 @@
         flex-direction: column;
         background: #fff;
         border-radius: 12px;
-        overflow: hidden; /* Keep inner content rounded */
+        overflow: hidden; 
     }
     
-    /* 3. Header */
+    /* HEADER - Pinned Top */
     .form-header { 
         position: absolute; top: 0; left: 0; right: 0;
         z-index: 10; 
@@ -122,11 +126,11 @@
         height: 50px; 
     }
 
-    /* 4. Viewport (Middle) */
+    /* VIEWPORT - Middle */
     .step-viewport { 
         position: absolute;
-        top: 50px; /* Below Header */
-        bottom: 50px; /* Above Footer */
+        top: 50px; 
+        bottom: 55px; /* Leave room for footer */
         left: 0; right: 0;
         overflow-y: auto; 
         overflow-x: hidden;
@@ -139,9 +143,9 @@
       height: 100%; display: flex; flex-direction: column; padding: 0 20px;
     }
     
-    .step-title { text-align: center; margin-top: 10px; flex-shrink: 0; padding-bottom: 4px; }
+    /* Centering */
+    .step-title { text-align: center; margin-top: 12px; flex-shrink: 0; padding-bottom: 4px; }
     
-    /* Content Body: Centers content vertically */
     .step-body {
       flex-grow: 1; display: flex; flex-direction: column;
       align-items: center; justify-content: center; 
@@ -151,16 +155,19 @@
     .content input, .content select, .content .grid-inline-2 { text-align: left; } 
     .vstack > * + * { margin-top: 10px; }
 
-    /* 5. Footer: Pinned to absolute bottom 0 */
+    /* FOOTER - Fixed Bottom */
     .form-footer {
       position: absolute; 
       bottom: 0; left: 0; right: 0;
       background: rgba(255,255,255,0.98); 
       border-top: 1px solid var(--slate-200);
       padding: 0 20px; 
-      height: 50px; 
+      height: 55px; /* Taller to hold buttons */
       z-index: 20;
-      display: flex; align-items: center; justify-content: space-between; 
+      display: flex; 
+      align-items: flex-end; /* Push items to bottom */
+      justify-content: space-between; 
+      padding-bottom: 10px; /* Buffer from very bottom edge */
     }
 
     #btnBack{ min-height:36px; border-radius:8px; font-size:13px; color: var(--slate-500); padding: 0 16px; font-weight: 700; }
@@ -168,8 +175,8 @@
 
     /* --- FOCUS MODE (POPUP) --- */
     .form-backdrop {
-      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(5px);
-      opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 40;
+      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(6px);
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 9990;
     }
     .form-backdrop.active { opacity: 1; pointer-events: auto; }
 
@@ -180,26 +187,25 @@
       width: 95vw !important; max-width: 500px !important;
       height: auto !important; max-height: 90vh !important;
       min-height: 550px; 
-      z-index: 50 !important;
+      z-index: 9999 !important; /* Ensure it's on top of backdrop */
       box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
       border-radius: 12px;
       margin: 0 !important;
-      /* Crucial: Visible overflow so the button can hang outside */
-      overflow: visible !important; 
+      overflow: visible !important; /* Allow Close Button to hang out */
     }
     
-    /* The Close Button - Hanging off the corner */
+    /* Small Grey Circle Close Button - Off Center */
     .form-close-btn {
       position: absolute; 
-      top: -10px; 
-      right: -10px; 
-      width: 28px; height: 28px;
-      background: #e2e8f0; /* Grey */
+      top: -12px; 
+      right: -12px; 
+      width: 26px; height: 26px;
+      background: #e2e8f0; 
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; color: #64748b;
       transition: all 0.2s;
-      z-index: 60;
+      z-index: 10000; /* Highest */
       border: 2px solid #fff;
       box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
     }
@@ -208,7 +214,7 @@
     
     .form-trigger-overlay { position: absolute; inset: 0; z-index: 30; cursor: pointer; }
 
-    /* Utility Styles */
+    /* Utility */
     .choice-rect {
       width:100%; text-align:left; border:1.5px solid var(--slate-300); border-radius:var(--radius); background:#fff;
       font-weight:600; color: var(--slate-700); transition:all .15s ease; display:flex; align-items:center; cursor:pointer; 
@@ -234,7 +240,6 @@
         .grid-inline-2 { display: grid; grid-template-columns: 1fr 1fr; } 
     }
 
-    /* Header brand */
     .brand-left{ display:flex; align-items:center; gap:12px; }
     .site-logo{ height:45px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
     @media (min-width:640px){ .site-logo{ height:60px; } }
@@ -242,10 +247,7 @@
     .brand-title{ color:var(--slate-800); font-weight:800; letter-spacing:-0.02em; font-size:var(--nav-font); white-space:nowrap; text-decoration:none; line-height:1; margin-left:-2px; }
     .powered-by-inline{ display:flex; align-items:center; gap:6px; font-size: 11px; color:var(--slate-500); font-weight:600; line-height:1; margin-top:2px; }
     .powered-by-inline img{ height: 11px; width:auto; object-fit:contain; position:relative; top:1px; opacity: 0.8; }
-
     .abc-badge{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:9999px; background:var(--blue-600); color:#fff; border:none; font-weight:800; font-size:11px; line-height:1; flex-shrink:0; }
-    
-    /* Inventory */
     .bodytype-card{ position: relative; overflow:hidden; border-radius:12px; border:1px solid var(--slate-200); background:#fff; transition:transform .2s,box-shadow .2s,border-color .2s; }
     .bodytype-card:hover{ transform:translateY(-3px); border-color:var(--blue-600); box-shadow:0 12px 20px -5px rgba(42,93,159,.2); }
     .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:90px; }
@@ -254,7 +256,6 @@
     .bodytype-card:hover .inv-overlay { opacity: 1; }
     .map-embed{ width:100%; height:200px; border:0; border-radius: inherit; }
     @media (min-width:640px){ .map-embed{ height:150px; } }
-
     .progress-overlay{position:fixed;inset:0;background:rgba(15,23,42,.6);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:50}
     .progress-card{background:#fff;border-radius:16px;box-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);width:min(520px,92vw);padding:24px 20px}
     .progress-title{font-weight:800;font-size:18px;color:var(--slate-800)}
@@ -265,14 +266,12 @@
     .progress-steps li.active{opacity:1;font-weight:700; color: var(--slate-800);}
     .progress-note{margin-top:12px;font-size:12px;color:var(--slate-500)}
     .hidden{display:none !important;}
-
     .refi-box { background: #fff; display: flex; flex-direction: column; height: 100%; }
     .refi-inputs-area { padding: 12px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 8px; }
     .refi-row { display: flex; gap: 8px; } .refi-row > div { flex: 1; }
     .refi-results-clean { background: var(--slate-50); border-radius: 6px; padding: 10px; border: 1px solid var(--slate-200); }
     .refi-slider{ width:100%; accent-color: var(--blue-600); cursor: pointer; height: 4px; margin-top: 4px;}
     .text-equifax-red { color: var(--red-equifax); }
-
     .border-theme-gold { border-color: var(--theme-gold); }
     .text-theme-gold { color: var(--theme-gold); }
     .bg-theme-gold-50 { background-color: var(--theme-gold-bg); }
@@ -298,7 +297,6 @@
         </div>
 
         <div class="flex items-center gap-6 font-bold text-slate-600 text-xs ml-auto mt-1 pr-4">
-          
           <div class="relative group h-full flex items-center">
               <button class="hover:text-[var(--blue-600)] transition-colors flex items-center gap-1 cursor-pointer py-2">
                   Tools
@@ -311,7 +309,6 @@
                   </div>
               </div>
           </div>
-
           <a href="#lead-form-card" class="hover:text-[var(--blue-600)] transition-colors">Financing</a>
           <a href="#lead-form-card" class="hover:text-[var(--blue-600)] transition-colors">Refinancing</a>
           <a href="#inventory" class="hover:text-[var(--blue-600)] transition-colors">Inventory</a>
@@ -367,6 +364,7 @@
       <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="card card-accent p-0 overflow-hidden h-auto" id="lead-form-card">
           <div id="form-spacer" class="hidden h-[380px]"></div>
+          
           <div class="form-shell" id="form-shell">
             
             <div class="form-clipper">
@@ -377,10 +375,10 @@
                     <div id="progress-label" class="text-[10px] uppercase tracking-wider font-bold text-slate-500">Step 1</div>
                     <div id="progress-endcap" class="text-[10px] font-bold text-[var(--blue-700)]">Start</div>
                   </div>
-                  <div class="track"><div id="progress-fill" class="fill"></div></div>
+                  <div class="track mt-1.5"><div id="progress-fill" class="fill"></div></div>
                 </div>
 
-                <div id="step-viewport" class="step-viewport">
+                <div id="step-viewport" class="step-viewport px-4">
                   <div class="step-viewport-inner">
                     <form id="the-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" novalidate>
                       <input type="hidden" name="form-name" value="lead-form"/>
@@ -491,7 +489,7 @@
                   <button type="button" id="btnBack" class="font-semibold text-slate-600 hover:text-slate-900 px-4 py-2 rounded-lg hover:bg-slate-100 transition-colors">Back</button>
                   <button type="button" id="btnNext" class="cta-button">Next</button>
                 </div>
-
+                
             </div> <button id="form-close" class="form-close-btn hidden" aria-label="Close form">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
@@ -569,6 +567,93 @@
             </div>
           </div>
         </aside>
+      </section>
+
+      <section id="finance-guide" class="card card-accent p-6 overflow-hidden mt-6">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4 border-b border-slate-100 pb-4">
+            <div class="text-left">
+              <h2 class="h2 text-xl">Financing Guide</h2>
+              <p class="text-xs text-slate-500 mt-1">Pick your pathway to see likely options and strategies.</p>
+            </div>
+            <button type="button" id="btnGetStarted" class="cta-button px-6 py-2 text-xs uppercase tracking-wide h-auto min-h-0 shadow-md hover:shadow-lg transition-shadow">
+                Get Started <span class="ml-2 text-base">→</span>
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="relative">
+                <div class="bg-theme-gold-50 border border-theme-gold/30 rounded-t-lg p-3 text-center">
+                    <div class="text-xs font-bold text-theme-gold uppercase tracking-wider mb-1">Situation A</div>
+                    <div class="text-sm font-extrabold text-slate-800">Negative Equity</div>
+                    <div class="text-[10px] text-slate-500">"I owe more than my trade is worth."</div>
+                </div>
+                <div class="absolute left-1/2 top-[60px] bottom-4 w-px border-l-2 border-dashed border-slate-200 -translate-x-1/2 z-0"></div>
+                <div class="space-y-4 mt-4 relative z-10">
+                    <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm hover:border-theme-gold transition-colors relative">
+                         <div class="absolute -left-[6px] top-1/2 -translate-y-1/2 w-3 h-3 bg-theme-gold rounded-full border-2 border-white"></div>
+                         <div class="flex justify-between items-center mb-2">
+                            <span class="text-[10px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded uppercase">Good Credit</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                         </div>
+                         <p class="text-xs font-bold text-slate-800 mb-1">"The Consolidation"</p>
+                         <ul class="text-[10px] space-y-1.5 text-slate-600">
+                             <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Must be 2018+ to hide debt.</span></li>
+                             <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> Stretch term to 96mo.</span></li>
+                             <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Cash down covers the gap.</span></li>
+                         </ul>
+                    </div>
+                    <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm hover:border-theme-gold transition-colors relative">
+                         <div class="absolute -left-[6px] top-1/2 -translate-y-1/2 w-3 h-3 bg-theme-gold rounded-full border-2 border-white"></div>
+                         <div class="flex justify-between items-center mb-2">
+                            <span class="text-[10px] font-bold bg-red-50 text-red-700 px-2 py-0.5 rounded uppercase">Building Credit</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-600" viewBox="0 0 20 20" fill="currentColor"><path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" /></svg>
+                         </div>
+                         <p class="text-xs font-bold text-slate-800 mb-1">"The Structure"</p>
+                         <ul class="text-[10px] space-y-1.5 text-slate-600">
+                             <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Limited "Book-Out" units only.</span></li>
+                             <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> Max term on cheapest SUV.</span></li>
+                             <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Lateral trade to equal value.</span></li>
+                         </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="bg-theme-green-50 border border-theme-green/30 rounded-t-lg p-3 text-center">
+                    <div class="text-xs font-bold text-theme-green uppercase tracking-wider mb-1">Situation B</div>
+                    <div class="text-sm font-extrabold text-slate-800">Positive / Zero Equity</div>
+                    <div class="text-[10px] text-slate-500">"I have equity or no trade-in."</div>
+                </div>
+                <div class="absolute left-1/2 top-[60px] bottom-4 w-px border-l-2 border-dashed border-slate-200 -translate-x-1/2 z-0"></div>
+                <div class="space-y-4 mt-4 relative z-10">
+                    <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm hover:border-theme-green transition-colors relative">
+                         <div class="absolute -right-[6px] top-1/2 -translate-y-1/2 w-3 h-3 bg-theme-green rounded-full border-2 border-white"></div>
+                         <div class="flex justify-between items-center mb-2">
+                            <span class="text-[10px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded uppercase">Good Credit</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                         </div>
+                         <p class="text-xs font-bold text-slate-800 mb-1">"Total Control"</p>
+                         <ul class="text-[10px] space-y-1.5 text-slate-600">
+                             <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Unlimited choice. Old or New.</span></li>
+                             <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> Use equity as down pymt.</span></li>
+                             <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Short term on older car.</span></li>
+                         </ul>
+                    </div>
+                    <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm hover:border-theme-green transition-colors relative">
+                         <div class="absolute -right-[6px] top-1/2 -translate-y-1/2 w-3 h-3 bg-theme-green rounded-full border-2 border-white"></div>
+                         <div class="flex justify-between items-center mb-2">
+                            <span class="text-[10px] font-bold bg-red-50 text-red-700 px-2 py-0.5 rounded uppercase">Building Credit</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-600" viewBox="0 0 20 20" fill="currentColor"><path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" /></svg>
+                         </div>
+                         <p class="text-xs font-bold text-slate-800 mb-1">"The Foundation"</p>
+                         <ul class="text-[10px] space-y-1.5 text-slate-600">
+                             <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Reliable (2015+, <160k km).</span></li>
+                             <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> "Credit Builder" 84mo term.</span></li>
+                             <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Cheapest reliable car ($18k).</span></li>
+                         </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
       </section>
 
       <section id="personalized-search" class="card card-accent p-6 mt-6">
@@ -1144,6 +1229,7 @@
         formBackdrop.classList.add('active');
         formClose.classList.remove('hidden');
         formTrigger.classList.add('hidden'); 
+        document.body.classList.add('modal-open'); // Prevent background scroll
     }
     
     function collapseForm() {
@@ -1152,6 +1238,7 @@
         formClose.classList.add('hidden');
         formTrigger.classList.remove('hidden');
         formSpacer.classList.add('hidden'); // Hide immediately to prevent jump
+        document.body.classList.remove('modal-open'); // Re-enable scroll
     }
 
     // Triggers
