@@ -190,7 +190,12 @@
         overflow-x: hidden;
     }
     
-    .step-viewport-inner, #the-form { height: 100%; }
+    /* *** CRITICAL FIX: Ensure height propagates down *** */
+    .step-viewport-inner, 
+    #the-form, 
+    .form-step { 
+        height: 100%; 
+    }
 
     /* 4. Step Container: Flex Column */
     .step-inner {
