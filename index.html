@@ -19,8 +19,21 @@
 
   <style>
     :root{
-      --blue-600:#2A5D9F; --blue-700:#214B80; --blue-100:#EAF1FB; --blue-grad:#4C7CC0;
+      /* ORIGINAL BRAND COLORS PRESERVED */
+      --blue-600:#2A5D9F; 
+      --blue-700:#214B80; 
+      --blue-100:#EAF1FB; 
+      --blue-grad:#4C7CC0;
       --red-equifax: #A8202A;
+
+      /* NEW HARMONIZED COLORS FOR GUIDE */
+      /* Deep Gold matches the Navy Blue better than bright orange */
+      --theme-gold: #B45309; 
+      --theme-gold-bg: #FFFBEB;
+      /* Forest Green matches the weight of the Red better than lime green */
+      --theme-green: #15803d;
+      --theme-green-bg: #F0FDF4;
+
       --slate-50: #f8fafc;
       --slate-100: #f1f5f9;
       --slate-200: #e2e8f0;
@@ -125,6 +138,15 @@
     .err{ border-color:var(--red-equifax) !important; background-color: #fff5f5; animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; } 
     .err-label{ color:var(--red-equifax) !important; }
     .text-theme-red { color: var(--red-equifax); }
+
+    /* Custom Color Utility Classes for Harmonized Theme */
+    .border-theme-gold { border-color: var(--theme-gold); }
+    .text-theme-gold { color: var(--theme-gold); }
+    .bg-theme-gold-50 { background-color: var(--theme-gold-bg); }
+
+    .border-theme-green { border-color: var(--theme-green); }
+    .text-theme-green { color: var(--theme-green); }
+    .bg-theme-green-50 { background-color: var(--theme-green-bg); }
 
     @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
 
@@ -647,8 +669,8 @@
       <section id="finance-guide" class="card card-accent p-6 overflow-hidden mt-6">
         <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 border-b border-slate-100 pb-4">
             <div class="text-left">
-              <h2 class="h2 text-xl">The Financing Logic Web</h2>
-              <p class="text-xs text-slate-500 mt-1">Logic-based structure based on Equity & Credit.</p>
+              <h2 class="h2 text-xl">Financing Guide</h2>
+              <p class="text-xs text-slate-500 mt-1">Pick your pathway to see likely options and strategies.</p>
             </div>
             <button type="button" id="btnGetStarted" class="cta-button px-6 py-2 text-xs uppercase tracking-wide h-auto min-h-0 shadow-md hover:shadow-lg transition-shadow">
                 Get Started <span class="ml-2 text-base">→</span>
@@ -665,8 +687,8 @@
 
                 <ul>
                   <li>
-                    <div class="tree-card border-t-4 border-amber-500">
-                      <div class="text-[10px] font-bold text-amber-600 uppercase mb-1">Situation</div>
+                    <div class="tree-card border-t-4 border-theme-gold">
+                      <div class="text-[10px] font-bold text-theme-gold uppercase mb-1">Situation</div>
                       <div class="font-bold text-slate-800 text-sm">Negative Equity</div>
                       <div class="text-[10px] text-slate-400 mt-0.5">Loan Balance > Car Value</div>
                     </div>
@@ -674,20 +696,20 @@
                     <ul>
                       <li>
                         <div class="tree-card relative group hover:border-[var(--blue-600)] transition-colors">
-                          <div class="inline-block px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-bold text-[10px] uppercase mb-2">Good Credit (700+)</div>
+                          <div class="inline-block px-2 py-0.5 rounded bg-theme-gold-50 text-theme-gold font-bold text-[10px] uppercase mb-2">Good Credit (700+)</div>
                           <div class="text-xs font-bold text-slate-800 mb-2">Strategy: Consolidation</div>
                           
                           <div class="text-left bg-slate-50 rounded p-2 border border-slate-100">
                             <div class="text-[10px] font-bold text-slate-500 uppercase mb-1">The Outcome</div>
                             <ul class="space-y-1">
                               <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
-                                <span class="text-green-600 font-bold">✓</span> <span><b>Lower Rate:</b> Trade high interest for Prime rates.</span>
+                                <span class="text-theme-green font-bold">✓</span> <span><b>Lower Rate:</b> Trade high interest for Prime rates.</span>
                               </li>
                               <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
-                                <span class="text-green-600 font-bold">✓</span> <span><b>Better Fit:</b> Get a vehicle that suits your needs.</span>
+                                <span class="text-theme-green font-bold">✓</span> <span><b>Better Fit:</b> Get a vehicle that suits your needs.</span>
                               </li>
                               <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
-                                <span class="text-amber-600 font-bold">!</span> <span><b>Trade-off:</b> Higher loan balance.</span>
+                                <span class="text-theme-gold font-bold">!</span> <span><b>Trade-off:</b> Higher loan balance.</span>
                               </li>
                             </ul>
                           </div>
@@ -703,13 +725,13 @@
                             <div class="text-[10px] font-bold text-slate-500 uppercase mb-1">The Outcome</div>
                             <ul class="space-y-1">
                               <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
-                                <span class="text-green-600 font-bold">✓</span> <span><b>Fresh Start:</b> Escape a bad loan structure.</span>
+                                <span class="text-theme-green font-bold">✓</span> <span><b>Fresh Start:</b> Escape a bad loan structure.</span>
                               </li>
                               <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
-                                <span class="text-green-600 font-bold">✓</span> <span><b>Reliability:</b> Move into warranty coverage.</span>
+                                <span class="text-theme-green font-bold">✓</span> <span><b>Reliability:</b> Move into warranty coverage.</span>
                               </li>
                               <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
-                                <span class="text-amber-600 font-bold">!</span> <span><b>Trade-off:</b> Limited vehicle choice.</span>
+                                <span class="text-theme-gold font-bold">!</span> <span><b>Trade-off:</b> Limited vehicle choice.</span>
                               </li>
                             </ul>
                           </div>
@@ -719,8 +741,8 @@
                   </li>
 
                   <li>
-                    <div class="tree-card border-t-4 border-green-500">
-                      <div class="text-[10px] font-bold text-green-600 uppercase mb-1">Situation</div>
+                    <div class="tree-card border-t-4 border-theme-green">
+                      <div class="text-[10px] font-bold text-theme-green uppercase mb-1">Situation</div>
                       <div class="font-bold text-slate-800 text-sm">Positive / Zero Equity</div>
                       <div class="text-[10px] text-slate-400 mt-0.5">Car Value > Loan Balance</div>
                     </div>
@@ -728,20 +750,20 @@
                     <ul>
                       <li>
                         <div class="tree-card relative group hover:border-[var(--blue-600)] transition-colors">
-                          <div class="inline-block px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-bold text-[10px] uppercase mb-2">Good Credit (700+)</div>
+                          <div class="inline-block px-2 py-0.5 rounded bg-theme-green-50 text-theme-green font-bold text-[10px] uppercase mb-2">Good Credit (700+)</div>
                           <div class="text-xs font-bold text-slate-800 mb-2">Strategy: Total Control</div>
                           
                           <div class="text-left bg-slate-50 rounded p-2 border border-slate-100">
                             <div class="text-[10px] font-bold text-slate-500 uppercase mb-1">The Outcome</div>
                             <ul class="space-y-1">
                               <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
-                                <span class="text-green-600 font-bold">✓</span> <span><b>Lowest Payment:</b> Use equity as down payment.</span>
+                                <span class="text-theme-green font-bold">✓</span> <span><b>Lowest Payment:</b> Use equity as down payment.</span>
                               </li>
                               <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
-                                <span class="text-green-600 font-bold">✓</span> <span><b>Flexibility:</b> Buy Older (Cheaper) or Newer.</span>
+                                <span class="text-theme-green font-bold">✓</span> <span><b>Flexibility:</b> Buy Older (Cheaper) or Newer.</span>
                               </li>
                               <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
-                                <span class="text-green-600 font-bold">✓</span> <span><b>Tax Savings:</b> Save 12-15% on trade.</span>
+                                <span class="text-theme-green font-bold">✓</span> <span><b>Tax Savings:</b> Save 12-15% on trade.</span>
                               </li>
                             </ul>
                           </div>
@@ -757,13 +779,13 @@
                             <div class="text-[10px] font-bold text-slate-500 uppercase mb-1">The Outcome</div>
                             <ul class="space-y-1">
                               <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
-                                <span class="text-green-600 font-bold">✓</span> <span><b>Approval:</b> Equity secures the bank approval.</span>
+                                <span class="text-theme-green font-bold">✓</span> <span><b>Approval:</b> Equity secures the bank approval.</span>
                               </li>
                               <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
-                                <span class="text-green-600 font-bold">✓</span> <span><b>The Plan:</b> Refinance in 12 months.</span>
+                                <span class="text-theme-green font-bold">✓</span> <span><b>The Plan:</b> Refinance in 12 months.</span>
                               </li>
                               <li class="flex items-start gap-1.5 text-[10px] text-slate-600 leading-tight">
-                                <span class="text-amber-600 font-bold">!</span> <span><b>Trade-off:</b> Must be 2018+ model.</span>
+                                <span class="text-theme-gold font-bold">!</span> <span><b>Trade-off:</b> Must be 2018+ model.</span>
                               </li>
                             </ul>
                           </div>
