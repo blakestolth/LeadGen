@@ -1,4 +1,3 @@
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -381,9 +380,11 @@
         </div>
 
         <div class="hidden sm:flex items-center gap-2 font-semibold text-zinc-700 flex-shrink-0">
+          <a href="#finance-guide" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-[var(--blue-600)] transition-colors text-sm">Finance Guide</a>
+          <a href="#lead-form-card" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-[var(--blue-600)] transition-colors text-sm">Financing</a>
+          <a href="#lead-form-card" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-[var(--blue-600)] transition-colors text-sm">Refinancing</a>
           <a href="#inventory" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-[var(--blue-600)] transition-colors text-sm">Inventory</a>
-          <a href="#about" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-[var(--blue-600)] transition-colors text-sm">About</a>
-          <button type="button" id="navApplyBtn" class="cta-button ml-2 text-sm">Apply Now</button>
+          <button type="button" id="navApplyBtn" class="cta-button ml-2 text-sm">Get Started</button>
         </div>
         <button id="menuBtn" class="sm:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 transition-colors" aria-label="Open menu">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -391,9 +392,11 @@
       </nav>
       <div id="mobileMenu" class="hidden sm:hidden mt-2 card card-accent px-4 py-3">
         <div class="flex flex-col gap-2 font-semibold text-zinc-700">
+          <a href="#finance-guide" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Finance Guide</a>
+          <a href="#lead-form-card" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Financing</a>
+          <a href="#lead-form-card" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Refinancing</a>
           <a href="#inventory" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Inventory</a>
-          <a href="#about" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">About</a>
-          <button type="button" id="mobileApplyBtn" class="mt-2 cta-button text-center w-full">Apply Now</button>
+          <button type="button" id="mobileApplyBtn" class="mt-2 cta-button text-center w-full">Get Started</button>
         </div>
       </div>
     </header>
@@ -439,14 +442,11 @@
       <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
         
         <div class="card card-accent p-0 overflow-hidden h-auto" id="lead-form-card">
-          <!-- Placeholder to hold space when fixed -->
           <div id="form-spacer" class="hidden h-[380px]"></div>
           
           <div class="form-shell" id="form-shell">
-            <!-- Overlay trigger for first click interaction -->
             <div id="form-trigger" class="form-trigger-overlay"></div>
             
-            <!-- Close button for focus mode -->
             <button id="form-close" class="form-close-btn hidden" aria-label="Close form">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -655,17 +655,12 @@
         </aside>
       </section>
 
-      <!-- ========================================== -->
-      <!-- START: DECISION WEB SECTION                -->
-      <!-- ========================================== -->
-      <section class="card card-accent p-6 overflow-hidden mt-6">
-        <!-- Section Header with Flex Layout -->
+      <section id="finance-guide" class="card card-accent p-6 overflow-hidden mt-6">
         <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 border-b border-slate-100 pb-4">
             <div class="text-left">
               <h2 class="h2 text-xl">The Financing Logic Web</h2>
               <p class="text-xs text-slate-500 mt-1">Logic-based structure based on Equity & Credit.</p>
             </div>
-            <!-- The "Top Box to the Very Right" Button -->
             <button type="button" id="btnGetStarted" class="cta-button px-6 py-2 text-xs uppercase tracking-wide h-auto min-h-0 shadow-md hover:shadow-lg transition-shadow">
                 Get Started <span class="ml-2 text-base">→</span>
             </button>
@@ -675,13 +670,11 @@
           <div class="tree min-w-[800px] mx-auto">
             <ul>
               <li>
-                <!-- ROOT NODE -->
                 <div class="tree-card root-card">
                   <div class="font-extrabold text-sm uppercase tracking-wider text-white">Financing A Vehicle</div>
                 </div>
 
                 <ul>
-                  <!-- BRANCH 1: NEGATIVE EQUITY -->
                   <li>
                     <div class="tree-card border-t-4 border-amber-500">
                       <div class="text-[10px] font-bold text-amber-600 uppercase mb-1">Situation</div>
@@ -690,7 +683,6 @@
                     </div>
 
                     <ul>
-                      <!-- NEG EQUITY + GOOD CREDIT -->
                       <li>
                         <div class="tree-card relative group hover:border-[var(--blue-600)] transition-colors">
                           <div class="inline-block px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-bold text-[10px] uppercase mb-2">Good Credit (700+)</div>
@@ -713,7 +705,6 @@
                         </div>
                       </li>
 
-                      <!-- NEG EQUITY + BAD CREDIT -->
                       <li>
                         <div class="tree-card relative group hover:border-[var(--blue-600)] transition-colors">
                           <div class="inline-block px-2 py-0.5 rounded bg-red-50 text-red-700 font-bold text-[10px] uppercase mb-2">Building Credit</div>
@@ -738,7 +729,6 @@
                     </ul>
                   </li>
 
-                  <!-- BRANCH 2: POSITIVE EQUITY -->
                   <li>
                     <div class="tree-card border-t-4 border-green-500">
                       <div class="text-[10px] font-bold text-green-600 uppercase mb-1">Situation</div>
@@ -747,7 +737,6 @@
                     </div>
 
                     <ul>
-                      <!-- POS EQUITY + GOOD CREDIT -->
                       <li>
                         <div class="tree-card relative group hover:border-[var(--blue-600)] transition-colors">
                           <div class="inline-block px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-bold text-[10px] uppercase mb-2">Good Credit (700+)</div>
@@ -770,7 +759,6 @@
                         </div>
                       </li>
 
-                      <!-- POS EQUITY + BAD CREDIT -->
                       <li>
                         <div class="tree-card relative group hover:border-[var(--blue-600)] transition-colors">
                           <div class="inline-block px-2 py-0.5 rounded bg-red-50 text-red-700 font-bold text-[10px] uppercase mb-2">Building Credit</div>
@@ -800,7 +788,6 @@
           </div>
         </div>
 
-        <!-- Internal CSS for the Tree (Scoped) -->
         <style>
           .tree ul {
             padding-top: 20px; position: relative; transition: all 0.5s; display: flex; justify-content: center;
@@ -833,10 +820,6 @@
           }
         </style>
       </section>
-      <!-- ========================================== -->
-      <!-- END: DECISION WEB SECTION                  -->
-      <!-- ========================================== -->
-
       <section id="inventory" class="card card-accent p-5">
         <div class="flex items-center justify-between mb-3">
           <h3 class="h2">Browse Inventory</h3>
@@ -962,7 +945,7 @@
 
   function fmtMoney(x){ x = isFinite(x) ? x : 0; return "$" + x.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
   function parseMoneyInput(v){ if (!v) return 0; return parseFloat(String(v).replace(/[^0-9.]/g,'')) || 0; }
-   
+    
   function formatMoneyField(input){ 
       const num = parseMoneyInput(input.value); 
       input.value = num > 0 ? num.toLocaleString('en-CA', {style:'currency', currency:'CAD', maximumFractionDigits:0}) : '';
@@ -1017,7 +1000,7 @@
           sel.appendChild(option);
       }
   }
-   
+    
   document.addEventListener('DOMContentLoaded', function () {
     $('menuBtn')?.addEventListener('click', ()=> $('mobileMenu')?.classList.toggle('hidden'));
 
@@ -1405,4 +1388,3 @@
   });
   </script>
 </body>
-</html>
