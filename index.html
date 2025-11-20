@@ -363,42 +363,31 @@
 
   <div id="main-content" class="transition-all duration-300">
     <header class="w-full max-w-5xl mx-auto mt-4 px-4">
-      <nav class="bg-white/90 backdrop-blur-lg card card-accent px-4 sm:px-6 py-3 flex items-center justify-between">
-        <div class="flex items-center gap-6 w-full">
-            <div class="brand-left flex-shrink-0">
+      <nav class="bg-white/90 backdrop-blur-lg card card-accent px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+        
+        <div class="flex items-center gap-4 flex-shrink-0">
+            <div class="brand-left">
               <img src="Logo.png" alt="Vancouver Island Credit logo" class="site-logo"/>
               <div class="brand-stack">
                 <a href="#" class="brand-title" aria-label="Vancouver Island Credit — Home">Vancouver Island Credit</a>
                 <div class="powered-by-inline"><span>Powered by</span><img src="Equifax.png" alt="Equifax"/></div>
               </div>
             </div>
-
-            <div class="hidden md:flex flex-col items-end ml-auto mr-6 text-right">
-                <div class="text-[14px] font-extrabold text-slate-800 uppercase tracking-tight leading-none">Personalized Vehicle Search</div>
-                <div class="text-[11px] font-bold text-[var(--blue-600)] leading-none mt-1.5 tracking-wide">Financing & Refinancing</div>
-            </div>
         </div>
 
-        <div class="hidden sm:flex items-center gap-2 font-semibold text-zinc-700 flex-shrink-0">
-          <a href="#finance-guide" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-[var(--blue-600)] transition-colors text-sm">Finance Guide</a>
-          <a href="#lead-form-card" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-[var(--blue-600)] transition-colors text-sm">Financing</a>
-          <a href="#lead-form-card" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-[var(--blue-600)] transition-colors text-sm">Refinancing</a>
-          <a href="#inventory" class="px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-[var(--blue-600)] transition-colors text-sm">Inventory</a>
-          <button type="button" id="navApplyBtn" class="cta-button ml-2 text-sm">Get Started</button>
+        <div class="flex items-center gap-6 font-bold text-slate-600 text-sm">
+          <a href="#finance-guide" class="hover:text-[var(--blue-600)] transition-colors">Finance Guide</a>
+          <a href="#lead-form-card" class="hover:text-[var(--blue-600)] transition-colors">Financing</a>
+          <a href="#lead-form-card" class="hover:text-[var(--blue-600)] transition-colors">Refinancing</a>
+          <a href="#inventory" class="hover:text-[var(--blue-600)] transition-colors">Inventory</a>
         </div>
-        <button id="menuBtn" class="sm:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 transition-colors" aria-label="Open menu">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
+
+        <div class="flex items-center gap-5 flex-shrink-0">
+            <a href="tel:+12369692424" class="font-bold text-slate-800 text-sm hover:text-[var(--blue-600)] transition-colors">(236) 969-2424</a>
+            <button type="button" id="navApplyBtn" class="cta-button text-sm shadow-md">Get Started</button>
+        </div>
+
       </nav>
-      <div id="mobileMenu" class="hidden sm:hidden mt-2 card card-accent px-4 py-3">
-        <div class="flex flex-col gap-2 font-semibold text-zinc-700">
-          <a href="#finance-guide" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Finance Guide</a>
-          <a href="#lead-form-card" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Financing</a>
-          <a href="#lead-form-card" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Refinancing</a>
-          <a href="#inventory" class="py-2 px-2 rounded hover:bg-[var(--blue-100)]">Inventory</a>
-          <button type="button" id="mobileApplyBtn" class="mt-2 cta-button text-center w-full">Get Started</button>
-        </div>
-      </div>
     </header>
 
     <main class="w-full max-w-5xl mx-auto px-4 py-4 space-y-4">
