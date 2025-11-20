@@ -97,10 +97,9 @@
     .form-shell { 
         position: relative; 
         overflow: hidden; 
-        height: 380px; 
+        height: 380px; /* Fixed height inline */
         background: #fff;
         transition: height 0.3s ease;
-        /* Ensure stacking context for z-index */
         z-index: 1;
     }
 
@@ -129,7 +128,7 @@
     .step-viewport { 
         position: absolute;
         top: 50px; 
-        bottom: 60px; /* Matches footer height */
+        bottom: 70px; /* Leaves room for footer */
         left: 0; right: 0;
         overflow-y: auto; 
         overflow-x: hidden;
@@ -141,14 +140,8 @@
       width: 100%; max-width: var(--section-max); margin: 0 auto; 
       height: 100%; display: flex; flex-direction: column; padding: 0 20px;
     }
-    
     .step-title { text-align: center; margin-top: 12px; flex-shrink: 0; padding-bottom: 4px; }
-    
-    .step-body {
-      flex-grow: 1; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; 
-      width: 100%; padding-bottom: 5px;
-    }
+    .step-body { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; padding-bottom: 5px; }
     .step-body > .content { width: 95%; max-width: 500px; margin: 0 auto; text-align: center; }
     .content input, .content select, .content .grid-inline-2 { text-align: left; } 
     .vstack > * + * { margin-top: 10px; }
@@ -160,13 +153,12 @@
       background: rgba(255,255,255,0.98); 
       border-top: 1px solid var(--slate-200);
       padding: 0 20px; 
-      height: 60px;
+      height: 70px;
       z-index: 20;
       display: flex; 
-      /* Align to bottom with padding */
-      align-items: flex-end;
+      align-items: flex-end; /* Pushes buttons down */
       justify-content: space-between; 
-      padding-bottom: 12px; 
+      padding-bottom: 18px; /* ADJUSTED: Lifts buttons slightly to align with Savings text */
     }
 
     #btnBack{ min-height:36px; border-radius:8px; font-size:13px; color: var(--slate-500); padding: 0 16px; font-weight: 700; }
@@ -183,13 +175,10 @@
       position: fixed !important;
       top: 50% !important; left: 50% !important;
       transform: translate(-50%, -50%) !important;
-      
-      /* UPDATED: Wider and taller desktop size */
       width: 95vw !important; 
-      max-width: 800px !important; /* Wider */
-      height: 600px !important;    /* Fixed larger height */
+      max-width: 800px !important;
+      height: 600px !important; 
       max-height: 90vh !important;
-      
       z-index: 9999 !important;
       box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
       border-radius: 12px;
@@ -197,24 +186,14 @@
       overflow: visible !important;
     }
     
-    /* Close Button */
     .form-close-btn {
-      position: absolute; 
-      top: -12px; 
-      right: -12px; 
-      width: 26px; height: 26px;
-      background: #e2e8f0; 
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; color: #64748b;
-      transition: all 0.2s;
-      z-index: 10000; /* Highest */
-      border: 2px solid #fff;
+      position: absolute; top: -12px; right: -12px; width: 26px; height: 26px;
+      background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: #64748b; transition: all 0.2s; z-index: 10000; border: 2px solid #fff;
       box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
     }
     .form-close-btn:hover { background: #cbd5e1; color: #1e293b; transform: scale(1.1); }
     .form-close-btn svg { width: 14px; height: 14px; }
-    
     .form-trigger-overlay { position: absolute; inset: 0; z-index: 30; cursor: pointer; }
 
     /* Utility */
@@ -269,10 +248,25 @@
     .progress-steps li.active{opacity:1;font-weight:700; color: var(--slate-800);}
     .progress-note{margin-top:12px;font-size:12px;color:var(--slate-500)}
     .hidden{display:none !important;}
-    .refi-box { background: #fff; display: flex; flex-direction: column; height: 100%; }
-    .refi-inputs-area { padding: 12px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 8px; }
+    
+    /* REFI BOX - FIXED HEIGHT MATCHING FORM */
+    .refi-box { 
+        background: #fff; 
+        display: flex; 
+        flex-direction: column; 
+        height: 380px !important; /* FIXED HEIGHT to prevent jumping */
+        justify-content: space-between; /* Pushes bottom element to bottom */
+    }
+    .refi-inputs-area { 
+        padding: 12px; 
+        flex: 1; 
+        display: flex; 
+        flex-direction: column; 
+        justify-content: space-between; 
+        gap: 8px; 
+    }
     .refi-row { display: flex; gap: 8px; } .refi-row > div { flex: 1; }
-    .refi-results-clean { background: var(--slate-50); border-radius: 6px; padding: 10px; border: 1px solid var(--slate-200); }
+    .refi-results-clean { background: var(--slate-50); border-radius: 6px; padding: 10px; border: 1px solid var(--slate-200); margin-top: auto; }
     .refi-slider{ width:100%; accent-color: var(--blue-600); cursor: pointer; height: 4px; margin-top: 4px;}
     .text-equifax-red { color: var(--red-equifax); }
     .border-theme-gold { border-color: var(--theme-gold); }
