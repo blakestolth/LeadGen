@@ -130,7 +130,7 @@
     .step-viewport { 
         position: absolute;
         top: 50px; 
-        bottom: 50px; /* Matches new footer height to remove gap */
+        bottom: 70px; /* UPDATED: Matches new footer height to remove gap */
         left: 0; right: 0;
         overflow-y: auto; 
         overflow-x: hidden;
@@ -155,19 +155,19 @@
     .content input, .content select, .content .grid-inline-2 { text-align: left; } 
     .vstack > * + * { margin-top: 10px; }
 
-    /* FOOTER - Fixed Bottom */
+    /* FOOTER - Fixed Bottom - UPDATED FOR LOWER BUTTONS */
     .form-footer {
       position: absolute; 
       bottom: 0; left: 0; right: 0;
       background: rgba(255,255,255,0.98); 
       border-top: 1px solid var(--slate-200);
       padding: 0 20px; 
-      height: 50px; /* Shortened height */
+      height: 70px; /* Taller to allow buttons to sit lower */
       z-index: 20;
       display: flex; 
-      align-items: center; /* Centers items vertically */
+      align-items: flex-end; /* Pushes buttons to bottom */
       justify-content: space-between; 
-      padding-bottom: 0; /* Removed extra padding to lower buttons */
+      padding-bottom: 15px; /* Padding from the very bottom edge */
     }
 
     #btnBack{ min-height:36px; border-radius:8px; font-size:13px; color: var(--slate-500); padding: 0 16px; font-weight: 700; }
@@ -180,18 +180,19 @@
     }
     .form-backdrop.active { opacity: 1; pointer-events: auto; }
 
+    /* UPDATED: FIXED HEIGHT INSTEAD OF AUTO */
     .form-focused {
       position: fixed !important;
       top: 50% !important; left: 50% !important;
       transform: translate(-50%, -50%) !important;
       width: 95vw !important; max-width: 500px !important;
-      height: auto !important; max-height: 90vh !important;
-      min-height: 550px; 
-      z-index: 9999 !important; /* Ensure it's on top of backdrop */
+      height: 85vh !important; /* Explicit height needed for absolute children */
+      max-height: 700px !important;
+      z-index: 9999 !important;
       box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
       border-radius: 12px;
       margin: 0 !important;
-      overflow: visible !important; /* Allow Close Button to hang out */
+      overflow: visible !important; 
     }
     
     /* Small Grey Circle Close Button - Off Center */
