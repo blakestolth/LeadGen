@@ -520,7 +520,7 @@
                       </section>
 
                       <section class="form-step js-hidden" data-id="step-employer">
-                        <div class="step-inner"><div class="step-title"><h3 class="h2">Work History</h3></div><div class="step-body"><div class="content vstack" style="max-width:560px;"><div class="grid-inline-2"><div><label for="currentEmployer" class="label">Employer Name</label><input type="text" id="currentEmployer" name="currentEmployer" class="form-input"/></div><div><label for="jobTitle" class="label">Job Title</label><input type="text" id="jobTitle" name="jobTitle" class="form-input"/></div></div><div class="grid-inline-2"><div><label class="label">Time at Job</label><select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select></div><div><label class="label">Months</label><select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select></div></div><div class="vstack"><p class="label">Additional Income (Optional)</p><div class="grid-inline-2"><div><input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Source (e.g. Child Tax)"/></div><div><input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="Amount ($)" inputmode="numeric" maxlength="16"/></div></div></div><label class="flex items-start gap-3 mt-4 p-3 border border-slate-200 rounded-lg bg-slate-50 cursor-pointer hover:bg-white transition-colors"><input type="checkbox" name="creditConsent" id="creditConsent" class="mt-1 accent-[var(--blue-600)]" checked required><span class="text-xs text-slate-600 leading-snug text-left">I confirm I am the person named above and consent to Vancouver Island Credit obtaining credit reports. (VSA #41114)</span></label></div></div></div>
+                        <div class="step-inner"><div class="step-title"><h3 class="h2">Work History</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-2"><div><label for="currentEmployer" class="label">Employer Name</label><input type="text" id="currentEmployer" name="currentEmployer" class="form-input"/></div><div><label for="jobTitle" class="label">Job Title</label><input type="text" id="jobTitle" name="jobTitle" class="form-input"/></div></div><div class="grid-inline-2"><div><label class="label">Time at Job</label><select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select></div><div><label class="label">Months</label><select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select></div></div><div class="vstack"><p class="label">Additional Income (Optional)</p><div class="grid-inline-2"><div><input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Source (e.g. Child Tax)"/></div><div><input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="Amount ($)" inputmode="numeric" maxlength="16"/></div></div></div><label class="flex items-start gap-3 mt-4 p-3 border border-slate-200 rounded-lg bg-slate-50 cursor-pointer hover:bg-white transition-colors"><input type="checkbox" name="creditConsent" id="creditConsent" class="mt-1 accent-[var(--blue-600)]" checked required><span class="text-xs text-slate-600 leading-snug text-left">I confirm I am the person named above and consent to Vancouver Island Credit obtaining credit reports. (VSA #41114)</span></label></div></div></div>
                       </section>
 
                       <section class="form-step js-hidden" data-id="step-consent">
@@ -552,7 +552,7 @@
 
               <div class="flex-1 p-4 flex flex-col justify-between overflow-y-auto">
                 
-                <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                <div class="flex justify-between items-center border-b border-slate-100 pb-3 mb-2">
                     <div class="flex flex-col items-center gap-1">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                         <span class="text-[9px] font-bold text-slate-500">2016+</span>
@@ -574,7 +574,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-3 mt-1">
+                <div class="grid grid-cols-2 gap-3">
                   <div class="space-y-1">
                     <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Loan Bal</label>
                     <div class="relative">
@@ -608,9 +608,9 @@
                     </div>
                 </div>
 
-                <div class="text-center mt-2">
+                <div class="text-center mt-2 pb-1">
                     <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">Estimated New Payment</p>
-                    <div class="text-2xl font-extrabold text-slate-800 tracking-tight" id="refNewPmtOut">$0.00<span class="text-xs font-medium text-slate-400 ml-1">/bi-w</span></div>
+                    <div class="text-3xl font-extrabold text-slate-800 tracking-tight" id="refNewPmtOut">$0.00<span class="text-xs font-medium text-slate-400 ml-1">/bi-w</span></div>
                 </div>
 
               </div>
@@ -639,39 +639,10 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             
-            <div class="info-tile border-t-4 border-t-amber-500">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="text-lg font-extrabold text-slate-800">Situation A: Negative Equity</h3>
-                        <p class="text-xs text-slate-500 font-medium mt-1">"I owe more than my trade is worth"</p>
-                    </div>
-                    <div class="h-10 w-10 rounded-full bg-amber-50 flex items-center justify-center text-amber-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                    </div>
-                </div>
-
-                <div class="my-4 p-3 bg-slate-50 rounded-lg border border-slate-100">
-                    <p class="text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">"The Consolidation"</p>
-                    <ul class="text-[10px] space-y-1.5 text-slate-600">
-                       <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Must be 2018+ to hide debt.</span></li>
-                       <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> Stretch term to 96mo.</span></li>
-                       <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Cash down covers the gap.</span></li>
-                    </ul>
-                </div>
-                <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
-                    <p class="text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">"The Structure"</p>
-                    <ul class="text-[10px] space-y-1.5 text-slate-600">
-                       <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Limited "Book-Out" units only.</span></li>
-                       <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> Max term on cheapest SUV.</span></li>
-                       <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Lateral trade to equal value.</span></li>
-                    </ul>
-                </div>
-            </div>
-
             <div class="info-tile border-t-4 border-t-emerald-500">
                 <div class="flex justify-between items-start">
                     <div>
-                        <h3 class="text-lg font-extrabold text-slate-800">Situation B: Positive / Zero Equity</h3>
+                        <h3 class="text-lg font-extrabold text-slate-800">Situation 1: Positive / Zero Equity</h3>
                         <p class="text-xs text-slate-500 font-medium mt-1">"I have equity or no trade-in"</p>
                     </div>
                     <div class="h-10 w-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
@@ -693,6 +664,35 @@
                        <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Reliable (2015+, <160k km).</span></li>
                        <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> "Credit Builder" 84mo term.</span></li>
                        <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Cheapest reliable car ($18k).</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-tile border-t-4 border-t-amber-500">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="text-lg font-extrabold text-slate-800">Situation 2: Negative Equity</h3>
+                        <p class="text-xs text-slate-500 font-medium mt-1">"I owe more than my trade is worth"</p>
+                    </div>
+                    <div class="h-10 w-10 rounded-full bg-amber-50 flex items-center justify-center text-amber-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    </div>
+                </div>
+
+                <div class="my-4 p-3 bg-slate-50 rounded-lg border border-slate-100">
+                    <p class="text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">"The Consolidation"</p>
+                    <ul class="text-[10px] space-y-1.5 text-slate-600">
+                       <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Must be 2018+ to hide debt.</span></li>
+                       <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> Stretch term to 96mo.</span></li>
+                       <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Cash down covers the gap.</span></li>
+                    </ul>
+                </div>
+                <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                    <p class="text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">"The Structure"</p>
+                    <ul class="text-[10px] space-y-1.5 text-slate-600">
+                       <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Limited "Book-Out" units only.</span></li>
+                       <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> Max term on cheapest SUV.</span></li>
+                       <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Lateral trade to equal value.</span></li>
                     </ul>
                 </div>
             </div>
