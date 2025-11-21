@@ -265,7 +265,9 @@
     .progress-steps li{display:flex;align-items:center;gap:10px;opacity:.7; transition: all .3s ease;}
     .progress-steps li.active{opacity:1;font-weight:700; color: var(--slate-800);}
     .progress-note{margin-top:12px;font-size:12px;color:var(--slate-500)}
-    .hidden-el {display:none !important;} /* Renamed from .hidden to prevent conflict */
+    
+    /* CUSTOM HIDDEN UTILITY (Renamed to avoid conflicts with Tailwind) */
+    .js-hidden { display:none !important; }
     
     /* REFI BOX - FIXED HEIGHT MATCHING FORM */
     .refi-box { 
@@ -406,7 +408,7 @@
       <section class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
         
         <div class="card card-accent p-0 overflow-hidden relative" id="lead-form-card" style="height: 452px;"> 
-          <div id="form-spacer" class="hidden-el h-[380px]"></div>
+          <div id="form-spacer" class="js-hidden h-[380px]"></div>
           
           <div class="form-shell" id="form-shell" style="height: 100%;">
             
@@ -428,7 +430,7 @@
                       <input type="hidden" name="app_type" id="app_type" value="Full Application" />
                       <input type="hidden" name="appCode" id="appCode" value="" />
                       <input type="hidden" name="intent" id="intent" value="finance" />
-                      <p class="hidden-el" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
+                      <p class="js-hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field"/></label></p>
 
                       <section class="form-step" data-id="step-intent">
                         <div class="step-inner">
@@ -442,7 +444,7 @@
                         </div>
                       </section>
                       
-                      <section class="form-step hidden-el" data-id="step-vehicle-type">
+                      <section class="form-step js-hidden" data-id="step-vehicle-type">
                         <div class="step-inner">
                           <div class="step-title"><h3 class="h2">Vehicle Type</h3></div>
                           <div class="step-body">
@@ -457,7 +459,7 @@
                         </div>
                       </section>
 
-                      <section class="form-step hidden-el" data-id="step-budget">
+                      <section class="form-step js-hidden" data-id="step-budget">
                         <div class="step-inner">
                           <div class="step-title"><h3 class="h2">Target Budget</h3></div>
                           <div class="step-body">
@@ -470,7 +472,7 @@
                         </div>
                       </section>
 
-                      <section class="form-step hidden-el" data-id="step-purchase">
+                      <section class="form-step js-hidden" data-id="step-purchase">
                         <div class="step-inner">
                           <div class="step-title"><h3 class="h2">Purchase Details</h3></div>
                           <div class="step-body">
@@ -497,31 +499,31 @@
                         </div>
                       </section>
 
-                      <section class="form-step hidden-el" data-id="step-refi-details">
+                      <section class="form-step js-hidden" data-id="step-refi-details">
                         <div class="step-inner"><div class="step-title"><h3 class="h2">Current Loan</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-refi-details"><div><label for="refiYear" class="label">Year</label><select name="refiYear" id="refiYear" class="form-select" required></select></div><div><label for="refiMake" class="label">Make</label><select name="refiMake" id="refiMake" class="form-select" required></select></div><div><label for="refiModel" class="label">Model</label><select name="refiModel" id="refiModel" class="form-select" required><option value="">Select</option></select></div></div><div class="grid-inline-refi-details-2"><div><label for="refiRemainYears" class="label">Years Left</label><select id="refiRemainYears" name="refiRemainYears" class="form-select" required></select></div><div><label for="refiCurrentRate" class="label">Current Rate %</label><input type="text" id="refiCurrentRate" name="refiCurrentRate" class="form-input" placeholder="e.g., 9.49" inputmode="decimal" maxlength="6" required/></div></div></div></div></div>
                       </section>
 
-                      <section class="form-step hidden-el" data-id="step-tradein">
+                      <section class="form-step js-hidden" data-id="step-tradein">
                         <div class="step-inner"><div class="step-title"><h3 class="h2">Trade-in Vehicle</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-trade-1"><div><label for="tradeInYear" class="label">Year</label><select name="tradeInYear" id="tradeInYear" class="form-select"></select></div><div><label for="tradeInMake" class="label">Make</label><select name="tradeInMake" id="tradeInMake" class="form-select"></select></div><div><label for="tradeInModel" class="label">Model</label><select name="tradeInModel" id="tradeInModel" class="form-select"><option value="">Select</option></select></div></div><div class="grid-inline-2"><div><label for="tradeInKms" class="label">Kilometres</label><input type="number" name="tradeInKms" id="tradeInKms" class="form-input" inputmode="numeric" min="0" max="1000000"/></div><div><label for="tradeInOwed" class="label">Lien Amount</label><input type="text" id="tradeInOwed" name="tradeInOwed" placeholder="e.g. $5,000" class="form-input" maxlength="20"/></div></div></div></div></div>
                       </section>
 
-                      <section class="form-step hidden-el" data-id="step-income">
+                      <section class="form-step js-hidden" data-id="step-income">
                         <div class="step-inner"><div class="step-title"><h3 class="h2">Income Details</h3></div><div class="step-body"><div class="content vstack" style="max-width:560px;"><div class="grid-inline-2"><div><label for="incomeSourceFull" class="label">Employment Type <span class="text-theme-red">*</span></label><select id="incomeSourceFull" name="incomeSourceFull" class="form-select" required><option value="">Select…</option><option value="Full-Time">Full-Time</option><option value="Part-Time">Part-Time</option><option value="Self-Employed">Self-Employed</option><option value="Disability">Disability</option><option value="Other">Other</option></select></div><div><label for="avgMonthlyIncome" class="label">Monthly Income (Gross) <span class="text-theme-red">*</span></label><input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" class="form-input" placeholder="$4,000" inputmode="numeric" maxlength="16" required/></div></div></div></div></div>
                       </section>
 
-                      <section class="form-step hidden-el" data-id="step-yourinfo">
+                      <section class="form-step js-hidden" data-id="step-yourinfo">
                         <div class="step-inner"><div class="step-title"><h3 class="h2">Contact Info</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-2"><div><label for="email" class="label">Email <span class="text-theme-red">*</span></label><input type="email" id="email" name="email" class="form-input" autocomplete="email" maxlength="100" required/></div><div><label for="phone" class="label">Cell Phone <span class="text-theme-red">*</span></label><input type="tel" id="phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" maxlength="14" required/></div></div><div class="grid-inline-2"><div><label for="firstName" class="label">First Name <span class="text-theme-red">*</span></label><input type="text" id="firstName" name="firstName" class="form-input" autocomplete="given-name" maxlength="50" required/></div><div><label for="lastName" class="label">Last Name <span class="text-theme-red">*</span></label><input type="text" id="lastName" name="lastName" class="form-input" autocomplete="family-name" maxlength="50" required/></div></div><div class="grid-inline-dob"><div><label class="label">Birth Year <span class="text-theme-red">*</span></label><select id="dobYear" name="dobYear" class="form-select" required></select></div><div><label class="label">Month <span class="text-theme-red">*</span></label><select id="dobMonth" name="dobMonth" class="form-select" required><option value="">MM</option></select></div><div><label class="label">Day <span class="text-theme-red">*</span></label><select id="dobDay" name="dobDay" class="form-select" required><option value="">DD</option></select></div><div><label for="maritalStatus" class="label">Marital Status</label><select id="maritalStatus" name="maritalStatus" class="form-select"><option value="">Select</option><option>Single</option><option>Married</option><option>Common-Law</option><option>Divorced</option><option>Separated</option><option>Widowed</option></select></div></div></div></div></div>
                       </section>
 
-                      <section class="form-step hidden-el" data-id="step-address">
+                      <section class="form-step js-hidden" data-id="step-address">
                         <div class="step-inner"><div class="step-title"><h3 class="h2">Current Address</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-addr1"><div><label for="currentStreetAddress" class="label">Street Address</label><input type="text" id="currentStreetAddress" name="currentStreetAddress" class="form-input" autocomplete="street-address" maxlength="120" required/></div><div><label for="currentUnit" class="label">Unit #</label><input type="text" id="currentUnit" name="currentUnit" class="form-input" maxlength="10"/></div></div><div class="grid-inline-addr2"><div><label for="currentCity" class="label">City</label><input type="text" id="currentCity" name="currentCity" class="form-input" autocomplete="address-level2" maxlength="60" required/></div><div><label for="currentProvince" class="label">Prov</label><select id="currentProvince" name="currentProvince" class="form-select" required></select></div><div><label for="currentPostalCode" class="label">Postal Code</label><input type="text" id="currentPostalCode" name="currentPostalCode" class="form-input" autocomplete="postal-code" maxlength="7" required/></div></div><div class="grid-inline-addr3"><div><label for="housingPayment" class="label">Monthly Payment</label><input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="$1800" inputmode="numeric" maxlength="5" required/></div><div><label class="label">Time at addr.</label><select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years</option></select></div><div><label class="label">Months</label><select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select></div><div><label class="label">Status</label><div class="seg"><button type="button" class="seg-btn flex-1" id="btnRent" aria-pressed="true">Rent</button><button type="button" class="seg-btn flex-1" id="btnOwn" aria-pressed="false">Own</button></div><input type="hidden" id="housingType" name="housingType" value="Rent" /></div></div></div></div></div>
                       </section>
 
-                      <section class="form-step hidden-el" data-id="step-employer">
+                      <section class="form-step js-hidden" data-id="step-employer">
                         <div class="step-inner"><div class="step-title"><h3 class="h2">Work History</h3></div><div class="step-body"><div class="content vstack" style="max-width:560px;"><div class="grid-inline-2"><div><label for="currentEmployer" class="label">Employer Name</label><input type="text" id="currentEmployer" name="currentEmployer" class="form-input"/></div><div><label for="jobTitle" class="label">Job Title</label><input type="text" id="jobTitle" name="jobTitle" class="form-input"/></div></div><div class="grid-inline-2"><div><label class="label">Time at Job</label><select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select></div><div><label class="label">Months</label><select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select></div></div><div class="vstack"><p class="label">Additional Income (Optional)</p><div class="grid-inline-2"><div><input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Source (e.g. Child Tax)"/></div><div><input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="Amount ($)" inputmode="numeric" maxlength="16"/></div></div></div><label class="flex items-start gap-3 mt-4 p-3 border border-slate-200 rounded-lg bg-slate-50 cursor-pointer hover:bg-white transition-colors"><input type="checkbox" name="creditConsent" id="creditConsent" class="mt-1 accent-[var(--blue-600)]" checked required><span class="text-xs text-slate-600 leading-snug text-left">I confirm I am the person named above and consent to Vancouver Island Credit obtaining credit reports. (VSA #41114)</span></label></div></div></div>
                       </section>
 
-                      <section class="form-step hidden-el" data-id="step-consent">
+                      <section class="form-step js-hidden" data-id="step-consent">
                         <div class="step-inner"></div>
                       </section>
                     </form>
@@ -544,16 +546,42 @@
             <div class="card card-accent p-0 flex-1 overflow-hidden relative flex flex-col" style="height: 452px;">
               
               <div class="h-[50px] px-5 border-b border-slate-100 bg-white flex justify-between items-center flex-shrink-0">
-                <div>
-                  <h4 class="text-sm font-bold text-slate-800">Refinance Calculator</h4>
-                </div>
-                <div class="abc-badge text-[10px] bg-[var(--blue-100)] text-[var(--blue-700)] px-2 w-auto">
-                  Estimate
-                </div>
+                <div><h4 class="text-sm font-bold text-slate-800">Refinance Calculator</h4></div>
+                <div class="abc-badge text-[10px] bg-[var(--blue-100)] text-[var(--blue-700)] px-2 w-auto">Estimate</div>
               </div>
 
-              <div class="flex-1 p-5 flex flex-col justify-center gap-4 overflow-y-auto">
+              <div class="flex-1 p-5 flex flex-col gap-4 overflow-y-auto">
                 
+                <div class="mb-2 bg-blue-50 rounded-lg border border-blue-100 p-3">
+                    <div class="text-[10px] font-bold text-blue-800 uppercase tracking-wider text-center mb-3">Rate Reduction Eligibility</div>
+                    <div class="flex justify-between items-start px-1">
+                        <div class="flex flex-col items-center gap-1">
+                            <div class="w-7 h-7 rounded-full bg-white border border-blue-200 flex items-center justify-center text-blue-600 shadow-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            </div>
+                            <span class="text-[9px] font-bold text-slate-600">2016+</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <div class="w-7 h-7 rounded-full bg-white border border-blue-200 flex items-center justify-center text-blue-600 shadow-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                            </div>
+                            <span class="text-[9px] font-bold text-slate-600">1 Yr Own</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <div class="w-7 h-7 rounded-full bg-white border border-blue-200 flex items-center justify-center text-blue-600 shadow-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                            </div>
+                            <span class="text-[9px] font-bold text-slate-600">Better Credit</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <div class="w-7 h-7 rounded-full bg-white border border-blue-200 flex items-center justify-center text-blue-600 shadow-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            </div>
+                            <span class="text-[9px] font-bold text-slate-600">Pay History</span>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="grid grid-cols-2 gap-4">
                   <div class="space-y-1">
                     <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Loan Balance</label>
@@ -960,8 +988,8 @@
     }
 
     function showOnly(id){
-      Object.values(stepsMap).forEach(sec=> sec.classList.add('hidden-el'));
-      stepsMap[id]?.classList.remove('hidden-el');
+      Object.values(stepsMap).forEach(sec=> sec.classList.add('js-hidden'));
+      stepsMap[id]?.classList.remove('js-hidden');
     }
     function updateProgress(curId){
       const flow = currentFlow();
@@ -1006,7 +1034,7 @@
       const fields = Array.from(stepEl.querySelectorAll('[required]'));
       
       fields.forEach(el=>{
-        if (window.getComputedStyle(el).display==='none' || !el.closest('.form-step') || el.closest('.form-step').classList.contains('hidden-el')) return;
+        if (window.getComputedStyle(el).display==='none' || !el.closest('.form-step') || el.closest('.form-step').classList.contains('js-hidden')) return;
         let pass = (el.type==='checkbox') ? el.checked : (el.value && el.value.trim()!=='');
         if (el.id==='phone') pass = el.value.replace(/\D/g,'').length>=10;
         if (el.type==='email' || el.id==='email'){
@@ -1246,7 +1274,7 @@
     function expandForm() {
         if (formShell.classList.contains('form-focused')) return;
         
-        formSpacer.classList.remove('hidden-el');
+        formSpacer.classList.remove('js-hidden');
         formShell.classList.add('form-focused');
         formBackdrop.classList.add('active');
         formClose.classList.remove('hidden');
@@ -1265,7 +1293,7 @@
         formShell.addEventListener('animationend', function() {
             formShell.classList.remove('form-focused');
             formShell.classList.remove('form-closing');
-            formSpacer.classList.add('hidden-el'); // Now hide the spacer
+            formSpacer.classList.add('js-hidden'); // Now hide the spacer
             document.body.classList.remove('modal-open');
             formClose.classList.add('hidden');
             formTrigger.classList.remove('hidden');
