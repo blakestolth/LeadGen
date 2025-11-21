@@ -293,17 +293,40 @@
     .text-theme-green { color: var(--theme-green); }
     .bg-theme-green-50 { background-color: var(--theme-green-bg); }
 
-    /* TILE STYLES */
-    .info-tile {
-      background: #fff; border: 1px solid var(--slate-200); border-radius: 12px;
-      padding: 20px; position: relative; transition: all 0.2s ease;
-      display: flex; flex-direction: column; height: 100%;
-    }
-    .info-tile:hover { border-color: var(--blue-600); transform: translateY(-2px); box-shadow: 0 10px 20px -5px rgba(0,0,0,0.05); }
+    /* INTERACTIVE FLOWCHART STYLES */
+    .flow-container { background: #fff; border: 1px solid var(--slate-200); border-radius: 12px; padding: 20px; }
+    .flow-step { text-align: center; margin-bottom: 20px; }
+    .flow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     
-    .check-list { list-style: none; padding: 0; margin: 12px 0 0; }
-    .check-item { display: flex; align-items: start; gap: 10px; font-size: 12px; color: var(--slate-600); margin-bottom: 8px; line-height: 1.4; }
+    .flow-btn {
+      background: var(--slate-50); border: 2px solid var(--slate-200); color: var(--slate-700);
+      padding: 16px; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer;
+      transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    }
+    .flow-btn:hover { border-color: var(--blue-600); background: #fff; transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+    .flow-btn.active { background: var(--blue-600); color: #fff; border-color: var(--blue-600); }
+    .flow-btn.active .flow-subtitle { color: rgba(255,255,255,0.8); }
+    
+    .flow-subtitle { font-size: 10px; font-weight: 500; color: var(--slate-500); text-transform: uppercase; }
+    
+    /* Animations for reveal */
+    .reveal-box { 
+      display: none; opacity: 0; transform: translateY(10px); transition: all 0.3s ease; 
+      background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 12px; padding: 20px; margin-top: 16px; text-align: left;
+    }
+    .reveal-box.open { display: block; opacity: 1; transform: translateY(0); }
+
+    .result-card { background: #fff; border: 1px solid var(--slate-200); border-radius: 8px; padding: 16px; margin-top: 12px; border-left: 4px solid var(--blue-600); }
+    .info-pill { display: inline-block; background: var(--blue-100); color: var(--blue-700); font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px; margin-bottom: 6px; text-transform: uppercase; }
+    
+    .check-list { list-style: none; padding: 0; margin: 8px 0 0; }
+    .check-item { display: flex; align-items: start; gap: 8px; font-size: 12px; color: var(--slate-600); margin-bottom: 6px; line-height: 1.4; }
     .check-icon { color: var(--theme-green); flex-shrink: 0; width: 16px; height: 16px; margin-top: 1px; }
+
+    .reality-check {
+      background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; padding: 12px; margin-top: 16px;
+    }
+    .reality-title { font-size: 11px; font-weight: 800; color: #9a3412; text-transform: uppercase; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
   </style>
 </head>
 <body>
@@ -520,7 +543,7 @@
                       </section>
 
                       <section class="form-step js-hidden" data-id="step-employer">
-                        <div class="step-inner"><div class="step-title"><h3 class="h2">Work History</h3></div><div class="step-body"><div class="content vstack" style="max-width:640px;"><div class="grid-inline-2"><div><label for="currentEmployer" class="label">Employer Name</label><input type="text" id="currentEmployer" name="currentEmployer" class="form-input"/></div><div><label for="jobTitle" class="label">Job Title</label><input type="text" id="jobTitle" name="jobTitle" class="form-input"/></div></div><div class="grid-inline-2"><div><label class="label">Time at Job</label><select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select></div><div><label class="label">Months</label><select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select></div></div><div class="vstack"><p class="label">Additional Income (Optional)</p><div class="grid-inline-2"><div><input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Source (e.g. Child Tax)"/></div><div><input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="Amount ($)" inputmode="numeric" maxlength="16"/></div></div></div><label class="flex items-start gap-3 mt-4 p-3 border border-slate-200 rounded-lg bg-slate-50 cursor-pointer hover:bg-white transition-colors"><input type="checkbox" name="creditConsent" id="creditConsent" class="mt-1 accent-[var(--blue-600)]" checked required><span class="text-xs text-slate-600 leading-snug text-left">I confirm I am the person named above and consent to Vancouver Island Credit obtaining credit reports. (VSA #41114)</span></label></div></div></div>
+                        <div class="step-inner"><div class="step-title"><h3 class="h2">Work History</h3></div><div class="step-body"><div class="content vstack" style="max-width:560px;"><div class="grid-inline-2"><div><label for="currentEmployer" class="label">Employer Name</label><input type="text" id="currentEmployer" name="currentEmployer" class="form-input"/></div><div><label for="jobTitle" class="label">Job Title</label><input type="text" id="jobTitle" name="jobTitle" class="form-input"/></div></div><div class="grid-inline-2"><div><label class="label">Time at Job</label><select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select"><option value="">Years</option></select></div><div><label class="label">Months</label><select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select"><option value="">Months</option></select></div></div><div class="vstack"><p class="label">Additional Income (Optional)</p><div class="grid-inline-2"><div><input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Source (e.g. Child Tax)"/></div><div><input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="Amount ($)" inputmode="numeric" maxlength="16"/></div></div></div><label class="flex items-start gap-3 mt-4 p-3 border border-slate-200 rounded-lg bg-slate-50 cursor-pointer hover:bg-white transition-colors"><input type="checkbox" name="creditConsent" id="creditConsent" class="mt-1 accent-[var(--blue-600)]" checked required><span class="text-xs text-slate-600 leading-snug text-left">I confirm I am the person named above and consent to Vancouver Island Credit obtaining credit reports. (VSA #41114)</span></label></div></div></div>
                       </section>
 
                       <section class="form-step js-hidden" data-id="step-consent">
@@ -626,74 +649,142 @@
         </aside>
       </section>
 
-      <section id="finance-guide" class="mt-8 mb-8">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-6 px-2">
-            <div>
-              <h2 class="h1 text-2xl text-slate-800">Financing Guide</h2>
-              <p class="text-sm text-slate-500 mt-2 max-w-lg">We structure approvals based on your long-term goals. See which situation applies to you.</p>
-            </div>
-            <button type="button" class="cta-button px-6 py-2 text-xs uppercase tracking-wide h-10 shadow-lg shadow-blue-900/10 mt-4 md:mt-0" onclick="document.getElementById('lead-form-card').scrollIntoView({behavior: 'smooth'});">
-                Get Approved <span class="ml-2">→</span>
-            </button>
+      <section id="finance-decision-tree" class="mt-8 mb-8">
+        <div class="text-center mb-6">
+            <h2 class="h1 text-2xl text-slate-800">Your Personal Strategy Web</h2>
+            <p class="text-sm text-slate-500 mt-2">Click to follow your path and see exactly what you qualify for.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-            
-            <div class="info-tile border-t-4 border-t-emerald-500">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="text-lg font-extrabold text-slate-800">Situation 1: Positive / Zero Equity</h3>
-                        <p class="text-xs text-slate-500 font-medium mt-1">"I have equity or no trade-in"</p>
-                    </div>
-                    <div class="h-10 w-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    </div>
+        <div class="flow-container">
+            <div class="flow-step">
+                <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Step 1: What's your goal?</div>
+                <div class="flow-grid">
+                    <button class="flow-btn js-flow-trigger" data-target="path-buying">
+                        <span>Buying a Vehicle</span>
+                        <span class="flow-subtitle">No Trade-in</span>
+                    </button>
+                    <button class="flow-btn js-flow-trigger" data-target="path-trading">
+                        <span>Trading In</span>
+                        <span class="flow-subtitle">Have a Vehicle</span>
+                    </button>
                 </div>
+            </div>
 
-                <div class="my-4 p-3 bg-slate-50 rounded-lg border border-slate-100">
-                    <p class="text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">"Total Control"</p>
-                    <ul class="text-[10px] space-y-1.5 text-slate-600">
-                       <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Unlimited choice. Old or New.</span></li>
-                       <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> Use equity as down pymt.</span></li>
-                       <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Short term on older car.</span></li>
-                    </ul>
+            <div id="path-buying" class="reveal-box">
+                <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 text-center">Step 2: Credit Situation</div>
+                <div class="flow-grid">
+                    <button class="flow-btn js-flow-trigger" data-target="buy-good">
+                        <span>Good Credit</span>
+                        <span class="flow-subtitle">660 - 900 Score</span>
+                    </button>
+                    <button class="flow-btn js-flow-trigger" data-target="buy-bad">
+                        <span>Building Credit</span>
+                        <span class="flow-subtitle">Under 660 Score</span>
+                    </button>
                 </div>
-                <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
-                    <p class="text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">"The Foundation"</p>
-                    <ul class="text-[10px] space-y-1.5 text-slate-600">
-                       <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Reliable (2015+, <160k km).</span></li>
-                       <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> "Credit Builder" 84mo term.</span></li>
-                       <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Cheapest reliable car ($18k).</span></li>
+            </div>
+
+            <div id="path-trading" class="reveal-box">
+                <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 text-center">Step 2: Credit Situation</div>
+                <div class="flow-grid">
+                    <button class="flow-btn js-flow-trigger" data-target="trade-good">
+                        <span>Good Credit</span>
+                        <span class="flow-subtitle">660 - 900 Score</span>
+                    </button>
+                    <button class="flow-btn js-flow-trigger" data-target="trade-bad">
+                        <span>Building Credit</span>
+                        <span class="flow-subtitle">Under 660 Score</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="buy-good" class="reveal-box">
+                <span class="info-pill">Result: Prime Approval</span>
+                <h3 class="text-lg font-extrabold text-slate-800">Unlimited Access</h3>
+                <div class="result-card">
+                    <ul class="check-list">
+                        <li class="check-item">
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            <span><b>Vehicles:</b> Any Year, Make, or Model.</span>
+                        </li>
+                        <li class="check-item">
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            <span><b>Rate:</b> Prime Bank Rates (O.A.C).</span>
+                        </li>
+                        <li class="check-item">
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            <span><b>Term:</b> Up to 96 Months.</span>
+                        </li>
                     </ul>
                 </div>
             </div>
 
-            <div class="info-tile border-t-4 border-t-amber-500">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="text-lg font-extrabold text-slate-800">Situation 2: Negative Equity</h3>
-                        <p class="text-xs text-slate-500 font-medium mt-1">"I owe more than my trade is worth"</p>
-                    </div>
-                    <div class="h-10 w-10 rounded-full bg-amber-50 flex items-center justify-center text-amber-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            <div id="buy-bad" class="reveal-box">
+                <span class="info-pill bg-amber-100 text-amber-800">Result: Approval Program</span>
+                <h3 class="text-lg font-extrabold text-slate-800">Reliability Focus</h3>
+                <div class="result-card border-l-amber-500">
+                    <ul class="check-list">
+                        <li class="check-item">
+                            <svg class="check-icon text-amber-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            <span><b>Vehicles:</b> 2016 or Newer. Under 160,000km.</span>
+                        </li>
+                        <li class="check-item">
+                            <svg class="check-icon text-amber-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            <span><b>Goal:</b> Reliable car now -> Refinance in 12-24mo.</span>
+                        </li>
+                    </ul>
+                    <div class="reality-check">
+                        <div class="reality-title">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                            Why Newer is Better
+                        </div>
+                        <p class="text-[10px] text-slate-700 leading-relaxed">
+                            <b>Counter-Intuitive:</b> Older cars usually have <i>higher</i> payments because banks limit terms to 36-48 months. A newer car qualifies for 84 months, often resulting in a lower bi-weekly payment despite the higher price.
+                        </p>
                     </div>
                 </div>
+            </div>
 
-                <div class="my-4 p-3 bg-slate-50 rounded-lg border border-slate-100">
-                    <p class="text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">"The Consolidation"</p>
-                    <ul class="text-[10px] space-y-1.5 text-slate-600">
-                       <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Must be 2018+ to hide debt.</span></li>
-                       <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> Stretch term to 96mo.</span></li>
-                       <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Cash down covers the gap.</span></li>
+            <div id="trade-good" class="reveal-box">
+                <span class="info-pill">Result: Equity Master</span>
+                <h3 class="text-lg font-extrabold text-slate-800">Maximize Value</h3>
+                <div class="result-card">
+                    <ul class="check-list">
+                        <li class="check-item">
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            <span><b>Strategy:</b> Use trade equity to lower tax & payments.</span>
+                        </li>
+                        <li class="check-item">
+                            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            <span><b>Option:</b> Cash-back refinancing available.</span>
+                        </li>
                     </ul>
                 </div>
-                <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
-                    <p class="text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">"The Structure"</p>
-                    <ul class="text-[10px] space-y-1.5 text-slate-600">
-                       <li class="flex gap-1.5"><span class="text-slate-400">🚗</span> <span><b>Vehicle:</b> Limited "Book-Out" units only.</span></li>
-                       <li class="flex gap-1.5"><span class="text-slate-400">📉</span> <span><b>Low Pay:</b> Max term on cheapest SUV.</span></li>
-                       <li class="flex gap-1.5"><span class="text-slate-400">💰</span> <span><b>Low Cost:</b> Lateral trade to equal value.</span></li>
+            </div>
+
+            <div id="trade-bad" class="reveal-box">
+                <span class="info-pill bg-amber-100 text-amber-800">Result: The Reset</span>
+                <h3 class="text-lg font-extrabold text-slate-800">Negative Equity Solution</h3>
+                <div class="result-card border-l-amber-500">
+                    <ul class="check-list">
+                        <li class="check-item">
+                            <svg class="check-icon text-amber-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            <span><b>Vehicle:</b> Must be a "Book-Out" unit (2018+) to absorb debt.</span>
+                        </li>
+                        <li class="check-item">
+                            <svg class="check-icon text-amber-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            <span><b>Structure:</b> Extend term to 84-96mo to lower payment.</span>
+                        </li>
                     </ul>
+                    <div class="reality-check">
+                        <div class="reality-title">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                            Payment Reality
+                        </div>
+                        <p class="text-[10px] text-slate-700 leading-relaxed">
+                            To bury negative equity, we need a newer vehicle that qualifies for a <b>long term</b>. An older, cheaper car requires a short term, which makes the monthly payment <i>higher</i> than you'd expect.
+                        </p>
+                    </div>
                 </div>
             </div>
 
@@ -1250,6 +1341,47 @@
       newRateOut.textContent = Number(newRateSlider.value).toFixed(2);
     }
     
+    // --- INTERACTIVE FLOW LOGIC ---
+    bySelAll('.js-flow-trigger').forEach(btn => {
+        btn.addEventListener('click', () => {
+            // 1. Mark Active
+            const parent = btn.closest('.flow-step, .reveal-box');
+            parent.querySelectorAll('.js-flow-trigger').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // 2. Reveal Target
+            const targetId = btn.getAttribute('data-target');
+            if(!targetId) return;
+
+            // Hide siblings in same level
+            const allTargets = Array.from(document.querySelectorAll('.reveal-box'));
+            // Logic: If we are in Step 1, hide all Step 2s first. 
+            // Simpler logic: hide all reveals that are NOT the target or a child of the target
+            // For this simple web, we can just hide all peers.
+            
+            // Find container of target
+            const targetEl = document.getElementById(targetId);
+            if(targetEl) {
+                // Hide all siblings of the target element
+                const siblings = Array.from(targetEl.parentNode.children).filter(c => c.classList.contains('reveal-box') && c !== targetEl);
+                siblings.forEach(sib => {
+                    sib.classList.remove('open');
+                    // Also reset their children if any
+                    sib.querySelectorAll('.reveal-box').forEach(child => child.classList.remove('open'));
+                    sib.querySelectorAll('.js-flow-trigger.active').forEach(b => b.classList.remove('active'));
+                });
+                
+                // Show target
+                targetEl.classList.add('open');
+                
+                // Scroll to it slightly
+                setTimeout(() => {
+                    targetEl.scrollIntoView({behavior: 'smooth', block: 'center'});
+                }, 100);
+            }
+        });
+    });
+
     // --- FOCUS MODE LOGIC ---
     const formShell = $('form-shell');
     const formSpacer = $('form-spacer');
