@@ -1,3 +1,8 @@
+I have increased the scale of the Finance Guide from 80% to 90% and adjusted the centering calculations so it remains perfectly aligned with the rest of the page content.
+
+Here is the updated code:
+
+```html
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -153,13 +158,13 @@
         overflow: hidden; /* Prevent scroll */
     }
 
-    /* UPDATED: Scaling Added here to "Zoom Out" */
-    .desktop-tree { 
-        transform: scale(0.80); 
-        transform-origin: top center; 
-        width: 125%; /* Compensation for scale down (100 / 0.8) */
-        margin-left: -12.5%; /* Center it back */
-        margin-bottom: -100px; /* Reduce bottom space caused by scaling */
+    /* UPDATED: Scaling tweaked larger (0.9) and centered */
+    .desktop-tree {
+        transform: scale(0.90); /* Increased from 0.80 */
+        transform-origin: top center;
+        width: 111.12%; /* Compensation for scale (100/0.9) */
+        margin-left: -5.56%; /* Centering offset ((100%-width)/2) */
+        margin-bottom: -50px; /* Reduced negative margin */
     }
 
     .tree-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; margin-top:20px; padding-bottom: 20px;}
@@ -645,3 +650,4 @@
   </script>
 </body>
 </html>
+```
