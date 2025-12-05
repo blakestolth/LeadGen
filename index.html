@@ -26,7 +26,7 @@
       --blue-700:#214B80; 
       --blue-100:#EAF1FB; 
       --red-equifax: #A8202A; /* Exact Equifax Red */
-      --theme-green: #166534; /* Professional Forest Green */
+      --theme-green: #15803d; /* Solid Forest Green */
       --slate-50: #f8fafc;
       --slate-100: #f1f5f9;
       --slate-200: #e2e8f0;
@@ -42,7 +42,6 @@
       --radius: 8px;
       --control-h: 44px;
       --field-gap: 8px; 
-      --section-max: 720px;
     }
 
     body{
@@ -52,7 +51,6 @@
       overflow-x: hidden;
     }
     
-    /* Prevent scrolling when modal is open */
     body.modal-open { overflow: hidden !important; }
 
     .h1{ font-size:var(--fs-h1); font-weight:800; color:var(--slate-800); line-height: 1.1; letter-spacing: -0.5px; }
@@ -63,7 +61,7 @@
     .card{ background:#fff; border-radius:12px; border:1px solid var(--slate-200); box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.05); }
     .card-accent{ border: 1px solid var(--slate-300); box-shadow: 0 10px 25px -5px rgba(30, 41, 59, 0.05); background: #fff; }
 
-    /* Forms */
+    /* Form Styles */
     .form-input,.form-select{
       background: var(--slate-50); color:var(--slate-800); border:1px solid var(--slate-300);
       font-size:var(--fs-body); width:100%; padding: 0 var(--input-px); border-radius: var(--radius); 
@@ -88,250 +86,197 @@
     .err-label{ color:var(--red-equifax) !important; }
     @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
 
-    /* Breakout Section Utility (Full Width) */
-    .full-width-breakout {
-        width: 100vw;
-        position: relative;
-        left: 50%;
-        right: 50%;
-        margin-left: -50vw;
-        margin-right: -50vw;
-        padding: 60px 20px;
-        background: #fff; /* Clean White Background */
-        border-top: 1px solid var(--slate-200);
-        border-bottom: 1px solid var(--slate-200);
-        box-shadow: inset 0 4px 6px -1px rgba(0,0,0,0.05);
-    }
-
-    /* --- POLISHED TREE STYLES (Wide & Bold) --- */
-    .tree-wrapper { 
-        display: flex; flex-direction: column; align-items: center; 
-        width: 100%; 
-        max-width: 1400px; /* Allowed to go wider than main content */
-        margin: 0 auto; 
-        overflow-x: auto; 
-        padding-bottom: 20px;
-    }
-
-    /* The Row containing Nodes */
-    .tree-row { display: flex; justify-content: center; width: 100%; position: relative; gap: 40px; }
-
-    /* Column Wrapper */
-    .tree-col {
-        display: flex; flex-direction: column; align-items: center;
-        position: relative; padding: 30px 10px 0; 
-        flex: 1; 
-    }
-
-    /* THE LINES (Pseudo Elements) - Bold */
-    .tree-col::before {
-        content: ''; position: absolute; top: 0; left: 50%;
-        border-left: 3px solid #94a3b8; width: 0; height: 30px; 
-    }
-    .tree-col::after {
-        content: ''; position: absolute; top: 0;
-        border-top: 3px solid #94a3b8; height: 30px; width: 50%; 
-    }
-    .tree-col:first-child::after { left: 50%; border-left: 0; }
-    .tree-col:last-child::after { right: 50%; border-right: 0; }
-    .tree-col.only-child::after, .tree-col.only-child::before { display: none; }
-    .tree-col.only-child { padding-top: 0; }
-
-    .connector-down { width: 3px; height: 30px; background: #94a3b8; margin: 0 auto; }
-
-    /* Box Styles - Simple & Bold */
-    .node-box {
-        background: #1e293b; /* Slate 800 */
-        color: #fff;
-        border: none;
-        border-radius: 6px;
-        padding: 12px 24px; 
-        text-align: center; 
-        position: relative; z-index: 10;
-        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); 
-        min-width: 160px; 
-        font-size: 15px;
-        font-weight: 800; 
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
-    .node-box.branch { background: #2A5D9F; /* Theme Blue */ }
-    
-    /* Condition Pills - Solid Colors, No Transparency */
-    .node-pill {
-        color: #fff;
-        font-weight: 700; 
-        font-size: 13px; 
-        min-width: 140px; 
-        padding: 8px 16px; 
-        border-radius: 99px; 
-        z-index: 10; 
-        white-space: nowrap;
-        text-transform: uppercase;
-        letter-spacing: 0.02em;
-        text-align: center;
-        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-    }
-    /* Good Credit - Theme Blue */
-    .node-pill.blue { background: #2A5D9F; }
-    /* Positive - New Green */
-    .node-pill.green { background: var(--theme-green); }
-    /* Negative/Bad - Equifax Red */
-    .node-pill.red { background: var(--red-equifax); }
-
-    /* Result Card - Top Level Polish */
-    .node-card {
-        background: #fff; 
-        border: 1px solid #e2e8f0; 
-        border-radius: 8px;
-        text-align: left; 
-        min-width: 180px; 
-        max-width: 240px; 
-        padding: 16px;
-        box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
-        z-index: 10;
-        position: relative;
-        /* Keep sentences on one line */
-        white-space: nowrap; 
-    }
-    /* Accents */
-    .node-card.accent-blue { border-top: 5px solid #2A5D9F; }
-    .node-card.accent-red { border-top: 5px solid var(--red-equifax); }
-    .node-card.accent-green { border-top: 5px solid var(--theme-green); }
-    
-    .node-card h5 { 
-        font-weight: 800; 
-        font-size: 14px; 
-        color: #0f172a; 
-        margin-bottom: 4px; 
-        line-height: 1.2; 
-    }
-    .node-card .sub { 
-        font-size: 10px; 
-        font-weight: 700; 
-        text-transform: uppercase; 
-        color: #64748b; 
-        margin-bottom: 10px; 
-        display: block; 
-        letter-spacing: 0.05em;
-    }
-    
-    .t-list { list-style: none; padding: 0; margin: 0; }
-    .t-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #334155; margin-bottom: 6px; line-height: 1.2; font-weight: 600; }
-    .t-icon { color: var(--theme-green); width: 14px; height: 14px; flex-shrink: 0; }
-
-    .node-connector-text { 
-        font-size: 11px; 
-        font-weight: 800; 
-        color: #fff; 
-        background: #0f172a; /* Dark Slate */
-        padding: 4px 10px; 
-        border-radius: 99px; 
-        z-index: 15; 
-        position: relative; 
-        margin: 10px 0; 
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-
-    /* Mobile Stack */
-    @media (max-width: 1024px) {
-        .tree-row { flex-direction: column; gap: 10px; position: static; }
-        .tree-col, .tree-col::before, .tree-col::after, .connector-down { display: none; }
-        .tree-wrapper { align-items: stretch; gap: 12px; max-width: 100%; overflow: visible; }
-        
-        .mobile-stack-item {
-            display: flex; flex-direction: column; gap: 12px; 
-            border-left: 3px solid #e2e8f0; padding-left: 20px; margin-left: 10px;
-        }
-        .node-box, .node-pill, .node-card { width: 100%; max-width: 100%; text-align: left; align-items: flex-start; white-space: normal; }
-        
-        .desktop-tree { display: none; }
-        .mobile-tree { display: flex; flex-direction: column; gap: 24px;}
-    }
-    @media (min-width: 1025px) { .mobile-tree { display: none; } }
-
-    /* --- LIFE STAGES TIMELINE CSS --- */
-    .timeline-wrapper {
-        width: 100%;
-        padding: 40px 0;
-        overflow-x: auto;
-    }
-    .timeline-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        position: relative;
-        margin: 0 auto;
-        min-width: 600px;
-        padding-top: 20px;
-    }
-    .timeline-line {
-        position: absolute;
-        top: 65px;
-        left: 20px;
-        right: 20px;
-        height: 4px;
-        background-color: #000;
-        z-index: 1;
-    }
-    .timeline-stage {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        position: relative;
-        z-index: 2;
-        flex: 1;
-    }
-    .stage-icon {
-        font-size: 28px;
-        margin-bottom: 12px;
-        height: 35px;
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-    }
-    .stage-bar {
-        width: 8px;
-        height: 40px;
-        margin-bottom: 10px;
-        background-color: #ccc; 
-    }
-    .stage-text {
-        font-family: 'Work Sans', sans-serif;
-        font-size: 12px;
-        font-weight: 700;
-        color: #222;
-        line-height: 1.2;
-    }
-    /* Color Coding */
-    .stage-purple .stage-bar { background-color: #bfa2db; }
-    .stage-black .stage-bar { background-color: transparent; border-left: 6px dotted #000; width: 0; }
-    .stage-yellow .stage-bar { background-color: #fce157; }
-    .stage-blue .stage-bar { background-color: transparent; border-left: 6px dotted #5ca1e6; width: 0; }
-    .stage-orange .stage-bar { background-color: #f79c42; }
-    .stage-red .stage-bar { background-color: #ff4d4d; }
-
-    /* LAYOUT ENGINE FOR FORM */
+    /* Layout Engine */
     #lead-form-card { min-height: 382px; position: relative; }
     .form-shell { position: relative; overflow: hidden; height: 380px; background: #fff; transition: height 0.3s ease; z-index: 1; }
     .form-clipper { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; background: #fff; border-radius: 12px; overflow: hidden; }
     .form-header { position: absolute; top: 0; left: 0; right: 0; z-index: 10; background: rgba(255,255,255,0.98); padding: 10px 20px; border-bottom: 1px solid var(--slate-200); height: 50px; }
     .step-viewport { position: absolute; top: 50px; bottom: 70px; left: 0; right: 0; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; }
     .step-viewport-inner, #the-form, .form-step { height: 100%; width: 100%; }
-    .step-inner { width: 100%; max-width: var(--section-max); margin: 0 auto; height: 100%; display: flex; flex-direction: column; padding: 0 20px; }
+    .step-inner { width: 100%; max-width: 720px; margin: 0 auto; height: 100%; display: flex; flex-direction: column; padding: 0 20px; }
     .step-title { text-align: center; margin-top: 12px; flex-shrink: 0; padding-bottom: 4px; }
     .step-body { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; padding-bottom: 5px; }
     .step-body > .content { width: 95%; max-width: 500px; margin: 0 auto; text-align: center; }
     .form-footer { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.98); border-top: 1px solid var(--slate-200); padding: 0 20px; height: 70px; z-index: 20; display: flex; align-items: center; justify-content: space-between; }
+    
     .form-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(6px); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 9990; }
     .form-backdrop.active { opacity: 1; pointer-events: auto; }
     .form-focused { position: fixed !important; top: 50% !important; left: 50% !important; width: 95vw !important; max-width: 800px !important; height: 600px !important; max-height: 90vh !important; z-index: 9999 !important; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border-radius: 12px; margin: 0 !important; overflow: visible !important; animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
     .form-focused.form-closing { animation: modalPopReverse 0.3s ease-in forwards !important; }
+    @keyframes modalPop { 0% { transform: translate(-50%, -45%) scale(0.8); } 100% { transform: translate(-50%, -50%) scale(1); } }
+    @keyframes modalPopReverse { 0% { transform: translate(-50%, -50%) scale(1); } 100% { transform: translate(-50%, -45%) scale(0.8); } }
     .form-close-btn { position: absolute; top: -12px; right: -12px; width: 26px; height: 26px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #64748b; transition: all 0.2s; z-index: 10000; border: 2px solid #fff; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-    .form-close-btn:hover { background: #cbd5e1; color: #1e293b; transform: scale(1.1); }
     .form-trigger-overlay { position: absolute; inset: 0; z-index: 30; cursor: pointer; }
+
+    /* Utility */
+    .choice-rect { width:100%; text-align:left; border:1.5px solid var(--slate-300); border-radius:var(--radius); background:#fff; font-weight:600; color: var(--slate-700); transition:all .15s ease; display:flex; align-items:center; cursor:pointer; padding: 0 16px; min-height: 50px; font-size: 15px; justify-content: center; }
+    .choice-rect:hover{ border-color:var(--blue-600); background: #f8fafc; transform: translateY(-1px); }
+    .choice-rect.selected{ border-color:var(--blue-600); background:var(--blue-100); color: var(--blue-700); box-shadow: 0 0 0 1px var(--blue-600); }
+    .seg{ display:inline-flex; align-items:center; gap:4px; background:var(--slate-100); border:1.5px solid var(--slate-200); border-radius:8px; padding:4px; width: 100%; }
+    .seg-btn{ flex: 1; appearance:none; border:0; background:transparent; cursor:pointer; padding:6px 10px; border-radius:6px; font-weight:700; font-size:13px; color:var(--slate-500); transition:all .15s ease; }
+    .seg-btn[aria-pressed="true"]{ background:#fff; color:var(--blue-600); box-shadow:0 1px 3px rgba(0,0,0,.1); }
+    .grid-inline-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .brand-left{ display:flex; align-items:center; gap:12px; }
+    .site-logo{ height:45px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
+    @media (min-width:640px){ .site-logo{ height:60px; } }
+    .brand-stack{ display:flex; flex-direction:column; justify-content: center; gap:2px; }
+    .brand-title{ color:var(--slate-800); font-weight:800; letter-spacing:-0.02em; font-size:var(--nav-font); white-space:nowrap; text-decoration:none; line-height:1; margin-left:-2px; }
+    .powered-by-inline{ display:flex; align-items:center; gap:6px; font-size: 11px; color:var(--slate-500); font-weight:600; line-height:1; margin-top:2px; }
+    .powered-by-inline img{ height: 11px; width:auto; object-fit:contain; position:relative; top:1px; opacity: 0.8; }
+    .abc-badge{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:9999px; background:var(--blue-600); color:#fff; border:none; font-weight:800; font-size:11px; line-height:1; flex-shrink:0; }
+    .bodytype-card{ position: relative; overflow:hidden; border-radius:12px; border:1px solid var(--slate-200); background:#fff; transition:transform .2s,box-shadow .2s,border-color .2s; }
+    .bodytype-card:hover{ transform:translateY(-3px); border-color:var(--blue-600); box-shadow:0 12px 20px -5px rgba(42,93,159,.2); }
+    .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:90px; }
+    @media (min-width:640px){ .bodytype-img{ height:100px; } }
+    .inv-overlay { position: absolute; inset: 0; background: rgba(42,93,159,0.9); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s ease; color: white; font-weight: 700; font-size: 14px; z-index: 5; border-radius: 11px;}
+    .bodytype-card:hover .inv-overlay { opacity: 1; }
+    .map-embed{ width:100%; height:200px; border:0; border-radius: inherit; }
+    @media (min-width:640px){ .map-embed{ height:150px; } }
+    .progress-overlay{position:fixed;inset:0;background:rgba(15,23,42,.6);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:50}
+    .progress-card{background:#fff;border-radius:16px;box-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);width:min(520px,92vw);padding:24px 20px}
+    .progress-title{font-weight:800;font-size:18px;color:var(--slate-800)}
+    .progress-track{height:8px;background:var(--slate-200);border-radius:9999px;overflow:hidden;margin-top:12px}
+    .progress-bar{height:8px;width:0%;background:linear-gradient(90deg,var(--blue-600),var(--blue-grad));transition:width .6s ease}
+    .progress-steps{list-style:none;padding:0;margin:16px 0 0;font-size:14px;color:var(--slate-600); space-y-2}
+    .progress-steps li{display:flex;align-items:center;gap:10px;opacity:.7; transition: all .3s ease;}
+    .progress-steps li.active{opacity:1;font-weight:700; color: var(--slate-800);}
+    .progress-note{margin-top:12px;font-size:12px;color:var(--slate-500)}
     .js-hidden { display:none !important; }
+
+    /* --- POLISHED TREE STYLES --- */
+    /* Container for the Finance Guide - Wider than standard 5xl */
+    .wide-section-container {
+        width: 100%;
+        max-width: 1280px; /* ~7xl in Tailwind */
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .tree-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; margin-top:20px; overflow-x: auto; padding-bottom: 20px;}
+    .tree-row { display: flex; justify-content: center; width: 100%; position: relative; gap: 20px; }
+    .tree-col { display: flex; flex-direction: column; align-items: center; position: relative; padding: 25px 10px 0; flex: 1; }
+
+    /* Lines */
+    .tree-col::before { content: ''; position: absolute; top: 0; left: 50%; border-left: 3px solid #cbd5e1; width: 0; height: 25px; }
+    .tree-col::after { content: ''; position: absolute; top: 0; border-top: 3px solid #cbd5e1; height: 25px; width: 50%; }
+    .tree-col:first-child::after { left: 50%; border-left: 0; }
+    .tree-col:last-child::after { right: 50%; border-right: 0; }
+    .tree-col.only-child::after, .tree-col.only-child::before { display: none; }
+    .tree-col.only-child { padding-top: 0; }
+    .connector-down { width: 3px; height: 25px; background: #cbd5e1; margin: 0 auto; }
+
+    /* Nodes - Polished & Bold */
+    .node-box {
+        background: var(--blue-600); 
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 12px 20px; 
+        text-align: center; 
+        position: relative; z-index: 10;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); 
+        min-width: 130px; 
+        font-size: 14px;
+        font-weight: 800; 
+        letter-spacing: -0.01em;
+    }
+    .node-box.root { background: #1e293b; }
+    
+    /* Condition Pills (Solid Colors) */
+    .node-pill {
+        color: #fff;
+        font-weight: 800; 
+        font-size: 12px; 
+        min-width: 110px; 
+        padding: 8px 16px; 
+        border-radius: 99px; 
+        z-index: 10; 
+        white-space: nowrap;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .node-pill.blue { background: var(--blue-600); }
+    .node-pill.green { background: var(--theme-green); }
+    .node-pill.red { background: var(--red-equifax); }
+
+    /* Result Card - Top Level Look */
+    .node-card {
+        background: #fff; 
+        border: 1px solid #e2e8f0; 
+        border-radius: 8px;
+        text-align: left; 
+        min-width: 150px; 
+        max-width: 220px; 
+        padding: 16px;
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        z-index: 10;
+        position: relative;
+        white-space: nowrap; /* Keep sentences on one line */
+    }
+    
+    .node-card h5 { 
+        font-weight: 800; 
+        font-size: 13px; 
+        color: #1e293b; 
+        margin-bottom: 4px; 
+        line-height: 1.2; 
+    }
+    .node-card .sub { 
+        font-size: 10px; 
+        font-weight: 800; 
+        text-transform: uppercase; 
+        color: #64748b; 
+        margin-bottom: 8px; 
+        display: block; 
+    }
+    .node-card .sub.gold { color: #b45309; }
+    
+    .t-list { list-style: none; padding: 0; margin: 0; }
+    .t-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #475569; margin-bottom: 4px; line-height: 1.3; font-weight: 600; }
+    .t-icon { color: var(--theme-green); width: 14px; height: 14px; flex-shrink: 0; }
+
+    .node-connector-text { 
+        font-size: 10px; 
+        font-weight: 800; 
+        color: #fff; 
+        background: #64748b; 
+        padding: 3px 10px; 
+        border-radius: 99px; 
+        z-index: 15; 
+        position: relative; 
+        margin: 8px 0; 
+    }
+
+    /* Mobile Stack */
+    @media (max-width: 1024px) {
+        .tree-row { flex-direction: column; gap: 10px; position: static; }
+        .tree-col, .tree-col::before, .tree-col::after, .connector-down { display: none; }
+        .tree-wrapper { align-items: stretch; gap: 15px; overflow: visible; padding-bottom: 0; }
+        
+        .mobile-stack-item {
+            display: flex; flex-direction: column; gap: 10px; 
+            border-left: 3px solid #cbd5e1; padding-left: 15px; margin-left: 10px;
+        }
+        .node-box, .node-pill, .node-card { width: 100%; max-width: 100%; text-align: left; align-items: flex-start; white-space: normal; }
+        .desktop-tree { display: none; }
+        .mobile-tree { display: flex; flex-direction: column; gap: 20px;}
+    }
+    @media (min-width: 1025px) { .mobile-tree { display: none; } }
+
+    /* Life Stages Timeline */
+    .timeline-wrapper { width: 100%; padding: 40px 0; overflow-x: auto; }
+    .timeline-container { display: flex; justify-content: space-between; align-items: flex-start; position: relative; margin: 0 auto; min-width: 600px; padding-top: 20px; }
+    .timeline-line { position: absolute; top: 65px; left: 20px; right: 20px; height: 4px; background-color: #000; z-index: 1; }
+    .timeline-stage { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 2; flex: 1; }
+    .stage-icon { font-size: 28px; margin-bottom: 12px; height: 35px; display: flex; align-items: flex-end; justify-content: center; }
+    .stage-bar { width: 8px; height: 40px; margin-bottom: 10px; background-color: #ccc; }
+    .stage-text { font-family: 'Work Sans', sans-serif; font-size: 12px; font-weight: 700; color: #222; line-height: 1.2; }
+    .stage-purple .stage-bar { background-color: #bfa2db; }
+    .stage-black .stage-bar { background-color: transparent; border-left: 6px dotted #000; width: 0; }
+    .stage-yellow .stage-bar { background-color: #fce157; }
+    .stage-blue .stage-bar { background-color: transparent; border-left: 6px dotted #5ca1e6; width: 0; }
+    .stage-orange .stage-bar { background-color: #f79c42; }
+    .stage-red .stage-bar { background-color: #ff4d4d; }
 
   </style>
 </head>
@@ -411,14 +356,13 @@
                       <input type="hidden" name="form-name" value="lead-form"/><input type="hidden" name="app_type" id="app_type" value="Full Application" /><input type="hidden" name="appCode" id="appCode" value="" /><input type="hidden" name="intent" id="intent" value="finance" />
                       <section class="form-step" data-id="step-intent"><div class="step-inner"><div class="step-title"><h3 class="h2">Select Goal</h3></div><div class="step-body"><div class="content grid grid-cols-2 gap-3"><button type="button" class="choice-rect" data-intent="finance">Finance</button><button type="button" class="choice-rect" data-intent="refinance">Refinance</button></div></div></div></section>
                       <section class="form-step js-hidden" data-id="step-vehicle-type"><div class="step-inner"><div class="step-title"><h3 class="h2">Vehicle Type</h3></div><div class="step-body"><div class="content grid grid-cols-2 gap-3"><button type="button" class="choice-rect" data-type="Car">Car</button><button type="button" class="choice-rect" data-type="SUV">SUV</button><button type="button" class="choice-rect" data-type="Truck">Truck</button><button type="button" class="choice-rect" data-type="Van">Van</button><input type="hidden" name="vehicleType" id="vehicleType"></div></div></div></section>
-                      </form>
+                    </form>
                 </div></div>
                 <div class="form-footer flex items-center justify-between" id="form-footer"><button type="button" id="btnBack" class="font-semibold text-slate-600 hover:text-slate-900 px-4 py-2 rounded-lg hover:bg-slate-100 transition-colors">Back</button><button type="button" id="btnNext" class="cta-button">Next</button></div>
             </div> 
             <button id="form-close" class="form-close-btn hidden" aria-label="Close form"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></button>
           </div>
         </div>
-        
         <aside class="flex flex-col h-full">
             <div class="card card-accent p-0 flex-1 overflow-hidden relative flex flex-col" style="height: 452px;">
               <div class="h-[50px] px-5 border-b border-slate-100 bg-white flex justify-between items-center flex-shrink-0"><div><h4 class="text-sm font-bold text-slate-800">Refinance Calculator</h4></div><div class="abc-badge text-[10px] bg-[var(--blue-100)] text-[var(--blue-700)] px-2 w-auto">Estimate</div></div>
@@ -428,15 +372,15 @@
             </div>
         </aside>
       </section>
+    </main>
 
-      <section id="finance-guide" class="full-width-breakout mt-12 mb-12">
-        <div class="text-center mb-10">
+    <section id="finance-guide" class="wide-section-container mt-12 mb-12">
+        <div class="text-center mb-8">
             <h2 class="h1 text-3xl text-slate-800 mb-2">Finance Guide</h2>
             <p class="text-base text-slate-500 font-medium">Find your path below to see how we structure your approval.</p>
         </div>
 
         <div class="desktop-tree tree-wrapper">
-            
             <div class="tree-row">
                 <div class="tree-col only-child">
                     <div class="node-box root">START HERE</div>
@@ -445,16 +389,14 @@
             </div>
 
             <div class="tree-row">
-                
                 <div class="tree-col">
                     <div class="node-box branch">Buying a Car</div>
                     <div class="connector-down"></div>
-                    
                     <div class="tree-row">
                         <div class="tree-col">
                             <div class="node-pill blue">Good Credit</div>
                             <div class="connector-down"></div>
-                            <div class="node-card accent-blue">
+                            <div class="node-card">
                                 <span class="sub">Unlimited Access</span>
                                 <h5>660 - 900 Score</h5>
                                 <ul class="t-list">
@@ -464,12 +406,11 @@
                                 </ul>
                             </div>
                         </div>
-
                         <div class="tree-col">
                             <div class="node-pill red">New / Bad Credit</div>
                             <div class="connector-down"></div>
-                            <div class="node-card accent-red">
-                                <span class="sub" style="color:var(--red-equifax);">Reliability Focus</span>
+                            <div class="node-card">
+                                <span class="sub text-theme-gold">Reliability Focus</span>
                                 <h5>300 - 659 Score</h5>
                                 <ul class="t-list">
                                     <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>2016+ Vehicles</li>
@@ -479,7 +420,7 @@
                             <div class="connector-down" style="height:15px;"></div>
                             <div class="node-connector-text">OR (500+ Score)</div>
                             <div class="connector-down" style="height:15px;"></div>
-                            <div class="node-card accent-blue">
+                            <div class="node-card">
                                 <span class="sub">Special Program</span>
                                 <h5>Unlimited Access</h5>
                                 <ul class="t-list">
@@ -494,7 +435,6 @@
                 <div class="tree-col">
                     <div class="node-box branch">Trading In</div>
                     <div class="connector-down"></div>
-
                     <div class="tree-row">
                         <div class="tree-col">
                             <div class="node-pill blue">Good Credit</div>
@@ -503,7 +443,7 @@
                                 <div class="tree-col">
                                     <div class="node-pill green">Positive Equity</div>
                                     <div class="connector-down"></div>
-                                    <div class="node-card accent-blue">
+                                    <div class="node-card">
                                         <span class="sub">Unlimited Access</span>
                                         <h5>660 - 900 Score</h5>
                                         <ul class="t-list">
@@ -515,19 +455,18 @@
                                 <div class="tree-col">
                                     <div class="node-pill red">Negative Equity</div>
                                     <div class="connector-down"></div>
-                                    <div class="node-card accent-red">
-                                        <span class="sub" style="color:var(--red-equifax);">Reliability Focus</span>
+                                    <div class="node-card">
+                                        <span class="sub text-theme-gold">Reliability Focus</span>
                                         <h5>Negative Equity Fix</h5>
                                         <ul class="t-list">
                                             <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>2016+ Vehicles</li>
                                             <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Refinance 12mo</li>
                                         </ul>
                                     </div>
-                                    
                                     <div class="connector-down" style="height:15px;"></div>
                                     <div class="node-connector-text">OR (500+ Score)</div>
                                     <div class="connector-down" style="height:15px;"></div>
-                                    <div class="node-card accent-blue">
+                                    <div class="node-card">
                                         <span class="sub">Special Program</span>
                                         <h5>Unlimited Access</h5>
                                         <ul class="t-list">
@@ -538,7 +477,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="tree-col">
                             <div class="node-pill red">New / Bad Credit</div>
                             <div class="connector-down"></div>
@@ -546,7 +484,7 @@
                                 <div class="tree-col">
                                     <div class="node-pill green">Positive Equity</div>
                                     <div class="connector-down"></div>
-                                    <div class="node-card accent-blue">
+                                    <div class="node-card">
                                         <span class="sub">Unlimited Access</span>
                                         <h5>660 - 900 Score</h5>
                                         <ul class="t-list">
@@ -558,19 +496,18 @@
                                 <div class="tree-col">
                                     <div class="node-pill red">Negative Equity</div>
                                     <div class="connector-down"></div>
-                                    <div class="node-card accent-red">
-                                        <span class="sub" style="color:var(--red-equifax);">Reliability Focus</span>
+                                    <div class="node-card">
+                                        <span class="sub text-theme-gold">Reliability Focus</span>
                                         <h5>Negative Equity Fix</h5>
                                         <ul class="t-list">
                                             <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>2016+ Vehicles</li>
                                             <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Refinance 12mo</li>
                                         </ul>
                                     </div>
-
                                     <div class="connector-down" style="height:15px;"></div>
                                     <div class="node-connector-text">OR (500+ Score)</div>
                                     <div class="connector-down" style="height:15px;"></div>
-                                    <div class="node-card accent-blue">
+                                    <div class="node-card">
                                         <span class="sub">Special Program</span>
                                         <h5>Unlimited Access</h5>
                                         <ul class="t-list">
@@ -584,23 +521,17 @@
                     </div>
                 </div>
             </div>
-
-            <div class="mobile-tree">
-                <div class="node-box root w-full">Tap branches to expand (Mobile View Simplified)</div>
-            </div>
-
+            
+            <div class="mobile-tree"><div class="node-box root w-full">Tap branches to expand (Mobile View Simplified)</div></div>
         </div>
-      </section>
+    </section>
 
+    <main class="w-full max-w-5xl mx-auto px-4 py-4 space-y-4">
       <section id="personalized-search" class="mt-8 mb-8">
         <div class="flex flex-col md:flex-row gap-8 items-start">
-            
             <div class="flex-1">
                 <h2 class="h1 text-3xl text-slate-800 mb-4">Personalized Search</h2>
-                <p class="text-base text-slate-600 leading-relaxed mb-6">
-                    Buying a car isn’t about picking a color. It's about avoiding the lemons. With years of mechanical knowledge in the BC market, I don't just sell you a car—I help you hunt for the <i>right</i> one.
-                </p>
-                
+                <p class="text-base text-slate-600 leading-relaxed mb-6">Buying a car isn’t about picking a color. It's about avoiding the lemons. With years of mechanical knowledge in the BC market, I don't just sell you a car—I help you hunt for the <i>right</i> one.</p>
                 <div class="bg-white rounded-lg p-5 border border-slate-200 shadow-sm mb-8">
                     <div class="flex items-center gap-1 mb-2">
                         <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
@@ -612,62 +543,29 @@
                     <p class="text-sm font-bold text-slate-800">Over 5,000 5-Star Google Reviews</p>
                     <p class="text-[11px] text-slate-500 mt-1">Trusted by families across Vancouver Island.</p>
                 </div>
-
-                <div class="timeline-wrapper">
-                    <div class="timeline-container">
-                        <div class="timeline-line"></div>
-                        <div class="timeline-stage stage-purple"><div class="stage-icon">🎓</div><div class="stage-bar"></div><div class="stage-text">Age of<br>Eligibility &<br>New Credit</div></div>
-                        <div class="timeline-stage stage-black"><div class="stage-icon">🍁</div><div class="stage-bar"></div><div class="stage-text">New to<br>Canada</div></div>
-                        <div class="timeline-stage stage-yellow"><div class="stage-icon">🏠</div><div class="stage-bar"></div><div class="stage-text">Young<br>Adult</div></div>
-                        <div class="timeline-stage stage-blue"><div class="stage-icon">💳</div><div class="stage-bar"></div><div class="stage-text">Rebuilding<br>Credit<br>(Any Age)</div></div>
-                        <div class="timeline-stage stage-orange"><div class="stage-icon">👨‍👩‍👧‍👦</div><div class="stage-bar"></div><div class="stage-text">Mid-Life &<br>Major Purchases</div></div>
-                        <div class="timeline-stage stage-red"><div class="stage-icon">🏖️</div><div class="stage-bar"></div><div class="stage-text">Retired</div></div>
-                    </div>
-                </div>
-
-                <button type="button" class="cta-button w-full md:w-auto justify-center mt-6" onclick="document.getElementById('lead-form-card').scrollIntoView({behavior: 'smooth'});">
-                    Start A Custom Search
-                </button>
+                <div class="timeline-wrapper"><div class="timeline-container"><div class="timeline-line"></div><div class="timeline-stage stage-purple"><div class="stage-icon">🎓</div><div class="stage-bar"></div><div class="stage-text">Age of<br>Eligibility &<br>New Credit</div></div><div class="timeline-stage stage-black"><div class="stage-icon">🍁</div><div class="stage-bar"></div><div class="stage-text">New to<br>Canada</div></div><div class="timeline-stage stage-yellow"><div class="stage-icon">🏠</div><div class="stage-bar"></div><div class="stage-text">Young<br>Adult</div></div><div class="timeline-stage stage-blue"><div class="stage-icon">💳</div><div class="stage-bar"></div><div class="stage-text">Rebuilding<br>Credit<br>(Any Age)</div></div><div class="timeline-stage stage-orange"><div class="stage-icon">👨‍👩‍👧‍👦</div><div class="stage-bar"></div><div class="stage-text">Mid-Life &<br>Major Purchases</div></div><div class="timeline-stage stage-red"><div class="stage-icon">🏖️</div><div class="stage-bar"></div><div class="stage-text">Retired</div></div></div></div>
+                <button type="button" class="cta-button w-full md:w-auto justify-center mt-6" onclick="document.getElementById('lead-form-card').scrollIntoView({behavior: 'smooth'});">Start A Custom Search</button>
             </div>
-
             <div class="flex-1 w-full">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    
                     <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm hover:border-blue-300 transition-colors">
-                        <div class="flex items-center gap-2 mb-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                            <h4 class="text-sm font-bold text-slate-800">Service History</h4>
-                        </div>
+                        <div class="flex items-center gap-2 mb-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg><h4 class="text-sm font-bold text-slate-800">Service History</h4></div>
                         <p class="text-xs text-slate-600 leading-relaxed">The #1 factor. We verify oil change intervals and shop reports to ensure long-term life.</p>
                     </div>
-
                     <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm hover:border-blue-300 transition-colors">
-                        <div class="flex items-center gap-2 mb-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                            <h4 class="text-sm font-bold text-slate-800">Lien Checks</h4>
-                        </div>
+                        <div class="flex items-center gap-2 mb-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><h4 class="text-sm font-bold text-slate-800">Lien Checks</h4></div>
                         <p class="text-xs text-slate-600 leading-relaxed">Crucial in BC. We guarantee clean titles with zero hidden debts or legal headaches.</p>
                     </div>
-
                     <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm hover:border-blue-300 transition-colors">
-                        <div class="flex items-center gap-2 mb-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-                            <h4 class="text-sm font-bold text-slate-800">Rust & Body</h4>
-                        </div>
+                        <div class="flex items-center gap-2 mb-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg><h4 class="text-sm font-bold text-slate-800">Rust & Body</h4></div>
                         <p class="text-xs text-slate-600 leading-relaxed">We check for Eastern cars (salt damage) and "Headliner" status—a true sign of neglect.</p>
                     </div>
-
                     <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm hover:border-blue-300 transition-colors">
-                        <div class="flex items-center gap-2 mb-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
-                            <h4 class="text-sm font-bold text-slate-800">Model Specifics</h4>
-                        </div>
+                        <div class="flex items-center gap-2 mb-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg><h4 class="text-sm font-bold text-slate-800">Model Specifics</h4></div>
                         <p class="text-xs text-slate-600 leading-relaxed">We know the "Bad Years." Avoiding specific transmissions and engines saves you thousands.</p>
                     </div>
-
                 </div>
             </div>
-
         </div>
       </section>
 
