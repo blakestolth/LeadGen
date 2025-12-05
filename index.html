@@ -293,68 +293,74 @@
     .text-theme-green { color: var(--theme-green); }
     .bg-theme-green-50 { background-color: var(--theme-green-bg); }
 
-    /* --- EXPANDED TREE STYLES (UPDATED) --- */
-    .tree {
-      display: flex; flex-direction: column; align-items: center; width: 100%; overflow-x: auto;
-      padding-bottom: 20px;
+    /* --- EXPANDED NESTED TREE STYLES --- */
+    .tree-container {
+        display: flex; flex-direction: column; align-items: center; width: 100%;
+        overflow-x: auto; padding: 20px 0;
     }
     
-    /* Levels */
-    .tree-level { display: flex; justify-content: center; gap: 40px; width: 100%; position: relative; }
-    
-    /* The Nodes (Boxes) */
-    .tree-node {
-      background: #fff; border: 2px solid var(--blue-600); border-radius: 8px;
-      padding: 10px 14px; text-align: center; position: relative; z-index: 2;
-      box-shadow: 0 4px 10px rgba(42,93,159,0.1);
-      min-width: 140px; display: flex; flex-direction: column; justify-content: center;
+    /* Box Styles */
+    .t-box {
+        background: #fff; border: 2px solid var(--blue-600); border-radius: 8px;
+        padding: 10px 16px; text-align: center; position: relative; z-index: 5;
+        box-shadow: 0 4px 8px rgba(42,93,159,0.15); min-width: 130px;
     }
-    .tree-node.root { background: var(--blue-600); color: #fff; border-color: var(--blue-600); font-weight: 800; font-size: 16px;}
-    .tree-node.branch { background: var(--blue-100); color: var(--blue-700); font-weight: 700; border-color: var(--blue-200); }
-    .tree-node.leaf { 
-        background: #fff; border: 1px solid var(--slate-300); text-align: left; align-items: flex-start;
-        min-width: 150px; max-width: 180px; padding: 12px;
+    .t-box.root { background: var(--blue-600); color: #fff; font-weight: 800; border-color: var(--blue-600); }
+    .t-box.branch { background: var(--blue-100); color: var(--blue-700); font-weight: 700; border-color: var(--blue-200); }
+    .t-box.status { 
+        background: #fff; border: 2px solid var(--slate-300); color: var(--slate-600); 
+        font-weight: 700; font-size: 13px; min-width: 140px;
     }
-    .tree-node.leaf h5 { font-weight: 800; font-size: 14px; color: var(--slate-800); margin-bottom: 4px; line-height: 1.2; }
-    .tree-node.leaf .sub-head { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--slate-400); margin-bottom: 6px; display: block;}
-    
-    /* Check List inside Tree */
-    .tree-check-list { list-style: none; padding: 0; margin: 0; width: 100%; }
-    .tree-check-item { display: flex; align-items: start; gap: 6px; font-size: 10px; color: var(--slate-600); margin-bottom: 4px; line-height: 1.3; }
-    .tree-check-icon { color: var(--theme-green); width: 12px; height: 12px; flex-shrink: 0; margin-top: 1px; }
+    .t-box.status.gold { border-color: var(--theme-gold); color: #9a3412; background: #fff7ed; }
 
-    /* Container for children to grouping */
-    .tree-group { display: flex; flex-direction: column; align-items: center; }
-    .tree-children { display: flex; justify-content: center; gap: 20px; padding-top: 20px; position: relative; }
-
-    /* Connectors (The Lines) */
-    .connector-vert { width: 2px; height: 20px; background: #334155; margin: 0 auto; } /* Dark Slate Line */
+    /* Final Card Style */
+    .t-card {
+        background: #fff; border: 1px solid var(--slate-300); border-radius: 8px;
+        text-align: left; min-width: 170px; max-width: 190px; padding: 14px;
+        border-top: 4px solid var(--blue-600); box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        z-index: 5; position: relative;
+    }
+    .t-card.warn { border-top-color: var(--theme-gold); }
     
-    /* The Horizontal Bracket */
-    .connector-bracket {
-        position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    .t-card h5 { font-weight: 800; font-size: 14px; color: var(--slate-800); margin-bottom: 2px; line-height: 1.2; }
+    .t-card .sub { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--slate-400); margin-bottom: 8px; display: block; }
+    
+    /* List */
+    .t-list { list-style: none; padding: 0; margin: 0; }
+    .t-item { display: flex; align-items: start; gap: 6px; font-size: 11px; color: var(--slate-600); margin-bottom: 5px; line-height: 1.3; }
+    .t-icon { color: var(--theme-green); width: 14px; height: 14px; flex-shrink: 0; margin-top: 1px; }
+
+    /* Layout Structure - Nested Flex */
+    .t-row { display: flex; justify-content: center; gap: 40px; padding-top: 20px; position: relative; }
+    
+    /* Connectors */
+    .line-vert { width: 2px; height: 20px; background: #94a3b8; margin: 0 auto; flex-shrink: 0; }
+    
+    /* The Horizontal Bar wrapper */
+    .branch-connector {
+        display: flex; flex-direction: column; align-items: center; width: 100%;
+    }
+    .bar-horz {
         width: 60%; height: 20px; 
-        border-top: 2px solid #334155; 
-        border-left: 2px solid #334155; 
-        border-right: 2px solid #334155;
-        border-top-left-radius: 8px; border-top-right-radius: 8px; /* Rounded corners like sketch */
+        border-top: 2px solid #94a3b8; 
+        border-left: 2px solid #94a3b8; 
+        border-right: 2px solid #94a3b8;
+        border-top-left-radius: 8px; border-top-right-radius: 8px;
+        margin-bottom: -2px; /* Pull nodes up to touch line */
     }
-    /* Adjust bracket width based on siblings */
-    .tree-children.wide .connector-bracket { width: 85%; }
+    .bar-horz.wide { width: 85%; }
+
+    /* Wrapper for a specific branch path */
+    .path-col { display: flex; flex-direction: column; align-items: center; flex: 1; }
 
     /* Mobile Stack */
-    @media (max-width: 640px) {
-        .tree { align-items: stretch; gap: 12px; }
-        .tree-level, .tree-children, .tree-group { flex-direction: column; width: 100%; gap: 10px; }
-        .connector-vert, .connector-bracket { display: none; } /* Hide complex lines on mobile */
-        
-        .tree-node { width: 100%; text-align: left; flex-direction: row; align-items: center; gap: 10px; min-height: 50px;}
-        .tree-node.leaf { flex-direction: column; align-items: flex-start; }
-        .tree-node::before { content: '•'; color: var(--blue-600); font-weight: bold; margin-right: 4px; }
-        .tree-node.root::before, .tree-node.leaf::before { display: none; }
-        
-        /* Indent levels on mobile */
-        .tree-children { padding-left: 16px; padding-top: 0; border-left: 2px solid var(--slate-200); margin-left: 10px; }
+    @media (max-width: 768px) {
+        .t-row { flex-direction: column; align-items: center; gap: 15px; padding-top: 10px; }
+        .line-vert, .bar-horz { display: none; } /* Remove complex lines */
+        .path-col { width: 100%; border-left: 3px solid var(--slate-200); padding-left: 20px; margin-left: 20px; align-items: flex-start; gap: 10px; }
+        .t-box, .t-card { width: 100%; max-width: 100%; text-align: left; }
+        .t-card { margin-bottom: 10px; }
+        .t-box::before { content: '•'; color: var(--blue-600); font-weight: bold; margin-right: 5px; }
     }
 
   </style>
@@ -686,104 +692,78 @@
         </div>
 
         <div class="card card-accent p-6 bg-slate-50 overflow-hidden">
-            <div class="tree">
+            <div class="tree-container">
                 
-                <div class="tree-level">
-                    <div class="tree-node root">START HERE</div>
-                </div>
-                <div class="connector-vert"></div>
+                <div class="t-box root">START HERE</div>
+                <div class="line-vert"></div>
 
-                <div class="tree-level" style="position:relative;">
-                    <div class="connector-bracket"></div>
+                <div class="t-row">
                     
-                    <div class="tree-group flex-1">
-                        <div class="tree-node branch">Buying a Car</div>
-                        <div class="connector-vert"></div>
+                    <div class="path-col">
+                        <div class="branch-connector"><div class="bar-horz wide"></div><div class="line-vert" style="height:10px; margin-top:-10px;"></div></div>
+                        <div class="t-box branch">Buying a Car</div>
+                        <div class="line-vert"></div>
                         
-                        <div class="tree-children wide">
-                            <div class="connector-bracket"></div>
-                            
-                            <div class="tree-group">
-                                <div class="connector-vert" style="height:10px;"></div>
-                                <div class="tree-node leaf">
-                                    <span class="sub-head">Unlimited Access</span>
+                        <div class="t-row" style="padding-top:0; width:100%;">
+                            <div class="path-col">
+                                <div class="branch-connector"><div class="bar-horz"></div><div class="line-vert" style="height:10px; margin-top:-10px;"></div></div>
+                                <div class="t-box status">Good Credit</div>
+                                <div class="line-vert"></div>
+                                <div class="t-card">
+                                    <span class="sub">Unlimited Access</span>
                                     <h5>660 - 900 Score</h5>
-                                    <ul class="tree-check-list">
-                                        <li class="tree-check-item">
-                                            <svg class="tree-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                                            Any Year, Make, or Model
-                                        </li>
-                                        <li class="tree-check-item">
-                                            <svg class="tree-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                                            Prime Bank Rates (O.A.C)
-                                        </li>
-                                        <li class="tree-check-item">
-                                            <svg class="tree-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                                            Up to 96 Months
-                                        </li>
+                                    <ul class="t-list">
+                                        <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Any Year/Make</li>
+                                        <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Prime Rates (O.A.C)</li>
+                                        <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Up to 96 Months</li>
                                     </ul>
                                 </div>
                             </div>
-
-                            <div class="tree-group">
-                                <div class="connector-vert" style="height:10px;"></div>
-                                <div class="tree-node leaf">
-                                    <span class="sub-head text-theme-gold">Reliability Focus</span>
-                                    <h5>New / Bad Credit</h5>
-                                    <ul class="tree-check-list">
-                                        <li class="tree-check-item">
-                                            <svg class="tree-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                                            2016+ Vehicles
-                                        </li>
-                                        <li class="tree-check-item">
-                                            <svg class="tree-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                                            Refinance in 12-24mo
-                                        </li>
+                            <div class="path-col">
+                                <div class="branch-connector"><div class="bar-horz"></div><div class="line-vert" style="height:10px; margin-top:-10px;"></div></div>
+                                <div class="t-box status gold">New / Bad Credit</div>
+                                <div class="line-vert"></div>
+                                <div class="t-card warn">
+                                    <span class="sub text-theme-gold">Reliability Focus</span>
+                                    <h5>Building Credit</h5>
+                                    <ul class="t-list">
+                                        <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>2016+ Vehicles</li>
+                                        <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Refinance in 12-24mo</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="tree-group flex-1">
-                        <div class="tree-node branch">Trading In</div>
-                        <div class="connector-vert"></div>
+                    <div class="path-col">
+                        <div class="branch-connector"><div class="bar-horz wide"></div><div class="line-vert" style="height:10px; margin-top:-10px;"></div></div>
+                        <div class="t-box branch">Trading In</div>
+                        <div class="line-vert"></div>
 
-                        <div class="tree-children wide">
-                            <div class="connector-bracket"></div>
-                            
-                            <div class="tree-group">
-                                <div class="connector-vert" style="height:10px;"></div>
-                                <div class="tree-node leaf">
-                                    <span class="sub-head">Maximize Value</span>
+                        <div class="t-row" style="padding-top:0; width:100%;">
+                            <div class="path-col">
+                                <div class="branch-connector"><div class="bar-horz"></div><div class="line-vert" style="height:10px; margin-top:-10px;"></div></div>
+                                <div class="t-box status">Good Credit</div>
+                                <div class="line-vert"></div>
+                                <div class="t-card">
+                                    <span class="sub">Maximize Value</span>
                                     <h5>660 - 900 Score</h5>
-                                    <ul class="tree-check-list">
-                                        <li class="tree-check-item">
-                                            <svg class="tree-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                                            Lower Tax & Payments
-                                        </li>
-                                        <li class="tree-check-item">
-                                            <svg class="tree-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                                            Cash-back available
-                                        </li>
+                                    <ul class="t-list">
+                                        <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Lower Tax & Payments</li>
+                                        <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Cash-back available</li>
                                     </ul>
                                 </div>
                             </div>
-
-                            <div class="tree-group">
-                                <div class="connector-vert" style="height:10px;"></div>
-                                <div class="tree-node leaf">
-                                    <span class="sub-head text-theme-gold">Negative Equity Fix</span>
-                                    <h5>New / Bad Credit</h5>
-                                    <ul class="tree-check-list">
-                                        <li class="tree-check-item">
-                                            <svg class="tree-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                                            Absorb Debt
-                                        </li>
-                                        <li class="tree-check-item">
-                                            <svg class="tree-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                                            Extend term to 84-96mo
-                                        </li>
+                            <div class="path-col">
+                                <div class="branch-connector"><div class="bar-horz"></div><div class="line-vert" style="height:10px; margin-top:-10px;"></div></div>
+                                <div class="t-box status gold">New / Bad Credit</div>
+                                <div class="line-vert"></div>
+                                <div class="t-card warn">
+                                    <span class="sub text-theme-gold">Negative Equity Fix</span>
+                                    <h5>Building Credit</h5>
+                                    <ul class="t-list">
+                                        <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Absorb Debt</li>
+                                        <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Extend term to 84mo</li>
                                     </ul>
                                 </div>
                             </div>
