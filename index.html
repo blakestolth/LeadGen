@@ -382,6 +382,68 @@
     }
     @media (min-width: 769px) { .mobile-tree { display: none; } }
 
+    /* --- LIFE STAGES TIMELINE CSS (ADDED) --- */
+    .timeline-wrapper {
+        width: 100%;
+        padding: 20px 0 30px 0;
+        overflow-x: auto;
+    }
+    .timeline-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        position: relative;
+        margin: 0 auto;
+        min-width: 600px;
+        padding-top: 20px;
+    }
+    .timeline-line {
+        position: absolute;
+        top: 65px;
+        left: 20px;
+        right: 20px;
+        height: 4px;
+        background-color: #000;
+        z-index: 1;
+    }
+    .timeline-stage {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+        flex: 1;
+    }
+    .stage-icon {
+        font-size: 24px;
+        margin-bottom: 10px;
+        height: 30px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+    }
+    .stage-bar {
+        width: 8px;
+        height: 40px;
+        margin-bottom: 10px;
+        background-color: #ccc; 
+    }
+    .stage-text {
+        font-family: 'Work Sans', sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        color: #222;
+        line-height: 1.2;
+    }
+    /* Color Coding */
+    .stage-purple .stage-bar { background-color: #bfa2db; }
+    .stage-black .stage-bar { background-color: transparent; border-left: 5px dotted #000; width: 0; }
+    .stage-yellow .stage-bar { background-color: #fce157; }
+    .stage-blue .stage-bar { background-color: transparent; border-left: 5px dotted #5ca1e6; width: 0; }
+    .stage-orange .stage-bar { background-color: #f79c42; }
+    .stage-red .stage-bar { background-color: #ff4d4d; }
+
   </style>
 </head>
 <body>
@@ -840,6 +902,41 @@
                     <p class="text-[11px] text-slate-500 mt-1">Trusted by families across Vancouver Island.</p>
                 </div>
 
+                <div class="timeline-wrapper">
+                    <div class="timeline-container">
+                        <div class="timeline-line"></div>
+                        <div class="timeline-stage stage-purple">
+                            <div class="stage-icon">🎓</div>
+                            <div class="stage-bar"></div>
+                            <div class="stage-text">Age of<br>Eligibility &<br>New Credit</div>
+                        </div>
+                        <div class="timeline-stage stage-black">
+                            <div class="stage-icon">🍁</div>
+                            <div class="stage-bar"></div>
+                            <div class="stage-text">New to<br>Canada</div>
+                        </div>
+                        <div class="timeline-stage stage-yellow">
+                            <div class="stage-icon">🏠</div>
+                            <div class="stage-bar"></div>
+                            <div class="stage-text">Young<br>Adult</div>
+                        </div>
+                        <div class="timeline-stage stage-blue">
+                            <div class="stage-icon">💳</div>
+                            <div class="stage-bar"></div>
+                            <div class="stage-text">Rebuilding<br>Credit<br>(Any Age)</div>
+                        </div>
+                        <div class="timeline-stage stage-orange">
+                            <div class="stage-icon">👨‍👩‍👧‍👦</div>
+                            <div class="stage-bar"></div>
+                            <div class="stage-text">Mid-Life &<br>Major Purchases</div>
+                        </div>
+                        <div class="timeline-stage stage-red">
+                            <div class="stage-icon">🏖️</div>
+                            <div class="stage-bar"></div>
+                            <div class="stage-text">Retired</div>
+                        </div>
+                    </div>
+                </div>
                 <button type="button" class="cta-button w-full md:w-auto justify-center" onclick="document.getElementById('lead-form-card').scrollIntoView({behavior: 'smooth'});">
                     Start A Custom Search
                 </button>
