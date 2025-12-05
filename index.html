@@ -293,63 +293,66 @@
     .text-theme-green { color: var(--theme-green); }
     .bg-theme-green-50 { background-color: var(--theme-green-bg); }
 
-    /* --- NEW STATIC ROADMAP STYLES --- */
-    .roadmap-wrapper {
-      display: flex; flex-direction: column; align-items: center; gap: 20px;
-      position: relative; width: 100%; overflow-x: auto; /* Safety for small screens */
-    }
-
-    .roadmap-row {
-      display: flex; justify-content: center; gap: 16px; width: 100%;
-      position: relative;
+    /* --- NEW TREE STYLES (MATCHING SKETCH) --- */
+    .tree {
+      display: flex; flex-direction: column; align-items: center; width: 100%; overflow-x: auto;
+      padding-bottom: 20px;
     }
     
-    /* The Box Styles */
-    .map-box {
-      background: #fff; border: 1px solid var(--slate-200); border-radius: 8px;
+    /* Levels */
+    .tree-level { display: flex; justify-content: center; gap: 20px; width: 100%; position: relative; }
+    
+    /* The Nodes (Boxes) */
+    .tree-node {
+      background: #fff; border: 2px solid var(--blue-600); border-radius: 8px;
       padding: 10px 14px; text-align: center; position: relative; z-index: 2;
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-      min-width: 120px;
+      box-shadow: 0 4px 10px rgba(42,93,159,0.1);
+      min-width: 140px; display: flex; flex-direction: column; justify-content: center;
     }
-    
-    .map-box.root { background: var(--slate-800); color: #fff; font-weight: 800; border:none;}
-    .map-box.cat { background: var(--slate-100); font-weight: 700; font-size: 12px; color: var(--slate-600); }
-    .map-box.outcome { 
-        flex: 1; text-align: left; border-top: 4px solid var(--blue-600); 
-        display: flex; flex-direction: column; gap: 4px; min-width: 140px;
+    .tree-node.root { background: var(--blue-600); color: #fff; border-color: var(--blue-600); font-weight: 800; font-size: 16px;}
+    .tree-node.branch { background: var(--blue-100); color: var(--blue-700); font-weight: 700; border-color: var(--blue-200); }
+    .tree-node.leaf { 
+        background: #fff; border: 1px solid var(--slate-300); text-align: left; align-items: flex-start;
+        min-width: 130px; max-width: 160px;
     }
-    .map-box.outcome.warn { border-top-color: var(--theme-gold); }
-
-    /* The Connecting Lines (The Web) */
-    .roadmap-lines {
-        position: absolute; top: -15px; left: 0; right: 0; height: 15px;
-        display: flex; justify-content: center; z-index: 1; pointer-events: none;
-    }
-    
-    /* Connectors for the outcomes */
-    .connector-bracket {
-        width: 50%; border-top: 2px solid var(--slate-300);
-        border-left: 2px solid var(--slate-300); border-right: 2px solid var(--slate-300);
-        height: 10px; margin: 0 auto; position: relative; top: 50%;
-    }
-    .connector-vert {
-        width: 2px; background: var(--slate-300); height: 15px; margin: 0 auto;
-    }
-
-    /* Text Styling inside the compact boxes */
-    .res-title { font-weight: 800; font-size: 13px; color: var(--slate-800); margin-bottom: 2px; }
-    .res-desc { font-size: 10px; color: var(--slate-500); line-height: 1.3; }
-    .res-badge { 
+    .tree-node.leaf h5 { font-weight: 800; font-size: 13px; color: var(--slate-800); margin-bottom: 2px; line-height: 1.2; }
+    .tree-node.leaf p { font-size: 10px; color: var(--slate-500); line-height: 1.3; }
+    .tree-node.leaf .badge { 
         display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase; 
         padding: 2px 6px; border-radius: 4px; background: var(--slate-100); color: var(--slate-500); margin-bottom:4px;
     }
+
+    /* Container for children to grouping */
+    .tree-group { display: flex; flex-direction: column; align-items: center; }
+    .tree-children { display: flex; justify-content: center; gap: 12px; padding-top: 20px; position: relative; }
+
+    /* Connectors (The Lines) */
+    .connector-vert { width: 2px; height: 20px; background: #334155; margin: 0 auto; } /* Dark Slate Line */
     
-    /* Mobile Stack - Converts web to list on small phones to save space */
+    /* The Horizontal Bracket */
+    .connector-bracket {
+        position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+        width: 50%; height: 20px; 
+        border-top: 2px solid #334155; 
+        border-left: 2px solid #334155; 
+        border-right: 2px solid #334155;
+        border-top-left-radius: 8px; border-top-right-radius: 8px; /* Rounded corners like sketch */
+    }
+    /* Adjust bracket width based on siblings */
+    .tree-children.wide .connector-bracket { width: 80%; }
+
+    /* Mobile Stack */
     @media (max-width: 640px) {
-        .roadmap-row { flex-direction: column; gap: 10px; }
-        .roadmap-lines, .connector-bracket { display: none; } /* Hide lines on mobile */
-        .map-box { width: 100%; text-align: left; display: flex; align-items: center; gap: 10px; }
-        .map-box.outcome { margin-top: 4px; margin-bottom: 12px; }
+        .tree { align-items: stretch; gap: 12px; }
+        .tree-level, .tree-children, .tree-group { flex-direction: column; width: 100%; gap: 10px; }
+        .connector-vert, .connector-bracket { display: none; } /* Hide complex lines on mobile */
+        
+        .tree-node { width: 100%; text-align: left; flex-direction: row; align-items: center; gap: 10px; min-height: 50px;}
+        .tree-node::before { content: '•'; color: var(--blue-600); font-weight: bold; margin-right: 4px; }
+        .tree-node.root::before { display: none; }
+        
+        /* Indent levels on mobile */
+        .tree-children { padding-left: 16px; padding-top: 0; border-left: 2px solid var(--slate-200); margin-left: 10px; }
     }
 
   </style>
@@ -676,61 +679,76 @@
 
       <section id="finance-guide" class="mt-8 mb-8">
         <div class="text-center mb-6">
-            <h2 class="h1 text-2xl text-slate-800">Your Financing Strategy Guide</h2>
+            <h2 class="h1 text-2xl text-slate-800">Financing Strategy Guide</h2>
             <p class="text-sm text-slate-500 mt-1">Find your path below to see how we structure your approval.</p>
         </div>
 
-        <div class="card card-accent p-4 bg-slate-50 overflow-hidden">
-            <div class="roadmap-wrapper">
+        <div class="card card-accent p-6 bg-slate-50 overflow-hidden">
+            <div class="tree">
                 
-                <div class="roadmap-row">
-                    <div class="map-box root">START</div>
+                <div class="tree-level">
+                    <div class="tree-node root">START HERE</div>
                 </div>
+                <div class="connector-vert"></div>
 
-                <div class="roadmap-row" style="height: 10px;">
-                    <div class="connector-vert"></div>
-                </div>
-
-                <div class="roadmap-row">
-                    <div class="flex-1 flex flex-col items-center gap-4">
-                        <div class="map-box cat" style="width: 100%;">Buying (No Trade)</div>
-                        <div class="connector-bracket" style="width: 80%;"></div>
-                        <div class="flex gap-2 w-full">
+                <div class="tree-level" style="position:relative;">
+                    <div class="connector-bracket"></div>
+                    
+                    <div class="tree-group flex-1">
+                        <div class="tree-node branch">Buying a Car</div>
+                        <div class="connector-vert"></div>
+                        
+                        <div class="tree-children wide">
+                            <div class="connector-bracket"></div>
                             
-                            <div class="map-box outcome">
-                                <span class="res-badge">Good Credit</span>
-                                <div class="res-title">Prime Access</div>
-                                <p class="res-desc">• Low Bank Rates<br>• Any Year/Make<br>• Up to 96 Months</p>
+                            <div class="tree-group">
+                                <div class="connector-vert" style="height:10px;"></div>
+                                <div class="tree-node leaf">
+                                    <span class="badge">Good Credit</span>
+                                    <h5>Bank Approval</h5>
+                                    <p>• Low Interest Rate<br>• Any Vehicle<br>• Flexible Terms</p>
+                                </div>
                             </div>
 
-                            <div class="map-box outcome warn">
-                                <span class="res-badge text-theme-gold">Building Credit</span>
-                                <div class="res-title">Reliability Plan</div>
-                                <p class="res-desc">• 2016+ Vehicles<br>• Low Kilometers<br>• Refinance in 12mo</p>
+                            <div class="tree-group">
+                                <div class="connector-vert" style="height:10px;"></div>
+                                <div class="tree-node leaf">
+                                    <span class="badge text-theme-gold">Building Credit</span>
+                                    <h5>Rebuild Program</h5>
+                                    <p>• Reliable Car<br>• 12mo Refinance<br>• Fix Credit Fast</p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex-1 flex flex-col items-center gap-4">
-                         <div class="map-box cat" style="width: 100%;">Trading-In</div>
-                         <div class="connector-bracket" style="width: 80%;"></div>
-                         <div class="flex gap-2 w-full">
+                    <div class="tree-group flex-1">
+                        <div class="tree-node branch">Trading In</div>
+                        <div class="connector-vert"></div>
 
-                            <div class="map-box outcome">
-                                <span class="res-badge">Good Credit</span>
-                                <div class="res-title">Equity Master</div>
-                                <p class="res-desc">• Trade lowers Tax<br>• Cash-Back Options<br>• Lower Payments</p>
+                        <div class="tree-children wide">
+                            <div class="connector-bracket"></div>
+                            
+                            <div class="tree-group">
+                                <div class="connector-vert" style="height:10px;"></div>
+                                <div class="tree-node leaf">
+                                    <span class="badge">Good Credit</span>
+                                    <h5>Upgrade & Save</h5>
+                                    <p>• Lower your Rate<br>• Lower Tax<br>• Cash Back</p>
+                                </div>
                             </div>
 
-                            <div class="map-box outcome warn">
-                                <span class="res-badge text-theme-gold">Building Credit</span>
-                                <div class="res-title">The Reset</div>
-                                <p class="res-desc">• Absorb Negative Equity<br>• Requires "Book-Out"<br>• Long Term (84mo+)</p>
+                            <div class="tree-group">
+                                <div class="connector-vert" style="height:10px;"></div>
+                                <div class="tree-node leaf">
+                                    <span class="badge text-theme-gold">Building Credit</span>
+                                    <h5>Debt Reset</h5>
+                                    <p>• Bury Negative Equity<br>• Lower Payment<br>• Fresh Start</p>
+                                </div>
                             </div>
-                         </div>
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
       </section>
