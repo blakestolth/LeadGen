@@ -310,13 +310,13 @@
     /* 1. Vertical Line UP from every child */
     .tree-col::before {
         content: ''; position: absolute; top: 0; left: 50%;
-        border-left: 2px solid #cbd5e1; width: 0; height: 20px;
+        border-left: 3px solid #64748b; width: 0; height: 20px; /* Thicker, Darker Grey */
     }
 
     /* 2. Horizontal Line across the top of children (connecting them) */
     .tree-col::after {
         content: ''; position: absolute; top: 0;
-        border-top: 2px solid #cbd5e1; height: 20px; width: 50%;
+        border-top: 3px solid #64748b; height: 20px; width: 50%; /* Thicker, Darker Grey */
     }
     /* Fix: First child connects from the right to center */
     .tree-col:first-child::after { left: 50%; border-left: 0; }
@@ -328,7 +328,7 @@
     .tree-col.only-child { padding-top: 0; }
 
     /* 4. Vertical Line DOWN from Parent to children */
-    .connector-down { width: 2px; height: 20px; background: #cbd5e1; margin: 0 auto; }
+    .connector-down { width: 3px; height: 20px; background: #64748b; margin: 0 auto; } /* Thicker, Darker Grey */
 
     /* Box Styles - Polished */
     .node-box {
@@ -825,156 +825,153 @@
             <p class="text-sm text-slate-500 mt-1">Find your path below to see how we structure your approval.</p>
         </div>
 
-        <div class="card card-accent p-6 bg-slate-50 overflow-hidden">
-            <div class="desktop-tree tree-wrapper">
+        <div class="desktop-tree tree-wrapper">
+            
+            <div class="tree-row">
+                <div class="tree-col only-child">
+                    <div class="node-box root">START HERE</div>
+                    <div class="connector-down"></div>
+                </div>
+            </div>
+
+            <div class="tree-row">
                 
-                <div class="tree-row">
-                    <div class="tree-col only-child">
-                        <div class="node-box root">START HERE</div>
-                        <div class="connector-down"></div>
+                <div class="tree-col">
+                    <div class="node-box branch">Buying a Car</div>
+                    <div class="connector-down"></div>
+                    
+                    <div class="tree-row">
+                        <div class="tree-col">
+                            <div class="node-pill">Good Credit</div>
+                            <div class="connector-down"></div>
+                            <div class="node-card accent-blue">
+                                <span class="sub">Unlimited Access</span>
+                                <h5>660 - 900 Score</h5>
+                                <ul class="t-list">
+                                    <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vehicles: Any year</li>
+                                    <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Rate: Access to the lowest</li>
+                                    <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Term: Access to the longest term</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="tree-col">
+                            <div class="node-pill gold">New / Bad Credit</div>
+                            <div class="connector-down"></div>
+                            <div class="node-card warn accent-gold">
+                                <span class="sub text-theme-gold">Reliability Focus</span>
+                                <h5>300 - 659 Score</h5>
+                                <ul class="t-list">
+                                    <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>2016+ Vehicles</li>
+                                    <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Refinance 12mo</li>
+                                </ul>
+                            </div>
+                            <div class="connector-down" style="height:15px;"></div>
+                            <div class="node-connector-text">OR (500+ Score)</div>
+                            <div class="connector-down" style="height:15px;"></div>
+                            <div class="node-card accent-blue">
+                                <span class="sub">Special Program</span>
+                                <h5>Unlimited Access</h5>
+                                <ul class="t-list">
+                                    <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vehicles: Any year</li>
+                                    <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Rate: Access to the lowest</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="tree-row">
-                    
-                    <div class="tree-col">
-                        <div class="node-box branch">Buying a Car</div>
-                        <div class="connector-down"></div>
-                        
-                        <div class="tree-row">
-                            <div class="tree-col">
-                                <div class="node-pill">Good Credit</div>
-                                <div class="connector-down"></div>
-                                <div class="node-card accent-blue">
-                                    <span class="sub">Unlimited Access</span>
-                                    <h5>660 - 900 Score</h5>
-                                    <ul class="t-list">
-                                        <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vehicles: Any year</li>
-                                        <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Rate: Access to the lowest</li>
-                                        <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Term: Access to the longest term</li>
-                                    </ul>
-                                </div>
-                            </div>
+                <div class="tree-col">
+                    <div class="node-box branch">Trading In</div>
+                    <div class="connector-down"></div>
 
-                            <div class="tree-col">
-                                <div class="node-pill gold">New / Bad Credit</div>
-                                <div class="connector-down"></div>
-                                <div class="node-card warn accent-gold">
-                                    <span class="sub text-theme-gold">Reliability Focus</span>
-                                    <h5>300 - 659 Score</h5>
-                                    <ul class="t-list">
-                                        <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>2016+ Vehicles</li>
-                                        <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Refinance 12mo</li>
-                                    </ul>
+                    <div class="tree-row">
+                        <div class="tree-col">
+                            <div class="node-pill">Good Credit</div>
+                            <div class="connector-down"></div>
+                            <div class="tree-row">
+                                <div class="tree-col">
+                                    <div class="node-pill green">Positive Equity</div>
+                                    <div class="connector-down"></div>
+                                    <div class="node-card accent-blue">
+                                        <span class="sub">Unlimited Access</span>
+                                        <h5>660 - 900 Score</h5>
+                                        <ul class="t-list">
+                                            <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vehicles: Any year</li>
+                                            <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Rate: Access to the lowest</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="connector-down" style="height:15px;"></div>
-                                <div class="node-connector-text">OR (500+ Score)</div>
-                                <div class="connector-down" style="height:15px;"></div>
-                                <div class="node-card accent-blue">
-                                    <span class="sub">Special Program</span>
-                                    <h5>Unlimited Access</h5>
-                                    <ul class="t-list">
-                                        <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vehicles: Any year</li>
-                                        <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Rate: Access to the lowest</li>
-                                    </ul>
+                                <div class="tree-col">
+                                    <div class="node-pill red">Negative Equity</div>
+                                    <div class="connector-down"></div>
+                                    <div class="node-card warn accent-gold">
+                                        <span class="sub text-theme-gold">Reliability Focus</span>
+                                        <h5>Negative Equity Fix</h5>
+                                        <ul class="t-list">
+                                            <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>2016+ Vehicles</li>
+                                            <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Refinance 12mo</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="connector-down" style="height:15px;"></div>
+                                    <div class="node-connector-text">OR (500+ Score)</div>
+                                    <div class="connector-down" style="height:15px;"></div>
+                                    <div class="node-card accent-blue">
+                                        <span class="sub">Special Program</span>
+                                        <h5>Unlimited Access</h5>
+                                        <ul class="t-list">
+                                            <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vehicles: Any year</li>
+                                            <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Rate: Access to the lowest</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="tree-col">
-                        <div class="node-box branch">Trading In</div>
-                        <div class="connector-down"></div>
-
-                        <div class="tree-row">
-                            <div class="tree-col">
-                                <div class="node-pill">Good Credit</div>
-                                <div class="connector-down"></div>
-                                <div class="tree-row">
-                                    <div class="tree-col">
-                                        <div class="node-pill green">Positive Equity</div>
-                                        <div class="connector-down"></div>
-                                        <div class="node-card accent-blue">
-                                            <span class="sub">Unlimited Access</span>
-                                            <h5>660 - 900 Score</h5>
-                                            <ul class="t-list">
-                                                <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vehicles: Any year</li>
-                                                <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Rate: Access to the lowest</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="tree-col">
-                                        <div class="node-pill red">Negative Equity</div>
-                                        <div class="connector-down"></div>
-                                        <div class="node-card warn accent-gold">
-                                            <span class="sub text-theme-gold">Reliability Focus</span>
-                                            <h5>Negative Equity Fix</h5>
-                                            <ul class="t-list">
-                                                <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>2016+ Vehicles</li>
-                                                <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Refinance 12mo</li>
-                                            </ul>
-                                        </div>
-                                        
-                                        <div class="connector-down" style="height:15px;"></div>
-                                        <div class="node-connector-text">OR (500+ Score)</div>
-                                        <div class="connector-down" style="height:15px;"></div>
-                                        <div class="node-card accent-blue">
-                                            <span class="sub">Special Program</span>
-                                            <h5>Unlimited Access</h5>
-                                            <ul class="t-list">
-                                                <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vehicles: Any year</li>
-                                                <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Rate: Access to the lowest</li>
-                                            </ul>
-                                        </div>
+                        <div class="tree-col">
+                            <div class="node-pill gold">New / Bad Credit</div>
+                            <div class="connector-down"></div>
+                            <div class="tree-row">
+                                <div class="tree-col">
+                                    <div class="node-pill green">Positive Equity</div>
+                                    <div class="connector-down"></div>
+                                    <div class="node-card accent-blue">
+                                        <span class="sub">Unlimited Access</span>
+                                        <h5>660 - 900 Score</h5>
+                                        <ul class="t-list">
+                                            <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vehicles: Any year</li>
+                                            <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Rate: Access to the lowest</li>
+                                        </ul>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="tree-col">
-                                <div class="node-pill gold">New / Bad Credit</div>
-                                <div class="connector-down"></div>
-                                <div class="tree-row">
-                                    <div class="tree-col">
-                                        <div class="node-pill green">Positive Equity</div>
-                                        <div class="connector-down"></div>
-                                        <div class="node-card accent-blue">
-                                            <span class="sub">Unlimited Access</span>
-                                            <h5>660 - 900 Score</h5>
-                                            <ul class="t-list">
-                                                <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vehicles: Any year</li>
-                                                <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Rate: Access to the lowest</li>
-                                            </ul>
-                                        </div>
+                                <div class="tree-col">
+                                    <div class="node-pill red">Negative Equity</div>
+                                    <div class="connector-down"></div>
+                                    <div class="node-card warn accent-gold">
+                                        <span class="sub text-theme-gold">Reliability Focus</span>
+                                        <h5>Negative Equity Fix</h5>
+                                        <ul class="t-list">
+                                            <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>2016+ Vehicles</li>
+                                            <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Refinance 12mo</li>
+                                        </ul>
                                     </div>
-                                    <div class="tree-col">
-                                        <div class="node-pill red">Negative Equity</div>
-                                        <div class="connector-down"></div>
-                                        <div class="node-card warn accent-gold">
-                                            <span class="sub text-theme-gold">Reliability Focus</span>
-                                            <h5>Negative Equity Fix</h5>
-                                            <ul class="t-list">
-                                                <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>2016+ Vehicles</li>
-                                                <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Refinance 12mo</li>
-                                            </ul>
-                                        </div>
 
-                                        <div class="connector-down" style="height:15px;"></div>
-                                        <div class="node-connector-text">OR (500+ Score)</div>
-                                        <div class="connector-down" style="height:15px;"></div>
-                                        <div class="node-card accent-blue">
-                                            <span class="sub">Special Program</span>
-                                            <h5>Unlimited Access</h5>
-                                            <ul class="t-list">
-                                                <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vehicles: Any year</li>
-                                                <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Rate: Access to the lowest</li>
-                                            </ul>
-                                        </div>
+                                    <div class="connector-down" style="height:15px;"></div>
+                                    <div class="node-connector-text">OR (500+ Score)</div>
+                                    <div class="connector-down" style="height:15px;"></div>
+                                    <div class="node-card accent-blue">
+                                        <span class="sub">Special Program</span>
+                                        <h5>Unlimited Access</h5>
+                                        <ul class="t-list">
+                                            <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vehicles: Any year</li>
+                                            <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Rate: Access to the lowest</li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -985,12 +982,12 @@
                     <div class="node-box branch">Buying a Car</div>
                     <div class="mobile-stack-item">
                         <div class="node-pill">Good Credit</div>
-                        <div class="node-card"><span class="sub">Unlimited Access</span><ul class="t-list"><li class="t-item">Vehicles: Any year</li><li class="t-item">Rate: Access to the lowest</li></ul></div>
+                        <div class="node-card accent-blue"><span class="sub">Unlimited Access</span><ul class="t-list"><li class="t-item">Vehicles: Any year</li><li class="t-item">Rate: Access to the lowest</li></ul></div>
                         
                         <div class="node-pill gold mt-4">New / Bad Credit</div>
-                        <div class="node-card warn"><span class="sub text-theme-gold">Reliability Focus</span><ul class="t-list"><li class="t-item">2016+ Vehicles</li></ul></div>
+                        <div class="node-card warn accent-gold"><span class="sub text-theme-gold">Reliability Focus</span><ul class="t-list"><li class="t-item">2016+ Vehicles</li></ul></div>
                         <div class="node-connector-text text-center my-2">OR (500+ Score)</div>
-                        <div class="node-card"><span class="sub">Special</span><ul class="t-list"><li class="t-item">Vehicles: Any year</li><li class="t-item">Prime Rates</li></ul></div>
+                        <div class="node-card accent-blue"><span class="sub">Special</span><ul class="t-list"><li class="t-item">Vehicles: Any year</li><li class="t-item">Prime Rates</li></ul></div>
                     </div>
                 </div>
 
@@ -1000,21 +997,21 @@
                         <div class="node-pill">Good Credit</div>
                         <div class="mobile-stack-item">
                             <div class="text-xs font-bold text-emerald-600">Positive Equity</div>
-                            <div class="node-card mb-2"><span class="sub">Unlimited</span>Vehicles: Any year</div>
+                            <div class="node-card accent-blue mb-2"><span class="sub">Unlimited</span>Vehicles: Any year</div>
                             <div class="text-xs font-bold text-red-600">Negative Equity</div>
-                            <div class="node-card"><span class="sub">Restricted</span>2016+ Vehicles</div>
+                            <div class="node-card warn accent-gold"><span class="sub">Restricted</span>2016+ Vehicles</div>
                             <div class="node-connector-text text-center my-2">OR (500+ Score)</div>
-                            <div class="node-card"><span class="sub">Special</span>Vehicles: Any year</div>
+                            <div class="node-card accent-blue"><span class="sub">Special</span>Vehicles: Any year</div>
                         </div>
 
                         <div class="node-pill gold mt-4">New / Bad Credit</div>
                         <div class="mobile-stack-item">
                             <div class="text-xs font-bold text-emerald-600">Positive Equity</div>
-                            <div class="node-card mb-2"><span class="sub">Unlimited</span>Vehicles: Any year</div>
+                            <div class="node-card accent-blue mb-2"><span class="sub">Unlimited</span>Vehicles: Any year</div>
                             <div class="text-xs font-bold text-red-600">Negative Equity</div>
-                            <div class="node-card warn"><span class="sub">Restricted</span>2016+ Vehicles</div>
+                            <div class="node-card warn accent-gold"><span class="sub">Restricted</span>2016+ Vehicles</div>
                             <div class="node-connector-text text-center my-2">OR (500+ Score)</div>
-                            <div class="node-card"><span class="sub">Special</span>Vehicles: Any year</div>
+                            <div class="node-card accent-blue"><span class="sub">Special</span>Vehicles: Any year</div>
                         </div>
                     </div>
                 </div>
