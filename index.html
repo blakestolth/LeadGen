@@ -103,6 +103,40 @@
         box-shadow: inset 0 4px 6px -1px rgba(0,0,0,0.05);
     }
 
+    /* Utility */
+    .choice-rect { width:100%; text-align:left; border:1.5px solid var(--slate-300); border-radius:var(--radius); background:#fff; font-weight:600; color: var(--slate-700); transition:all .15s ease; display:flex; align-items:center; cursor:pointer; padding: 0 16px; min-height: 50px; font-size: 15px; justify-content: center; }
+    .choice-rect:hover{ border-color:var(--blue-600); background: #f8fafc; transform: translateY(-1px); }
+    .choice-rect.selected{ border-color:var(--blue-600); background:var(--blue-100); color: var(--blue-700); box-shadow: 0 0 0 1px var(--blue-600); }
+    .seg{ display:inline-flex; align-items:center; gap:4px; background:var(--slate-100); border:1.5px solid var(--slate-200); border-radius:8px; padding:4px; width: 100%; }
+    .seg-btn{ flex: 1; appearance:none; border:0; background:transparent; cursor:pointer; padding:6px 10px; border-radius:6px; font-weight:700; font-size:13px; color:var(--slate-500); transition:all .15s ease; }
+    .seg-btn[aria-pressed="true"]{ background:#fff; color:var(--blue-600); box-shadow:0 1px 3px rgba(0,0,0,.1); }
+    .grid-inline-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .brand-left{ display:flex; align-items:center; gap:12px; }
+    .site-logo{ height:45px; width:auto; object-fit:contain; display:block; transform:translateY(-1px); }
+    @media (min-width:640px){ .site-logo{ height:60px; } }
+    .brand-stack{ display:flex; flex-direction:column; justify-content: center; gap:2px; }
+    .brand-title{ color:var(--slate-800); font-weight:800; letter-spacing:-0.02em; font-size:var(--nav-font); white-space:nowrap; text-decoration:none; line-height:1; margin-left:-2px; }
+    .powered-by-inline{ display:flex; align-items:center; gap:6px; font-size: 11px; color:var(--slate-500); font-weight:600; line-height:1; margin-top:2px; }
+    .powered-by-inline img{ height: 11px; width:auto; object-fit:contain; position:relative; top:1px; opacity: 0.8; }
+    .abc-badge{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:9999px; background:var(--blue-600); color:#fff; border:none; font-weight:800; font-size:11px; line-height:1; flex-shrink:0; }
+    .bodytype-card{ position: relative; overflow:hidden; border-radius:12px; border:1px solid var(--slate-200); background:#fff; transition:transform .2s,box-shadow .2s,border-color .2s; }
+    .bodytype-card:hover{ transform:translateY(-3px); border-color:var(--blue-600); box-shadow:0 12px 20px -5px rgba(42,93,159,.2); }
+    .bodytype-img{ background:#e5e7eb center/cover no-repeat; height:90px; }
+    @media (min-width:640px){ .bodytype-img{ height:100px; } }
+    .inv-overlay { position: absolute; inset: 0; background: rgba(42,93,159,0.9); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s ease; color: white; font-weight: 700; font-size: 14px; z-index: 5; border-radius: 11px;}
+    .bodytype-card:hover .inv-overlay { opacity: 1; }
+    .map-embed{ width:100%; height:200px; border:0; border-radius: inherit; }
+    @media (min-width:640px){ .map-embed{ height:150px; } }
+    .progress-overlay{position:fixed;inset:0;background:rgba(15,23,42,.6);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:50}
+    .progress-card{background:#fff;border-radius:16px;box-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);width:min(520px,92vw);padding:24px 20px}
+    .progress-title{font-weight:800;font-size:18px;color:var(--slate-800)}
+    .progress-track{height:8px;background:var(--slate-200);border-radius:9999px;overflow:hidden;margin-top:12px}
+    .progress-bar{height:8px;width:0%;background:linear-gradient(90deg,var(--blue-600),var(--blue-grad));transition:width .6s ease}
+    .progress-steps{list-style:none;padding:0;margin:16px 0 0;font-size:14px;color:var(--slate-600); space-y-2}
+    .progress-steps li{display:flex;align-items:center;gap:10px;opacity:.7; transition: all .3s ease;}
+    .progress-steps li.active{opacity:1;font-weight:700; color: var(--slate-800);}
+    .progress-note{margin-top:12px;font-size:12px;color:var(--slate-500)}
+
     /* --- POLISHED TREE STYLES (Wide & Bold) --- */
     .tree-wrapper { 
         display: flex; flex-direction: column; align-items: center; 
@@ -409,9 +443,102 @@
                 <div id="step-viewport" class="step-viewport px-4"><div class="step-viewport-inner">
                     <form id="the-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" novalidate>
                       <input type="hidden" name="form-name" value="lead-form"/><input type="hidden" name="app_type" id="app_type" value="Full Application" /><input type="hidden" name="appCode" id="appCode" value="" /><input type="hidden" name="intent" id="intent" value="finance" />
+                      
                       <section class="form-step" data-id="step-intent"><div class="step-inner"><div class="step-title"><h3 class="h2">Select Goal</h3></div><div class="step-body"><div class="content grid grid-cols-2 gap-3"><button type="button" class="choice-rect" data-intent="finance">Finance</button><button type="button" class="choice-rect" data-intent="refinance">Refinance</button></div></div></div></section>
+                      
                       <section class="form-step js-hidden" data-id="step-vehicle-type"><div class="step-inner"><div class="step-title"><h3 class="h2">Vehicle Type</h3></div><div class="step-body"><div class="content grid grid-cols-2 gap-3"><button type="button" class="choice-rect" data-type="Car">Car</button><button type="button" class="choice-rect" data-type="SUV">SUV</button><button type="button" class="choice-rect" data-type="Truck">Truck</button><button type="button" class="choice-rect" data-type="Van">Van</button><input type="hidden" name="vehicleType" id="vehicleType"></div></div></div></section>
-                      </form>
+                      
+                      <section class="form-step js-hidden" data-id="step-refi-details"><div class="step-inner"><div class="step-title"><h3 class="h2">Current Vehicle</h3></div><div class="step-body"><div class="content space-y-3">
+                        <div class="grid grid-cols-2 gap-3">
+                            <select id="refiMake" class="form-select" required></select>
+                            <select id="refiModel" class="form-select" required disabled><option>Model</option></select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <input type="number" name="refiYear" id="refiYear" class="form-input" placeholder="Year" required>
+                            <input type="tel" name="refiMileage" id="refiMileage" class="form-input" placeholder="Kilometers" required>
+                        </div>
+                        <input type="tel" name="refLoanInput" id="refLoanInput" class="form-input" placeholder="Est. Loan Balance ($)" required>
+                      </div></div></div></section>
+
+                      <section class="form-step js-hidden" data-id="step-budget"><div class="step-inner"><div class="step-title"><h3 class="h2">Desired Payment</h3></div><div class="step-body"><div class="content">
+                        <div class="mb-6 text-center"><span class="text-3xl font-bold text-slate-800">$<span id="biWeeklyOut">250</span></span><span class="text-sm text-slate-500 font-medium ml-1">/ bi-weekly</span></div>
+                        <input type="range" min="100" max="1000" step="10" value="250" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer" id="biWeeklyRange">
+                        <div class="flex justify-between text-[10px] text-slate-400 font-bold mt-2"><span>$100</span><span>$1000+</span></div>
+                        <input type="hidden" name="budget" id="budgetRange" value="$250 bi-weekly">
+                      </div></div></div></section>
+
+                      <section class="form-step js-hidden" data-id="step-purchase"><div class="step-inner"><div class="step-title"><h3 class="h2">Trading a vehicle?</h3></div><div class="step-body"><div class="content grid grid-cols-2 gap-3">
+                        <button type="button" class="choice-rect" data-trade="Yes">Yes</button>
+                        <button type="button" class="choice-rect" data-trade="No">No</button>
+                        <input type="hidden" name="hasTradeIn" id="hasTradeIn" value="No">
+                      </div></div></div></section>
+
+                      <section class="form-step js-hidden" data-id="step-tradein"><div class="step-inner"><div class="step-title"><h3 class="h2">Trade Details</h3></div><div class="step-body"><div class="content space-y-3">
+                        <div class="grid grid-cols-2 gap-3">
+                             <select id="tradeInMake" name="tradeInMake" class="form-select"><option>Make</option></select>
+                             <select id="tradeInModel" name="tradeInModel" class="form-select" disabled><option>Model</option></select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <input type="number" name="tradeInYear" class="form-input" placeholder="Year">
+                            <input type="tel" name="tradeInMileage" class="form-input" placeholder="Kilometers">
+                        </div>
+                      </div></div></div></section>
+
+                      <section class="form-step js-hidden" data-id="step-income"><div class="step-inner"><div class="step-title"><h3 class="h2">Employment</h3></div><div class="step-body"><div class="content space-y-3">
+                        <select name="employmentStatus" id="employmentStatus" class="form-select" required>
+                            <option value="" disabled selected>Employment Status</option>
+                            <option value="Employed">Employed</option>
+                            <option value="Self-Employed">Self-Employed</option>
+                            <option value="Pension">Pension / Retired</option>
+                            <option value="Disability">Disability</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <input type="tel" name="avgMonthlyIncome" id="avgMonthlyIncome" class="form-input" placeholder="Monthly Income (Before Tax)" required>
+                        <input type="tel" name="otherIncomeAmount" id="otherIncomeAmount" class="form-input" placeholder="Other Income (Optional)">
+                      </div></div></div></section>
+
+                      <section class="form-step js-hidden" data-id="step-yourinfo"><div class="step-inner"><div class="step-title"><h3 class="h2">About You</h3></div><div class="step-body"><div class="content space-y-3">
+                        <div class="grid grid-cols-2 gap-3">
+                            <input type="text" name="firstName" id="firstName" class="form-input" placeholder="First Name" required autocomplete="given-name">
+                            <input type="text" name="lastName" id="lastName" class="form-input" placeholder="Last Name" required autocomplete="family-name">
+                        </div>
+                        <input type="email" name="email" id="email" class="form-input" placeholder="Email Address" required autocomplete="email">
+                        <div class="grid grid-cols-2 gap-3">
+                            <input type="tel" name="phone" id="phone" class="form-input" placeholder="Cell Phone" required autocomplete="tel">
+                            <input type="text" name="dob" id="dob" class="form-input" placeholder="DOB (MM/DD/YYYY)" required>
+                        </div>
+                      </div></div></div></section>
+
+                      <section class="form-step js-hidden" data-id="step-address"><div class="step-inner"><div class="step-title"><h3 class="h2">Current Address</h3></div><div class="step-body"><div class="content space-y-3">
+                        <input type="text" name="streetAddress" id="streetAddress" class="form-input" placeholder="Street Address" required autocomplete="address-line1">
+                        <div class="grid grid-cols-2 gap-3">
+                            <input type="text" name="city" id="city" class="form-input" placeholder="City" required autocomplete="address-level2">
+                            <input type="text" name="postalCode" id="postalCode" class="form-input" placeholder="Postal Code" required autocomplete="postal-code">
+                        </div>
+                        <div class="seg">
+                             <button type="button" id="btnRent" class="seg-btn" aria-pressed="true">Rent</button>
+                             <button type="button" id="btnOwn" class="seg-btn" aria-pressed="false">Own</button>
+                             <input type="hidden" name="housingType" id="housingType" value="Rent">
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <input type="tel" name="housingPayment" id="housingPayment" class="form-input" placeholder="Mthly Payment" required>
+                            <input type="text" name="timeAtAddress" id="timeAtAddress" class="form-input" placeholder="Duration (e.g. 2y)" required>
+                        </div>
+                      </div></div></div></section>
+
+                      <section class="form-step js-hidden" data-id="step-employer"><div class="step-inner"><div class="step-title"><h3 class="h2">Work Details</h3></div><div class="step-body"><div class="content space-y-3">
+                        <input type="text" name="employerName" id="employerName" class="form-input" placeholder="Employer Name" required>
+                        <div class="grid grid-cols-2 gap-3">
+                             <input type="text" name="jobTitle" id="jobTitle" class="form-input" placeholder="Job Title" required>
+                             <input type="text" name="timeAtEmployer" id="timeAtEmployer" class="form-input" placeholder="Duration (e.g. 1y)" required>
+                        </div>
+                      </div></div></div></section>
+
+                      <section class="form-step js-hidden" data-id="step-consent"><div class="step-inner"><div class="step-title"><h3 class="h2">Final Step</h3></div><div class="step-body"><div class="content text-center">
+                        <p class="text-xs text-slate-500 leading-relaxed mb-4">By clicking "Submit Application", I certify that the information provided is true and consent to a credit check to verify my identity and process my request.</p>
+                      </div></div></div></section>
+
+                    </form>
                 </div></div>
                 <div class="form-footer flex items-center justify-between" id="form-footer"><button type="button" id="btnBack" class="font-semibold text-slate-600 hover:text-slate-900 px-4 py-2 rounded-lg hover:bg-slate-100 transition-colors">Back</button><button type="button" id="btnNext" class="cta-button">Next</button></div>
             </div> 
@@ -566,7 +693,7 @@
                                             <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Refinance 12mo</li>
                                         </ul>
                                     </div>
-
+                                    
                                     <div class="connector-down" style="height:15px;"></div>
                                     <div class="node-connector-text">OR (500+ Score)</div>
                                     <div class="connector-down" style="height:15px;"></div>
