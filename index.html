@@ -64,7 +64,7 @@
     /* Form Styles */
     .form-input,.form-select{
       background: var(--slate-50); color:var(--slate-800); border:1px solid var(--slate-300);
-      font-size:var(--fs-body); width:100%; padding: 0 var(--input-px); border-radius: var(--radius); 
+      font-size:var(--fs-body); width:100%; padding: 0 12px; border-radius: var(--radius); 
       height: var(--control-h) !important; line-height: var(--control-h); font-weight: 500; display: block; box-sizing: border-box;
     }
     .form-input:focus,.form-select:focus{ background:#fff; border-color:var(--blue-600); box-shadow:0 0 0 3px rgba(42,93,159,.15); outline:none; }
@@ -154,62 +154,59 @@
         box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
     }
 
-    /* --- POLISHED TREE STYLES (FROM REFERENCE) --- */
-    /* Container for the Finance Guide - Wider than standard 5xl */
+    /* --- POLISHED TREE STYLES --- */
     .wide-section-container {
         width: 100%;
-        max-width: 1280px; /* ~7xl in Tailwind */
+        max-width: 1280px; 
         margin: 0 auto;
         padding: 0 20px;
-        overflow: hidden; /* Prevent scroll */
+        overflow: hidden; 
     }
 
-    /* Scaling tweaked larger (0.9) and centered */
     .desktop-tree {
-        transform: scale(0.90); /* Increased from 0.80 */
+        transform: scale(0.90);
         transform-origin: top center;
-        width: 111.12%; /* Compensation for scale (100/0.9) */
-        margin-left: -5.56%; /* Centering offset ((100%-width)/2) */
-        margin-bottom: -50px; /* Reduced negative margin */
+        width: 111.12%; 
+        margin-left: -5.56%; 
+        margin-bottom: -50px;
     }
 
     .tree-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; margin-top:20px; padding-bottom: 20px;}
-    .tree-row { display: flex; justify-content: center; width: 100%; position: relative; gap: 8px; /* REDUCED GAP */ }
-    .tree-col { display: flex; flex-direction: column; align-items: center; position: relative; padding: 15px 4px 0; /* REDUCED PADDING */ flex: 1; }
+    .tree-row { display: flex; justify-content: center; width: 100%; position: relative; gap: 8px; }
+    .tree-col { display: flex; flex-direction: column; align-items: center; position: relative; padding: 15px 4px 0; flex: 1; }
 
     /* Lines */
-    .tree-col::before { content: ''; position: absolute; top: 0; left: 50%; border-left: 3px solid #cbd5e1; width: 0; height: 15px; /* Shortened */ }
-    .tree-col::after { content: ''; position: absolute; top: 0; border-top: 3px solid #cbd5e1; height: 15px; /* Shortened */ width: 50%; }
+    .tree-col::before { content: ''; position: absolute; top: 0; left: 50%; border-left: 3px solid #cbd5e1; width: 0; height: 15px; }
+    .tree-col::after { content: ''; position: absolute; top: 0; border-top: 3px solid #cbd5e1; height: 15px; width: 50%; }
     .tree-col:first-child::after { left: 50%; border-left: 0; }
     .tree-col:last-child::after { right: 50%; border-right: 0; }
     .tree-col.only-child::after, .tree-col.only-child::before { display: none; }
     .tree-col.only-child { padding-top: 0; }
-    .connector-down { width: 3px; height: 15px; /* Shortened */ background: #cbd5e1; margin: 0 auto; }
+    .connector-down { width: 3px; height: 15px; background: #cbd5e1; margin: 0 auto; }
 
-    /* Nodes - Polished & Bold */
+    /* Nodes */
     .node-box {
         background: var(--blue-600); 
         color: #fff;
         border: none;
         border-radius: 6px;
-        padding: 8px 12px; /* REDUCED PADDING */
+        padding: 8px 12px; 
         text-align: center; 
         position: relative; z-index: 10;
         box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); 
-        min-width: 100px; /* REDUCED WIDTH */
+        min-width: 100px; 
         font-size: 13px;
         font-weight: 800; 
         letter-spacing: -0.01em;
     }
     .node-box.root { background: #1e293b; }
     
-    /* Condition Pills (Solid Colors) */
     .node-pill {
         color: #fff;
         font-weight: 800; 
         font-size: 11px; 
-        min-width: 90px; /* REDUCED WIDTH */
-        padding: 6px 12px; /* REDUCED PADDING */
+        min-width: 90px; 
+        padding: 6px 12px; 
         border-radius: 99px; 
         z-index: 10; 
         white-space: nowrap;
@@ -220,19 +217,18 @@
     .node-pill.green { background: var(--theme-green); }
     .node-pill.red { background: var(--red-equifax); }
 
-    /* Result Card - Top Level Look */
     .node-card {
         background: #fff; 
         border: 1px solid #e2e8f0; 
         border-radius: 8px;
         text-align: left; 
-        min-width: 130px; /* REDUCED WIDTH */
+        min-width: 130px; 
         max-width: 200px; 
-        padding: 10px; /* REDUCED PADDING FROM 16px */
+        padding: 10px; 
         box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
         z-index: 10;
         position: relative;
-        white-space: nowrap; /* Keep sentences on one line */
+        white-space: nowrap; 
     }
     
     .node-card h5 { 
@@ -394,9 +390,30 @@
                 <div id="step-viewport" class="step-viewport px-4"><div class="step-viewport-inner">
                     <form id="the-form" name="lead-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html" novalidate>
                       <input type="hidden" name="form-name" value="lead-form"/><input type="hidden" name="app_type" id="app_type" value="Full Application" /><input type="hidden" name="appCode" id="appCode" value="" /><input type="hidden" name="intent" id="intent" value="finance" />
+                      
                       <section class="form-step" data-id="step-intent"><div class="step-inner"><div class="step-title"><h3 class="h2">Select Goal</h3></div><div class="step-body"><div class="content grid grid-cols-2 gap-3"><button type="button" class="choice-rect" data-intent="finance">Finance</button><button type="button" class="choice-rect" data-intent="refinance">Refinance</button></div></div></div></section>
+                      
+                      <section class="form-step js-hidden" data-id="step-refi-details"><div class="step-inner"><div class="step-title"><h3 class="h2">Current Vehicle</h3></div><div class="step-body"><div class="content space-y-3"><div class="grid grid-cols-2 gap-3"><select id="refiYear" name="refiYear" class="form-select"><option value="">Year</option><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option><option value="2022">2022</option><option value="2021">2021</option><option value="2020">2020</option><option value="2019">2019</option><option value="2018">2018</option><option value="2017">2017</option><option value="2016">2016</option><option value="Old">Older</option></select><select id="refiMake" name="refiMake" class="form-select"><option value="">Make</option></select></div><select id="refiModel" name="refiModel" class="form-select" disabled><option value="">Select Make First</option></select><input type="text" name="lenderName" class="form-input" placeholder="Current Lender (e.g. Scotiabank)" required/></div></div></div></section>
+
                       <section class="form-step js-hidden" data-id="step-vehicle-type"><div class="step-inner"><div class="step-title"><h3 class="h2">Vehicle Type</h3></div><div class="step-body"><div class="content grid grid-cols-2 gap-3"><button type="button" class="choice-rect" data-type="Car">Car</button><button type="button" class="choice-rect" data-type="SUV">SUV</button><button type="button" class="choice-rect" data-type="Truck">Truck</button><button type="button" class="choice-rect" data-type="Van">Van</button><input type="hidden" name="vehicleType" id="vehicleType"></div></div></div></section>
-                      </form>
+                      
+                      <section class="form-step js-hidden" data-id="step-budget"><div class="step-inner"><div class="step-title"><h3 class="h2">Target Budget</h3></div><div class="step-body"><div class="content"><div class="bg-slate-50 p-4 rounded-lg border border-slate-200 mb-4 text-center"><p class="label mb-2">Estimated Bi-Weekly Payment</p><div class="text-3xl font-extrabold text-[var(--blue-600)]">$<span id="biWeeklyOut">250</span></div></div><input type="range" id="biWeeklyRange" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[var(--blue-600)] mb-2" min="100" max="500" step="10" value="250"><div class="flex justify-between text-[10px] text-slate-500 font-bold uppercase"><span>Economy</span><span>Premium</span></div><input type="hidden" name="budgetRange" id="budgetRange"></div></div></div></section>
+
+                      <section class="form-step js-hidden" data-id="step-purchase"><div class="step-inner"><div class="step-title"><h3 class="h2">When do you need it?</h3></div><div class="step-body"><div class="content space-y-3"><button type="button" class="choice-rect" onclick="this.parentNode.querySelectorAll('.choice-rect').forEach(e=>e.classList.remove('selected'));this.classList.add('selected');document.getElementById('buyTime').value='ASAP';">As soon as possible</button><button type="button" class="choice-rect" onclick="this.parentNode.querySelectorAll('.choice-rect').forEach(e=>e.classList.remove('selected'));this.classList.add('selected');document.getElementById('buyTime').value='1 Week';">Within 1 Week</button><button type="button" class="choice-rect" onclick="this.parentNode.querySelectorAll('.choice-rect').forEach(e=>e.classList.remove('selected'));this.classList.add('selected');document.getElementById('buyTime').value='Browsing';">Just Browsing</button><input type="hidden" name="buyTime" id="buyTime" value="ASAP"></div></div></div></section>
+
+                      <section class="form-step js-hidden" data-id="step-tradein"><div class="step-inner"><div class="step-title"><h3 class="h2">Trading a vehicle?</h3></div><div class="step-body"><div class="content space-y-4"><div class="grid grid-cols-2 gap-3"><button type="button" class="choice-rect" data-trade="Yes">Yes</button><button type="button" class="choice-rect" data-trade="No">No</button></div><div id="tradeDetails" class="hidden space-y-3 pt-2 border-t border-slate-200"><select id="tradeInMake" name="tradeInMake" class="form-select"><option value="">Make</option></select><select id="tradeInModel" name="tradeInModel" class="form-select" disabled><option value="">Select Make First</option></select></div><input type="hidden" name="hasTradeIn" id="hasTradeIn" value="No"></div></div></div></section>
+
+                      <section class="form-step js-hidden" data-id="step-income"><div class="step-inner"><div class="step-title"><h3 class="h2">Monthly Income</h3></div><div class="step-body"><div class="content space-y-3"><div class="space-y-1"><label class="label">Total Monthly Income (Before Tax)</label><input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" class="form-input text-center font-bold text-lg" placeholder="$4,000" required></div><div class="space-y-1"><label class="label">Other Income (Optional)</label><input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input text-center" placeholder="$0"></div><p class="text-[10px] text-slate-500 text-center leading-tight">Include all sources: Employment, Disability, Pension, Child Tax, etc.</p></div></div></div></section>
+
+                      <section class="form-step js-hidden" data-id="step-yourinfo"><div class="step-inner"><div class="step-title"><h3 class="h2">About You</h3></div><div class="step-body"><div class="content space-y-3"><div class="grid grid-cols-2 gap-3"><input type="text" name="firstName" class="form-input" placeholder="First Name" required><input type="text" name="lastName" class="form-input" placeholder="Last Name" required></div><input type="date" name="dob" class="form-input" placeholder="Date of Birth" required><div class="grid grid-cols-2 gap-3"><input type="tel" id="phone" name="phone" class="form-input" placeholder="(555) 555-5555" required><input type="email" id="email" name="email" class="form-input" placeholder="Email Address" required></div></div></div></div></section>
+
+                      <section class="form-step js-hidden" data-id="step-address"><div class="step-inner"><div class="step-title"><h3 class="h2">Current Address</h3></div><div class="step-body"><div class="content space-y-3"><input type="text" name="streetAddress" class="form-input" placeholder="Street Address" required><div class="grid grid-cols-2 gap-3"><input type="text" name="city" class="form-input" placeholder="City" required><input type="text" name="postalCode" class="form-input" placeholder="Postal Code" required></div><div class="grid grid-cols-1 gap-3"><div class="seg" role="group"><button type="button" id="btnRent" class="seg-btn" aria-pressed="true">Rent</button><button type="button" id="btnOwn" class="seg-btn" aria-pressed="false">Own</button><button type="button" id="btnOther" class="seg-btn" aria-pressed="false" onclick="document.getElementById('housingType').value='Other'">Other</button></div><input type="hidden" name="housingType" id="housingType" value="Rent"></div><input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="Monthly Payment ($)" required></div></div></div></section>
+
+                      <section class="form-step js-hidden" data-id="step-employer"><div class="step-inner"><div class="step-title"><h3 class="h2">Employment</h3></div><div class="step-body"><div class="content space-y-3"><input type="text" name="employerName" class="form-input" placeholder="Employer / Source Name" required><input type="text" name="jobTitle" class="form-input" placeholder="Job Title" required><div class="grid grid-cols-2 gap-3"><select name="empYears" class="form-select" required><option value="">Years</option><option value="<1">&lt; 1 Year</option><option value="1">1 Year</option><option value="2">2 Years</option><option value="3">3 Years</option><option value="4">4 Years</option><option value="5+">5+ Years</option></select><select name="empMonths" class="form-select" required><option value="">Months</option><option value="0">0</option><option value="3">3</option><option value="6">6</option><option value="9">9</option></select></div></div></div></div></section>
+
+                      <section class="form-step js-hidden" data-id="step-consent"><div class="step-inner"><div class="step-title"><h3 class="h2">Final Step</h3></div><div class="step-body"><div class="content space-y-4 text-center"><div class="p-4 bg-slate-50 rounded border border-slate-200"><p class="text-xs text-slate-600 mb-2">By clicking "Submit Application", I consent to Vancouver Island Credit obtaining my credit report to facilitate my application for vehicle financing.</p><p class="text-[10px] text-slate-400">Your data is secured with 256-bit encryption and is never sold to third-party marketing lists.</p></div></div></div></div></section>
+
+                    </form>
                 </div></div>
                 <div class="form-footer flex items-center justify-between" id="form-footer"><button type="button" id="btnBack" class="font-semibold text-slate-600 hover:text-slate-900 px-4 py-2 rounded-lg hover:bg-slate-100 transition-colors">Back</button><button type="button" id="btnNext" class="cta-button">Next</button></div>
             </div> 
@@ -728,7 +745,7 @@
   function validateCurrent(stepId){const stepEl=stepsMap[stepId];if(!stepEl)return true;if(stepId==='step-intent'){const v=$('intent').value;const ok=(v==='finance'||v==='refinance');bySelAll('[data-intent]').forEach(x=>x.classList.toggle('err',!ok));return ok}if(stepId==='step-vehicle-type'){const ok=!!$('vehicleType').value;bySelAll('[data-type]').forEach(x=>x.classList.toggle('err',!ok));return ok}if(stepId==='step-budget'){return!!$('budgetRange').value}let ok=true;let firstError=null;const fields=Array.from(stepEl.querySelectorAll('[required]'));fields.forEach(el=>{if(window.getComputedStyle(el).display==='none'||!el.closest('.form-step')||el.closest('.form-step').classList.contains('js-hidden'))return;let pass=(el.type==='checkbox')?el.checked:(el.value&&el.value.trim()!=='');if(el.id==='phone')pass=el.value.replace(/\D/g,'').length>=10;if(el.type==='email'||el.id==='email'){const v=el.value.trim();pass=pass&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)}if(!pass){el.classList.add('err');if(!firstError)firstError=el}else{el.classList.remove('err')}const lab=el.closest('div')?.querySelector('label');lab?.classList.toggle('err-label',!pass);if(!pass)ok=false});if(firstError){firstError.scrollIntoView({behavior:'smooth',block:'center'});firstError.focus({preventScroll:true})}return ok}
   function handleNavigation(delta){const flow=currentFlow();let i=flow.indexOf(curStepId);if(i<0)i=0;if(delta>0&&!validateCurrent(curStepId))return;i+=delta;const visible=flow.filter(x=>x!=='step-consent');const lastIdx=visible.length-1;if(delta>0&&i>lastIdx){setTimeout(submitForm,200)}else if(i>=0){const delay=(delta>0)?200:0;setTimeout(()=>{goTo(visible[i])},delay)}else{goTo(visible[0])}}
   $('btnNext')?.addEventListener('click',()=>handleNavigation(1));$('btnBack')?.addEventListener('click',()=>handleNavigation(-1));
-  
+   
   // INTENT LOGIC
   bySelAll('[data-intent]').forEach(btn=>{btn.addEventListener('click',()=>{
       bySelAll('[data-intent]').forEach(x=>x.classList.remove('selected','err'));
@@ -788,7 +805,7 @@
   });
 
   bySelAll('[data-type]').forEach(btn=>{btn.addEventListener('click',()=>{bySelAll('[data-type]').forEach(x=>x.classList.remove('selected','err'));btn.classList.add('selected');$('vehicleType').value=btn.dataset.type||'';setTimeout(()=>{goTo('step-budget')},200)})});
-  bySelAll('[data-trade]').forEach(btn=>{btn.addEventListener('click',()=>{bySelAll('[data-trade]').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');$('hasTradeIn').value=btn.dataset.trade||'No'})});
+  bySelAll('[data-trade]').forEach(btn=>{btn.addEventListener('click',()=>{bySelAll('[data-trade]').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');$('hasTradeIn').value=btn.dataset.trade||'No';if(btn.dataset.trade==='Yes')document.getElementById('tradeDetails').classList.remove('hidden');else document.getElementById('tradeDetails').classList.add('hidden')})});
   const biw=$('biWeeklyRange');const out=$('biWeeklyOut');const br=$('budgetRange');if(biw&&out&&br){const updateBudget=()=>{out.textContent=biw.value;br.value='$'+biw.value+' bi-weekly'};biw.addEventListener('input',updateBudget);updateBudget()}
   function setHousing(type){$('housingType').value=type;$('btnRent')?.setAttribute('aria-pressed',String(type==='Rent'));$('btnOwn')?.setAttribute('aria-pressed',String(type==='Own'))}$('btnRent')?.addEventListener('click',()=>setHousing('Rent'));$('btnOwn')?.addEventListener('click',()=>setHousing('Own'));
   const moneyFields=['avgMonthlyIncome','otherIncomeAmount','refLoanInput'];moneyFields.forEach(id=>{const el=$(id);if(el){el.addEventListener('blur',(e)=>formatMoneyField(e.target));el.addEventListener('focus',(e)=>{e.target.value=e.target.value.replace(/[^0-9]/g,'')})}});
