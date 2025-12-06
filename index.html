@@ -143,7 +143,18 @@
     .progress-note{margin-top:12px;font-size:12px;color:var(--slate-500)}
     .js-hidden { display:none !important; }
 
-    /* --- POLISHED TREE STYLES --- */
+    /* --- IMPROVED TITLE BOX --- */
+    .section-header-box {
+        background-color: #fff;
+        border: 2px solid var(--slate-200);
+        border-radius: 12px;
+        padding: 30px;
+        text-align: center;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+
+    /* --- POLISHED TREE STYLES (FROM REFERENCE) --- */
     /* Container for the Finance Guide - Wider than standard 5xl */
     .wide-section-container {
         width: 100%;
@@ -153,7 +164,7 @@
         overflow: hidden; /* Prevent scroll */
     }
 
-    /* UPDATED: Scaling tweaked larger (0.9) and centered */
+    /* Scaling tweaked larger (0.9) and centered */
     .desktop-tree {
         transform: scale(0.90); /* Increased from 0.80 */
         transform-origin: top center;
@@ -366,7 +377,7 @@
                       <input type="hidden" name="form-name" value="lead-form"/><input type="hidden" name="app_type" id="app_type" value="Full Application" /><input type="hidden" name="appCode" id="appCode" value="" /><input type="hidden" name="intent" id="intent" value="finance" />
                       <section class="form-step" data-id="step-intent"><div class="step-inner"><div class="step-title"><h3 class="h2">Select Goal</h3></div><div class="step-body"><div class="content grid grid-cols-2 gap-3"><button type="button" class="choice-rect" data-intent="finance">Finance</button><button type="button" class="choice-rect" data-intent="refinance">Refinance</button></div></div></div></section>
                       <section class="form-step js-hidden" data-id="step-vehicle-type"><div class="step-inner"><div class="step-title"><h3 class="h2">Vehicle Type</h3></div><div class="step-body"><div class="content grid grid-cols-2 gap-3"><button type="button" class="choice-rect" data-type="Car">Car</button><button type="button" class="choice-rect" data-type="SUV">SUV</button><button type="button" class="choice-rect" data-type="Truck">Truck</button><button type="button" class="choice-rect" data-type="Van">Van</button><input type="hidden" name="vehicleType" id="vehicleType"></div></div></div></section>
-                    </form>
+                      </form>
                 </div></div>
                 <div class="form-footer flex items-center justify-between" id="form-footer"><button type="button" id="btnBack" class="font-semibold text-slate-600 hover:text-slate-900 px-4 py-2 rounded-lg hover:bg-slate-100 transition-colors">Back</button><button type="button" id="btnNext" class="cta-button">Next</button></div>
             </div> 
@@ -385,7 +396,7 @@
     </main>
 
     <section id="finance-guide" class="wide-section-container mt-12 mb-12">
-        <div class="text-center mb-8">
+        <div class="section-header-box">
             <h2 class="h1 text-3xl text-slate-800 mb-2">Finance Guide</h2>
             <p class="text-base text-slate-500 font-medium">Find your path below to see how we structure your approval.</p>
         </div>
@@ -645,4 +656,3 @@
   </script>
 </body>
 </html>
-```
