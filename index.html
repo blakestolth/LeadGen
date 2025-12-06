@@ -52,7 +52,6 @@
       overflow-x: hidden;
     }
     
-    /* Prevent scrolling when modal is open */
     body.modal-open { overflow: hidden !important; }
 
     .h1{ font-size:var(--fs-h1); font-weight:800; color:var(--slate-800); line-height: 1.1; letter-spacing: -0.5px; }
@@ -122,81 +121,76 @@
     .progress-steps li.active{opacity:1;font-weight:700; color: var(--slate-800);}
     .progress-note{margin-top:12px;font-size:12px;color:var(--slate-500)}
 
-    /* --- POLISHED TREE STYLES (Zoomed Out & Transparent) --- */
+    /* --- COMPACT TREE STYLES --- */
     .tree-wrapper { 
         display: flex; flex-direction: column; align-items: center; 
-        width: 100%; 
-        max-width: 1200px; /* Wider for full tree */
-        margin: 0 auto; 
-        overflow-x: auto; 
+        /* EXPANDED WIDTH TO FIT CONTENT */
+        width: 120%; 
+        margin-left: -10%; 
+        max-width: 1400px;
+        overflow-x: hidden; 
         padding-bottom: 20px;
     }
 
     .desktop-tree {
-        transform: scale(0.85); /* Zoomed out */
+        transform: scale(0.95); /* Slight shrink to ensure edge-to-edge fit */
         transform-origin: top center;
-        width: 117%; /* Compensation for scale */
-        margin-left: -8.5%; /* Centering */
-        margin-bottom: -50px;
+        width: 100%;
     }
 
-    /* The Row containing Nodes */
-    .tree-row { display: flex; justify-content: center; width: 100%; position: relative; gap: 40px; }
+    .tree-row { display: flex; justify-content: center; width: 100%; position: relative; gap: 8px; /* TIGHT GAP */ }
 
-    /* Column Wrapper */
     .tree-col {
         display: flex; flex-direction: column; align-items: center;
-        position: relative; padding: 30px 10px 0; 
+        position: relative; padding: 20px 2px 0; /* REDUCED PADDING */
         flex: 1; 
     }
 
     /* THE LINES */
     .tree-col::before {
         content: ''; position: absolute; top: 0; left: 50%;
-        border-left: 3px solid #94a3b8; width: 0; height: 30px; 
+        border-left: 2px solid #94a3b8; width: 0; height: 20px; 
     }
     .tree-col::after {
         content: ''; position: absolute; top: 0;
-        border-top: 3px solid #94a3b8; height: 30px; width: 50%; 
+        border-top: 2px solid #94a3b8; height: 20px; width: 50%; 
     }
     .tree-col:first-child::after { left: 50%; border-left: 0; }
     .tree-col:last-child::after { right: 50%; border-right: 0; }
     .tree-col.only-child::after, .tree-col.only-child::before { display: none; }
     .tree-col.only-child { padding-top: 0; }
 
-    .connector-down { width: 3px; height: 30px; background: #94a3b8; margin: 0 auto; }
+    .connector-down { width: 2px; height: 20px; background: #94a3b8; margin: 0 auto; }
 
-    /* Box Styles */
+    /* COMPACT NODES */
     .node-box {
         background: #1e293b; 
         color: #fff;
-        border: none;
         border-radius: 6px;
-        padding: 12px 24px; 
+        padding: 8px 10px; /* REDUCED */
         text-align: center; 
         position: relative; z-index: 10;
-        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); 
-        min-width: 160px; 
-        font-size: 15px;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); 
+        min-width: 110px; /* REDUCED */
+        font-size: 13px; /* REDUCED */
         font-weight: 800; 
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.02em;
     }
     .node-box.branch { background: #2A5D9F; }
     
     .node-pill {
         color: #fff;
         font-weight: 700; 
-        font-size: 13px; 
-        min-width: 140px; 
-        padding: 8px 16px; 
+        font-size: 11px; /* REDUCED */
+        min-width: 90px; /* REDUCED */
+        padding: 5px 8px; /* REDUCED */
         border-radius: 99px; 
         z-index: 10; 
         white-space: nowrap;
         text-transform: uppercase;
-        letter-spacing: 0.02em;
         text-align: center;
-        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     .node-pill.blue { background: #2A5D9F; }
     .node-pill.green { background: var(--theme-green); }
@@ -205,59 +199,57 @@
     .node-card {
         background: #fff; 
         border: 1px solid #e2e8f0; 
-        border-radius: 8px;
+        border-radius: 6px;
         text-align: left; 
-        min-width: 180px; 
-        max-width: 240px; 
-        padding: 16px;
-        box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        min-width: 145px; /* SIGNIFICANTLY REDUCED */
+        max-width: 180px; 
+        padding: 8px; /* REDUCED */
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
         z-index: 10;
         position: relative;
         white-space: nowrap; 
     }
-    .node-card.accent-blue { border-top: 5px solid #2A5D9F; }
-    .node-card.accent-red { border-top: 5px solid var(--red-equifax); }
-    .node-card.accent-green { border-top: 5px solid var(--theme-green); }
+    .node-card.accent-blue { border-top: 4px solid #2A5D9F; }
+    .node-card.accent-red { border-top: 4px solid var(--red-equifax); }
+    .node-card.accent-green { border-top: 4px solid var(--theme-green); }
     
     .node-card h5 { 
         font-weight: 800; 
-        font-size: 14px; 
+        font-size: 12px; /* REDUCED */
         color: #0f172a; 
-        margin-bottom: 4px; 
-        line-height: 1.2; 
+        margin-bottom: 2px; 
+        line-height: 1.1; 
     }
     .node-card .sub { 
-        font-size: 10px; 
+        font-size: 9px; /* REDUCED */
         font-weight: 700; 
         text-transform: uppercase; 
         color: #64748b; 
-        margin-bottom: 10px; 
+        margin-bottom: 6px; 
         display: block; 
-        letter-spacing: 0.05em;
     }
     
     .t-list { list-style: none; padding: 0; margin: 0; }
-    .t-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #334155; margin-bottom: 6px; line-height: 1.2; font-weight: 600; }
-    .t-icon { color: var(--theme-green); width: 14px; height: 14px; flex-shrink: 0; }
+    .t-item { display: flex; align-items: center; gap: 4px; font-size: 10px; color: #334155; margin-bottom: 3px; line-height: 1.1; font-weight: 600; }
+    .t-icon { color: var(--theme-green); width: 10px; height: 10px; flex-shrink: 0; }
 
     .node-connector-text { 
-        font-size: 11px; 
+        font-size: 9px; 
         font-weight: 800; 
         color: #fff; 
-        background: #0f172a; /* Dark Slate */
-        padding: 4px 10px; 
+        background: #0f172a; 
+        padding: 2px 8px; 
         border-radius: 99px; 
         z-index: 15; 
         position: relative; 
-        margin: 10px 0; 
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        margin: 6px 0; 
     }
 
     /* Mobile Stack */
     @media (max-width: 1024px) {
         .tree-row { flex-direction: column; gap: 10px; position: static; }
         .tree-col, .tree-col::before, .tree-col::after, .connector-down { display: none; }
-        .tree-wrapper { align-items: stretch; gap: 12px; max-width: 100%; overflow: visible; }
+        .tree-wrapper { align-items: stretch; gap: 12px; width: 100%; margin: 0; overflow: visible; }
         
         .mobile-stack-item {
             display: flex; flex-direction: column; gap: 12px; 
@@ -268,21 +260,6 @@
         .mobile-tree { display: flex; flex-direction: column; gap: 24px;}
     }
     @media (min-width: 1025px) { .mobile-tree { display: none; } }
-
-    /* --- LIFE STAGES TIMELINE CSS --- */
-    .timeline-wrapper { width: 100%; padding: 40px 0; overflow-x: auto; }
-    .timeline-container { display: flex; justify-content: space-between; align-items: flex-start; position: relative; margin: 0 auto; min-width: 600px; padding-top: 20px; }
-    .timeline-line { position: absolute; top: 65px; left: 20px; right: 20px; height: 4px; background-color: #000; z-index: 1; }
-    .timeline-stage { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 2; flex: 1; }
-    .stage-icon { font-size: 28px; margin-bottom: 12px; height: 35px; display: flex; align-items: flex-end; justify-content: center; }
-    .stage-bar { width: 8px; height: 40px; margin-bottom: 10px; background-color: #ccc; }
-    .stage-text { font-family: 'Work Sans', sans-serif; font-size: 12px; font-weight: 700; color: #222; line-height: 1.2; }
-    .stage-purple .stage-bar { background-color: #bfa2db; }
-    .stage-black .stage-bar { background-color: transparent; border-left: 6px dotted #000; width: 0; }
-    .stage-yellow .stage-bar { background-color: #fce157; }
-    .stage-blue .stage-bar { background-color: transparent; border-left: 6px dotted #5ca1e6; width: 0; }
-    .stage-orange .stage-bar { background-color: #f79c42; }
-    .stage-red .stage-bar { background-color: #ff4d4d; }
 
     /* LAYOUT ENGINE FOR FORM */
     #lead-form-card { min-height: 382px; position: relative; }
@@ -322,11 +299,7 @@
               </div>
             </div>
           </div>
-          <div class="hidden md:flex items-center gap-6 flex-shrink-0">
-            <div class="flex items-center gap-6 text-sm font-bold text-slate-600 mr-2">
-                <a href="#finance-guide" class="hover:text-[var(--blue-600)] transition-colors">Financing Guide</a>
-                <a href="#personalized-search" class="hover:text-[var(--blue-600)] transition-colors">Search</a>
-            </div>
+          <div class="hidden md:flex items-center gap-5 flex-shrink-0">
             <a href="tel:+12369692424" class="font-bold text-slate-800 text-[13px] hover:text-[var(--blue-600)] transition-colors">(236) 969-2424</a>
             <button type="button" id="navApplyBtn" class="cta-button text-xs shadow-md">Get Started</button>
           </div>
@@ -672,7 +645,8 @@
                                 </div>
                             </div>
                         </div>
-                        </div>
+
+                    </div>
                 </div>
             </div>
 
