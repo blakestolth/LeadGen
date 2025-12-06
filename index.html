@@ -88,21 +88,6 @@
     .err-label{ color:var(--red-equifax) !important; }
     @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
 
-    /* Breakout Section Utility (Full Width) */
-    .full-width-breakout {
-        width: 100vw;
-        position: relative;
-        left: 50%;
-        right: 50%;
-        margin-left: -50vw;
-        margin-right: -50vw;
-        padding: 60px 20px;
-        background: #fff; /* Clean White Background */
-        border-top: 1px solid var(--slate-200);
-        border-bottom: 1px solid var(--slate-200);
-        box-shadow: inset 0 4px 6px -1px rgba(0,0,0,0.05);
-    }
-
     /* Utility */
     .choice-rect { width:100%; text-align:left; border:1.5px solid var(--slate-300); border-radius:var(--radius); background:#fff; font-weight:600; color: var(--slate-700); transition:all .15s ease; display:flex; align-items:center; cursor:pointer; padding: 0 16px; min-height: 50px; font-size: 15px; justify-content: center; }
     .choice-rect:hover{ border-color:var(--blue-600); background: #f8fafc; transform: translateY(-1px); }
@@ -137,14 +122,22 @@
     .progress-steps li.active{opacity:1;font-weight:700; color: var(--slate-800);}
     .progress-note{margin-top:12px;font-size:12px;color:var(--slate-500)}
 
-    /* --- POLISHED TREE STYLES (Wide & Bold) --- */
+    /* --- POLISHED TREE STYLES (Zoomed Out & Transparent) --- */
     .tree-wrapper { 
         display: flex; flex-direction: column; align-items: center; 
         width: 100%; 
-        max-width: 1400px; /* Allowed to go wider than main content */
+        max-width: 1100px; /* Slightly wider than standard, but restricted */
         margin: 0 auto; 
         overflow-x: auto; 
         padding-bottom: 20px;
+    }
+
+    .desktop-tree {
+        transform: scale(0.85); /* Zoomed out */
+        transform-origin: top center;
+        width: 117%; /* Compensation for scale */
+        margin-left: -8.5%; /* Centering */
+        margin-bottom: -50px;
     }
 
     /* The Row containing Nodes */
@@ -157,7 +150,7 @@
         flex: 1; 
     }
 
-    /* THE LINES (Pseudo Elements) - Bold */
+    /* THE LINES */
     .tree-col::before {
         content: ''; position: absolute; top: 0; left: 50%;
         border-left: 3px solid #94a3b8; width: 0; height: 30px; 
@@ -173,9 +166,9 @@
 
     .connector-down { width: 3px; height: 30px; background: #94a3b8; margin: 0 auto; }
 
-    /* Box Styles - Simple & Bold */
+    /* Box Styles */
     .node-box {
-        background: #1e293b; /* Slate 800 */
+        background: #1e293b; 
         color: #fff;
         border: none;
         border-radius: 6px;
@@ -189,9 +182,8 @@
         text-transform: uppercase;
         letter-spacing: 0.05em;
     }
-    .node-box.branch { background: #2A5D9F; /* Theme Blue */ }
+    .node-box.branch { background: #2A5D9F; }
     
-    /* Condition Pills - Solid Colors, No Transparency */
     .node-pill {
         color: #fff;
         font-weight: 700; 
@@ -206,14 +198,10 @@
         text-align: center;
         box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
     }
-    /* Good Credit - Theme Blue */
     .node-pill.blue { background: #2A5D9F; }
-    /* Positive - New Green */
     .node-pill.green { background: var(--theme-green); }
-    /* Negative/Bad - Equifax Red */
     .node-pill.red { background: var(--red-equifax); }
 
-    /* Result Card - Top Level Polish */
     .node-card {
         background: #fff; 
         border: 1px solid #e2e8f0; 
@@ -225,10 +213,8 @@
         box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
         z-index: 10;
         position: relative;
-        /* Keep sentences on one line */
         white-space: nowrap; 
     }
-    /* Accents */
     .node-card.accent-blue { border-top: 5px solid #2A5D9F; }
     .node-card.accent-red { border-top: 5px solid var(--red-equifax); }
     .node-card.accent-green { border-top: 5px solid var(--theme-green); }
@@ -278,67 +264,19 @@
             border-left: 3px solid #e2e8f0; padding-left: 20px; margin-left: 10px;
         }
         .node-box, .node-pill, .node-card { width: 100%; max-width: 100%; text-align: left; align-items: flex-start; white-space: normal; }
-        
         .desktop-tree { display: none; }
         .mobile-tree { display: flex; flex-direction: column; gap: 24px;}
     }
     @media (min-width: 1025px) { .mobile-tree { display: none; } }
 
     /* --- LIFE STAGES TIMELINE CSS --- */
-    .timeline-wrapper {
-        width: 100%;
-        padding: 40px 0;
-        overflow-x: auto;
-    }
-    .timeline-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        position: relative;
-        margin: 0 auto;
-        min-width: 600px;
-        padding-top: 20px;
-    }
-    .timeline-line {
-        position: absolute;
-        top: 65px;
-        left: 20px;
-        right: 20px;
-        height: 4px;
-        background-color: #000;
-        z-index: 1;
-    }
-    .timeline-stage {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        position: relative;
-        z-index: 2;
-        flex: 1;
-    }
-    .stage-icon {
-        font-size: 28px;
-        margin-bottom: 12px;
-        height: 35px;
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-    }
-    .stage-bar {
-        width: 8px;
-        height: 40px;
-        margin-bottom: 10px;
-        background-color: #ccc; 
-    }
-    .stage-text {
-        font-family: 'Work Sans', sans-serif;
-        font-size: 12px;
-        font-weight: 700;
-        color: #222;
-        line-height: 1.2;
-    }
-    /* Color Coding */
+    .timeline-wrapper { width: 100%; padding: 40px 0; overflow-x: auto; }
+    .timeline-container { display: flex; justify-content: space-between; align-items: flex-start; position: relative; margin: 0 auto; min-width: 600px; padding-top: 20px; }
+    .timeline-line { position: absolute; top: 65px; left: 20px; right: 20px; height: 4px; background-color: #000; z-index: 1; }
+    .timeline-stage { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 2; flex: 1; }
+    .stage-icon { font-size: 28px; margin-bottom: 12px; height: 35px; display: flex; align-items: flex-end; justify-content: center; }
+    .stage-bar { width: 8px; height: 40px; margin-bottom: 10px; background-color: #ccc; }
+    .stage-text { font-family: 'Work Sans', sans-serif; font-size: 12px; font-weight: 700; color: #222; line-height: 1.2; }
     .stage-purple .stage-bar { background-color: #bfa2db; }
     .stage-black .stage-bar { background-color: transparent; border-left: 6px dotted #000; width: 0; }
     .stage-yellow .stage-bar { background-color: #fce157; }
@@ -384,7 +322,11 @@
               </div>
             </div>
           </div>
-          <div class="hidden md:flex items-center gap-5 flex-shrink-0">
+          <div class="hidden md:flex items-center gap-6 flex-shrink-0">
+            <div class="flex items-center gap-6 text-sm font-bold text-slate-600 mr-2">
+                <a href="#finance-guide" class="hover:text-[var(--blue-600)] transition-colors">Financing Guide</a>
+                <a href="#personalized-search" class="hover:text-[var(--blue-600)] transition-colors">Search</a>
+            </div>
             <a href="tel:+12369692424" class="font-bold text-slate-800 text-[13px] hover:text-[var(--blue-600)] transition-colors">(236) 969-2424</a>
             <button type="button" id="navApplyBtn" class="cta-button text-xs shadow-md">Get Started</button>
           </div>
@@ -405,8 +347,7 @@
 
     <main class="w-full max-w-5xl mx-auto px-4 py-4 space-y-4">
       
-      <section id="about" class="card card-accent p-5">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
+      <section id="about" class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 p-5">
           <div>
             <div class="flex items-center gap-4 mb-3">
                <img src="Untitled Project.jpg" alt="Blake Stolth" class="w-12 h-12 rounded-full border-2 border-[var(--blue-600)] object-cover"/>
@@ -427,7 +368,6 @@
               <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">D</span><span class="text-left leading-tight pt-0.5"><b>Delivery</b> Right to your driveway</span></li>
             </ul>
           </div>
-        </div>
       </section>
 
       <section class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
@@ -549,14 +489,38 @@
         <aside class="flex flex-col h-full">
             <div class="card card-accent p-0 flex-1 overflow-hidden relative flex flex-col" style="height: 452px;">
               <div class="h-[50px] px-5 border-b border-slate-100 bg-white flex justify-between items-center flex-shrink-0"><div><h4 class="text-sm font-bold text-slate-800">Refinance Calculator</h4></div><div class="abc-badge text-[10px] bg-[var(--blue-100)] text-[var(--blue-700)] px-2 w-auto">Estimate</div></div>
-              <div class="flex-1 p-4 flex flex-col justify-between overflow-y-auto">
-                <div class="text-center mt-10"><p class="text-slate-400 text-sm">Select 'Refinance' in the form to unlock detailed calculator.</p></div>
+              <div class="flex-1 p-4 flex flex-col overflow-y-auto">
+                
+                <div id="calc-placeholder" class="text-center mt-10">
+                    <p class="text-slate-400 text-sm">Select 'Refinance' in the form to unlock detailed calculator.</p>
+                </div>
+
+                <div id="refi-calc-ui" class="hidden flex-col h-full justify-between">
+                    <div class="space-y-4">
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                            <p class="text-[10px] uppercase font-bold text-slate-500 mb-1">Current Balance</p>
+                            <p class="text-xl font-bold text-slate-800" id="calc-balance">$0.00</p>
+                        </div>
+                        <div class="space-y-2">
+                             <div class="flex justify-between text-xs text-slate-600"><span>Current Rate (Est)</span><span>12.99%</span></div>
+                             <div class="w-full bg-slate-200 h-2 rounded-full"><div class="bg-slate-400 h-2 rounded-full" style="width:75%"></div></div>
+                             <div class="flex justify-between text-xs font-bold text-[var(--theme-green)]"><span>New Rate (Est)</span><span>6.99%</span></div>
+                             <div class="w-full bg-slate-200 h-2 rounded-full"><div class="bg-[var(--theme-green)] h-2 rounded-full" style="width:35%"></div></div>
+                        </div>
+                    </div>
+                    <div class="bg-[var(--blue-100)] p-4 rounded-lg mt-4 border border-blue-200">
+                        <p class="text-xs text-center text-blue-800 font-bold mb-1">Estimated Monthly Savings</p>
+                        <p class="text-3xl text-center text-blue-700 font-extrabold" id="calc-savings">$0/mo</p>
+                        <p class="text-[10px] text-center text-blue-600 mt-1">Based on credit approval</p>
+                    </div>
+                </div>
+
               </div>
             </div>
         </aside>
       </section>
 
-      <section id="finance-guide" class="full-width-breakout mt-12 mb-12">
+      <section id="finance-guide" class="mt-12 mb-12">
         <div class="text-center mb-10">
             <h2 class="h1 text-3xl text-slate-800 mb-2">Finance Guide</h2>
             <p class="text-base text-slate-500 font-medium">Find your path below to see how we structure your approval.</p>
@@ -625,49 +589,6 @@
                     <div class="tree-row">
                         <div class="tree-col">
                             <div class="node-pill blue">Good Credit</div>
-                            <div class="connector-down"></div>
-                            <div class="tree-row">
-                                <div class="tree-col">
-                                    <div class="node-pill green">Positive Equity</div>
-                                    <div class="connector-down"></div>
-                                    <div class="node-card accent-blue">
-                                        <span class="sub">Unlimited Access</span>
-                                        <h5>660 - 900 Score</h5>
-                                        <ul class="t-list">
-                                            <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vehicles: Any year</li>
-                                            <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Rate: Access to the lowest</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="tree-col">
-                                    <div class="node-pill red">Negative Equity</div>
-                                    <div class="connector-down"></div>
-                                    <div class="node-card accent-red">
-                                        <span class="sub" style="color:var(--red-equifax);">Reliability Focus</span>
-                                        <h5>Negative Equity Fix</h5>
-                                        <ul class="t-list">
-                                            <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>2016+ Vehicles</li>
-                                            <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Refinance 12mo</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="connector-down" style="height:15px;"></div>
-                                    <div class="node-connector-text">OR (500+ Score)</div>
-                                    <div class="connector-down" style="height:15px;"></div>
-                                    <div class="node-card accent-blue">
-                                        <span class="sub">Special Program</span>
-                                        <h5>Unlimited Access</h5>
-                                        <ul class="t-list">
-                                            <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vehicles: Any year</li>
-                                            <li class="t-item"><svg class="t-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Rate: Access to the lowest</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tree-col">
-                            <div class="node-pill red">New / Bad Credit</div>
                             <div class="connector-down"></div>
                             <div class="tree-row">
                                 <div class="tree-col">
@@ -850,7 +771,42 @@
   function validateCurrent(stepId){const stepEl=stepsMap[stepId];if(!stepEl)return true;if(stepId==='step-intent'){const v=$('intent').value;const ok=(v==='finance'||v==='refinance');bySelAll('[data-intent]').forEach(x=>x.classList.toggle('err',!ok));return ok}if(stepId==='step-vehicle-type'){const ok=!!$('vehicleType').value;bySelAll('[data-type]').forEach(x=>x.classList.toggle('err',!ok));return ok}if(stepId==='step-budget'){return!!$('budgetRange').value}let ok=true;let firstError=null;const fields=Array.from(stepEl.querySelectorAll('[required]'));fields.forEach(el=>{if(window.getComputedStyle(el).display==='none'||!el.closest('.form-step')||el.closest('.form-step').classList.contains('js-hidden'))return;let pass=(el.type==='checkbox')?el.checked:(el.value&&el.value.trim()!=='');if(el.id==='phone')pass=el.value.replace(/\D/g,'').length>=10;if(el.type==='email'||el.id==='email'){const v=el.value.trim();pass=pass&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)}if(!pass){el.classList.add('err');if(!firstError)firstError=el}else{el.classList.remove('err')}const lab=el.closest('div')?.querySelector('label');lab?.classList.toggle('err-label',!pass);if(!pass)ok=false});if(firstError){firstError.scrollIntoView({behavior:'smooth',block:'center'});firstError.focus({preventScroll:true})}return ok}
   function handleNavigation(delta){const flow=currentFlow();let i=flow.indexOf(curStepId);if(i<0)i=0;if(delta>0&&!validateCurrent(curStepId))return;i+=delta;const visible=flow.filter(x=>x!=='step-consent');const lastIdx=visible.length-1;if(delta>0&&i>lastIdx){setTimeout(submitForm,200)}else if(i>=0){const delay=(delta>0)?200:0;setTimeout(()=>{goTo(visible[i])},delay)}else{goTo(visible[0])}}
   $('btnNext')?.addEventListener('click',()=>handleNavigation(1));$('btnBack')?.addEventListener('click',()=>handleNavigation(-1));
-  bySelAll('[data-intent]').forEach(btn=>{btn.addEventListener('click',()=>{bySelAll('[data-intent]').forEach(x=>x.classList.remove('selected','err'));btn.classList.add('selected');$('intent').value=btn.dataset.intent;const targetStep=(btn.dataset.intent==='refinance')?currentFlow()[1]:'step-vehicle-type';setTimeout(()=>{goTo(targetStep)},200)})});
+  
+  // INTENT LOGIC & CALCULATOR TOGGLE
+  bySelAll('[data-intent]').forEach(btn=>{btn.addEventListener('click',()=>{
+      bySelAll('[data-intent]').forEach(x=>x.classList.remove('selected','err'));
+      btn.classList.add('selected');
+      const val = btn.dataset.intent;
+      $('intent').value = val;
+      
+      // Toggle Calc UI
+      const calcUI = $('refi-calc-ui');
+      const calcPlace = $('calc-placeholder');
+      if(val === 'refinance'){
+          calcUI?.classList.remove('hidden');
+          calcUI?.classList.add('flex');
+          calcPlace?.classList.add('hidden');
+      } else {
+          calcUI?.classList.add('hidden');
+          calcUI?.classList.remove('flex');
+          calcPlace?.classList.remove('hidden');
+      }
+
+      const targetStep=(val==='refinance')?currentFlow()[1]:'step-vehicle-type';
+      setTimeout(()=>{goTo(targetStep)},200)
+  })});
+
+  // REAL TIME CALC LOGIC
+  $('refLoanInput')?.addEventListener('input', (e)=>{
+      const val = parseMoneyInput(e.target.value);
+      $('calc-balance').textContent = fmtMoney(val);
+      // Simple logic: Assume 12.99% current vs 6.99% new over 60mo
+      const oldPmt = calcPayment(val, 12.99, 5);
+      const newPmt = calcPayment(val, 6.99, 5);
+      const save = Math.max(0, oldPmt - newPmt);
+      $('calc-savings').textContent = fmtMoney(save) + "/mo";
+  });
+
   bySelAll('[data-type]').forEach(btn=>{btn.addEventListener('click',()=>{bySelAll('[data-type]').forEach(x=>x.classList.remove('selected','err'));btn.classList.add('selected');$('vehicleType').value=btn.dataset.type||'';setTimeout(()=>{goTo('step-budget')},200)})});
   bySelAll('[data-trade]').forEach(btn=>{btn.addEventListener('click',()=>{bySelAll('[data-trade]').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');$('hasTradeIn').value=btn.dataset.trade||'No'})});
   const biw=$('biWeeklyRange');const out=$('biWeeklyOut');const br=$('budgetRange');if(biw&&out&&br){const updateBudget=()=>{out.textContent=biw.value;br.value='$'+biw.value+' bi-weekly'};biw.addEventListener('input',updateBudget);updateBudget()}
