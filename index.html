@@ -25,8 +25,8 @@
       --blue-600:#2A5D9F; 
       --blue-700:#214B80; 
       --blue-100:#EAF1FB; 
-      --red-equifax: #A8202A; /* Exact Equifax Red */
-      --theme-green: #15803d; /* Solid Forest Green */
+      --red-equifax: #A8202A; 
+      --theme-green: #15803d;
       --slate-50: #f8fafc;
       --slate-100: #f1f5f9;
       --slate-200: #e2e8f0;
@@ -86,6 +86,39 @@
     .err-label{ color:var(--red-equifax) !important; }
     @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
 
+    /* --- PREMIUM SLIDER STYLING --- */
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 100%;
+      background: transparent;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      background: var(--blue-600);
+      margin-top: -8px; 
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+    input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.1); }
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 4px;
+      cursor: pointer;
+      background: #cbd5e1;
+      border-radius: 99px;
+    }
+    /* Firefox Support */
+    input[type=range]::-moz-range-thumb {
+      height: 20px; width: 20px; border: none; border-radius: 50%; background: var(--blue-600); cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    input[type=range]::-moz-range-track {
+      width: 100%; height: 4px; cursor: pointer; background: #cbd5e1; border-radius: 99px;
+    }
+
     /* Layout Engine */
     #lead-form-card { min-height: 382px; position: relative; }
     .form-shell { position: relative; overflow: hidden; height: 380px; background: #fff; transition: height 0.3s ease; z-index: 1; }
@@ -142,17 +175,6 @@
     .progress-steps li.active{opacity:1;font-weight:700; color: var(--slate-800);}
     .progress-note{margin-top:12px;font-size:12px;color:var(--slate-500)}
     .js-hidden { display:none !important; }
-
-    /* --- IMPROVED TITLE BOX --- */
-    .section-header-box {
-        background-color: #fff;
-        border: 2px solid var(--slate-200);
-        border-radius: 12px;
-        padding: 30px;
-        text-align: center;
-        margin-bottom: 40px;
-        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-    }
 
     /* --- POLISHED TREE STYLES --- */
     .wide-section-container {
@@ -352,33 +374,33 @@
 
     <main class="w-full max-w-5xl mx-auto px-4 py-4 space-y-4">
       
-      <section id="about" class="card card-accent p-5">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
+      <section id="about" class="px-5 py-6 mb-2">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 items-center">
           <div>
-            <div class="flex items-center gap-4 mb-3">
-               <img src="Untitled Project.jpg" alt="Blake Stolth" class="w-12 h-12 rounded-full border-2 border-[var(--blue-600)] object-cover"/>
-               <div><h1 class="h1 text-lg">See options in 3 Steps</h1><p class="text-[11px] text-slate-500 font-medium">Personally reviewed by Blake</p></div>
+            <div class="flex items-center gap-4 mb-4">
+               <img src="Untitled Project.jpg" alt="Blake Stolth" class="w-14 h-14 rounded-full border-2 border-[var(--blue-600)] object-cover shadow-sm"/>
+               <div><h1 class="h1 text-2xl mb-1">See options in 3 Steps</h1><p class="text-[12px] text-slate-500 font-bold uppercase tracking-wide">Personally reviewed by Blake</p></div>
             </div>
-            <ol class="text-sm space-y-2.5 mt-2">
-              <li class="flex items-start gap-3"><span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-bold text-[11px]">1</span><span class="text-left leading-tight pt-0.5"><b>Enter info</b> — 2 mins</span></li>
-              <li class="flex items-start gap-3"><span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-bold text-[11px]">2</span><span class="text-left leading-tight pt-0.5"><b>See options</b> you qualify for</span></li>
-              <li class="flex items-start gap-3"><span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-bold text-[11px]">3</span><span class="text-left leading-tight pt-0.5"><b>Doorstep delivery</b> anywhere in BC</span></li>
+            <ol class="space-y-4 mt-2">
+              <li class="flex items-start gap-3"><span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-bold text-xs shadow-sm">1</span><span class="text-slate-700 text-sm font-medium pt-0.5"><b>Enter info</b> — Takes 2 minutes</span></li>
+              <li class="flex items-start gap-3"><span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-bold text-xs shadow-sm">2</span><span class="text-slate-700 text-sm font-medium pt-0.5"><b>See options</b> you qualify for</span></li>
+              <li class="flex items-start gap-3"><span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-bold text-xs shadow-sm">3</span><span class="text-slate-700 text-sm font-medium pt-0.5"><b>Doorstep delivery</b> anywhere in BC</span></li>
             </ol>
           </div>
           <div>
-            <h2 class="h2 text-base mb-3">Why people pick us</h2>
-            <ul class="text-sm space-y-2.5">
-              <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">A</span><span class="text-left leading-tight pt-0.5"><b>All credit welcome</b> Current rates low as 0%</span></li>
-              <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">B</span><span class="text-left leading-tight pt-0.5"><b>Biggest Selection</b> New & Used across BC</span></li>
-              <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">C</span><span class="text-left leading-tight pt-0.5"><b>Confidential</b> No data sold to dealerships</span></li>
-              <li class="flex items-start gap-2.5"><span class="abc-badge" style="width:18px; height:18px; font-size:10px;">D</span><span class="text-left leading-tight pt-0.5"><b>Delivery</b> Right to your driveway</span></li>
+            <h2 class="text-lg font-extrabold text-slate-800 mb-4">Why people pick us</h2>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3"><span class="abc-badge shadow-sm">A</span><span class="text-sm text-slate-600 pt-0.5"><b>All credit welcome</b> — Current rates low as 0%</span></li>
+              <li class="flex items-start gap-3"><span class="abc-badge shadow-sm">B</span><span class="text-sm text-slate-600 pt-0.5"><b>Biggest Selection</b> — New & Used across BC</span></li>
+              <li class="flex items-start gap-3"><span class="abc-badge shadow-sm">C</span><span class="text-sm text-slate-600 pt-0.5"><b>Confidential</b> — No data sold to dealerships</span></li>
+              <li class="flex items-start gap-3"><span class="abc-badge shadow-sm">D</span><span class="text-sm text-slate-600 pt-0.5"><b>Delivery</b> — Right to your driveway</span></li>
             </ul>
           </div>
         </div>
       </section>
 
-      <section class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
-        <div class="card card-accent p-0 overflow-hidden relative" id="lead-form-card" style="height: 452px;"> 
+      <section class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+        <div class="card card-accent p-0 overflow-hidden relative shadow-lg" id="lead-form-card" style="height: 452px;"> 
           <div id="form-spacer" class="js-hidden h-[380px]"></div>
           <div class="form-shell" id="form-shell" style="height: 100%;">
             <div class="form-clipper">
@@ -392,27 +414,16 @@
                       <input type="hidden" name="form-name" value="lead-form"/><input type="hidden" name="app_type" id="app_type" value="Full Application" /><input type="hidden" name="appCode" id="appCode" value="" /><input type="hidden" name="intent" id="intent" value="finance" />
                       
                       <section class="form-step" data-id="step-intent"><div class="step-inner"><div class="step-title"><h3 class="h2">Select Goal</h3></div><div class="step-body"><div class="content grid grid-cols-2 gap-3"><button type="button" class="choice-rect" data-intent="finance">Finance</button><button type="button" class="choice-rect" data-intent="refinance">Refinance</button></div></div></div></section>
-                      
                       <section class="form-step js-hidden" data-id="step-refi-details"><div class="step-inner"><div class="step-title"><h3 class="h2">Current Loan</h3></div><div class="step-body"><div class="content space-y-3"><div class="grid grid-cols-3 gap-2"><div class="col-span-1"><label class="label">Year</label><select name="refiYear" id="refiYear" class="form-select" required></select></div><div class="col-span-2"><label class="label">Make</label><select name="refiMake" id="refiMake" class="form-select" required></select></div></div><div class="grid grid-cols-1 gap-2"><label class="label">Model</label><select name="refiModel" id="refiModel" class="form-select" required><option value="">Select</option></select></div><div class="grid grid-cols-2 gap-3"><div><label class="label">Years Left</label><select id="refiRemainYears" name="refiRemainYears" class="form-select" required></select></div><div><label class="label">Current Rate %</label><input type="text" id="refiCurrentRate" name="refiCurrentRate" class="form-input" placeholder="e.g., 9.49" inputmode="decimal" maxlength="6" required/></div></div></div></div></div></section>
-
                       <section class="form-step js-hidden" data-id="step-vehicle-type"><div class="step-inner"><div class="step-title"><h3 class="h2">Vehicle Type</h3></div><div class="step-body"><div class="content grid grid-cols-2 gap-3"><button type="button" class="choice-rect" data-type="Car">Car</button><button type="button" class="choice-rect" data-type="SUV">SUV</button><button type="button" class="choice-rect" data-type="Truck">Truck</button><button type="button" class="choice-rect" data-type="Van">Van</button><input type="hidden" name="vehicleType" id="vehicleType"></div></div></div></section>
-                      
                       <section class="form-step js-hidden" data-id="step-budget"><div class="step-inner"><div class="step-title"><h3 class="h2">Target Budget</h3></div><div class="step-body"><div class="content"><div class="bg-slate-50 p-4 rounded-lg border border-slate-200 mb-4 text-center"><p class="label mb-2">Estimated Bi-Weekly Payment</p><div class="text-3xl font-extrabold text-[var(--blue-600)]">$<span id="biWeeklyOut">250</span></div></div><input type="range" id="biWeeklyRange" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[var(--blue-600)] mb-2" min="100" max="600" step="10" value="250"><div class="flex justify-between text-[10px] text-slate-500 font-bold uppercase"><span>Economy</span><span>Premium</span></div><input type="hidden" name="budgetRange" id="budgetRange"></div></div></div></section>
-
                       <section class="form-step js-hidden" data-id="step-purchase"><div class="step-inner"><div class="step-title"><h3 class="h2">Purchase Details</h3></div><div class="step-body"><div class="content space-y-4"><div><label class="label">Down Payment</label><select id="downPayment" name="downPayment" class="form-select"><option value="">Select amount…</option><option value="$3,000+">$3,000+</option><option value="$1,000–$3,000">$1,000–$3,000</option><option value="$0–$1,000">$0–$1,000</option></select></div><div><label class="label">Do you have a trade-in?</label><div class="grid-inline-2"><button type="button" class="choice-rect" data-trade="No">No</button><button type="button" class="choice-rect" data-trade="Yes">Yes</button></div><input type="hidden" name="hasTradeIn" id="hasTradeIn" value="No"></div></div></div></div></section>
-
                       <section class="form-step js-hidden" data-id="step-tradein"><div class="step-inner"><div class="step-title"><h3 class="h2">Trade-in Vehicle</h3></div><div class="step-body"><div class="content space-y-3"><div class="grid grid-cols-3 gap-2"><div class="col-span-1"><label class="label">Year</label><select name="tradeInYear" id="tradeInYear" class="form-select"></select></div><div class="col-span-2"><label class="label">Make</label><select name="tradeInMake" id="tradeInMake" class="form-select"></select></div></div><div class="grid grid-cols-1 gap-2"><label class="label">Model</label><select name="tradeInModel" id="tradeInModel" class="form-select"><option value="">Select</option></select></div><div class="grid grid-cols-2 gap-3"><div><label class="label">Kilometres</label><input type="number" name="tradeInKms" id="tradeInKms" class="form-input" inputmode="numeric"/></div><div><label class="label">Lien Amount</label><input type="text" id="tradeInOwed" name="tradeInOwed" placeholder="e.g. $5,000" class="form-input"/></div></div></div></div></div></section>
-
                       <section class="form-step js-hidden" data-id="step-income"><div class="step-inner"><div class="step-title"><h3 class="h2">Income Details</h3></div><div class="step-body"><div class="content space-y-3"><div class="space-y-1"><label class="label">Employment Type</label><select id="incomeSourceFull" name="incomeSourceFull" class="form-select" required><option value="">Select…</option><option value="Full-Time">Full-Time</option><option value="Part-Time">Part-Time</option><option value="Self-Employed">Self-Employed</option><option value="Disability">Disability</option><option value="Other">Other</option></select></div><div class="space-y-1"><label class="label">Monthly Income (Gross)</label><input type="text" id="avgMonthlyIncome" name="avgMonthlyIncome" class="form-input text-center font-bold text-lg" placeholder="$4,000" required></div></div></div></div></section>
-
                       <section class="form-step js-hidden" data-id="step-yourinfo"><div class="step-inner"><div class="step-title"><h3 class="h2">Contact Info</h3></div><div class="step-body"><div class="content space-y-3"><div class="grid grid-cols-2 gap-3"><input type="text" name="firstName" class="form-input" placeholder="First Name" required><input type="text" name="lastName" class="form-input" placeholder="Last Name" required></div><div class="grid grid-cols-4 gap-2"><div class="col-span-1"><label class="label">Year</label><select id="dobYear" name="dobYear" class="form-select px-1 text-center" required></select></div><div class="col-span-1"><label class="label">Month</label><select id="dobMonth" name="dobMonth" class="form-select px-1 text-center" required><option value="">MM</option></select></div><div class="col-span-1"><label class="label">Day</label><select id="dobDay" name="dobDay" class="form-select px-1 text-center" required><option value="">DD</option></select></div><div class="col-span-1"><label class="label">Status</label><select id="maritalStatus" name="maritalStatus" class="form-select px-1 text-[11px]" required><option value="">Select</option><option>Single</option><option>Married</option><option>Common-Law</option><option>Divorced</option></select></div></div><div class="grid grid-cols-2 gap-3"><input type="tel" id="phone" name="phone" class="form-input" placeholder="(555) 555-5555" required><input type="email" id="email" name="email" class="form-input" placeholder="Email Address" required></div></div></div></div></section>
-
                       <section class="form-step js-hidden" data-id="step-address"><div class="step-inner"><div class="step-title"><h3 class="h2">Current Address</h3></div><div class="step-body"><div class="content space-y-3"><div class="grid grid-cols-3 gap-2"><div class="col-span-2"><input type="text" name="streetAddress" class="form-input" placeholder="Street Address" required></div><div class="col-span-1"><input type="text" name="unitNumber" class="form-input" placeholder="Unit #"></div></div><div class="grid grid-cols-3 gap-2"><div class="col-span-1"><input type="text" name="city" class="form-input" placeholder="City" required></div><div class="col-span-1"><select id="currentProvince" name="currentProvince" class="form-select" required></select></div><div class="col-span-1"><input type="text" name="postalCode" class="form-input" placeholder="Postal" required></div></div><div class="grid grid-cols-2 gap-2"><div class="seg" role="group"><button type="button" id="btnRent" class="seg-btn" aria-pressed="true">Rent</button><button type="button" id="btnOwn" class="seg-btn" aria-pressed="false">Own</button><input type="hidden" name="housingType" id="housingType" value="Rent"></div><input type="text" id="housingPayment" name="housingPayment" class="form-input" placeholder="Pmt ($)" required></div><div class="grid grid-cols-2 gap-2"><div><select id="timeAtAddressYears" name="timeAtAddressYears" class="form-select"><option value="">Years at Addr.</option></select></div><div><select id="timeAtAddressMonths" name="timeAtAddressMonths" class="form-select"><option value="">Months</option></select></div></div></div></div></div></section>
-
                       <section class="form-step js-hidden" data-id="step-employer"><div class="step-inner"><div class="step-title"><h3 class="h2">Work History</h3></div><div class="step-body"><div class="content space-y-3"><input type="text" name="employerName" class="form-input" placeholder="Employer Name" required><input type="text" name="jobTitle" class="form-input" placeholder="Job Title" required><div class="grid grid-cols-2 gap-3"><select id="timeWithEmployerYears" name="timeWithEmployerYears" class="form-select" required><option value="">Years</option></select><select id="timeWithEmployerMonths" name="timeWithEmployerMonths" class="form-select" required><option value="">Months</option></select></div><div class="grid-inline-2"><input id="otherIncomeSource" name="otherIncomeSource" class="form-input" placeholder="Other Income Source"/><input type="text" id="otherIncomeAmount" name="otherIncomeAmount" class="form-input" placeholder="Amount ($)"/></div><label class="flex items-start gap-3 mt-2 p-3 border border-slate-200 rounded-lg bg-slate-50 cursor-pointer hover:bg-white transition-colors"><input type="checkbox" name="creditConsent" id="creditConsent" class="mt-1 accent-[var(--blue-600)]" checked required><span class="text-[11px] text-slate-600 leading-snug text-left">I confirm I am the person named above and consent to Vancouver Island Credit obtaining credit reports. (VSA #41114)</span></label></div></div></div></section>
-
                       <section class="form-step js-hidden" data-id="step-consent"><div class="step-inner"><div class="step-title"><h3 class="h2">Final Step</h3></div><div class="step-body"><div class="content space-y-4 text-center"><div class="p-4 bg-slate-50 rounded border border-slate-200"><p class="text-xs text-slate-600 mb-2">Clicking "Submit Application" finalizes your secure request.</p><p class="text-[10px] text-slate-400">Your data is secured with 256-bit encryption and is never sold to third-party marketing lists.</p></div></div></div></div></section>
-
                     </form>
                 </div></div>
                 <div class="form-footer flex items-center justify-between" id="form-footer"><button type="button" id="btnBack" class="font-semibold text-slate-600 hover:text-slate-900 px-4 py-2 rounded-lg hover:bg-slate-100 transition-colors">Back</button><button type="button" id="btnNext" class="cta-button">Next</button></div>
@@ -422,66 +433,42 @@
         </div>
         
         <aside class="flex flex-col h-full">
-            <div class="card card-accent p-0 flex-1 overflow-hidden relative flex flex-col" style="height: 452px;">
+            <div class="card card-accent p-0 flex-1 overflow-hidden relative flex flex-col shadow-lg" style="height: 452px;">
               <div class="h-[50px] px-5 border-b border-slate-100 bg-white flex justify-between items-center flex-shrink-0">
                 <div><h4 class="text-sm font-bold text-slate-800">Refinance Calculator</h4></div>
                 <div class="abc-badge text-[10px] bg-[var(--blue-100)] text-[var(--blue-700)] px-2 w-auto">Estimate</div>
               </div>
 
-              <div class="flex-1 p-4 flex flex-col justify-between overflow-y-auto">
-                <div class="flex justify-between items-center border-b border-slate-100 pb-3 mb-2">
-                    <div class="flex flex-col items-center gap-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                        <span class="text-[9px] font-bold text-slate-500">2016+</span>
-                    </div>
+              <div class="flex-1 p-5 flex flex-col justify-between overflow-y-auto">
+                <div class="flex justify-between items-center border-b border-slate-100 pb-4 mb-2">
+                    <div class="flex flex-col items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg><span class="text-[9px] font-bold text-slate-500">2016+</span></div>
                     <div class="w-px h-6 bg-slate-100"></div>
-                    <div class="flex flex-col items-center gap-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        <span class="text-[9px] font-bold text-slate-500">1 Yr Own</span>
-                    </div>
+                    <div class="flex flex-col items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><span class="text-[9px] font-bold text-slate-500">1 Yr Own</span></div>
                     <div class="w-px h-6 bg-slate-100"></div>
-                    <div class="flex flex-col items-center gap-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
-                        <span class="text-[9px] font-bold text-slate-500">Credit Up</span>
-                    </div>
+                    <div class="flex flex-col items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg><span class="text-[9px] font-bold text-slate-500">Credit Up</span></div>
                     <div class="w-px h-6 bg-slate-100"></div>
-                    <div class="flex flex-col items-center gap-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        <span class="text-[9px] font-bold text-slate-500">Payment OK</span>
-                    </div>
+                    <div class="flex flex-col items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><span class="text-[9px] font-bold text-slate-500">Payment OK</span></div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-3">
+                <div class="grid grid-cols-2 gap-4">
                   <div class="space-y-1">
                     <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Loan Bal</label>
-                    <div class="relative">
-                      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-medium text-xs">$</span>
-                      <input type="text" id="refLoanInput" class="form-input pl-5 text-sm font-bold text-slate-700 h-[38px]!important" placeholder="15,000" inputmode="numeric" maxlength="14" />
-                    </div>
+                    <div class="relative"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-medium text-xs">$</span><input type="text" id="refLoanInput" class="form-input pl-5 text-sm font-bold text-slate-700 h-[38px]!important" placeholder="15,000" inputmode="numeric" maxlength="14" /></div>
                   </div>
                   <div class="space-y-1">
                     <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Current %</label>
-                    <div class="relative">
-                      <input type="text" id="refRateInput" class="form-input text-sm font-bold text-slate-700 h-[38px]!important" placeholder="8.99" inputmode="decimal" maxlength="5" />
-                      <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 font-medium text-xs">%</span>
-                    </div>
+                    <div class="relative"><input type="text" id="refRateInput" class="form-input text-sm font-bold text-slate-700 h-[38px]!important" placeholder="8.99" inputmode="decimal" maxlength="5" /><span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 font-medium text-xs">%</span></div>
                   </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-3 mt-1">
-                    <div class="bg-slate-50 p-2 rounded border border-slate-200">
-                        <div class="flex justify-between mb-1">
-                            <span class="text-[10px] font-bold text-slate-500">Term</span>
-                            <span class="text-[10px] font-bold text-slate-800"><span id="termDisplay">5</span> Yrs</span>
-                        </div>
-                        <input id="refTermInput" type="range" min="1" max="8" step="1" value="5" class="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[var(--blue-600)]">
+                <div class="grid grid-cols-2 gap-4 mt-2">
+                    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+                        <div class="flex justify-between mb-2"><span class="text-[10px] font-bold text-slate-500">Term</span><span class="text-[10px] font-bold text-slate-800"><span id="termDisplay">5</span> Yrs</span></div>
+                        <input id="refTermInput" type="range" min="1" max="8" step="1" value="5">
                     </div>
-                    <div class="bg-slate-50 p-2 rounded border border-slate-200">
-                        <div class="flex justify-between mb-1">
-                            <span class="text-[10px] font-bold text-slate-500">New Rate</span>
-                            <span class="text-[10px] font-bold text-[var(--blue-600)]"><span id="refNewRateOut">7.99</span>%</span>
-                        </div>
-                        <input id="refNewRateSlider" type="range" min="0.00" max="12.99" step="0.05" value="7.99" class="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[var(--blue-600)]">
+                    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+                        <div class="flex justify-between mb-2"><span class="text-[10px] font-bold text-slate-500">New Rate</span><span class="text-[10px] font-bold text-[var(--blue-600)]"><span id="refNewRateOut">7.99</span>%</span></div>
+                        <input id="refNewRateSlider" type="range" min="0.00" max="12.99" step="0.05" value="7.99">
                     </div>
                 </div>
 
@@ -503,7 +490,7 @@
     </main>
 
     <section id="finance-guide" class="wide-section-container mt-12 mb-12">
-        <div class="section-header-box">
+        <div class="text-center mb-8">
             <h2 class="h1 text-3xl text-slate-800 mb-2">Finance Guide</h2>
             <p class="text-base text-slate-500 font-medium">Find your path below to see how we structure your approval.</p>
         </div>
@@ -656,37 +643,55 @@
 
     <main class="w-full max-w-5xl mx-auto px-4 py-4 space-y-4">
       <section id="personalized-search" class="mt-8 mb-8">
-        <div class="flex flex-col md:flex-row gap-8 items-start">
+        <div class="flex flex-col md:flex-row gap-10 items-start">
             <div class="flex-1">
-                <h2 class="h1 text-3xl text-slate-800 mb-4">Personalized Search</h2>
+                <h2 class="h1 text-3xl text-slate-800 mb-4 tracking-tight">Personalized Search</h2>
                 <p class="text-base text-slate-600 leading-relaxed mb-6">Buying a car isn’t about picking a color. It's about avoiding the lemons. With years of mechanical knowledge in the BC market, I don't just sell you a car—I help you hunt for the <i>right</i> one.</p>
-                <div class="bg-white rounded-lg p-5 border border-slate-200 shadow-sm mb-8">
-                    <div class="mb-2">
-                        <img src="Leadgen/5star.png" alt="5 Star Reviews" style="height: 24px; width: auto;">
+                
+                <div class="bg-white/80 backdrop-blur-sm rounded-xl p-5 border border-slate-200 shadow-lg mb-8 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-yellow-400 w-16 h-16 opacity-10 rounded-bl-full"></div>
+                    <div class="mb-2 flex text-yellow-400 gap-1">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                     </div>
                     <p class="text-sm font-bold text-slate-800">Over 5,000 5-Star Google Reviews</p>
-                    <p class="text-[11px] text-slate-500 mt-1">Trusted by families across Vancouver Island.</p>
+                    <p class="text-[11px] text-slate-500 mt-1 font-medium">Trusted by families across Vancouver Island.</p>
                 </div>
-                <div class="timeline-wrapper"><div class="timeline-container"><div class="timeline-line"></div><div class="timeline-stage stage-purple"><div class="stage-icon">🎓</div><div class="stage-bar"></div><div class="stage-text">Age of<br>Eligibility &<br>New Credit</div></div><div class="timeline-stage stage-black"><div class="stage-icon">🍁</div><div class="stage-bar"></div><div class="stage-text">New to<br>Canada</div></div><div class="timeline-stage stage-yellow"><div class="stage-icon">🏠</div><div class="stage-bar"></div><div class="stage-text">Young<br>Adult</div></div><div class="timeline-stage stage-blue"><div class="stage-icon">💳</div><div class="stage-bar"></div><div class="stage-text">Rebuilding<br>Credit<br>(Any Age)</div></div><div class="timeline-stage stage-orange"><div class="stage-icon">👨‍👩‍👧‍👦</div><div class="stage-bar"></div><div class="stage-text">Mid-Life &<br>Major Purchases</div></div><div class="timeline-stage stage-red"><div class="stage-icon">🏖️</div><div class="stage-bar"></div><div class="stage-text">Retired</div></div></div></div>
-                <button type="button" class="cta-button w-full md:w-auto justify-center mt-6" onclick="document.getElementById('lead-form-card').scrollIntoView({behavior: 'smooth'});">Start A Custom Search</button>
+                <div class="timeline-wrapper bg-white rounded-xl shadow-sm border border-slate-100 p-6"><div class="timeline-container"><div class="timeline-line"></div><div class="timeline-stage stage-purple"><div class="stage-icon">🎓</div><div class="stage-bar"></div><div class="stage-text">Age of<br>Eligibility &<br>New Credit</div></div><div class="timeline-stage stage-black"><div class="stage-icon">🍁</div><div class="stage-bar"></div><div class="stage-text">New to<br>Canada</div></div><div class="timeline-stage stage-yellow"><div class="stage-icon">🏠</div><div class="stage-bar"></div><div class="stage-text">Young<br>Adult</div></div><div class="timeline-stage stage-blue"><div class="stage-icon">💳</div><div class="stage-bar"></div><div class="stage-text">Rebuilding<br>Credit<br>(Any Age)</div></div><div class="timeline-stage stage-orange"><div class="stage-icon">👨‍👩‍👧‍👦</div><div class="stage-bar"></div><div class="stage-text">Mid-Life &<br>Major Purchases</div></div><div class="timeline-stage stage-red"><div class="stage-icon">🏖️</div><div class="stage-bar"></div><div class="stage-text">Retired</div></div></div></div>
+                <button type="button" class="cta-button w-full md:w-auto justify-center mt-6 shadow-lg shadow-blue-900/20" onclick="document.getElementById('lead-form-card').scrollIntoView({behavior: 'smooth'});">Start A Custom Search</button>
             </div>
             <div class="flex-1 w-full">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm hover:border-blue-300 transition-colors">
-                        <div class="flex items-center gap-2 mb-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg><h4 class="text-sm font-bold text-slate-800">Service History</h4></div>
-                        <p class="text-xs text-slate-600 leading-relaxed">The #1 factor. We verify oil change intervals and shop reports to ensure long-term life.</p>
+                    <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="h-8 w-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg></div>
+                            <h4 class="text-sm font-bold text-slate-800">Service History</h4>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed font-medium">The #1 factor. We verify oil change intervals and shop reports to ensure long-term life.</p>
                     </div>
-                    <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm hover:border-blue-300 transition-colors">
-                        <div class="flex items-center gap-2 mb-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><h4 class="text-sm font-bold text-slate-800">Lien Checks</h4></div>
-                        <p class="text-xs text-slate-600 leading-relaxed">Crucial in BC. We guarantee clean titles with zero hidden debts or legal headaches.</p>
+                    <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="h-8 w-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                            <h4 class="text-sm font-bold text-slate-800">Lien Checks</h4>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed font-medium">Crucial in BC. We guarantee clean titles with zero hidden debts or legal headaches.</p>
                     </div>
-                    <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm hover:border-blue-300 transition-colors">
-                        <div class="flex items-center gap-2 mb-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg><h4 class="text-sm font-bold text-slate-800">Rust & Body</h4></div>
-                        <p class="text-xs text-slate-600 leading-relaxed">We check for Eastern cars (salt damage) and "Headliner" status—a true sign of neglect.</p>
+                    <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="h-8 w-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg></div>
+                            <h4 class="text-sm font-bold text-slate-800">Rust & Body</h4>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed font-medium">We check for Eastern cars (salt damage) and "Headliner" status—a true sign of neglect.</p>
                     </div>
-                    <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm hover:border-blue-300 transition-colors">
-                        <div class="flex items-center gap-2 mb-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg><h4 class="text-sm font-bold text-slate-800">Model Specifics</h4></div>
-                        <p class="text-xs text-slate-600 leading-relaxed">We know the "Bad Years." Avoiding specific transmissions and engines saves you thousands.</p>
+                    <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="h-8 w-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg></div>
+                            <h4 class="text-sm font-bold text-slate-800">Model Specifics</h4>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed font-medium">We know the "Bad Years." Avoiding specific transmissions and engines saves you thousands.</p>
                     </div>
                 </div>
             </div>
