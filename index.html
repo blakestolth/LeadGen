@@ -151,68 +151,92 @@
     .progress-note{margin-top:12px;font-size:12px;color:var(--slate-500)}
     .js-hidden { display:none !important; }
 
-    /* --- CORPORATE TREE STYLES --- */
+    /* --- CORPORATE TREE STYLES (COMPRESSED) --- */
     .wide-section-container {
-        width: 100%; max-width: 100%; overflow-x: auto; padding: 20px 0;
+        width: 100%; max-width: 100%; overflow-x: auto; padding: 10px 0;
         -ms-overflow-style: none; scrollbar-width: none;
     }
     .wide-section-container::-webkit-scrollbar { display: none; }
 
-    .tree-wrapper { display: flex; flex-direction: column; align-items: center; min-width: 1100px; margin: 0 auto; }
-    .tree-row { display: flex; justify-content: center; width: 100%; position: relative; gap: 30px; }
-    .tree-col { display: flex; flex-direction: column; align-items: center; position: relative; padding: 24px 10px 0; flex: 1; }
+    .tree-wrapper { display: flex; flex-direction: column; align-items: center; min-width: 900px; margin: 0 auto; }
+    .tree-row { display: flex; justify-content: center; width: 100%; position: relative; gap: 12px; }
+    .tree-col { display: flex; flex-direction: column; align-items: center; position: relative; padding: 20px 4px 0; flex: 1; }
 
     /* Corporate Connectors */
-    .tree-col::before { content: ''; position: absolute; top: 0; left: 50%; border-left: 2px solid #cbd5e1; width: 0; height: 24px; }
-    .tree-col::after { content: ''; position: absolute; top: 0; border-top: 2px solid #cbd5e1; height: 24px; width: 50%; }
+    .tree-col::before { content: ''; position: absolute; top: 0; left: 50%; border-left: 2px solid #cbd5e1; width: 0; height: 20px; }
+    .tree-col::after { content: ''; position: absolute; top: 0; border-top: 2px solid #cbd5e1; height: 20px; width: 50%; }
     .tree-col:first-child::after { left: 50%; border-left: 0; }
     .tree-col:last-child::after { right: 50%; border-right: 0; }
     .tree-col.only-child::after, .tree-col.only-child::before { display: none; }
     .tree-col.only-child { padding-top: 0; }
-    .connector-down { width: 2px; height: 24px; background: #cbd5e1; margin: 0 auto; }
+    .connector-down { width: 2px; height: 20px; background: #cbd5e1; margin: 0 auto; }
 
-    /* Nodes */
+    /* Nodes (Compact) */
     .node-box {
-        background: #fff; color: var(--slate-800); border: 1px solid var(--slate-300); border-radius: 6px;
-        padding: 10px 16px; text-align: center; position: relative; z-index: 10;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05); min-width: 140px; font-size: 13px; font-weight: 700; 
+        background: #fff; color: var(--slate-800); border: 1px solid #cbd5e1; border-radius: 6px;
+        padding: 8px 12px; text-align: center; position: relative; z-index: 10;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05); min-width: 110px; font-size: 12px; font-weight: 700; 
     }
     .node-box.root { background: var(--slate-800); color: #fff; border-color: var(--slate-800); font-weight: 800; }
     
     .node-step {
-        background: #f8fafc; color: var(--slate-600); border: 1px solid var(--slate-300);
-        font-weight: 600; font-size: 11px; padding: 6px 12px; border-radius: 6px;
+        background: #f8fafc; color: var(--slate-600); border: 1px solid #e2e8f0;
+        font-weight: 700; font-size: 10px; padding: 5px 10px; border-radius: 6px;
         z-index: 10; white-space: nowrap; text-align: center; text-transform: uppercase; letter-spacing: 0.5px;
     }
 
-    /* Result Card */
+    /* Result Card (Compressed) */
     .node-card {
-        background: #fff; border: 1px solid #e2e8f0; border-top: 4px solid var(--blue-600); 
-        border-radius: 6px; text-align: left; width: 220px; padding: 16px; 
-        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); z-index: 10; position: relative;
+        background: #fff; border: 1px solid #e2e8f0; border-top: 3px solid var(--blue-600); 
+        border-radius: 6px; text-align: left; width: 180px; padding: 10px; 
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); z-index: 10; position: relative;
         display: flex; flex-direction: column;
     }
-    .node-card:hover { transform: translateY(-2px); transition: transform 0.2s; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+    .node-card:hover { transform: translateY(-2px); transition: transform 0.2s; box-shadow: 0 12px 16px -4px rgba(0,0,0,0.1); }
     
-    .node-card h5 { font-weight: 800; font-size: 14px; color: var(--slate-800); line-height: 1.2; margin-bottom: 2px; }
-    .node-card .sub { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--slate-400); letter-spacing: 0.05em; display:block; margin-bottom:8px; }
+    .node-card h5 { font-weight: 800; font-size: 12px; color: var(--slate-800); line-height: 1.2; margin-bottom: 2px; }
+    .node-card .sub { font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--slate-400); letter-spacing: 0.05em; display:block; margin-bottom:6px; }
     
-    .t-list { list-style: none; padding: 0; margin: 0 0 12px 0; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px; }
-    .t-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--slate-600); margin-bottom: 4px; line-height: 1.3; font-weight: 600; }
-    .t-icon { width: 14px; height: 14px; flex-shrink: 0; }
+    .t-list { list-style: none; padding: 0; margin: 0 0 8px 0; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px; }
+    .t-item { display: flex; align-items: start; gap: 5px; font-size: 10px; color: var(--slate-600); margin-bottom: 3px; line-height: 1.3; font-weight: 600; }
+    .t-icon { width: 12px; height: 12px; flex-shrink: 0; position: relative; top: 1px; }
     .t-icon.check { color: var(--theme-green); }
     .t-icon.warn { color: #eab308; }
 
-    /* The new Summary Box style, now integrated */
-    .summary-box { background: #f8fafc; padding: 10px; border-radius: 6px; border: 1px solid #e2e8f0; }
-    .summary-text { font-size: 11px; line-height: 1.4; color: var(--slate-600); font-weight: 500; }
-    .summary-link { font-size: 10px; font-weight: 800; color: var(--blue-600); text-decoration: none; text-transform: uppercase; margin-top: 6px; display: block; }
+    /* Summary Box (Compact) */
+    .summary-box { background: #f8fafc; padding: 8px; border-radius: 4px; border: 1px solid #e2e8f0; }
+    .summary-text { font-size: 10px; line-height: 1.4; color: var(--slate-600); font-weight: 500; }
+    .summary-link { font-size: 9px; font-weight: 800; color: var(--blue-600); text-decoration: none; text-transform: uppercase; margin-top: 4px; display: block; }
     .summary-link:hover { text-decoration: underline; }
 
     .node-connector-text { 
-        font-size: 10px; font-weight: 700; color: var(--slate-500); background: #fff; 
-        padding: 2px 8px; border: 1px solid #cbd5e1; border-radius: 99px; 
-        z-index: 15; position: relative; margin: 8px 0; 
+        font-size: 9px; font-weight: 700; color: var(--slate-500); background: #fff; 
+        padding: 2px 6px; border: 1px solid #cbd5e1; border-radius: 99px; 
+        z-index: 15; position: relative; margin: 6px 0; 
+    }
+
+    /* --- NEW PROFESSIONAL TIMELINE --- */
+    .milestone-track { 
+        display: flex; justify-content: space-between; align-items: flex-start; 
+        position: relative; width: 100%; padding-top: 10px;
+    }
+    .milestone-line {
+        position: absolute; top: 22px; left: 20px; right: 20px; height: 2px;
+        background: #e2e8f0; z-index: 0;
+    }
+    .milestone {
+        display: flex; flex-direction: column; align-items: center; text-align: center;
+        position: relative; z-index: 1; width: 16%;
+    }
+    .milestone-circle {
+        width: 26px; height: 26px; background: #fff; border: 2px solid #94a3b8;
+        border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        color: #64748b; margin-bottom: 8px; transition: all 0.3s ease;
+    }
+    .milestone:hover .milestone-circle { border-color: var(--blue-600); color: var(--blue-600); transform: scale(1.1); }
+    .milestone-icon { width: 14px; height: 14px; }
+    .milestone-label {
+        font-size: 10px; font-weight: 700; color: var(--slate-600); line-height: 1.2; text-transform: uppercase; letter-spacing: 0.02em;
     }
 
     /* Mobile Stack */
@@ -224,21 +248,6 @@
         .mobile-tree { display: flex; flex-direction: column; gap: 20px;}
     }
     @media (min-width: 1025px) { .mobile-tree { display: none; } }
-
-    /* Life Stages Timeline */
-    .timeline-wrapper { width: 100%; padding: 40px 0; overflow-x: auto; }
-    .timeline-container { display: flex; justify-content: space-between; align-items: flex-start; position: relative; margin: 0 auto; min-width: 600px; padding-top: 20px; }
-    .timeline-line { position: absolute; top: 65px; left: 20px; right: 20px; height: 4px; background-color: #000; z-index: 1; }
-    .timeline-stage { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 2; flex: 1; }
-    .stage-icon { font-size: 28px; margin-bottom: 12px; height: 35px; display: flex; align-items: flex-end; justify-content: center; }
-    .stage-bar { width: 8px; height: 40px; margin-bottom: 10px; background-color: #ccc; }
-    .stage-text { font-family: 'Work Sans', sans-serif; font-size: 12px; font-weight: 700; color: #222; line-height: 1.2; }
-    .stage-purple .stage-bar { background-color: #bfa2db; }
-    .stage-black .stage-bar { background-color: transparent; border-left: 6px dotted #000; width: 0; }
-    .stage-yellow .stage-bar { background-color: #fce157; }
-    .stage-blue .stage-bar { background-color: transparent; border-left: 6px dotted #5ca1e6; width: 0; }
-    .stage-orange .stage-bar { background-color: #f79c42; }
-    .stage-red .stage-bar { background-color: #ff4d4d; }
 
   </style>
 </head>
@@ -609,7 +618,7 @@
         <div class="flex flex-col md:flex-row gap-10 items-start">
             <div class="flex-1">
                 <h2 class="h1 text-3xl text-slate-800 mb-4 tracking-tight">Personalized Search</h2>
-                <p class="text-base text-slate-600 leading-relaxed mb-6">Buying a car isn’t about picking a color. It's about avoiding the lemons. With years of mechanical knowledge in the BC market, I don't just sell you a car—I help you hunt for the <i>right</i> one.</p>
+                <p class="text-base text-slate-600 leading-relaxed mb-6">Buying a vehicle is typically the second biggest purchase people make. It's crucial you make the right decision. We work with you to see where you are at in life, what you qualify for, and help you find the right vehicle for the situation.</p>
                 
                 <div class="bg-white/80 backdrop-blur-sm rounded-xl p-5 border border-slate-200 shadow-lg mb-8 relative overflow-hidden">
                     <div class="absolute top-0 right-0 bg-yellow-400 w-16 h-16 opacity-10 rounded-bl-full"></div>
@@ -623,7 +632,37 @@
                     <p class="text-sm font-bold text-slate-800">Over 5,000 5-Star Google Reviews</p>
                     <p class="text-[11px] text-slate-500 mt-1 font-medium">Trusted by families across Vancouver Island.</p>
                 </div>
-                <div class="timeline-wrapper bg-white rounded-xl shadow-sm border border-slate-100 p-6"><div class="timeline-container"><div class="timeline-line"></div><div class="timeline-stage stage-purple"><div class="stage-icon">🎓</div><div class="stage-bar"></div><div class="stage-text">Age of<br>Eligibility &<br>New Credit</div></div><div class="timeline-stage stage-black"><div class="stage-icon">🍁</div><div class="stage-bar"></div><div class="stage-text">New to<br>Canada</div></div><div class="timeline-stage stage-yellow"><div class="stage-icon">🏠</div><div class="stage-bar"></div><div class="stage-text">Young<br>Adult</div></div><div class="timeline-stage stage-blue"><div class="stage-icon">💳</div><div class="stage-bar"></div><div class="stage-text">Rebuilding<br>Credit<br>(Any Age)</div></div><div class="timeline-stage stage-orange"><div class="stage-icon">👨‍👩‍👧‍👦</div><div class="stage-bar"></div><div class="stage-text">Mid-Life &<br>Major Purchases</div></div><div class="timeline-stage stage-red"><div class="stage-icon">🏖️</div><div class="stage-bar"></div><div class="stage-text">Retired</div></div></div></div>
+                
+                <div class="timeline-wrapper bg-white rounded-xl shadow-sm border border-slate-100 p-6">
+                    <div class="milestone-track">
+                        <div class="milestone-line"></div>
+                        <div class="milestone">
+                            <div class="milestone-circle"><svg class="milestone-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg></div>
+                            <span class="milestone-label">Eligibility</span>
+                        </div>
+                        <div class="milestone">
+                            <div class="milestone-circle"><svg class="milestone-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                            <span class="milestone-label">Newcomer</span>
+                        </div>
+                        <div class="milestone">
+                            <div class="milestone-circle"><svg class="milestone-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg></div>
+                            <span class="milestone-label">Growth</span>
+                        </div>
+                        <div class="milestone">
+                            <div class="milestone-circle"><svg class="milestone-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg></div>
+                            <span class="milestone-label">Rebuild</span>
+                        </div>
+                        <div class="milestone">
+                            <div class="milestone-circle"><svg class="milestone-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg></div>
+                            <span class="milestone-label">Family</span>
+                        </div>
+                        <div class="milestone">
+                            <div class="milestone-circle"><svg class="milestone-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg></div>
+                            <span class="milestone-label">Retire</span>
+                        </div>
+                    </div>
+                </div>
+                
                 <button type="button" class="cta-button w-full md:w-auto justify-center mt-6 shadow-lg shadow-blue-900/20" onclick="document.getElementById('lead-form-card').scrollIntoView({behavior: 'smooth'});">Start A Custom Search</button>
             </div>
             <div class="flex-1 w-full">
