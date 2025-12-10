@@ -26,7 +26,7 @@
       --blue-700:#214B80; 
       --blue-100:#EAF1FB; 
       --red-equifax: #A8202A; 
-      --theme-green: #15803d;
+      --theme-green: #15803d; /* Dark, Financial Green */
       --slate-50: #f8fafc;
       --slate-100: #f1f5f9;
       --slate-200: #e2e8f0;
@@ -94,22 +94,21 @@
     input[type=range]::-moz-range-thumb { height: 18px; width: 18px; border: 4px solid var(--blue-600); border-radius: 50%; background: #fff; cursor: pointer; }
     input[type=range]::-moz-range-track { width: 100%; height: 4px; cursor: pointer; background: #e2e8f0; border-radius: 99px; }
 
-    /* --- WHITE POWER CALCULATOR (Fixed) --- */
+    /* --- CALCULATOR --- */
     .calc-box { 
-        background: #fff; /* White Background */
+        background: #fff; 
         color: var(--slate-800); 
         border-radius: 12px; 
-        box-shadow: 0 10px 25px -5px rgba(30, 41, 59, 0.05); /* Soft Shadow */
+        box-shadow: 0 10px 25px -5px rgba(30, 41, 59, 0.05);
         height: 452px; 
         display: flex; 
         flex-direction: column;
         overflow: hidden;
-        border: 1px solid var(--slate-300); /* Matches Card Accent */
+        border: 1px solid var(--slate-300);
     }
     .calc-header { padding: 18px 24px; border-bottom: 1px solid var(--slate-200); background: var(--slate-50); }
     .calc-body { padding: 24px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
     
-    /* Light Inputs (Standardized) */
     .input-calc { 
         background: var(--slate-50) !important; 
         border: 1px solid var(--slate-300) !important; 
@@ -401,7 +400,7 @@
                     <div class="flex justify-between items-end mb-1">
                         <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Estimated Savings</span>
                         <div class="text-right">
-                             <div class="text-2xl font-black text-emerald-500 tracking-tight leading-none" id="refTotalSave">$0.00</div>
+                             <div class="text-2xl font-black text-[#15803d] tracking-tight leading-none" id="refTotalSave">$0.00</div>
                              <p class="text-[9px] text-slate-400 font-bold uppercase mt-1">Total Interest Saved</p>
                         </div>
                     </div>
@@ -619,8 +618,10 @@
                 <h2 class="h1 text-3xl text-slate-800 mb-4 tracking-tight">Personalized Search</h2>
                 <p class="text-base text-slate-600 leading-relaxed mb-6">Buying a vehicle is typically the second biggest purchase people make. It's crucial you make the right decision. We work with you to see where you are at in life, what you qualify for, and help you find the right vehicle for the situation.</p>
                 
-                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-lg mb-8 relative overflow-hidden flex items-center justify-between">
-                    <div class="absolute inset-y-0 left-0 w-1 bg-[var(--theme-green)]"></div>
+                <div class="flex items-center gap-6 mb-8">
+                    <div class="h-12 w-12 bg-white rounded-full flex items-center justify-center text-[var(--blue-600)] shadow-sm border border-slate-200 flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </div>
                     <div>
                         <div class="flex text-yellow-400 gap-1 mb-1">
                             <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
@@ -629,11 +630,8 @@
                             <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                             <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         </div>
-                        <p class="text-sm font-bold text-slate-800">5,000+ Verified Reviews</p>
-                        <p class="text-[11px] text-slate-500 font-medium">Top Rated in BC</p>
-                    </div>
-                    <div class="h-10 w-10 bg-[var(--blue-100)] rounded-full flex items-center justify-center text-[var(--blue-600)]">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <p class="text-sm font-extrabold text-slate-800">5,000+ Verified Reviews</p>
+                        <p class="text-[11px] text-slate-500 font-medium">Top Rated in BC on Google</p>
                     </div>
                 </div>
                 
@@ -680,7 +678,6 @@
                 <h3 class="h2 mb-4 text-slate-800">Used Vehicle Tips</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300 relative group overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-5"><svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div>
                         <div class="flex items-center gap-3 mb-2 relative z-10">
                             <div class="h-10 w-10 rounded-lg bg-blue-50 text-[var(--blue-600)] flex items-center justify-center shadow-sm">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
@@ -691,7 +688,6 @@
                     </div>
 
                     <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300 relative group overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-5"><svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></div>
                         <div class="flex items-center gap-3 mb-2 relative z-10">
                             <div class="h-10 w-10 rounded-lg bg-blue-50 text-[var(--blue-600)] flex items-center justify-center shadow-sm">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
@@ -702,7 +698,6 @@
                     </div>
 
                     <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300 relative group overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-5"><svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20" fill="currentColor" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg></div>
                         <div class="flex items-center gap-3 mb-2 relative z-10">
                             <div class="h-10 w-10 rounded-lg bg-blue-50 text-[var(--blue-600)] flex items-center justify-center shadow-sm">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
@@ -713,7 +708,6 @@
                     </div>
 
                     <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300 relative group overflow-hidden">
-                        <div class="absolute top-0 right-0 p-3 opacity-5"><svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div>
                         <div class="flex items-center gap-3 mb-2 relative z-10">
                             <div class="h-10 w-10 rounded-lg bg-blue-50 text-[var(--blue-600)] flex items-center justify-center shadow-sm">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
