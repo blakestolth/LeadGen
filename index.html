@@ -26,7 +26,7 @@
       --blue-700:#214B80; 
       --blue-100:#EAF1FB; 
       --red-equifax: #A8202A; 
-      --theme-green: #10b981; 
+      --theme-green: #15803d;
       --slate-50: #f8fafc;
       --slate-100: #f1f5f9;
       --slate-200: #e2e8f0;
@@ -36,7 +36,6 @@
       --slate-600: #475569;
       --slate-700: #334155;
       --slate-800: #1e293b;
-      --gunmetal: #334155; /* The professional Grey */
 
       /* Typography & Spacing */
       --fs-h1: 26px; --fs-h2: 18px; --fs-body: 13px; --fs-label: 11px; 
@@ -95,42 +94,35 @@
     input[type=range]::-moz-range-thumb { height: 18px; width: 18px; border: 4px solid var(--blue-600); border-radius: 50%; background: #fff; cursor: pointer; }
     input[type=range]::-moz-range-track { width: 100%; height: 4px; cursor: pointer; background: #e2e8f0; border-radius: 99px; }
 
-    /* --- GUNMETAL POWER CALCULATOR --- */
+    /* --- WHITE POWER CALCULATOR (Fixed) --- */
     .calc-box { 
-        background: var(--gunmetal); 
-        color: white; 
+        background: #fff; /* White Background */
+        color: var(--slate-800); 
         border-radius: 12px; 
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.15); 
-        height: 452px; /* Matches Form Height Exactly */
+        box-shadow: 0 10px 25px -5px rgba(30, 41, 59, 0.05); /* Soft Shadow */
+        height: 452px; 
         display: flex; 
         flex-direction: column;
         overflow: hidden;
-        border: 1px solid #475569;
+        border: 1px solid var(--slate-300); /* Matches Card Accent */
     }
-    .calc-header { padding: 18px 24px; border-bottom: 1px solid #475569; background: rgba(0,0,0,0.1); }
+    .calc-header { padding: 18px 24px; border-bottom: 1px solid var(--slate-200); background: var(--slate-50); }
     .calc-body { padding: 24px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
     
-    /* Dark Inputs */
-    .input-dark { 
-        background: #1e293b !important; 
-        border: 1px solid #475569 !important; 
-        color: #fff !important; 
+    /* Light Inputs (Standardized) */
+    .input-calc { 
+        background: var(--slate-50) !important; 
+        border: 1px solid var(--slate-300) !important; 
+        color: var(--slate-800) !important; 
         font-weight: 700;
         transition: all 0.2s;
     }
-    .input-dark:focus { 
-        background: #0f172a !important; 
+    .input-calc:focus { 
+        background: #fff !important; 
         border-color: var(--blue-600) !important; 
-        box-shadow: 0 0 0 3px rgba(42,93,159,0.3); 
+        box-shadow: 0 0 0 3px rgba(42,93,159,0.15); 
     }
-    .input-dark::placeholder { color: #64748b; font-weight: 500; }
     
-    /* Dark Sliders */
-    .range-dark { height: 6px; border-radius: 99px; }
-    .range-dark::-webkit-slider-runnable-track { background: #475569; height: 6px; }
-    .range-dark::-moz-range-track { background: #475569; height: 6px; }
-    .range-dark::-webkit-slider-thumb { border: 2px solid #334155; background: #fff; width: 20px; height: 20px; margin-top: -7px; }
-
     /* Layout Engine */
     #lead-form-card { min-height: 382px; position: relative; }
     .form-shell { position: relative; overflow: hidden; height: 380px; background: #fff; transition: height 0.3s ease; z-index: 1; }
@@ -361,10 +353,10 @@
             <div class="calc-box">
               <div class="calc-header flex justify-between items-center">
                 <div>
-                    <h4 class="text-base font-extrabold text-white tracking-tight">Refinance Calculator</h4>
+                    <h4 class="text-base font-extrabold text-slate-800 tracking-tight">Refinance Calculator</h4>
                     <p class="text-[11px] text-slate-400 font-medium">Estimate your potential savings</p>
                 </div>
-                <div class="h-8 w-8 rounded-full bg-slate-700 flex items-center justify-center text-[var(--blue-600)] shadow-inner">
+                <div class="h-8 w-8 rounded-full bg-slate-200 flex items-center justify-center text-[var(--blue-600)] shadow-inner">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
                 </div>
               </div>
@@ -375,13 +367,13 @@
                     <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Loan Balance</label>
                     <div class="relative">
                         <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">$</span>
-                        <input type="text" id="refLoanInput" class="form-input input-dark pl-6 text-sm h-[42px]!important" placeholder="15,000" inputmode="numeric" maxlength="14" />
+                        <input type="text" id="refLoanInput" class="form-input input-calc pl-6 text-sm h-[42px]!important" placeholder="15,000" inputmode="numeric" maxlength="14" />
                     </div>
                   </div>
                   <div class="space-y-1">
                     <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Current Rate</label>
                     <div class="relative">
-                        <input type="text" id="refRateInput" class="form-input input-dark text-sm h-[42px]!important" placeholder="8.99" inputmode="decimal" maxlength="5" />
+                        <input type="text" id="refRateInput" class="form-input input-calc text-sm h-[42px]!important" placeholder="8.99" inputmode="decimal" maxlength="5" />
                         <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">%</span>
                     </div>
                   </div>
@@ -390,35 +382,35 @@
                 <div class="space-y-6 mt-2">
                     <div>
                         <div class="flex justify-between mb-2">
-                            <span class="text-[11px] font-bold text-slate-300">Term Length</span>
-                            <span class="text-[11px] font-bold text-white bg-slate-700 px-2 py-0.5 rounded"><span id="termDisplay">5</span> Years</span>
+                            <span class="text-[11px] font-bold text-slate-500">Term Length</span>
+                            <span class="text-[11px] font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded border border-slate-200"><span id="termDisplay">5</span> Years</span>
                         </div>
-                        <input id="refTermInput" type="range" class="range-dark" min="1" max="8" step="1" value="5">
-                        <div class="flex justify-between mt-1 text-[9px] text-slate-500 font-bold uppercase"><span>1 Yr</span><span>8 Yrs</span></div>
+                        <input id="refTermInput" type="range" min="1" max="8" step="1" value="5">
+                        <div class="flex justify-between mt-1 text-[9px] text-slate-400 font-bold uppercase"><span>1 Yr</span><span>8 Yrs</span></div>
                     </div>
                     <div>
                         <div class="flex justify-between mb-2">
-                            <span class="text-[11px] font-bold text-slate-300">Target New Rate</span>
-                            <span class="text-[11px] font-bold text-[var(--blue-600)] bg-blue-900/30 px-2 py-0.5 rounded border border-blue-900"><span id="refNewRateOut">7.99</span>%</span>
+                            <span class="text-[11px] font-bold text-slate-500">Target New Rate</span>
+                            <span class="text-[11px] font-bold text-[var(--blue-600)] bg-blue-50 px-2 py-0.5 rounded border border-blue-100"><span id="refNewRateOut">7.99</span>%</span>
                         </div>
-                        <input id="refNewRateSlider" type="range" class="range-dark" min="0.00" max="12.99" step="0.05" value="7.99">
+                        <input id="refNewRateSlider" type="range" min="0.00" max="12.99" step="0.05" value="7.99">
                     </div>
                 </div>
 
-                <div class="bg-slate-900/50 rounded-lg p-4 border border-slate-700/50 mt-2">
+                <div class="bg-slate-50 rounded-lg p-4 border border-slate-200 mt-2">
                     <div class="flex justify-between items-end mb-1">
                         <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Estimated Savings</span>
                         <div class="text-right">
-                             <div class="text-2xl font-black text-emerald-400 tracking-tight leading-none" id="refTotalSave">$0.00</div>
-                             <p class="text-[9px] text-slate-500 font-bold uppercase mt-1">Total Interest Saved</p>
+                             <div class="text-2xl font-black text-emerald-500 tracking-tight leading-none" id="refTotalSave">$0.00</div>
+                             <p class="text-[9px] text-slate-400 font-bold uppercase mt-1">Total Interest Saved</p>
                         </div>
                     </div>
                     
-                    <div class="h-px bg-slate-700 my-3"></div>
+                    <div class="h-px bg-slate-200 my-3"></div>
 
                     <div class="flex justify-between items-center">
                         <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">New Payment</span>
-                        <div class="text-white font-bold text-lg" id="refNewPmtOut">$0.00<span class="text-[10px] text-slate-500 font-medium ml-1">/bi-w</span></div>
+                        <div class="text-slate-800 font-bold text-lg" id="refNewPmtOut">$0.00<span class="text-[10px] text-slate-400 font-medium ml-1">/bi-w</span></div>
                     </div>
                 </div>
 
