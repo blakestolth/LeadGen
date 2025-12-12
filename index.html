@@ -272,21 +272,12 @@
     .milestone-label { font-size: 9px; font-weight: 800; color: var(--slate-700); line-height: 1.2; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 2px; }
     .milestone-q { font-size: 8px; color: var(--slate-500); font-weight: 500; max-width: 90%; line-height: 1.1; }
 
-    /* Mobile Interactive Stack (The Drop Down) */
-    .mobile-tree { display: none; width: 100%; max-width: 400px; margin: 0 auto; flex-direction: column; gap: 8px; }
-    .m-node { background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden; transition: all 0.2s; }
-    .m-header { padding: 12px 16px; background: #fff; display: flex; justify-content: space-between; align-items: center; font-weight: 700; color: var(--slate-700); cursor: pointer; font-size: 13px; }
-    .m-header:hover { background: #f8fafc; }
-    .m-header.m-active { background: var(--blue-100); color: var(--blue-700); border-bottom: 1px solid var(--blue-600); }
-    .m-icon { transition: transform 0.2s; width: 16px; height: 16px; }
-    .m-active .m-icon { transform: rotate(180deg); }
-    .m-body { display: none; padding: 12px; background: #f8fafc; border-top: 1px solid #e2e8f0; }
-    .m-body.open { display: block; animation: slideDown 0.2s ease-out; }
-    @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
-    
+    /* Mobile Stack */
     @media (max-width: 1024px) {
+        .tree-row { flex-direction: column; gap: 10px; position: static; }
+        .tree-col, .tree-col::before, .tree-col::after, .connector-down { display: none; }
         .tree-wrapper { display: none; }
-        .mobile-tree { display: flex; }
+        .mobile-tree { display: flex; flex-direction: column; gap: 20px;}
     }
     @media (min-width: 1025px) { .mobile-tree { display: none; } }
 
@@ -461,10 +452,9 @@
             </div>
             </aside>
       </section>
-    </main> 
-    
-    <section id="finance-guide" class="wide-section-container mt-12 mb-12">
-        <div class="text-center mb-8 px-4">
+
+      <section id="finance-guide" class="wide-section-container mt-12 mb-12">
+        <div class="text-center mb-8">
             <h2 class="h1 text-3xl text-slate-800 mb-2">Finance Guide</h2>
             <p class="text-base text-slate-500 font-medium">Find your path below. Each stage requires specific questions for a secure approval.</p>
         </div>
@@ -482,9 +472,8 @@
                     <div class="tree-col">
                         <div class="node-box">No Trade-In</div>
                         <div class="connector-down"></div>
-                        
                         <div class="tree-row">
-                             <div class="tree-col">
+                            <div class="tree-col">
                                 <div class="node-step">Good Credit</div>
                                 <div class="connector-down"></div>
                                 <div class="node-card">
@@ -493,6 +482,7 @@
                                     <ul class="t-list">
                                         <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Any Make/Model</li>
                                         <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Lowest Fixed Rates</li>
+                                        <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Longest Terms</li>
                                     </ul>
                                     <div class="summary-box">
                                         <p class="summary-text">Financing is available for most vehicles. This is where figuring out what option is best for where you are in life.</p>
@@ -500,10 +490,9 @@
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="tree-col">
                                 <div class="node-step">Rebuilding</div>
-                                <div class="connector-down"></div>
-                                <div class="node-connector-text">Income > $2200?</div>
                                 <div class="connector-down"></div>
                                 <div class="node-card">
                                     <span class="sub">300 - 659 Score</span>
@@ -513,7 +502,21 @@
                                         <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Refinance in 12mo</li>
                                     </ul>
                                     <div class="summary-box">
-                                        <p class="summary-text">Approvals have higher rates, so picking the right vehicle is crucial.</p>
+                                        <p class="summary-text">Limited availability on financing options. Approvals have higher rates, so picking the right vehicle is crucial.</p>
+                                    </div>
+                                </div>
+                                <div class="connector-down" style="height:20px;"></div>
+                                <div class="node-connector-text">Income Over $2200/mo?</div>
+                                <div class="connector-down" style="height:20px;"></div>
+                                <div class="node-card">
+                                    <span class="sub">Unlimited Access</span>
+                                    <h5>Special Program</h5>
+                                    <ul class="t-list">
+                                        <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Any Make/Model</li>
+                                        <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Access to Lowest</li>
+                                    </ul>
+                                    <div class="summary-box">
+                                        <p class="summary-text">Best case scenario for a person with new/low credit as it gives you access to regular rates.</p>
                                         <a href="#personalized-search" class="summary-link">See Personalized Search</a>
                                     </div>
                                 </div>
@@ -524,37 +527,97 @@
                     <div class="tree-col">
                         <div class="node-box">With Trade-In</div>
                         <div class="connector-down"></div>
-                        
                         <div class="tree-row">
                             <div class="tree-col">
-                                <div class="node-step">Positive Equity</div>
+                                <div class="node-step">Good Credit</div>
                                 <div class="connector-down"></div>
-                                <div class="node-card">
-                                    <span class="sub">Trade Value > Loan</span>
-                                    <h5>Upgrade Vehicle</h5>
-                                    <ul class="t-list">
-                                        <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Lower Your Rate</li>
-                                        <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Cash Back Options</li>
-                                    </ul>
-                                    <div class="summary-box">
-                                        <p class="summary-text">Use your equity to lower payments or upgrade to a newer model.</p>
-                                        <a href="#personalized-search" class="summary-link">See Personalized Search</a>
+                                <div class="tree-row">
+                                    <div class="tree-col">
+                                        <div class="node-step">Positive Equity</div>
+                                        <div class="connector-down"></div>
+                                        <div class="node-card">
+                                            <span class="sub">660 - 900 Score</span>
+                                            <h5>Unlimited Access</h5>
+                                            <ul class="t-list">
+                                                <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Any Make/Model</li>
+                                                <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Lowest Fixed Rates</li>
+                                            </ul>
+                                            <div class="summary-box">
+                                                <p class="summary-text">Financing is available for most vehicles. This is where getting/retaining the most value matters.</p>
+                                                <a href="#personalized-search" class="summary-link">See Personalized Search</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tree-col">
+                                        <div class="node-step">Negative Equity</div>
+                                        <div class="connector-down"></div>
+                                        <div class="node-card">
+                                            <span class="sub">Reliability Focus</span>
+                                            <h5>Negative Equity Fix</h5>
+                                            <ul class="t-list">
+                                                <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>2016+ Vehicles</li>
+                                                <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Refinance 12mo</li>
+                                            </ul>
+                                            <div class="summary-box">
+                                                <p class="summary-text">Financing is available. This is where it is important to know where you stand to see if the change makes sense.</p>
+                                                <a href="#personalized-search" class="summary-link">See Personalized Search</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="tree-col">
-                                <div class="node-step">Negative Equity</div>
+                                <div class="node-step">Rebuilding</div>
                                 <div class="connector-down"></div>
-                                <div class="node-card">
-                                    <span class="sub">Loan > Trade Value</span>
-                                    <h5>Negative Equity Fix</h5>
-                                    <ul class="t-list">
-                                        <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Roll Over Debt</li>
-                                        <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Low Rate Vehicles</li>
-                                    </ul>
-                                    <div class="summary-box">
-                                        <p class="summary-text">We find vehicles with large rebates to absorb your negative equity.</p>
-                                        <a href="#personalized-search" class="summary-link">See Personalized Search</a>
+                                <div class="tree-row">
+                                    <div class="tree-col">
+                                        <div class="node-step">Positive Equity</div>
+                                        <div class="connector-down"></div>
+                                        <div class="node-card">
+                                            <span class="sub">660 - 900 Score</span>
+                                            <h5>Unlimited Access</h5>
+                                            <ul class="t-list">
+                                                <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Any Make/Model</li>
+                                                <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Lowest Rates</li>
+                                            </ul>
+                                            <div class="summary-box">
+                                                <p class="summary-text">Financing is limited. Important to know where you stand to see if the change makes sense.</p>
+                                                <a href="#personalized-search" class="summary-link">See Personalized Search</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="connector-down" style="height:20px;"></div>
+                                    <div class="node-connector-text">Income Over $2200/mo?</div>
+                                    <div class="connector-down" style="height:20px;"></div>
+                                    <div class="node-card">
+                                        <span class="sub">Unlimited Access</span>
+                                        <h5>Special Program</h5>
+                                        <ul class="t-list">
+                                            <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Any Make/Model</li>
+                                            <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Access to Lowest</li>
+                                        </ul>
+                                        <div class="summary-box">
+                                            <p class="summary-text">Best case scenario for a person with new/low credit as it gives you access to regular rates while improving vehicle situation.</p>
+                                            <a href="#personalized-search" class="summary-link">See Personalized Search</a>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="tree-col">
+                                        <div class="node-step">Negative Equity</div>
+                                        <div class="connector-down"></div>
+                                        <div class="node-card">
+                                            <span class="sub">Reliability Focus</span>
+                                            <h5>Negative Equity Fix</h5>
+                                            <ul class="t-list">
+                                                <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>2016+ Vehicles</li>
+                                                <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Refinance 12mo</li>
+                                            </ul>
+                                            <div class="summary-box">
+                                                <p class="summary-text">This is where it is important to know where you stand to see if the vehicle change makes sense.</p>
+                                                <a href="#personalized-search" class="summary-link">See Personalized Search</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -563,58 +626,11 @@
                 </div>
             </div>
             
-            <div class="mobile-tree px-4">
-                <div class="m-node">
-                    <div class="m-header" onclick="toggleTree(this)">
-                        <span>No Trade-In</span>
-                        <svg class="m-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                    </div>
-                    <div class="m-body">
-                         <div class="m-node mb-2">
-                             <div class="m-header" onclick="toggleTree(this)">Good Credit (660+)</div>
-                             <div class="m-body">
-                                <p class="text-xs text-slate-500 mb-2">Unlimited Access to any Make/Model.</p>
-                                <a href="#personalized-search" class="text-xs font-bold text-[var(--blue-600)]">Start Search &rarr;</a>
-                             </div>
-                         </div>
-                         <div class="m-node">
-                            <div class="m-header" onclick="toggleTree(this)">Rebuilding Credit</div>
-                            <div class="m-body">
-                               <p class="text-xs text-slate-500 mb-2">Focus on 2016+ Vehicles to rebuild score.</p>
-                               <a href="#personalized-search" class="text-xs font-bold text-[var(--blue-600)]">Start Search &rarr;</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="m-node">
-                    <div class="m-header" onclick="toggleTree(this)">
-                        <span>With Trade-In</span>
-                        <svg class="m-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                    </div>
-                    <div class="m-body">
-                         <div class="m-node mb-2">
-                             <div class="m-header" onclick="toggleTree(this)">Positive Equity</div>
-                             <div class="m-body">
-                                <p class="text-xs text-slate-500 mb-2">Use equity to lower payments or upgrade.</p>
-                                <a href="#personalized-search" class="text-xs font-bold text-[var(--blue-600)]">Start Search &rarr;</a>
-                             </div>
-                         </div>
-                         <div class="m-node">
-                            <div class="m-header" onclick="toggleTree(this)">Negative Equity</div>
-                            <div class="m-body">
-                               <p class="text-xs text-slate-500 mb-2">We find vehicles with rebates to absorb debt.</p>
-                               <a href="#personalized-search" class="text-xs font-bold text-[var(--blue-600)]">Start Search &rarr;</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="mobile-tree"><div class="node-box root w-full">Tap branches to expand (Mobile View Simplified)</div></div>
         </div>
     </section>
 
-    <main class="w-full max-w-5xl mx-auto px-4 py-4 space-y-4">
-      <section id="personalized-search" class="mt-8 mb-8">
+    <section id="personalized-search" class="mt-8 mb-8">
         <div class="flex flex-col md:flex-row gap-10 items-start">
             <div class="flex-1">
                 <h2 class="h1 text-3xl text-slate-800 mb-4 tracking-tight">Personalized Search</h2>
@@ -764,7 +780,7 @@
   function parseMoneyInput(v){if(!v)return 0;return parseFloat(String(v).replace(/[^0-9.]/g,''))||0}
   function formatMoneyField(input){const num=parseMoneyInput(input.value);input.value=num>0?num.toLocaleString('en-CA',{style:'currency',currency:'CAD',maximumFractionDigits:0}):''}
   function calcPayment(P,annualRate,years){const r=(annualRate/100)/12;const n=years*12;if(!n||n<=0)return 0;if(P<=0)return 0;if(r===0)return P/n;return P*r/(1-Math.pow(1+r,-n))}
-    
+   
   // MERGED HELPERS FROM OLD CODE
   function populateMakes(makeSelectId,modelSelectId){const makeSelect=$(makeSelectId);if(!makeSelect)return;makeSelect.innerHTML='<option value="" selected>Make</option>';const makes=Object.keys(vehicleData).sort();makes.forEach(make=>{const option=document.createElement('option');option.value=make;option.textContent=make;makeSelect.appendChild(option)});makeSelect.addEventListener('change',()=>updateModels(makeSelectId,modelSelectId))}
   function updateModels(makeSelectId,modelSelectId){const makeSelect=$(makeSelectId);const modelSelect=$(modelSelectId);if(!modelSelect)return;const selectedMake=makeSelect.value;modelSelect.innerHTML='';modelSelect.disabled=true;if(selectedMake&&vehicleData[selectedMake]){const models=vehicleData[selectedMake].sort();modelSelect.innerHTML='<option value="" selected>Select</option>';models.forEach(model=>{const option=document.createElement('option');option.value=model;option.textContent=model;modelSelect.appendChild(option)});modelSelect.disabled=false}else{modelSelect.innerHTML='<option value="" selected>Select Make First</option>'}}
@@ -776,26 +792,8 @@
   function populateDropdown(sel,min,max,label,suffix){if(!sel)return;sel.innerHTML=`<option value="">${label}</option>`;for(let i=min;i<=max;i++){const opt=document.createElement('option');opt.value=i;opt.textContent=i+(suffix?` ${suffix}`:'');sel.appendChild(opt)}}
   function populateProvinces(sel){if(!sel)return;const provs=["AB","BC","MB","NB","NL","NS","NT","NU","ON","PE","QC","SK","YT"];sel.innerHTML='<option value="">Prov</option>';provs.forEach(p=>{const opt=document.createElement('option');opt.value=p;opt.textContent=p;if(p==="BC")opt.selected=true;sel.appendChild(opt)})}
 
-  // --- MOBILE TREE TOGGLE LOGIC ---
-  window.toggleTree = function(header) {
-      const body = header.nextElementSibling;
-      const wasOpen = header.classList.contains('m-active');
-      
-      // Optional: Close siblings if you want true accordion style (uncomment next 3 lines)
-      // const parent = header.closest('.m-node').parentElement;
-      // parent.querySelectorAll('.m-header.m-active').forEach(h => { h.classList.remove('m-active'); h.nextElementSibling.classList.remove('open'); });
-
-      if(!wasOpen) {
-          header.classList.add('m-active');
-          body.classList.add('open');
-      } else {
-          header.classList.remove('m-active');
-          body.classList.remove('open');
-      }
-  };
-
   document.addEventListener('DOMContentLoaded',function(){$('menuBtn')?.addEventListener('click',()=>$('mobileMenu')?.classList.toggle('hidden'));const stepsMap={};bySelAll('.form-step').forEach(sec=>stepsMap[sec.getAttribute('data-id')]=sec);
-    
+   
   function currentFlow(){const intent=$('intent')?.value||'finance';const hasTrade=($('hasTradeIn')?.value||'No').toLowerCase()==='yes';
   // REFI FLOW
   if(intent==='refinance'){return['step-intent','step-refi-details','step-income','step-yourinfo','step-address','step-employer','step-consent']}
@@ -807,12 +805,12 @@
   function showOnly(id){Object.values(stepsMap).forEach(sec=>sec.classList.add('js-hidden'));stepsMap[id]?.classList.remove('js-hidden')}
   function updateProgress(curId){const flow=currentFlow();const i=Math.max(0,flow.indexOf(curId));const visible=flow.filter(x=>x!=='step-consent');const total=visible.length;const stepNumber=Math.min(i+1,total);const pct=Math.round((i)/(Math.max(1,total-1))*100);$('btnBack').disabled=(i===0);$('btnNext').textContent=(i>=total-1)?'Submit Application':'Next';bySel('#progress-label').textContent='Step '+stepNumber+' of '+total;bySel('#progress-fill').style.width=(total>1?pct:0)+'%';const endcap=bySel('#progress-endcap');if(i>0)endcap.textContent="See Options";else endcap.textContent="Start"}
   let curStepId='step-intent';function goTo(id){curStepId=id;showOnly(id);updateProgress(id)}
-    
+   
   function validateCurrent(stepId){const stepEl=stepsMap[stepId];if(!stepEl)return true;
   if(stepId==='step-intent'){const v=$('intent').value;const ok=(v==='finance'||v==='refinance');bySelAll('[data-intent]').forEach(x=>x.classList.toggle('err',!ok));return ok}
   if(stepId==='step-vehicle-type'){const ok=!!$('vehicleType').value;bySelAll('[data-type]').forEach(x=>x.classList.toggle('err',!ok));return ok}
   if(stepId==='step-budget'){return!!$('budgetRange').value}
-    
+   
   let ok=true;let firstError=null;const fields=Array.from(stepEl.querySelectorAll('[required]'));
   fields.forEach(el=>{if(window.getComputedStyle(el).display==='none'||!el.closest('.form-step')||el.closest('.form-step').classList.contains('js-hidden'))return;let pass=(el.type==='checkbox')?el.checked:(el.value&&el.value.trim()!=='');if(el.id==='phone')pass=el.value.replace(/\D/g,'').length>=10;if(el.type==='email'||el.id==='email'){const v=el.value.trim();pass=pass&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)}if(!pass){el.classList.add('err');if(!firstError)firstError=el}else{el.classList.remove('err')}const lab=el.closest('div')?.querySelector('label');lab?.classList.toggle('err-label',!pass);if(!pass)ok=false});if(firstError){firstError.scrollIntoView({behavior:'smooth',block:'center'});firstError.focus({preventScroll:true})}return ok}
   function handleNavigation(delta){const flow=currentFlow();let i=flow.indexOf(curStepId);if(i<0)i=0;if(delta>0&&!validateCurrent(curStepId))return;i+=delta;const visible=flow.filter(x=>x!=='step-consent');const lastIdx=visible.length-1;if(delta>0&&i>lastIdx){setTimeout(submitForm,200)}else if(i>=0){const delay=(delta>0)?200:0;setTimeout(()=>{goTo(visible[i])},delay)}else{goTo(visible[0])}}
@@ -863,10 +861,12 @@
         }
   }
 
+  // FIXED: Moved input listener logic into a named function
   function setupRefiCalcInputs() {
       [refLoanInput, refTermInput, refNewRateSlider, refRateInput].forEach(el => {
           if(el) el.addEventListener('input', calculateRefi);
       });
+      // Run once on load to init zeros
       calculateRefi();
   }
 
@@ -883,13 +883,14 @@
   function expandForm(){if(formShell.classList.contains('form-focused'))return;formSpacer.classList.remove('js-hidden');formShell.classList.add('form-focused');formBackdrop.classList.add('active');formClose.classList.remove('hidden');formTrigger.classList.add('hidden');document.body.classList.add('modal-open')}
   function collapseForm(){if(!formShell.classList.contains('form-focused'))return;formShell.classList.add('form-closing');formBackdrop.classList.remove('active');formShell.addEventListener('animationend',function(){formShell.classList.remove('form-focused');formShell.classList.remove('form-closing');formSpacer.classList.add('js-hidden');document.body.classList.remove('modal-open');formClose.classList.add('hidden');formTrigger.classList.remove('hidden')},{once:true})}
   $('btnGetStarted')?.addEventListener('click',(e)=>{e.preventDefault();expandForm()});$('navApplyBtn')?.addEventListener('click',(e)=>{e.preventDefault();expandForm()});$('mobileApplyBtn')?.addEventListener('click',(e)=>{e.preventDefault();expandForm()});formTrigger?.addEventListener('click',expandForm);formClose?.addEventListener('click',collapseForm);formBackdrop?.addEventListener('click',collapseForm);
-    
+   
   // INIT HELPERS
   (function init(){
       bySel('#year').textContent=new Date().getFullYear();
       $('intent').value='finance';
       $('housingType')&&($('housingType').value='Rent');
       
+      // Call new populate functions
       populateDOBYears($('dobYear'));
       populateMonths($('dobMonth'));
       updateDays();
@@ -911,7 +912,7 @@
       populateMakes('tradeInMake','tradeInModel');
       
       goTo('step-intent');
-      setupRefiCalcInputs();
+      setupRefiCalcInputs(); // Re-ensure listeners are attached
   })();});
   </script>
 </body>
