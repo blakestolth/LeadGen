@@ -26,7 +26,7 @@
       --blue-700:#214B80; 
       --blue-100:#EAF1FB; 
       --red-equifax: #A8202A; 
-      --theme-green: #10b981; /* Updated Brighter Green */
+      --theme-green: #15803d; /* Dark, Financial Green */
       --slate-50: #f8fafc;
       --slate-100: #f1f5f9;
       --slate-200: #e2e8f0;
@@ -36,7 +36,6 @@
       --slate-600: #475569;
       --slate-700: #334155;
       --slate-800: #1e293b;
-      --gunmetal: #334155; /* Professional Dark Grey for Calc */
 
       /* Typography & Spacing */
       --fs-h1: 26px; --fs-h2: 18px; --fs-body: 13px; --fs-label: 11px; 
@@ -95,42 +94,82 @@
     input[type=range]::-moz-range-thumb { height: 18px; width: 18px; border: 4px solid var(--blue-600); border-radius: 50%; background: #fff; cursor: pointer; }
     input[type=range]::-moz-range-track { width: 100%; height: 4px; cursor: pointer; background: #e2e8f0; border-radius: 99px; }
 
-    /* --- GUNMETAL POWER CALCULATOR --- */
-    .calc-box { 
-        background: var(--gunmetal); 
-        color: white; 
-        border-radius: 12px; 
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.15); 
-        height: 452px; /* Matches Form Height Exactly */
-        display: flex; 
+    /* --- WHITE/BLUE CALCULATOR STYLES --- */
+    .calc-box {
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 12px;
+        box-shadow: 0 20px 40px -10px rgba(30, 41, 59, 0.12);
+        display: flex;
         flex-direction: column;
         overflow: hidden;
-        border: 1px solid #475569;
+        height: 452px !important; /* MATCHING FORM HEIGHT */
     }
-    .calc-header { padding: 18px 24px; border-bottom: 1px solid #475569; background: rgba(0,0,0,0.1); }
-    .calc-body { padding: 24px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-    
-    /* Dark Inputs */
-    .input-dark { 
-        background: #1e293b !important; 
-        border: 1px solid #475569 !important; 
-        color: #fff !important; 
-        font-weight: 700;
+
+    .calc-header {
+        background: var(--blue-600); /* THEME BLUE */
+        padding: 16px 20px;
+        border-bottom: 4px solid var(--blue-700);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+    }
+    .calc-header h4 { color: #fff; font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin: 0; }
+    .calc-header p { color: rgba(255,255,255,0.8); font-size: 10px; font-weight: 600; margin: 0; }
+
+    .calc-display-hero {
+        background: #f8fafc;
+        padding: 16px;
+        text-align: center;
+        border-bottom: 1px solid #e2e8f0;
+        flex-shrink: 0;
+    }
+    .save-label { font-size: 10px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+    .save-amount { font-size: 38px; font-weight: 900; color: var(--theme-green); line-height: 1; letter-spacing: -1px; margin: 4px 0; }
+    .save-sub { font-size: 9px; color: #64748b; font-weight: 600; background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 4px; display: inline-block;}
+
+    .calc-inputs { 
+        padding: 16px 20px; 
+        background: #fff; 
+        flex: 1; 
+        display: flex; 
+        flex-direction: column; 
+        justify-content: space-between; 
+    }
+
+    .bold-input-group {
+        position: relative;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
         transition: all 0.2s;
     }
-    .input-dark:focus { 
-        background: #0f172a !important; 
-        border-color: var(--blue-600) !important; 
-        box-shadow: 0 0 0 3px rgba(42,93,159,0.3); 
-    }
-    .input-dark::placeholder { color: #64748b; font-weight: 500; }
-    
-    /* Dark Sliders */
-    .range-dark { height: 6px; border-radius: 99px; }
-    .range-dark::-webkit-slider-runnable-track { background: #475569; height: 6px; }
-    .range-dark::-moz-range-track { background: #475569; height: 6px; }
-    .range-dark::-webkit-slider-thumb { border: 2px solid #334155; background: #fff; width: 20px; height: 20px; margin-top: -7px; }
+    .bold-input-group:focus-within { border-color: var(--blue-600); box-shadow: 0 4px 12px rgba(42, 93, 159, 0.15); }
 
+    .bold-label {
+        position: absolute;
+        top: -8px;
+        left: 10px;
+        background: #fff;
+        padding: 0 4px;
+        font-size: 9px;
+        font-weight: 800;
+        color: var(--blue-700);
+        text-transform: uppercase;
+    }
+
+    .bold-input {
+        width: 100%;
+        border: none;
+        padding: 10px 12px;
+        font-size: 16px;
+        font-weight: 700;
+        color: #334155;
+        outline: none;
+        background: transparent;
+        border-radius: 8px;
+    }
+    
     /* Layout Engine */
     #lead-form-card { min-height: 382px; position: relative; }
     .form-shell { position: relative; overflow: hidden; height: 380px; background: #fff; transition: height 0.3s ease; z-index: 1; }
@@ -188,7 +227,7 @@
     .progress-note{margin-top:12px;font-size:12px;color:var(--slate-500)}
     .js-hidden { display:none !important; }
 
-    /* --- PROFESSIONAL COMPACT TREE STYLES (RESTORED FROM YOUR REFERENCE) --- */
+    /* --- PROFESSIONAL COMPACT TREE STYLES --- */
     .wide-section-container {
         width: 100%; 
         max-width: 100%; 
@@ -359,69 +398,56 @@
         
         <aside class="flex flex-col h-full w-full">
             <div class="calc-box">
-              <div class="calc-header flex justify-between items-center">
+              <div class="calc-header">
                 <div>
-                    <h4 class="text-base font-extrabold text-white tracking-tight">Refinance Calculator</h4>
-                    <p class="text-[11px] text-slate-400 font-medium">Estimate your potential savings</p>
+                  <h4>Refinance Calculator</h4>
+                  <p>Estimate Potential Savings</p>
                 </div>
-                <div class="h-8 w-8 rounded-full bg-slate-700 flex items-center justify-center text-[var(--blue-600)] shadow-inner">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                <div class="text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
                 </div>
               </div>
 
-              <div class="calc-body">
-                <div class="grid grid-cols-2 gap-4">
-                  <div class="space-y-1">
-                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Loan Balance</label>
-                    <div class="relative">
-                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">$</span>
-                        <input type="text" id="refLoanInput" class="form-input input-dark pl-6 text-sm h-[42px]!important" placeholder="15,000" inputmode="numeric" maxlength="14" />
-                    </div>
+              <div class="calc-display-hero">
+                <div class="save-label">Est. Total Savings</div>
+                <div class="save-amount" id="refTotalSave">$0.00</div>
+                <div class="save-sub">Interest Saved Over Term</div>
+              </div>
+
+              <div class="calc-inputs">
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="bold-input-group">
+                    <label class="bold-label">Balance</label>
+                    <input type="text" id="refLoanInput" class="bold-input" placeholder="15,000" inputmode="numeric">
                   </div>
-                  <div class="space-y-1">
-                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Current Rate</label>
-                    <div class="relative">
-                        <input type="text" id="refRateInput" class="form-input input-dark text-sm h-[42px]!important" placeholder="8.99" inputmode="decimal" maxlength="5" />
-                        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">%</span>
-                    </div>
+                  <div class="bold-input-group">
+                    <label class="bold-label">Cur. Rate %</label>
+                    <input type="text" id="refRateInput" class="bold-input" placeholder="8.99" inputmode="decimal">
                   </div>
                 </div>
 
-                <div class="space-y-6 mt-2">
-                    <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="text-[11px] font-bold text-slate-300">Term Length</span>
-                            <span class="text-[11px] font-bold text-white bg-slate-700 px-2 py-0.5 rounded"><span id="termDisplay">5</span> Years</span>
-                        </div>
-                        <input id="refTermInput" type="range" class="range-dark" min="1" max="8" step="1" value="5">
-                        <div class="flex justify-between mt-1 text-[9px] text-slate-500 font-bold uppercase"><span>1 Yr</span><span>8 Yrs</span></div>
+                <div class="space-y-3">
+                  <div>
+                    <div class="flex justify-between mb-1">
+                      <span class="text-[10px] font-bold text-slate-500 uppercase">New Rate Target</span>
+                      <span class="text-[11px] font-bold text-[var(--blue-600)]"><span id="refNewRateOut">7.99</span>%</span>
                     </div>
-                    <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="text-[11px] font-bold text-slate-300">Target New Rate</span>
-                            <span class="text-[11px] font-bold text-[var(--blue-600)] bg-blue-900/30 px-2 py-0.5 rounded border border-blue-900"><span id="refNewRateOut">7.99</span>%</span>
-                        </div>
-                        <input id="refNewRateSlider" type="range" class="range-dark" min="0.00" max="12.99" step="0.05" value="7.99">
+                    <input id="refNewRateSlider" type="range" min="0.00" max="12.99" step="0.05" value="7.99" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[var(--blue-600)]">
+                  </div>
+                  
+                  <div>
+                    <div class="flex justify-between mb-1">
+                      <span class="text-[10px] font-bold text-slate-500 uppercase">New Term</span>
+                      <span class="text-[11px] font-bold text-slate-800"><span id="termDisplay">5</span> Years</span>
                     </div>
+                    <input id="refTermInput" type="range" min="1" max="8" step="1" value="5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[var(--blue-600)]">
+                  </div>
                 </div>
 
-                <div class="bg-slate-900/50 rounded-lg p-4 border border-slate-700/50 mt-2">
-                    <div class="flex justify-between items-end mb-1">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Estimated Savings</span>
-                        <div class="text-right">
-                             <div class="text-2xl font-black text-emerald-400 tracking-tight leading-none" id="refTotalSave">$0.00</div>
-                             <p class="text-[9px] text-slate-500 font-bold uppercase mt-1">Total Interest Saved</p>
-                        </div>
-                    </div>
-                    
-                    <div class="h-px bg-slate-700 my-3"></div>
-
-                    <div class="flex justify-between items-center">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">New Payment</span>
-                        <div class="text-white font-bold text-lg" id="refNewPmtOut">$0.00<span class="text-[10px] text-slate-500 font-medium ml-1">/bi-w</span></div>
-                    </div>
+                <div class="flex justify-between items-center bg-slate-50 p-2 rounded-lg border border-slate-200 mt-1">
+                  <span class="text-[10px] font-bold text-slate-500 uppercase">New Payment</span>
+                  <div class="text-slate-800 font-black text-xl" id="refNewPmtOut">$0.00<span class="text-[10px] text-slate-400 font-medium ml-1">/bi-w</span></div>
                 </div>
-
               </div>
             </div>
         </aside>
@@ -561,6 +587,22 @@
                                                 <a href="#personalized-search" class="summary-link">See Personalized Search</a>
                                             </div>
                                         </div>
+                                        
+                                        <div class="connector-down" style="height:20px;"></div>
+                                        <div class="node-connector-text">Income Over $2200/mo?</div>
+                                        <div class="connector-down" style="height:20px;"></div>
+                                        <div class="node-card">
+                                            <span class="sub">Unlimited Access</span>
+                                            <h5>Special Program</h5>
+                                            <ul class="t-list">
+                                                <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Any Make/Model</li>
+                                                <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Access to Lowest</li>
+                                            </ul>
+                                            <div class="summary-box">
+                                                <p class="summary-text">Best case scenario for a person with new/low credit as it gives you access to regular rates while improving vehicle situation.</p>
+                                                <a href="#personalized-search" class="summary-link">See Personalized Search</a>
+                                            </div>
+                                        </div>
                                     </div>
                                     
                                     <div class="tree-col">
@@ -578,25 +620,24 @@
                                                 <a href="#personalized-search" class="summary-link">See Personalized Search</a>
                                             </div>
                                         </div>
+
+                                        <div class="connector-down" style="height:20px;"></div>
+                                        <div class="node-connector-text">Income Over $2200/mo?</div>
+                                        <div class="connector-down" style="height:20px;"></div>
+                                        <div class="node-card">
+                                            <span class="sub">Unlimited Access</span>
+                                            <h5>Special Program</h5>
+                                            <ul class="t-list">
+                                                <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Any Make/Model</li>
+                                                <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Access to Lowest</li>
+                                            </ul>
+                                            <div class="summary-box">
+                                                <p class="summary-text">Best case scenario for a person with new/low credit as it gives you access to regular rates while improving vehicle situation.</p>
+                                                <a href="#personalized-search" class="summary-link">See Personalized Search</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                
-                                <div class="connector-down" style="height:20px;"></div>
-                                <div class="node-connector-text">Income Over $2200/mo?</div>
-                                <div class="connector-down" style="height:20px;"></div>
-                                <div class="node-card">
-                                    <span class="sub">Unlimited Access</span>
-                                    <h5>Special Program</h5>
-                                    <ul class="t-list">
-                                        <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Any Make/Model</li>
-                                        <li class="t-item"><svg class="t-icon check" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Access to Lowest</li>
-                                    </ul>
-                                    <div class="summary-box">
-                                        <p class="summary-text">Best case scenario for a person with new/low credit as it gives you access to regular rates while improving vehicle situation.</p>
-                                        <a href="#personalized-search" class="summary-link">See Personalized Search</a>
-                                    </div>
-                                </div>
-                                
                             </div>
                         </div>
                     </div>
@@ -829,7 +870,7 @@
         refNewRateOut.textContent = newRate.toFixed(2);
         if (balance > 0) {
             const newPayment = calcPayment(balance, newRate, years) * 12 / 26;
-            refNewPmtOut.innerHTML = fmtMoney(newPayment) + '<span class="text-[10px] text-slate-500 font-medium ml-1">/bi-w</span>';
+            refNewPmtOut.innerHTML = fmtMoney(newPayment) + '<span class="text-[10px] text-slate-400 font-medium ml-1">/bi-w</span>';
             const oldMonthly = calcPayment(balance, currentRate, years);
             const newMonthly = calcPayment(balance, newRate, years);
             if (currentRate > newRate) {
