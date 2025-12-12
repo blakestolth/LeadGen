@@ -227,7 +227,7 @@
     .progress-note{margin-top:12px;font-size:12px;color:var(--slate-500)}
     .js-hidden { display:none !important; }
 
-    /* --- PROFESSIONAL COMPACT TREE STYLES --- */
+    /* --- PROFESSIONAL COMPACT TREE STYLES (RESTORED) --- */
     .wide-section-container {
         width: 100%; 
         max-width: 100%; 
@@ -262,15 +262,52 @@
     .summary-link:hover { text-decoration: underline; }
     .node-connector-text { font-size: 9px; font-weight: 700; color: var(--slate-500); background: #fff; padding: 2px 8px; border: 1px solid #cbd5e1; border-radius: 4px; z-index: 15; position: relative; margin: -10px 0; }
     
-    /* --- NEW PROFESSIONAL TIMELINE --- */
-    .milestone-track { display: flex; justify-content: space-between; align-items: flex-start; position: relative; width: 100%; padding-top: 10px; margin-top: 10px;}
-    .milestone-line { position: absolute; top: 22px; left: 20px; right: 20px; height: 2px; background: #e2e8f0; z-index: 0; }
-    .milestone { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 1; width: 16%; cursor: pointer; }
-    .milestone-circle { width: 26px; height: 26px; background: #fff; border: 2px solid #94a3b8; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #64748b; margin-bottom: 8px; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-    .milestone:hover .milestone-circle { border-color: var(--blue-600); color: var(--blue-600); transform: scale(1.1); box-shadow: 0 4px 10px rgba(42,93,159,0.2); }
-    .milestone-icon { width: 14px; height: 14px; }
-    .milestone-label { font-size: 9px; font-weight: 800; color: var(--slate-700); line-height: 1.2; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 2px; }
-    .milestone-q { font-size: 8px; color: var(--slate-500); font-weight: 500; max-width: 90%; line-height: 1.1; }
+    /* --- BENTO GRID STYLES (Keep Improved personalized search) --- */
+    .bento-grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 16px;
+    }
+    @media (min-width: 640px) {
+        .bento-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .bento-card {
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 20px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    .bento-card:hover {
+        border-color: var(--blue-600);
+        box-shadow: 0 10px 30px -5px rgba(0,0,0,0.1);
+        transform: translateY(-2px);
+    }
+    .bento-icon-box {
+        background: var(--blue-100);
+        color: var(--blue-700);
+        width: 40px; height: 40px;
+        border-radius: 8px;
+        display: flex; align-items: center; justify-content: center;
+        margin-bottom: 12px;
+        font-weight: 900;
+    }
+    .bento-title {
+        font-size: 13px;
+        font-weight: 800;
+        color: #1e293b;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        margin-bottom: 6px;
+    }
+    .bento-text {
+        font-size: 12px;
+        color: #64748b;
+        font-weight: 500;
+        line-height: 1.4;
+    }
 
     /* Mobile Stack */
     @media (max-width: 1024px) {
@@ -694,48 +731,40 @@
             
             <div class="flex-1 w-full">
                 <h3 class="h2 mb-4 text-slate-800">Used Vehicle Tips</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300 relative group overflow-hidden">
-                        <div class="flex items-center gap-3 mb-2 relative z-10">
-                            <div class="h-10 w-10 rounded-lg bg-blue-50 text-[var(--blue-600)] flex items-center justify-center shadow-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
-                            </div>
-                            <h4 class="text-sm font-extrabold text-slate-800 uppercase tracking-tight">Service History</h4>
+                <div class="bento-grid">
+                    <div class="bento-card">
+                        <div class="bento-icon-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
                         </div>
-                        <p class="text-xs text-slate-500 font-medium leading-relaxed relative z-10">The #1 factor. We verify oil change intervals and shop reports to ensure long-term reliability.</p>
+                        <div class="bento-title">Service History</div>
+                        <div class="bento-text">The #1 factor. We verify oil change intervals and shop reports to ensure long-term reliability.</div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300 relative group overflow-hidden">
-                        <div class="flex items-center gap-3 mb-2 relative z-10">
-                            <div class="h-10 w-10 rounded-lg bg-blue-50 text-[var(--blue-600)] flex items-center justify-center shadow-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                            </div>
-                            <h4 class="text-sm font-extrabold text-slate-800 uppercase tracking-tight">Clean Titles</h4>
+                    <div class="bento-card">
+                        <div class="bento-icon-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                         </div>
-                        <p class="text-xs text-slate-500 font-medium leading-relaxed relative z-10">Crucial in BC. We guarantee clean titles with zero hidden debts, liens, or legal headaches.</p>
+                        <div class="bento-title">Clean Titles</div>
+                        <div class="bento-text">Crucial in BC. We guarantee clean titles with zero hidden debts, liens, or legal headaches.</div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300 relative group overflow-hidden">
-                        <div class="flex items-center gap-3 mb-2 relative z-10">
-                            <div class="h-10 w-10 rounded-lg bg-blue-50 text-[var(--blue-600)] flex items-center justify-center shadow-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-                            </div>
-                            <h4 class="text-sm font-extrabold text-slate-800 uppercase tracking-tight">Rust & Body</h4>
+                    <div class="bento-card">
+                        <div class="bento-icon-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
                         </div>
-                        <p class="text-xs text-slate-500 font-medium leading-relaxed relative z-10">We check for Eastern cars (salt damage) and "Headliner" status—a true sign of neglect.</p>
+                        <div class="bento-title">Rust & Body</div>
+                        <div class="bento-text">We check for Eastern cars (salt damage) and "Headliner" status—a true sign of neglect.</div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300 relative group overflow-hidden">
-                        <div class="flex items-center gap-3 mb-2 relative z-10">
-                            <div class="h-10 w-10 rounded-lg bg-blue-50 text-[var(--blue-600)] flex items-center justify-center shadow-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
-                            </div>
-                            <h4 class="text-sm font-extrabold text-slate-800 uppercase tracking-tight">Model Specifics</h4>
+                    <div class="bento-card">
+                        <div class="bento-icon-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
                         </div>
-                        <p class="text-xs text-slate-500 font-medium leading-relaxed relative z-10">We avoid specific "Bad Years." Dodging known transmission and engine issues saves you thousands.</p>
+                        <div class="bento-title">Model Specifics</div>
+                        <div class="bento-text">We avoid specific "Bad Years." Dodging known transmission and engine issues saves you thousands.</div>
                     </div>
                 </div>
-            </div>
+                </div>
         </div>
       </section>
 
