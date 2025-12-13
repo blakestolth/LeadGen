@@ -227,7 +227,7 @@
     .progress-note{margin-top:12px;font-size:12px;color:var(--slate-500)}
     .js-hidden { display:none !important; }
 
-    /* --- PROFESSIONAL COMPACT TREE STYLES (ORIGINAL) --- */
+    /* --- ORIGINAL PROFESSIONAL COMPACT TREE STYLES --- */
     .wide-section-container {
         width: 100%; 
         max-width: 100%; 
@@ -262,12 +262,11 @@
     .summary-link:hover { text-decoration: underline; }
     .node-connector-text { font-size: 9px; font-weight: 700; color: var(--slate-500); background: #fff; padding: 2px 8px; border: 1px solid #cbd5e1; border-radius: 4px; z-index: 15; position: relative; margin: -10px 0; }
     
-    /* --- BOLD TIMELINE (UPDATED) --- */
+    /* --- BOLD TIMELINE (1.8x Size + Spaced) --- */
     .milestone-track { display: flex; justify-content: space-between; align-items: flex-start; position: relative; width: 100%; padding-top: 20px; margin-top: 20px;}
     .milestone-line { position: absolute; top: 44px; left: 30px; right: 30px; height: 4px; background: #e2e8f0; z-index: 0; border-radius: 4px; }
-    /* Width adjusted to 13% to prevent touching text */
+    /* Reduced width to 13% so first items don't touch */
     .milestone { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 1; width: 13%; cursor: pointer; }
-    /* Circles scaled up 1.8x */
     .milestone-circle { width: 48px; height: 48px; background: #fff; border: 4px solid var(--blue-600); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--blue-600); margin-bottom: 14px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
     .milestone:hover .milestone-circle { background: var(--blue-600); color: #fff; transform: scale(1.15); box-shadow: 0 10px 15px rgba(42,93,159,0.3); }
     .milestone-icon { width: 24px; height: 24px; stroke-width: 2.5px; }
@@ -289,7 +288,7 @@
 
   <div id="main-content" class="transition-all duration-300">
     <header class="w-full max-w-5xl mx-auto mt-4 px-4 relative z-50">
-      <nav class="bg-white/90 backdrop-blur-lg card card-accent px-6 py-4">
+      <nav class="bg-white/95 backdrop-blur-lg card card-accent px-6 py-4">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-4 flex-shrink-0">
             <div class="brand-left">
@@ -338,14 +337,14 @@
       </nav>
     </header>
 
-    <main class="w-full max-w-5xl mx-auto px-4 py-4 space-y-4">
+    <main class="w-full max-w-5xl mx-auto px-4 py-8 space-y-8">
       
       <section id="about" class="px-5 py-6 mb-2">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 items-center">
           <div>
             <div class="flex items-center gap-4 mb-4">
                <img src="Untitled Project.jpg" alt="Blake Stolth" class="w-14 h-14 rounded-full border-2 border-[var(--blue-600)] object-cover shadow-sm"/>
-               <div><h1 class="h1 text-2xl mb-1">See options in 3 Steps</h1><p class="text-[12px] text-slate-500 font-bold uppercase tracking-wide">Personally reviewed by Blake</p></div>
+               <div><h1 class="h1 mb-1">See options in 3 Steps</h1><p class="text-[12px] text-slate-500 font-bold uppercase tracking-wide">Personally reviewed by Blake</p></div>
             </div>
             <ol class="space-y-4 mt-2">
               <li class="flex items-start gap-3"><span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--blue-600)] text-white font-bold text-xs shadow-sm">1</span><span class="text-slate-700 text-sm font-medium pt-0.5"><b>Enter info</b> — Takes 2 minutes</span></li>
@@ -354,7 +353,7 @@
             </ol>
           </div>
           <div>
-            <h2 class="text-lg font-extrabold text-slate-800 mb-4">Why people pick us</h2>
+            <h2 class="text-xl font-black text-slate-800 mb-6 uppercase tracking-tight">Why people pick us</h2>
             <ul class="space-y-3">
               <li class="flex items-start gap-3"><span class="abc-badge shadow-sm">A</span><span class="text-sm text-slate-600 pt-0.5"><b>All credit welcome</b> — Current rates low as 0%</span></li>
               <li class="flex items-start gap-3"><span class="abc-badge shadow-sm">B</span><span class="text-sm text-slate-600 pt-0.5"><b>Biggest Selection</b> — New & Used across BC</span></li>
@@ -366,7 +365,7 @@
       </section>
 
       <section class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-        <div class="card card-accent p-0 overflow-hidden relative shadow-lg" id="lead-form-card" style="height: 452px;"> 
+        <div class="card card-accent p-0 overflow-hidden relative shadow-xl" id="lead-form-card" style="height: 452px;"> 
           <div id="form-spacer" class="js-hidden h-[380px]"></div>
           <div class="form-shell" id="form-shell" style="height: 100%;">
             <div class="form-clipper">
@@ -690,7 +689,7 @@
                     </div>
                 </div>
                 
-                <button type="button" class="cta-button w-full md:w-auto justify-center mt-6 shadow-lg shadow-blue-900/20" onclick="document.getElementById('lead-form-card').scrollIntoView({behavior: 'smooth'});">Start A Custom Search</button>
+                <button type="button" class="cta-button w-full md:w-auto justify-center mt-8 shadow-lg shadow-blue-900/20" onclick="document.getElementById('lead-form-card').scrollIntoView({behavior: 'smooth'});">Start A Custom Search</button>
             </div>
             
             <div class="flex-1 w-full">
