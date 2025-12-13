@@ -53,33 +53,39 @@
     
     body.modal-open { overflow: hidden !important; }
 
-    /* --- SECTION HERO (Middle of Page) --- */
-    .section-hero-wrapper {
+    /* --- MIDDLE HERO SECTION (Car Lot Background) --- */
+    .middle-hero-section {
         position: relative;
         width: 100%;
-        /* The Car Lot Image */
+        margin-top: 20px;
+        margin-bottom: 20px;
+        /* The Image */
         background-image: url('Gemini_Generated_Image_7lnxxk7lnxxk7lnx.png');
         background-size: cover;
-        background-position: center center;
-        background-attachment: fixed; /* Creates a cool parallax effect as you scroll */
+        background-position: center bottom;
+        background-attachment: fixed; /* Parallax effect */
+        padding-top: 40px;
+        padding-bottom: 40px;
     }
 
-    /* The Overlay - makes sure form/tree are readable */
-    .section-hero-overlay {
+    /* Overlay to make text readable */
+    .middle-hero-overlay {
         position: absolute;
         inset: 0;
-        background: rgba(241, 245, 249, 0.92); /* 92% opaque slate color */
+        background: rgba(241, 245, 249, 0.92); /* 92% opaque slate/white */
         z-index: 0;
     }
 
-    /* Ensures content sits on top of the overlay */
-    .section-content {
+    /* Content wrapper to sit on top of overlay */
+    .middle-hero-content {
         position: relative;
         z-index: 10;
-        padding-top: 3rem;
-        padding-bottom: 3rem;
+        width: 100%;
+        max-width: 1024px; /* Matches max-w-5xl */
+        margin: 0 auto;
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
-
 
     .h1{ font-size:var(--fs-h1); font-weight:800; color:var(--slate-800); line-height: 1.1; letter-spacing: -0.5px; }
     .h2{ font-size:var(--fs-h2); font-weight:800; color:var(--slate-800); margin-bottom:4px; white-space: nowrap; letter-spacing: -0.02em; }
@@ -321,7 +327,7 @@
 
   <div id="main-content" class="transition-all duration-300">
     <header class="w-full max-w-5xl mx-auto mt-4 px-4 relative z-50">
-      <nav class="bg-white/95 backdrop-blur-lg card card-accent px-6 py-4">
+      <nav class="bg-white/90 backdrop-blur-lg card card-accent px-6 py-4">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-4 flex-shrink-0">
             <div class="brand-left">
@@ -397,9 +403,9 @@
         </div>
       </section>
 
-      <div class="section-hero-wrapper">
-         <div class="section-hero-overlay"></div>
-         <div class="section-content w-full max-w-5xl mx-auto px-4">
+      <div class="middle-hero-section">
+         <div class="middle-hero-overlay"></div>
+         <div class="middle-hero-content">
              
               <section class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start mb-16">
                 <div class="card card-accent p-0 overflow-hidden relative shadow-xl" id="lead-form-card" style="height: 452px;"> 
