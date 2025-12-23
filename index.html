@@ -53,13 +53,13 @@
     
     body.modal-open { overflow: hidden !important; }
 
-    /* --- NEW HERO BACKGROUND IMAGE STYLES --- */
+    /* --- FIXED PROFESSIONAL HERO STYLES --- */
     .hero-wrapper {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        height: 700px; /* Covers Nav + Top sections */
+        height: 800px; /* Taller to cover content background */
         z-index: 0;
         overflow: hidden;
     }
@@ -68,19 +68,21 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        /* Centers the image horizontally, aligns to bottom so we see the cars */
+        /* Positioned to show the cars/lot clearly */
         object-position: center bottom; 
     }
 
-    /* This creates the fade so text is readable */
     .hero-overlay {
         position: absolute;
         inset: 0;
-        /* Fades from slight dark tint at top -> to your site grey at bottom */
-        background: linear-gradient(to bottom, 
-            rgba(30, 41, 59, 0.3) 0%, 
-            rgba(241, 245, 249, 0.85) 60%, 
-            var(--slate-100) 100%);
+        /* CRYSTAL CLEAR GRADIENT: Dark top for Nav, Clear middle, Blend at bottom */
+        background: linear-gradient(
+            to bottom, 
+            rgba(15, 23, 42, 0.45) 0%,    /* Darker Top for Logo Visibility */
+            rgba(15, 23, 42, 0.0) 25%,    /* Crystal Clear Middle */
+            rgba(15, 23, 42, 0.0) 75%,    /* Stay Clear */
+            var(--slate-100) 100%         /* Smooth blend to site grey */
+        );
     }
 
     /* Ensure content sits ON TOP of the image */
@@ -387,7 +389,7 @@
 
     <main class="w-full max-w-5xl mx-auto px-4 py-8 space-y-8">
       
-      <section id="about" class="px-5 py-6 mb-2">
+      <section id="about" class="px-6 py-8 mb-6 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-white/50">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 items-center">
           <div>
             <div class="flex items-center gap-4 mb-4">
@@ -690,10 +692,10 @@
                 <div class="flex items-center gap-4 mb-10">
                     <div class="flex text-yellow-400 gap-1">
                         <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L1.07 3.292z"/></svg>
+                        <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L1.07 3.292z"/></svg>
+                        <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L1.07 3.292z"/></svg>
+                        <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L1.07 3.292z"/></svg>
                     </div>
                     <div>
                         <p class="text-sm font-bold text-slate-800">5,000+ Verified Reviews</p>
@@ -768,7 +770,7 @@
                     </div>
 
                     <div class="p-4 relative overflow-hidden group">
-                         <div class="absolute -right-4 -top-4 opacity-10 text-slate-600">
+                          <div class="absolute -right-4 -top-4 opacity-10 text-slate-600">
                              <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                         </div>
                         <h4 class="relative z-10 text-sm font-black text-slate-800 uppercase tracking-tight mb-2">Model Specifics</h4>
